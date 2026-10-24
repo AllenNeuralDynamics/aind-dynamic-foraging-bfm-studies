@@ -1,0 +1,79 @@
+version: v2
+description: "split-smoke@20261024-091736 \u2014 1 resumable grid tasks (autoResume)"
+tasks:
+- name: split-smoke-20261024-091736-000
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - python
+  - -m
+  - run_hpc
+  - data=synthetic_hierarchical
+  - model=gru
+  - data.num_sessions_per_subject=10
+  - data.num_trials=200
+  - data.batch_size=64
+  - data.eval_every_n=2
+  - data/task=random_walk
+  - data.task.reward_baiting=false
+  - model.architecture.multisubject=true
+  - model.architecture.session_encoding_type=none
+  - model.training.n_steps=300
+  - model.training.lr=0.001
+  - model.training.checkpoint_every_n_steps=100
+  - model.training.auto_heldout_finetune.enabled=false
+  - wandb.entity=AIND-disRNN
+  - wandb.project=embedding_recovery
+  - wandb.tags=[split-smoke]
+  - data.num_subjects=10
+  - model.architecture.hidden_size=16
+  - model.architecture.subject_embedding_size=2
+  - seed=0
+  context:
+    priority: normal
+    preemptible: false
+  constraints:
+    cluster:
+    - ai1/octo-hub-aws-h200
+    - ai1/octo-hub-onprem-h200
+    - ai1/octo-hub-aws-l40s
+  resources:
+    gpuCount: 1
+    cpuCount: 8
+    memory: 60GiB
+  envVars:
+  - name: WANDB_API_KEY
+    secret: han-wandb-api-key
+  - name: WRAPPER_REF
+    value: 3d367ea8b3e974b3630c397a7222ccbcf812e6a3
+  - name: DISPATCHER_REF
+    value: 15f2b1e9f2b9566a8078c27cb9f6b38b5769f98d
+  - name: FORAGING_MODELS_REF
+    value: cefc7b64293a30c150bff6f5b2913b3f9827e345
+  - name: BFM_RESUMABLE_OUTPUT_DIR
+    value: /results/run
+  - name: WANDB_RUN_ID
+    value: split-smoke-20261024-091736-b5db2ace
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: split-smoke@20261024-091736
+  - name: BFM_META_STUDY
+    value: 04-gru-vs-disrnn-embedding-recovery
+  - name: BFM_META_VARIANT
+    value: split-smoke
+  - name: BFM_META_LAUNCH_ID
+    value: 20261024-091736
+  - name: BFM_META_CONFIG_HASH
+    value: 2936ecef
+  - name: BFM_META_STUDIES_COMMIT
+    value: a712879b3375ae5358e3f574be26a254caf8f2c1
+  - name: BFM_META_LABEL
+    value: split-smoke
+  - name: BFM_META_NOTE
+    value: 'dispatcher #175/#124: first live launch of a studies-repo sweep; checks
+      meta.studies_commit in W&B and four SHAs in the launch record'
+  result:
+    path: /results

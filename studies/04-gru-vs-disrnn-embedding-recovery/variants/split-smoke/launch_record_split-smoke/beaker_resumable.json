@@ -1,0 +1,22 @@
+{
+  "mode": "resumable-grid",
+  "wandb_group": "split-smoke@20261024-091736",
+  "n_tasks": 1,
+  "experiment_id": "01M5QB871SP95ZRYBJPRXEKSSE",
+  "experiment_url": "https://beaker.org/ex/01M5QB871SP95ZRYBJPRXEKSSE",
+  "dispatcher_commit": "15f2b1e9f2b9566a8078c27cb9f6b38b5769f98d",
+  "studies_git_commit": "a712879b3375ae5358e3f574be26a254caf8f2c1",
+  "studies_git_branch": "ops/175-live-smoke",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "15f2b1e9f2b9566a8078c27cb9f6b38b5769f98d",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "3d367ea8b3e974b3630c397a7222ccbcf812e6a3",
+  "foraging_models_git_commit": "cefc7b64293a30c150bff6f5b2913b3f9827e345",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/studies/04-gru-vs-disrnn-embedding-recovery/variants/split-smoke/sweep.yaml",
+  "created_utc": "2026-10-24T16:17:40.091852+00:00"
+}
