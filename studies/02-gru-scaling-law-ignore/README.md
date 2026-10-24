@@ -113,7 +113,7 @@ Run `make -C studies/02-gru-scaling-law-ignore` (needs `WANDB_API_KEY`) to regen
 
 ## Compute / capacity
 The `nxd-3way` grid is 48 tasks — a large job. **Before (re)launching, check schedulable
-capacity and route accordingly:** `python code/check_gpu_availability.py` (Beaker + HPC).
+capacity and route accordingly:** `python ../aind-dynamic-foraging-bfm-dispatcher/code/check_gpu_availability.py` (Beaker + HPC).
 It reports GPUs that can actually accept a job (Beaker: free *and* not on a cordoned node;
 HPC: `Cfg−Alloc` on non-drained `aind` nodes) — the raw `beaker cluster list` / `sinfo`
 counts overstate availability. Route narrow-N (H16/H64/H128) to any L40S/A100/V100 pool with

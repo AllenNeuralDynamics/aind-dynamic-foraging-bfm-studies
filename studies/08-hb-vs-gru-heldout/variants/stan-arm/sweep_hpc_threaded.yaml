@@ -5,7 +5,7 @@
 #
 # HB Stan arm, threaded — the relaunch of sweep_hpc.yaml with reduce_sum actually using cores.
 #
-#     python code/launch_hpc.py \
+#     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py \
 #       --sweep-yaml studies/08-hb-vs-gru-heldout/variants/stan-arm/sweep_hpc_threaded.yaml \
 #       --mode cpu --agent-count 1 \
 #       --sbatch-extra='--array=0-1 --cpus-per-task=32 --mem=128G --time=72:00:00'

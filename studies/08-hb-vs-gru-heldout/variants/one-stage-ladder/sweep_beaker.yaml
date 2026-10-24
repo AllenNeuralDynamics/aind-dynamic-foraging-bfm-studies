@@ -4,8 +4,8 @@
 # add 0.163 (D≈101) here once D≈30 has landed.
 #
 # Fixed values live in the configs, not in this file:
-#   data   -> code/config/data/mice_snapshot_scaling.yaml   (study 01's own file)
-#   model  -> code/config/model/hb_hattori.yaml
+#   data   -> ../aind-dynamic-foraging-bfm-dispatcher/code/config/data/mice_snapshot_scaling.yaml   (study 01's own file)
+#   model  -> ../aind-dynamic-foraging-bfm-dispatcher/code/config/model/hb_hattori.yaml
 # This sweep only selects them and declares the grid axis.
 #
 # `wandb.project` MUST appear in `command:` below and not only in the top-level

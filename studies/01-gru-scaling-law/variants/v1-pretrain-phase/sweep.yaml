@@ -7,11 +7,11 @@
 # seed; held-out cohort is fixed by heldout_every_n=5, independent of ratio/seed).
 #
 # Launch with the RESUMABLE per-grid-point launcher (one autoResume task each):
-#   python code/launch_beaker_resumable.py \
+#   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
 #     --sweep studies/data-scaling-law/sweep_data_scaling.yaml \
 #     --experiment studies/data-scaling-law/experiment_data_scaling.yaml
 #
-# Fixed values live in code/config/model/gru_scaling.yaml + data/mice_snapshot_scaling.yaml;
+# Fixed values live in ../aind-dynamic-foraging-bfm-dispatcher/code/config/model/gru_scaling.yaml + data/mice_snapshot_scaling.yaml;
 # the command below overrides only what this study pins differently.
 
 entity: AIND-disRNN

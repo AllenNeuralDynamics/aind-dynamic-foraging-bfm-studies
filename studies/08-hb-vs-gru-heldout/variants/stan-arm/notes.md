@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | **W&B project** | `mice_data_scaling` — study 01's project, same as the NumPyro rungs |
-| **Launch surface** | HPC (`sweep_hpc.yaml` + `code/launch_hpc.py --mode cpu`) |
-| **Model config** | `code/config/model/hb_hattori_stan.yaml` → `model_trainers.hb_stan_trainer.HBStanTrainer` |
+| **Launch surface** | HPC (`sweep_hpc.yaml` + `../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py --mode cpu`) |
+| **Model config** | `../aind-dynamic-foraging-bfm-dispatcher/code/config/model/hb_hattori_stan.yaml` → `model_trainers.hb_stan_trainer.HBStanTrainer` |
 | **Status** | Finished, no further launches planned. The D≈29 fit completed (14.7 h, 8 CPUs); no D≈99 fit completed under any configuration tried. Each attempt and why it ended is in `launch_record/` |
 | **Tracked by** | [dispatcher #129](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/issues/129) |
 

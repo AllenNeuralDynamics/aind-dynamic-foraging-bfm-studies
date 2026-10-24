@@ -122,7 +122,7 @@ Report run: https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/0fhvwwfu
 
 Each run/condition of this study lives in `variants/<name>/` (its own `sweep.yaml`,
 `experiment.yaml`, `notes.md`, launch record). Shared tooling stays at the study root
-(`analyze_scaling.py`, `heldout_offline.yaml`, base configs in `code/config`). All
+(`analyze_scaling.py`, `heldout_offline.yaml`, base configs in `../aind-dynamic-foraging-bfm-dispatcher/code/config`). All
 variants log to **one** W&B project (`AIND-disRNN/mice_data_scaling`) so they compare
 side-by-side; each launch is its own group (see Provenance below).
 
@@ -163,7 +163,7 @@ Pick a variant and point the launcher at its `sweep.yaml` + `experiment.yaml`:
 cd <dispatcher repo>
 export PATH="$PWD/.venv/bin:$PATH"   # launcher calls bare `wandb`/`beaker`
 V=variants/v2-sc-active              # or variants/v1-pretrain-phase, variants/nxd-grid
-python code/launch_beaker_resumable.py \
+python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
   --sweep studies/data-scaling-law/$V/sweep.yaml \
   --experiment studies/data-scaling-law/$V/experiment.yaml \
   --output-dir /tmp/dsl_$(basename $V)
@@ -178,7 +178,7 @@ large-D runs need no allocated slots.
 
 `rl-baseline-simple` is the exception: it is CPU-only differential-evolution RL
 that skips the training-subject fit and fits only the reserved held-out cohort,
-launched via `code/launch_hpc.py` on Allen HPC; see its variant notes.
+launched via `../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py` on Allen HPC; see its variant notes.
 
 Code versions: pinned per variant in each `experiment.yaml` `WRAPPER_REF` (e.g. v2 uses
 `65c3350`; offline analyses use `4f29680`/`bb4b052`), `DISPATCHER_REF=study/data-scaling-law`.

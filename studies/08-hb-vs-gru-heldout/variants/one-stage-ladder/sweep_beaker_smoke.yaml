@@ -9,7 +9,7 @@
 # 01's scaling curve, which analyze_scaling.py reads.
 #
 # Launch:
-#   python code/launch_beaker_resumable.py \
+#   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
 #     --sweep      studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/sweep_beaker_smoke.yaml \
 #     --experiment studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/experiment_beaker.yaml \
 #     --workspace  ai1/aind-dynamic-foraging-foundation-model \

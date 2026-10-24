@@ -52,7 +52,7 @@ conda activate disrnn-cpu
 WS=ai1/aind-dynamic-foraging-foundation-model
 
 # 1) RENDER ONLY — writes launch_record/experiment_resumable_submitted.yaml, submits nothing
-python code/launch_beaker_resumable.py \
+python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
   --sweep studies/beta-scan/variants/updnet-ratio-100mice/sweep.yaml \
   --experiment studies/beta-scan/variants/updnet-ratio-100mice/experiment.yaml \
   --workspace "$WS" \

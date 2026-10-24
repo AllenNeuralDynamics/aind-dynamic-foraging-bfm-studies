@@ -51,7 +51,7 @@ blend ~0.45–0.55 s/step. Most runs early-stop ~90–120k after the 70k gate.
 ## Launch (when ready)
 
 ```bash
-python code/launch_beaker_resumable.py \
+python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
   --sweep studies/data-scaling-law/variants/v2-sc-active/sweep.yaml \
   --experiment studies/data-scaling-law/variants/v2-sc-active/experiment.yaml \
   --note "v2-sc-active: does more training data help held-out-mouse generalization with session conditioning ACTIVE (lambda fwd: full SC @50k) + gated early-stop @70k? v1 saturated ~0.727 but SC never engaged." \

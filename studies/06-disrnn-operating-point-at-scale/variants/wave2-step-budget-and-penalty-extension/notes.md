@@ -133,7 +133,7 @@ held-out evals land on the same ~12-point cadence and cost only wall-clock time.
   0 cordoned, 0 queued, verified at launch time)
 - W&B group: `wave2-step-budget-and-penalty-extension@20260909-021546`
 - Image: `han-hou/dynamic-foraging-bfm-wrapper-main-20260902` (verified current at launch —
-  code/beaker/README.md image table)
+  ../aind-dynamic-foraging-bfm-dispatcher/code/beaker/README.md image table)
 - Resolved refs: `WRAPPER_REF=9595dd371ab87de49c281d8ca4bb6ae8af7c32e4`,
   `DISPATCHER_REF=4b926dc53ee7b4be8c0b55a8f195b7fbde5fd5f3`,
   `FORAGING_MODELS_REF=faa0f5ad063e375765aa9c31c7d3fee5eca78ecf`

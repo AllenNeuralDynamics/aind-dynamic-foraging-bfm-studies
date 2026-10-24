@@ -12,7 +12,7 @@
 #
 # Refs point at ai_hub_pck_integration (where study 04 now lives after the
 # feat/embedding-recovery merge). The entrypoint git-pulls these at container startup
-# — no image rebuild for code/config changes.
+# — no image rebuild for ../aind-dynamic-foraging-bfm-dispatcher/code/config changes.
 version: v2
 description: >
   gru-stage4b-concentration — 16-task Dirichlet-concentration sweep

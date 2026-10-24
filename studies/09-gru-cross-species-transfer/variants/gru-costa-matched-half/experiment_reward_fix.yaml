@@ -9,7 +9,7 @@ tasks:
       - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
       - bash
       - -c
-      - 'echo "Launcher-only template: use code/launch_beaker_resumable.py" >&2; exit 2'
+      - 'echo "Launcher-only template: use ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py" >&2; exit 2'
     context:
       priority: low
       preemptible: true

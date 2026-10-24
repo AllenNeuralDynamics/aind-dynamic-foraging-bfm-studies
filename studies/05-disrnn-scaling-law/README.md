@@ -243,7 +243,7 @@ past the 8-slot cap; eviction recovered by autoResume + full-state checkpoints e
 conda activate disrnn-cpu
 export BEAKER_TOKEN=$(python -c "import yaml;print(yaml.safe_load(open('$HOME/.beaker/config.yml'))['user_token'])")
 V=variants/dscan-mult2   # or variants/smoke-d614, variants/mult-beta-d614
-python code/launch_beaker_resumable.py \
+python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
   --sweep studies/05-disrnn-scaling-law/$V/sweep.yaml \
   --experiment studies/05-disrnn-scaling-law/$V/experiment.yaml \
   --workspace ai1/aind-dynamic-foraging-foundation-model \

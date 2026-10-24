@@ -15,7 +15,7 @@ from pathlib import Path
 
 STUDY = Path(__file__).resolve().parents[1]
 REPO = STUDY.parents[1]
-sys.path.insert(0, str(REPO / "code"))
+sys.path.insert(0, str(REPO.parent / "aind-dynamic-foraging-bfm-dispatcher" / "code"))
 sys.path.insert(0, str(REPO / "studies" / "util"))
 from _meta import build_meta  # noqa: E402
 from external_bandit_datasets.adapters import build_dataset  # noqa: E402

@@ -13,7 +13,7 @@
 # Launch from the dispatcher repo on Allen HPC:
 #
 #   conda activate disrnn-cpu
-#   python code/launch_hpc.py \
+#   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py \
 #     --sweep-yaml studies/data-scaling-law/variants/rl-baseline-simple/sweep.yaml \
 #     --mode cpu \
 #     --sbatch-extra="--array=0-0 --nodes=1 --cpus-per-task=112 --mem=400G --time=24:00:00 --constraint=cpu" \

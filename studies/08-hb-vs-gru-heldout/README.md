@@ -56,7 +56,7 @@ script, and therefore nothing HB-specific to keep in sync:
     python -m run_hpc data=mice_snapshot_scaling model=hb_hattori data.subject_ratio=0.049
 
 `run_hpc` is shared by HPC/SLURM and Beaker, so the same command works on both backends.
-Data selection comes from `code/config/data/mice_snapshot_scaling.yaml` — the file study 01
+Data selection comes from `../aind-dynamic-foraging-bfm-dispatcher/code/config/data/mice_snapshot_scaling.yaml` — the file study 01
 uses — rather than being restated, so the two cannot drift apart.
 
 The ladder rungs, on SLURM:
@@ -67,7 +67,7 @@ The ladder rungs, on SLURM:
 
 or on Beaker, which is the route every rung run so far has actually used:
 
-    python code/launch_beaker_resumable.py \
+    python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
       --sweep      studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/sweep_beaker.yaml \
       --experiment studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/experiment_beaker.yaml \
       --workspace  ai1/aind-dynamic-foraging-foundation-model \

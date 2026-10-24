@@ -45,7 +45,7 @@ experiment (resolved payload 197,546 B ≈ 2,469 B/task — its HTTP request als
 was created by that attempt (checked `b.workspace.experiments()`, nothing matching).
 
 **Fix applied in two parts:**
-1. `code/beaker_client.py` `get_beaker_client()` now sets `beaker._timeout = 60` (was beaker-py's
+1. `../aind-dynamic-foraging-bfm-dispatcher/code/beaker_client.py` `get_beaker_client()` now sets `beaker._timeout = 60` (was beaker-py's
    default ~5 s) — matches the existing workaround in `check_gpu_availability.py`. Narrow, isolated
    change; unblocks any future large-payload request through the same client factory.
 2. The already-rendered `experiment_resumable_submitted.yaml` (80 tasks, shared W&B group
@@ -330,7 +330,7 @@ get **no `autoResume`**, so a node fault here needs a manual resubmit.
 
 **Launch checklist (for the next large grid).**
 1. Verify the current wrapper image (`beaker workspace images ai1/aind-dynamic-foraging-foundation-model`).
-2. `python code/check_gpu_availability.py` — route to backend(s) with schedulable GPUs.
+2. `python ../aind-dynamic-foraging-bfm-dispatcher/code/check_gpu_availability.py` — route to backend(s) with schedulable GPUs.
 3. `git ls-remote origin main | cut -f1` for wrapper/dispatcher/foraging-models → pin SHAs (the
    launcher does this automatically at `--no-submit` render time too).
 4. `launch_beaker_resumable.py --sweep sweep.yaml --experiment experiment.yaml --output-dir

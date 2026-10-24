@@ -1,0 +1,505 @@
+class	location
+intentional: root seed prose naming a directory of the dispatcher (reviewed in dispatcher #178)	AGENTS.md:42
+intentional: already resolves through the sibling dispatcher	AGENTS.md:47
+intentional: already resolves through the sibling dispatcher	AGENTS.md:49
+intentional: root seed prose naming a directory of the dispatcher (reviewed in dispatcher #178)	AGENTS.md:54
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	AGENTS.md:58
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	AGENTS.md:59
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	AGENTS.md:60
+intentional: root seed prose naming a directory of the dispatcher (reviewed in dispatcher #178)	README.md:12
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	README.md:18
+intentional: root seed prose naming a directory of the dispatcher (reviewed in dispatcher #178)	README.md:25
+intentional: already resolves through the sibling dispatcher	README.md:70
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	README.md:86
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/README.md:125
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/README.md:166
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/README.md:181
+intentional: wrapper path, not a dispatcher path	studies/01-gru-scaling-law/README.md:229
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/01-gru-scaling-law/analysis/rl_baseline.py:662
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/01-gru-scaling-law/analysis/rl_baseline_verdict.md:44
+immutable: pre-rename repository name in historical prose (ADR-0007)	studies/01-gru-scaling-law/generative-v1_20260623-103259.json:25
+immutable: pre-rename repository name in historical prose (ADR-0007)	studies/01-gru-scaling-law/heldout_rerun_v1_20260623-004601.json:25
+immutable: pre-rename repository name in historical prose (ADR-0007)	studies/01-gru-scaling-law/heldout_rerun_v1_20260623-005608.json:109
+immutable: pre-rename repository name in historical prose (ADR-0007)	studies/01-gru-scaling-law/heldout_rerun_v2_20260623-053951.json:109
+intentional: script comment describing what the job's dispatcher checkout holds	studies/01-gru-scaling-law/launch_heldout_rerun.py:14
+intentional: script comment describing what the job's dispatcher checkout holds	studies/01-gru-scaling-law/launch_heldout_rerun.py:61
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/e4-e8-d614-source/experiment.yaml:12
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/e8-d614-smoke/experiment.yaml:12
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-bari/sweep.yaml:5
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-bari/sweep.yaml:28
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-ctt/sweep.yaml:5
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-ctt/sweep.yaml:28
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-hattori/sweep.yaml:5
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-hattori/sweep.yaml:28
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-simple/notes.md:55
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/rl-baseline-simple/sweep.yaml:16
+immutable: launch record (what actually ran)	studies/01-gru-scaling-law/variants/v1-pretrain-phase/launch_record/sweep_data_scaling.yaml:10
+immutable: launch record (what actually ran)	studies/01-gru-scaling-law/variants/v1-pretrain-phase/launch_record/sweep_data_scaling.yaml:14
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/v1-pretrain-phase/sweep.yaml:10
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/v1-pretrain-phase/sweep.yaml:14
+intentional: already resolves through the sibling dispatcher	studies/01-gru-scaling-law/variants/v2-sc-active/notes.md:54
+intentional: wrapper path, not a dispatcher path	studies/02-gru-scaling-law-ignore/README.md:108
+intentional: already resolves through the sibling dispatcher	studies/02-gru-scaling-law-ignore/README.md:116
+intentional: already resolves through the sibling dispatcher	studies/02-gru-scaling-law-ignore/variants/nxd-3way/notes.md:19
+intentional: already resolves through the sibling dispatcher	studies/03-disrnn-beta-scan/variants/updnet-ratio-100mice/notes.md:55
+intentional: already resolves through the sibling dispatcher	studies/04-gru-vs-disrnn-embedding-recovery/README.md:181
+intentional: already resolves through the sibling dispatcher	studies/04-gru-vs-disrnn-embedding-recovery/variants/gru-stage1/experiment.yaml:4
+intentional: already resolves through the sibling dispatcher	studies/04-gru-vs-disrnn-embedding-recovery/variants/gru-stage4b-concentration/experiment.yaml:15
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/05-disrnn-scaling-law/CHANGELOG.md:23
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/05-disrnn-scaling-law/README.md:10
+intentional: already resolves through the sibling dispatcher	studies/05-disrnn-scaling-law/README.md:246
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/05-disrnn-scaling-law/README.md:339
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/05-disrnn-scaling-law/variants/subject-capacity/notes.md:42
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/06-disrnn-operating-point-at-scale/README.md:119
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/06-disrnn-operating-point-at-scale/analysis/reports/r3-penalty-edge-extension.md:134
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/06-disrnn-operating-point-at-scale/analysis/reports/r3-penalty-edge-extension.md:165
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/06-disrnn-operating-point-at-scale/analysis/reports/r3-penalty-edge-extension.md:188
+intentional: already resolves through the sibling dispatcher	studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/notes.md:48
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/notes.md:86
+intentional: already resolves through the sibling dispatcher	studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/notes.md:333
+intentional: already resolves through the sibling dispatcher	studies/06-disrnn-operating-point-at-scale/variants/wave2-step-budget-and-penalty-extension/experiment.yaml:15
+intentional: already resolves through the sibling dispatcher	studies/06-disrnn-operating-point-at-scale/variants/wave2-step-budget-and-penalty-extension/notes.md:136
+immutable: launch record (what actually ran)	studies/07-gru-timing-inputs/variants/h128-dscan-onprem/launch_record/beaker_split_to_onprem.json:29
+intentional: already resolves through the sibling dispatcher	studies/07-gru-timing-inputs/variants/h128-dscan-onprem/notes.md:29
+immutable: launch record (what actually ran)	studies/07-gru-timing-inputs/variants/h128-dscan-shuffled/launch_record/beaker_resubmit_after_config_scope.json:25
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/08-hb-vs-gru-heldout/README.md:15
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/README.md:59
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/README.md:70
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/08-hb-vs-gru-heldout/README.md:110
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/experiment_beaker.yaml:9
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_d30/beaker_resumable.json:9
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_d30/sweep_beaker.yaml:7
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_d30/sweep_beaker.yaml:8
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_d30_attempt1_cancelled/sweep_beaker.yaml:7
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_d30_attempt1_cancelled/sweep_beaker.yaml:8
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_ladder_try1_cancelled/sweep_beaker.yaml:7
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_ladder_try1_cancelled/sweep_beaker.yaml:8
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_ladder_w2000/sweep_beaker.yaml:7
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_ladder_w2000/sweep_beaker.yaml:8
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_repro_s0_r1/sweep_beaker_smoke.yaml:12
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_repro_s0_r2/sweep_beaker_smoke.yaml:12
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_repro_s0_r3/sweep_beaker_smoke.yaml:12
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_smoke/beaker_resumable.json:9
+immutable: launch record (what actually ran)	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/launch_record/beaker_smoke/sweep_beaker_smoke.yaml:12
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/sweep_beaker.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/sweep_beaker.yaml:8
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/sweep_beaker_smoke.yaml:12
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/stan-arm/notes.md:6
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/stan-arm/notes.md:7
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/08-hb-vs-gru-heldout/variants/stan-arm/notes.md:9
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/stan-arm/sweep_hpc.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/08-hb-vs-gru-heldout/variants/stan-arm/sweep_hpc_threaded.yaml:8
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:3
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:4
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:5
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:6
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:7
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:8
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:9
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:10
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:11
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:12
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:13
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/09-gru-cross-species-transfer/README.md:14
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/09-gru-cross-species-transfer/analysis/freeze_example_behavior_sessions.py:18
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/09-gru-cross-species-transfer/analysis/freeze_task_design_features.py:20
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/09-gru-cross-species-transfer/analysis/freeze_task_design_features.py:37
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/09-gru-cross-species-transfer/analysis/freeze_task_design_features.py:38
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/09-gru-cross-species-transfer/analysis/freeze_task_design_features.py:39
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/09-gru-cross-species-transfer/analysis/smoke_external_loaders.py:13
+intentional: analysis/ text or producer string (regenerated output; reports are code)	studies/09-gru-cross-species-transfer/analysis/validate_dataset_suite.py:15
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-alsio-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-beron-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/launch_record/sweep.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-chen-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/experiment.yaml:12
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/experiment_reward_fix.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:79
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:133
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:187
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:241
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:295
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:349
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:403
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:457
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:511
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:565
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:619
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:673
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:727
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/experiment_resumable_submitted.yaml:781
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/reward_fix_e4/sweep_reward_fix.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/sweep.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-costa-matched-half/sweep_reward_fix.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:79
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:133
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:187
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:241
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:295
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:349
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:403
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:457
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:511
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:565
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:619
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:673
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:727
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/experiment_resumable_submitted.yaml:781
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e4/sweep_e4_pair.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:79
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:133
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:187
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:241
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:295
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:349
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:403
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:457
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:511
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:565
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:619
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:673
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:727
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/experiment_resumable_submitted.yaml:781
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/launch_record_e8/sweep.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/sweep.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-diagnostic/sweep_e4_pair.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/experiment.yaml:12
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/experiment_costa_reward_fix.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:79
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:133
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:187
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:241
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:295
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:349
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:403
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:457
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:511
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:565
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/experiment_resumable_submitted.yaml:619
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_boundary/sweep_boundary.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_costa_reward_fix/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_costa_reward_fix/experiment_resumable_submitted.yaml:80
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_costa_reward_fix/experiment_resumable_submitted.yaml:135
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_costa_reward_fix/sweep_costa_reward_fix.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:79
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:133
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:187
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:241
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:295
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:349
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:403
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/experiment_resumable_submitted.yaml:457
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/launch_record_primary/sweep_primary.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/sweep_boundary.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/sweep_costa_reward_fix.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-e8-d614-expansion/sweep_primary.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-eckstein-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-findling-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/launch_record/sweep.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-grossman-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:78
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:131
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:184
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:237
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:290
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:343
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:396
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:449
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:502
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:555
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:608
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:661
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:714
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/experiment_resumable_submitted.yaml:767
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e4-full/sweep_e4.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e8-full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e8-full/experiment_resumable_submitted.yaml:78
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e8-full/experiment_resumable_submitted.yaml:132
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/e8-full/sweep_e8.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:78
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:131
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:184
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:237
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:290
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:343
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:396
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:449
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:502
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:555
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:608
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:661
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:714
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/experiment_resumable_submitted.yaml:767
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e4-full/sweep_e4.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e8-full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e8-full/experiment_resumable_submitted.yaml:79
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e8-full/experiment_resumable_submitted.yaml:133
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-e8-full/sweep_e8.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/mature-smoke/smoke.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/sweep_e4.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-hattori-matched-half/sweep_e8.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:77
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:129
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:181
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:233
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:285
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:337
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:389
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:441
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:493
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:545
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:597
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:649
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:701
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/experiment_resumable_submitted.yaml:753
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/choicefix/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-kwak-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-lebedeva-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-lopez-mouse-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:76
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:128
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:180
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:232
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:284
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:336
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:388
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:440
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:492
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:544
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:596
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:648
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:700
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/experiment_resumable_submitted.yaml:752
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/full/sweep.yaml:7
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/smoke/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/launch_record/smoke/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/smoke.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-miller-matched-half/sweep.yaml:7
+intentional: already resolves through the sibling dispatcher	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/experiment.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:12
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:77
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:129
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:181
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:233
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:285
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:337
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:389
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:441
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:493
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:545
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:597
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:649
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:701
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/experiment_resumable_submitted.yaml:753
+immutable: launch record (what actually ran)	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/launch_record/sweep.yaml:7
+intentional: study 09 runtime path, pending dispatcher #179	studies/09-gru-cross-species-transfer/variants/gru-zid-matched-half/sweep.yaml:7
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/10-gru-reservoir-ablation/README.md:3
+intentional: already resolves through the sibling dispatcher	studies/10-gru-reservoir-ablation/variants/frozen-random-core-d614/experiment.yaml:12
+intentional: already resolves through the sibling dispatcher	studies/10-gru-reservoir-ablation/variants/frozen-random-core-h128-dcurve/experiment.yaml:12
+intentional: GitHub URL to a dispatcher issue/PR/file (still valid)	studies/11-disrnn-near-gru-ceiling/README.md:7

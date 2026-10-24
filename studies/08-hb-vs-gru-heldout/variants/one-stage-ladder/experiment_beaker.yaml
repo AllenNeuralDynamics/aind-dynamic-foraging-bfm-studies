@@ -6,7 +6,7 @@
 ##
 ## Launch through the launcher, never by hand: it expands the grid, sets the W&B
 ## group, injects BFM_META_* provenance, and pins all three REFs to full SHAs.
-##   python code/launch_beaker_resumable.py \
+##   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
 ##     --sweep      studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/sweep_beaker.yaml \
 ##     --experiment studies/08-hb-vs-gru-heldout/variants/one-stage-ladder/experiment_beaker.yaml \
 ##     --workspace  ai1/aind-dynamic-foraging-foundation-model \

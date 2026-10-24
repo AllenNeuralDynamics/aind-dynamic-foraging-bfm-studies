@@ -178,4 +178,4 @@ studies/04-gru-vs-disrnn-embedding-recovery/
 HPC SLURM CPU (`launch_hpc.py`, 8 CPUs/job) for the GRU + baseline ladder; Beaker
 GPU (onprem-h200) for the disRNN. The Beaker container pulls code at
 `WRAPPER_REF`/`DISPATCHER_REF`, so push the branch and set those env refs — no image
-rebuild for code/config changes.
+rebuild for ../aind-dynamic-foraging-bfm-dispatcher/code/config changes.

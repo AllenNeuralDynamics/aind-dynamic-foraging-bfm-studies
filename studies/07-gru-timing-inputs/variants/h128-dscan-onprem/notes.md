@@ -26,7 +26,7 @@ by the swept axis.
 `ai1/octo-hub-onprem-h200` **does** reach the AWS S3 parquet cache — a probe read
 the snapshot session table and printed `S3_PARQUET_OK sessions=23868`. Its earlier
 reputation for failing was a stale-image problem, not a connectivity one. See
-`code/beaker/README.md` and the `beaker-launch` skill, both corrected.
+`../aind-dynamic-foraging-bfm-dispatcher/code/beaker/README.md` and the `beaker-launch` skill, both corrected.
 
 ## Held-out metric
 

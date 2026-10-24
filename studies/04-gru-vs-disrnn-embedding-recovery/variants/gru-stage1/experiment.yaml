@@ -1,7 +1,7 @@
 ## Beaker spec — embedding-recovery / gru-stage1 on gcp-h100.
 ## The launcher renders <SWEEP_ID> and injects provenance env at submit.
 ## Entrypoint refreshes all three repos to the refs below at container startup, so
-## code/config changes need no image rebuild.
+## ../aind-dynamic-foraging-bfm-dispatcher/code/config changes need no image rebuild.
 ##
 ## To spread the 36-point grid across GPUs, launch with --count > 1 agents
 ## (each wandb agent pulls the next grid point). See beaker-launch skill.

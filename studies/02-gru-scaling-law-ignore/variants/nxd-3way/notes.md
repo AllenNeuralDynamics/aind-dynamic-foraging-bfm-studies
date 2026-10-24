@@ -16,7 +16,7 @@ If contended, render `--no-submit` and split H16/H64 tasks to g6e L40S per the b
 ```bash
 conda activate disrnn-cpu
 WS=ai1/aind-dynamic-foraging-foundation-model
-python code/launch_beaker_resumable.py \
+python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
   --sweep studies/ignore-trials-scaling/variants/nxd-3way/sweep.yaml \
   --experiment studies/ignore-trials-scaling/variants/nxd-3way/experiment.yaml \
   --workspace "$WS" \

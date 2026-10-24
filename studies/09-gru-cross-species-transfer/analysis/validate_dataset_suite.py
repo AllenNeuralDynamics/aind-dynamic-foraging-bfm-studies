@@ -12,7 +12,7 @@ import pandas as pd
 
 
 STUDY_DIR = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(STUDY_DIR.parents[1] / "code"))
+sys.path.insert(0, str(STUDY_DIR.parents[2] / "aind-dynamic-foraging-bfm-dispatcher" / "code"))
 
 from external_bandit_datasets.schema import (  # noqa: E402
     interleaved_session_manifest,

@@ -10,7 +10,7 @@ from pathlib import Path
 
 STUDY_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = STUDY_DIR.parents[1]
-sys.path.insert(0, str(REPO_ROOT / "code"))
+sys.path.insert(0, str(REPO_ROOT.parent / "aind-dynamic-foraging-bfm-dispatcher" / "code"))
 
 from external_bandit_datasets.sources import SOURCES  # noqa: E402
 

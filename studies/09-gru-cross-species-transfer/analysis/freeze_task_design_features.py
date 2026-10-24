@@ -17,7 +17,7 @@ from scipy.stats import rankdata
 
 STUDY = Path(__file__).resolve().parents[1]
 REPO = STUDY.parents[1]
-sys.path.insert(0, str(REPO / "code"))
+sys.path.insert(0, str(REPO.parent / "aind-dynamic-foraging-bfm-dispatcher" / "code"))
 sys.path.insert(0, str(REPO / "studies" / "util"))
 from _meta import build_meta  # noqa: E402
 from external_bandit_datasets.adapters import build_dataset  # noqa: E402
@@ -34,9 +34,9 @@ OUTPUT = {
     8: STUDY / "analysis" / "task_design_features_e8.json",
 }
 AIND_CONFIGS = (
-    REPO / "code" / "config" / "data" / "mice_snapshot.yaml",
-    REPO / "code" / "config" / "data" / "task" / "uncoupled_block.yaml",
-    REPO / "code" / "config" / "data" / "task" / "coupled_block.yaml",
+    REPO.parent / "aind-dynamic-foraging-bfm-dispatcher" / "code" / "config" / "data" / "mice_snapshot.yaml",
+    REPO.parent / "aind-dynamic-foraging-bfm-dispatcher" / "code" / "config" / "data" / "task" / "uncoupled_block.yaml",
+    REPO.parent / "aind-dynamic-foraging-bfm-dispatcher" / "code" / "config" / "data" / "task" / "coupled_block.yaml",
 )
 PROBABILITY_COLUMNS = (
     "reward_probability_arm_0",
