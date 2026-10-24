@@ -78,7 +78,11 @@ Source W&B groups: `gru-adaptation-budget@20261024-060709-hpc`, `q-adaptation-bu
 - **Backend check.** The grid ran on HPC A100s after Beaker stayed saturated. Its `half`
   cells reproduce the Beaker H200 matched-half cells of r1 (same D=614 seeds) to five
   decimals of normalized likelihood (per-subject differences <= 5e-5 nats) with identical
-  ordered test-trial keys; the Q half fits reproduce exactly.
+  ordered test-trial keys. The Q half fits agree with r1's to ~1e-6 in normalized
+  likelihood (Grossman 0.7317660 vs 0.7317650; Chen 0.5874680 vs 0.5874684), with
+  per-subject differences up to 1.4e-4 nats and identical trial keys -- close, not
+  bit-identical. Likely, unconfirmed: optimizer-level floating-point differences in the
+  differential-evolution fit across nodes; far below the GRU - Q gaps reported here.
 
 Single fine-tuning protocol per K and three source seeds; intervals are over subjects
 (seed-averaged), not over source seeds.
