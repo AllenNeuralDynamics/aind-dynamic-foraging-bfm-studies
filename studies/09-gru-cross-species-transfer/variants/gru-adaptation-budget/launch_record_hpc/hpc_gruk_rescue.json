@@ -1,0 +1,93 @@
+{
+  "_meta": {
+    "produced_by": "launch_record.write_intervention",
+    "produced_at_pt": "2026-10-24T07:31:53-07:00",
+    "studies_git_sha": "cc50f2595c2c1773fde819b7919a0837f71250bf",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4",
+    "wandb_groups": [
+      "gru-adaptation-budget@20261024-060709-hpc"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no studies SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc",
+      "no dispatcher SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc",
+      "no wrapper SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc"
+    ]
+  },
+  "kind": "rescue",
+  "platform": "hpc",
+  "wandb_group": "gru-adaptation-budget@20261024-060709-hpc",
+  "job_refs": [
+    {
+      "type": "slurm_array_job",
+      "id": "27495483"
+    }
+  ],
+  "supersedes": [
+    "27495250_19-29"
+  ],
+  "trigger": {
+    "symptom": "11 of 30 cells (array indices 19-29) failed within 13 s",
+    "cause": "every task downloaded the public release itself; the host answered HTTP 429 (Too Many Requests) to the later concurrent downloads",
+    "evidence": {
+      "error": "urllib.error.HTTPError: HTTP Error 429 in external_bandit_datasets.sources._download",
+      "wandb_runs_created_by_failed_tasks": 0
+    }
+  },
+  "tasks": [
+    {
+      "orig_task": "27495250_19",
+      "new_task": "27495483_19"
+    },
+    {
+      "orig_task": "27495250_20",
+      "new_task": "27495483_20"
+    },
+    {
+      "orig_task": "27495250_21",
+      "new_task": "27495483_21"
+    },
+    {
+      "orig_task": "27495250_22",
+      "new_task": "27495483_22"
+    },
+    {
+      "orig_task": "27495250_23",
+      "new_task": "27495483_23"
+    },
+    {
+      "orig_task": "27495250_24",
+      "new_task": "27495483_24"
+    },
+    {
+      "orig_task": "27495250_25",
+      "new_task": "27495483_25"
+    },
+    {
+      "orig_task": "27495250_26",
+      "new_task": "27495483_26"
+    },
+    {
+      "orig_task": "27495250_27",
+      "new_task": "27495483_27"
+    },
+    {
+      "orig_task": "27495250_28",
+      "new_task": "27495483_28"
+    },
+    {
+      "orig_task": "27495250_29",
+      "new_task": "27495483_29"
+    }
+  ],
+  "deviations": {
+    "data": "the rerun reads one CLI build (CANONICAL_ROOT) instead of a per-task download; its four files are byte-identical (sha256) to the hashes frozen in analysis/adaptation_budget_cohort.json, which the 19 completed cells also used",
+    "fresh_run_ids": true
+  },
+  "cost": {}
+}

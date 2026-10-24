@@ -1,0 +1,326 @@
+{
+ "_meta": {
+  "produced_by": "analysis/report_adaptation_budget.py",
+  "produced_at_pt": "2026-10-24T07:34:56-07:00",
+  "studies_git_sha": "cc50f2595c2c1773fde819b7919a0837f71250bf",
+  "studies_git_dirty": true,
+  "wrapper_git_sha": "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4",
+  "wandb_groups": [
+   "gru-adaptation-budget@20261024-060709-hpc",
+   "q-adaptation-budget@20261024-035709"
+  ],
+  "source_studies_git_shas": [],
+  "source_dispatcher_git_shas": [
+   "818cc6ef556eedf2600eb28e6dca89035c3fa2d8"
+  ],
+  "source_wrapper_git_shas": [
+   "3d367ea8b3e974b3630c397a7222ccbcf812e6a3"
+  ],
+  "source_foraging_models_git_shas": [
+   "459c05c38332eb5c954e7cbca328f0a0fe370891"
+  ],
+  "provenance_findings": [
+   "no studies SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc, q-adaptation-budget@20261024-035709",
+   "no dispatcher SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc",
+   "no wrapper SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc",
+   "no foraging_models SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc"
+  ]
+ },
+ "unit": "subject; test log2 likelihood per trial (bits), GRU averaged over 3 source seeds",
+ "bootstrap": {
+  "n": 10000,
+  "seed": 0,
+  "over": "subjects"
+ },
+ "rows": [
+  {
+   "cohort": "primary",
+   "dataset": "grossman",
+   "K": "0",
+   "results_key": "0",
+   "n_subjects": 46,
+   "gru_bits": -0.4135958123201318,
+   "gru_bits_ci95": [
+    -0.4453198120873444,
+    -0.38241203108997074
+   ]
+  },
+  {
+   "cohort": "primary",
+   "dataset": "grossman",
+   "K": "1",
+   "results_key": "1",
+   "n_subjects": 46,
+   "gru_bits": -0.4440176740582368,
+   "gru_bits_ci95": [
+    -0.4786403047527696,
+    -0.41036831524051526
+   ],
+   "q_bits": -0.5005242929109455,
+   "q_bits_ci95": [
+    -0.5473949163750902,
+    -0.4576188707690413
+   ],
+   "gru_minus_q_bits": 0.05650661885270856,
+   "gru_minus_q_bits_ci95": [
+    0.03618860973069667,
+    0.08227740668299263
+   ],
+   "frac_subjects_gru_better": 0.8695652173913043
+  },
+  {
+   "cohort": "primary",
+   "dataset": "grossman",
+   "K": "2",
+   "results_key": "2",
+   "n_subjects": 46,
+   "gru_bits": -0.4257437834222119,
+   "gru_bits_ci95": [
+    -0.4585477063731039,
+    -0.392834742508155
+   ],
+   "q_bits": -0.46053656918731634,
+   "q_bits_ci95": [
+    -0.4965203479484193,
+    -0.42398382215437624
+   ],
+   "gru_minus_q_bits": 0.034792785765104445,
+   "gru_minus_q_bits_ci95": [
+    0.027330303859910105,
+    0.04279361122412433
+   ],
+   "frac_subjects_gru_better": 0.9347826086956522
+  },
+  {
+   "cohort": "primary",
+   "dataset": "grossman",
+   "K": "4",
+   "results_key": "4",
+   "n_subjects": 46,
+   "gru_bits": -0.41407014976003353,
+   "gru_bits_ci95": [
+    -0.4458650113819556,
+    -0.38248351728441965
+   ],
+   "q_bits": -0.44302943666484085,
+   "q_bits_ci95": [
+    -0.4781952312831181,
+    -0.4076397594527737
+   ],
+   "gru_minus_q_bits": 0.02895928690480725,
+   "gru_minus_q_bits_ci95": [
+    0.023090677141994625,
+    0.03492286925820419
+   ],
+   "frac_subjects_gru_better": 0.9130434782608695
+  },
+  {
+   "cohort": "primary",
+   "dataset": "chen",
+   "K": "0",
+   "results_key": "0",
+   "n_subjects": 32,
+   "gru_bits": -0.800049623649904,
+   "gru_bits_ci95": [
+    -0.8433307142076815,
+    -0.7493511930649731
+   ]
+  },
+  {
+   "cohort": "primary",
+   "dataset": "chen",
+   "K": "1",
+   "results_key": "1",
+   "n_subjects": 32,
+   "gru_bits": -0.7756364172752627,
+   "gru_bits_ci95": [
+    -0.8164887741553379,
+    -0.7258020688139812
+   ],
+   "q_bits": -0.8068298037716202,
+   "q_bits_ci95": [
+    -0.8524818652120781,
+    -0.7547617906889772
+   ],
+   "gru_minus_q_bits": 0.031193386496357504,
+   "gru_minus_q_bits_ci95": [
+    0.015832245771833783,
+    0.047030186346532846
+   ],
+   "frac_subjects_gru_better": 0.78125
+  },
+  {
+   "cohort": "primary",
+   "dataset": "chen",
+   "K": "2",
+   "results_key": "2",
+   "n_subjects": 32,
+   "gru_bits": -0.76354088694882,
+   "gru_bits_ci95": [
+    -0.8029976770638813,
+    -0.7158727165102593
+   ],
+   "q_bits": -0.7901997059522634,
+   "q_bits_ci95": [
+    -0.8314172521662634,
+    -0.7406484048301026
+   ],
+   "gru_minus_q_bits": 0.02665881900344339,
+   "gru_minus_q_bits_ci95": [
+    0.011935221912885092,
+    0.04077714864956197
+   ],
+   "frac_subjects_gru_better": 0.8125
+  },
+  {
+   "cohort": "primary",
+   "dataset": "chen",
+   "K": "4",
+   "results_key": "half",
+   "n_subjects": 32,
+   "gru_bits": -0.7577770643482581,
+   "gru_bits_ci95": [
+    -0.7965936821450447,
+    -0.71172926866905
+   ],
+   "q_bits": -0.7708847445872127,
+   "q_bits_ci95": [
+    -0.8107231004706096,
+    -0.7236349439495994
+   ],
+   "gru_minus_q_bits": 0.013107680238954547,
+   "gru_minus_q_bits_ci95": [
+    0.0028738513909733433,
+    0.022671296204059086
+   ],
+   "frac_subjects_gru_better": 0.75
+  },
+  {
+   "cohort": "k8",
+   "dataset": "grossman",
+   "K": "0",
+   "results_key": "0",
+   "n_subjects": 16,
+   "gru_bits": -0.42736547429824234,
+   "gru_bits_ci95": [
+    -0.480915692004979,
+    -0.37664225525848394
+   ]
+  },
+  {
+   "cohort": "k8",
+   "dataset": "grossman",
+   "K": "1",
+   "results_key": "1",
+   "n_subjects": 16,
+   "gru_bits": -0.45358331954590114,
+   "gru_bits_ci95": [
+    -0.506102543716013,
+    -0.4049849321567877
+   ],
+   "q_bits": -0.5200936940238399,
+   "q_bits_ci95": [
+    -0.6147274657607719,
+    -0.43838308975616536
+   ],
+   "gru_minus_q_bits": 0.06651037447793871,
+   "gru_minus_q_bits_ci95": [
+    0.025367397741503882,
+    0.13172511210340057
+   ],
+   "frac_subjects_gru_better": 0.9375
+  },
+  {
+   "cohort": "k8",
+   "dataset": "grossman",
+   "K": "2",
+   "results_key": "2",
+   "n_subjects": 16,
+   "gru_bits": -0.43851889754152396,
+   "gru_bits_ci95": [
+    -0.49146853461300877,
+    -0.38882204219834626
+   ],
+   "q_bits": -0.47860821591702735,
+   "q_bits_ci95": [
+    -0.5369033918720921,
+    -0.42005404207205205
+   ],
+   "gru_minus_q_bits": 0.040089318375503454,
+   "gru_minus_q_bits_ci95": [
+    0.026032706788885588,
+    0.054980011144693475
+   ],
+   "frac_subjects_gru_better": 0.9375
+  },
+  {
+   "cohort": "k8",
+   "dataset": "grossman",
+   "K": "4",
+   "results_key": "4",
+   "n_subjects": 16,
+   "gru_bits": -0.4296726128356325,
+   "gru_bits_ci95": [
+    -0.4840992169531469,
+    -0.38030593222305425
+   ],
+   "q_bits": -0.46306675599910596,
+   "q_bits_ci95": [
+    -0.5201394396360117,
+    -0.407272358556881
+   ],
+   "gru_minus_q_bits": 0.03339414316347346,
+   "gru_minus_q_bits_ci95": [
+    0.02349765682736689,
+    0.0428675603014793
+   ],
+   "frac_subjects_gru_better": 0.9375
+  },
+  {
+   "cohort": "k8",
+   "dataset": "grossman",
+   "K": "8",
+   "results_key": "8",
+   "n_subjects": 16,
+   "gru_bits": -0.42490393438539503,
+   "gru_bits_ci95": [
+    -0.47829059947614944,
+    -0.37415677502918804
+   ],
+   "q_bits": -0.4544481706348994,
+   "q_bits_ci95": [
+    -0.5130906790640402,
+    -0.39879015766047027
+   ],
+   "gru_minus_q_bits": 0.029544236249504387,
+   "gru_minus_q_bits_ci95": [
+    0.02157501185745545,
+    0.03803609591539441
+   ],
+   "frac_subjects_gru_better": 0.9375
+  },
+  {
+   "cohort": "k8",
+   "dataset": "grossman",
+   "K": "half",
+   "results_key": "half",
+   "n_subjects": 16,
+   "gru_bits": -0.42339455880774135,
+   "gru_bits_ci95": [
+    -0.4758321868947309,
+    -0.3732797753254973
+   ],
+   "q_bits": -0.4485834115342373,
+   "q_bits_ci95": [
+    -0.5033892905755498,
+    -0.39569422631587026
+   ],
+   "gru_minus_q_bits": 0.025188852726496014,
+   "gru_minus_q_bits_ci95": [
+    0.019298076005747445,
+    0.030918955330886056
+   ],
+   "frac_subjects_gru_better": 1.0
+  }
+ ]
+}

@@ -25,7 +25,7 @@ from freeze_matched_half import (ENTITY, PROJECT, _artifact,  # noqa: E402
 
 # The GRU grid ran on HPC A100s (launch_record_hpc/hpc_gruk.json): the Beaker
 # experiments in launch_record_k-*/half were stopped before any task started.
-GRU_LAUNCH = ("gru-adaptation-budget@20261024-060709-hpc", ["27495243", "27495250"])
+GRU_LAUNCH = ("gru-adaptation-budget@20261024-060709-hpc", ["27495243", "27495250", "27495483"])
 N_GRU_CELLS = 30
 Q_LAUNCH = ("q-adaptation-budget@20261024-035709", "27494714")   # q-adaptation-budget/launch_record
 CACHE = STUDY / "analysis" / "_cache_adaptation_budget"
