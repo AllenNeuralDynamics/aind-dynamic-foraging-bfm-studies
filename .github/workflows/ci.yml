@@ -20,8 +20,15 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: No tracked file over 10 MiB outside the allowlist
-        run: python3 scripts/check_file_sizes.py
+        with:
+          fetch-depth: 0    # every incoming commit, not just the merge result
+      - name: No file over 10 MiB outside the allowlist, in the tree or in any incoming commit
+        run: |
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            python3 scripts/check_file_sizes.py --range "origin/${{ github.base_ref }}..HEAD"
+          else
+            python3 scripts/check_file_sizes.py
+          fi
 
   regenerate:
     runs-on: ubuntu-latest
