@@ -14,13 +14,27 @@ on:
     branches: [main]
 
 jobs:
+  file-sizes:
+    # fast gate: a large file merged into main stays in history for good (main refuses force-push)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # every incoming commit, not just the merge result
+      - name: No file over 10 MiB outside the allowlist, in the tree or in any incoming commit
+        run: |
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            python3 scripts/check_file_sizes.py --range "origin/${{ github.base_ref }}..HEAD"
+          else
+            python3 scripts/check_file_sizes.py
+          fi
+
   regenerate:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-        with:
-          lfs: true   # figures and large result JSONs are LFS objects (.gitattributes)
 
       - uses: actions/setup-python@v5
         with:
