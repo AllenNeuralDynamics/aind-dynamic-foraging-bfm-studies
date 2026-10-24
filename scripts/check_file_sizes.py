@@ -32,6 +32,23 @@ ALLOWED = {
 }
 
 
+# Printed when a pull request fails: deleting the file in a new commit is not enough, because
+# a merge keeps every commit. Only main refuses rewritten history; the PR branch can be fixed.
+RECOVERY = """
+Deleting the file in a later commit does not help: the merge would still carry the commit
+that added it. Remove it from this branch's history instead (only main refuses rewrites;
+force-pushing your own PR branch is fine, but warn anyone else who checked it out):
+
+  # simplest: collapse the branch into fresh commits without the file
+  git fetch origin && git reset --soft {base}
+  git rm --cached <path/to/large/file>      # keep it on disk; add it to .gitignore
+  git commit -m "<message>" && git push --force-with-lease
+
+  # or keep the other commits: edit or drop the commit that added it
+  git rebase -i {base}   # then: git push --force-with-lease
+"""
+
+
 def tracked_sizes() -> list[tuple[int, str]]:
     out = subprocess.run(["git", "ls-tree", "-r", "-l", "-z", "HEAD"], capture_output=True,
                          check=True).stdout.decode()
@@ -84,7 +101,9 @@ def main() -> int:
         failed += 1
     if failed:
         print(f"\n{failed} file(s) too large. Store large inputs in S3 / a Beaker dataset / a W&B "
-              "artifact and commit its id + digest instead; see scripts/check_file_sizes.py.")
+              "artifact and commit its id + digest instead.")
+        if args.rev_range:
+            print(RECOVERY.format(base=args.rev_range.split("..")[0]))
         return 1
     where = f"tree + commits {args.rev_range}" if args.rev_range else "tree"
     print(f"OK: no file over {args.limit_mib:g} MiB outside the allowlist ({where})")
