@@ -35,6 +35,12 @@ BUDGET_ARGS=()
 if [[ "${BUDGET}" != half ]]; then BUDGET_ARGS=(--adapt-sessions-per-subject "${BUDGET}"); fi
 
 export WANDB_RUN_GROUP="${WANDB_RUN_GROUP:?WANDB_RUN_GROUP is required}"
+# the runner reads W&B over GraphQL with WANDB_API_KEY (a Beaker secret there); on HPC the
+# key lives in ~/.netrc, read here rather than passed on the sbatch command line
+if [[ -z "${WANDB_API_KEY:-}" ]]; then
+  WANDB_API_KEY="$(awk '/api.wandb.ai/{f=1} f&&/password/{print $2; exit}' ~/.netrc)"
+  export WANDB_API_KEY
+fi
 export BFM_META_STUDY=09-gru-cross-species-transfer
 export BFM_META_VARIANT=gru-adaptation-budget
 export BFM_META_LAUNCH_ID="${WANDB_RUN_GROUP#*@}"
