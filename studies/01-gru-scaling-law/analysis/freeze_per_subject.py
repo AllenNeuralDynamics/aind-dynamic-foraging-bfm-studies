@@ -71,8 +71,9 @@ def collect_per_subject():
         try:
             df, art = _per_subject_table_dataframe(r)
         except Exception as e:
-            print(f"  [skip {r.name[:40]}] table err: {e}")
-            continue
+            # never write a partial snapshot: r1/r3/r8 would silently average fewer seeds
+            raise RuntimeError(f"{r.id} ({r.name}): per-subject table unreadable; "
+                               f"snapshot not written") from e
         sources.append(dict(variant=var, ratio=round(float(ratio), 3), seed=seed,
                             wandb_run_id=r.id, artifact=art.qualified_name,
                             artifact_digest=art.digest))

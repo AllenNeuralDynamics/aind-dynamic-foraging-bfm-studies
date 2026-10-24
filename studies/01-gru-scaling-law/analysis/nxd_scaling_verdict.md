@@ -35,8 +35,8 @@ H128 column re-used from `v2-sc-active@20260622-144622` (predates per-subject lo
 
 **Interaction** `L = E + A*N^-alpha + B*D^-beta + C*N^-gamma*D^-delta`
 - E = 0.7300, alpha = 0.756, beta = 0.373
-- C = 18.4601, gamma = 0.000, delta = 0.373
-- AIC = -304.7 (delta-AIC vs additive: -21.5; negative favors interaction, but with 19 pts vs 8 params this is fragile -- BUT C=18.46 ~ -B=18.47 with gamma~0 means the interaction term is nearly degenerate with a constant shift of E; the AIC win is mostly re-parameterization, not a clean synergy)
+- C/B = -0.999, gamma = 0.000, delta = 0.373
+- AIC = -304.7 (delta-AIC vs additive: -21.5; negative favors interaction, but with 19 pts vs 8 params this is fragile -- BUT C ~ -B (C/B = -0.999) with gamma~0 means the interaction term is nearly degenerate with a constant shift of E; the AIC win is mostly re-parameterization, not a clean synergy)
 
 **Log-log interaction regression** `L ~ b0 + b1*lnN + b2*lnD + b3*(lnN*lnD)`
 - interaction coef b3 = **+0.00038** (se 0.00018, p = **0.058**, NOT significant)

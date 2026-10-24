@@ -31,6 +31,7 @@ import io
 import json
 import math
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -44,6 +45,22 @@ IMAGE_SUFFIXES = {".png", ".svg", ".pdf"}
 # KNOWN_DIFFS: the path regenerates differently from what is committed.
 SKIP_MAKE: dict[str, str] = {}
 KNOWN_DIFFS: dict[str, str] = {}
+# Nonlinear-optimizer outputs (scipy curve_fit) land differently on another BLAS / CPU, so
+# CI cannot reproduce them at --rtol. Per file: (JSON-path regex, rtol or None = not
+# compared, reason). Everything else in these files -- the data the fits are made from --
+# stays at --rtol. Measured 2026-10-24, GitHub runner vs Allen HPC.
+OPTIMIZER_OUTPUTS: dict[str, list[tuple[str, float | None, str]]] = {
+    "studies/01-gru-scaling-law/analysis/bootstrap_scaling.json": [
+        (r"^\$\.variants\.v[12]\.powerlaw_(E|alpha)\.", 1e-3,
+         "power-law fit per bootstrap draw; differs ~2e-4 relative across machines"),
+    ],
+    "studies/01-gru-scaling-law/analysis/nxd_scaling.json": [
+        (r"^\$\.fit_interaction\.(B|C|gamma)$", None,
+         "not identified: the interaction term is degenerate (C ~ -B, gamma ~ 0), so the "
+         "optimizer stops anywhere along that valley; the verdict reports C/B instead"),
+        (r"^\$\.fit_interaction\.", 1e-3, "interaction-model curve_fit"),
+    ],
+}
 
 
 def _run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
@@ -71,26 +88,34 @@ def _close(a, b, rtol: float) -> bool:
     return False
 
 
-def _json_equal(a, b, rtol: float, path: str = "$") -> list[str]:
-    """Differences between two parsed JSON values, ignoring `_meta` and float noise."""
+def _json_equal(a, b, rtol: float, path: str = "$", loose=()) -> list[str]:
+    """Differences between two parsed JSON values, ignoring `_meta` and float noise.
+
+    ``loose`` holds (path regex, rtol or None, reason) overrides for optimizer outputs."""
     if isinstance(a, dict) and isinstance(b, dict):
         a = {k: v for k, v in a.items() if k != "_meta"}
         b = {k: v for k, v in b.items() if k != "_meta"}
         diffs = [f"{path}.{k}: only in {'HEAD' if k in a else 'regenerated'}"
                  for k in sorted(set(a) ^ set(b))]
         for k in sorted(set(a) & set(b)):
-            diffs += _json_equal(a[k], b[k], rtol, f"{path}.{k}")
+            diffs += _json_equal(a[k], b[k], rtol, f"{path}.{k}", loose)
         return diffs
     if isinstance(a, list) and isinstance(b, list):
         if len(a) != len(b):
             return [f"{path}: length {len(a)} != {len(b)}"]
         out: list[str] = []
         for i, (x, y) in enumerate(zip(a, b)):
-            out += _json_equal(x, y, rtol, f"{path}[{i}]")
+            out += _json_equal(x, y, rtol, f"{path}[{i}]", loose)
         return out
     if isinstance(a, bool) != isinstance(b, bool):
         # Python's True == 1 and False == 0.0: a type change is not float noise
         return [f"{path}: {a!r} != {b!r} (type changed)"]
+    for pattern, loose_rtol, _ in loose:
+        if re.search(pattern, path):
+            if loose_rtol is None:
+                return []
+            rtol = loose_rtol
+            break
     if a == b or _close(a, b, rtol):
         return []
     return [f"{path}: {a!r} != {b!r}"]
@@ -138,7 +163,8 @@ def compare(path: str, rtol: float) -> list[str]:
     new = (ROOT / path).read_text()
     if suffix == ".json":
         try:
-            return _json_equal(json.loads(old), json.loads(new), rtol)
+            return _json_equal(json.loads(old), json.loads(new), rtol,
+                               loose=OPTIMIZER_OUTPUTS.get(path, ()))
         except json.JSONDecodeError as exc:
             return [f"unparseable JSON: {exc}"]
     if suffix == ".csv":

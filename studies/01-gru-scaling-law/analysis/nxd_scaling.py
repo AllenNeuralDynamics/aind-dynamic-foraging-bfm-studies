@@ -314,10 +314,12 @@ def write_verdict(Ns, Ds, mean_grid, se_grid, fit_add, fit_int, fit_ll, seed_sca
         degenerate = (abs(Bv + Cv) < 0.1 * max(abs(Bv), abs(Cv), 1.0)) and abs(gv) < 0.01
         lines.append(f"**Interaction** `L = E + A*N^-alpha + B*D^-beta + C*N^-gamma*D^-delta`")
         lines.append(f"- E = {fit_int['E']:.4f}, alpha = {fit_int['alpha']:.3f}, beta = {fit_int['beta']:.3f}")
-        lines.append(f"- C = {fit_int['C']:.4f}, gamma = {fit_int['gamma']:.3f}, delta = {fit_int['delta']:.3f}")
+        # B and C are not identified when the term is degenerate (only their ratio is), so
+        # print C/B rather than either value: their raw fits differ by ~10% across machines.
+        lines.append(f"- C/B = {Cv / Bv:.3f}, gamma = {fit_int['gamma']:.3f}, delta = {fit_int['delta']:.3f}")
         deg_note = ""
         if degenerate:
-            deg_note = f" -- BUT C={Cv:.2f} ~ -B={-Bv:.2f} with gamma~0 means the interaction term is nearly degenerate with a constant shift of E; the AIC win is mostly re-parameterization, not a clean synergy"
+            deg_note = f" -- BUT C ~ -B (C/B = {Cv / Bv:.3f}) with gamma~0 means the interaction term is nearly degenerate with a constant shift of E; the AIC win is mostly re-parameterization, not a clean synergy"
         lines.append(f"- AIC = {fit_int['aic']:.1f} (delta-AIC vs additive: {d_aic:+.1f}; negative favors interaction, but with {fit_int['n']} pts vs {fit_int['k']} params this is fragile{deg_note})")
     lines.append("")
 
