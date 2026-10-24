@@ -1,0 +1,175 @@
+{
+  "_meta": {
+    "produced_by": "analysis/freeze_generative.py",
+    "produced_at_pt": "2026-10-24T02:20:11-07:00",
+    "studies_git_sha": "e3eb90d604aef6081295164e338f80771273a773",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "generative-dscan-mult2@20260714-060524"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [
+      "1c1638e5a4612991fd9a5db3023e8f143979e485"
+    ],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no studies SHA in the launch record(s) of W&B group(s): generative-dscan-mult2@20260714-060524",
+      "no wrapper SHA in the launch record(s) of W&B group(s): generative-dscan-mult2@20260714-060524",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): generative-dscan-mult2@20260714-060524"
+    ]
+  },
+  "rows": [
+    {
+      "wandb_run_id": "tjr72ajb",
+      "created_at": "2026-07-14T13:08:43Z",
+      "D": 10,
+      "seed": "0",
+      "corr": 0.923826113748386,
+      "rmse": 0.031108772452416424,
+      "hist_corr": 0.9027141515853556,
+      "hist_rmse": 0.019481432552370437
+    },
+    {
+      "wandb_run_id": "04gbmmjv",
+      "created_at": "2026-07-14T13:08:47Z",
+      "D": 10,
+      "seed": "2",
+      "corr": 0.9627697910447894,
+      "rmse": 0.04715535174702731,
+      "hist_corr": 0.9361335743616982,
+      "hist_rmse": 0.030515332240933942
+    },
+    {
+      "wandb_run_id": "y7al4jbr",
+      "created_at": "2026-07-14T13:09:21Z",
+      "D": 10,
+      "seed": "1",
+      "corr": 0.9730812263420884,
+      "rmse": 0.044814530818093924,
+      "hist_corr": 0.9747980686170188,
+      "hist_rmse": 0.024157950929550847
+    },
+    {
+      "wandb_run_id": "sxv4ju8r",
+      "created_at": "2026-07-14T13:13:02Z",
+      "D": 30,
+      "seed": "0",
+      "corr": 0.913890231731,
+      "rmse": 0.03409575507538805,
+      "hist_corr": 0.9339895726325388,
+      "hist_rmse": 0.023003112399291963
+    },
+    {
+      "wandb_run_id": "mnaxgkcl",
+      "created_at": "2026-07-14T13:13:15Z",
+      "D": 30,
+      "seed": "1",
+      "corr": 0.9264374797221204,
+      "rmse": 0.03989049954310207,
+      "hist_corr": 0.9666642475906846,
+      "hist_rmse": 0.024908081094029408
+    },
+    {
+      "wandb_run_id": "o94so3lp",
+      "created_at": "2026-07-14T13:13:30Z",
+      "D": 30,
+      "seed": "2",
+      "corr": 0.8543243141287057,
+      "rmse": 0.03846583045313986,
+      "hist_corr": 0.926421676739242,
+      "hist_rmse": 0.027997161639546086
+    },
+    {
+      "wandb_run_id": "ym87akad",
+      "created_at": "2026-07-14T13:28:20Z",
+      "D": 100,
+      "seed": "0",
+      "corr": 0.9181968833441148,
+      "rmse": 0.035892118592709354,
+      "hist_corr": 0.95103477747112,
+      "hist_rmse": 0.020533348242229615
+    },
+    {
+      "wandb_run_id": "m4bxzdgx",
+      "created_at": "2026-07-14T13:29:05Z",
+      "D": 100,
+      "seed": "1",
+      "corr": 0.8838844029215414,
+      "rmse": 0.03702019937457143,
+      "hist_corr": 0.9491263353964444,
+      "hist_rmse": 0.021212662640847008
+    },
+    {
+      "wandb_run_id": "het85lgu",
+      "created_at": "2026-07-14T13:31:19Z",
+      "D": 100,
+      "seed": "2",
+      "corr": 0.9050115651743978,
+      "rmse": 0.038122158172535954,
+      "hist_corr": 0.950445638247926,
+      "hist_rmse": 0.026652675689020005
+    },
+    {
+      "wandb_run_id": "m9hquq1w",
+      "created_at": "2026-07-14T14:17:48Z",
+      "D": 300,
+      "seed": "0",
+      "corr": 0.9451849455071012,
+      "rmse": 0.04332262630939205,
+      "hist_corr": 0.9612238413381764,
+      "hist_rmse": 0.027605668353687454
+    },
+    {
+      "wandb_run_id": "cjmo0k8j",
+      "created_at": "2026-07-14T14:18:56Z",
+      "D": 300,
+      "seed": "1",
+      "corr": 0.9486830921027036,
+      "rmse": 0.041251721766672876,
+      "hist_corr": 0.9640950314523336,
+      "hist_rmse": 0.02715518981006499
+    },
+    {
+      "wandb_run_id": "3musblp5",
+      "created_at": "2026-07-14T14:20:35Z",
+      "D": 300,
+      "seed": "2",
+      "corr": 0.942737870206494,
+      "rmse": 0.03963691083738422,
+      "hist_corr": 0.9640196047179356,
+      "hist_rmse": 0.02557922725405943
+    },
+    {
+      "wandb_run_id": "qvsyo2xx",
+      "created_at": "2026-07-14T15:45:05Z",
+      "D": 614,
+      "seed": "0",
+      "corr": 0.9382516023677584,
+      "rmse": 0.039423399839526405,
+      "hist_corr": 0.9602321962194308,
+      "hist_rmse": 0.024548122770185563
+    },
+    {
+      "wandb_run_id": "lmbdsjqv",
+      "created_at": "2026-07-14T15:45:39Z",
+      "D": 614,
+      "seed": "1",
+      "corr": 0.9453922380086288,
+      "rmse": 0.04011919002510215,
+      "hist_corr": 0.9617112394763768,
+      "hist_rmse": 0.02530903834929727
+    },
+    {
+      "wandb_run_id": "epmhr2n7",
+      "created_at": "2026-07-14T15:58:35Z",
+      "D": 614,
+      "seed": "2",
+      "corr": 0.9461378439425432,
+      "rmse": 0.03927387487082968,
+      "hist_corr": 0.9649632507235804,
+      "hist_rmse": 0.02497250169871771
+    }
+  ]
+}

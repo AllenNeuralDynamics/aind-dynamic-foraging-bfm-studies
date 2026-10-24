@@ -2,14 +2,13 @@
 """RL-baseline posthoc: simple independent per-subject Bari RL (ForagerQLearning
 L1F1_CK1) on the same 149 held-out mice as the GRU.
 
-Sources:
-  * RL run `cdq292n5` (group rl-baseline-simple@20260624-171829). Pulled fresh
-    each run.
-  * GRU per-subject eval_likelihood for v1/v2 x ratio x 3 seeds from the offline
-    `heldout-rerun-*` groups. Heavy W&B pull, so CACHED to
-    `analysis/gru_per_subject.json` on first run; subsequent runs re-use it
-    (delete that file to refresh).
-  * Cached aggregate JSONs for the 4 figure overlays (no W&B pull):
+Sources (all frozen; this script is offline):
+  * rl_baseline_tables.json -- the held-out per-subject tables of the RL runs below
+    (bari / hattori / ctt + legacy `cdq292n5`), written by freeze_rl_baseline.py, the
+    only step that reads W&B (falling back to the run output dirs on /allen).
+  * per_subject_rows.json -- GRU per-subject eval_likelihood for v1/v2 x ratio x 3 seeds
+    from the offline `heldout-rerun-*` groups (freeze_per_subject.py; shared with r1/r3).
+  * Cached aggregate JSONs for the 4 figure overlays:
       Result 1: paired_v1_v2_cell.json
       Result 4: zeroshot_vs_d.json
       Result 5: fewshot_curve.json
@@ -23,7 +22,7 @@ Produces:
       fig_scaling_v1_v2.png, fig_zeroshot_vs_d.png,
       fig_fewshot_curve.png, fig_nxd_scaling.png
 
-Run with the wrapper venv (wandb + scipy + matplotlib required).
+Offline (scipy + matplotlib + seaborn).
 """
 from __future__ import annotations
 import json
@@ -32,7 +31,6 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
-import wandb
 from scipy import stats
 import matplotlib
 matplotlib.use("Agg")
@@ -54,7 +52,6 @@ plt.rcParams.update({
 
 HERE = Path(__file__).parent
 PROJECT = "AIND-disRNN/mice_data_scaling"
-GRU_CACHE = HERE / "gru_per_subject.json"
 
 # The classical-RL baseline suite (all fit on the SAME fixed 149 held-out mice as the
 # GRU, one differential-evolution fit per mouse on its own train sessions, scored on its
@@ -92,14 +89,6 @@ LEGACY_BARI_RUN = "cdq292n5"
 # other reports' figures away from the text that describes them.
 BAND_MODEL = "bari"
 
-# Per-subject tables live in each run's output dir on /allen (authoritative; the study
-# README notes these are independent of W&B). Used when the W&B artifact API is
-# unavailable, which it intermittently is.
-RUN_OUTPUT_ROOT = Path("/allen/aind/scratch/han.hou/outputs/disrnn/wandb")
-
-GRU_PREFIXES = ("heldout-rerun-v1@", "heldout-rerun-v1-retry@",
-                "heldout-rerun-v2@", "heldout-rerun-v2-retry@")
-
 RATIO_D = {0.016: 10, 0.049: 30, 0.163: 100, 0.489: 300, 1.0: 614}
 
 # House color convention (matches study-04): light blue = base/SC-off model,
@@ -109,67 +98,18 @@ RL_DASHES = [(0, (5, 2)), (0, (1.5, 1.5))]  # non-best RL lines, longest dash fi
 D_TICKS = [10, 30, 100, 300, 614]
 
 
-# ============================= W&B pulls =============================
+# ============================= frozen inputs =============================
 
-def _variant(meta):
-    v = (meta or {}).get("variant", "")
-    return "v1" if v.startswith("v1") else ("v2" if v.startswith("v2") else None)
-
-
-def _per_subject_df(run):
-    for art in run.logged_artifacts():
-        if art.type != "run_table":
-            continue
-        for entry in art.manifest.entries:
-            if "per_subject_likelihood" in str(entry):
-                return art.get(entry).get_dataframe()
-    raise ValueError("no per_subject_likelihood table")
+RL_FROZEN = HERE / "rl_baseline_tables.json"   # written by freeze_rl_baseline.py (W&B or /allen)
+GRU_FROZEN = HERE / "per_subject_rows.json"    # written by freeze_per_subject.py (shared with r1/r3)
 
 
-def _heldout_table_from_wandb(api, run_id):
-    """Held-out per-subject table from W&B.
-
-    The 2026-07-13 suite fits BOTH cohorts, so each run logs `subject_fit_metrics`
-    twice — 614 training mice and 149 held-out mice. We must take the HELD-OUT one
-    (the trainer logs it through a proxy that prefixes keys with `heldout/`). The
-    legacy Bari-only run logged a single table, so a lone table is unambiguous.
-    """
-    r = api.run(f"{PROJECT}/{run_id}")
-    tables = [(a, e) for a in r.logged_artifacts() if a.type == "run_table"
-              for e in a.manifest.entries]
-    if not tables:
-        raise ValueError("no run_table artifact")
-    heldout = [(a, e) for a, e in tables if "heldout" in str(e).lower()]
-    pick = heldout or ([tables[0]] if len(tables) == 1 else [])
-    if not pick:
-        raise ValueError(f"{len(tables)} tables and none marked heldout — refusing to guess")
-    a, e = pick[0]
-    return a.get(e).get_dataframe(), r.group
-
-
-def _heldout_table_from_disk(run_id):
-    """Fallback: the authoritative per-subject CSV in the run's output dir on /allen."""
-    dirs = sorted(RUN_OUTPUT_ROOT.glob(f"run-*-{run_id}"))
-    if not dirs:
-        raise FileNotFoundError(f"no run dir for {run_id} under {RUN_OUTPUT_ROOT}")
-    csv = dirs[-1] / "files" / "outputs" / "heldout_test" / "subject_fit_metrics.csv"
-    if not csv.exists():
-        raise FileNotFoundError(csv)
+def rl_stats(frozen, run_id, *, expect_n=None):
+    """Held-out per-subject stats for one classical-RL model, from its frozen table."""
     import pandas as pd
-    return pd.read_csv(csv), None
-
-
-def pull_rl(api, run_id, *, expect_n=None):
-    """Held-out per-subject stats for one classical-RL model."""
-    try:
-        df, group = _heldout_table_from_wandb(api, run_id)
-        source = "wandb"
-    except Exception as exc:                       # W&B artifact API is flaky
-        print(f"    W&B artifact pull failed ({type(exc).__name__}); "
-              f"falling back to run output dir on /allen")
-        df, group = _heldout_table_from_disk(run_id)
-        source = "disk"
-
+    t = frozen[run_id]
+    df = pd.DataFrame(t["table"])
+    group, source = t["group"], t["source"]
     df["subject_id"] = df["subject_id"].astype(str)
     if expect_n is not None and len(df) != expect_n:
         raise ValueError(
@@ -203,17 +143,18 @@ def pull_rl(api, run_id, *, expect_n=None):
     return rl
 
 
-def pull_all_rl(api):
-    """Pull every model in RL_MODELS + the legacy Bari run (reproduction check)."""
+def all_rl():
+    """Every model in RL_MODELS + the legacy Bari run (reproduction check)."""
+    frozen = json.loads(RL_FROZEN.read_text())["runs"]
     models = {}
     for key, spec in RL_MODELS.items():
         print(f"  {spec['label']} ({key})...")
-        m = pull_rl(api, spec["run_id"], expect_n=149)
+        m = rl_stats(frozen, spec["run_id"], expect_n=149)
         m.update(label=spec["label"], agent=spec["agent"], params=spec["params"])
         models[key] = m
 
     print(f"  legacy rl-baseline-simple ({LEGACY_BARI_RUN}) — reproduction check...")
-    legacy = pull_rl(api, LEGACY_BARI_RUN, expect_n=149)
+    legacy = rl_stats(frozen, LEGACY_BARI_RUN, expect_n=149)
 
     # The new `bari` arm is the same agent as the legacy run; they should agree to
     # within differential-evolution stochasticity. Surface the delta rather than
@@ -225,69 +166,13 @@ def pull_all_rl(api):
     return models, legacy, drift
 
 
-def list_gru_groups(api):
-    """Enumerate GRU W&B groups matching GRU_PREFIXES (cheap metadata-only pass;
-    needed for `_meta.wandb_groups` even when the per-subject pull is cached)."""
-    groups = {r.group for r in api.runs(PROJECT)
-              if any((r.group or "").startswith(p) for p in GRU_PREFIXES)}
-    return sorted(g for g in groups if g)
-
-
-def pull_gru_per_subject(api):
-    """Pull GRU per-subject likelihoods; dedup to newest run per (variant,ratio,seed)
-    that actually has a per_subject_likelihood table (some original runs failed to
-    log the artifact and got re-run as -retry groups)."""
-    runs = [r for r in api.runs(PROJECT)
-            if any((r.group or "").startswith(p) for p in GRU_PREFIXES)
-            and r.state == "finished"]
-    by_cell = {}
-    for r in runs:
-        meta = r.config.get("meta", {}) or {}
-        var = _variant(meta)
-        ratio = meta.get("source_subject_ratio")
-        seed = meta.get("source_seed")
-        if var is None or ratio is None:
-            continue
-        k = (var, round(float(ratio), 3), str(seed))
-        prev = by_cell.get(k)
-        if prev is None or str(getattr(r, "created_at", "")) > str(getattr(prev, "created_at", "")):
-            by_cell[k] = r
-    print(f"  GRU: {len(runs)} finished runs -> {len(by_cell)} (variant,ratio,seed) cells")
-
-    rows = []
-    missing = 0
-    for (var, ratio, seed), r in by_cell.items():
-        try:
-            df = _per_subject_df(r)
-        except ValueError:
-            missing += 1
-            continue
-        D = RATIO_D[ratio]
-        for _, row in df.iterrows():
-            rows.append(dict(variant=var, D=D, ratio=ratio, seed=seed,
-                             subject=str(row["heldout_subject_id"]),
-                             ll=float(row["eval_likelihood"])))
-    if missing:
-        print(f"  WARN: skipped {missing} cells with no per_subject_likelihood table "
-              "(superseded by a newer cell in the same (variant,ratio,seed))")
-    return rows
-
-
-def load_or_pull_gru(api):
-    if GRU_CACHE.exists():
-        print(f"  loading cached GRU per-subject from {GRU_CACHE.name} "
-              "(delete to refresh)")
-        return json.load(open(GRU_CACHE))
-    print("  pulling GRU per-subject from W&B (will cache)...")
-    rows = pull_gru_per_subject(api)
-    print(f"    collected {len(rows)} per-subject rows")
-    # nested dict for compact storage: variant -> D -> subject -> [ll per seed]
+def load_gru():
+    """nested[variant][D_str][subject] -> [ll per seed], and the GRU W&B groups, from the frozen rows."""
+    frozen = json.loads(GRU_FROZEN.read_text())
     nested = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
-    for r in rows:
-        nested[r["variant"]][str(r["D"])][r["subject"]].append(r["ll"])
-    json.dump(nested, open(GRU_CACHE, "w"), indent=2)
-    print(f"    cached -> {GRU_CACHE}")
-    return nested
+    for r in frozen["rows"]:
+        nested[r["variant"]][str(RATIO_D[r["ratio"]])][r["subject"]].append(r["ll"])
+    return nested, frozen["_meta"]["wandb_groups"]
 
 
 # ============================= analysis =============================
@@ -672,9 +557,8 @@ def write_verdict(rl, paired, out_md):
 # ============================= main =============================
 
 def main():
-    api = wandb.Api()
-    print("Pulling classical-RL baseline suite (Bari / Hattori / CTT)...")
-    models, legacy, drift = pull_all_rl(api)
+    print("Reading the classical-RL baseline suite (Bari / Hattori / CTT)...")
+    models, legacy, drift = all_rl()
 
     # Best-of-breed = highest pooled (trial-weighted) held-out likelihood. This is the
     # honest baseline for "does the GRU beat classical RL?" — r8 originally compared
@@ -683,8 +567,8 @@ def main():
     print(f"  best classical model: {models[best_key]['label']} "
           f"({models[best_key]['pooled_likelihood_trial_weighted']:.5f})")
 
-    print("\nLoading GRU per-subject (cache-or-pull)...")
-    gru_nested = load_or_pull_gru(api)
+    print("\nLoading GRU per-subject (frozen)...")
+    gru_nested, gru_groups = load_gru()
     gru_mean = gru_per_subject_means(gru_nested)
     print(f"  unique (variant,D,subject) means: {len(gru_mean)}")
 
@@ -706,7 +590,7 @@ def main():
     out = {
         "_meta": build_meta(
             "analysis/rl_baseline.py",
-            [*list_gru_groups(api),
+            [*gru_groups,
              *[m["group"] or RL_MODELS[k]["group"] for k, m in models.items()],
              legacy["group"] or "rl-baseline-simple@20260624-171829"],
         ),

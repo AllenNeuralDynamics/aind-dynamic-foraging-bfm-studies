@@ -13,7 +13,7 @@
 # committed CSV is the default source of truth, so `make` runs offline.
 
 PY ?= python
-.PHONY: all r1 r2 r3 r4 pull
+.PHONY: all r1 r2 r3 r4 pull freeze-generative
 
 all: r1 r3 r4
 
@@ -27,10 +27,14 @@ r1 r2:
 r3:
 	$(PY) analysis/subject_capacity_report.py
 
-# r4 = generative behavioral match. Unlike r1/r2/r3 this one reads W&B directly (the rollout
-# scalars are per-run summaries, not a committed grid), so it needs WANDB_API_KEY.
+# r4 = generative behavioral match. Reads the frozen rollout scalars
+# (analysis/generative_runs.json), so it runs offline like r1/r2/r3.
 r4:
 	$(PY) analysis/generative_match.py
+
+# Refresh analysis/generative_runs.json from W&B (needs credentials). Not part of `all`.
+freeze-generative:
+	$(PY) analysis/freeze_generative.py
 
 # Refresh analysis/grid.csv from W&B (needs WANDB_API_KEY). Not part of `all` — the
 # committed CSV is the source of truth so reports regenerate offline.

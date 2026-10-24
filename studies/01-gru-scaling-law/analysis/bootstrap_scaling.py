@@ -2,51 +2,36 @@
 """Bootstrap the held-out scaling curve over the ~149 held-out mice (the generalization
 unit) to put CIs on: per-D held-out LL, the late-D gain (saturation), the fraction of gain
 captured by D=100, and the power-law exponent/asymptote. Uses the DEDUPED offline
-per-subject data (one run per variant,ratio,seed). Run with the wrapper venv."""
+per-subject data (one run per variant,ratio,seed), frozen in per_subject_rows.json by
+freeze_per_subject.py -- the same rows r1/r2 read. Offline."""
 from __future__ import annotations
 import json
 from collections import defaultdict
 from pathlib import Path
 import numpy as np
-import wandb
 from scipy.optimize import curve_fit
 
 from _meta import build_meta
 
 HERE = Path(__file__).parent
-PROJECT = "AIND-disRNN/mice_data_scaling"
-PREFIXES = ("heldout-rerun-v1@", "heldout-rerun-v1-retry@", "heldout-rerun-v2@", "heldout-rerun-v2-retry@")
 RATIO_D = {0.016:10, 0.049:30, 0.163:100, 0.489:300, 1.0:614}
 NBOOT = 1000
 RNG = np.random.default_rng(0)
 
-def _variant(m):
-    v=(m or {}).get("variant",""); return "v1" if v.startswith("v1") else ("v2" if v.startswith("v2") else None)
+FROZEN = HERE / "per_subject_rows.json"   # the deduped offline per-subject rows (freeze_per_subject.py)
+
 
 def collect():
-    api=wandb.Api()
-    runs=[r for r in api.runs(PROJECT) if any((r.group or "").startswith(p) for p in PREFIXES) and r.state=="finished"]
-    groups=sorted({r.group for r in runs if r.group})
-    by_cell={}
-    for r in runs:
-        m=r.config.get("meta",{}) or {}; var=_variant(m); ratio=m.get("source_subject_ratio"); seed=m.get("source_seed")
-        if var is None or ratio is None: continue
-        k=(var,round(float(ratio),3),seed)
-        if k not in by_cell or str(getattr(r,"created_at","")) > str(getattr(by_cell[k],"created_at","")):
-            by_cell[k]=r
-    # (variant, D, subject) -> list of per-seed LL
-    cell=defaultdict(lambda: defaultdict(list))  # (var,D) -> subject -> [ll over seeds]
-    for (var,ratio,seed),r in by_cell.items():
-        D=RATIO_D[ratio]
-        art=next(a for a in r.logged_artifacts() if a.type=="run_table")
-        df=art.get(next(iter(art.manifest.entries))).get_dataframe()
-        for _,row in df.iterrows():
-            cell[(var,D)][str(row["heldout_subject_id"])].append(float(row["eval_likelihood"]))
-    # mean over seeds -> (var,D) -> {subject: ll}
-    out=defaultdict(dict)
-    for (var,D),subs in cell.items():
-        for s,lls in subs.items(): out[(var,D)][s]=float(np.mean(lls))
-    return out, groups
+    """(variant, D) -> {subject: LL averaged over seeds}, and the W&B groups, from the frozen rows."""
+    frozen = json.loads(FROZEN.read_text())
+    cell = defaultdict(lambda: defaultdict(list))  # (var,D) -> subject -> [ll over seeds]
+    for r in frozen["rows"]:
+        cell[(r["variant"], RATIO_D[r["ratio"]])][r["subject"]].append(r["ll"])
+    out = defaultdict(dict)
+    for (var, D), subs in cell.items():
+        for s, lls in subs.items():
+            out[(var, D)][s] = float(np.mean(lls))
+    return out, frozen["_meta"]["wandb_groups"]
 
 def powerlaw(D,E,Dc,a): return E+(Dc/D)**a
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""Regenerate study-07's figures + tables from the live W&B grid.
+"""Regenerate study-07's figures + tables from the frozen W&B grid.
 
-Re-run whenever new grid cells land; it always pulls the current state of W&B
-project ``mice_rt_lick_scaling`` and rewrites every derived output. Idempotent:
-running twice on an unchanged grid produces an empty git diff.
+Offline: reads ``analysis/frozen_runs.json`` (written by ``freeze_runs.py``, the only step
+that needs W&B) and rewrites every derived output. Idempotent: running twice produces an
+empty git diff. To take in new grid cells, run ``make freeze`` and commit the refreshed file.
 
-    python analysis/timing_scaling.py     # WANDB_API_KEY must be set (or ~/.netrc)
+    python analysis/timing_scaling.py
 
 Outputs (committed):
     analysis/timing_scaling.json          curated grid + _meta provenance block
@@ -28,11 +28,8 @@ selection-reliability diagnostic (r2).
 """
 from __future__ import annotations
 
-import base64
 import json
-import os
 import sys
-import urllib.request
 from collections import defaultdict
 from pathlib import Path
 
@@ -62,85 +59,25 @@ ALABEL = {"OFF": "no added inputs", "RT": "+ reaction time only",
 TRUST_D = [D for D in DS if D >= 100]
 
 
-# --------------------------------------------------------------------------- #
-# W&B pull
-# --------------------------------------------------------------------------- #
-def _gql(query, variables):
-    key = os.environ.get("WANDB_API_KEY")
-    if not key:
-        raise SystemExit("WANDB_API_KEY not set (or put wandb creds in ~/.netrc).")
-    req = urllib.request.Request(
-        "https://api.wandb.ai/graphql",
-        data=json.dumps({"query": query, "variables": variables}).encode(),
-        headers={"Content-Type": "application/json",
-                 "Authorization": "Basic " + base64.b64encode(f"api:{key}".encode()).decode()},
-    )
-    return json.load(urllib.request.urlopen(req))
+FROZEN_RUNS = HERE / "frozen_runs.json"   # written by freeze_runs.py (needs W&B)
+# The W&B groups this study is built from (posthoc-reporting: pin, never discover).
+# freeze_runs.py reads only these; they are the groups the 2026-08 report was built on.
+WANDB_GROUPS = [
+    "d100-bridge@20260821-221723",
+    "h128-dscan-licks-only@20260823-093110",
+    "h128-dscan-off-bigD@20260822-120421",
+    "h128-dscan-off-smallD@20260822-120445",
+    "h128-dscan-onprem@20260822-012657",
+    "h128-dscan-rt-only@20260823-093058",
+    "h128-dscan-shuffled@20260822-153424",
+    "h128-dscan@20260821-231253",
+]
 
 
-_RUNS_Q = """query R($e:String!,$p:String!,$c:String){project(name:$p,entityName:$e){
- runs(first:200, after:$c){pageInfo{hasNextPage endCursor}
- edges{node{name group state config summaryMetrics}}}}}"""
-
-
-def _cfg_get(cfg, *path):
-    """Read a possibly-W&B-wrapped ({'value': ...}) nested config field."""
-    cur = cfg
-    for k in path:
-        if not isinstance(cur, dict):
-            return None
-        cur = cur.get(k)
-        if isinstance(cur, dict) and "value" in cur and k != "value":
-            cur = cur["value"]
-    return cur
-
-
-def _classify_arm(tf):
-    if not tf or not tf.get("enabled"):
-        return "OFF"
-    if tf.get("shuffle"):
-        return "SHUF"
-    rt = tf.get("reaction_time", True)
-    lk = tf.get("lick_counts", True)
-    if rt and lk:
-        return "ON"
-    return "RT" if rt else "LICK"
-
-
-def _nearest_D(n):
-    return min(DS, key=lambda t: abs(t - n))
-
-
-def fetch_runs():
-    """Return (rows, groups): finished runs classified into (arm, D, seed)."""
-    rows, groups, cursor = [], set(), None
-    while True:
-        page = _gql(_RUNS_Q, {"e": ENTITY, "p": PROJECT, "c": cursor})["data"]["project"]["runs"]
-        for edge in page["edges"]:
-            n = edge["node"]
-            if n["state"] != "finished":
-                continue
-            cfg = json.loads(n["config"] or "{}")
-            sm = json.loads(n["summaryMetrics"] or "{}")
-            tf = _cfg_get(cfg, "data", "timing_features") or {}
-            subjects = _cfg_get(cfg, "resolved_subject_ids") or []
-            D = len(subjects)
-            if D == 0:
-                continue
-            heldout = sm.get(K.HELDOUT) or sm.get(K.HELDOUT_FALLBACK)
-            rows.append({
-                "run": n["name"][-8:], "group": n.get("group") or "",
-                "arm": _classify_arm(tf), "D": D, "Db": _nearest_D(D),
-                "heldout": heldout,
-                "within": sm.get(K.WITHIN), "within_train": sm.get(K.WITHIN_TRAIN),
-                "sel_step": sm.get(K.SELECTED_STEP), "final_step": sm.get(K.FINAL_STEP),
-            })
-            if n.get("group"):
-                groups.add(n["group"])
-        if not page["pageInfo"]["hasNextPage"]:
-            break
-        cursor = page["pageInfo"]["endCursor"]
-    return rows, sorted(groups)
+def load_runs():
+    """Return (rows, groups) from the frozen pull: finished runs classified into (arm, D)."""
+    rows = json.loads(FROZEN_RUNS.read_text())["runs"]
+    return rows, sorted({r["group"] for r in rows if r["group"]})
 
 
 # --------------------------------------------------------------------------- #
@@ -380,7 +317,7 @@ def main():
         apply_presentation_style()
     except Exception:
         pass
-    rows, groups = fetch_runs()
+    rows, groups = load_runs()
     grid = build_grid(rows)
     dec = decomposition(grid)
     sel = selection_diag(grid, rows)

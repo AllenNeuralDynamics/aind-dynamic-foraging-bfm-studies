@@ -42,22 +42,8 @@ IMAGE_SUFFIXES = {".png", ".svg", ".pdf"}
 # entry when its issue closes. SKIP_MAKE: the study's `all` target needs W&B credentials or
 # the /allen mount (measured 2026-10-23 with an empty HOME: no ~/.netrc, no WANDB_API_KEY).
 # KNOWN_DIFFS: the path regenerates differently from what is committed.
-SKIP_MAKE = {
-    "01-gru-scaling-law": "dispatcher #177: `all` calls wandb.Api() (build_report, bootstrap_scaling, nxd_scaling) and reads /allen (rl_baseline)",
-    "02-gru-scaling-law-ignore": "dispatcher #177: `all` runs the W&B pull (no offline report target)",
-    "05-disrnn-scaling-law": "dispatcher #177: `all` -> r4 calls wandb.Api() (generative_match)",
-    "07-gru-timing-inputs": "dispatcher #177: `all` runs the W&B pull (no offline report target)",
-}
-KNOWN_DIFFS = {
-    "studies/04-gru-vs-disrnn-embedding-recovery/analysis/reports/r1-gru-ladder.md":
-        "dispatcher #177: committed report text differs from what the producer writes",
-    "studies/05-disrnn-scaling-law/analysis/reports/r4-generative-behavioral-match.md":
-        "dispatcher #177: committed report text differs from what the producer writes",
-    "studies/09-gru-cross-species-transfer/analysis/reports/r5-maturity-audit.md":
-        "dispatcher #177: committed report text differs from what the producer writes",
-    "studies/09-gru-cross-species-transfer/analysis/llm_task_similarity_results.json":
-        "dispatcher #177: PCA sign indeterminacy",
-}
+SKIP_MAKE: dict[str, str] = {}
+KNOWN_DIFFS: dict[str, str] = {}
 
 
 def _run(cmd: list[str], **kw) -> subprocess.CompletedProcess:

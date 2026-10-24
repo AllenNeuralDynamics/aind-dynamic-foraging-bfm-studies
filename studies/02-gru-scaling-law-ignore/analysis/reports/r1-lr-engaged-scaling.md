@@ -51,7 +51,7 @@ Mean held-out L/R-engaged likelihood (3-way model):
 - **The 3-way head costs nothing on choice prediction.** L/R-engaged sits on or above the 2-way reference at every (H, D) — adding the ignore class does not degrade choice likelihood.
 - **Scaling is capacity-dependent.** H=16 flattens early (0.7164→0.7210), while H≥64 keeps climbing through D=614; best cell H=256/D=614 = **0.73149** (SEM 0.00002), still not plateaued.
 
-Source W&B groups: `nxd-3way@20260704-205230`, `nxd-3way@20260704-205239`, `nxd-3way@20260707-075359`, `nxd-3way@20260707-075401`, `nxd-3way@20260707-075406`, `nxd-3way@20260707-075412`, `nxd-3way@20260707-110227`, `nxd-3way@20260707-110245`, `nxd-3way@20260708-231204`, `nxd-3way@20260708-231938`, `nxd-3way@20260709-231516`, `rerun_H16D10s2@20260705-104925`, `sweep-validate-capnsteps@20260710-183333`.
+Source W&B groups: `nxd-3way@20260704-205230`, `nxd-3way@20260704-205239`, `nxd-3way@20260707-075359`, `nxd-3way@20260707-075401`, `nxd-3way@20260707-075406`, `nxd-3way@20260707-075412`, `nxd-3way@20260707-110227`, `nxd-3way@20260707-110245`, `nxd-3way@20260708-231938`, `rerun_H16D10s2@20260705-104925`, `sweep-validate-capnsteps@20260710-183333`.
 <!-- END result-1 -->
 
 ## Discussion

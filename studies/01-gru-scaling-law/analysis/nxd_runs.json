@@ -1,0 +1,415 @@
+{
+ "_meta": {
+  "produced_by": "analysis/freeze_nxd.py",
+  "produced_at_pt": "2026-10-24T02:30:00-07:00",
+  "dispatcher_git_sha": "e3eb90d604aef6081295164e338f80771273a773",
+  "wrapper_git_sha": "870e6ddd56c0bfba4d2a314b63af0e056ef0153c",
+  "wandb_groups": [
+   "nxd-grid@20260623-102649",
+   "nxd-grid@20260624-141106",
+   "nxd-h512@20260720-195322",
+   "v2-sc-active@20260622-144622"
+  ]
+ },
+ "runs": [
+  {
+   "N": 64,
+   "D": 10,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-368c9931",
+   "heldout_ll": 0.7223286032676697
+  },
+  {
+   "N": 64,
+   "D": 100,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-88a1afe7",
+   "heldout_ll": 0.7266002297401428
+  },
+  {
+   "N": 16,
+   "D": 614,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-cfdcbee4",
+   "heldout_ll": 0.7228994965553284
+  },
+  {
+   "N": 64,
+   "D": 10,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-e225ee22",
+   "heldout_ll": 0.7224270105361938
+  },
+  {
+   "N": 16,
+   "D": 614,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-e306a046",
+   "heldout_ll": 0.7234552502632141
+  },
+  {
+   "N": 16,
+   "D": 614,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-e3d303a2",
+   "heldout_ll": 0.7214512825012207
+  },
+  {
+   "N": 64,
+   "D": 10,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-e8df2cdb",
+   "heldout_ll": 0.720672070980072
+  },
+  {
+   "N": 64,
+   "D": 100,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-f506e94f",
+   "heldout_ll": 0.7262980937957764
+  },
+  {
+   "N": 16,
+   "D": 10,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-1de6455e",
+   "heldout_ll": 0.7153993248939514
+  },
+  {
+   "N": 16,
+   "D": 10,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-3f09abfe",
+   "heldout_ll": 0.7195716500282288
+  },
+  {
+   "N": 16,
+   "D": 100,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-4e971eab",
+   "heldout_ll": 0.7222896814346313
+  },
+  {
+   "N": 16,
+   "D": 100,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-e663d794",
+   "heldout_ll": 0.7236286997795105
+  },
+  {
+   "N": 16,
+   "D": 10,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-18e65dc2",
+   "heldout_ll": 0.7181328535079956
+  },
+  {
+   "N": 16,
+   "D": 100,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-79d54f5d",
+   "heldout_ll": 0.7201105356216431
+  },
+  {
+   "N": 64,
+   "D": 100,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-287afe8a",
+   "heldout_ll": 0.7262986898422241
+  },
+  {
+   "N": 64,
+   "D": 614,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-27bd5ac3",
+   "heldout_ll": 0.7274302244186401
+  },
+  {
+   "N": 64,
+   "D": 614,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-e144140c",
+   "heldout_ll": 0.7268902063369751
+  },
+  {
+   "N": 64,
+   "D": 614,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-3f93a188",
+   "heldout_ll": 0.7267630100250244
+  },
+  {
+   "N": 256,
+   "D": 10,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-1bb4f364",
+   "heldout_ll": 0.7202249765396118
+  },
+  {
+   "N": 256,
+   "D": 10,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-5e4a6cf3",
+   "heldout_ll": 0.723376452922821
+  },
+  {
+   "N": 256,
+   "D": 10,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-d2eaf831",
+   "heldout_ll": 0.7206211090087891
+  },
+  {
+   "N": 256,
+   "D": 100,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-993442f6",
+   "heldout_ll": 0.7271739840507507
+  },
+  {
+   "N": 256,
+   "D": 100,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-08c18c82",
+   "heldout_ll": 0.7272922992706299
+  },
+  {
+   "N": 256,
+   "D": 100,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-94c45e43",
+   "heldout_ll": 0.7273954749107361
+  },
+  {
+   "N": 256,
+   "D": 614,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260623-102649-78e14bfc",
+   "heldout_ll": 0.7290986180305481
+  },
+  {
+   "N": 256,
+   "D": 614,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260623-102649-0554750e",
+   "heldout_ll": 0.7289615273475647
+  },
+  {
+   "N": 256,
+   "D": 614,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260623-102649-6eb7c553",
+   "heldout_ll": 0.7290082573890686
+  },
+  {
+   "N": 16,
+   "D": 30,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260624-141106-50d837a8",
+   "heldout_ll": 0.7204731702804565
+  },
+  {
+   "N": 64,
+   "D": 30,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260624-141106-562f9bb2",
+   "heldout_ll": 0.7248988747596741
+  },
+  {
+   "N": 256,
+   "D": 30,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260624-141106-714b076c",
+   "heldout_ll": 0.7252062559127808
+  },
+  {
+   "N": 16,
+   "D": 30,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260624-141106-9d91a4c4",
+   "heldout_ll": 0.720203161239624
+  },
+  {
+   "N": 256,
+   "D": 30,
+   "seed": 0,
+   "wandb_run_id": "nxd-grid-20260624-141106-c0ae38fe",
+   "heldout_ll": 0.7250779271125793
+  },
+  {
+   "N": 64,
+   "D": 30,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260624-141106-e9e26cd6",
+   "heldout_ll": 0.7242679595947266
+  },
+  {
+   "N": 64,
+   "D": 30,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260624-141106-eeebc21b",
+   "heldout_ll": 0.7248758673667908
+  },
+  {
+   "N": 16,
+   "D": 30,
+   "seed": 1,
+   "wandb_run_id": "nxd-grid-20260624-141106-efdfec96",
+   "heldout_ll": 0.7193447947502136
+  },
+  {
+   "N": 256,
+   "D": 30,
+   "seed": 2,
+   "wandb_run_id": "nxd-grid-20260624-141106-f2771d3a",
+   "heldout_ll": 0.725023627281189
+  },
+  {
+   "N": 512,
+   "D": 10,
+   "seed": 0,
+   "wandb_run_id": "r55i84di",
+   "heldout_ll": 0.7167970538139343
+  },
+  {
+   "N": 512,
+   "D": 10,
+   "seed": 2,
+   "wandb_run_id": "43p42cs8",
+   "heldout_ll": 0.7227341532707214
+  },
+  {
+   "N": 512,
+   "D": 10,
+   "seed": 1,
+   "wandb_run_id": "iull4cts",
+   "heldout_ll": 0.7242916822433472
+  },
+  {
+   "N": 512,
+   "D": 30,
+   "seed": 0,
+   "wandb_run_id": "ijy2k9dq",
+   "heldout_ll": 0.7252721786499023
+  },
+  {
+   "N": 512,
+   "D": 30,
+   "seed": 1,
+   "wandb_run_id": "87arielr",
+   "heldout_ll": 0.725449800491333
+  },
+  {
+   "N": 512,
+   "D": 30,
+   "seed": 2,
+   "wandb_run_id": "1ah2288w",
+   "heldout_ll": 0.7251269817352295
+  },
+  {
+   "N": 512,
+   "D": 100,
+   "seed": 0,
+   "wandb_run_id": "ye34lzct",
+   "heldout_ll": 0.7278690934181213
+  },
+  {
+   "N": 512,
+   "D": 100,
+   "seed": 1,
+   "wandb_run_id": "s12g0neu",
+   "heldout_ll": 0.7277414202690125
+  },
+  {
+   "N": 512,
+   "D": 100,
+   "seed": 2,
+   "wandb_run_id": "6rswdl98",
+   "heldout_ll": 0.7278695106506348
+  },
+  {
+   "N": 128,
+   "D": 10,
+   "seed": 0,
+   "wandb_run_id": "v2-sc-active-20260622-144622-4bb879a6",
+   "heldout_ll": 0.7202110886573792
+  },
+  {
+   "N": 128,
+   "D": 10,
+   "seed": 2,
+   "wandb_run_id": "v2-sc-active-20260622-144622-c4f91751",
+   "heldout_ll": 0.721650242805481
+  },
+  {
+   "N": 128,
+   "D": 30,
+   "seed": 0,
+   "wandb_run_id": "v2-sc-active-20260622-144622-e8c3edb2",
+   "heldout_ll": 0.7244009375572205
+  },
+  {
+   "N": 128,
+   "D": 10,
+   "seed": 1,
+   "wandb_run_id": "v2-sc-active-20260622-144622-f8f4f377",
+   "heldout_ll": 0.7235190272331238
+  },
+  {
+   "N": 128,
+   "D": 614,
+   "seed": 1,
+   "wandb_run_id": "v2-sc-active-20260622-144622-3603897b",
+   "heldout_ll": 0.7282243967056274
+  },
+  {
+   "N": 128,
+   "D": 614,
+   "seed": 2,
+   "wandb_run_id": "v2-sc-active-20260622-144622-d6462060",
+   "heldout_ll": 0.7281683683395386
+  },
+  {
+   "N": 128,
+   "D": 100,
+   "seed": 1,
+   "wandb_run_id": "v2-sc-active-20260622-144622-e7f3851f",
+   "heldout_ll": 0.7274349331855774
+  },
+  {
+   "N": 128,
+   "D": 614,
+   "seed": 0,
+   "wandb_run_id": "v2-sc-active-20260622-144622-ecd6f7e6",
+   "heldout_ll": 0.7282935976982117
+  },
+  {
+   "N": 128,
+   "D": 30,
+   "seed": 2,
+   "wandb_run_id": "v2-sc-active-20260622-144622-19a88c23",
+   "heldout_ll": 0.7250411510467529
+  },
+  {
+   "N": 128,
+   "D": 100,
+   "seed": 2,
+   "wandb_run_id": "v2-sc-active-20260622-144622-35610e21",
+   "heldout_ll": 0.7271736860275269
+  },
+  {
+   "N": 128,
+   "D": 100,
+   "seed": 0,
+   "wandb_run_id": "v2-sc-active-20260622-144622-4becb8b9",
+   "heldout_ll": 0.7272639870643616
+  },
+  {
+   "N": 128,
+   "D": 30,
+   "seed": 1,
+   "wandb_run_id": "v2-sc-active-20260622-144622-5e008e40",
+   "heldout_ll": 0.725176990032196
+  }
+ ]
+}

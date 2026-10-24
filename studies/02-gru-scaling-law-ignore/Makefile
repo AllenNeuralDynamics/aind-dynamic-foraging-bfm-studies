@@ -6,14 +6,15 @@
 # HERE = Path(__file__).parent.
 #
 # scaling.py is the single producer for BOTH reports (r1 = LR-engaged, r2 =
-# ignore detection): it pulls the live W&B grid, writes analysis/scaling.json
-# (+ scaling.csv, fig_scaling.png), and regenerates the BEGIN/END blocks in
-# both reports via update_reports.py. So r1 and r2 share one producer run.
+# ignore detection): it reads the frozen grid (analysis/frozen_runs.json), writes
+# analysis/scaling.json (+ scaling.csv, fig_scaling.png), and regenerates the
+# BEGIN/END blocks in both reports via update_reports.py. Offline; CI runs it.
 #
-# Requires WANDB_API_KEY (or ~/.netrc wandb creds) to reach the W&B project.
+# `freeze` is the only target that reads W&B (needs WANDB_API_KEY): it refreshes
+# frozen_runs.json from the pinned groups. Never a prerequisite of `all`.
 
 PY ?= python
-.PHONY: all r1 r2
+.PHONY: all r1 r2 freeze
 
 all: r1
 
@@ -22,3 +23,6 @@ all: r1
 # run the same command.
 r1 r2:
 	$(PY) analysis/scaling.py
+
+freeze:
+	$(PY) analysis/freeze_runs.py

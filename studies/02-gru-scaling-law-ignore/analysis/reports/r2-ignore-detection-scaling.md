@@ -60,7 +60,7 @@ Mean ignore-class **recall** (held-out):
 - **Ignore detection is well above chance and improves with D.** For the larger models (H≥64), PR-AUC rises ~0.612→0.639 from D=10 to D=614, far above the ~0.05–0.10 no-skill base rate.
 - **Recall stays capped near 0.47** even at D=614 — the model is consistently conservative on ignore trials regardless of scale (a real detection ceiling, not a data-scarcity artifact).
 
-Source W&B groups: `nxd-3way@20260704-205230`, `nxd-3way@20260704-205239`, `nxd-3way@20260707-075359`, `nxd-3way@20260707-075401`, `nxd-3way@20260707-075406`, `nxd-3way@20260707-075412`, `nxd-3way@20260707-110227`, `nxd-3way@20260707-110245`, `nxd-3way@20260708-231204`, `nxd-3way@20260708-231938`, `nxd-3way@20260709-231516`, `rerun_H16D10s2@20260705-104925`, `sweep-validate-capnsteps@20260710-183333`.
+Source W&B groups: `nxd-3way@20260704-205230`, `nxd-3way@20260704-205239`, `nxd-3way@20260707-075359`, `nxd-3way@20260707-075401`, `nxd-3way@20260707-075406`, `nxd-3way@20260707-075412`, `nxd-3way@20260707-110227`, `nxd-3way@20260707-110245`, `nxd-3way@20260708-231938`, `rerun_H16D10s2@20260705-104925`, `sweep-validate-capnsteps@20260710-183333`.
 <!-- END result-2 -->
 
 ## Discussion
