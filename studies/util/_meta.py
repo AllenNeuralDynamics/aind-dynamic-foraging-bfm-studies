@@ -33,7 +33,7 @@ _FULL_SHA = re.compile(r"^[0-9a-f]{40}$")
 # _meta key -> the launch-record keys that hold that repo's SHA, newest schema first, then
 # the legacy launcher key, then the `launch.revisions` block hand-written records carry.
 _SOURCE_SHA_KEYS = {
-    "source_studies_git_shas": ("studies_git_commit",),
+    "source_studies_git_shas": ("studies_git_commit", "studies_commit"),
     "source_dispatcher_git_shas": ("dispatcher_git_commit", "dispatcher_commit"),
     "source_wrapper_git_shas": ("wrapper_git_commit", "wrapper_commit"),
     "source_foraging_models_git_shas": ("foraging_models_git_commit", "foraging_models_commit"),

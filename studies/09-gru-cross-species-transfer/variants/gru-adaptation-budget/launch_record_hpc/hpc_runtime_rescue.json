@@ -1,0 +1,16 @@
+{
+  "mode": "slurm-array",
+  "wandb_group": "gru-adaptation-budget@20261024-060709-hpc",
+  "dispatcher_git_commit": "818cc6ef556eedf2600eb28e6dca89035c3fa2d8",
+  "wrapper_git_commit": "3d367ea8b3e974b3630c397a7222ccbcf812e6a3",
+  "foraging_models_git_commit": "459c05c38332eb5c954e7cbca328f0a0fe370891",
+  "script": "studies/09-gru-cross-species-transfer/variants/gru-adaptation-budget/gru_adaptation_budget.slurm",
+  "output_root": "/allen/aind/scratch/han.hou/outputs/study09-external-transfer",
+  "provenance_note": "dispatcher/wrapper/models SHAs verified from all 30 runs' W&B config meta.*; the studies SHA is the pinned STUDIES_ROOT worktree commit at submission (the runner does not log it). Supplements hpc_gruk*.json, which describe the interventions, not the runtime checkouts.",
+  "slurm_array_job_ids": [
+    "27495483"
+  ],
+  "n_tasks": 11,
+  "array_indices": "19-29",
+  "studies_git_commit": "cc50f2595c2c1773fde819b7919a0837f71250bf"
+}

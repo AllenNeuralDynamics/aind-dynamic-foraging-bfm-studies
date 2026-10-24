@@ -1,5 +1,6 @@
 PYTHON ?= python
 CACHE_ROOT ?= data-cache
+DATA_ROOT ?= $(CACHE_ROOT)/canonical
 SOURCE_DIMENSION ?=
 PYTHONPATH := ../../code
 

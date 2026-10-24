@@ -1,15 +1,19 @@
 {
  "_meta": {
   "produced_by": "analysis/report_adaptation_budget.py",
-  "produced_at_pt": "2026-10-24T07:34:56-07:00",
-  "studies_git_sha": "cc50f2595c2c1773fde819b7919a0837f71250bf",
+  "produced_at_pt": "2026-10-24T07:54:28-07:00",
+  "studies_git_sha": "d040e5fde77f02bd015a566b5c7512b69b6de428",
   "studies_git_dirty": true,
   "wrapper_git_sha": "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4",
   "wandb_groups": [
    "gru-adaptation-budget@20261024-060709-hpc",
    "q-adaptation-budget@20261024-035709"
   ],
-  "source_studies_git_shas": [],
+  "source_studies_git_shas": [
+   "3fa7ff727b6312e66f022113d715539dad314e62",
+   "cc50f2595c2c1773fde819b7919a0837f71250bf",
+   "fe95e3ac2f9a13dc702a56ed563e73d74eee546b"
+  ],
   "source_dispatcher_git_shas": [
    "818cc6ef556eedf2600eb28e6dca89035c3fa2d8"
   ],
@@ -19,12 +23,7 @@
   "source_foraging_models_git_shas": [
    "459c05c38332eb5c954e7cbca328f0a0fe370891"
   ],
-  "provenance_findings": [
-   "no studies SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc, q-adaptation-budget@20261024-035709",
-   "no dispatcher SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc",
-   "no wrapper SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc",
-   "no foraging_models SHA in the launch record(s) of W&B group(s): gru-adaptation-budget@20261024-060709-hpc"
-  ]
+  "provenance_findings": []
  },
  "unit": "subject; test log2 likelihood per trial (bits), GRU averaged over 3 source seeds",
  "bootstrap": {
