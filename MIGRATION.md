@@ -73,3 +73,9 @@ study scripts.
 Follow [`docs/migrate-a-live-study-branch.md`](docs/migrate-a-live-study-branch.md): archive the
 old branch, move its `studies/` commits with `git format-patch` / `git am --3way`, fix what the
 split changed, and open PRs here.
+
+First update the skills pack to **0.11.0 or later** (`claude plugin marketplace update
+aind-behavior-foundation-model`, then `claude plugin update
+aind-behavior-foundation-model-skills@aind-behavior-foundation-model`, then restart Claude Code).
+0.11.0 is the first version that describes this repository; agents on an older pack will still
+treat the dispatcher's `studies/` as the home of studies.

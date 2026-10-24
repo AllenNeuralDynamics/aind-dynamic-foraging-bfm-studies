@@ -20,6 +20,16 @@ authors and dates are preserved.
 
 ## 0. Preconditions
 
+- [ ] **The skills pack is version 0.11.0 or later.** Older versions still say studies live
+      in the dispatcher's `studies/`, so an agent following them would migrate the study wrong.
+      Update, then restart Claude Code; `/plugin` should list
+      `aind-behavior-foundation-model-skills` at 0.11.0 or later:
+
+```bash
+claude plugin marketplace update aind-behavior-foundation-model
+claude plugin update aind-behavior-foundation-model-skills@aind-behavior-foundation-model
+```
+
 - [ ] No launch is running that will still write to the branch: no Beaker experiment, SLURM
       array or watcher appending to `launch_record*/`.
 - [ ] `git status` is clean on the study branch, or the changes are committed.
@@ -177,6 +187,7 @@ to launch when `studies/<NN-study>/` has uncommitted changes. Commit first, or p
 
 ## Checklist for an agent
 
+- [ ] Skills pack >= 0.11.0 loaded (updated, then Claude Code restarted)
 - [ ] Preconditions met; old branch pushed as `archive/<study-branch>`
 - [ ] `format-patch ... -- studies/` applied with `git am --3way` on `study/<NN-study>`
 - [ ] No `/workspace/.../dispatcher/studies` command left in any sweep or experiment template
