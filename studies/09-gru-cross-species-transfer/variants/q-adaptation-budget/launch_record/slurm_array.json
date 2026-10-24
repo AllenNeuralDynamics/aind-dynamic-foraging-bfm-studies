@@ -1,0 +1,14 @@
+{
+  "mode": "slurm-array",
+  "n_tasks": 8,
+  "slurm_array_job_id": "27494714",
+  "wandb_group": "q-adaptation-budget@20261024-035709",
+  "studies_commit": "fe95e3ac2f9a13dc702a56ed563e73d74eee546b",
+  "dispatcher_commit": "818cc6ef556eedf2600eb28e6dca89035c3fa2d8",
+  "wrapper_commit": "3d367ea8b3e974b3630c397a7222ccbcf812e6a3",
+  "foraging_models_commit": "459c05c38332eb5c954e7cbca328f0a0fe370891",
+  "script": "studies/09-gru-cross-species-transfer/variants/q-adaptation-budget/q_adaptation_budget.slurm",
+  "cells": ["grossman:1", "grossman:2", "grossman:4", "grossman:8", "grossman:half", "chen:1", "chen:2", "chen:half"],
+  "output_root": "/allen/aind/scratch/han.hou/outputs/study09-external-transfer",
+  "submitted_at": "2026-10-24T03:57:32-07:00"
+}
