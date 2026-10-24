@@ -62,19 +62,29 @@ def tracked_sizes() -> list[tuple[int, str]]:
 
 
 def introduced_sizes(rev_range: str) -> list[tuple[int, str]]:
-    """(size, path) of every blob the commits in ``rev_range`` introduce, at any commit."""
-    objects = subprocess.run(["git", "rev-list", "--objects", "--no-object-names", rev_range],
-                             capture_output=True, text=True, check=True).stdout.split()
-    names = subprocess.run(["git", "rev-list", "--objects", rev_range],
-                           capture_output=True, text=True, check=True).stdout.splitlines()
-    path_of = {line.split(" ", 1)[0]: line.split(" ", 1)[1] for line in names if " " in line}
-    batch = subprocess.run(["git", "cat-file", "--batch-check=%(objectname) %(objecttype) %(objectsize)"],
-                           input="\n".join(objects), capture_output=True, text=True, check=True).stdout
+    """(size, path) for every path at which any commit in ``rev_range`` writes a blob that the
+    range introduces. A blob is listed once per path it appears at, so committing a file
+    under one name and renaming it onto an allowlisted path still checks the first name."""
+    new = set(subprocess.run(["git", "rev-list", "--objects", "--no-object-names", rev_range],
+                             capture_output=True, text=True, check=True).stdout.split())
+    raw = subprocess.run(["git", "log", "-m", "--no-renames", "--format=", "--raw", "--no-abbrev",
+                          rev_range], capture_output=True, text=True, check=True).stdout
+    paths: dict[str, set[str]] = {}
+    for line in raw.splitlines():
+        if not line.startswith(":"):
+            continue
+        meta, path = line.split("\t", 1)
+        _, _, _, blob, status = meta.split()
+        if status != "D" and blob in new:
+            paths.setdefault(blob, set()).add(path)
+    if not paths:
+        return []
+    batch = subprocess.run(["git", "cat-file", "--batch-check=%(objectname) %(objectsize)"],
+                           input="\n".join(paths), capture_output=True, text=True, check=True).stdout
     sizes = []
     for line in batch.splitlines():
-        oid, kind, size = line.split()
-        if kind == "blob" and oid in path_of:
-            sizes.append((int(size), path_of[oid]))
+        oid, size = line.split()
+        sizes.extend((int(size), path) for path in paths[oid])
     return sizes
 
 
