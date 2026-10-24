@@ -1,0 +1,175 @@
+### 01-gru-scaling-law/e4-e8-d614-source
+  no findings
+### 01-gru-scaling-law/e8-d614-smoke
+  no findings
+### 01-gru-scaling-law/nxd-grid
+  no findings
+### 01-gru-scaling-law/v1-pretrain-phase
+  no findings
+### 01-gru-scaling-law/v2-sc-active
+  no findings
+### 02-gru-scaling-law-ignore/nxd-3way
+  no findings
+### 02-gru-scaling-law-ignore/validation-2way-vs-3way
+  no findings
+### 03-disrnn-beta-scan/smoke
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=['experiment_id'], dispatcher_commit='88f652f70d036a32390ba3c8dcd920ed0042c5c1')
+### 03-disrnn-beta-scan/updnet-ratio-100mice
+  no findings
+### 03-disrnn-beta-scan/updnet-ratio-100mice-mult10-oomretry
+  no findings
+### 03-disrnn-beta-scan/updnet-ratio-100mice-mult10-supp
+  no findings
+### 03-disrnn-beta-scan/updnet-ratio-100mice-ruleplot-3dcb9217
+  no findings
+### 03-disrnn-beta-scan/updnet-ratio-100mice-ruleplot-45646c46
+  no findings
+### 04-gru-vs-disrnn-embedding-recovery/baseline-bari-stage3
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-bari-stage4a
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-bari-stage4b
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-ctt-stage3
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-ctt-stage4a
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-ctt-stage4b
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-hattori-stage3
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-losscounting-stage4a
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-losscounting-stage4b
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-rl-stage1
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-rl-stage2
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/baseline-rl-stage2b
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/disrnn-stage4a
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/gru-stage1
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/gru-stage2
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/gru-stage2b
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/gru-stage3
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/gru-stage4a
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/gru-stage4b
+  [ERROR] records: no launch_record/*.json found at all
+### 04-gru-vs-disrnn-embedding-recovery/gru-stage4b-concentration
+  no findings
+### 05-disrnn-scaling-law/dscan-mult2
+  no findings
+### 05-disrnn-scaling-law/generative-dscan
+  [WARN ] records: 4/4 record(s) predate the schema (no _meta/kind): generative-dscan-mult2_20260714-044616.json, generative-dscan-mult2_20260714-052533.json, generative-dscan-mult2_20260714-054028.json, generative-dscan-mult2_20260714-060524.json
+### 05-disrnn-scaling-law/mult-beta-d614
+  no findings
+### 05-disrnn-scaling-law/smoke-d614
+  no findings
+### 05-disrnn-scaling-law/subject-capacity
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=['experiment_id'], dispatcher_commit='cc095c8666101b54fb2128974fe7d8bcd5f683c5')
+### 06-disrnn-operating-point-at-scale/mult-d-grid
+  [INFO ] backfill: 6 recovered value(s), documented by a backfill record
+### 06-disrnn-operating-point-at-scale/wave2-step-budget-and-penalty-extension
+  [ERROR] backfill: grid.csv has 6 post-hoc recovered value(s) (column(s): heldout_backfilled) but no launch record with kind="backfill" explains how they were produced
+### 07-gru-timing-inputs/d100-bridge
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 07-gru-timing-inputs/h128-dscan
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 07-gru-timing-inputs/h128-dscan-licks-only
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 07-gru-timing-inputs/h128-dscan-off-bigD
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 07-gru-timing-inputs/h128-dscan-off-smallD
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 07-gru-timing-inputs/h128-dscan-onprem
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 07-gru-timing-inputs/h128-dscan-rt-only
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 07-gru-timing-inputs/h128-dscan-shuffled
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 08-hb-vs-gru-heldout/one-stage-ladder
+  no findings
+### 08-hb-vs-gru-heldout/stan-arm
+  no findings
+### 09-gru-cross-species-transfer/alsio-dual-rate-sticky
+  [WARN ] records: 1/1 record(s) predate the schema (no _meta/kind): slurm_job.json
+### 09-gru-cross-species-transfer/beron-rflr
+  [WARN ] records: 1/1 record(s) predate the schema (no _meta/kind): slurm_job.json
+### 09-gru-cross-species-transfer/chen-rlck
+  [WARN ] records: 1/1 record(s) predate the schema (no _meta/kind): slurm_job.json
+### 09-gru-cross-species-transfer/costa-feedback-dependent
+  [WARN ] records: 1/8 record(s) predate the schema (no _meta/kind): slurm_job.json
+  [ERROR] records: hpc_bari_reproducibility.json: kind=matched-half reproducibility rerun has no trigger.cause
+  [ERROR] records: hpc_bias_matched_half.json: kind=matched-half sensitivity has no trigger.cause
+  [ERROR] records: hpc_ck1_sensitivity.json: kind=matched-half mechanism sensitivity has no trigger.cause
+### 09-gru-cross-species-transfer/eckstein-bi
+  [WARN ] records: 2/2 record(s) predate the schema (no _meta/kind): hpc_resubmit_after_osf_403.json, slurm_job.json
+### 09-gru-cross-species-transfer/eckstein-rl
+  [WARN ] records: 2/2 record(s) predate the schema (no _meta/kind): hpc_resubmit_after_osf_403.json, slurm_job.json
+### 09-gru-cross-species-transfer/findling-weber
+  [WARN ] records: 2/2 record(s) predate the schema (no _meta/kind): findling_64p_sensitivity.json, slurm_job.json
+### 09-gru-cross-species-transfer/grossman-meta-learning
+  [WARN ] records: 1/2 record(s) predate the schema (no _meta/kind): slurm_job.json
+### 09-gru-cross-species-transfer/gru-alsio-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-beron-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-chen-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-costa-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-e8-d614-diagnostic
+  no findings
+### 09-gru-cross-species-transfer/gru-e8-d614-expansion
+  no findings
+### 09-gru-cross-species-transfer/gru-eckstein-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-findling-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-grossman-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-hattori-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-kwak-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-lebedeva-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-lopez-mouse-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-miller-matched-half
+  no findings
+### 09-gru-cross-species-transfer/gru-zid-matched-half
+  no findings
+### 09-gru-cross-species-transfer/hattori-q-learning
+  [WARN ] records: 3/3 record(s) predate the schema (no _meta/kind): slurm_job.json, slurm_job.json, slurm_job.json
+### 09-gru-cross-species-transfer/lebedeva-pr
+  [WARN ] records: 1/1 record(s) predate the schema (no _meta/kind): slurm_job.json
+### 09-gru-cross-species-transfer/lopez-double-trace
+  [WARN ] records: 1/1 record(s) predate the schema (no _meta/kind): slurm_job.json
+### 09-gru-cross-species-transfer/miller-rhg
+  [WARN ] records: 1/1 record(s) predate the schema (no _meta/kind): slurm_job.json
+### 09-gru-cross-species-transfer/q-expanded-matched-half
+  [WARN ] records: 1/3 record(s) predate the schema (no _meta/kind): slurm_array.json
+### 09-gru-cross-species-transfer/q-hattori-matched-half
+  [WARN ] records: 3/3 record(s) predate the schema (no _meta/kind): slurm_job.json, slurm_job.json, slurm_job.json
+### 09-gru-cross-species-transfer/q-matched-half
+  [WARN ] records: 1/1 record(s) predate the schema (no _meta/kind): slurm_array.json
+### 09-gru-cross-species-transfer/zid-history-kernel
+  [WARN ] records: 1/2 record(s) predate the schema (no _meta/kind): slurm_array.json
+### 10-gru-reservoir-ablation/frozen-random-core-d614
+  no findings
+### 10-gru-reservoir-ablation/frozen-random-core-h128-dcurve
+  no findings
+### 11-disrnn-near-gru-ceiling/stage1-no-penalty
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 11-disrnn-near-gru-ceiling/stage2-linear-update-net
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)
+### 11-disrnn-near-gru-ceiling/stage3-wide-latent
+  [ERROR] records: beaker_resumable.json: incomplete launcher record (missing=[], dispatcher_commit=None)

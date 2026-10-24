@@ -20,6 +20,13 @@ This repository was extracted from
 
 ## What was verified before publishing
 
+- `studies/util/validate_provenance.py --strict` over all 86 variants gives byte-identical
+  findings on the source checkout and on the assembled tree
+  (`migration/provenance-findings.txt`, sha256 `ae853256e2217a1f...`). 35 variants are clean; 51
+  carry findings that predate the split (36 ERROR, 17 WARN and 1 INFO lines): variants with no
+  launch record at all (19), launcher records without a dispatcher commit (13), and records
+  older than the intervention schema (17 warnings). The split introduced none. This is the
+  explicit exception dispatcher #174 Step 4 allows; #158 stays open, untouched by it.
 - `migration/source-tree.tsv` (`git ls-tree -r` of `studies/` at the source commit) is identical
   to the extracted tree: modes, blob IDs and paths.
 - `migration/source-launch-records.sha256` verifies every `launch_record*/**` file byte for byte,
