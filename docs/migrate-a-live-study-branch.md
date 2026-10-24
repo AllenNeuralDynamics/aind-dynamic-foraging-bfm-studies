@@ -118,6 +118,10 @@ keyed by run id and digest; see studies 01/02/05/07 (dispatcher #177). A study w
 Beaker caches, checkpoints and notebooks with large outputs belong in S3, a Beaker dataset or
 a W&B artifact, committed here only as id plus digest. Caches match `studies/*/analysis/_cache_*`
 in `.gitignore`. A large file merged into `main` stays in history for good.
+If the CI gate fails on a pull request, deleting the file in a new commit does not fix it,
+because the merge would still carry the commit that added it. Rewrite your own PR branch
+instead; the failure message prints the commands (`git reset --soft` and recommit, or
+`git rebase -i`, then `git push --force-with-lease`). Only `main` refuses rewrites.
 
 ## 5. Non-study changes
 
