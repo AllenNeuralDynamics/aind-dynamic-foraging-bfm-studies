@@ -1,11 +1,12 @@
 PYTHON ?= python
 CACHE_ROOT ?= data-cache
+DATA_ROOT ?= $(CACHE_ROOT)/canonical
 SOURCE_DIMENSION ?=
 PYTHONPATH := ../../code
 
-.PHONY: all suite rebuild validate smoke-loaders freeze-matched freeze-authors examples freeze-embeddings freeze-generalization freeze-task-design freeze-llm-task-similarity freeze-source-embedding-manifests freeze-embedding-dimension freeze-embedding-dimension-expansion r1 r2 r3 r4 r5 r6
+.PHONY: all suite rebuild validate smoke-loaders freeze-matched freeze-authors examples freeze-embeddings freeze-generalization freeze-task-design freeze-llm-task-similarity freeze-source-embedding-manifests freeze-embedding-dimension freeze-embedding-dimension-expansion freeze-adaptation-budget-cohort freeze-adaptation-budget r1 r2 r3 r4 r5 r6 r7
 
-all: r1 r2 r3 r4 r5 r6
+all: r1 r2 r3 r4 r5 r6 r7
 
 suite:
 	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m external_bandit_datasets.cli all --cache-root $(CACHE_ROOT)
@@ -47,6 +48,15 @@ freeze-task-design:
 freeze-llm-task-similarity:
 	$(PYTHON) analysis/freeze_llm_task_similarity.py
 
+# dispatcher #166: the K-budget GRU/Q results (W&B + beaker CLI). Not part of `all`.
+freeze-adaptation-budget:
+	$(PYTHON) analysis/freeze_adaptation_budget.py
+
+# dispatcher #166: the adaptation-budget cohorts and per-K sessions, fixed before any result.
+# Compute node: needs the canonical tables (external_bandit_datasets.cli) and the wrapper.
+freeze-adaptation-budget-cohort:
+	$(PYTHON) analysis/freeze_adaptation_budget_cohort.py --data-root $(DATA_ROOT)
+
 freeze-source-embedding-manifests:
 	$(PYTHON) analysis/freeze_source_embedding_manifests.py $(if $(SOURCE_DIMENSION),--dimension $(SOURCE_DIMENSION))
 
@@ -73,3 +83,7 @@ r5:
 
 r6:
 	$(PYTHON) analysis/report_llm_task_similarity.py
+
+# r7: dispatcher #166, from the frozen adaptation_budget_results.json (offline).
+r7:
+	$(PYTHON) analysis/report_adaptation_budget.py

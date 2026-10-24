@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-24 (adaptation budget, dispatcher #166)
+
+- Froze the adaptation-budget cohorts and per-K adaptation sessions before launching
+  (`analysis/adaptation_budget_cohort.json`, from the wrapper's own loader and budget code):
+  Grossman 46/48 subjects with >= 4 adaptation sessions (16 with >= 8), Chen 32/32 (all
+  exactly 4, so no K=8).
+- Added `variants/gru-adaptation-budget/` (wrapper #105's `--adapt-sessions-per-subject`) and
+  `variants/q-adaptation-budget/` (`run_q_baseline.py --adapt-sessions-per-subject`).
+- Result 7 (`reports/r7-adaptation-budget.md`): the GRU beats Bari2019 Q at every K >= 1 in
+  both datasets, by most at K=1; Grossman's zero-shot GRU matches its K=4. The GRU grid ran on
+  HPC A100 (Beaker saturated); its half cells agree with r1's matched-half cells to five
+  decimals of normalized likelihood (GRU) and ~1e-6 (Q).
+
 ## 2026-10-24
 
 - Repo split (dispatcher #179): the GRU transfer runner now lives in the wrapper as

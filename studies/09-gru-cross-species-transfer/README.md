@@ -190,6 +190,16 @@ median difference favors Q by 0.00870. All subjects contribute 150 held-out
 trials, so this reflects geometric pooled versus arithmetic subject-level
 summaries in a heterogeneous distribution, not unequal trial weighting.
 
+## Adaptation-budget follow-up (dispatcher #166)
+
+How transfer depends on the target adaptation budget, for Grossman (mouse) and Chen (mouse):
+`variants/gru-adaptation-budget/` (frozen-core GRU, `D=614` E4 seeds 0--2, K in
+{0, 1, 2, 4, 8, half}) and `variants/q-adaptation-budget/` (Bari2019 common Q, K >= 1), on
+the unchanged test sessions. Every Chen subject has exactly 4 adaptation sessions, so Chen
+stops at K=4 (its half). The cohorts were frozen before any result in
+`analysis/adaptation_budget_cohort.json`: primary (>= 4 adaptation sessions; Grossman 46,
+Chen 32) for K in {0, 1, 2, 4}, and Grossman's 16 subjects with >= 8 for K=8.
+
 ## Author-aligned baselines
 
 Bari2019 (`L1F1CK1`) remains the controlled common-Q baseline across datasets.

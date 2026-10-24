@@ -105,6 +105,14 @@ class TestAnalysisMetaNamesTheStudiesCheckout(unittest.TestCase):
             self.assertNotIn("GIT_DIR", _meta._git_env(REPO_ROOT / "studies" / "util"))
             self.assertNotIn("GIT_WORK_TREE", _meta._git_env(REPO_ROOT))  # outside: stripped
 
+    def test_a_hand_written_record_s_studies_commit_key_is_read(self):
+        # the slurm_array.json records written by hand carry `studies_commit`
+        rec = self.study_root / "variants" / "stan-arm" / "launch_record" / "slurm_array.json"
+        rec.write_text(json.dumps({"mode": "slurm-array", "wandb_group": "stan-arm@3",
+                                   "studies_commit": "3" * 40, "dispatcher_commit": "d" * 40}))
+        meta = build_meta("analysis/x.py", ["stan-arm@3"], study_root=self.study_root)
+        self.assertEqual(meta["source_studies_git_shas"], ["3" * 40])
+
     def test_without_a_study_root_the_arrays_are_empty_with_a_finding(self):
         meta = build_meta("analysis/x.py", ["g@1"])
         self.assertEqual(meta["source_dispatcher_git_shas"], [])
