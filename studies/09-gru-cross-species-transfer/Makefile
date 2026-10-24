@@ -3,7 +3,7 @@ CACHE_ROOT ?= data-cache
 SOURCE_DIMENSION ?=
 PYTHONPATH := ../../code
 
-.PHONY: all suite rebuild validate smoke-loaders freeze-matched freeze-authors examples freeze-embeddings freeze-generalization freeze-task-design freeze-llm-task-similarity freeze-source-embedding-manifests freeze-embedding-dimension freeze-embedding-dimension-expansion r1 r2 r3 r4 r5 r6
+.PHONY: all suite rebuild validate smoke-loaders freeze-matched freeze-authors examples freeze-embeddings freeze-generalization freeze-task-design freeze-llm-task-similarity freeze-source-embedding-manifests freeze-embedding-dimension freeze-embedding-dimension-expansion freeze-adaptation-budget-cohort r1 r2 r3 r4 r5 r6
 
 all: r1 r2 r3 r4 r5 r6
 
@@ -46,6 +46,11 @@ freeze-task-design:
 
 freeze-llm-task-similarity:
 	$(PYTHON) analysis/freeze_llm_task_similarity.py
+
+# dispatcher #166: the adaptation-budget cohorts and per-K sessions, fixed before any result.
+# Compute node: needs the canonical tables (external_bandit_datasets.cli) and the wrapper.
+freeze-adaptation-budget-cohort:
+	$(PYTHON) analysis/freeze_adaptation_budget_cohort.py --data-root $(DATA_ROOT)
 
 freeze-source-embedding-manifests:
 	$(PYTHON) analysis/freeze_source_embedding_manifests.py $(if $(SOURCE_DIMENSION),--dimension $(SOURCE_DIMENSION))

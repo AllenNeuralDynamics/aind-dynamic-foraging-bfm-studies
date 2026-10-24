@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-24 (adaptation budget, dispatcher #166)
+
+- Froze the adaptation-budget cohorts and per-K adaptation sessions before launching
+  (`analysis/adaptation_budget_cohort.json`, from the wrapper's own loader and budget code):
+  Grossman 46/48 subjects with >= 4 adaptation sessions (16 with >= 8), Chen 32/32 (all
+  exactly 4, so no K=8).
+- Added `variants/gru-adaptation-budget/` (wrapper #105's `--adapt-sessions-per-subject`) and
+  `variants/q-adaptation-budget/` (`run_q_baseline.py --adapt-sessions-per-subject`).
+
 ## 2026-10-24
 
 - Repo split (dispatcher #179): the GRU transfer runner now lives in the wrapper as

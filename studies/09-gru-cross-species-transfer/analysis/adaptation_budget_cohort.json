@@ -1,0 +1,3852 @@
+{
+ "_meta": {
+  "produced_by": "analysis/freeze_adaptation_budget_cohort.py",
+  "produced_at_pt": "2026-10-24T03:44:27-07:00",
+  "studies_git_sha": "e3eb90d604aef6081295164e338f80771273a773",
+  "studies_git_dirty": true,
+  "wrapper_git_sha": "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4",
+  "wandb_groups": [],
+  "source_studies_git_shas": [],
+  "source_dispatcher_git_shas": [],
+  "source_wrapper_git_shas": [],
+  "source_foraging_models_git_shas": [],
+  "provenance_findings": []
+ },
+ "budgets_launched": {
+  "grossman": {
+   "gru": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    "half"
+   ],
+   "q": [
+    1,
+    2,
+    4,
+    8,
+    "half"
+   ]
+  },
+  "chen": {
+   "gru": [
+    0,
+    1,
+    2,
+    "half"
+   ],
+   "q": [
+    1,
+    2,
+    "half"
+   ]
+  }
+ },
+ "cohort_rule": {
+  "primary": ">= 4 adaptation sessions; K in {0,1,2,4}",
+  "k8": ">= 8 adaptation sessions; K=8 (Grossman only)"
+ },
+ "datasets": {
+  "grossman": {
+   "dataset_id": "grossman-bari-cohen-2021",
+   "table_sha256": "85ca74315c547b39ebe0c115acf99ad81de1c44b8b553367a731068912652fe3",
+   "split_manifest_sha256": "aaf7ab8a2781a3d080b43858585b0290b7c429d8529eebb0566bc356b9255a74",
+   "cohorts": {
+    "primary": [
+     "CG45",
+     "CG46",
+     "CG47",
+     "CG49",
+     "CG52",
+     "CG53",
+     "CG54",
+     "CG55",
+     "CG56",
+     "CG57",
+     "CG58",
+     "CG59",
+     "CG60",
+     "CG61",
+     "CG62",
+     "CG64",
+     "CG67",
+     "CG68",
+     "CG70",
+     "CG75",
+     "CG77",
+     "CG78",
+     "CG79",
+     "CG80",
+     "CG81",
+     "CG82",
+     "CG84",
+     "CG85",
+     "CG86",
+     "CG87",
+     "CG89",
+     "CG90",
+     "CG91",
+     "CG92",
+     "DR01",
+     "DR02",
+     "DR03",
+     "DR04",
+     "DR05",
+     "DR06",
+     "DR07",
+     "DR08",
+     "DR09",
+     "DR10",
+     "DR12",
+     "DR13"
+    ],
+    "k8": [
+     "CG54",
+     "CG55",
+     "CG56",
+     "CG67",
+     "CG68",
+     "CG75",
+     "CG77",
+     "CG78",
+     "CG79",
+     "CG80",
+     "CG81",
+     "CG84",
+     "CG85",
+     "CG86",
+     "CG90",
+     "CG92"
+    ]
+   },
+   "subjects": [
+    {
+     "subject_id": "CG45",
+     "n_adapt_sessions": 5,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG45__mCG45d20180713",
+      "CG45__mCG45d20180717",
+      "CG45__mCG45d20180719",
+      "CG45__mCG45d20180721",
+      "CG45__mCG45d20180723"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG45__mCG45d20180713"
+      ],
+      "2": [
+       "CG45__mCG45d20180713",
+       "CG45__mCG45d20180717"
+      ],
+      "4": [
+       "CG45__mCG45d20180713",
+       "CG45__mCG45d20180717",
+       "CG45__mCG45d20180719",
+       "CG45__mCG45d20180721"
+      ],
+      "8": [
+       "CG45__mCG45d20180713",
+       "CG45__mCG45d20180717",
+       "CG45__mCG45d20180719",
+       "CG45__mCG45d20180721",
+       "CG45__mCG45d20180723"
+      ]
+     },
+     "test_session_ids": [
+      "mCG45d20180716",
+      "mCG45d20180718",
+      "mCG45d20180720",
+      "mCG45d20180722"
+     ]
+    },
+    {
+     "subject_id": "CG46",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 3,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG46__mCG46d20180713",
+      "CG46__mCG46d20180719",
+      "CG46__mCG46d20180721",
+      "CG46__mCG46d20180723"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG46__mCG46d20180713"
+      ],
+      "2": [
+       "CG46__mCG46d20180713",
+       "CG46__mCG46d20180719"
+      ],
+      "4": [
+       "CG46__mCG46d20180713",
+       "CG46__mCG46d20180719",
+       "CG46__mCG46d20180721",
+       "CG46__mCG46d20180723"
+      ],
+      "8": [
+       "CG46__mCG46d20180713",
+       "CG46__mCG46d20180719",
+       "CG46__mCG46d20180721",
+       "CG46__mCG46d20180723"
+      ]
+     },
+     "test_session_ids": [
+      "mCG46d20180716",
+      "mCG46d20180720",
+      "mCG46d20180722"
+     ]
+    },
+    {
+     "subject_id": "CG47",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 3,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG47__mCG47d20180716",
+      "CG47__mCG47d20180718",
+      "CG47__mCG47d20180721",
+      "CG47__mCG47d20180723"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG47__mCG47d20180716"
+      ],
+      "2": [
+       "CG47__mCG47d20180716",
+       "CG47__mCG47d20180718"
+      ],
+      "4": [
+       "CG47__mCG47d20180716",
+       "CG47__mCG47d20180718",
+       "CG47__mCG47d20180721",
+       "CG47__mCG47d20180723"
+      ],
+      "8": [
+       "CG47__mCG47d20180716",
+       "CG47__mCG47d20180718",
+       "CG47__mCG47d20180721",
+       "CG47__mCG47d20180723"
+      ]
+     },
+     "test_session_ids": [
+      "mCG47d20180717",
+      "mCG47d20180719",
+      "mCG47d20180722"
+     ]
+    },
+    {
+     "subject_id": "CG49",
+     "n_adapt_sessions": 5,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG49__mCG49d20180713",
+      "CG49__mCG49d20180717",
+      "CG49__mCG49d20180719",
+      "CG49__mCG49d20180721",
+      "CG49__mCG49d20180723"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG49__mCG49d20180713"
+      ],
+      "2": [
+       "CG49__mCG49d20180713",
+       "CG49__mCG49d20180717"
+      ],
+      "4": [
+       "CG49__mCG49d20180713",
+       "CG49__mCG49d20180717",
+       "CG49__mCG49d20180719",
+       "CG49__mCG49d20180721"
+      ],
+      "8": [
+       "CG49__mCG49d20180713",
+       "CG49__mCG49d20180717",
+       "CG49__mCG49d20180719",
+       "CG49__mCG49d20180721",
+       "CG49__mCG49d20180723"
+      ]
+     },
+     "test_session_ids": [
+      "mCG49d20180716",
+      "mCG49d20180718",
+      "mCG49d20180720",
+      "mCG49d20180722"
+     ]
+    },
+    {
+     "subject_id": "CG50",
+     "n_adapt_sessions": 3,
+     "n_test_sessions": 3,
+     "in_primary_cohort": false,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG50__mCG50d20180716",
+      "CG50__mCG50d20180719",
+      "CG50__mCG50d20180722"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG50__mCG50d20180716"
+      ],
+      "2": [
+       "CG50__mCG50d20180716",
+       "CG50__mCG50d20180719"
+      ],
+      "4": [
+       "CG50__mCG50d20180716",
+       "CG50__mCG50d20180719",
+       "CG50__mCG50d20180722"
+      ],
+      "8": [
+       "CG50__mCG50d20180716",
+       "CG50__mCG50d20180719",
+       "CG50__mCG50d20180722"
+      ]
+     },
+     "test_session_ids": [
+      "mCG50d20180718",
+      "mCG50d20180720",
+      "mCG50d20180723"
+     ]
+    },
+    {
+     "subject_id": "CG52",
+     "n_adapt_sessions": 5,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG52__mCG52d20180824",
+      "CG52__mCG52d20180827",
+      "CG52__mCG52d20180829",
+      "CG52__mCG52d20180831",
+      "CG52__mCG52d20180902"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG52__mCG52d20180824"
+      ],
+      "2": [
+       "CG52__mCG52d20180824",
+       "CG52__mCG52d20180827"
+      ],
+      "4": [
+       "CG52__mCG52d20180824",
+       "CG52__mCG52d20180827",
+       "CG52__mCG52d20180829",
+       "CG52__mCG52d20180831"
+      ],
+      "8": [
+       "CG52__mCG52d20180824",
+       "CG52__mCG52d20180827",
+       "CG52__mCG52d20180829",
+       "CG52__mCG52d20180831",
+       "CG52__mCG52d20180902"
+      ]
+     },
+     "test_session_ids": [
+      "mCG52d20180825",
+      "mCG52d20180828",
+      "mCG52d20180830",
+      "mCG52d20180901"
+     ]
+    },
+    {
+     "subject_id": "CG53",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 7,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG53__mCG53d20180830",
+      "CG53__mCG53d20180903",
+      "CG53__mCG53d20180905",
+      "CG53__mCG53d20180910",
+      "CG53__mCG53d20180914",
+      "CG53__mCG53d20180916",
+      "CG53__mCG53d20180920"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG53__mCG53d20180830"
+      ],
+      "2": [
+       "CG53__mCG53d20180830",
+       "CG53__mCG53d20180903"
+      ],
+      "4": [
+       "CG53__mCG53d20180830",
+       "CG53__mCG53d20180903",
+       "CG53__mCG53d20180905",
+       "CG53__mCG53d20180910"
+      ],
+      "8": [
+       "CG53__mCG53d20180830",
+       "CG53__mCG53d20180903",
+       "CG53__mCG53d20180905",
+       "CG53__mCG53d20180910",
+       "CG53__mCG53d20180914",
+       "CG53__mCG53d20180916",
+       "CG53__mCG53d20180920"
+      ]
+     },
+     "test_session_ids": [
+      "mCG53d20180831",
+      "mCG53d20180904",
+      "mCG53d20180906",
+      "mCG53d20180911",
+      "mCG53d20180915",
+      "mCG53d20180919",
+      "mCG53d20180921"
+     ]
+    },
+    {
+     "subject_id": "CG54",
+     "n_adapt_sessions": 17,
+     "n_test_sessions": 17,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG54__mCG54d20180830",
+      "CG54__mCG54d20180904",
+      "CG54__mCG54d20180906",
+      "CG54__mCG54d20180911",
+      "CG54__mCG54d20180914",
+      "CG54__mCG54d20180916",
+      "CG54__mCG54d20180920",
+      "CG54__mCG54d20180926",
+      "CG54__mCG54d20180928",
+      "CG54__mCG54d20181001",
+      "CG54__mCG54d20181003",
+      "CG54__mCG54d20181005",
+      "CG54__mCG54d20181008",
+      "CG54__mCG54d20181010",
+      "CG54__mCG54d20181015",
+      "CG54__mCG54d20181112",
+      "CG54__mCG54d20181114"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG54__mCG54d20180830"
+      ],
+      "2": [
+       "CG54__mCG54d20180830",
+       "CG54__mCG54d20180904"
+      ],
+      "4": [
+       "CG54__mCG54d20180830",
+       "CG54__mCG54d20180904",
+       "CG54__mCG54d20180906",
+       "CG54__mCG54d20180911"
+      ],
+      "8": [
+       "CG54__mCG54d20180830",
+       "CG54__mCG54d20180904",
+       "CG54__mCG54d20180906",
+       "CG54__mCG54d20180911",
+       "CG54__mCG54d20180914",
+       "CG54__mCG54d20180916",
+       "CG54__mCG54d20180920",
+       "CG54__mCG54d20180926"
+      ]
+     },
+     "test_session_ids": [
+      "mCG54d20180903",
+      "mCG54d20180905",
+      "mCG54d20180910",
+      "mCG54d20180913",
+      "mCG54d20180915",
+      "mCG54d20180919",
+      "mCG54d20180921",
+      "mCG54d20180927",
+      "mCG54d20180930",
+      "mCG54d20181002",
+      "mCG54d20181004",
+      "mCG54d20181006",
+      "mCG54d20181009",
+      "mCG54d20181011",
+      "mCG54d20181109",
+      "mCG54d20181113",
+      "mCG54d20181115"
+     ]
+    },
+    {
+     "subject_id": "CG55",
+     "n_adapt_sessions": 11,
+     "n_test_sessions": 10,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG55__mCG55d20180911",
+      "CG55__mCG55d20180913",
+      "CG55__mCG55d20180916",
+      "CG55__mCG55d20180920",
+      "CG55__mCG55d20180926",
+      "CG55__mCG55d20180928",
+      "CG55__mCG55d20181001",
+      "CG55__mCG55d20181003",
+      "CG55__mCG55d20181005",
+      "CG55__mCG55d20181008",
+      "CG55__mCG55d20181011"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG55__mCG55d20180911"
+      ],
+      "2": [
+       "CG55__mCG55d20180911",
+       "CG55__mCG55d20180913"
+      ],
+      "4": [
+       "CG55__mCG55d20180911",
+       "CG55__mCG55d20180913",
+       "CG55__mCG55d20180916",
+       "CG55__mCG55d20180920"
+      ],
+      "8": [
+       "CG55__mCG55d20180911",
+       "CG55__mCG55d20180913",
+       "CG55__mCG55d20180916",
+       "CG55__mCG55d20180920",
+       "CG55__mCG55d20180926",
+       "CG55__mCG55d20180928",
+       "CG55__mCG55d20181001",
+       "CG55__mCG55d20181003"
+      ]
+     },
+     "test_session_ids": [
+      "mCG55d20180912",
+      "mCG55d20180914",
+      "mCG55d20180919",
+      "mCG55d20180925",
+      "mCG55d20180927",
+      "mCG55d20180930",
+      "mCG55d20181002",
+      "mCG55d20181004",
+      "mCG55d20181006",
+      "mCG55d20181009"
+     ]
+    },
+    {
+     "subject_id": "CG56",
+     "n_adapt_sessions": 12,
+     "n_test_sessions": 12,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG56__mCG56d20180912",
+      "CG56__mCG56d20180914",
+      "CG56__mCG56d20180919",
+      "CG56__mCG56d20180925",
+      "CG56__mCG56d20180927",
+      "CG56__mCG56d20180930",
+      "CG56__mCG56d20181002",
+      "CG56__mCG56d20181005",
+      "CG56__mCG56d20181008",
+      "CG56__mCG56d20181010",
+      "CG56__mCG56d20181108",
+      "CG56__mCG56d20181112"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG56__mCG56d20180912"
+      ],
+      "2": [
+       "CG56__mCG56d20180912",
+       "CG56__mCG56d20180914"
+      ],
+      "4": [
+       "CG56__mCG56d20180912",
+       "CG56__mCG56d20180914",
+       "CG56__mCG56d20180919",
+       "CG56__mCG56d20180925"
+      ],
+      "8": [
+       "CG56__mCG56d20180912",
+       "CG56__mCG56d20180914",
+       "CG56__mCG56d20180919",
+       "CG56__mCG56d20180925",
+       "CG56__mCG56d20180927",
+       "CG56__mCG56d20180930",
+       "CG56__mCG56d20181002",
+       "CG56__mCG56d20181005"
+      ]
+     },
+     "test_session_ids": [
+      "mCG56d20180913",
+      "mCG56d20180916",
+      "mCG56d20180920",
+      "mCG56d20180926",
+      "mCG56d20180928",
+      "mCG56d20181001",
+      "mCG56d20181004",
+      "mCG56d20181006",
+      "mCG56d20181009",
+      "mCG56d20181011",
+      "mCG56d20181109",
+      "mCG56d20181113"
+     ]
+    },
+    {
+     "subject_id": "CG57",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG57__mCG57d20180928",
+      "CG57__mCG57d20181001",
+      "CG57__mCG57d20181003",
+      "CG57__mCG57d20181005",
+      "CG57__mCG57d20181008",
+      "CG57__mCG57d20181010"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG57__mCG57d20180928"
+      ],
+      "2": [
+       "CG57__mCG57d20180928",
+       "CG57__mCG57d20181001"
+      ],
+      "4": [
+       "CG57__mCG57d20180928",
+       "CG57__mCG57d20181001",
+       "CG57__mCG57d20181003",
+       "CG57__mCG57d20181005"
+      ],
+      "8": [
+       "CG57__mCG57d20180928",
+       "CG57__mCG57d20181001",
+       "CG57__mCG57d20181003",
+       "CG57__mCG57d20181005",
+       "CG57__mCG57d20181008",
+       "CG57__mCG57d20181010"
+      ]
+     },
+     "test_session_ids": [
+      "mCG57d20180930",
+      "mCG57d20181002",
+      "mCG57d20181004",
+      "mCG57d20181006",
+      "mCG57d20181009",
+      "mCG57d20181011"
+     ]
+    },
+    {
+     "subject_id": "CG58",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG58__mCG58d20180928",
+      "CG58__mCG58d20181001",
+      "CG58__mCG58d20181004",
+      "CG58__mCG58d20181006",
+      "CG58__mCG58d20181009",
+      "CG58__mCG58d20181011"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG58__mCG58d20180928"
+      ],
+      "2": [
+       "CG58__mCG58d20180928",
+       "CG58__mCG58d20181001"
+      ],
+      "4": [
+       "CG58__mCG58d20180928",
+       "CG58__mCG58d20181001",
+       "CG58__mCG58d20181004",
+       "CG58__mCG58d20181006"
+      ],
+      "8": [
+       "CG58__mCG58d20180928",
+       "CG58__mCG58d20181001",
+       "CG58__mCG58d20181004",
+       "CG58__mCG58d20181006",
+       "CG58__mCG58d20181009",
+       "CG58__mCG58d20181011"
+      ]
+     },
+     "test_session_ids": [
+      "mCG58d20180930",
+      "mCG58d20181003",
+      "mCG58d20181005",
+      "mCG58d20181008",
+      "mCG58d20181010"
+     ]
+    },
+    {
+     "subject_id": "CG59",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG59__mCG59d20180919",
+      "CG59__mCG59d20180921",
+      "CG59__mCG59d20180925",
+      "CG59__mCG59d20181002",
+      "CG59__mCG59d20181004",
+      "CG59__mCG59d20181010"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG59__mCG59d20180919"
+      ],
+      "2": [
+       "CG59__mCG59d20180919",
+       "CG59__mCG59d20180921"
+      ],
+      "4": [
+       "CG59__mCG59d20180919",
+       "CG59__mCG59d20180921",
+       "CG59__mCG59d20180925",
+       "CG59__mCG59d20181002"
+      ],
+      "8": [
+       "CG59__mCG59d20180919",
+       "CG59__mCG59d20180921",
+       "CG59__mCG59d20180925",
+       "CG59__mCG59d20181002",
+       "CG59__mCG59d20181004",
+       "CG59__mCG59d20181010"
+      ]
+     },
+     "test_session_ids": [
+      "mCG59d20180920",
+      "mCG59d20180924",
+      "mCG59d20180927",
+      "mCG59d20181003",
+      "mCG59d20181009"
+     ]
+    },
+    {
+     "subject_id": "CG60",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG60__mCG60d20180919",
+      "CG60__mCG60d20180921",
+      "CG60__mCG60d20180926",
+      "CG60__mCG60d20181002",
+      "CG60__mCG60d20181008",
+      "CG60__mCG60d20181010"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG60__mCG60d20180919"
+      ],
+      "2": [
+       "CG60__mCG60d20180919",
+       "CG60__mCG60d20180921"
+      ],
+      "4": [
+       "CG60__mCG60d20180919",
+       "CG60__mCG60d20180921",
+       "CG60__mCG60d20180926",
+       "CG60__mCG60d20181002"
+      ],
+      "8": [
+       "CG60__mCG60d20180919",
+       "CG60__mCG60d20180921",
+       "CG60__mCG60d20180926",
+       "CG60__mCG60d20181002",
+       "CG60__mCG60d20181008",
+       "CG60__mCG60d20181010"
+      ]
+     },
+     "test_session_ids": [
+      "mCG60d20180920",
+      "mCG60d20180925",
+      "mCG60d20180927",
+      "mCG60d20181005",
+      "mCG60d20181009"
+     ]
+    },
+    {
+     "subject_id": "CG61",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 7,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG61__mCG61d20180914",
+      "CG61__mCG61d20180920",
+      "CG61__mCG61d20180924",
+      "CG61__mCG61d20180926",
+      "CG61__mCG61d20181002",
+      "CG61__mCG61d20181005",
+      "CG61__mCG61d20181009"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG61__mCG61d20180914"
+      ],
+      "2": [
+       "CG61__mCG61d20180914",
+       "CG61__mCG61d20180920"
+      ],
+      "4": [
+       "CG61__mCG61d20180914",
+       "CG61__mCG61d20180920",
+       "CG61__mCG61d20180924",
+       "CG61__mCG61d20180926"
+      ],
+      "8": [
+       "CG61__mCG61d20180914",
+       "CG61__mCG61d20180920",
+       "CG61__mCG61d20180924",
+       "CG61__mCG61d20180926",
+       "CG61__mCG61d20181002",
+       "CG61__mCG61d20181005",
+       "CG61__mCG61d20181009"
+      ]
+     },
+     "test_session_ids": [
+      "mCG61d20180919",
+      "mCG61d20180921",
+      "mCG61d20180925",
+      "mCG61d20180927",
+      "mCG61d20181003",
+      "mCG61d20181008",
+      "mCG61d20181010"
+     ]
+    },
+    {
+     "subject_id": "CG62",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG62__mCG62d20180916",
+      "CG62__mCG62d20180920",
+      "CG62__mCG62d20180924",
+      "CG62__mCG62d20180926",
+      "CG62__mCG62d20181003",
+      "CG62__mCG62d20181008",
+      "CG62__mCG62d20181010"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG62__mCG62d20180916"
+      ],
+      "2": [
+       "CG62__mCG62d20180916",
+       "CG62__mCG62d20180920"
+      ],
+      "4": [
+       "CG62__mCG62d20180916",
+       "CG62__mCG62d20180920",
+       "CG62__mCG62d20180924",
+       "CG62__mCG62d20180926"
+      ],
+      "8": [
+       "CG62__mCG62d20180916",
+       "CG62__mCG62d20180920",
+       "CG62__mCG62d20180924",
+       "CG62__mCG62d20180926",
+       "CG62__mCG62d20181003",
+       "CG62__mCG62d20181008",
+       "CG62__mCG62d20181010"
+      ]
+     },
+     "test_session_ids": [
+      "mCG62d20180919",
+      "mCG62d20180921",
+      "mCG62d20180925",
+      "mCG62d20180928",
+      "mCG62d20181005",
+      "mCG62d20181009"
+     ]
+    },
+    {
+     "subject_id": "CG64",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 3,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG64__mCG64d20181012",
+      "CG64__mCG64d20181016",
+      "CG64__mCG64d20181018",
+      "CG64__mCG64d20181022"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG64__mCG64d20181012"
+      ],
+      "2": [
+       "CG64__mCG64d20181012",
+       "CG64__mCG64d20181016"
+      ],
+      "4": [
+       "CG64__mCG64d20181012",
+       "CG64__mCG64d20181016",
+       "CG64__mCG64d20181018",
+       "CG64__mCG64d20181022"
+      ],
+      "8": [
+       "CG64__mCG64d20181012",
+       "CG64__mCG64d20181016",
+       "CG64__mCG64d20181018",
+       "CG64__mCG64d20181022"
+      ]
+     },
+     "test_session_ids": [
+      "mCG64d20181015",
+      "mCG64d20181017",
+      "mCG64d20181019"
+     ]
+    },
+    {
+     "subject_id": "CG67",
+     "n_adapt_sessions": 10,
+     "n_test_sessions": 10,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG67__mCG67d20181209",
+      "CG67__mCG67d20181212",
+      "CG67__mCG67d20181214",
+      "CG67__mCG67d20181216",
+      "CG67__mCG67d20181218",
+      "CG67__mCG67d20181220",
+      "CG67__mCG67d20190107",
+      "CG67__mCG67d20190109",
+      "CG67__mCG67d20190111",
+      "CG67__mCG67d20190113"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG67__mCG67d20181209"
+      ],
+      "2": [
+       "CG67__mCG67d20181209",
+       "CG67__mCG67d20181212"
+      ],
+      "4": [
+       "CG67__mCG67d20181209",
+       "CG67__mCG67d20181212",
+       "CG67__mCG67d20181214",
+       "CG67__mCG67d20181216"
+      ],
+      "8": [
+       "CG67__mCG67d20181209",
+       "CG67__mCG67d20181212",
+       "CG67__mCG67d20181214",
+       "CG67__mCG67d20181216",
+       "CG67__mCG67d20181218",
+       "CG67__mCG67d20181220",
+       "CG67__mCG67d20190107",
+       "CG67__mCG67d20190109"
+      ]
+     },
+     "test_session_ids": [
+      "mCG67d20181210",
+      "mCG67d20181213",
+      "mCG67d20181215",
+      "mCG67d20181217",
+      "mCG67d20181219",
+      "mCG67d20181221",
+      "mCG67d20190108",
+      "mCG67d20190110",
+      "mCG67d20190112",
+      "mCG67d20190114"
+     ]
+    },
+    {
+     "subject_id": "CG68",
+     "n_adapt_sessions": 8,
+     "n_test_sessions": 7,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG68__mCG68d20181209",
+      "CG68__mCG68d20181212",
+      "CG68__mCG68d20181214",
+      "CG68__mCG68d20181216",
+      "CG68__mCG68d20181218",
+      "CG68__mCG68d20181221",
+      "CG68__mCG68d20190110",
+      "CG68__mCG68d20190112"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG68__mCG68d20181209"
+      ],
+      "2": [
+       "CG68__mCG68d20181209",
+       "CG68__mCG68d20181212"
+      ],
+      "4": [
+       "CG68__mCG68d20181209",
+       "CG68__mCG68d20181212",
+       "CG68__mCG68d20181214",
+       "CG68__mCG68d20181216"
+      ],
+      "8": [
+       "CG68__mCG68d20181209",
+       "CG68__mCG68d20181212",
+       "CG68__mCG68d20181214",
+       "CG68__mCG68d20181216",
+       "CG68__mCG68d20181218",
+       "CG68__mCG68d20181221",
+       "CG68__mCG68d20190110",
+       "CG68__mCG68d20190112"
+      ]
+     },
+     "test_session_ids": [
+      "mCG68d20181210",
+      "mCG68d20181213",
+      "mCG68d20181215",
+      "mCG68d20181217",
+      "mCG68d20181219",
+      "mCG68d20190109",
+      "mCG68d20190111"
+     ]
+    },
+    {
+     "subject_id": "CG70",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG70__mCG70d20181214",
+      "CG70__mCG70d20181216",
+      "CG70__mCG70d20181218",
+      "CG70__mCG70d20181220",
+      "CG70__mCG70d20190107",
+      "CG70__mCG70d20190109",
+      "CG70__mCG70d20190111"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG70__mCG70d20181214"
+      ],
+      "2": [
+       "CG70__mCG70d20181214",
+       "CG70__mCG70d20181216"
+      ],
+      "4": [
+       "CG70__mCG70d20181214",
+       "CG70__mCG70d20181216",
+       "CG70__mCG70d20181218",
+       "CG70__mCG70d20181220"
+      ],
+      "8": [
+       "CG70__mCG70d20181214",
+       "CG70__mCG70d20181216",
+       "CG70__mCG70d20181218",
+       "CG70__mCG70d20181220",
+       "CG70__mCG70d20190107",
+       "CG70__mCG70d20190109",
+       "CG70__mCG70d20190111"
+      ]
+     },
+     "test_session_ids": [
+      "mCG70d20181215",
+      "mCG70d20181217",
+      "mCG70d20181219",
+      "mCG70d20181221",
+      "mCG70d20190108",
+      "mCG70d20190110"
+     ]
+    },
+    {
+     "subject_id": "CG75",
+     "n_adapt_sessions": 27,
+     "n_test_sessions": 27,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG75__mCG75d20190216",
+      "CG75__mCG75d20190222",
+      "CG75__mCG75d20190226",
+      "CG75__mCG75d20190228",
+      "CG75__mCG75d20190304",
+      "CG75__mCG75d20190307",
+      "CG75__mCG75d20190310",
+      "CG75__mCG75d20190312",
+      "CG75__mCG75d20190314",
+      "CG75__mCG75d20190318",
+      "CG75__mCG75d20190320",
+      "CG75__mCG75d20190322",
+      "CG75__mCG75d20190328",
+      "CG75__mCG75d20190402",
+      "CG75__mCG75d20190404",
+      "CG75__mCG75d20190409",
+      "CG75__mCG75d20190412",
+      "CG75__mCG75d20190416",
+      "CG75__mCG75d20190418",
+      "CG75__mCG75d20190422",
+      "CG75__mCG75d20190424",
+      "CG75__mCG75d20190426",
+      "CG75__mCG75d20190430",
+      "CG75__mCG75d20190503",
+      "CG75__mCG75d20190507",
+      "CG75__mCG75d20190509",
+      "CG75__mCG75d20190513"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG75__mCG75d20190216"
+      ],
+      "2": [
+       "CG75__mCG75d20190216",
+       "CG75__mCG75d20190222"
+      ],
+      "4": [
+       "CG75__mCG75d20190216",
+       "CG75__mCG75d20190222",
+       "CG75__mCG75d20190226",
+       "CG75__mCG75d20190228"
+      ],
+      "8": [
+       "CG75__mCG75d20190216",
+       "CG75__mCG75d20190222",
+       "CG75__mCG75d20190226",
+       "CG75__mCG75d20190228",
+       "CG75__mCG75d20190304",
+       "CG75__mCG75d20190307",
+       "CG75__mCG75d20190310",
+       "CG75__mCG75d20190312"
+      ]
+     },
+     "test_session_ids": [
+      "mCG75d20190221",
+      "mCG75d20190225",
+      "mCG75d20190227",
+      "mCG75d20190301",
+      "mCG75d20190305",
+      "mCG75d20190308",
+      "mCG75d20190311",
+      "mCG75d20190313",
+      "mCG75d20190315",
+      "mCG75d20190319",
+      "mCG75d20190321",
+      "mCG75d20190327",
+      "mCG75d20190401",
+      "mCG75d20190403",
+      "mCG75d20190405",
+      "mCG75d20190411",
+      "mCG75d20190415",
+      "mCG75d20190417",
+      "mCG75d20190419",
+      "mCG75d20190423",
+      "mCG75d20190425",
+      "mCG75d20190429",
+      "mCG75d20190501",
+      "mCG75d20190506",
+      "mCG75d20190508",
+      "mCG75d20190510",
+      "mCG75d20190514"
+     ]
+    },
+    {
+     "subject_id": "CG77",
+     "n_adapt_sessions": 9,
+     "n_test_sessions": 9,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG77__mCG77d20190216",
+      "CG77__mCG77d20190225",
+      "CG77__mCG77d20190227",
+      "CG77__mCG77d20190301",
+      "CG77__mCG77d20190306",
+      "CG77__mCG77d20190310",
+      "CG77__mCG77d20190312",
+      "CG77__mCG77d20190314",
+      "CG77__mCG77d20190318"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG77__mCG77d20190216"
+      ],
+      "2": [
+       "CG77__mCG77d20190216",
+       "CG77__mCG77d20190225"
+      ],
+      "4": [
+       "CG77__mCG77d20190216",
+       "CG77__mCG77d20190225",
+       "CG77__mCG77d20190227",
+       "CG77__mCG77d20190301"
+      ],
+      "8": [
+       "CG77__mCG77d20190216",
+       "CG77__mCG77d20190225",
+       "CG77__mCG77d20190227",
+       "CG77__mCG77d20190301",
+       "CG77__mCG77d20190306",
+       "CG77__mCG77d20190310",
+       "CG77__mCG77d20190312",
+       "CG77__mCG77d20190314"
+      ]
+     },
+     "test_session_ids": [
+      "mCG77d20190222",
+      "mCG77d20190226",
+      "mCG77d20190228",
+      "mCG77d20190305",
+      "mCG77d20190307",
+      "mCG77d20190311",
+      "mCG77d20190313",
+      "mCG77d20190315",
+      "mCG77d20190320"
+     ]
+    },
+    {
+     "subject_id": "CG78",
+     "n_adapt_sessions": 12,
+     "n_test_sessions": 12,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG78__mCG78d20190222",
+      "CG78__mCG78d20190228",
+      "CG78__mCG78d20190305",
+      "CG78__mCG78d20190307",
+      "CG78__mCG78d20190311",
+      "CG78__mCG78d20190313",
+      "CG78__mCG78d20190327",
+      "CG78__mCG78d20190401",
+      "CG78__mCG78d20190403",
+      "CG78__mCG78d20190408",
+      "CG78__mCG78d20190411",
+      "CG78__mCG78d20190415"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG78__mCG78d20190222"
+      ],
+      "2": [
+       "CG78__mCG78d20190222",
+       "CG78__mCG78d20190228"
+      ],
+      "4": [
+       "CG78__mCG78d20190222",
+       "CG78__mCG78d20190228",
+       "CG78__mCG78d20190305",
+       "CG78__mCG78d20190307"
+      ],
+      "8": [
+       "CG78__mCG78d20190222",
+       "CG78__mCG78d20190228",
+       "CG78__mCG78d20190305",
+       "CG78__mCG78d20190307",
+       "CG78__mCG78d20190311",
+       "CG78__mCG78d20190313",
+       "CG78__mCG78d20190327",
+       "CG78__mCG78d20190401"
+      ]
+     },
+     "test_session_ids": [
+      "mCG78d20190225",
+      "mCG78d20190304",
+      "mCG78d20190306",
+      "mCG78d20190310",
+      "mCG78d20190312",
+      "mCG78d20190315",
+      "mCG78d20190328",
+      "mCG78d20190402",
+      "mCG78d20190405",
+      "mCG78d20190409",
+      "mCG78d20190412",
+      "mCG78d20190416"
+     ]
+    },
+    {
+     "subject_id": "CG79",
+     "n_adapt_sessions": 16,
+     "n_test_sessions": 15,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG79__mCG79d20190327",
+      "CG79__mCG79d20190401",
+      "CG79__mCG79d20190405",
+      "CG79__mCG79d20190409",
+      "CG79__mCG79d20190411",
+      "CG79__mCG79d20190415",
+      "CG79__mCG79d20190417",
+      "CG79__mCG79d20190419",
+      "CG79__mCG79d20190423",
+      "CG79__mCG79d20190425",
+      "CG79__mCG79d20190429",
+      "CG79__mCG79d20190501",
+      "CG79__mCG79d20190506",
+      "CG79__mCG79d20190508",
+      "CG79__mCG79d20190510",
+      "CG79__mCG79d20190514"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG79__mCG79d20190327"
+      ],
+      "2": [
+       "CG79__mCG79d20190327",
+       "CG79__mCG79d20190401"
+      ],
+      "4": [
+       "CG79__mCG79d20190327",
+       "CG79__mCG79d20190401",
+       "CG79__mCG79d20190405",
+       "CG79__mCG79d20190409"
+      ],
+      "8": [
+       "CG79__mCG79d20190327",
+       "CG79__mCG79d20190401",
+       "CG79__mCG79d20190405",
+       "CG79__mCG79d20190409",
+       "CG79__mCG79d20190411",
+       "CG79__mCG79d20190415",
+       "CG79__mCG79d20190417",
+       "CG79__mCG79d20190419"
+      ]
+     },
+     "test_session_ids": [
+      "mCG79d20190328",
+      "mCG79d20190404",
+      "mCG79d20190408",
+      "mCG79d20190410",
+      "mCG79d20190412",
+      "mCG79d20190416",
+      "mCG79d20190418",
+      "mCG79d20190422",
+      "mCG79d20190424",
+      "mCG79d20190426",
+      "mCG79d20190430",
+      "mCG79d20190503",
+      "mCG79d20190507",
+      "mCG79d20190509",
+      "mCG79d20190513"
+     ]
+    },
+    {
+     "subject_id": "CG80",
+     "n_adapt_sessions": 15,
+     "n_test_sessions": 15,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG80__mCG80d20190312",
+      "CG80__mCG80d20190314",
+      "CG80__mCG80d20190318",
+      "CG80__mCG80d20190320",
+      "CG80__mCG80d20190322",
+      "CG80__mCG80d20190402",
+      "CG80__mCG80d20190404",
+      "CG80__mCG80d20190409",
+      "CG80__mCG80d20190411",
+      "CG80__mCG80d20190415",
+      "CG80__mCG80d20190417",
+      "CG80__mCG80d20190419",
+      "CG80__mCG80d20190423",
+      "CG80__mCG80d20190426",
+      "CG80__mCG80d20190501"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG80__mCG80d20190312"
+      ],
+      "2": [
+       "CG80__mCG80d20190312",
+       "CG80__mCG80d20190314"
+      ],
+      "4": [
+       "CG80__mCG80d20190312",
+       "CG80__mCG80d20190314",
+       "CG80__mCG80d20190318",
+       "CG80__mCG80d20190320"
+      ],
+      "8": [
+       "CG80__mCG80d20190312",
+       "CG80__mCG80d20190314",
+       "CG80__mCG80d20190318",
+       "CG80__mCG80d20190320",
+       "CG80__mCG80d20190322",
+       "CG80__mCG80d20190402",
+       "CG80__mCG80d20190404",
+       "CG80__mCG80d20190409"
+      ]
+     },
+     "test_session_ids": [
+      "mCG80d20190313",
+      "mCG80d20190315",
+      "mCG80d20190319",
+      "mCG80d20190321",
+      "mCG80d20190401",
+      "mCG80d20190403",
+      "mCG80d20190408",
+      "mCG80d20190410",
+      "mCG80d20190412",
+      "mCG80d20190416",
+      "mCG80d20190418",
+      "mCG80d20190422",
+      "mCG80d20190425",
+      "mCG80d20190430",
+      "mCG80d20190503"
+     ]
+    },
+    {
+     "subject_id": "CG81",
+     "n_adapt_sessions": 18,
+     "n_test_sessions": 17,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG81__mCG81d20190305",
+      "CG81__mCG81d20190307",
+      "CG81__mCG81d20190310",
+      "CG81__mCG81d20190312",
+      "CG81__mCG81d20190314",
+      "CG81__mCG81d20190318",
+      "CG81__mCG81d20190325",
+      "CG81__mCG81d20190327",
+      "CG81__mCG81d20190401",
+      "CG81__mCG81d20190403",
+      "CG81__mCG81d20190408",
+      "CG81__mCG81d20190410",
+      "CG81__mCG81d20190412",
+      "CG81__mCG81d20190416",
+      "CG81__mCG81d20190418",
+      "CG81__mCG81d20190422",
+      "CG81__mCG81d20190424",
+      "CG81__mCG81d20190426"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG81__mCG81d20190305"
+      ],
+      "2": [
+       "CG81__mCG81d20190305",
+       "CG81__mCG81d20190307"
+      ],
+      "4": [
+       "CG81__mCG81d20190305",
+       "CG81__mCG81d20190307",
+       "CG81__mCG81d20190310",
+       "CG81__mCG81d20190312"
+      ],
+      "8": [
+       "CG81__mCG81d20190305",
+       "CG81__mCG81d20190307",
+       "CG81__mCG81d20190310",
+       "CG81__mCG81d20190312",
+       "CG81__mCG81d20190314",
+       "CG81__mCG81d20190318",
+       "CG81__mCG81d20190325",
+       "CG81__mCG81d20190327"
+      ]
+     },
+     "test_session_ids": [
+      "mCG81d20190306",
+      "mCG81d20190308",
+      "mCG81d20190311",
+      "mCG81d20190313",
+      "mCG81d20190315",
+      "mCG81d20190319",
+      "mCG81d20190326",
+      "mCG81d20190328",
+      "mCG81d20190402",
+      "mCG81d20190404",
+      "mCG81d20190409",
+      "mCG81d20190411",
+      "mCG81d20190415",
+      "mCG81d20190417",
+      "mCG81d20190419",
+      "mCG81d20190423",
+      "mCG81d20190425"
+     ]
+    },
+    {
+     "subject_id": "CG82",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 7,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG82__mCG82d20190507",
+      "CG82__mCG82d20190509",
+      "CG82__mCG82d20190513",
+      "CG82__mCG82d20190516",
+      "CG82__mCG82d20190522",
+      "CG82__mCG82d20190524",
+      "CG82__mCG82d20190529"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG82__mCG82d20190507"
+      ],
+      "2": [
+       "CG82__mCG82d20190507",
+       "CG82__mCG82d20190509"
+      ],
+      "4": [
+       "CG82__mCG82d20190507",
+       "CG82__mCG82d20190509",
+       "CG82__mCG82d20190513",
+       "CG82__mCG82d20190516"
+      ],
+      "8": [
+       "CG82__mCG82d20190507",
+       "CG82__mCG82d20190509",
+       "CG82__mCG82d20190513",
+       "CG82__mCG82d20190516",
+       "CG82__mCG82d20190522",
+       "CG82__mCG82d20190524",
+       "CG82__mCG82d20190529"
+      ]
+     },
+     "test_session_ids": [
+      "mCG82d20190508",
+      "mCG82d20190510",
+      "mCG82d20190514",
+      "mCG82d20190521b",
+      "mCG82d20190523",
+      "mCG82d20190528",
+      "mCG82d20190530"
+     ]
+    },
+    {
+     "subject_id": "CG83",
+     "n_adapt_sessions": 3,
+     "n_test_sessions": 3,
+     "in_primary_cohort": false,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG83__mCG83d20190510",
+      "CG83__mCG83d20190522",
+      "CG83__mCG83d20190528"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG83__mCG83d20190510"
+      ],
+      "2": [
+       "CG83__mCG83d20190510",
+       "CG83__mCG83d20190522"
+      ],
+      "4": [
+       "CG83__mCG83d20190510",
+       "CG83__mCG83d20190522",
+       "CG83__mCG83d20190528"
+      ],
+      "8": [
+       "CG83__mCG83d20190510",
+       "CG83__mCG83d20190522",
+       "CG83__mCG83d20190528"
+      ]
+     },
+     "test_session_ids": [
+      "mCG83d20190521",
+      "mCG83d20190524",
+      "mCG83d20190530"
+     ]
+    },
+    {
+     "subject_id": "CG84",
+     "n_adapt_sessions": 8,
+     "n_test_sessions": 8,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG84__mCG84d20190506",
+      "CG84__mCG84d20190508",
+      "CG84__mCG84d20190510",
+      "CG84__mCG84d20190514",
+      "CG84__mCG84d20190516",
+      "CG84__mCG84d20190520",
+      "CG84__mCG84d20190524",
+      "CG84__mCG84d20190529"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG84__mCG84d20190506"
+      ],
+      "2": [
+       "CG84__mCG84d20190506",
+       "CG84__mCG84d20190508"
+      ],
+      "4": [
+       "CG84__mCG84d20190506",
+       "CG84__mCG84d20190508",
+       "CG84__mCG84d20190510",
+       "CG84__mCG84d20190514"
+      ],
+      "8": [
+       "CG84__mCG84d20190506",
+       "CG84__mCG84d20190508",
+       "CG84__mCG84d20190510",
+       "CG84__mCG84d20190514",
+       "CG84__mCG84d20190516",
+       "CG84__mCG84d20190520",
+       "CG84__mCG84d20190524",
+       "CG84__mCG84d20190529"
+      ]
+     },
+     "test_session_ids": [
+      "mCG84d20190507",
+      "mCG84d20190509",
+      "mCG84d20190513",
+      "mCG84d20190515",
+      "mCG84d20190517",
+      "mCG84d20190523",
+      "mCG84d20190528",
+      "mCG84d20190530"
+     ]
+    },
+    {
+     "subject_id": "CG85",
+     "n_adapt_sessions": 8,
+     "n_test_sessions": 8,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG85__mCG85d20190506",
+      "CG85__mCG85d20190508",
+      "CG85__mCG85d20190513",
+      "CG85__mCG85d20190515",
+      "CG85__mCG85d20190517",
+      "CG85__mCG85d20190521",
+      "CG85__mCG85d20190523",
+      "CG85__mCG85d20190529"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG85__mCG85d20190506"
+      ],
+      "2": [
+       "CG85__mCG85d20190506",
+       "CG85__mCG85d20190508"
+      ],
+      "4": [
+       "CG85__mCG85d20190506",
+       "CG85__mCG85d20190508",
+       "CG85__mCG85d20190513",
+       "CG85__mCG85d20190515"
+      ],
+      "8": [
+       "CG85__mCG85d20190506",
+       "CG85__mCG85d20190508",
+       "CG85__mCG85d20190513",
+       "CG85__mCG85d20190515",
+       "CG85__mCG85d20190517",
+       "CG85__mCG85d20190521",
+       "CG85__mCG85d20190523",
+       "CG85__mCG85d20190529"
+      ]
+     },
+     "test_session_ids": [
+      "mCG85d20190507",
+      "mCG85d20190509",
+      "mCG85d20190514",
+      "mCG85d20190516",
+      "mCG85d20190520",
+      "mCG85d20190522",
+      "mCG85d20190528",
+      "mCG85d20190530"
+     ]
+    },
+    {
+     "subject_id": "CG86",
+     "n_adapt_sessions": 8,
+     "n_test_sessions": 7,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG86__mCG86d20190506",
+      "CG86__mCG86d20190509",
+      "CG86__mCG86d20190514",
+      "CG86__mCG86d20190516",
+      "CG86__mCG86d20190520",
+      "CG86__mCG86d20190522",
+      "CG86__mCG86d20190524",
+      "CG86__mCG86d20190529"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG86__mCG86d20190506"
+      ],
+      "2": [
+       "CG86__mCG86d20190506",
+       "CG86__mCG86d20190509"
+      ],
+      "4": [
+       "CG86__mCG86d20190506",
+       "CG86__mCG86d20190509",
+       "CG86__mCG86d20190514",
+       "CG86__mCG86d20190516"
+      ],
+      "8": [
+       "CG86__mCG86d20190506",
+       "CG86__mCG86d20190509",
+       "CG86__mCG86d20190514",
+       "CG86__mCG86d20190516",
+       "CG86__mCG86d20190520",
+       "CG86__mCG86d20190522",
+       "CG86__mCG86d20190524",
+       "CG86__mCG86d20190529"
+      ]
+     },
+     "test_session_ids": [
+      "mCG86d20190508",
+      "mCG86d20190510",
+      "mCG86d20190515",
+      "mCG86d20190517",
+      "mCG86d20190521",
+      "mCG86d20190523",
+      "mCG86d20190528"
+     ]
+    },
+    {
+     "subject_id": "CG87",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG87__mCG87d20190513",
+      "CG87__mCG87d20190515",
+      "CG87__mCG87d20190517",
+      "CG87__mCG87d20190521",
+      "CG87__mCG87d20190523",
+      "CG87__mCG87d20190528"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG87__mCG87d20190513"
+      ],
+      "2": [
+       "CG87__mCG87d20190513",
+       "CG87__mCG87d20190515"
+      ],
+      "4": [
+       "CG87__mCG87d20190513",
+       "CG87__mCG87d20190515",
+       "CG87__mCG87d20190517",
+       "CG87__mCG87d20190521"
+      ],
+      "8": [
+       "CG87__mCG87d20190513",
+       "CG87__mCG87d20190515",
+       "CG87__mCG87d20190517",
+       "CG87__mCG87d20190521",
+       "CG87__mCG87d20190523",
+       "CG87__mCG87d20190528"
+      ]
+     },
+     "test_session_ids": [
+      "mCG87d20190514",
+      "mCG87d20190516",
+      "mCG87d20190520",
+      "mCG87d20190522",
+      "mCG87d20190524",
+      "mCG87d20190529"
+     ]
+    },
+    {
+     "subject_id": "CG89",
+     "n_adapt_sessions": 5,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG89__mCG89d20190515",
+      "CG89__mCG89d20190517",
+      "CG89__mCG89d20190521",
+      "CG89__mCG89d20190523",
+      "CG89__mCG89d20190528"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG89__mCG89d20190515"
+      ],
+      "2": [
+       "CG89__mCG89d20190515",
+       "CG89__mCG89d20190517"
+      ],
+      "4": [
+       "CG89__mCG89d20190515",
+       "CG89__mCG89d20190517",
+       "CG89__mCG89d20190521",
+       "CG89__mCG89d20190523"
+      ],
+      "8": [
+       "CG89__mCG89d20190515",
+       "CG89__mCG89d20190517",
+       "CG89__mCG89d20190521",
+       "CG89__mCG89d20190523",
+       "CG89__mCG89d20190528"
+      ]
+     },
+     "test_session_ids": [
+      "mCG89d20190516",
+      "mCG89d20190520",
+      "mCG89d20190522",
+      "mCG89d20190524",
+      "mCG89d20190529"
+     ]
+    },
+    {
+     "subject_id": "CG90",
+     "n_adapt_sessions": 20,
+     "n_test_sessions": 19,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG90__mCG90d20190605",
+      "CG90__mCG90d20190607",
+      "CG90__mCG90d20190611",
+      "CG90__mCG90d20190617",
+      "CG90__mCG90d20190625",
+      "CG90__mCG90d20190627",
+      "CG90__mCG90d20190702",
+      "CG90__mCG90d20190705",
+      "CG90__mCG90d20190709",
+      "CG90__mCG90d20190711",
+      "CG90__mCG90d20190715",
+      "CG90__mCG90d20190717",
+      "CG90__mCG90d20190719b",
+      "CG90__mCG90d20190723",
+      "CG90__mCG90d20190725",
+      "CG90__mCG90d20190801",
+      "CG90__mCG90d20190805",
+      "CG90__mCG90d20190813",
+      "CG90__mCG90d20190815",
+      "CG90__mCG90d20190819"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG90__mCG90d20190605"
+      ],
+      "2": [
+       "CG90__mCG90d20190605",
+       "CG90__mCG90d20190607"
+      ],
+      "4": [
+       "CG90__mCG90d20190605",
+       "CG90__mCG90d20190607",
+       "CG90__mCG90d20190611",
+       "CG90__mCG90d20190617"
+      ],
+      "8": [
+       "CG90__mCG90d20190605",
+       "CG90__mCG90d20190607",
+       "CG90__mCG90d20190611",
+       "CG90__mCG90d20190617",
+       "CG90__mCG90d20190625",
+       "CG90__mCG90d20190627",
+       "CG90__mCG90d20190702",
+       "CG90__mCG90d20190705"
+      ]
+     },
+     "test_session_ids": [
+      "mCG90d20190606",
+      "mCG90d20190610",
+      "mCG90d20190612",
+      "mCG90d20190618",
+      "mCG90d20190626",
+      "mCG90d20190628",
+      "mCG90d20190703",
+      "mCG90d20190708",
+      "mCG90d20190710",
+      "mCG90d20190712",
+      "mCG90d20190716",
+      "mCG90d20190718",
+      "mCG90d20190722",
+      "mCG90d20190724",
+      "mCG90d20190726",
+      "mCG90d20190802",
+      "mCG90d20190806",
+      "mCG90d20190814",
+      "mCG90d20190816"
+     ]
+    },
+    {
+     "subject_id": "CG91",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "CG91__mCG91d20190605",
+      "CG91__mCG91d20190607",
+      "CG91__mCG91d20190611",
+      "CG91__mCG91d20190617",
+      "CG91__mCG91d20190619",
+      "CG91__mCG91d20190624",
+      "CG91__mCG91d20190626"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG91__mCG91d20190605"
+      ],
+      "2": [
+       "CG91__mCG91d20190605",
+       "CG91__mCG91d20190607"
+      ],
+      "4": [
+       "CG91__mCG91d20190605",
+       "CG91__mCG91d20190607",
+       "CG91__mCG91d20190611",
+       "CG91__mCG91d20190617"
+      ],
+      "8": [
+       "CG91__mCG91d20190605",
+       "CG91__mCG91d20190607",
+       "CG91__mCG91d20190611",
+       "CG91__mCG91d20190617",
+       "CG91__mCG91d20190619",
+       "CG91__mCG91d20190624",
+       "CG91__mCG91d20190626"
+      ]
+     },
+     "test_session_ids": [
+      "mCG91d20190606",
+      "mCG91d20190610",
+      "mCG91d20190612",
+      "mCG91d20190618",
+      "mCG91d20190620",
+      "mCG91d20190625"
+     ]
+    },
+    {
+     "subject_id": "CG92",
+     "n_adapt_sessions": 15,
+     "n_test_sessions": 14,
+     "in_primary_cohort": true,
+     "in_k8_cohort": true,
+     "adapt_session_ids": [
+      "CG92__mCG92d20190605",
+      "CG92__mCG92d20190607",
+      "CG92__mCG92d20190612",
+      "CG92__mCG92d20190618",
+      "CG92__mCG92d20190620",
+      "CG92__mCG92d20190625",
+      "CG92__mCG92d20190627",
+      "CG92__mCG92d20190701",
+      "CG92__mCG92d20190703",
+      "CG92__mCG92d20190705",
+      "CG92__mCG92d20190709",
+      "CG92__mCG92d20190711",
+      "CG92__mCG92d20190715",
+      "CG92__mCG92d20190717",
+      "CG92__mCG92d20190719"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "CG92__mCG92d20190605"
+      ],
+      "2": [
+       "CG92__mCG92d20190605",
+       "CG92__mCG92d20190607"
+      ],
+      "4": [
+       "CG92__mCG92d20190605",
+       "CG92__mCG92d20190607",
+       "CG92__mCG92d20190612",
+       "CG92__mCG92d20190618"
+      ],
+      "8": [
+       "CG92__mCG92d20190605",
+       "CG92__mCG92d20190607",
+       "CG92__mCG92d20190612",
+       "CG92__mCG92d20190618",
+       "CG92__mCG92d20190620",
+       "CG92__mCG92d20190625",
+       "CG92__mCG92d20190627",
+       "CG92__mCG92d20190701"
+      ]
+     },
+     "test_session_ids": [
+      "mCG92d20190606",
+      "mCG92d20190610",
+      "mCG92d20190617",
+      "mCG92d20190619",
+      "mCG92d20190621",
+      "mCG92d20190626",
+      "mCG92d20190628",
+      "mCG92d20190702",
+      "mCG92d20190704",
+      "mCG92d20190708",
+      "mCG92d20190710",
+      "mCG92d20190712",
+      "mCG92d20190716",
+      "mCG92d20190718"
+     ]
+    },
+    {
+     "subject_id": "DR01",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR01__mDR01d20200206",
+      "DR01__mDR01d20200208",
+      "DR01__mDR01d20200211",
+      "DR01__mDR01d20200214",
+      "DR01__mDR01d20200216",
+      "DR01__mDR01d20200218"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR01__mDR01d20200206"
+      ],
+      "2": [
+       "DR01__mDR01d20200206",
+       "DR01__mDR01d20200208"
+      ],
+      "4": [
+       "DR01__mDR01d20200206",
+       "DR01__mDR01d20200208",
+       "DR01__mDR01d20200211",
+       "DR01__mDR01d20200214"
+      ],
+      "8": [
+       "DR01__mDR01d20200206",
+       "DR01__mDR01d20200208",
+       "DR01__mDR01d20200211",
+       "DR01__mDR01d20200214",
+       "DR01__mDR01d20200216",
+       "DR01__mDR01d20200218"
+      ]
+     },
+     "test_session_ids": [
+      "mDR01d20200207",
+      "mDR01d20200210",
+      "mDR01d20200212",
+      "mDR01d20200215",
+      "mDR01d20200217"
+     ]
+    },
+    {
+     "subject_id": "DR02",
+     "n_adapt_sessions": 5,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR02__mDR02d20200206",
+      "DR02__mDR02d20200208",
+      "DR02__mDR02d20200211",
+      "DR02__mDR02d20200215",
+      "DR02__mDR02d20200217"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR02__mDR02d20200206"
+      ],
+      "2": [
+       "DR02__mDR02d20200206",
+       "DR02__mDR02d20200208"
+      ],
+      "4": [
+       "DR02__mDR02d20200206",
+       "DR02__mDR02d20200208",
+       "DR02__mDR02d20200211",
+       "DR02__mDR02d20200215"
+      ],
+      "8": [
+       "DR02__mDR02d20200206",
+       "DR02__mDR02d20200208",
+       "DR02__mDR02d20200211",
+       "DR02__mDR02d20200215",
+       "DR02__mDR02d20200217"
+      ]
+     },
+     "test_session_ids": [
+      "mDR02d20200207",
+      "mDR02d20200209",
+      "mDR02d20200213",
+      "mDR02d20200216",
+      "mDR02d20200218"
+     ]
+    },
+    {
+     "subject_id": "DR03",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR03__mDR03d20200206",
+      "DR03__mDR03d20200208",
+      "DR03__mDR03d20200210",
+      "DR03__mDR03d20200212",
+      "DR03__mDR03d20200214",
+      "DR03__mDR03d20200216",
+      "DR03__mDR03d20200218"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR03__mDR03d20200206"
+      ],
+      "2": [
+       "DR03__mDR03d20200206",
+       "DR03__mDR03d20200208"
+      ],
+      "4": [
+       "DR03__mDR03d20200206",
+       "DR03__mDR03d20200208",
+       "DR03__mDR03d20200210",
+       "DR03__mDR03d20200212"
+      ],
+      "8": [
+       "DR03__mDR03d20200206",
+       "DR03__mDR03d20200208",
+       "DR03__mDR03d20200210",
+       "DR03__mDR03d20200212",
+       "DR03__mDR03d20200214",
+       "DR03__mDR03d20200216",
+       "DR03__mDR03d20200218"
+      ]
+     },
+     "test_session_ids": [
+      "mDR03d20200207",
+      "mDR03d20200209",
+      "mDR03d20200211",
+      "mDR03d20200213",
+      "mDR03d20200215",
+      "mDR03d20200217"
+     ]
+    },
+    {
+     "subject_id": "DR04",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR04__mDR04d20200206",
+      "DR04__mDR04d20200210",
+      "DR04__mDR04d20200212",
+      "DR04__mDR04d20200214",
+      "DR04__mDR04d20200216",
+      "DR04__mDR04d20200218"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR04__mDR04d20200206"
+      ],
+      "2": [
+       "DR04__mDR04d20200206",
+       "DR04__mDR04d20200210"
+      ],
+      "4": [
+       "DR04__mDR04d20200206",
+       "DR04__mDR04d20200210",
+       "DR04__mDR04d20200212",
+       "DR04__mDR04d20200214"
+      ],
+      "8": [
+       "DR04__mDR04d20200206",
+       "DR04__mDR04d20200210",
+       "DR04__mDR04d20200212",
+       "DR04__mDR04d20200214",
+       "DR04__mDR04d20200216",
+       "DR04__mDR04d20200218"
+      ]
+     },
+     "test_session_ids": [
+      "mDR04d20200209",
+      "mDR04d20200211",
+      "mDR04d20200213",
+      "mDR04d20200215",
+      "mDR04d20200217"
+     ]
+    },
+    {
+     "subject_id": "DR05",
+     "n_adapt_sessions": 5,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR05__mDR05d20200207a",
+      "DR05__mDR05d20200210",
+      "DR05__mDR05d20200213",
+      "DR05__mDR05d20200215",
+      "DR05__mDR05d20200217"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR05__mDR05d20200207a"
+      ],
+      "2": [
+       "DR05__mDR05d20200207a",
+       "DR05__mDR05d20200210"
+      ],
+      "4": [
+       "DR05__mDR05d20200207a",
+       "DR05__mDR05d20200210",
+       "DR05__mDR05d20200213",
+       "DR05__mDR05d20200215"
+      ],
+      "8": [
+       "DR05__mDR05d20200207a",
+       "DR05__mDR05d20200210",
+       "DR05__mDR05d20200213",
+       "DR05__mDR05d20200215",
+       "DR05__mDR05d20200217"
+      ]
+     },
+     "test_session_ids": [
+      "mDR05d20200208",
+      "mDR05d20200212",
+      "mDR05d20200214",
+      "mDR05d20200216",
+      "mDR05d20200218"
+     ]
+    },
+    {
+     "subject_id": "DR06",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR06__mDR06d20200206",
+      "DR06__mDR06d20200208",
+      "DR06__mDR06d20200210",
+      "DR06__mDR06d20200212",
+      "DR06__mDR06d20200214",
+      "DR06__mDR06d20200216",
+      "DR06__mDR06d20200218"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR06__mDR06d20200206"
+      ],
+      "2": [
+       "DR06__mDR06d20200206",
+       "DR06__mDR06d20200208"
+      ],
+      "4": [
+       "DR06__mDR06d20200206",
+       "DR06__mDR06d20200208",
+       "DR06__mDR06d20200210",
+       "DR06__mDR06d20200212"
+      ],
+      "8": [
+       "DR06__mDR06d20200206",
+       "DR06__mDR06d20200208",
+       "DR06__mDR06d20200210",
+       "DR06__mDR06d20200212",
+       "DR06__mDR06d20200214",
+       "DR06__mDR06d20200216",
+       "DR06__mDR06d20200218"
+      ]
+     },
+     "test_session_ids": [
+      "mDR06d20200207",
+      "mDR06d20200209",
+      "mDR06d20200211",
+      "mDR06d20200213",
+      "mDR06d20200215",
+      "mDR06d20200217"
+     ]
+    },
+    {
+     "subject_id": "DR07",
+     "n_adapt_sessions": 7,
+     "n_test_sessions": 6,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR07__mDR07d20200206",
+      "DR07__mDR07d20200208",
+      "DR07__mDR07d20200210",
+      "DR07__mDR07d20200212",
+      "DR07__mDR07d20200214",
+      "DR07__mDR07d20200216",
+      "DR07__mDR07d20200218"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR07__mDR07d20200206"
+      ],
+      "2": [
+       "DR07__mDR07d20200206",
+       "DR07__mDR07d20200208"
+      ],
+      "4": [
+       "DR07__mDR07d20200206",
+       "DR07__mDR07d20200208",
+       "DR07__mDR07d20200210",
+       "DR07__mDR07d20200212"
+      ],
+      "8": [
+       "DR07__mDR07d20200206",
+       "DR07__mDR07d20200208",
+       "DR07__mDR07d20200210",
+       "DR07__mDR07d20200212",
+       "DR07__mDR07d20200214",
+       "DR07__mDR07d20200216",
+       "DR07__mDR07d20200218"
+      ]
+     },
+     "test_session_ids": [
+      "mDR07d20200207",
+      "mDR07d20200209",
+      "mDR07d20200211",
+      "mDR07d20200213",
+      "mDR07d20200215",
+      "mDR07d20200217"
+     ]
+    },
+    {
+     "subject_id": "DR08",
+     "n_adapt_sessions": 5,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR08__mDR08d20200210",
+      "DR08__mDR08d20200212",
+      "DR08__mDR08d20200214",
+      "DR08__mDR08d20200216",
+      "DR08__mDR08d20200218"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR08__mDR08d20200210"
+      ],
+      "2": [
+       "DR08__mDR08d20200210",
+       "DR08__mDR08d20200212"
+      ],
+      "4": [
+       "DR08__mDR08d20200210",
+       "DR08__mDR08d20200212",
+       "DR08__mDR08d20200214",
+       "DR08__mDR08d20200216"
+      ],
+      "8": [
+       "DR08__mDR08d20200210",
+       "DR08__mDR08d20200212",
+       "DR08__mDR08d20200214",
+       "DR08__mDR08d20200216",
+       "DR08__mDR08d20200218"
+      ]
+     },
+     "test_session_ids": [
+      "mDR08d20200211",
+      "mDR08d20200213",
+      "mDR08d20200215",
+      "mDR08d20200217"
+     ]
+    },
+    {
+     "subject_id": "DR09",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR09__mDR09d20201204",
+      "DR09__mDR09d20201206",
+      "DR09__mDR09d20201208",
+      "DR09__mDR09d20201210"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR09__mDR09d20201204"
+      ],
+      "2": [
+       "DR09__mDR09d20201204",
+       "DR09__mDR09d20201206"
+      ],
+      "4": [
+       "DR09__mDR09d20201204",
+       "DR09__mDR09d20201206",
+       "DR09__mDR09d20201208",
+       "DR09__mDR09d20201210"
+      ],
+      "8": [
+       "DR09__mDR09d20201204",
+       "DR09__mDR09d20201206",
+       "DR09__mDR09d20201208",
+       "DR09__mDR09d20201210"
+      ]
+     },
+     "test_session_ids": [
+      "mDR09d20201205",
+      "mDR09d20201207",
+      "mDR09d20201209",
+      "mDR09d20201211"
+     ]
+    },
+    {
+     "subject_id": "DR10",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR10__mDR10d20201204",
+      "DR10__mDR10d20201206",
+      "DR10__mDR10d20201208",
+      "DR10__mDR10d20201210"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR10__mDR10d20201204"
+      ],
+      "2": [
+       "DR10__mDR10d20201204",
+       "DR10__mDR10d20201206"
+      ],
+      "4": [
+       "DR10__mDR10d20201204",
+       "DR10__mDR10d20201206",
+       "DR10__mDR10d20201208",
+       "DR10__mDR10d20201210"
+      ],
+      "8": [
+       "DR10__mDR10d20201204",
+       "DR10__mDR10d20201206",
+       "DR10__mDR10d20201208",
+       "DR10__mDR10d20201210"
+      ]
+     },
+     "test_session_ids": [
+      "mDR10d20201205",
+      "mDR10d20201207",
+      "mDR10d20201209",
+      "mDR10d20201211"
+     ]
+    },
+    {
+     "subject_id": "DR12",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR12__mDR12d20210815",
+      "DR12__mDR12d20210818",
+      "DR12__mDR12d20210820",
+      "DR12__mDR12d20210830"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR12__mDR12d20210815"
+      ],
+      "2": [
+       "DR12__mDR12d20210815",
+       "DR12__mDR12d20210818"
+      ],
+      "4": [
+       "DR12__mDR12d20210815",
+       "DR12__mDR12d20210818",
+       "DR12__mDR12d20210820",
+       "DR12__mDR12d20210830"
+      ],
+      "8": [
+       "DR12__mDR12d20210815",
+       "DR12__mDR12d20210818",
+       "DR12__mDR12d20210820",
+       "DR12__mDR12d20210830"
+      ]
+     },
+     "test_session_ids": [
+      "mDR12d20210816",
+      "mDR12d20210819",
+      "mDR12d20210822",
+      "mDR12d20210831"
+     ]
+    },
+    {
+     "subject_id": "DR13",
+     "n_adapt_sessions": 6,
+     "n_test_sessions": 5,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "DR13__mDR13d20210815",
+      "DR13__mDR13d20210817",
+      "DR13__mDR13d20210819",
+      "DR13__mDR13d20210824",
+      "DR13__mDR13d20210827",
+      "DR13__mDR13d20210831"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "DR13__mDR13d20210815"
+      ],
+      "2": [
+       "DR13__mDR13d20210815",
+       "DR13__mDR13d20210817"
+      ],
+      "4": [
+       "DR13__mDR13d20210815",
+       "DR13__mDR13d20210817",
+       "DR13__mDR13d20210819",
+       "DR13__mDR13d20210824"
+      ],
+      "8": [
+       "DR13__mDR13d20210815",
+       "DR13__mDR13d20210817",
+       "DR13__mDR13d20210819",
+       "DR13__mDR13d20210824",
+       "DR13__mDR13d20210827",
+       "DR13__mDR13d20210831"
+      ]
+     },
+     "test_session_ids": [
+      "mDR13d20210816",
+      "mDR13d20210818",
+      "mDR13d20210823",
+      "mDR13d20210825",
+      "mDR13d20210830"
+     ]
+    }
+   ]
+  },
+  "chen": {
+   "dataset_id": "chen-et-al-2021",
+   "table_sha256": "511173115ca714bc38b07432157eab31fd17463bafbfa59823e4e1ca716affe8",
+   "split_manifest_sha256": "e0d4d8c59400062a7003f56f98a861c4e84624b83c09b67b108fd128a32659d5",
+   "cohorts": {
+    "primary": [
+     "mouse-01",
+     "mouse-02",
+     "mouse-03",
+     "mouse-04",
+     "mouse-05",
+     "mouse-06",
+     "mouse-07",
+     "mouse-08",
+     "mouse-09",
+     "mouse-10",
+     "mouse-11",
+     "mouse-12",
+     "mouse-13",
+     "mouse-14",
+     "mouse-15",
+     "mouse-16",
+     "mouse-17",
+     "mouse-18",
+     "mouse-19",
+     "mouse-20",
+     "mouse-21",
+     "mouse-22",
+     "mouse-23",
+     "mouse-24",
+     "mouse-25",
+     "mouse-26",
+     "mouse-27",
+     "mouse-28",
+     "mouse-29",
+     "mouse-30",
+     "mouse-31",
+     "mouse-32"
+    ],
+    "k8": []
+   },
+   "subjects": [
+    {
+     "subject_id": "mouse-01",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-01__session-01",
+      "mouse-01__session-03",
+      "mouse-01__session-05",
+      "mouse-01__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-01__session-01"
+      ],
+      "2": [
+       "mouse-01__session-01",
+       "mouse-01__session-03"
+      ],
+      "4": [
+       "mouse-01__session-01",
+       "mouse-01__session-03",
+       "mouse-01__session-05",
+       "mouse-01__session-07"
+      ],
+      "8": [
+       "mouse-01__session-01",
+       "mouse-01__session-03",
+       "mouse-01__session-05",
+       "mouse-01__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-02",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-02__session-01",
+      "mouse-02__session-03",
+      "mouse-02__session-05",
+      "mouse-02__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-02__session-01"
+      ],
+      "2": [
+       "mouse-02__session-01",
+       "mouse-02__session-03"
+      ],
+      "4": [
+       "mouse-02__session-01",
+       "mouse-02__session-03",
+       "mouse-02__session-05",
+       "mouse-02__session-07"
+      ],
+      "8": [
+       "mouse-02__session-01",
+       "mouse-02__session-03",
+       "mouse-02__session-05",
+       "mouse-02__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-03",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-03__session-01",
+      "mouse-03__session-03",
+      "mouse-03__session-05",
+      "mouse-03__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-03__session-01"
+      ],
+      "2": [
+       "mouse-03__session-01",
+       "mouse-03__session-03"
+      ],
+      "4": [
+       "mouse-03__session-01",
+       "mouse-03__session-03",
+       "mouse-03__session-05",
+       "mouse-03__session-07"
+      ],
+      "8": [
+       "mouse-03__session-01",
+       "mouse-03__session-03",
+       "mouse-03__session-05",
+       "mouse-03__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-04",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-04__session-01",
+      "mouse-04__session-03",
+      "mouse-04__session-05",
+      "mouse-04__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-04__session-01"
+      ],
+      "2": [
+       "mouse-04__session-01",
+       "mouse-04__session-03"
+      ],
+      "4": [
+       "mouse-04__session-01",
+       "mouse-04__session-03",
+       "mouse-04__session-05",
+       "mouse-04__session-07"
+      ],
+      "8": [
+       "mouse-04__session-01",
+       "mouse-04__session-03",
+       "mouse-04__session-05",
+       "mouse-04__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-05",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-05__session-01",
+      "mouse-05__session-03",
+      "mouse-05__session-05",
+      "mouse-05__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-05__session-01"
+      ],
+      "2": [
+       "mouse-05__session-01",
+       "mouse-05__session-03"
+      ],
+      "4": [
+       "mouse-05__session-01",
+       "mouse-05__session-03",
+       "mouse-05__session-05",
+       "mouse-05__session-07"
+      ],
+      "8": [
+       "mouse-05__session-01",
+       "mouse-05__session-03",
+       "mouse-05__session-05",
+       "mouse-05__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-06",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-06__session-01",
+      "mouse-06__session-03",
+      "mouse-06__session-05",
+      "mouse-06__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-06__session-01"
+      ],
+      "2": [
+       "mouse-06__session-01",
+       "mouse-06__session-03"
+      ],
+      "4": [
+       "mouse-06__session-01",
+       "mouse-06__session-03",
+       "mouse-06__session-05",
+       "mouse-06__session-07"
+      ],
+      "8": [
+       "mouse-06__session-01",
+       "mouse-06__session-03",
+       "mouse-06__session-05",
+       "mouse-06__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-07",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-07__session-01",
+      "mouse-07__session-03",
+      "mouse-07__session-05",
+      "mouse-07__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-07__session-01"
+      ],
+      "2": [
+       "mouse-07__session-01",
+       "mouse-07__session-03"
+      ],
+      "4": [
+       "mouse-07__session-01",
+       "mouse-07__session-03",
+       "mouse-07__session-05",
+       "mouse-07__session-07"
+      ],
+      "8": [
+       "mouse-07__session-01",
+       "mouse-07__session-03",
+       "mouse-07__session-05",
+       "mouse-07__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-08",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-08__session-01",
+      "mouse-08__session-03",
+      "mouse-08__session-05",
+      "mouse-08__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-08__session-01"
+      ],
+      "2": [
+       "mouse-08__session-01",
+       "mouse-08__session-03"
+      ],
+      "4": [
+       "mouse-08__session-01",
+       "mouse-08__session-03",
+       "mouse-08__session-05",
+       "mouse-08__session-07"
+      ],
+      "8": [
+       "mouse-08__session-01",
+       "mouse-08__session-03",
+       "mouse-08__session-05",
+       "mouse-08__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-09",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-09__session-01",
+      "mouse-09__session-03",
+      "mouse-09__session-05",
+      "mouse-09__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-09__session-01"
+      ],
+      "2": [
+       "mouse-09__session-01",
+       "mouse-09__session-03"
+      ],
+      "4": [
+       "mouse-09__session-01",
+       "mouse-09__session-03",
+       "mouse-09__session-05",
+       "mouse-09__session-07"
+      ],
+      "8": [
+       "mouse-09__session-01",
+       "mouse-09__session-03",
+       "mouse-09__session-05",
+       "mouse-09__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-10",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-10__session-01",
+      "mouse-10__session-03",
+      "mouse-10__session-05",
+      "mouse-10__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-10__session-01"
+      ],
+      "2": [
+       "mouse-10__session-01",
+       "mouse-10__session-03"
+      ],
+      "4": [
+       "mouse-10__session-01",
+       "mouse-10__session-03",
+       "mouse-10__session-05",
+       "mouse-10__session-07"
+      ],
+      "8": [
+       "mouse-10__session-01",
+       "mouse-10__session-03",
+       "mouse-10__session-05",
+       "mouse-10__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-11",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-11__session-01",
+      "mouse-11__session-03",
+      "mouse-11__session-05",
+      "mouse-11__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-11__session-01"
+      ],
+      "2": [
+       "mouse-11__session-01",
+       "mouse-11__session-03"
+      ],
+      "4": [
+       "mouse-11__session-01",
+       "mouse-11__session-03",
+       "mouse-11__session-05",
+       "mouse-11__session-07"
+      ],
+      "8": [
+       "mouse-11__session-01",
+       "mouse-11__session-03",
+       "mouse-11__session-05",
+       "mouse-11__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-12",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-12__session-01",
+      "mouse-12__session-03",
+      "mouse-12__session-05",
+      "mouse-12__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-12__session-01"
+      ],
+      "2": [
+       "mouse-12__session-01",
+       "mouse-12__session-03"
+      ],
+      "4": [
+       "mouse-12__session-01",
+       "mouse-12__session-03",
+       "mouse-12__session-05",
+       "mouse-12__session-07"
+      ],
+      "8": [
+       "mouse-12__session-01",
+       "mouse-12__session-03",
+       "mouse-12__session-05",
+       "mouse-12__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-13",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-13__session-01",
+      "mouse-13__session-03",
+      "mouse-13__session-05",
+      "mouse-13__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-13__session-01"
+      ],
+      "2": [
+       "mouse-13__session-01",
+       "mouse-13__session-03"
+      ],
+      "4": [
+       "mouse-13__session-01",
+       "mouse-13__session-03",
+       "mouse-13__session-05",
+       "mouse-13__session-07"
+      ],
+      "8": [
+       "mouse-13__session-01",
+       "mouse-13__session-03",
+       "mouse-13__session-05",
+       "mouse-13__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-14",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-14__session-01",
+      "mouse-14__session-03",
+      "mouse-14__session-05",
+      "mouse-14__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-14__session-01"
+      ],
+      "2": [
+       "mouse-14__session-01",
+       "mouse-14__session-03"
+      ],
+      "4": [
+       "mouse-14__session-01",
+       "mouse-14__session-03",
+       "mouse-14__session-05",
+       "mouse-14__session-07"
+      ],
+      "8": [
+       "mouse-14__session-01",
+       "mouse-14__session-03",
+       "mouse-14__session-05",
+       "mouse-14__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-15",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-15__session-01",
+      "mouse-15__session-03",
+      "mouse-15__session-05",
+      "mouse-15__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-15__session-01"
+      ],
+      "2": [
+       "mouse-15__session-01",
+       "mouse-15__session-03"
+      ],
+      "4": [
+       "mouse-15__session-01",
+       "mouse-15__session-03",
+       "mouse-15__session-05",
+       "mouse-15__session-07"
+      ],
+      "8": [
+       "mouse-15__session-01",
+       "mouse-15__session-03",
+       "mouse-15__session-05",
+       "mouse-15__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-16",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-16__session-01",
+      "mouse-16__session-03",
+      "mouse-16__session-05",
+      "mouse-16__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-16__session-01"
+      ],
+      "2": [
+       "mouse-16__session-01",
+       "mouse-16__session-03"
+      ],
+      "4": [
+       "mouse-16__session-01",
+       "mouse-16__session-03",
+       "mouse-16__session-05",
+       "mouse-16__session-07"
+      ],
+      "8": [
+       "mouse-16__session-01",
+       "mouse-16__session-03",
+       "mouse-16__session-05",
+       "mouse-16__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-17",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-17__session-01",
+      "mouse-17__session-03",
+      "mouse-17__session-05",
+      "mouse-17__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-17__session-01"
+      ],
+      "2": [
+       "mouse-17__session-01",
+       "mouse-17__session-03"
+      ],
+      "4": [
+       "mouse-17__session-01",
+       "mouse-17__session-03",
+       "mouse-17__session-05",
+       "mouse-17__session-07"
+      ],
+      "8": [
+       "mouse-17__session-01",
+       "mouse-17__session-03",
+       "mouse-17__session-05",
+       "mouse-17__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-18",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-18__session-01",
+      "mouse-18__session-03",
+      "mouse-18__session-05",
+      "mouse-18__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-18__session-01"
+      ],
+      "2": [
+       "mouse-18__session-01",
+       "mouse-18__session-03"
+      ],
+      "4": [
+       "mouse-18__session-01",
+       "mouse-18__session-03",
+       "mouse-18__session-05",
+       "mouse-18__session-07"
+      ],
+      "8": [
+       "mouse-18__session-01",
+       "mouse-18__session-03",
+       "mouse-18__session-05",
+       "mouse-18__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-19",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-19__session-01",
+      "mouse-19__session-03",
+      "mouse-19__session-05",
+      "mouse-19__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-19__session-01"
+      ],
+      "2": [
+       "mouse-19__session-01",
+       "mouse-19__session-03"
+      ],
+      "4": [
+       "mouse-19__session-01",
+       "mouse-19__session-03",
+       "mouse-19__session-05",
+       "mouse-19__session-07"
+      ],
+      "8": [
+       "mouse-19__session-01",
+       "mouse-19__session-03",
+       "mouse-19__session-05",
+       "mouse-19__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-20",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-20__session-01",
+      "mouse-20__session-03",
+      "mouse-20__session-05",
+      "mouse-20__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-20__session-01"
+      ],
+      "2": [
+       "mouse-20__session-01",
+       "mouse-20__session-03"
+      ],
+      "4": [
+       "mouse-20__session-01",
+       "mouse-20__session-03",
+       "mouse-20__session-05",
+       "mouse-20__session-07"
+      ],
+      "8": [
+       "mouse-20__session-01",
+       "mouse-20__session-03",
+       "mouse-20__session-05",
+       "mouse-20__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-21",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-21__session-01",
+      "mouse-21__session-03",
+      "mouse-21__session-05",
+      "mouse-21__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-21__session-01"
+      ],
+      "2": [
+       "mouse-21__session-01",
+       "mouse-21__session-03"
+      ],
+      "4": [
+       "mouse-21__session-01",
+       "mouse-21__session-03",
+       "mouse-21__session-05",
+       "mouse-21__session-07"
+      ],
+      "8": [
+       "mouse-21__session-01",
+       "mouse-21__session-03",
+       "mouse-21__session-05",
+       "mouse-21__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-22",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-22__session-01",
+      "mouse-22__session-03",
+      "mouse-22__session-05",
+      "mouse-22__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-22__session-01"
+      ],
+      "2": [
+       "mouse-22__session-01",
+       "mouse-22__session-03"
+      ],
+      "4": [
+       "mouse-22__session-01",
+       "mouse-22__session-03",
+       "mouse-22__session-05",
+       "mouse-22__session-07"
+      ],
+      "8": [
+       "mouse-22__session-01",
+       "mouse-22__session-03",
+       "mouse-22__session-05",
+       "mouse-22__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-23",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-23__session-01",
+      "mouse-23__session-03",
+      "mouse-23__session-05",
+      "mouse-23__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-23__session-01"
+      ],
+      "2": [
+       "mouse-23__session-01",
+       "mouse-23__session-03"
+      ],
+      "4": [
+       "mouse-23__session-01",
+       "mouse-23__session-03",
+       "mouse-23__session-05",
+       "mouse-23__session-07"
+      ],
+      "8": [
+       "mouse-23__session-01",
+       "mouse-23__session-03",
+       "mouse-23__session-05",
+       "mouse-23__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-24",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-24__session-01",
+      "mouse-24__session-03",
+      "mouse-24__session-05",
+      "mouse-24__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-24__session-01"
+      ],
+      "2": [
+       "mouse-24__session-01",
+       "mouse-24__session-03"
+      ],
+      "4": [
+       "mouse-24__session-01",
+       "mouse-24__session-03",
+       "mouse-24__session-05",
+       "mouse-24__session-07"
+      ],
+      "8": [
+       "mouse-24__session-01",
+       "mouse-24__session-03",
+       "mouse-24__session-05",
+       "mouse-24__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-25",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-25__session-01",
+      "mouse-25__session-03",
+      "mouse-25__session-05",
+      "mouse-25__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-25__session-01"
+      ],
+      "2": [
+       "mouse-25__session-01",
+       "mouse-25__session-03"
+      ],
+      "4": [
+       "mouse-25__session-01",
+       "mouse-25__session-03",
+       "mouse-25__session-05",
+       "mouse-25__session-07"
+      ],
+      "8": [
+       "mouse-25__session-01",
+       "mouse-25__session-03",
+       "mouse-25__session-05",
+       "mouse-25__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-26",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-26__session-01",
+      "mouse-26__session-03",
+      "mouse-26__session-05",
+      "mouse-26__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-26__session-01"
+      ],
+      "2": [
+       "mouse-26__session-01",
+       "mouse-26__session-03"
+      ],
+      "4": [
+       "mouse-26__session-01",
+       "mouse-26__session-03",
+       "mouse-26__session-05",
+       "mouse-26__session-07"
+      ],
+      "8": [
+       "mouse-26__session-01",
+       "mouse-26__session-03",
+       "mouse-26__session-05",
+       "mouse-26__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-27",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-27__session-01",
+      "mouse-27__session-03",
+      "mouse-27__session-05",
+      "mouse-27__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-27__session-01"
+      ],
+      "2": [
+       "mouse-27__session-01",
+       "mouse-27__session-03"
+      ],
+      "4": [
+       "mouse-27__session-01",
+       "mouse-27__session-03",
+       "mouse-27__session-05",
+       "mouse-27__session-07"
+      ],
+      "8": [
+       "mouse-27__session-01",
+       "mouse-27__session-03",
+       "mouse-27__session-05",
+       "mouse-27__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-28",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-28__session-01",
+      "mouse-28__session-03",
+      "mouse-28__session-05",
+      "mouse-28__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-28__session-01"
+      ],
+      "2": [
+       "mouse-28__session-01",
+       "mouse-28__session-03"
+      ],
+      "4": [
+       "mouse-28__session-01",
+       "mouse-28__session-03",
+       "mouse-28__session-05",
+       "mouse-28__session-07"
+      ],
+      "8": [
+       "mouse-28__session-01",
+       "mouse-28__session-03",
+       "mouse-28__session-05",
+       "mouse-28__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-29",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-29__session-01",
+      "mouse-29__session-03",
+      "mouse-29__session-05",
+      "mouse-29__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-29__session-01"
+      ],
+      "2": [
+       "mouse-29__session-01",
+       "mouse-29__session-03"
+      ],
+      "4": [
+       "mouse-29__session-01",
+       "mouse-29__session-03",
+       "mouse-29__session-05",
+       "mouse-29__session-07"
+      ],
+      "8": [
+       "mouse-29__session-01",
+       "mouse-29__session-03",
+       "mouse-29__session-05",
+       "mouse-29__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-30",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-30__session-01",
+      "mouse-30__session-03",
+      "mouse-30__session-05",
+      "mouse-30__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-30__session-01"
+      ],
+      "2": [
+       "mouse-30__session-01",
+       "mouse-30__session-03"
+      ],
+      "4": [
+       "mouse-30__session-01",
+       "mouse-30__session-03",
+       "mouse-30__session-05",
+       "mouse-30__session-07"
+      ],
+      "8": [
+       "mouse-30__session-01",
+       "mouse-30__session-03",
+       "mouse-30__session-05",
+       "mouse-30__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-31",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-31__session-01",
+      "mouse-31__session-03",
+      "mouse-31__session-05",
+      "mouse-31__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-31__session-01"
+      ],
+      "2": [
+       "mouse-31__session-01",
+       "mouse-31__session-03"
+      ],
+      "4": [
+       "mouse-31__session-01",
+       "mouse-31__session-03",
+       "mouse-31__session-05",
+       "mouse-31__session-07"
+      ],
+      "8": [
+       "mouse-31__session-01",
+       "mouse-31__session-03",
+       "mouse-31__session-05",
+       "mouse-31__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    },
+    {
+     "subject_id": "mouse-32",
+     "n_adapt_sessions": 4,
+     "n_test_sessions": 4,
+     "in_primary_cohort": true,
+     "in_k8_cohort": false,
+     "adapt_session_ids": [
+      "mouse-32__session-01",
+      "mouse-32__session-03",
+      "mouse-32__session-05",
+      "mouse-32__session-07"
+     ],
+     "adapt_session_ids_by_k": {
+      "1": [
+       "mouse-32__session-01"
+      ],
+      "2": [
+       "mouse-32__session-01",
+       "mouse-32__session-03"
+      ],
+      "4": [
+       "mouse-32__session-01",
+       "mouse-32__session-03",
+       "mouse-32__session-05",
+       "mouse-32__session-07"
+      ],
+      "8": [
+       "mouse-32__session-01",
+       "mouse-32__session-03",
+       "mouse-32__session-05",
+       "mouse-32__session-07"
+      ]
+     },
+     "test_session_ids": [
+      "session-02",
+      "session-04",
+      "session-06",
+      "session-08"
+     ]
+    }
+   ]
+  }
+ }
+}

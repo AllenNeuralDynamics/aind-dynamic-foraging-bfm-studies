@@ -41,12 +41,26 @@ DATASET_IDS = {
 }
 
 
+def _budget(value: str) -> int:
+    k = int(value)
+    if k < 1:
+        raise argparse.ArgumentTypeError("a subject-level Q fit needs K >= 1 adaptation sessions")
+    return k
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dataset", required=True, choices=DATASETS)
     parser.add_argument("--data-root", type=Path, required=True)
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument("--subject-workers", type=int, default=6)
+    parser.add_argument(
+        "--adapt-sessions-per-subject",
+        type=_budget,
+        default=None,
+        help="fit each subject on its first K adaptation sessions (K >= 1; Q has no zero-shot "
+        "condition); omit for the full matched adaptation half",
+    )
     parser.add_argument(
         "--subject-id",
         help="Optional one-subject execution used only for preflight smoke tests.",
@@ -63,7 +77,9 @@ def main() -> None:
     from data_loaders.external_bandit import ExternalBanditDatasetLoader
     from model_trainers.baseline_rl_trainer import BaselineRLTrainer
 
-    output_dir = args.output_root / args.dataset
+    k = args.adapt_sessions_per_subject
+    condition = "matched_half" if k is None else f"k{k}"
+    output_dir = args.output_root / (args.dataset if k is None else f"{args.dataset}-{condition}")
     output_dir.mkdir(parents=True, exist_ok=True)
     audit = json.loads((args.data_root / f"{args.dataset}.audit.json").read_text())
     config = {
@@ -79,7 +95,8 @@ def main() -> None:
         "target": {
             "dataset": args.dataset,
             "audit": audit,
-            "condition": "matched_half",
+            "condition": condition,
+            "adapt_sessions_per_subject": k,
             "subject_id": args.subject_id,
         },
         "seed": 0,
@@ -99,10 +116,10 @@ def main() -> None:
         entity="AIND-disRNN",
         project="gru_cross_species_transfer",
         group=os.environ.get("WANDB_RUN_GROUP"),
-        name=f"q-{args.dataset}-matched-half",
+        name=f"q-{args.dataset}-{condition.replace('_', '-')}",
         dir=str(output_dir),
         config=config,
-        tags=["external-transfer", "matched-half", "q-learning"],
+        tags=["external-transfer", condition.replace("_", "-"), "q-learning"],
     )
     loader = ExternalBanditDatasetLoader(
         file_path=args.data_root / f"{args.dataset}.parquet",
@@ -111,7 +128,7 @@ def main() -> None:
         subject_ids=[args.subject_id] if args.subject_id else None,
         batch_size=None,
         batch_mode="single",
-        adapt_sessions_per_subject=None,
+        adapt_sessions_per_subject=k,
         seed=0,
         train_example_sessions_per_subject=0,
         eval_example_sessions_per_subject=0,

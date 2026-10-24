@@ -1,0 +1,41 @@
+version: v2
+description: Study 09 adaptation-budget GRU transfer (dispatcher #166)
+tasks:
+  - name: study09-gru-adaptation-budget
+    image:
+      beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+    command:
+      - bash
+      - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+      - bash
+      - -c
+      - 'echo "Launcher-only template: use ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py" >&2; exit 2'
+    context:
+      priority: normal
+      preemptible: false
+    constraints:
+      cluster:   # both H200 hub pools; a task takes whichever frees first
+        - ai1/octo-hub-aws-h200
+        - ai1/octo-hub-onprem-h200
+    resources:
+      gpuCount: 1
+      cpuCount: 12
+      memory: 90GiB
+    datasets:
+      - mountPath: /external
+        source:
+          beaker: 01M1RC0MMA9SX0FF87S1V3YPTQ
+      - mountPath: /deps
+        source:
+          beaker: 01M1RDVWF18JF5QMEB618WJPSF
+    envVars:
+      - name: WANDB_API_KEY
+        secret: han-wandb-api-key
+      - name: WRAPPER_REF
+        value: 3d367ea8b3e974b3630c397a7222ccbcf812e6a3  # wrapper #105 merge: gru_transfer --adapt-sessions-per-subject
+      - name: DISPATCHER_REF
+        value: main
+      - name: FORAGING_MODELS_REF
+        value: 459c05c38332eb5c954e7cbca328f0a0fe370891
+    result:
+      path: /results
