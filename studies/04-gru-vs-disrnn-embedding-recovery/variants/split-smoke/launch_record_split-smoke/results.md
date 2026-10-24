@@ -2,7 +2,7 @@
 
 - W&B group: `split-smoke@20261024-091736`; run [`split-smoke-20261024-091736-b5db2ace`](https://wandb.ai/AIND-disRNN/embedding_recovery/runs/split-smoke-20261024-091736-b5db2ace)
 - W&B project: https://wandb.ai/AIND-disRNN/embedding_recovery
-- Beaker experiment: [`01M5QB871SP95ZRYBJPRXEKSSE`](https://beaker.org/ex/01M5QB871SP95ZRYBJPRXEKSSE) (`None`, normal, 1 GPU)
+- Beaker experiment: [`01M5QB871SP95ZRYBJPRXEKSSE`](https://beaker.org/ex/01M5QB871SP95ZRYBJPRXEKSSE) (`ai1/octo-hub-aws-l40s`, NVIDIA L40S, normal, 1 GPU)
 - Submitted 2026-10-24 09:17 PT; settled 09:22 PT
 - Status: success (1/1); W&B run `finished` at step 301
 - Provenance check (the point of this launch), W&B run config vs this launch record, all equal:
