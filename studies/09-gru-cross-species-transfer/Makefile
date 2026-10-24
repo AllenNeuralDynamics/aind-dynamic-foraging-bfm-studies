@@ -2,7 +2,10 @@ PYTHON ?= python
 CACHE_ROOT ?= data-cache
 DATA_ROOT ?= $(CACHE_ROOT)/canonical
 SOURCE_DIMENSION ?=
-PYTHONPATH := ../../code
+# external_bandit_datasets lives in the dispatcher, a sibling checkout (as the analysis scripts
+# assume); the pre-split ../../code no longer exists here.
+DISPATCHER_ROOT ?= ../../../aind-dynamic-foraging-bfm-dispatcher
+PYTHONPATH := $(DISPATCHER_ROOT)/code
 
 .PHONY: all suite rebuild validate smoke-loaders freeze-matched freeze-authors examples freeze-embeddings freeze-generalization freeze-task-design freeze-llm-task-similarity freeze-source-embedding-manifests freeze-embedding-dimension freeze-embedding-dimension-expansion freeze-adaptation-budget-cohort freeze-adaptation-budget r1 r2 r3 r4 r5 r6 r7
 
