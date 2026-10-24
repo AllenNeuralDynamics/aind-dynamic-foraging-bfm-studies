@@ -144,10 +144,13 @@ Merge it before the studies PR if the study depends on it.
 
 ## 6. Verify locally, then open PRs
 
+On Allen HPC never run these on the login node (AGENTS.md section 5); wrap each in
+`srun -n 1 -p aind ...` (`-n 1`: srun defaults to two tasks there, which run the command twice).
+
 ```bash
-python3 scripts/check_file_sizes.py
+python3 scripts/check_file_sizes.py --range origin/main..HEAD   # every incoming commit, as CI does
 python -m unittest discover -s tests -t .
-python scripts/check_regeneration.py --study <NN-study>        # on a compute node if heavy
+python scripts/check_regeneration.py --study <NN-study>
 ```
 
 Open the PRs against `main` here, in small pieces: shared helpers, then the study, then large
@@ -179,6 +182,6 @@ to launch when `studies/<NN-study>/` has uncommitted changes. Commit first, or p
 - [ ] No `/workspace/.../dispatcher/studies` command left in any sweep or experiment template
 - [ ] HPC scripts use `STUDIES_ROOT`; no `../../code` paths
 - [ ] `make all` runs offline; live pulls are `freeze-*` targets
-- [ ] `check_file_sizes.py`, unit tests and `check_regeneration.py --study` pass locally
+- [ ] `check_file_sizes.py --range origin/main..HEAD`, unit tests and `check_regeneration.py --study` pass (compute node on HPC)
 - [ ] Non-study changes in a separate dispatcher PR
 - [ ] Studies PRs opened in pieces; CHANGELOG notes the archive branch
