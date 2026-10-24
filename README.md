@@ -89,5 +89,7 @@ conventions are skills in the dispatcher's
 Work is tracked on the
 [AIND-behavior-fm project board](https://github.com/orgs/AllenNeuralDynamics/projects/184/).
 
-Large figures and large result JSONs are stored with git-LFS (`.gitattributes`); install
-`git lfs` before cloning if you need them locally.
+Everything is plain git; there is no git-LFS (declined in dispatcher #180). CI rejects any
+tracked file over 10 MiB outside the allowlist in `scripts/check_file_sizes.py`, because a
+large file merged into `main` stays in history for good. Raw data, caches and checkpoints
+belong in S3, a Beaker dataset or a W&B artifact, committed here only as an id plus digest.

@@ -14,13 +14,20 @@ on:
     branches: [main]
 
 jobs:
+  file-sizes:
+    # fast gate: a large file merged into main stays in history for good (main refuses force-push)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: No tracked file over 10 MiB outside the allowlist
+        run: python3 scripts/check_file_sizes.py
+
   regenerate:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-        with:
-          lfs: true   # figures and large result JSONs are LFS objects (.gitattributes)
 
       - uses: actions/setup-python@v5
         with:
