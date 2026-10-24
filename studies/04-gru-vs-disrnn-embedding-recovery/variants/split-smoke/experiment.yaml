@@ -1,0 +1,37 @@
+## split-smoke: one GPU task, synthetic data (no S3), so any hub pool works.
+## Image and paths per ../aind-dynamic-foraging-bfm-dispatcher/code/beaker/README.md (current image).
+version: v2
+description: Studies-repo split live smoke (dispatcher #175)
+tasks:
+  - name: split-smoke
+    image:
+      beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+    command:
+      - bash
+      - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+      - bash
+      - -c
+      - 'echo "Launcher-only template: use ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py" >&2; exit 2'
+    context:
+      priority: normal
+      preemptible: false
+    constraints:
+      cluster:   # hub pools only; whichever frees first
+        - ai1/octo-hub-aws-h200
+        - ai1/octo-hub-onprem-h200
+        - ai1/octo-hub-aws-l40s
+    resources:
+      gpuCount: 1
+      cpuCount: 8
+      memory: 60GiB
+    envVars:
+      - name: WANDB_API_KEY
+        secret: han-wandb-api-key
+      - name: WRAPPER_REF
+        value: main  # the launcher submits the resolved SHA
+      - name: DISPATCHER_REF
+        value: main
+      - name: FORAGING_MODELS_REF
+        value: main
+    result:
+      path: /results
