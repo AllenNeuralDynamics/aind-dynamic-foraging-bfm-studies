@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-24
+
+- Repo split (dispatcher #179): the GRU transfer runner now lives in the wrapper as
+  `python -m external_transfer.gru_transfer` (wrapper #104), because Beaker jobs have no
+  studies checkout; `run_gru_transfer.py` is removed. Each GRU sweep inlines its source
+  manifest verbatim, written by `sync_transfer_sweeps.py` (CI runs `--check`), so
+  `source.manifest` and `manifest_sha256` are unchanged. Launch records are untouched.
+- The four author-baseline runners stay here and run on HPC; their SLURM scripts now
+  require `STUDIES_ROOT` (a studies checkout) and record `studies_commit`.
+
 ## 2026-09-15
 
 - Added a Costa feedback-dependent RL launch variant with a fitted choice bias

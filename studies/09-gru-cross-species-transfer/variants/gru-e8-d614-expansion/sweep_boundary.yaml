@@ -3,12 +3,21 @@ project: gru_cross_species_transfer
 name: gru-e8-d614-expansion-boundary
 method: grid
 command:
-  - python
-  - /workspace/aind-dynamic-foraging-bfm-dispatcher/studies/09-gru-cross-species-transfer/run_gru_transfer.py
-  - --source-manifest=source_runs_e8.json
-  - ${args_no_hyphens}
+- python
+- -m
+- external_transfer.gru_transfer
+- --source-manifest-name=source_runs_e8.json
+- --source-manifest-json
+- "{\n  \"schema_version\": 1,\n  \"status\": \"complete\",\n  \"entity\": \"AIND-disRNN\",\n  \"project\": \"mice_data_scaling\",\n  \"group\": \"e4-e8-d614-source@20260906-195409\",\n  \"source_beaker_experiment_id\": \"01M1WWK9HP269XQS440Y29631F\",\n  \"architecture\": {\n    \"model\": \"gru\",\n    \"hidden_size\": 128,\n    \"subject_embedding_size\": 8\n  },\n  \"source_dispatcher_commit\": \"ab399a50a736add59fcc189d0ac14e2dc6687279\",\n  \"source_wrapper_commit\": \"9595dd371ab87de49c281d8ca4bb6ae8af7c32e4\",\n  \"source_foraging_models_commit\": \"faa0f5ad063e375765aa9c31c7d3fee5eca78ecf\",\n  \"checkpoint_policy\": \"best_eval\",\n  \"embedding_finetuning\": {\n    \"n_steps\": 500,\n    \"lr\": 0.001,\n    \"selection_policy\": \"fixed_final\"\n  },\n  \"runs\": {\n    \"e8-d614-s0\": {\n      \"nominal_D\": 614,\n      \"actual_n_source_subjects\": 614,\n      \"seed\": 0,\n      \"subject_embedding_size\": 8,\n      \"run_id\": \"e4-e8-d614-source-20260906-195409-4413e385\",\n      \"wandb_url\": \"https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/e4-e8-d614-source-20260906-195409-4413e385\",\n      \"artifact_id\": \"QXJ0aWZhY3Q6MzU1NDgxMjgwMw==\",\n      \"artifact_digest\": \"219c3741d6e0e74de1d4e2d0adbbc651\",\n      \"heldout_table_artifact_id\": \"QXJ0aWZhY3Q6MzU1NDkxMjcwNg==\",\n      \"heldout_table_artifact_digest\": \"0086432c807ee589fe1c9db8f7618816\",\n      \"beaker_job_id\": \"01M1WWK9ZRFQY79EK3R8KCV3PT\",\n      \"beaker_result_dataset_id\": \"01M1WWK9WG50PF4130CZ19QBGQ\",\n      \"heldout_final_eval_likelihood\": 0.7292184829711914,\n      \"heldout_final_train_likelihood\": 0.7272206544876099\n    },\n    \"e8-d614-s1\": {\n      \"nominal_D\": 614,\n      \"actual_n_source_subjects\": 614,\n      \"seed\": 1,\n      \"subject_embedding_size\": 8,\n      \"run_id\": \"e4-e8-d614-source-20260906-195409-849b588d\",\n      \"wandb_url\": \"https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/e4-e8-d614-source-20260906-195409-849b588d\",\n      \"artifact_id\": \"QXJ0aWZhY3Q6MzU1NDc3MjAwNA==\",\n      \"artifact_digest\": \"011c1f731c731ed6ed89f4daf27e589b\",\n      \"heldout_table_artifact_id\": \"QXJ0aWZhY3Q6MzU1NDg3MjcxMg==\",\n      \"heldout_table_artifact_digest\": \"9e5e3049b8e213af3f7ee120b4ece7dc\",\n      \"beaker_job_id\": \"01M1WWKA3EG8Q82CG7FE2QZXG5\",\n      \"beaker_result_dataset_id\": \"01M1WWK9ZYHJMT3AZJP49VKFFA\",\n      \"heldout_final_eval_likelihood\": 0.7291982173919678,\n      \"heldout_final_train_likelihood\": 0.7271100282669067\n    },\n    \"e8-d614-s2\": {\n      \"nominal_D\": 614,\n      \"actual_n_source_subjects\": 614,\n      \"seed\": 2,\n      \"subject_embedding_size\": 8,\n      \"run_id\": \"e4-e8-d614-source-20260906-195409-5c1c0d2c\",\n      \"wandb_url\": \"https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/e4-e8-d614-source-20260906-195409-5c1c0d2c\",\n      \"artifact_id\": \"QXJ0aWZhY3Q6MzU1NDcyNzQ0OA==\",\n      \"artifact_digest\": \"3d771b5b33bc2ac4cdb1f165230624c8\",\n      \"heldout_table_artifact_id\": \"QXJ0aWZhY3Q6MzU1NDgzMTUxMg==\",\n      \"heldout_table_artifact_digest\": \"1b80d333b83bb3333a1067edcab34ca3\",\n      \"beaker_job_id\": \"01M1WWKA7DMX90CCHQZ9GAY91B\",\n      \"beaker_result_dataset_id\": \"01M1WWKA3JMEA6B2BFN7GF11SQ\",\n      \"heldout_final_eval_likelihood\": 0.7291742563247681,\n      \"heldout_final_train_likelihood\": 0.7271637320518494\n    }\n  },\n  \"frozen_at_pt\": \"2026-09-07T07:09:41-07:00\"\n}\n"
+- ${args_no_hyphens}
 parameters:
   --dataset:
-    values: [lopez_mouse, alsio, costa]
+    values:
+    - lopez_mouse
+    - alsio
+    - costa
   --source-key:
-    values: [e8-d614-s0, e8-d614-s1, e8-d614-s2]
+    values:
+    - e8-d614-s0
+    - e8-d614-s1
+    - e8-d614-s2
