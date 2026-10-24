@@ -15,6 +15,7 @@ import wandb
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parents[1] / "util"))   # shared _meta (studies + source SHAs), ahead of the local copy
 from _meta import build_meta  # noqa: E402
 from nxd_scaling import (FROZEN, H128_GROUP, NXD_GROUPS, PROJECT, RATIO_D,  # noqa: E402
                          TARGET_HS, TARGET_RATIOS)
@@ -80,7 +81,7 @@ def collect_runs():
 
 def main():
     rows = collect_runs()
-    out = {"_meta": build_meta("analysis/freeze_nxd.py", [*NXD_GROUPS, H128_GROUP]), "runs": rows}
+    out = {"_meta": build_meta("analysis/freeze_nxd.py", [*NXD_GROUPS, H128_GROUP], study_root=HERE.parent), "runs": rows}
     FROZEN.write_text(json.dumps(out, indent=1) + "\n")
     print(f"wrote {FROZEN} ({len(rows)} runs)")
 

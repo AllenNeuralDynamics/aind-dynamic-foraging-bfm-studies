@@ -12,6 +12,7 @@ or the ``/allen`` CSV path and its sha256. The GRU side is ``per_subject_rows.js
 from __future__ import annotations
 import hashlib
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -19,8 +20,9 @@ import wandb
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parents[1] / "util"))   # shared _meta (studies + source SHAs), ahead of the local copy
 from _meta import build_meta  # noqa: E402
-from rl_baseline import LEGACY_BARI_RUN, PROJECT, RL_FROZEN, RL_MODELS  # noqa: E402
+from rl_baseline import LEGACY_BARI_GROUP, LEGACY_BARI_RUN, PROJECT, RL_FROZEN, RL_MODELS  # noqa: E402
 
 # Per-subject tables live in each run's output dir on /allen (authoritative; the study
 # README notes these are independent of W&B). Used when the W&B artifact API is
@@ -39,7 +41,10 @@ def _heldout_table_from_wandb(api, run_id):
     (the trainer logs it through a proxy that prefixes keys with `heldout/`). The
     legacy Bari-only run logged a single table, so a lone table is unambiguous.
     """
-    r = api.run(f"{PROJECT}/{run_id}")
+    # Not api.run(): it auto-loads the run's Sweep, and Sweep.get() fails in this wandb
+    # build ("Object of type Api is not JSON serializable"), which is what sent every
+    # pull to the /allen fallback. A filtered runs() query does not touch the sweep.
+    (r,) = api.runs(PROJECT, filters={"name": run_id})
     tables = [(a, e) for a in r.logged_artifacts() if a.type == "run_table"
               for e in a.manifest.entries]
     if not tables:
@@ -65,8 +70,22 @@ def _heldout_table_from_disk(run_id):
                                     "sha256": hashlib.sha256(csv.read_bytes()).hexdigest()}
 
 
+
+def _records(df):
+    """The table's rows, with a missing curriculum as null: the W&B table stores it as the
+    string "None" and the /allen CSV as NaN, and either would otherwise read differently."""
+    def missing(v):
+        return v is None or v == "None" or (isinstance(v, float) and math.isnan(v))
+    rows = df[COLUMNS].to_dict(orient="records")
+    for row in rows:
+        if missing(row["curriculum_name"]):
+            row["curriculum_name"] = None
+    return rows
+
 def main():
     api = wandb.Api()
+    declared = {m["run_id"]: m["group"] for m in RL_MODELS.values()}
+    declared[LEGACY_BARI_RUN] = LEGACY_BARI_GROUP
     runs = {}
     for run_id in [*(m["run_id"] for m in RL_MODELS.values()), LEGACY_BARI_RUN]:
         try:
@@ -75,13 +94,13 @@ def main():
         except Exception as exc:                       # W&B artifact API is flaky
             print(f"  {run_id}: W&B artifact pull failed ({type(exc).__name__}); "
                   f"falling back to run output dir on /allen")
-            df, group, origin = _heldout_table_from_disk(run_id)
-            source = "disk"
+            df, _, origin = _heldout_table_from_disk(run_id)
+            group, source = declared[run_id], "disk"   # the CSV carries no group
         runs[run_id] = {"group": group, "source": source, "origin": origin,
-                        "table": df[COLUMNS].to_dict(orient="records")}
+                        "table": _records(df)}
         print(f"  {run_id}: {len(df)} subjects [{source}]")
     groups = sorted({r["group"] for r in runs.values() if r["group"]})
-    out = {"_meta": build_meta("analysis/freeze_rl_baseline.py", groups), "runs": runs}
+    out = {"_meta": build_meta("analysis/freeze_rl_baseline.py", groups, study_root=HERE.parent), "runs": runs}
     RL_FROZEN.write_text(json.dumps(out, indent=1) + "\n")
     print(f"wrote {RL_FROZEN}")
 

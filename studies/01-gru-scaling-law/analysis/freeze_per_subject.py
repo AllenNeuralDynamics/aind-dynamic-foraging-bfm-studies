@@ -15,8 +15,9 @@ import wandb
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parents[1] / "util"))   # shared _meta (studies + source SHAs), ahead of the local copy
 from _meta import build_meta  # noqa: E402
-from build_report import FROZEN, GROUP_PREFIXES, PROJECT  # noqa: E402
+from build_report import FROZEN, PROJECT, WANDB_GROUPS  # noqa: E402
 
 
 def _variant(meta):  # 'v1' / 'v2' from meta.variant (strip -retry)
@@ -41,7 +42,7 @@ def collect_per_subject():
     rows = []  # variant, ratio, seed, subject, n_trials, ll
     sources = []  # one per kept run: its id and the immutable table artifact read
     runs = [r for r in api.runs(PROJECT)
-            if any((r.group or "").startswith(p) for p in GROUP_PREFIXES) and r.state == "finished"]
+            if r.group in WANDB_GROUPS and r.state == "finished"]
     groups = sorted({r.group for r in runs if r.group})
     # DEDUP: validation + mass-launch + retries can produce >1 offline run per
     # (variant, ratio, seed). Keep exactly one (the most recent) so seed-averaging
@@ -84,7 +85,7 @@ def collect_per_subject():
 
 def main():
     rows, groups, sources = collect_per_subject()
-    out = {"_meta": build_meta("analysis/freeze_per_subject.py", groups),
+    out = {"_meta": build_meta("analysis/freeze_per_subject.py", groups, study_root=HERE.parent),
            "sources": sources, "rows": rows}
     FROZEN.write_text(json.dumps(out, indent=1) + "\n")
     print(f"wrote {FROZEN} ({len(rows)} rows from {len(sources)} runs)")

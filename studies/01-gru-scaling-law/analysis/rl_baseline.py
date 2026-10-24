@@ -60,20 +60,20 @@ PROJECT = "AIND-disRNN/mice_data_scaling"
 # agent re-fit in the 2026-07-13 suite and should land within DE noise of it.
 RL_MODELS = {
     "ctt": dict(
-        run_id="lmg1i9yd", group="rl-baseline-ctt@20260713-010000",
+        run_id="lmg1i9yd", group="rl-baseline-ctt@20260713-010305",
         label="Compare-to-threshold",
         agent="ForagerCompareThreshold (local income vs learned threshold)",
         params="learn_rate, threshold, softmax_inverse_temperature, biasL",
     ),
     "bari": dict(
-        run_id="bg3nzqz9", group="rl-baseline-bari@20260713-005938",
+        run_id="bg3nzqz9", group="rl-baseline-bari@20260713-010244",
         label="Bari (L1F1_CK1)",
         agent="ForagerQLearning — 1 learn-rate, 1 forget-rate, 1-step choice kernel, softmax",
         params=("learn_rate, forget_rate_unchosen, choice_kernel_relative_weight, "
                 "choice_kernel_step_size, biasL, softmax_inverse_temperature"),
     ),
     "hattori": dict(
-        run_id="unhmbrk4", group="rl-baseline-hattori@20260713-005950",
+        run_id="unhmbrk4", group="rl-baseline-hattori@20260713-010255",
         label="Hattori (L2F1)",
         agent="ForagerQLearning — 2 learn-rates (asymmetric α+/α−), 1 forget-rate, no choice kernel, softmax",
         params="learn_rate_rew, learn_rate_unrew, forget_rate_unchosen, biasL, softmax_inverse_temperature",
@@ -82,6 +82,7 @@ RL_MODELS = {
 
 # The Bari-only predecessor. Reported in r8 purely as a reproduction check.
 LEGACY_BARI_RUN = "cdq292n5"
+LEGACY_BARI_GROUP = "rl-baseline-simple@20260624-171829"
 
 # Which model backs the RL reference band on Results 1/4/5/7. Kept as `bari` so those
 # four figures keep the same reference they were written against; r8 reports the
@@ -592,7 +593,7 @@ def main():
             "analysis/rl_baseline.py",
             [*gru_groups,
              *[m["group"] or RL_MODELS[k]["group"] for k, m in models.items()],
-             legacy["group"] or "rl-baseline-simple@20260624-171829"],
+             legacy["group"] or LEGACY_BARI_GROUP],
         ),
         "rl": rl,
         "gru_vs_rl_paired": paired,

@@ -32,7 +32,7 @@ from wandb_keys import SWITCH_CORR_OVERALL, switch_corr, switch_mse
 
 HERE = Path(__file__).parent
 PROJECT = "AIND-disRNN/mice_data_scaling"
-PREFIXES = ("generative-v1@", "generative-v2@")
+WANDB_GROUPS = ["generative-v1@20260623-180747", "generative-v2@20260623-180750"]  # pinned; freeze_generative.py reads only these
 DLAB = {0.016: 10, 0.049: 30, 0.163: 100, 0.489: 300, 1.0: 614}
 
 # RL baselines: rolled out generatively under study 05 (variants/generative-rl-baseline), same

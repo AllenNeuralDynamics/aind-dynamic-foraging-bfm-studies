@@ -1,1058 +1,1072 @@
 {
  "_meta": {
   "produced_by": "analysis/freeze_rl_baseline.py",
-  "produced_at_pt": "2026-10-24T02:34:12-07:00",
-  "dispatcher_git_sha": "e3eb90d604aef6081295164e338f80771273a773",
+  "produced_at_pt": "2026-10-24T03:14:11-07:00",
+  "studies_git_sha": "d8d51147a83ec379b350fa44ad9b9a5caf13de62",
+  "studies_git_dirty": true,
   "wrapper_git_sha": "870e6ddd56c0bfba4d2a314b63af0e056ef0153c",
-  "wandb_groups": []
+  "wandb_groups": [
+   "rl-baseline-bari@20260713-010244",
+   "rl-baseline-ctt@20260713-010305",
+   "rl-baseline-hattori@20260713-010255",
+   "rl-baseline-simple@20260624-171829"
+  ],
+  "source_studies_git_shas": [],
+  "source_dispatcher_git_shas": [],
+  "source_wrapper_git_shas": [],
+  "source_foraging_models_git_shas": [],
+  "provenance_findings": [
+   "no launch record found for W&B group(s): rl-baseline-bari@20260713-010244, rl-baseline-ctt@20260713-010305, rl-baseline-hattori@20260713-010255, rl-baseline-simple@20260624-171829"
+  ]
  },
  "runs": {
   "lmg1i9yd": {
-   "group": null,
-   "source": "disk",
+   "group": "rl-baseline-ctt@20260713-010305",
+   "source": "wandb",
    "origin": {
-    "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20260713_010429-lmg1i9yd/files/outputs/heldout_test/subject_fit_metrics.csv",
-    "sha256": "71243235830e52d0d5c458951bb7d28a2d60c8782148cd1cf01e60fc0b7d1424"
+    "artifact": "AIND-disRNN/mice_data_scaling/run-lmg1i9yd-heldoutsubject_fit_metrics-CURqUw:v0",
+    "artifact_digest": "fccc0c53e7cec31bcbcef5c21fd69113",
+    "entry": "heldout/subject_fit_metrics.table.json"
    },
    "table": [
     {
-     "subject_id": 452275,
+     "subject_id": "452275",
      "eval_likelihood": 0.5290646504626739,
-     "eval_total_log_likelihood": -9616.51731735474,
+     "eval_total_log_likelihood": -9616.517317354741,
      "eval_total_trials": 15105,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 700708,
+     "subject_id": "700708",
      "eval_likelihood": 0.6960341978635066,
      "eval_total_log_likelihood": -3548.9194140257027,
      "eval_total_trials": 9794,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 455525,
+     "subject_id": "455525",
      "eval_likelihood": 0.584253129771584,
      "eval_total_log_likelihood": -6926.281186494991,
      "eval_total_trials": 12888,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 656489,
+     "subject_id": "656489",
      "eval_likelihood": 0.6491326404692372,
      "eval_total_log_likelihood": -8257.346807513215,
      "eval_total_trials": 19109,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 641494,
+     "subject_id": "641494",
      "eval_likelihood": 0.6909522385436323,
      "eval_total_log_likelihood": -6482.788741085858,
      "eval_total_trials": 17536,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 639875,
+     "subject_id": "639875",
      "eval_likelihood": 0.7184207697908629,
      "eval_total_log_likelihood": -4901.633194979219,
      "eval_total_trials": 14822,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 472184,
+     "subject_id": "472184",
      "eval_likelihood": 0.5756153618894315,
      "eval_total_log_likelihood": -9042.511262605478,
      "eval_total_trials": 16372,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 643773,
+     "subject_id": "643773",
      "eval_likelihood": 0.6399185170196896,
      "eval_total_log_likelihood": -7188.611532323487,
      "eval_total_trials": 16103,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 659778,
+     "subject_id": "659778",
      "eval_likelihood": 0.6186716687044151,
      "eval_total_log_likelihood": -3605.195713151619,
      "eval_total_trials": 7508,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 627042,
+     "subject_id": "627042",
      "eval_likelihood": 0.6229072826307815,
      "eval_total_log_likelihood": -5593.193346037816,
      "eval_total_trials": 11816,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 684039,
+     "subject_id": "684039",
      "eval_likelihood": 0.7429658954507924,
      "eval_total_log_likelihood": -1326.8715394339856,
      "eval_total_trials": 4466,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453476,
+     "subject_id": "453476",
      "eval_likelihood": 0.5937721175415193,
      "eval_total_log_likelihood": -4395.782828572084,
      "eval_total_trials": 8433,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453478,
+     "subject_id": "453478",
      "eval_likelihood": 0.6138467394252217,
      "eval_total_log_likelihood": -3041.2782704519345,
      "eval_total_trials": 6232,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 699982,
+     "subject_id": "699982",
      "eval_likelihood": 0.7846875097486534,
      "eval_total_log_likelihood": -1151.0037475798276,
      "eval_total_trials": 4747,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 663373,
+     "subject_id": "663373",
      "eval_likelihood": 0.7634180280469858,
      "eval_total_log_likelihood": -1968.471925241917,
      "eval_total_trials": 7292,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 616134,
+     "subject_id": "616134",
      "eval_likelihood": 0.6095077991046265,
      "eval_total_log_likelihood": -2913.6842989836264,
      "eval_total_trials": 5885,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 722989,
+     "subject_id": "722989",
      "eval_likelihood": 0.607404038812485,
      "eval_total_log_likelihood": -1903.506192165633,
      "eval_total_trials": 3818,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 494693,
+     "subject_id": "494693",
      "eval_likelihood": 0.5634212889014919,
      "eval_total_log_likelihood": -2658.0801458168303,
      "eval_total_trials": 4633,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 673396,
+     "subject_id": "673396",
      "eval_likelihood": 0.642795198986191,
      "eval_total_log_likelihood": -1916.204638539348,
      "eval_total_trials": 4336,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 648586,
+     "subject_id": "648586",
      "eval_likelihood": 0.7581334041242139,
      "eval_total_log_likelihood": -1778.5024552252053,
      "eval_total_trials": 6423,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 682342,
+     "subject_id": "682342",
      "eval_likelihood": 0.6991138083140801,
      "eval_total_log_likelihood": -770.2906117862674,
      "eval_total_trials": 2152,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697929,
+     "subject_id": "697929",
      "eval_likelihood": 0.6208311039785974,
      "eval_total_log_likelihood": -1555.4597277153234,
      "eval_total_trials": 3263,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 671245,
+     "subject_id": "671245",
      "eval_likelihood": 0.6990598322518647,
      "eval_total_log_likelihood": -670.9275000903082,
      "eval_total_trials": 1874,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697930,
+     "subject_id": "697930",
      "eval_likelihood": 0.7568221430607011,
      "eval_total_log_likelihood": -401.5015111376313,
      "eval_total_trials": 1441,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 637701,
+     "subject_id": "637701",
      "eval_likelihood": 0.5608573648668166,
      "eval_total_log_likelihood": -2427.077494944763,
      "eval_total_trials": 4197,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 710414,
+     "subject_id": "710414",
      "eval_likelihood": 0.7538667433116647,
      "eval_total_log_likelihood": -782.6348570967137,
      "eval_total_trials": 2770,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 655100,
+     "subject_id": "655100",
      "eval_likelihood": 0.6270200390079671,
-     "eval_total_log_likelihood": -948.0236375795736,
+     "eval_total_log_likelihood": -948.0236375795735,
      "eval_total_trials": 2031,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 652743,
+     "subject_id": "652743",
      "eval_likelihood": 0.6981541176731647,
      "eval_total_log_likelihood": -1191.1305564153126,
      "eval_total_trials": 3315,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 713379,
+     "subject_id": "713379",
      "eval_likelihood": 0.6074475872425091,
      "eval_total_log_likelihood": -7447.431391483773,
      "eval_total_trials": 14940,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 791174,
+     "subject_id": "791174",
      "eval_likelihood": 0.7045797601007419,
      "eval_total_log_likelihood": -6097.57720855381,
      "eval_total_trials": 17414,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765365,
+     "subject_id": "765365",
      "eval_likelihood": 0.7594729990365897,
      "eval_total_log_likelihood": -2678.6706312475944,
      "eval_total_trials": 9736,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 808584,
+     "subject_id": "808584",
      "eval_likelihood": 0.7099167089022018,
      "eval_total_log_likelihood": -3239.012507866895,
      "eval_total_trials": 9454,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813992,
+     "subject_id": "813992",
      "eval_likelihood": 0.7800515960233465,
      "eval_total_log_likelihood": -2143.650685931973,
      "eval_total_trials": 8630,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823166,
+     "subject_id": "823166",
      "eval_likelihood": 0.6800958996575152,
      "eval_total_log_likelihood": -4556.09263611394,
      "eval_total_trials": 11818,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780621,
+     "subject_id": "780621",
      "eval_likelihood": 0.7525616737009276,
      "eval_total_log_likelihood": -2751.756128370137,
      "eval_total_trials": 9680,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 815334,
+     "subject_id": "815334",
      "eval_likelihood": 0.6720552993889495,
      "eval_total_log_likelihood": -3533.41366281737,
      "eval_total_trials": 8891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 788733,
+     "subject_id": "788733",
      "eval_likelihood": 0.7892409392570947,
      "eval_total_log_likelihood": -2107.1943739480644,
      "eval_total_trials": 8903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 810756,
+     "subject_id": "810756",
      "eval_likelihood": 0.7330844990789748,
      "eval_total_log_likelihood": -3204.301230938187,
      "eval_total_trials": 10320,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829489,
+     "subject_id": "829489",
      "eval_likelihood": 0.6697211525846597,
      "eval_total_log_likelihood": -3283.320577449622,
      "eval_total_trials": 8190,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 821576,
+     "subject_id": "821576",
      "eval_likelihood": 0.7397825334872827,
      "eval_total_log_likelihood": -2993.4949637353734,
      "eval_total_trials": 9932,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818908,
+     "subject_id": "818908",
      "eval_likelihood": 0.627483039678889,
      "eval_total_log_likelihood": -2865.205538687657,
      "eval_total_trials": 6148,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766998,
+     "subject_id": "766998",
      "eval_likelihood": 0.7293782024767339,
      "eval_total_log_likelihood": -2940.7305275268945,
      "eval_total_trials": 9319,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 788732,
+     "subject_id": "788732",
      "eval_likelihood": 0.81195452454795,
      "eval_total_log_likelihood": -2181.223901325951,
      "eval_total_trials": 10471,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 813167,
+     "subject_id": "813167",
      "eval_likelihood": 0.7944554671941452,
      "eval_total_log_likelihood": -1669.5935981168698,
      "eval_total_trials": 7256,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767463,
+     "subject_id": "767463",
      "eval_likelihood": 0.7088229968993398,
      "eval_total_log_likelihood": -2738.7412067713603,
      "eval_total_trials": 7958,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 793397,
+     "subject_id": "793397",
      "eval_likelihood": 0.7372367667985634,
      "eval_total_log_likelihood": -2865.2492538690312,
      "eval_total_trials": 9399,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 809488,
+     "subject_id": "809488",
      "eval_likelihood": 0.7279151191876658,
-     "eval_total_log_likelihood": -2423.383019797512,
+     "eval_total_log_likelihood": -2423.3830197975117,
      "eval_total_trials": 7631,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 721403,
+     "subject_id": "721403",
      "eval_likelihood": 0.7622613890519849,
      "eval_total_log_likelihood": -1696.932414907913,
      "eval_total_trials": 6251,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781897,
+     "subject_id": "781897",
      "eval_likelihood": 0.693243186356621,
      "eval_total_log_likelihood": -2865.414362956581,
      "eval_total_trials": 7821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 800175,
+     "subject_id": "800175",
      "eval_likelihood": 0.7318610867932631,
      "eval_total_log_likelihood": -2722.0749210840345,
      "eval_total_trials": 8720,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 818585,
+     "subject_id": "818585",
      "eval_likelihood": 0.7872058659913073,
      "eval_total_log_likelihood": -2091.6588397560618,
      "eval_total_trials": 8742,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 784956,
+     "subject_id": "784956",
      "eval_likelihood": 0.7632785619489884,
      "eval_total_log_likelihood": -1779.9012409460286,
      "eval_total_trials": 6589,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765232,
+     "subject_id": "765232",
      "eval_likelihood": 0.6553672238709285,
      "eval_total_log_likelihood": -3045.809260327549,
      "eval_total_trials": 7208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 797673,
+     "subject_id": "797673",
      "eval_likelihood": 0.6964317139795659,
-     "eval_total_log_likelihood": -1971.0075796150184,
+     "eval_total_log_likelihood": -1971.0075796150186,
      "eval_total_trials": 5448,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813171,
+     "subject_id": "813171",
      "eval_likelihood": 0.733569014311949,
      "eval_total_log_likelihood": -1686.424267293597,
      "eval_total_trials": 5443,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 722683,
+     "subject_id": "722683",
      "eval_likelihood": 0.6692390804351923,
      "eval_total_log_likelihood": -1631.3557139439847,
      "eval_total_trials": 4062,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 795395,
+     "subject_id": "795395",
      "eval_likelihood": 0.7528183230904428,
      "eval_total_log_likelihood": -2593.428960846462,
      "eval_total_trials": 9134,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 820243,
+     "subject_id": "820243",
      "eval_likelihood": 0.7977152287530963,
      "eval_total_log_likelihood": -1329.3531835511533,
      "eval_total_trials": 5882,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 763704,
+     "subject_id": "763704",
      "eval_likelihood": 0.5784648588052685,
      "eval_total_log_likelihood": -3591.8910208749867,
      "eval_total_trials": 6562,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778103,
+     "subject_id": "778103",
      "eval_likelihood": 0.6784141618578342,
-     "eval_total_log_likelihood": -2408.6873584768077,
+     "eval_total_log_likelihood": -2408.6873584768073,
      "eval_total_trials": 6208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 812307,
+     "subject_id": "812307",
      "eval_likelihood": 0.7550729317376467,
      "eval_total_log_likelihood": -2320.8530728777523,
      "eval_total_trials": 8261,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 726649,
+     "subject_id": "726649",
      "eval_likelihood": 0.7022345174201844,
      "eval_total_log_likelihood": -1448.2397638387667,
      "eval_total_trials": 4097,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 757214,
+     "subject_id": "757214",
      "eval_likelihood": 0.6503820765208747,
      "eval_total_log_likelihood": -2575.579133894127,
      "eval_total_trials": 5987,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 814147,
+     "subject_id": "814147",
      "eval_likelihood": 0.755453587596971,
-     "eval_total_log_likelihood": -1667.7584337357257,
+     "eval_total_log_likelihood": -1667.7584337357255,
      "eval_total_trials": 5947,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841356,
+     "subject_id": "841356",
      "eval_likelihood": 0.7098042524487934,
      "eval_total_log_likelihood": -2555.6636519164035,
      "eval_total_trials": 7456,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781896,
+     "subject_id": "781896",
      "eval_likelihood": 0.7853866980209641,
      "eval_total_log_likelihood": -1931.424693014499,
      "eval_total_trials": 7995,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841599,
+     "subject_id": "841599",
      "eval_likelihood": 0.777901020480678,
      "eval_total_log_likelihood": -1778.6866923550526,
      "eval_total_trials": 7082,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 745505,
+     "subject_id": "745505",
      "eval_likelihood": 0.6694404954216838,
      "eval_total_log_likelihood": -2281.865700555697,
      "eval_total_trials": 5686,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 764693,
+     "subject_id": "764693",
      "eval_likelihood": 0.6359618342741474,
      "eval_total_log_likelihood": -2959.208157500941,
      "eval_total_trials": 6538,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777098,
+     "subject_id": "777098",
      "eval_likelihood": 0.7206933131199463,
      "eval_total_log_likelihood": -1545.0137055377036,
      "eval_total_trials": 4717,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 807885,
+     "subject_id": "807885",
      "eval_likelihood": 0.6912741853034814,
      "eval_total_log_likelihood": -2063.5635321415903,
      "eval_total_trials": 5589,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841363,
+     "subject_id": "841363",
      "eval_likelihood": 0.7316960430678617,
      "eval_total_log_likelihood": -2176.1093876158507,
      "eval_total_trials": 6966,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 769359,
+     "subject_id": "769359",
      "eval_likelihood": 0.7969995384510492,
      "eval_total_log_likelihood": -1125.8836516862657,
      "eval_total_trials": 4962,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 802292,
+     "subject_id": "802292",
      "eval_likelihood": 0.7191305238674555,
      "eval_total_log_likelihood": -2599.782293358042,
      "eval_total_trials": 7885,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835178,
+     "subject_id": "835178",
      "eval_likelihood": 0.7349456135891722,
      "eval_total_log_likelihood": -1221.9804296114232,
      "eval_total_trials": 3968,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 770803,
+     "subject_id": "770803",
      "eval_likelihood": 0.6788079979555381,
      "eval_total_log_likelihood": -2567.0247981600537,
      "eval_total_trials": 6626,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790584,
+     "subject_id": "790584",
      "eval_likelihood": 0.7608335425581605,
      "eval_total_log_likelihood": -2047.8683759599903,
      "eval_total_trials": 7492,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 810758,
+     "subject_id": "810758",
      "eval_likelihood": 0.805885358368363,
-     "eval_total_log_likelihood": -1392.6463343870323,
+     "eval_total_log_likelihood": -1392.6463343870325,
      "eval_total_trials": 6453,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 839483,
+     "subject_id": "839483",
      "eval_likelihood": 0.7261696121074189,
      "eval_total_log_likelihood": -2120.7722019246457,
      "eval_total_trials": 6628,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798520,
+     "subject_id": "798520",
      "eval_likelihood": 0.7126246388686497,
-     "eval_total_log_likelihood": -2026.0266933479384,
+     "eval_total_log_likelihood": -2026.0266933479386,
      "eval_total_trials": 5980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 832634,
+     "subject_id": "832634",
      "eval_likelihood": 0.7329516558470694,
      "eval_total_log_likelihood": -1457.068250212974,
      "eval_total_trials": 4690,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767462,
+     "subject_id": "767462",
      "eval_likelihood": 0.7715857068829588,
-     "eval_total_log_likelihood": -1827.5994159043917,
+     "eval_total_log_likelihood": -1827.5994159043914,
      "eval_total_trials": 7048,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777027,
+     "subject_id": "777027",
      "eval_likelihood": 0.6344401537518995,
      "eval_total_log_likelihood": -2498.017618156575,
      "eval_total_trials": 5490,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813165,
+     "subject_id": "813165",
      "eval_likelihood": 0.7384335233433393,
      "eval_total_log_likelihood": -1603.146328728004,
      "eval_total_trials": 5287,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823161,
+     "subject_id": "823161",
      "eval_likelihood": 0.7738029036654201,
      "eval_total_log_likelihood": -1661.2059097548015,
      "eval_total_trials": 6478,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 711254,
+     "subject_id": "711254",
      "eval_likelihood": 0.8144147889274573,
      "eval_total_log_likelihood": -868.152269794209,
      "eval_total_trials": 4229,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 802953,
+     "subject_id": "802953",
      "eval_likelihood": 0.7676788405772144,
-     "eval_total_log_likelihood": -1122.838039482992,
+     "eval_total_log_likelihood": -1122.8380394829921,
      "eval_total_trials": 4247,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823163,
+     "subject_id": "823163",
      "eval_likelihood": 0.7212542986302163,
      "eval_total_log_likelihood": -2210.555085651947,
      "eval_total_trials": 6765,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 838332,
+     "subject_id": "838332",
      "eval_likelihood": 0.8063102084594207,
      "eval_total_log_likelihood": -1300.1166017318556,
      "eval_total_trials": 6039,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736198,
+     "subject_id": "736198",
      "eval_likelihood": 0.6891265900243932,
-     "eval_total_log_likelihood": -1945.0534598567333,
+     "eval_total_log_likelihood": -1945.0534598567335,
      "eval_total_trials": 5224,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 787625,
+     "subject_id": "787625",
      "eval_likelihood": 0.7201754605792612,
      "eval_total_log_likelihood": -1281.2003467107477,
      "eval_total_trials": 3903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 805496,
+     "subject_id": "805496",
      "eval_likelihood": 0.684951892899845,
      "eval_total_log_likelihood": -2069.506092063286,
      "eval_total_trials": 5469,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829569,
+     "subject_id": "829569",
      "eval_likelihood": 0.6434859355097978,
      "eval_total_log_likelihood": -2204.2755421221864,
      "eval_total_trials": 5000,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 753122,
+     "subject_id": "753122",
      "eval_likelihood": 0.7827527153381757,
      "eval_total_log_likelihood": -1230.8157102912353,
      "eval_total_trials": 5025,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780618,
+     "subject_id": "780618",
      "eval_likelihood": 0.7412865275200583,
      "eval_total_log_likelihood": -1695.0219082218796,
      "eval_total_trials": 5662,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 812305,
+     "subject_id": "812305",
      "eval_likelihood": 0.7660454925882648,
      "eval_total_log_likelihood": -1577.7612295225763,
      "eval_total_trials": 5920,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835444,
+     "subject_id": "835444",
      "eval_likelihood": 0.777698993784183,
      "eval_total_log_likelihood": -1522.0708119694084,
      "eval_total_trials": 6054,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766556,
+     "subject_id": "766556",
      "eval_likelihood": 0.7591567362527106,
      "eval_total_log_likelihood": -1529.0104099774312,
      "eval_total_trials": 5549,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798664,
+     "subject_id": "798664",
      "eval_likelihood": 0.73357465834022,
      "eval_total_log_likelihood": -1343.0952890012502,
      "eval_total_trials": 4335,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 819169,
+     "subject_id": "819169",
      "eval_likelihood": 0.7031207135329184,
-     "eval_total_log_likelihood": -1791.0727182262815,
+     "eval_total_log_likelihood": -1791.0727182262817,
      "eval_total_trials": 5085,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 712031,
+     "subject_id": "712031",
      "eval_likelihood": 0.7030121426349314,
      "eval_total_log_likelihood": -1274.914873074045,
      "eval_total_trials": 3618,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 838101,
+     "subject_id": "838101",
      "eval_likelihood": 0.7026052505362055,
      "eval_total_log_likelihood": -2054.5805451710085,
      "eval_total_trials": 5821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736199,
+     "subject_id": "736199",
      "eval_likelihood": 0.6940244439213874,
      "eval_total_log_likelihood": -1616.9533267774807,
      "eval_total_trials": 4427,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765373,
+     "subject_id": "765373",
      "eval_likelihood": 0.7383836087263312,
      "eval_total_log_likelihood": -1389.683001969082,
      "eval_total_trials": 4582,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777271,
+     "subject_id": "777271",
      "eval_likelihood": 0.7274178230967581,
      "eval_total_log_likelihood": -1241.509806855603,
      "eval_total_trials": 3901,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790726,
+     "subject_id": "790726",
      "eval_likelihood": 0.7565323930489838,
      "eval_total_log_likelihood": -1130.2692144468565,
      "eval_total_trials": 4051,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829048,
+     "subject_id": "829048",
      "eval_likelihood": 0.7045327079747404,
      "eval_total_log_likelihood": -1012.4875276668946,
      "eval_total_trials": 2891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 756567,
+     "subject_id": "756567",
      "eval_likelihood": 0.718246659518299,
      "eval_total_log_likelihood": -1317.1500833426876,
      "eval_total_trials": 3980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778336,
+     "subject_id": "778336",
      "eval_likelihood": 0.7899918330624212,
      "eval_total_log_likelihood": -1159.569010961794,
      "eval_total_trials": 4919,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 826160,
+     "subject_id": "826160",
      "eval_likelihood": 0.8039021754410552,
      "eval_total_log_likelihood": -840.150827050414,
      "eval_total_trials": 3849,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 762611,
+     "subject_id": "762611",
      "eval_likelihood": 0.7372501901550326,
      "eval_total_log_likelihood": -1130.606953199733,
      "eval_total_trials": 3709,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 837689,
+     "subject_id": "837689",
      "eval_likelihood": 0.7503931144819604,
-     "eval_total_log_likelihood": -919.1929408705088,
+     "eval_total_log_likelihood": -919.1929408705087,
      "eval_total_trials": 3201,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 850597,
+     "subject_id": "850597",
      "eval_likelihood": 0.7357815508151474,
      "eval_total_log_likelihood": -968.0234423909552,
      "eval_total_trials": 3155,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751920,
+     "subject_id": "751920",
      "eval_likelihood": 0.6854991252764747,
      "eval_total_log_likelihood": -1080.7142563229957,
      "eval_total_trials": 2862,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 774826,
+     "subject_id": "774826",
      "eval_likelihood": 0.6516744427745096,
      "eval_total_log_likelihood": -1292.7664810574609,
      "eval_total_trials": 3019,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818020,
+     "subject_id": "818020",
      "eval_likelihood": 0.7274730137800588,
-     "eval_total_log_likelihood": -917.6264337448696,
+     "eval_total_log_likelihood": -917.6264337448695,
      "eval_total_trials": 2884,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 747886,
+     "subject_id": "747886",
      "eval_likelihood": 0.723474445787723,
-     "eval_total_log_likelihood": -1099.575112759053,
+     "eval_total_log_likelihood": -1099.5751127590527,
      "eval_total_trials": 3397,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 845710,
+     "subject_id": "845710",
      "eval_likelihood": 0.7628413667310852,
-     "eval_total_log_likelihood": -953.4236320278424,
+     "eval_total_log_likelihood": -953.4236320278425,
      "eval_total_trials": 3522,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751153,
+     "subject_id": "751153",
      "eval_likelihood": 0.7309995046422147,
      "eval_total_log_likelihood": -753.2753624913878,
      "eval_total_trials": 2404,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 776259,
+     "subject_id": "776259",
      "eval_likelihood": 0.7091040073115449,
      "eval_total_log_likelihood": -1082.4784093175854,
      "eval_total_trials": 3149,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 814196,
+     "subject_id": "814196",
      "eval_likelihood": 0.6986308394113153,
      "eval_total_log_likelihood": -895.8647418757348,
      "eval_total_trials": 2498,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 668551,
+     "subject_id": "668551",
      "eval_likelihood": 0.8480262156923352,
      "eval_total_log_likelihood": -2201.4879999477207,
      "eval_total_trials": 13355,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 790768,
+     "subject_id": "790768",
      "eval_likelihood": 0.7685186702455707,
      "eval_total_log_likelihood": -3681.5899694230807,
      "eval_total_trials": 13983,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 746346,
+     "subject_id": "746346",
      "eval_likelihood": 0.810631291205908,
-     "eval_total_log_likelihood": -1920.9689615327557,
+     "eval_total_log_likelihood": -1920.9689615327554,
      "eval_total_trials": 9150,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 727456,
+     "subject_id": "727456",
      "eval_likelihood": 0.754514273137762,
      "eval_total_log_likelihood": -2809.487127895147,
      "eval_total_trials": 9974,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 775741,
+     "subject_id": "775741",
      "eval_likelihood": 0.7888499910660984,
      "eval_total_log_likelihood": -2325.541091226205,
      "eval_total_trials": 9805,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 651554,
+     "subject_id": "651554",
      "eval_likelihood": 0.7801567732222694,
      "eval_total_log_likelihood": -2914.8252176677,
      "eval_total_trials": 11741,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 708299,
+     "subject_id": "708299",
      "eval_likelihood": 0.7969855650613691,
      "eval_total_log_likelihood": -1525.120663000469,
      "eval_total_trials": 6721,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 651475,
+     "subject_id": "651475",
      "eval_likelihood": 0.8715852292723731,
      "eval_total_log_likelihood": -1961.017073208733,
      "eval_total_trials": 14268,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 781162,
+     "subject_id": "781162",
      "eval_likelihood": 0.7428281647003763,
      "eval_total_log_likelihood": -2676.209380640487,
      "eval_total_trials": 9002,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 751765,
+     "subject_id": "751765",
      "eval_likelihood": 0.6573073758388918,
      "eval_total_log_likelihood": -4023.578175874443,
      "eval_total_trials": 9589,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 713862,
+     "subject_id": "713862",
      "eval_likelihood": 0.7700873216727333,
      "eval_total_log_likelihood": -2189.808948089153,
      "eval_total_trials": 8382,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 716324,
+     "subject_id": "716324",
      "eval_likelihood": 0.7149888065580983,
      "eval_total_log_likelihood": -1990.1171388179864,
      "eval_total_trials": 5932,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 711041,
+     "subject_id": "711041",
      "eval_likelihood": 0.7906074223171053,
      "eval_total_log_likelihood": -1897.4864038830187,
      "eval_total_trials": 8076,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 786234,
+     "subject_id": "786234",
      "eval_likelihood": 0.7781529008041437,
      "eval_total_log_likelihood": -1555.410742047475,
      "eval_total_trials": 6201,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 775745,
+     "subject_id": "775745",
      "eval_likelihood": 0.7737825471545792,
-     "eval_total_log_likelihood": -2021.1958709409864,
+     "eval_total_log_likelihood": -2021.1958709409862,
      "eval_total_trials": 7881,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 781369,
+     "subject_id": "781369",
      "eval_likelihood": 0.802263753564941,
      "eval_total_log_likelihood": -1679.9236474228185,
      "eval_total_trials": 7625,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711281,
+     "subject_id": "711281",
      "eval_likelihood": 0.8067106696778656,
      "eval_total_log_likelihood": -1104.880792914329,
      "eval_total_trials": 5144,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711039,
+     "subject_id": "711039",
      "eval_likelihood": 0.7787162748017505,
      "eval_total_log_likelihood": -1747.7583143772822,
      "eval_total_trials": 6988,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 761406,
+     "subject_id": "761406",
      "eval_likelihood": 0.767377051121319,
      "eval_total_log_likelihood": -1629.4376969668092,
      "eval_total_trials": 6154,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 744779,
+     "subject_id": "744779",
      "eval_likelihood": 0.807309084396375,
      "eval_total_log_likelihood": -1280.2251540688192,
      "eval_total_trials": 5981,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 785951,
+     "subject_id": "785951",
      "eval_likelihood": 0.78347986542411,
      "eval_total_log_likelihood": -1085.3561053114104,
      "eval_total_trials": 4448,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 782394,
+     "subject_id": "782394",
      "eval_likelihood": 0.779087659918649,
      "eval_total_log_likelihood": -1403.928740771655,
      "eval_total_trials": 5624,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 801996,
+     "subject_id": "801996",
      "eval_likelihood": 0.7776628087397529,
      "eval_total_log_likelihood": -1175.3345870752908,
      "eval_total_trials": 4674,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765861,
+     "subject_id": "765861",
      "eval_likelihood": 0.7703749704659442,
      "eval_total_log_likelihood": -1012.7280389995428,
      "eval_total_trials": 3882,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836657,
+     "subject_id": "836657",
      "eval_likelihood": 0.7998274301881879,
      "eval_total_log_likelihood": -1131.3147878861926,
      "eval_total_trials": 5065,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 749472,
+     "subject_id": "749472",
      "eval_likelihood": 0.7923358782081535,
      "eval_total_log_likelihood": -1171.9963882008756,
      "eval_total_trials": 5035,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 754372,
+     "subject_id": "754372",
      "eval_likelihood": 0.808237922338322,
      "eval_total_log_likelihood": -624.6450952368994,
      "eval_total_trials": 2934,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836656,
+     "subject_id": "836656",
      "eval_likelihood": 0.7678845668999114,
      "eval_total_log_likelihood": -893.7680724291457,
      "eval_total_trials": 3384,
@@ -1061,2104 +1075,2106 @@
    ]
   },
   "bg3nzqz9": {
-   "group": null,
-   "source": "disk",
+   "group": "rl-baseline-bari@20260713-010244",
+   "source": "wandb",
    "origin": {
-    "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20260713_010346-bg3nzqz9/files/outputs/heldout_test/subject_fit_metrics.csv",
-    "sha256": "d00a812f6169a52a3411476b63f34e79992158f0985259a9a9434a7f07311349"
+    "artifact": "AIND-disRNN/mice_data_scaling/run-bg3nzqz9-heldoutsubject_fit_metrics-eXod2w:v0",
+    "artifact_digest": "6c80599b7dc5ec843ad05841d23bcef9",
+    "entry": "heldout/subject_fit_metrics.table.json"
    },
    "table": [
     {
-     "subject_id": 452275,
+     "subject_id": "452275",
      "eval_likelihood": 0.5403792140026666,
      "eval_total_log_likelihood": -9296.887900435622,
      "eval_total_trials": 15105,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 700708,
+     "subject_id": "700708",
      "eval_likelihood": 0.6948366642994963,
      "eval_total_log_likelihood": -3565.7845981965447,
      "eval_total_trials": 9794,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 455525,
+     "subject_id": "455525",
      "eval_likelihood": 0.585568258276429,
-     "eval_total_log_likelihood": -6897.303457956024,
+     "eval_total_log_likelihood": -6897.3034579560235,
      "eval_total_trials": 12888,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 656489,
+     "subject_id": "656489",
      "eval_likelihood": 0.647955272238339,
      "eval_total_log_likelihood": -8292.037340795918,
      "eval_total_trials": 19109,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 641494,
+     "subject_id": "641494",
      "eval_likelihood": 0.686641190944923,
      "eval_total_log_likelihood": -6592.543587265246,
      "eval_total_trials": 17536,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 639875,
+     "subject_id": "639875",
      "eval_likelihood": 0.7157281002682957,
      "eval_total_log_likelihood": -4957.291007628854,
      "eval_total_trials": 14822,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 472184,
+     "subject_id": "472184",
      "eval_likelihood": 0.5774010767504308,
      "eval_total_log_likelihood": -8991.79950152514,
      "eval_total_trials": 16372,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 643773,
+     "subject_id": "643773",
      "eval_likelihood": 0.6312909110362083,
-     "eval_total_log_likelihood": -7407.19466945072,
+     "eval_total_log_likelihood": -7407.1946694507205,
      "eval_total_trials": 16103,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 659778,
+     "subject_id": "659778",
      "eval_likelihood": 0.6179456731756903,
-     "eval_total_log_likelihood": -3614.01133439725,
+     "eval_total_log_likelihood": -3614.0113343972503,
      "eval_total_trials": 7508,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 627042,
+     "subject_id": "627042",
      "eval_likelihood": 0.6232283998175795,
      "eval_total_log_likelihood": -5587.103606667322,
      "eval_total_trials": 11816,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 684039,
+     "subject_id": "684039",
      "eval_likelihood": 0.7422347235518406,
      "eval_total_log_likelihood": -1331.2688093014308,
      "eval_total_trials": 4466,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453476,
+     "subject_id": "453476",
      "eval_likelihood": 0.5933758052196433,
      "eval_total_log_likelihood": -4401.413301187093,
      "eval_total_trials": 8433,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453478,
+     "subject_id": "453478",
      "eval_likelihood": 0.6130661974268405,
      "eval_total_log_likelihood": -3049.207665022734,
      "eval_total_trials": 6232,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 699982,
+     "subject_id": "699982",
      "eval_likelihood": 0.7826809651493374,
      "eval_total_log_likelihood": -1163.1579698563191,
      "eval_total_trials": 4747,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 663373,
+     "subject_id": "663373",
      "eval_likelihood": 0.75817171395687,
-     "eval_total_log_likelihood": -2018.7565359855505,
+     "eval_total_log_likelihood": -2018.7565359855503,
      "eval_total_trials": 7292,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 616134,
+     "subject_id": "616134",
      "eval_likelihood": 0.6078134256248514,
      "eval_total_log_likelihood": -2930.066818511375,
      "eval_total_trials": 5885,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 722989,
+     "subject_id": "722989",
      "eval_likelihood": 0.6047366600459582,
      "eval_total_log_likelihood": -1920.309635163226,
      "eval_total_trials": 3818,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 494693,
+     "subject_id": "494693",
      "eval_likelihood": 0.5637801588184316,
      "eval_total_log_likelihood": -2655.1301063456776,
      "eval_total_trials": 4633,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 673396,
+     "subject_id": "673396",
      "eval_likelihood": 0.6364849378569127,
      "eval_total_log_likelihood": -1958.981061595902,
      "eval_total_trials": 4336,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 648586,
+     "subject_id": "648586",
      "eval_likelihood": 0.754379209127692,
-     "eval_total_log_likelihood": -1810.387470623112,
+     "eval_total_log_likelihood": -1810.3874706231118,
      "eval_total_trials": 6423,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 682342,
+     "subject_id": "682342",
      "eval_likelihood": 0.6978562459700024,
      "eval_total_log_likelihood": -774.1651041380347,
      "eval_total_trials": 2152,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697929,
+     "subject_id": "697929",
      "eval_likelihood": 0.6203248320140807,
      "eval_total_log_likelihood": -1558.1217067043176,
      "eval_total_trials": 3263,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 671245,
+     "subject_id": "671245",
      "eval_likelihood": 0.690683766904588,
      "eval_total_log_likelihood": -693.517187192517,
      "eval_total_trials": 1874,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697930,
+     "subject_id": "697930",
      "eval_likelihood": 0.7571798634463519,
      "eval_total_log_likelihood": -400.8205674095523,
      "eval_total_trials": 1441,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 637701,
+     "subject_id": "637701",
      "eval_likelihood": 0.5619348071943172,
      "eval_total_log_likelihood": -2419.022528141322,
      "eval_total_trials": 4197,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 710414,
+     "subject_id": "710414",
      "eval_likelihood": 0.7388469703639783,
      "eval_total_log_likelihood": -838.3805434413009,
      "eval_total_trials": 2770,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 655100,
+     "subject_id": "655100",
      "eval_likelihood": 0.6263573803879321,
      "eval_total_log_likelihood": -950.1712106279836,
      "eval_total_trials": 2031,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 652743,
+     "subject_id": "652743",
      "eval_likelihood": 0.6948250545972164,
      "eval_total_log_likelihood": -1206.97553863351,
      "eval_total_trials": 3315,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 713379,
+     "subject_id": "713379",
      "eval_likelihood": 0.605738039095368,
      "eval_total_log_likelihood": -7489.536516485208,
      "eval_total_trials": 14940,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 791174,
+     "subject_id": "791174",
      "eval_likelihood": 0.7045433058259793,
      "eval_total_log_likelihood": -6098.478215366068,
      "eval_total_trials": 17414,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765365,
+     "subject_id": "765365",
      "eval_likelihood": 0.7601849239874197,
      "eval_total_log_likelihood": -2669.548444308891,
      "eval_total_trials": 9736,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 808584,
+     "subject_id": "808584",
      "eval_likelihood": 0.7090296400180562,
      "eval_total_log_likelihood": -3250.8330398124845,
      "eval_total_trials": 9454,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813992,
+     "subject_id": "813992",
      "eval_likelihood": 0.7776651299765166,
      "eval_total_log_likelihood": -2170.093514404547,
      "eval_total_trials": 8630,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823166,
+     "subject_id": "823166",
      "eval_likelihood": 0.6788106190182095,
      "eval_total_log_likelihood": -4578.448038661403,
      "eval_total_trials": 11818,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780621,
+     "subject_id": "780621",
      "eval_likelihood": 0.7505323008781543,
      "eval_total_log_likelihood": -2777.894668199219,
      "eval_total_trials": 9680,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 815334,
+     "subject_id": "815334",
      "eval_likelihood": 0.6706368878540693,
      "eval_total_log_likelihood": -3552.1984621446213,
      "eval_total_trials": 8891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 788733,
+     "subject_id": "788733",
      "eval_likelihood": 0.7899191534545034,
      "eval_total_log_likelihood": -2099.5470918281003,
      "eval_total_trials": 8903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 810756,
+     "subject_id": "810756",
      "eval_likelihood": 0.7289521838103514,
      "eval_total_log_likelihood": -3262.6384910507577,
      "eval_total_trials": 10320,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829489,
+     "subject_id": "829489",
      "eval_likelihood": 0.6695485101442623,
      "eval_total_log_likelihood": -3285.4320888711613,
      "eval_total_trials": 8190,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 821576,
+     "subject_id": "821576",
      "eval_likelihood": 0.7372611086736376,
      "eval_total_log_likelihood": -3027.4043417119287,
      "eval_total_trials": 9932,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818908,
+     "subject_id": "818908",
      "eval_likelihood": 0.625630088478608,
-     "eval_total_log_likelihood": -2883.387380416308,
+     "eval_total_log_likelihood": -2883.3873804163077,
      "eval_total_trials": 6148,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766998,
+     "subject_id": "766998",
      "eval_likelihood": 0.7271922893364565,
      "eval_total_log_likelihood": -2968.7010788478847,
      "eval_total_trials": 9319,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 788732,
+     "subject_id": "788732",
      "eval_likelihood": 0.8042691539682699,
      "eval_total_log_likelihood": -2280.8068030694744,
      "eval_total_trials": 10471,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 813167,
+     "subject_id": "813167",
      "eval_likelihood": 0.7916488392444814,
      "eval_total_log_likelihood": -1695.2727587816792,
      "eval_total_trials": 7256,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767463,
+     "subject_id": "767463",
      "eval_likelihood": 0.7076759944272606,
      "eval_total_log_likelihood": -2751.62910534905,
      "eval_total_trials": 7958,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 793397,
+     "subject_id": "793397",
      "eval_likelihood": 0.7352833001387945,
-     "eval_total_log_likelihood": -2890.18697026208,
+     "eval_total_log_likelihood": -2890.1869702620797,
      "eval_total_trials": 9399,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 809488,
+     "subject_id": "809488",
      "eval_likelihood": 0.7251204828960646,
      "eval_total_log_likelihood": -2452.7365962774206,
      "eval_total_trials": 7631,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 721403,
+     "subject_id": "721403",
      "eval_likelihood": 0.755357785719821,
      "eval_total_log_likelihood": -1753.8040238293695,
      "eval_total_trials": 6251,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781897,
+     "subject_id": "781897",
      "eval_likelihood": 0.6899321103683278,
      "eval_total_log_likelihood": -2902.8586042331176,
      "eval_total_trials": 7821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 800175,
+     "subject_id": "800175",
      "eval_likelihood": 0.7279620888375403,
      "eval_total_log_likelihood": -2768.6550050105216,
      "eval_total_trials": 8720,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 818585,
+     "subject_id": "818585",
      "eval_likelihood": 0.7851821173483647,
      "eval_total_log_likelihood": -2114.1617087589216,
      "eval_total_trials": 8742,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 784956,
+     "subject_id": "784956",
      "eval_likelihood": 0.7558790927981578,
      "eval_total_log_likelihood": -1844.088769672862,
      "eval_total_trials": 6589,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765232,
+     "subject_id": "765232",
      "eval_likelihood": 0.6542842346723213,
      "eval_total_log_likelihood": -3057.730276216106,
      "eval_total_trials": 7208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 797673,
+     "subject_id": "797673",
      "eval_likelihood": 0.6949121647070408,
-     "eval_total_log_likelihood": -1982.9075963614384,
+     "eval_total_log_likelihood": -1982.9075963614382,
      "eval_total_trials": 5448,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813171,
+     "subject_id": "813171",
      "eval_likelihood": 0.7300085881748227,
      "eval_total_log_likelihood": -1712.9065496959254,
      "eval_total_trials": 5443,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 722683,
+     "subject_id": "722683",
      "eval_likelihood": 0.6623675568917664,
-     "eval_total_log_likelihood": -1673.2785695559903,
+     "eval_total_log_likelihood": -1673.2785695559905,
      "eval_total_trials": 4062,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 795395,
+     "subject_id": "795395",
      "eval_likelihood": 0.7481997569674298,
-     "eval_total_log_likelihood": -2649.638964793729,
+     "eval_total_log_likelihood": -2649.6389647937294,
      "eval_total_trials": 9134,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 820243,
+     "subject_id": "820243",
      "eval_likelihood": 0.7936389969434328,
      "eval_total_log_likelihood": -1359.4865725296113,
      "eval_total_trials": 5882,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 763704,
+     "subject_id": "763704",
      "eval_likelihood": 0.5794555523848351,
      "eval_total_log_likelihood": -3580.6623858279545,
      "eval_total_trials": 6562,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778103,
+     "subject_id": "778103",
      "eval_likelihood": 0.6784041168241877,
      "eval_total_log_likelihood": -2408.7792787727803,
      "eval_total_trials": 6208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 812307,
+     "subject_id": "812307",
      "eval_likelihood": 0.7518974992315414,
      "eval_total_log_likelihood": -2355.667673375372,
      "eval_total_trials": 8261,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 726649,
+     "subject_id": "726649",
      "eval_likelihood": 0.7011004488395006,
      "eval_total_log_likelihood": -1454.8615328364922,
      "eval_total_trials": 4097,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 757214,
+     "subject_id": "757214",
      "eval_likelihood": 0.6533388621298156,
      "eval_total_log_likelihood": -2548.422546518136,
      "eval_total_trials": 5987,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 814147,
+     "subject_id": "814147",
      "eval_likelihood": 0.7560014391047103,
      "eval_total_log_likelihood": -1663.4472594015226,
      "eval_total_trials": 5947,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841356,
+     "subject_id": "841356",
      "eval_likelihood": 0.7081651791753338,
      "eval_total_log_likelihood": -2572.90088636936,
      "eval_total_trials": 7456,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781896,
+     "subject_id": "781896",
      "eval_likelihood": 0.782224176317948,
-     "eval_total_log_likelihood": -1963.683202740008,
+     "eval_total_log_likelihood": -1963.6832027400078,
      "eval_total_trials": 7995,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841599,
+     "subject_id": "841599",
      "eval_likelihood": 0.7749212477666255,
      "eval_total_log_likelihood": -1805.866591426477,
      "eval_total_trials": 7082,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 745505,
+     "subject_id": "745505",
      "eval_likelihood": 0.6641383814425912,
      "eval_total_log_likelihood": -2327.079342527134,
      "eval_total_trials": 5686,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 764693,
+     "subject_id": "764693",
      "eval_likelihood": 0.637577022478954,
      "eval_total_log_likelihood": -2942.6242800809177,
      "eval_total_trials": 6538,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777098,
+     "subject_id": "777098",
      "eval_likelihood": 0.7168945262033591,
      "eval_total_log_likelihood": -1569.9428529647062,
      "eval_total_trials": 4717,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 807885,
+     "subject_id": "807885",
      "eval_likelihood": 0.6907965036606284,
      "eval_total_log_likelihood": -2067.4269565373643,
      "eval_total_trials": 5589,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841363,
+     "subject_id": "841363",
      "eval_likelihood": 0.7311353742163009,
      "eval_total_log_likelihood": -2181.4491955596395,
      "eval_total_trials": 6966,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 769359,
+     "subject_id": "769359",
      "eval_likelihood": 0.7955659898575578,
      "eval_total_log_likelihood": -1134.8167472678142,
      "eval_total_trials": 4962,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 802292,
+     "subject_id": "802292",
      "eval_likelihood": 0.7182734119141101,
      "eval_total_log_likelihood": -2609.185813669761,
      "eval_total_trials": 7885,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835178,
+     "subject_id": "835178",
      "eval_likelihood": 0.734517442283547,
      "eval_total_log_likelihood": -1224.2928168225385,
      "eval_total_trials": 3968,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 770803,
+     "subject_id": "770803",
      "eval_likelihood": 0.6778424242506804,
      "eval_total_log_likelihood": -2576.456693575379,
      "eval_total_trials": 6626,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790584,
+     "subject_id": "790584",
      "eval_likelihood": 0.7578889939520097,
      "eval_total_log_likelihood": -2076.9198784818936,
      "eval_total_trials": 7492,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 810758,
+     "subject_id": "810758",
      "eval_likelihood": 0.8057339265073005,
      "eval_total_log_likelihood": -1393.8590150883404,
      "eval_total_trials": 6453,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 839483,
+     "subject_id": "839483",
      "eval_likelihood": 0.7243879397494888,
-     "eval_total_log_likelihood": -2137.054120986352,
+     "eval_total_log_likelihood": -2137.0541209863522,
      "eval_total_trials": 6628,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798520,
+     "subject_id": "798520",
      "eval_likelihood": 0.7085516987622406,
      "eval_total_log_likelihood": -2060.3028741055946,
      "eval_total_trials": 5980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 832634,
+     "subject_id": "832634",
      "eval_likelihood": 0.7325419325183915,
      "eval_total_log_likelihood": -1459.6907147216184,
      "eval_total_trials": 4690,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767462,
+     "subject_id": "767462",
      "eval_likelihood": 0.7651608714230396,
-     "eval_total_log_likelihood": -1886.5323652855436,
+     "eval_total_log_likelihood": -1886.5323652855434,
      "eval_total_trials": 7048,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777027,
+     "subject_id": "777027",
      "eval_likelihood": 0.6338338934566484,
      "eval_total_log_likelihood": -2503.2662775953904,
      "eval_total_trials": 5490,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813165,
+     "subject_id": "813165",
      "eval_likelihood": 0.7360583717847586,
      "eval_total_log_likelihood": -1620.1792296112308,
      "eval_total_trials": 5287,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823161,
+     "subject_id": "823161",
      "eval_likelihood": 0.7733698397203697,
      "eval_total_log_likelihood": -1664.8323804527831,
      "eval_total_trials": 6478,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 711254,
+     "subject_id": "711254",
      "eval_likelihood": 0.8140356286925775,
      "eval_total_log_likelihood": -870.1215881657521,
      "eval_total_trials": 4229,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 802953,
+     "subject_id": "802953",
      "eval_likelihood": 0.7672352406740661,
-     "eval_total_log_likelihood": -1125.2928594160885,
+     "eval_total_log_likelihood": -1125.2928594160883,
      "eval_total_trials": 4247,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823163,
+     "subject_id": "823163",
      "eval_likelihood": 0.7178755228566289,
      "eval_total_log_likelihood": -2242.3207537172025,
      "eval_total_trials": 6765,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 838332,
+     "subject_id": "838332",
      "eval_likelihood": 0.8007997219160323,
      "eval_total_log_likelihood": -1341.5300209646468,
      "eval_total_trials": 6039,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736198,
+     "subject_id": "736198",
      "eval_likelihood": 0.6879633806969195,
      "eval_total_log_likelihood": -1953.8787466588003,
      "eval_total_trials": 5224,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 787625,
+     "subject_id": "787625",
      "eval_likelihood": 0.7200592314921935,
      "eval_total_log_likelihood": -1281.8303025510108,
      "eval_total_trials": 3903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 805496,
+     "subject_id": "805496",
      "eval_likelihood": 0.6840458887043409,
      "eval_total_log_likelihood": -2076.7448732142607,
      "eval_total_trials": 5469,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829569,
+     "subject_id": "829569",
      "eval_likelihood": 0.6404107629283494,
      "eval_total_log_likelihood": -2228.2274571468374,
      "eval_total_trials": 5000,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 753122,
+     "subject_id": "753122",
      "eval_likelihood": 0.7768753299616978,
      "eval_total_log_likelihood": -1268.6888447386627,
      "eval_total_trials": 5025,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780618,
+     "subject_id": "780618",
      "eval_likelihood": 0.7365393416089994,
      "eval_total_log_likelihood": -1731.397857027886,
      "eval_total_trials": 5662,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 812305,
+     "subject_id": "812305",
      "eval_likelihood": 0.7632436741491697,
-     "eval_total_log_likelihood": -1599.4533778470095,
+     "eval_total_log_likelihood": -1599.4533778470097,
      "eval_total_trials": 5920,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835444,
+     "subject_id": "835444",
      "eval_likelihood": 0.7758589337758582,
      "eval_total_log_likelihood": -1536.4117365038317,
      "eval_total_trials": 6054,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766556,
+     "subject_id": "766556",
      "eval_likelihood": 0.7568220681309334,
      "eval_total_log_likelihood": -1546.1017883162906,
      "eval_total_trials": 5549,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798664,
+     "subject_id": "798664",
      "eval_likelihood": 0.7304522027850082,
      "eval_total_log_likelihood": -1361.5865690660603,
      "eval_total_trials": 4335,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 819169,
+     "subject_id": "819169",
      "eval_likelihood": 0.7025307694618459,
      "eval_total_log_likelihood": -1795.341010635646,
      "eval_total_trials": 5085,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 712031,
+     "subject_id": "712031",
      "eval_likelihood": 0.6997146691805948,
      "eval_total_log_likelihood": -1291.925000538906,
      "eval_total_trials": 3618,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 838101,
+     "subject_id": "838101",
      "eval_likelihood": 0.6985956446213099,
      "eval_total_log_likelihood": -2087.8947969926007,
      "eval_total_trials": 5821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736199,
+     "subject_id": "736199",
      "eval_likelihood": 0.6939568273818154,
-     "eval_total_log_likelihood": -1617.38465597062,
+     "eval_total_log_likelihood": -1617.3846559706199,
      "eval_total_trials": 4427,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765373,
+     "subject_id": "765373",
      "eval_likelihood": 0.736174108997188,
-     "eval_total_log_likelihood": -1403.414489335319,
+     "eval_total_log_likelihood": -1403.4144893353193,
      "eval_total_trials": 4582,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777271,
+     "subject_id": "777271",
      "eval_likelihood": 0.7286205436141926,
      "eval_total_log_likelihood": -1235.0651774929768,
      "eval_total_trials": 3901,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790726,
+     "subject_id": "790726",
      "eval_likelihood": 0.7578341325388326,
      "eval_total_log_likelihood": -1123.3047869016054,
      "eval_total_trials": 4051,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829048,
+     "subject_id": "829048",
      "eval_likelihood": 0.7021174041254479,
-     "eval_total_log_likelihood": -1022.4155833085296,
+     "eval_total_log_likelihood": -1022.4155833085297,
      "eval_total_trials": 2891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 756567,
+     "subject_id": "756567",
      "eval_likelihood": 0.718460331320852,
      "eval_total_log_likelihood": -1315.9662458784678,
      "eval_total_trials": 3980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778336,
+     "subject_id": "778336",
      "eval_likelihood": 0.7870838543115076,
      "eval_total_log_likelihood": -1177.7093751837956,
      "eval_total_trials": 4919,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 826160,
+     "subject_id": "826160",
      "eval_likelihood": 0.802337157976126,
      "eval_total_log_likelihood": -847.6512711042617,
      "eval_total_trials": 3849,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 762611,
+     "subject_id": "762611",
      "eval_likelihood": 0.7353743677682131,
      "eval_total_log_likelihood": -1140.0559725824644,
      "eval_total_trials": 3709,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 837689,
+     "subject_id": "837689",
      "eval_likelihood": 0.7485573507663089,
-     "eval_total_log_likelihood": -927.0334702648556,
+     "eval_total_log_likelihood": -927.0334702648557,
      "eval_total_trials": 3201,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 850597,
+     "subject_id": "850597",
      "eval_likelihood": 0.733972823328266,
-     "eval_total_log_likelihood": -975.7887373303976,
+     "eval_total_log_likelihood": -975.7887373303975,
      "eval_total_trials": 3155,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751920,
+     "subject_id": "751920",
      "eval_likelihood": 0.6867634434978082,
      "eval_total_log_likelihood": -1075.4405137380688,
      "eval_total_trials": 2862,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 774826,
+     "subject_id": "774826",
      "eval_likelihood": 0.6513631872716059,
      "eval_total_log_likelihood": -1294.2087730672556,
      "eval_total_trials": 3019,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818020,
+     "subject_id": "818020",
      "eval_likelihood": 0.7275399710364949,
-     "eval_total_log_likelihood": -917.3610000618536,
+     "eval_total_log_likelihood": -917.3610000618537,
      "eval_total_trials": 2884,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 747886,
+     "subject_id": "747886",
      "eval_likelihood": 0.7223558447512483,
      "eval_total_log_likelihood": -1104.8314537057572,
      "eval_total_trials": 3397,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 845710,
+     "subject_id": "845710",
      "eval_likelihood": 0.754959631535386,
      "eval_total_log_likelihood": -990.0024996319383,
      "eval_total_trials": 3522,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751153,
+     "subject_id": "751153",
      "eval_likelihood": 0.7324315620739135,
      "eval_total_log_likelihood": -748.570436864233,
      "eval_total_trials": 2404,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 776259,
+     "subject_id": "776259",
      "eval_likelihood": 0.70652602906811,
      "eval_total_log_likelihood": -1093.9475958338996,
      "eval_total_trials": 3149,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 814196,
+     "subject_id": "814196",
      "eval_likelihood": 0.6921282550431768,
-     "eval_total_log_likelihood": -919.2240341981652,
+     "eval_total_log_likelihood": -919.2240341981653,
      "eval_total_trials": 2498,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 668551,
+     "subject_id": "668551",
      "eval_likelihood": 0.8405511554912104,
      "eval_total_log_likelihood": -2319.729642662168,
      "eval_total_trials": 13355,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 790768,
+     "subject_id": "790768",
      "eval_likelihood": 0.7672508632743994,
-     "eval_total_log_likelihood": -3704.676439779481,
+     "eval_total_log_likelihood": -3704.6764397794805,
      "eval_total_trials": 13983,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 746346,
+     "subject_id": "746346",
      "eval_likelihood": 0.8085006930016191,
      "eval_total_log_likelihood": -1945.049746807421,
      "eval_total_trials": 9150,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 727456,
+     "subject_id": "727456",
      "eval_likelihood": 0.7482302592669552,
      "eval_total_log_likelihood": -2892.903993946508,
      "eval_total_trials": 9974,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 775741,
+     "subject_id": "775741",
      "eval_likelihood": 0.7865179120327257,
      "eval_total_log_likelihood": -2354.5705662842824,
      "eval_total_trials": 9805,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 651554,
+     "subject_id": "651554",
      "eval_likelihood": 0.7744570889281596,
      "eval_total_log_likelihood": -3000.917712749527,
      "eval_total_trials": 11741,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 708299,
+     "subject_id": "708299",
      "eval_likelihood": 0.794573313933059,
      "eval_total_log_likelihood": -1545.4940873984297,
      "eval_total_trials": 6721,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 651475,
+     "subject_id": "651475",
      "eval_likelihood": 0.8649273442066779,
-     "eval_total_log_likelihood": -2070.426208559269,
+     "eval_total_log_likelihood": -2070.4262085592695,
      "eval_total_trials": 14268,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 781162,
+     "subject_id": "781162",
      "eval_likelihood": 0.7412745668427744,
-     "eval_total_log_likelihood": -2695.056449277356,
+     "eval_total_log_likelihood": -2695.0564492773556,
      "eval_total_trials": 9002,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 751765,
+     "subject_id": "751765",
      "eval_likelihood": 0.651374149971491,
      "eval_total_log_likelihood": -4110.526897222798,
      "eval_total_trials": 9589,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 713862,
+     "subject_id": "713862",
      "eval_likelihood": 0.7560504257571812,
      "eval_total_log_likelihood": -2344.0028663586727,
      "eval_total_trials": 8382,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 716324,
+     "subject_id": "716324",
      "eval_likelihood": 0.7071182853171748,
-     "eval_total_log_likelihood": -2055.778028852756,
+     "eval_total_log_likelihood": -2055.7780288527556,
      "eval_total_trials": 5932,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 711041,
+     "subject_id": "711041",
      "eval_likelihood": 0.788724147950445,
      "eval_total_log_likelihood": -1916.7468698679825,
      "eval_total_trials": 8076,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 786234,
+     "subject_id": "786234",
      "eval_likelihood": 0.7789927581283138,
      "eval_total_log_likelihood": -1548.7216365777174,
      "eval_total_trials": 6201,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 775745,
+     "subject_id": "775745",
      "eval_likelihood": 0.7684223435875815,
      "eval_total_log_likelihood": -2075.979686855961,
      "eval_total_trials": 7881,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 781369,
+     "subject_id": "781369",
      "eval_likelihood": 0.8008408527428733,
      "eval_total_log_likelihood": -1693.4594099360684,
      "eval_total_trials": 7625,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711281,
+     "subject_id": "711281",
      "eval_likelihood": 0.8012175408967884,
      "eval_total_log_likelihood": -1140.0275913747864,
      "eval_total_trials": 5144,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711039,
+     "subject_id": "711039",
      "eval_likelihood": 0.7783953929593578,
      "eval_total_log_likelihood": -1750.6384191158286,
      "eval_total_trials": 6988,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 761406,
+     "subject_id": "761406",
      "eval_likelihood": 0.7661319037524217,
      "eval_total_log_likelihood": -1639.4312983315472,
      "eval_total_trials": 6154,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 744779,
+     "subject_id": "744779",
      "eval_likelihood": 0.8081790613813905,
      "eval_total_log_likelihood": -1273.7833453016333,
      "eval_total_trials": 5981,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 785951,
+     "subject_id": "785951",
      "eval_likelihood": 0.782975774005611,
      "eval_total_log_likelihood": -1088.2188722490023,
      "eval_total_trials": 4448,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 782394,
+     "subject_id": "782394",
      "eval_likelihood": 0.7788001723672178,
-     "eval_total_log_likelihood": -1406.004410115872,
+     "eval_total_log_likelihood": -1406.0044101158721,
      "eval_total_trials": 5624,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 801996,
+     "subject_id": "801996",
      "eval_likelihood": 0.7747301268400735,
      "eval_total_log_likelihood": -1192.9942545362885,
      "eval_total_trials": 4674,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765861,
+     "subject_id": "765861",
      "eval_likelihood": 0.7631442661163556,
      "eval_total_log_likelihood": -1049.336386172107,
      "eval_total_trials": 3882,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836657,
+     "subject_id": "836657",
      "eval_likelihood": 0.7960221531787683,
      "eval_total_log_likelihood": -1155.469651580524,
      "eval_total_trials": 5065,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 749472,
+     "subject_id": "749472",
      "eval_likelihood": 0.79253074128474,
      "eval_total_log_likelihood": -1170.7582580219837,
      "eval_total_trials": 5035,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 754372,
+     "subject_id": "754372",
      "eval_likelihood": 0.8070110732801191,
      "eval_total_log_likelihood": -629.1020871170793,
      "eval_total_trials": 2934,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836656,
+     "subject_id": "836656",
      "eval_likelihood": 0.7662156427595762,
-     "eval_total_log_likelihood": -901.1308789567976,
+     "eval_total_log_likelihood": -901.1308789567977,
      "eval_total_trials": 3384,
      "curriculum_name": "Uncoupled Without Baiting"
     }
    ]
   },
   "unhmbrk4": {
-   "group": null,
-   "source": "disk",
+   "group": "rl-baseline-hattori@20260713-010255",
+   "source": "wandb",
    "origin": {
-    "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20260713_010353-unhmbrk4/files/outputs/heldout_test/subject_fit_metrics.csv",
-    "sha256": "02190f6a06cc7d84a5d66bafebcef9a7f87196d3339b989c7d89064d3c35bad9"
+    "artifact": "AIND-disRNN/mice_data_scaling/run-unhmbrk4-heldoutsubject_fit_metrics-gJCaIQ:v0",
+    "artifact_digest": "53464be6e2383f57b48d07c8bdb1bf4c",
+    "entry": "heldout/subject_fit_metrics.table.json"
    },
    "table": [
     {
-     "subject_id": 452275,
+     "subject_id": "452275",
      "eval_likelihood": 0.5406977748558071,
      "eval_total_log_likelihood": -9287.985922360893,
      "eval_total_trials": 15105,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 700708,
+     "subject_id": "700708",
      "eval_likelihood": 0.6921846140899194,
-     "eval_total_log_likelihood": -3603.2378252098174,
+     "eval_total_log_likelihood": -3603.2378252098183,
      "eval_total_trials": 9794,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 455525,
+     "subject_id": "455525",
      "eval_likelihood": 0.5882343839018098,
      "eval_total_log_likelihood": -6838.756842169588,
      "eval_total_trials": 12888,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 656489,
+     "subject_id": "656489",
      "eval_likelihood": 0.6496182573027598,
      "eval_total_log_likelihood": -8243.056688414683,
      "eval_total_trials": 19109,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 641494,
+     "subject_id": "641494",
      "eval_likelihood": 0.6808185619209458,
      "eval_total_log_likelihood": -6741.880691237191,
      "eval_total_trials": 17536,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 639875,
+     "subject_id": "639875",
      "eval_likelihood": 0.7119838566879201,
      "eval_total_log_likelihood": -5035.034007973621,
      "eval_total_trials": 14822,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 472184,
+     "subject_id": "472184",
      "eval_likelihood": 0.5774117526668033,
      "eval_total_log_likelihood": -8991.496792552043,
      "eval_total_trials": 16372,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 643773,
+     "subject_id": "643773",
      "eval_likelihood": 0.6394897182688639,
      "eval_total_log_likelihood": -7199.405501523675,
      "eval_total_trials": 16103,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 659778,
+     "subject_id": "659778",
      "eval_likelihood": 0.6162898897322163,
-     "eval_total_log_likelihood": -3634.155997093952,
+     "eval_total_log_likelihood": -3634.1559970939516,
      "eval_total_trials": 7508,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 627042,
+     "subject_id": "627042",
      "eval_likelihood": 0.6215725989405491,
      "eval_total_log_likelihood": -5618.5382773041065,
      "eval_total_trials": 11816,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 684039,
+     "subject_id": "684039",
      "eval_likelihood": 0.737016344375751,
      "eval_total_log_likelihood": -1362.7785084767206,
      "eval_total_trials": 4466,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453476,
+     "subject_id": "453476",
      "eval_likelihood": 0.594851626851648,
      "eval_total_log_likelihood": -4380.465105771738,
      "eval_total_trials": 8433,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453478,
+     "subject_id": "453478",
      "eval_likelihood": 0.6146034573133635,
      "eval_total_log_likelihood": -3033.6005208974216,
      "eval_total_trials": 6232,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 699982,
+     "subject_id": "699982",
      "eval_likelihood": 0.7846604729633283,
      "eval_total_log_likelihood": -1151.1673105644106,
      "eval_total_trials": 4747,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 663373,
+     "subject_id": "663373",
      "eval_likelihood": 0.7525928388391273,
-     "eval_total_log_likelihood": -2072.611840175256,
+     "eval_total_log_likelihood": -2072.6118401752556,
      "eval_total_trials": 7292,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 616134,
+     "subject_id": "616134",
      "eval_likelihood": 0.6068860076073301,
      "eval_total_log_likelihood": -2939.0531668117096,
      "eval_total_trials": 5885,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 722989,
+     "subject_id": "722989",
      "eval_likelihood": 0.6031856780692694,
-     "eval_total_log_likelihood": -1930.114325836528,
+     "eval_total_log_likelihood": -1930.1143258365282,
      "eval_total_trials": 3818,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 494693,
+     "subject_id": "494693",
      "eval_likelihood": 0.5600375653185651,
      "eval_total_log_likelihood": -2685.9883130001185,
      "eval_total_trials": 4633,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 673396,
+     "subject_id": "673396",
      "eval_likelihood": 0.6419397631079848,
-     "eval_total_log_likelihood": -1921.978857542481,
+     "eval_total_log_likelihood": -1921.9788575424811,
      "eval_total_trials": 4336,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 648586,
+     "subject_id": "648586",
      "eval_likelihood": 0.7544301648469278,
-     "eval_total_log_likelihood": -1809.953633731028,
+     "eval_total_log_likelihood": -1809.9536337310276,
      "eval_total_trials": 6423,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 682342,
+     "subject_id": "682342",
      "eval_likelihood": 0.6995669369272953,
      "eval_total_log_likelihood": -768.8962509743782,
      "eval_total_trials": 2152,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697929,
+     "subject_id": "697929",
      "eval_likelihood": 0.6170393685144194,
      "eval_total_log_likelihood": -1575.4496568560153,
      "eval_total_trials": 3263,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 671245,
+     "subject_id": "671245",
      "eval_likelihood": 0.682472048171795,
      "eval_total_log_likelihood": -715.9311684572,
      "eval_total_trials": 1874,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697930,
+     "subject_id": "697930",
      "eval_likelihood": 0.7611428471351978,
-     "eval_total_log_likelihood": -393.2982239391797,
+     "eval_total_log_likelihood": -393.29822393917965,
      "eval_total_trials": 1441,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 637701,
+     "subject_id": "637701",
      "eval_likelihood": 0.56043142865318,
      "eval_total_log_likelihood": -2430.2660657838683,
      "eval_total_trials": 4197,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 710414,
+     "subject_id": "710414",
      "eval_likelihood": 0.7466208039134332,
      "eval_total_log_likelihood": -809.3880390095126,
      "eval_total_trials": 2770,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 655100,
+     "subject_id": "655100",
      "eval_likelihood": 0.6202125862957323,
      "eval_total_log_likelihood": -970.194439518624,
      "eval_total_trials": 2031,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 652743,
+     "subject_id": "652743",
      "eval_likelihood": 0.6964372501682662,
-     "eval_total_log_likelihood": -1199.292687323696,
+     "eval_total_log_likelihood": -1199.2926873236959,
      "eval_total_trials": 3315,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 713379,
+     "subject_id": "713379",
      "eval_likelihood": 0.6075124283324861,
      "eval_total_log_likelihood": -7445.836728494445,
      "eval_total_trials": 14940,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 791174,
+     "subject_id": "791174",
      "eval_likelihood": 0.7034027612963775,
      "eval_total_log_likelihood": -6126.691578429903,
      "eval_total_trials": 17414,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765365,
+     "subject_id": "765365",
      "eval_likelihood": 0.7552766696305061,
-     "eval_total_log_likelihood": -2732.614287364592,
+     "eval_total_log_likelihood": -2732.6142873645917,
      "eval_total_trials": 9736,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 808584,
+     "subject_id": "808584",
      "eval_likelihood": 0.7058948290535084,
      "eval_total_log_likelihood": -3292.724394436537,
      "eval_total_trials": 9454,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813992,
+     "subject_id": "813992",
      "eval_likelihood": 0.7741796754604536,
      "eval_total_log_likelihood": -2208.859662858963,
      "eval_total_trials": 8630,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823166,
+     "subject_id": "823166",
      "eval_likelihood": 0.6733369270872287,
      "eval_total_log_likelihood": -4674.130562049751,
      "eval_total_trials": 11818,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780621,
+     "subject_id": "780621",
      "eval_likelihood": 0.7472791193982341,
-     "eval_total_log_likelihood": -2819.9438151314,
+     "eval_total_log_likelihood": -2819.9438151314002,
      "eval_total_trials": 9680,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 815334,
+     "subject_id": "815334",
      "eval_likelihood": 0.6687568008539563,
      "eval_total_log_likelihood": -3577.15880746734,
      "eval_total_trials": 8891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 788733,
+     "subject_id": "788733",
      "eval_likelihood": 0.782774458973514,
      "eval_total_log_likelihood": -2180.4397107941213,
      "eval_total_trials": 8903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 810756,
+     "subject_id": "810756",
      "eval_likelihood": 0.7266157086604356,
      "eval_total_log_likelihood": -3295.7698130340773,
      "eval_total_trials": 10320,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829489,
+     "subject_id": "829489",
      "eval_likelihood": 0.6648206643648822,
      "eval_total_log_likelihood": -3343.468829686156,
      "eval_total_trials": 8190,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 821576,
+     "subject_id": "821576",
      "eval_likelihood": 0.7356409172044203,
      "eval_total_log_likelihood": -3049.2547402854634,
      "eval_total_trials": 9932,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818908,
+     "subject_id": "818908",
      "eval_likelihood": 0.6232023189381415,
      "eval_total_log_likelihood": -2907.291221875202,
      "eval_total_trials": 6148,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766998,
+     "subject_id": "766998",
      "eval_likelihood": 0.7226023892086471,
      "eval_total_log_likelihood": -3027.7072579007186,
      "eval_total_trials": 9319,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 788732,
+     "subject_id": "788732",
      "eval_likelihood": 0.8014708443096228,
      "eval_total_log_likelihood": -2317.3022881783977,
      "eval_total_trials": 10471,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 813167,
+     "subject_id": "813167",
      "eval_likelihood": 0.7907091693325459,
      "eval_total_log_likelihood": -1703.8905881799903,
      "eval_total_trials": 7256,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767463,
+     "subject_id": "767463",
      "eval_likelihood": 0.7004685728693785,
      "eval_total_log_likelihood": -2833.093981855317,
      "eval_total_trials": 7958,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 793397,
+     "subject_id": "793397",
      "eval_likelihood": 0.7324361767070082,
      "eval_total_log_likelihood": -2926.6519039542413,
      "eval_total_trials": 9399,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 809488,
+     "subject_id": "809488",
      "eval_likelihood": 0.7239397009532691,
      "eval_total_log_likelihood": -2465.17300036916,
      "eval_total_trials": 7631,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 721403,
+     "subject_id": "721403",
      "eval_likelihood": 0.7604903847096416,
      "eval_total_log_likelihood": -1711.4726089516469,
      "eval_total_trials": 6251,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781897,
+     "subject_id": "781897",
      "eval_likelihood": 0.6889810399053429,
-     "eval_total_log_likelihood": -2913.647279747669,
+     "eval_total_log_likelihood": -2913.6472797476695,
      "eval_total_trials": 7821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 800175,
+     "subject_id": "800175",
      "eval_likelihood": 0.7268772862857452,
      "eval_total_log_likelihood": -2781.659162261895,
      "eval_total_trials": 8720,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 818585,
+     "subject_id": "818585",
      "eval_likelihood": 0.7781634433762622,
      "eval_total_log_likelihood": -2192.6570352503904,
      "eval_total_trials": 8742,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 784956,
+     "subject_id": "784956",
      "eval_likelihood": 0.7553602980411347,
-     "eval_total_log_likelihood": -1848.6126575612116,
+     "eval_total_log_likelihood": -1848.6126575612113,
      "eval_total_trials": 6589,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765232,
+     "subject_id": "765232",
      "eval_likelihood": 0.6519876230320366,
      "eval_total_log_likelihood": -3083.07567987314,
      "eval_total_trials": 7208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 797673,
+     "subject_id": "797673",
      "eval_likelihood": 0.6932360975748244,
-     "eval_total_log_likelihood": -1996.0635659674567,
+     "eval_total_log_likelihood": -1996.0635659674572,
      "eval_total_trials": 5448,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813171,
+     "subject_id": "813171",
      "eval_likelihood": 0.7278630827804948,
-     "eval_total_log_likelihood": -1728.9271563443235,
+     "eval_total_log_likelihood": -1728.9271563443237,
      "eval_total_trials": 5443,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 722683,
+     "subject_id": "722683",
      "eval_likelihood": 0.6667966095348515,
      "eval_total_log_likelihood": -1646.2076043903976,
      "eval_total_trials": 4062,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 795395,
+     "subject_id": "795395",
      "eval_likelihood": 0.7414197082202878,
      "eval_total_log_likelihood": -2732.786902046239,
      "eval_total_trials": 9134,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 820243,
+     "subject_id": "820243",
      "eval_likelihood": 0.7935445785418102,
-     "eval_total_log_likelihood": -1360.1863895483575,
+     "eval_total_log_likelihood": -1360.1863895483577,
      "eval_total_trials": 5882,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 763704,
+     "subject_id": "763704",
      "eval_likelihood": 0.5753724485966657,
      "eval_total_log_likelihood": -3627.064860801207,
      "eval_total_trials": 6562,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778103,
+     "subject_id": "778103",
      "eval_likelihood": 0.6760408015466058,
      "eval_total_log_likelihood": -2430.443468927003,
      "eval_total_trials": 6208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 812307,
+     "subject_id": "812307",
      "eval_likelihood": 0.7513146022686356,
      "eval_total_log_likelihood": -2362.074370137736,
      "eval_total_trials": 8261,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 726649,
+     "subject_id": "726649",
      "eval_likelihood": 0.7017009662185859,
      "eval_total_log_likelihood": -1451.3538091829626,
      "eval_total_trials": 4097,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 757214,
+     "subject_id": "757214",
      "eval_likelihood": 0.6534967816239188,
      "eval_total_log_likelihood": -2546.9755948370785,
      "eval_total_trials": 5987,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 814147,
+     "subject_id": "814147",
      "eval_likelihood": 0.7535253269260487,
      "eval_total_log_likelihood": -1682.9572842185016,
      "eval_total_trials": 5947,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841356,
+     "subject_id": "841356",
      "eval_likelihood": 0.7064589520327479,
      "eval_total_log_likelihood": -2590.886774582984,
      "eval_total_trials": 7456,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781896,
+     "subject_id": "781896",
      "eval_likelihood": 0.7835714074920671,
      "eval_total_log_likelihood": -1949.9251924269831,
      "eval_total_trials": 7995,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841599,
+     "subject_id": "841599",
      "eval_likelihood": 0.772947621264445,
      "eval_total_log_likelihood": -1823.9265585757944,
      "eval_total_trials": 7082,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 745505,
+     "subject_id": "745505",
      "eval_likelihood": 0.6646686023985657,
      "eval_total_log_likelihood": -2322.54168348058,
      "eval_total_trials": 5686,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 764693,
+     "subject_id": "764693",
      "eval_likelihood": 0.6352924596948342,
      "eval_total_log_likelihood": -2966.0932809963165,
      "eval_total_trials": 6538,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777098,
+     "subject_id": "777098",
      "eval_likelihood": 0.7196494589947424,
      "eval_total_log_likelihood": -1551.8507735828434,
      "eval_total_trials": 4717,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 807885,
+     "subject_id": "807885",
      "eval_likelihood": 0.6831919944853431,
      "eval_total_log_likelihood": -2129.2936109038515,
      "eval_total_trials": 5589,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841363,
+     "subject_id": "841363",
      "eval_likelihood": 0.7279700588618918,
-     "eval_total_log_likelihood": -2211.672674752009,
+     "eval_total_log_likelihood": -2211.6726747520092,
      "eval_total_trials": 6966,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 769359,
+     "subject_id": "769359",
      "eval_likelihood": 0.7921501875893778,
      "eval_total_log_likelihood": -1156.167209328117,
      "eval_total_trials": 4962,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 802292,
+     "subject_id": "802292",
      "eval_likelihood": 0.7159722879808215,
      "eval_total_log_likelihood": -2634.487444741858,
      "eval_total_trials": 7885,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835178,
+     "subject_id": "835178",
      "eval_likelihood": 0.7321383399516244,
      "eval_total_log_likelihood": -1237.1660300842805,
      "eval_total_trials": 3968,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 770803,
+     "subject_id": "770803",
      "eval_likelihood": 0.6771474194203623,
      "eval_total_log_likelihood": -2583.2539436522693,
      "eval_total_trials": 6626,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790584,
+     "subject_id": "790584",
      "eval_likelihood": 0.7491602533404235,
      "eval_total_log_likelihood": -2163.707295763593,
      "eval_total_trials": 7492,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 810758,
+     "subject_id": "810758",
      "eval_likelihood": 0.8018212108612897,
      "eval_total_log_likelihood": -1425.271690567963,
      "eval_total_trials": 6453,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 839483,
+     "subject_id": "839483",
      "eval_likelihood": 0.721879154825077,
      "eval_total_log_likelihood": -2160.0488267634723,
      "eval_total_trials": 6628,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798520,
+     "subject_id": "798520",
      "eval_likelihood": 0.7072375663568702,
      "eval_total_log_likelihood": -2071.4041223415625,
      "eval_total_trials": 5980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 832634,
+     "subject_id": "832634",
      "eval_likelihood": 0.7274146856481578,
      "eval_total_log_likelihood": -1492.6326342057512,
      "eval_total_trials": 4690,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767462,
+     "subject_id": "767462",
      "eval_likelihood": 0.7661218877142819,
      "eval_total_log_likelihood": -1877.6858688830805,
      "eval_total_trials": 7048,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777027,
+     "subject_id": "777027",
      "eval_likelihood": 0.6291330163635617,
-     "eval_total_log_likelihood": -2544.1350196368358,
+     "eval_total_log_likelihood": -2544.1350196368353,
      "eval_total_trials": 5490,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813165,
+     "subject_id": "813165",
      "eval_likelihood": 0.7356475697905871,
-     "eval_total_log_likelihood": -1623.130784182341,
+     "eval_total_log_likelihood": -1623.1307841823407,
      "eval_total_trials": 5287,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823161,
+     "subject_id": "823161",
      "eval_likelihood": 0.7706546810927689,
      "eval_total_log_likelihood": -1687.6154586779037,
      "eval_total_trials": 6478,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 711254,
+     "subject_id": "711254",
      "eval_likelihood": 0.8131470763474922,
      "eval_total_log_likelihood": -874.7402314554436,
      "eval_total_trials": 4229,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 802953,
+     "subject_id": "802953",
      "eval_likelihood": 0.7646621966679701,
      "eval_total_log_likelihood": -1139.5597782110194,
      "eval_total_trials": 4247,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823163,
+     "subject_id": "823163",
      "eval_likelihood": 0.6848892723826469,
      "eval_total_log_likelihood": -2560.539646112905,
      "eval_total_trials": 6765,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 838332,
+     "subject_id": "838332",
      "eval_likelihood": 0.8019156416332873,
-     "eval_total_log_likelihood": -1333.1204924672295,
+     "eval_total_log_likelihood": -1333.1204924672297,
      "eval_total_trials": 6039,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736198,
+     "subject_id": "736198",
      "eval_likelihood": 0.6862265531191714,
      "eval_total_log_likelihood": -1967.0838966517188,
      "eval_total_trials": 5224,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 787625,
+     "subject_id": "787625",
      "eval_likelihood": 0.7197411364163933,
      "eval_total_log_likelihood": -1283.5548820534473,
      "eval_total_trials": 3903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 805496,
+     "subject_id": "805496",
      "eval_likelihood": 0.6833926122029768,
-     "eval_total_log_likelihood": -2081.970365191264,
+     "eval_total_log_likelihood": -2081.9703651912637,
      "eval_total_trials": 5469,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829569,
+     "subject_id": "829569",
      "eval_likelihood": 0.6359726380073121,
      "eval_total_log_likelihood": -2262.998692842847,
      "eval_total_trials": 5000,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 753122,
+     "subject_id": "753122",
      "eval_likelihood": 0.7705199556140686,
      "eval_total_log_likelihood": -1309.9658680915634,
      "eval_total_trials": 5025,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780618,
+     "subject_id": "780618",
      "eval_likelihood": 0.7326461141051498,
      "eval_total_log_likelihood": -1761.4056489486554,
      "eval_total_trials": 5662,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 812305,
+     "subject_id": "812305",
      "eval_likelihood": 0.7615318094805351,
      "eval_total_log_likelihood": -1612.7461454774414,
      "eval_total_trials": 5920,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835444,
+     "subject_id": "835444",
      "eval_likelihood": 0.7747189617649659,
-     "eval_total_log_likelihood": -1545.3134393040657,
+     "eval_total_log_likelihood": -1545.3134393040655,
      "eval_total_trials": 6054,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766556,
+     "subject_id": "766556",
      "eval_likelihood": 0.7560387845679537,
      "eval_total_log_likelihood": -1551.847777277003,
      "eval_total_trials": 5549,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798664,
+     "subject_id": "798664",
      "eval_likelihood": 0.7306566535469698,
-     "eval_total_log_likelihood": -1360.37338901442,
+     "eval_total_log_likelihood": -1360.3733890144201,
      "eval_total_trials": 4335,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 819169,
+     "subject_id": "819169",
      "eval_likelihood": 0.698820103628827,
-     "eval_total_log_likelihood": -1822.270425991485,
+     "eval_total_log_likelihood": -1822.2704259914851,
      "eval_total_trials": 5085,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 712031,
+     "subject_id": "712031",
      "eval_likelihood": 0.6963632000050637,
      "eval_total_log_likelihood": -1309.2960068964082,
      "eval_total_trials": 3618,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 838101,
+     "subject_id": "838101",
      "eval_likelihood": 0.701088665570939,
      "eval_total_log_likelihood": -2067.1588493391155,
      "eval_total_trials": 5821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736199,
+     "subject_id": "736199",
      "eval_likelihood": 0.6881868756508966,
      "eval_total_log_likelihood": -1654.347129042202,
      "eval_total_trials": 4427,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765373,
+     "subject_id": "765373",
      "eval_likelihood": 0.7347535642532528,
-     "eval_total_log_likelihood": -1412.264602306392,
+     "eval_total_log_likelihood": -1412.2646023063921,
      "eval_total_trials": 4582,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777271,
+     "subject_id": "777271",
      "eval_likelihood": 0.7285441933448077,
      "eval_total_log_likelihood": -1235.473974650345,
      "eval_total_trials": 3901,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790726,
+     "subject_id": "790726",
      "eval_likelihood": 0.7529151775309378,
      "eval_total_log_likelihood": -1149.684752156141,
      "eval_total_trials": 4051,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829048,
+     "subject_id": "829048",
      "eval_likelihood": 0.7043614302819451,
      "eval_total_log_likelihood": -1013.1904389770706,
      "eval_total_trials": 2891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 756567,
+     "subject_id": "756567",
      "eval_likelihood": 0.7150948196078165,
      "eval_total_log_likelihood": -1334.6537183734777,
      "eval_total_trials": 3980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778336,
+     "subject_id": "778336",
      "eval_likelihood": 0.7860252734069526,
-     "eval_total_log_likelihood": -1184.3295900992557,
+     "eval_total_log_likelihood": -1184.3295900992555,
      "eval_total_trials": 4919,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 826160,
+     "subject_id": "826160",
      "eval_likelihood": 0.799456122014226,
      "eval_total_log_likelihood": -861.497151860456,
      "eval_total_trials": 3849,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 762611,
+     "subject_id": "762611",
      "eval_likelihood": 0.7369863268222634,
      "eval_total_log_likelihood": -1131.934649401016,
      "eval_total_trials": 3709,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 837689,
+     "subject_id": "837689",
      "eval_likelihood": 0.7483773625547396,
      "eval_total_log_likelihood": -927.8032329844758,
      "eval_total_trials": 3201,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 850597,
+     "subject_id": "850597",
      "eval_likelihood": 0.7283972486353892,
-     "eval_total_log_likelihood": -999.846975025306,
+     "eval_total_log_likelihood": -999.8469750253059,
      "eval_total_trials": 3155,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751920,
+     "subject_id": "751920",
      "eval_likelihood": 0.687219270572739,
      "eval_total_log_likelihood": -1073.5415420509378,
      "eval_total_trials": 2862,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 774826,
+     "subject_id": "774826",
      "eval_likelihood": 0.643578934954325,
      "eval_total_log_likelihood": -1330.5052845751447,
      "eval_total_trials": 3019,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818020,
+     "subject_id": "818020",
      "eval_likelihood": 0.7288294619508672,
      "eval_total_log_likelihood": -912.2539266989618,
      "eval_total_trials": 2884,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 747886,
+     "subject_id": "747886",
      "eval_likelihood": 0.722084824377991,
      "eval_total_log_likelihood": -1106.1062118020018,
      "eval_total_trials": 3397,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 845710,
+     "subject_id": "845710",
      "eval_likelihood": 0.7567581029181325,
      "eval_total_log_likelihood": -981.6223383702657,
      "eval_total_trials": 3522,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751153,
+     "subject_id": "751153",
      "eval_likelihood": 0.7326879296698987,
      "eval_total_log_likelihood": -747.7291297756143,
      "eval_total_trials": 2404,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 776259,
+     "subject_id": "776259",
      "eval_likelihood": 0.7034957905362115,
      "eval_total_log_likelihood": -1107.4824726628992,
      "eval_total_trials": 3149,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 814196,
+     "subject_id": "814196",
      "eval_likelihood": 0.6964501682948692,
      "eval_total_log_likelihood": -903.6740674350722,
      "eval_total_trials": 2498,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 668551,
+     "subject_id": "668551",
      "eval_likelihood": 0.8339958651175018,
      "eval_total_log_likelihood": -2424.290875126306,
      "eval_total_trials": 13355,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 790768,
+     "subject_id": "790768",
      "eval_likelihood": 0.761159768286948,
-     "eval_total_log_likelihood": -3816.128467605136,
+     "eval_total_log_likelihood": -3816.1284676051355,
      "eval_total_trials": 13983,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 746346,
+     "subject_id": "746346",
      "eval_likelihood": 0.7980429373879722,
-     "eval_total_log_likelihood": -2064.174822072556,
+     "eval_total_log_likelihood": -2064.1748220725553,
      "eval_total_trials": 9150,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 727456,
+     "subject_id": "727456",
      "eval_likelihood": 0.7440042005852442,
      "eval_total_log_likelihood": -2949.3975586171023,
      "eval_total_trials": 9974,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 775741,
+     "subject_id": "775741",
      "eval_likelihood": 0.783344365746039,
      "eval_total_log_likelihood": -2394.21310584844,
      "eval_total_trials": 9805,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 651554,
+     "subject_id": "651554",
      "eval_likelihood": 0.7763302031154656,
-     "eval_total_log_likelihood": -2972.555029510132,
+     "eval_total_log_likelihood": -2972.5550295101316,
      "eval_total_trials": 11741,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 708299,
+     "subject_id": "708299",
      "eval_likelihood": 0.7937714611842714,
      "eval_total_log_likelihood": -1552.2800860894706,
      "eval_total_trials": 6721,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 651475,
+     "subject_id": "651475",
      "eval_likelihood": 0.8616802344691507,
      "eval_total_log_likelihood": -2124.091924992533,
      "eval_total_trials": 14268,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 781162,
+     "subject_id": "781162",
      "eval_likelihood": 0.7356581331719241,
      "eval_total_log_likelihood": -2763.5218297504853,
      "eval_total_trials": 9002,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 751765,
+     "subject_id": "751765",
      "eval_likelihood": 0.6515063810867158,
      "eval_total_log_likelihood": -4108.580495940382,
      "eval_total_trials": 9589,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 713862,
+     "subject_id": "713862",
      "eval_likelihood": 0.7651270366432468,
      "eval_total_log_likelihood": -2243.9737017898515,
      "eval_total_trials": 8382,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 716324,
+     "subject_id": "716324",
      "eval_likelihood": 0.7077014176231383,
      "eval_total_log_likelihood": -2050.888160514533,
      "eval_total_trials": 5932,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 711041,
+     "subject_id": "711041",
      "eval_likelihood": 0.7839885723601829,
-     "eval_total_log_likelihood": -1965.382101918747,
+     "eval_total_log_likelihood": -1965.3821019187467,
      "eval_total_trials": 8076,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 786234,
+     "subject_id": "786234",
      "eval_likelihood": 0.7706603528573024,
      "eval_total_log_likelihood": -1615.4071969451911,
      "eval_total_trials": 6201,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 775745,
+     "subject_id": "775745",
      "eval_likelihood": 0.7693142306761213,
-     "eval_total_log_likelihood": -2066.837727107325,
+     "eval_total_log_likelihood": -2066.8377271073246,
      "eval_total_trials": 7881,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 781369,
+     "subject_id": "781369",
      "eval_likelihood": 0.7990220682429607,
      "eval_total_log_likelihood": -1710.796192487072,
      "eval_total_trials": 7625,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711281,
+     "subject_id": "711281",
      "eval_likelihood": 0.7934472293283629,
      "eval_total_log_likelihood": -1190.1582518124285,
      "eval_total_trials": 5144,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711039,
+     "subject_id": "711039",
      "eval_likelihood": 0.7774983520723104,
      "eval_total_log_likelihood": -1758.6961961115417,
      "eval_total_trials": 6988,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 761406,
+     "subject_id": "761406",
      "eval_likelihood": 0.7523183599278724,
      "eval_total_log_likelihood": -1751.4018987351396,
      "eval_total_trials": 6154,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 744779,
+     "subject_id": "744779",
      "eval_likelihood": 0.8039263270992871,
      "eval_total_log_likelihood": -1305.3391764845824,
      "eval_total_trials": 5981,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 785951,
+     "subject_id": "785951",
      "eval_likelihood": 0.7755268968950277,
-     "eval_total_log_likelihood": -1130.7377056144385,
+     "eval_total_log_likelihood": -1130.7377056144383,
      "eval_total_trials": 4448,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 782394,
+     "subject_id": "782394",
      "eval_likelihood": 0.773611082551845,
      "eval_total_log_likelihood": -1443.6021146139915,
      "eval_total_trials": 5624,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 801996,
+     "subject_id": "801996",
      "eval_likelihood": 0.7689751357751508,
      "eval_total_log_likelihood": -1227.8441102769948,
      "eval_total_trials": 4674,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765861,
+     "subject_id": "765861",
      "eval_likelihood": 0.769308583843947,
      "eval_total_log_likelihood": -1018.1053952971282,
      "eval_total_trials": 3882,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836657,
+     "subject_id": "836657",
      "eval_likelihood": 0.7883491620127687,
      "eval_total_log_likelihood": -1204.52886355035,
      "eval_total_trials": 5065,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 749472,
+     "subject_id": "749472",
      "eval_likelihood": 0.7871375618656686,
      "eval_total_log_likelihood": -1205.1385944869787,
      "eval_total_trials": 5035,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 754372,
+     "subject_id": "754372",
      "eval_likelihood": 0.7850778464888619,
      "eval_total_log_likelihood": -709.9470175357216,
      "eval_total_trials": 2934,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836656,
+     "subject_id": "836656",
      "eval_likelihood": 0.7548387431011361,
      "eval_total_log_likelihood": -951.753850458034,
      "eval_total_trials": 3384,
@@ -3167,1051 +3183,1052 @@
    ]
   },
   "cdq292n5": {
-   "group": null,
-   "source": "disk",
+   "group": "rl-baseline-simple@20260624-171829",
+   "source": "wandb",
    "origin": {
-    "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20260624_173155-cdq292n5/files/outputs/heldout_test/subject_fit_metrics.csv",
-    "sha256": "a888f21b9edad32edac028e53fe86a1dc5f6a9a702cefafc99a87dac26648f8d"
+    "artifact": "AIND-disRNN/mice_data_scaling/run-cdq292n5-heldoutsubject_fit_metrics-37hVoQ:v0",
+    "artifact_digest": "7941dd236792777e8e081a51b33a8fc3",
+    "entry": "heldout/subject_fit_metrics.table.json"
    },
    "table": [
     {
-     "subject_id": 452275,
+     "subject_id": "452275",
      "eval_likelihood": 0.5403792140026666,
      "eval_total_log_likelihood": -9296.887900435622,
      "eval_total_trials": 15105,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 700708,
+     "subject_id": "700708",
      "eval_likelihood": 0.6948366642994963,
      "eval_total_log_likelihood": -3565.7845981965447,
      "eval_total_trials": 9794,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 455525,
+     "subject_id": "455525",
      "eval_likelihood": 0.585568258276429,
-     "eval_total_log_likelihood": -6897.303457956024,
+     "eval_total_log_likelihood": -6897.3034579560235,
      "eval_total_trials": 12888,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 656489,
+     "subject_id": "656489",
      "eval_likelihood": 0.647955272238339,
      "eval_total_log_likelihood": -8292.037340795918,
      "eval_total_trials": 19109,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 641494,
+     "subject_id": "641494",
      "eval_likelihood": 0.686641190944923,
      "eval_total_log_likelihood": -6592.543587265246,
      "eval_total_trials": 17536,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 639875,
+     "subject_id": "639875",
      "eval_likelihood": 0.7157281002682957,
      "eval_total_log_likelihood": -4957.291007628854,
      "eval_total_trials": 14822,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 472184,
+     "subject_id": "472184",
      "eval_likelihood": 0.5774010767504308,
      "eval_total_log_likelihood": -8991.79950152514,
      "eval_total_trials": 16372,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 643773,
+     "subject_id": "643773",
      "eval_likelihood": 0.6312909110362083,
-     "eval_total_log_likelihood": -7407.19466945072,
+     "eval_total_log_likelihood": -7407.1946694507205,
      "eval_total_trials": 16103,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 659778,
+     "subject_id": "659778",
      "eval_likelihood": 0.6179456731756903,
-     "eval_total_log_likelihood": -3614.01133439725,
+     "eval_total_log_likelihood": -3614.0113343972503,
      "eval_total_trials": 7508,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 627042,
+     "subject_id": "627042",
      "eval_likelihood": 0.6232283998175795,
      "eval_total_log_likelihood": -5587.103606667322,
      "eval_total_trials": 11816,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 684039,
+     "subject_id": "684039",
      "eval_likelihood": 0.7422347235518406,
      "eval_total_log_likelihood": -1331.2688093014308,
      "eval_total_trials": 4466,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453476,
+     "subject_id": "453476",
      "eval_likelihood": 0.5933758052196433,
      "eval_total_log_likelihood": -4401.413301187093,
      "eval_total_trials": 8433,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 453478,
+     "subject_id": "453478",
      "eval_likelihood": 0.6130661974268405,
      "eval_total_log_likelihood": -3049.207665022734,
      "eval_total_trials": 6232,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 699982,
+     "subject_id": "699982",
      "eval_likelihood": 0.7826809651493374,
      "eval_total_log_likelihood": -1163.1579698563191,
      "eval_total_trials": 4747,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 663373,
+     "subject_id": "663373",
      "eval_likelihood": 0.75817171395687,
-     "eval_total_log_likelihood": -2018.7565359855505,
+     "eval_total_log_likelihood": -2018.7565359855503,
      "eval_total_trials": 7292,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 616134,
+     "subject_id": "616134",
      "eval_likelihood": 0.6078134256248514,
      "eval_total_log_likelihood": -2930.066818511375,
      "eval_total_trials": 5885,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 722989,
+     "subject_id": "722989",
      "eval_likelihood": 0.6047366600459582,
      "eval_total_log_likelihood": -1920.309635163226,
      "eval_total_trials": 3818,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 494693,
+     "subject_id": "494693",
      "eval_likelihood": 0.5637801588184316,
      "eval_total_log_likelihood": -2655.1301063456776,
      "eval_total_trials": 4633,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 673396,
+     "subject_id": "673396",
      "eval_likelihood": 0.6364849378569127,
      "eval_total_log_likelihood": -1958.981061595902,
      "eval_total_trials": 4336,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 648586,
+     "subject_id": "648586",
      "eval_likelihood": 0.754379209127692,
-     "eval_total_log_likelihood": -1810.387470623112,
+     "eval_total_log_likelihood": -1810.3874706231118,
      "eval_total_trials": 6423,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 682342,
+     "subject_id": "682342",
      "eval_likelihood": 0.6978562459700024,
      "eval_total_log_likelihood": -774.1651041380347,
      "eval_total_trials": 2152,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697929,
+     "subject_id": "697929",
      "eval_likelihood": 0.6203248320140807,
      "eval_total_log_likelihood": -1558.1217067043176,
      "eval_total_trials": 3263,
      "curriculum_name": "Coupled Baiting"
     },
     {
-     "subject_id": 671245,
+     "subject_id": "671245",
      "eval_likelihood": 0.690683766904588,
      "eval_total_log_likelihood": -693.517187192517,
      "eval_total_trials": 1874,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 697930,
+     "subject_id": "697930",
      "eval_likelihood": 0.7571798634463519,
      "eval_total_log_likelihood": -400.8205674095523,
      "eval_total_trials": 1441,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 637701,
+     "subject_id": "637701",
      "eval_likelihood": 0.5619348071943172,
      "eval_total_log_likelihood": -2419.022528141322,
      "eval_total_trials": 4197,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 710414,
+     "subject_id": "710414",
      "eval_likelihood": 0.7388469703639783,
      "eval_total_log_likelihood": -838.3805434413009,
      "eval_total_trials": 2770,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 655100,
+     "subject_id": "655100",
      "eval_likelihood": 0.6263573803879321,
      "eval_total_log_likelihood": -950.1712106279836,
      "eval_total_trials": 2031,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 652743,
+     "subject_id": "652743",
      "eval_likelihood": 0.6948250545972164,
      "eval_total_log_likelihood": -1206.97553863351,
      "eval_total_trials": 3315,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 713379,
+     "subject_id": "713379",
      "eval_likelihood": 0.605738039095368,
      "eval_total_log_likelihood": -7489.536516485208,
      "eval_total_trials": 14940,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 791174,
+     "subject_id": "791174",
      "eval_likelihood": 0.7045433058259793,
      "eval_total_log_likelihood": -6098.478215366068,
      "eval_total_trials": 17414,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765365,
+     "subject_id": "765365",
      "eval_likelihood": 0.7601849239874197,
      "eval_total_log_likelihood": -2669.548444308891,
      "eval_total_trials": 9736,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 808584,
+     "subject_id": "808584",
      "eval_likelihood": 0.7090296400180562,
      "eval_total_log_likelihood": -3250.8330398124845,
      "eval_total_trials": 9454,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813992,
+     "subject_id": "813992",
      "eval_likelihood": 0.7776651299765166,
      "eval_total_log_likelihood": -2170.093514404547,
      "eval_total_trials": 8630,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823166,
+     "subject_id": "823166",
      "eval_likelihood": 0.6788106190182095,
      "eval_total_log_likelihood": -4578.448038661403,
      "eval_total_trials": 11818,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780621,
+     "subject_id": "780621",
      "eval_likelihood": 0.7505323008781543,
      "eval_total_log_likelihood": -2777.894668199219,
      "eval_total_trials": 9680,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 815334,
+     "subject_id": "815334",
      "eval_likelihood": 0.6706368878540693,
      "eval_total_log_likelihood": -3552.1984621446213,
      "eval_total_trials": 8891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 788733,
+     "subject_id": "788733",
      "eval_likelihood": 0.7899191534545034,
      "eval_total_log_likelihood": -2099.5470918281003,
      "eval_total_trials": 8903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 810756,
+     "subject_id": "810756",
      "eval_likelihood": 0.7289521838103514,
      "eval_total_log_likelihood": -3262.6384910507577,
      "eval_total_trials": 10320,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829489,
+     "subject_id": "829489",
      "eval_likelihood": 0.6695485101442623,
      "eval_total_log_likelihood": -3285.4320888711613,
      "eval_total_trials": 8190,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 821576,
+     "subject_id": "821576",
      "eval_likelihood": 0.7372611086736376,
      "eval_total_log_likelihood": -3027.4043417119287,
      "eval_total_trials": 9932,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818908,
+     "subject_id": "818908",
      "eval_likelihood": 0.625630088478608,
-     "eval_total_log_likelihood": -2883.387380416308,
+     "eval_total_log_likelihood": -2883.3873804163077,
      "eval_total_trials": 6148,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766998,
+     "subject_id": "766998",
      "eval_likelihood": 0.7271922893364565,
      "eval_total_log_likelihood": -2968.7010788478847,
      "eval_total_trials": 9319,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 788732,
+     "subject_id": "788732",
      "eval_likelihood": 0.8042691539682699,
      "eval_total_log_likelihood": -2280.8068030694744,
      "eval_total_trials": 10471,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 813167,
+     "subject_id": "813167",
      "eval_likelihood": 0.7916488392444814,
      "eval_total_log_likelihood": -1695.2727587816792,
      "eval_total_trials": 7256,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767463,
+     "subject_id": "767463",
      "eval_likelihood": 0.7076759944272606,
      "eval_total_log_likelihood": -2751.62910534905,
      "eval_total_trials": 7958,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 793397,
+     "subject_id": "793397",
      "eval_likelihood": 0.7352833001387945,
-     "eval_total_log_likelihood": -2890.18697026208,
+     "eval_total_log_likelihood": -2890.1869702620797,
      "eval_total_trials": 9399,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 809488,
+     "subject_id": "809488",
      "eval_likelihood": 0.7251204828960646,
      "eval_total_log_likelihood": -2452.7365962774206,
      "eval_total_trials": 7631,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 721403,
+     "subject_id": "721403",
      "eval_likelihood": 0.755357785719821,
      "eval_total_log_likelihood": -1753.8040238293695,
      "eval_total_trials": 6251,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781897,
+     "subject_id": "781897",
      "eval_likelihood": 0.6899321103683278,
      "eval_total_log_likelihood": -2902.8586042331176,
      "eval_total_trials": 7821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 800175,
+     "subject_id": "800175",
      "eval_likelihood": 0.7279620888375403,
      "eval_total_log_likelihood": -2768.6550050105216,
      "eval_total_trials": 8720,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 818585,
+     "subject_id": "818585",
      "eval_likelihood": 0.7851821173483647,
      "eval_total_log_likelihood": -2114.1617087589216,
      "eval_total_trials": 8742,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 784956,
+     "subject_id": "784956",
      "eval_likelihood": 0.7558790927981578,
      "eval_total_log_likelihood": -1844.088769672862,
      "eval_total_trials": 6589,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765232,
+     "subject_id": "765232",
      "eval_likelihood": 0.6542842346723213,
      "eval_total_log_likelihood": -3057.730276216106,
      "eval_total_trials": 7208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 797673,
+     "subject_id": "797673",
      "eval_likelihood": 0.6949121647070408,
-     "eval_total_log_likelihood": -1982.9075963614384,
+     "eval_total_log_likelihood": -1982.9075963614382,
      "eval_total_trials": 5448,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813171,
+     "subject_id": "813171",
      "eval_likelihood": 0.7300085881748227,
      "eval_total_log_likelihood": -1712.9065496959254,
      "eval_total_trials": 5443,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 764791,
+     "subject_id": "764791",
      "eval_likelihood": 0.6529410526508962,
      "eval_total_log_likelihood": -2806.1250442219543,
      "eval_total_trials": 6583,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 808057,
+     "subject_id": "808057",
      "eval_likelihood": 0.711192373999264,
-     "eval_total_log_likelihood": -1862.8801278000449,
+     "eval_total_log_likelihood": -1862.8801278000446,
      "eval_total_trials": 5466,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823164,
+     "subject_id": "823164",
      "eval_likelihood": 0.7510741054799461,
      "eval_total_log_likelihood": -2245.925003500052,
      "eval_total_trials": 7846,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 763704,
+     "subject_id": "763704",
      "eval_likelihood": 0.5794555523848351,
      "eval_total_log_likelihood": -3580.6623858279545,
      "eval_total_trials": 6562,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778103,
+     "subject_id": "778103",
      "eval_likelihood": 0.6784041168241877,
      "eval_total_log_likelihood": -2408.7792787727803,
      "eval_total_trials": 6208,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 812307,
+     "subject_id": "812307",
      "eval_likelihood": 0.7518974992315414,
      "eval_total_log_likelihood": -2355.667673375372,
      "eval_total_trials": 8261,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 726649,
+     "subject_id": "726649",
      "eval_likelihood": 0.7011004488395006,
      "eval_total_log_likelihood": -1454.8615328364922,
      "eval_total_trials": 4097,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 757214,
+     "subject_id": "757214",
      "eval_likelihood": 0.6533388621298156,
      "eval_total_log_likelihood": -2548.422546518136,
      "eval_total_trials": 5987,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 814147,
+     "subject_id": "814147",
      "eval_likelihood": 0.7560014391047103,
      "eval_total_log_likelihood": -1663.4472594015226,
      "eval_total_trials": 5947,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841356,
+     "subject_id": "841356",
      "eval_likelihood": 0.7081651791753338,
      "eval_total_log_likelihood": -2572.90088636936,
      "eval_total_trials": 7456,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 781896,
+     "subject_id": "781896",
      "eval_likelihood": 0.782224176317948,
-     "eval_total_log_likelihood": -1963.683202740008,
+     "eval_total_log_likelihood": -1963.6832027400078,
      "eval_total_trials": 7995,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841599,
+     "subject_id": "841599",
      "eval_likelihood": 0.7749212477666255,
      "eval_total_log_likelihood": -1805.866591426477,
      "eval_total_trials": 7082,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 745505,
+     "subject_id": "745505",
      "eval_likelihood": 0.6641383814425912,
      "eval_total_log_likelihood": -2327.079342527134,
      "eval_total_trials": 5686,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 764693,
+     "subject_id": "764693",
      "eval_likelihood": 0.637577022478954,
      "eval_total_log_likelihood": -2942.6242800809177,
      "eval_total_trials": 6538,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777098,
+     "subject_id": "777098",
      "eval_likelihood": 0.7168945262033591,
      "eval_total_log_likelihood": -1569.9428529647062,
      "eval_total_trials": 4717,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 807885,
+     "subject_id": "807885",
      "eval_likelihood": 0.6907965036606284,
      "eval_total_log_likelihood": -2067.4269565373643,
      "eval_total_trials": 5589,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 841363,
+     "subject_id": "841363",
      "eval_likelihood": 0.7311353742163009,
      "eval_total_log_likelihood": -2181.4491955596395,
      "eval_total_trials": 6966,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 769359,
+     "subject_id": "769359",
      "eval_likelihood": 0.7955659898575578,
      "eval_total_log_likelihood": -1134.8167472678142,
      "eval_total_trials": 4962,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 802292,
+     "subject_id": "802292",
      "eval_likelihood": 0.7182734119141101,
      "eval_total_log_likelihood": -2609.185813669761,
      "eval_total_trials": 7885,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835178,
+     "subject_id": "835178",
      "eval_likelihood": 0.734517442283547,
      "eval_total_log_likelihood": -1224.2928168225385,
      "eval_total_trials": 3968,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 770803,
+     "subject_id": "770803",
      "eval_likelihood": 0.6778424242506804,
      "eval_total_log_likelihood": -2576.456693575379,
      "eval_total_trials": 6626,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790584,
+     "subject_id": "790584",
      "eval_likelihood": 0.7578889939520097,
      "eval_total_log_likelihood": -2076.9198784818936,
      "eval_total_trials": 7492,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 810758,
+     "subject_id": "810758",
      "eval_likelihood": 0.8057339265073005,
      "eval_total_log_likelihood": -1393.8590150883404,
      "eval_total_trials": 6453,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 839483,
+     "subject_id": "839483",
      "eval_likelihood": 0.7243879397494888,
-     "eval_total_log_likelihood": -2137.054120986352,
+     "eval_total_log_likelihood": -2137.0541209863522,
      "eval_total_trials": 6628,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798520,
+     "subject_id": "798520",
      "eval_likelihood": 0.7085516987622406,
      "eval_total_log_likelihood": -2060.3028741055946,
      "eval_total_trials": 5980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 832634,
+     "subject_id": "832634",
      "eval_likelihood": 0.7325419325183915,
      "eval_total_log_likelihood": -1459.6907147216184,
      "eval_total_trials": 4690,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 767462,
+     "subject_id": "767462",
      "eval_likelihood": 0.7651608714230396,
-     "eval_total_log_likelihood": -1886.5323652855436,
+     "eval_total_log_likelihood": -1886.5323652855434,
      "eval_total_trials": 7048,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777027,
+     "subject_id": "777027",
      "eval_likelihood": 0.6338338934566484,
      "eval_total_log_likelihood": -2503.2662775953904,
      "eval_total_trials": 5490,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 813165,
+     "subject_id": "813165",
      "eval_likelihood": 0.7360583717847586,
      "eval_total_log_likelihood": -1620.1792296112308,
      "eval_total_trials": 5287,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823161,
+     "subject_id": "823161",
      "eval_likelihood": 0.7733698397203697,
      "eval_total_log_likelihood": -1664.8323804527831,
      "eval_total_trials": 6478,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 711254,
+     "subject_id": "711254",
      "eval_likelihood": 0.8140356286925775,
      "eval_total_log_likelihood": -870.1215881657521,
      "eval_total_trials": 4229,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 802953,
+     "subject_id": "802953",
      "eval_likelihood": 0.7672352406740661,
-     "eval_total_log_likelihood": -1125.2928594160885,
+     "eval_total_log_likelihood": -1125.2928594160883,
      "eval_total_trials": 4247,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 823163,
+     "subject_id": "823163",
      "eval_likelihood": 0.7178755228566289,
      "eval_total_log_likelihood": -2242.3207537172025,
      "eval_total_trials": 6765,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 838332,
+     "subject_id": "838332",
      "eval_likelihood": 0.8007997219160323,
      "eval_total_log_likelihood": -1341.5300209646468,
      "eval_total_trials": 6039,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736198,
+     "subject_id": "736198",
      "eval_likelihood": 0.6879633806969195,
      "eval_total_log_likelihood": -1953.8787466588003,
      "eval_total_trials": 5224,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 787625,
+     "subject_id": "787625",
      "eval_likelihood": 0.7200592314921935,
      "eval_total_log_likelihood": -1281.8303025510108,
      "eval_total_trials": 3903,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 805496,
+     "subject_id": "805496",
      "eval_likelihood": 0.6840458887043409,
      "eval_total_log_likelihood": -2076.7448732142607,
      "eval_total_trials": 5469,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829569,
+     "subject_id": "829569",
      "eval_likelihood": 0.6404107629283494,
      "eval_total_log_likelihood": -2228.2274571468374,
      "eval_total_trials": 5000,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 753122,
+     "subject_id": "753122",
      "eval_likelihood": 0.7768753299616978,
      "eval_total_log_likelihood": -1268.6888447386627,
      "eval_total_trials": 5025,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 780618,
+     "subject_id": "780618",
      "eval_likelihood": 0.7365393416089994,
      "eval_total_log_likelihood": -1731.397857027886,
      "eval_total_trials": 5662,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 812305,
+     "subject_id": "812305",
      "eval_likelihood": 0.7632436741491697,
-     "eval_total_log_likelihood": -1599.4533778470095,
+     "eval_total_log_likelihood": -1599.4533778470097,
      "eval_total_trials": 5920,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 835444,
+     "subject_id": "835444",
      "eval_likelihood": 0.7758589337758582,
      "eval_total_log_likelihood": -1536.4117365038317,
      "eval_total_trials": 6054,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 766556,
+     "subject_id": "766556",
      "eval_likelihood": 0.7568220681309334,
      "eval_total_log_likelihood": -1546.1017883162906,
      "eval_total_trials": 5549,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 798664,
+     "subject_id": "798664",
      "eval_likelihood": 0.7304522027850082,
      "eval_total_log_likelihood": -1361.5865690660603,
      "eval_total_trials": 4335,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 819169,
+     "subject_id": "819169",
      "eval_likelihood": 0.7025307694618459,
      "eval_total_log_likelihood": -1795.341010635646,
      "eval_total_trials": 5085,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 712031,
+     "subject_id": "712031",
      "eval_likelihood": 0.6997146691805948,
      "eval_total_log_likelihood": -1291.925000538906,
      "eval_total_trials": 3618,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 838101,
+     "subject_id": "838101",
      "eval_likelihood": 0.6985956446213099,
      "eval_total_log_likelihood": -2087.8947969926007,
      "eval_total_trials": 5821,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 736199,
+     "subject_id": "736199",
      "eval_likelihood": 0.6939568273818154,
-     "eval_total_log_likelihood": -1617.38465597062,
+     "eval_total_log_likelihood": -1617.3846559706199,
      "eval_total_trials": 4427,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 765373,
+     "subject_id": "765373",
      "eval_likelihood": 0.736174108997188,
-     "eval_total_log_likelihood": -1403.414489335319,
+     "eval_total_log_likelihood": -1403.4144893353193,
      "eval_total_trials": 4582,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 777271,
+     "subject_id": "777271",
      "eval_likelihood": 0.7286205436141926,
      "eval_total_log_likelihood": -1235.0651774929768,
      "eval_total_trials": 3901,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 790726,
+     "subject_id": "790726",
      "eval_likelihood": 0.7578341325388326,
      "eval_total_log_likelihood": -1123.3047869016054,
      "eval_total_trials": 4051,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 829048,
+     "subject_id": "829048",
      "eval_likelihood": 0.7021174041254479,
-     "eval_total_log_likelihood": -1022.4155833085296,
+     "eval_total_log_likelihood": -1022.4155833085297,
      "eval_total_trials": 2891,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 756567,
+     "subject_id": "756567",
      "eval_likelihood": 0.718460331320852,
      "eval_total_log_likelihood": -1315.9662458784678,
      "eval_total_trials": 3980,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 778336,
+     "subject_id": "778336",
      "eval_likelihood": 0.7870838543115076,
      "eval_total_log_likelihood": -1177.7093751837956,
      "eval_total_trials": 4919,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 826160,
+     "subject_id": "826160",
      "eval_likelihood": 0.802337157976126,
      "eval_total_log_likelihood": -847.6512711042617,
      "eval_total_trials": 3849,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 762611,
+     "subject_id": "762611",
      "eval_likelihood": 0.7353743677682131,
      "eval_total_log_likelihood": -1140.0559725824644,
      "eval_total_trials": 3709,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 837689,
+     "subject_id": "837689",
      "eval_likelihood": 0.7485573507663089,
-     "eval_total_log_likelihood": -927.0334702648556,
+     "eval_total_log_likelihood": -927.0334702648557,
      "eval_total_trials": 3201,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 850597,
+     "subject_id": "850597",
      "eval_likelihood": 0.733972823328266,
-     "eval_total_log_likelihood": -975.7887373303976,
+     "eval_total_log_likelihood": -975.7887373303975,
      "eval_total_trials": 3155,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751920,
+     "subject_id": "751920",
      "eval_likelihood": 0.6867634434978082,
      "eval_total_log_likelihood": -1075.4405137380688,
      "eval_total_trials": 2862,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 774826,
+     "subject_id": "774826",
      "eval_likelihood": 0.6513631872716059,
      "eval_total_log_likelihood": -1294.2087730672556,
      "eval_total_trials": 3019,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 818020,
+     "subject_id": "818020",
      "eval_likelihood": 0.7275399710364949,
-     "eval_total_log_likelihood": -917.3610000618536,
+     "eval_total_log_likelihood": -917.3610000618537,
      "eval_total_trials": 2884,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 747886,
+     "subject_id": "747886",
      "eval_likelihood": 0.7223558447512483,
      "eval_total_log_likelihood": -1104.8314537057572,
      "eval_total_trials": 3397,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 845710,
+     "subject_id": "845710",
      "eval_likelihood": 0.754959631535386,
      "eval_total_log_likelihood": -990.0024996319383,
      "eval_total_trials": 3522,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 751153,
+     "subject_id": "751153",
      "eval_likelihood": 0.7324315620739135,
      "eval_total_log_likelihood": -748.570436864233,
      "eval_total_trials": 2404,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 776259,
+     "subject_id": "776259",
      "eval_likelihood": 0.7065267243320055,
      "eval_total_log_likelihood": -1093.9444970309687,
      "eval_total_trials": 3149,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 814196,
+     "subject_id": "814196",
      "eval_likelihood": 0.6921281253373563,
      "eval_total_log_likelihood": -919.2245023269656,
      "eval_total_trials": 2498,
      "curriculum_name": "Uncoupled Baiting"
     },
     {
-     "subject_id": 668551,
+     "subject_id": "668551",
      "eval_likelihood": 0.8405511554912104,
      "eval_total_log_likelihood": -2319.729642662168,
      "eval_total_trials": 13355,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 790768,
+     "subject_id": "790768",
      "eval_likelihood": 0.7672508632743994,
-     "eval_total_log_likelihood": -3704.676439779481,
+     "eval_total_log_likelihood": -3704.6764397794805,
      "eval_total_trials": 13983,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 746346,
+     "subject_id": "746346",
      "eval_likelihood": 0.8085006930016191,
      "eval_total_log_likelihood": -1945.049746807421,
      "eval_total_trials": 9150,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 727456,
+     "subject_id": "727456",
      "eval_likelihood": 0.7482301619288481,
      "eval_total_log_likelihood": -2892.9052914753534,
      "eval_total_trials": 9974,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 775741,
+     "subject_id": "775741",
      "eval_likelihood": 0.7865181742915024,
      "eval_total_log_likelihood": -2354.567296877652,
      "eval_total_trials": 9805,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 651554,
+     "subject_id": "651554",
      "eval_likelihood": 0.7744570739941432,
-     "eval_total_log_likelihood": -3000.917939153664,
+     "eval_total_log_likelihood": -3000.9179391536636,
      "eval_total_trials": 11741,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 708299,
+     "subject_id": "708299",
      "eval_likelihood": 0.7945733342865637,
      "eval_total_log_likelihood": -1545.4939152357083,
      "eval_total_trials": 6721,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 651475,
+     "subject_id": "651475",
      "eval_likelihood": 0.8649273013494546,
-     "eval_total_log_likelihood": -2070.4269155398997,
+     "eval_total_log_likelihood": -2070.4269155398993,
      "eval_total_trials": 14268,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 781162,
+     "subject_id": "781162",
      "eval_likelihood": 0.7412746447191854,
      "eval_total_log_likelihood": -2695.055503550298,
      "eval_total_trials": 9002,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 751765,
+     "subject_id": "751765",
      "eval_likelihood": 0.6513741994782719,
      "eval_total_log_likelihood": -4110.526168424297,
      "eval_total_trials": 9589,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 713862,
+     "subject_id": "713862",
      "eval_likelihood": 0.7580152771614038,
      "eval_total_log_likelihood": -2322.247676099935,
      "eval_total_trials": 8382,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 716324,
+     "subject_id": "716324",
      "eval_likelihood": 0.7071183085480509,
      "eval_total_log_likelihood": -2055.777833969442,
      "eval_total_trials": 5932,
-     "curriculum_name": NaN
+     "curriculum_name": null
     },
     {
-     "subject_id": 711041,
+     "subject_id": "711041",
      "eval_likelihood": 0.7887243293252234,
      "eval_total_log_likelihood": -1916.7450127135564,
      "eval_total_trials": 8076,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 786234,
+     "subject_id": "786234",
      "eval_likelihood": 0.7789927581283138,
      "eval_total_log_likelihood": -1548.7216365777174,
      "eval_total_trials": 6201,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 775745,
+     "subject_id": "775745",
      "eval_likelihood": 0.7684280340526726,
      "eval_total_log_likelihood": -2075.92132521447,
      "eval_total_trials": 7881,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 781369,
+     "subject_id": "781369",
      "eval_likelihood": 0.8008409203558208,
      "eval_total_log_likelihood": -1693.458766176824,
      "eval_total_trials": 7625,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711281,
+     "subject_id": "711281",
      "eval_likelihood": 0.801217662668828,
      "eval_total_log_likelihood": -1140.02680957048,
      "eval_total_trials": 5144,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 711039,
+     "subject_id": "711039",
      "eval_likelihood": 0.7783967818620077,
-     "eval_total_log_likelihood": -1750.6259503330657,
+     "eval_total_log_likelihood": -1750.6259503330655,
      "eval_total_trials": 6988,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 761406,
+     "subject_id": "761406",
      "eval_likelihood": 0.7661319037524217,
      "eval_total_log_likelihood": -1639.4312983315472,
      "eval_total_trials": 6154,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 744779,
+     "subject_id": "744779",
      "eval_likelihood": 0.808179058549697,
      "eval_total_log_likelihood": -1273.7833662578296,
      "eval_total_trials": 5981,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 785951,
+     "subject_id": "785951",
      "eval_likelihood": 0.7829756511856492,
      "eval_total_log_likelihood": -1088.219569975869,
      "eval_total_trials": 4448,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 782394,
+     "subject_id": "782394",
      "eval_likelihood": 0.77880040197469,
      "eval_total_log_likelihood": -1406.002752036843,
      "eval_total_trials": 5624,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 801996,
+     "subject_id": "801996",
      "eval_likelihood": 0.7747298438715808,
      "eval_total_log_likelihood": -1192.9959617049278,
      "eval_total_trials": 4674,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 765861,
+     "subject_id": "765861",
      "eval_likelihood": 0.7631442661163556,
      "eval_total_log_likelihood": -1049.336386172107,
      "eval_total_trials": 3882,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836657,
+     "subject_id": "836657",
      "eval_likelihood": 0.7960222568123722,
      "eval_total_log_likelihood": -1155.4689921715276,
      "eval_total_trials": 5065,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 749472,
+     "subject_id": "749472",
      "eval_likelihood": 0.7925307307349149,
      "eval_total_log_likelihood": -1170.758325045718,
      "eval_total_trials": 5035,
      "curriculum_name": "Uncoupled Without Baiting"
     },
     {
-     "subject_id": 754372,
+     "subject_id": "754372",
      "eval_likelihood": 0.8070110921073879,
      "eval_total_log_likelihood": -629.1020186679493,
      "eval_total_trials": 2934,
      "curriculum_name": "Mixed"
     },
     {
-     "subject_id": 836656,
+     "subject_id": "836656",
      "eval_likelihood": 0.7662155679414399,
      "eval_total_log_likelihood": -901.131209391954,
      "eval_total_trials": 3384,

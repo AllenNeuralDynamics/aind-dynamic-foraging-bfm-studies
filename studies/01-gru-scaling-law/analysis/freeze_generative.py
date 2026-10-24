@@ -15,9 +15,10 @@ import wandb
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parents[1] / "util"))   # shared _meta (studies + source SHAs), ahead of the local copy
 from _meta import build_meta  # noqa: E402
 from generative_match import (DLAB, FROZEN, HIST_N_BACKS, HIST_PATTERNS, K_CORR,  # noqa: E402
-                              K_CORR_OVERALL, K_MSE, PREFIXES, PROJECT)
+                              K_CORR_OVERALL, K_MSE, PROJECT, WANDB_GROUPS)
 from wandb_keys import hist_corr, hist_mse  # noqa: E402
 
 
@@ -30,7 +31,7 @@ def collect():
     """Live pull of the generative rollouts, one row per cell."""
     api = wandb.Api()
     runs = [r for r in api.runs(PROJECT)
-            if any((r.group or "").startswith(p) for p in PREFIXES) and r.state == "finished"]
+            if r.group in WANDB_GROUPS and r.state == "finished"]
     groups = sorted({r.group for r in runs if r.group})
     by_cell = {}
     for r in runs:
@@ -74,7 +75,7 @@ def collect():
 
 def main():
     rows, groups = collect()
-    out = {"_meta": build_meta("analysis/freeze_generative.py", groups), "rows": rows}
+    out = {"_meta": build_meta("analysis/freeze_generative.py", groups, study_root=HERE.parent), "rows": rows}
     FROZEN.write_text(json.dumps(out, indent=1) + "\n")
     print(f"wrote {FROZEN} ({len(rows)} cells)")
 

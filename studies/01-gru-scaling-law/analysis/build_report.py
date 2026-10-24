@@ -18,9 +18,16 @@ from _meta import build_meta
 
 HERE = Path(__file__).parent
 PROJECT = "AIND-disRNN/mice_data_scaling"
-# offline per-subject re-run groups (v1 + v2, incl. retries)
-GROUP_PREFIXES = ("heldout-rerun-v1@", "heldout-rerun-v1-retry@",
-                  "heldout-rerun-v2@", "heldout-rerun-v2-retry@")
+# offline per-subject re-run groups (v1 + v2, incl. retries), pinned (posthoc-reporting):
+# freeze_per_subject.py reads only these.
+WANDB_GROUPS = [
+    "heldout-rerun-v1-retry@20260623-011405",
+    "heldout-rerun-v1-retry@20260623-011406",
+    "heldout-rerun-v1@20260623-004601",
+    "heldout-rerun-v1@20260623-005608",
+    "heldout-rerun-v2-retry@20260623-065818",
+    "heldout-rerun-v2@20260623-053951",
+]
 
 FROZEN = HERE / "per_subject_rows.json"   # written by freeze_per_subject.py (needs W&B)
 
