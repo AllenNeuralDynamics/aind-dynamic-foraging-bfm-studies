@@ -31,6 +31,7 @@ import io
 import json
 import math
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -42,21 +43,23 @@ IMAGE_SUFFIXES = {".png", ".svg", ".pdf"}
 # entry when its issue closes. SKIP_MAKE: the study's `all` target needs W&B credentials or
 # the /allen mount (measured 2026-10-23 with an empty HOME: no ~/.netrc, no WANDB_API_KEY).
 # KNOWN_DIFFS: the path regenerates differently from what is committed.
-SKIP_MAKE = {
-    "01-gru-scaling-law": "dispatcher #177: `all` calls wandb.Api() (build_report, bootstrap_scaling, nxd_scaling) and reads /allen (rl_baseline)",
-    "02-gru-scaling-law-ignore": "dispatcher #177: `all` runs the W&B pull (no offline report target)",
-    "05-disrnn-scaling-law": "dispatcher #177: `all` -> r4 calls wandb.Api() (generative_match)",
-    "07-gru-timing-inputs": "dispatcher #177: `all` runs the W&B pull (no offline report target)",
-}
-KNOWN_DIFFS = {
-    "studies/04-gru-vs-disrnn-embedding-recovery/analysis/reports/r1-gru-ladder.md":
-        "dispatcher #177: committed report text differs from what the producer writes",
-    "studies/05-disrnn-scaling-law/analysis/reports/r4-generative-behavioral-match.md":
-        "dispatcher #177: committed report text differs from what the producer writes",
-    "studies/09-gru-cross-species-transfer/analysis/reports/r5-maturity-audit.md":
-        "dispatcher #177: committed report text differs from what the producer writes",
-    "studies/09-gru-cross-species-transfer/analysis/llm_task_similarity_results.json":
-        "dispatcher #177: PCA sign indeterminacy",
+SKIP_MAKE: dict[str, str] = {}
+KNOWN_DIFFS: dict[str, str] = {}
+# Nonlinear-optimizer outputs (scipy curve_fit) land differently on another BLAS / CPU, so
+# CI cannot reproduce them at --rtol. Per file: (JSON-path regex, rtol or None = not
+# compared, reason). Everything else in these files -- the data the fits are made from --
+# stays at --rtol. Measured 2026-10-24, GitHub runner vs Allen HPC.
+OPTIMIZER_OUTPUTS: dict[str, list[tuple[str, float | None, str]]] = {
+    "studies/01-gru-scaling-law/analysis/bootstrap_scaling.json": [
+        (r"^\$\.variants\.v[12]\.powerlaw_(E|alpha)\.", 1e-3,
+         "power-law fit per bootstrap draw; differs ~2e-4 relative across machines"),
+    ],
+    "studies/01-gru-scaling-law/analysis/nxd_scaling.json": [
+        (r"^\$\.fit_interaction\.(B|C|gamma)$", None,
+         "not identified: the interaction term is degenerate (C ~ -B, gamma ~ 0), so the "
+         "optimizer stops anywhere along that valley; the verdict reports C/B instead"),
+        (r"^\$\.fit_interaction\.", 1e-3, "interaction-model curve_fit"),
+    ],
 }
 
 
@@ -85,26 +88,34 @@ def _close(a, b, rtol: float) -> bool:
     return False
 
 
-def _json_equal(a, b, rtol: float, path: str = "$") -> list[str]:
-    """Differences between two parsed JSON values, ignoring `_meta` and float noise."""
+def _json_equal(a, b, rtol: float, path: str = "$", loose=()) -> list[str]:
+    """Differences between two parsed JSON values, ignoring `_meta` and float noise.
+
+    ``loose`` holds (path regex, rtol or None, reason) overrides for optimizer outputs."""
     if isinstance(a, dict) and isinstance(b, dict):
         a = {k: v for k, v in a.items() if k != "_meta"}
         b = {k: v for k, v in b.items() if k != "_meta"}
         diffs = [f"{path}.{k}: only in {'HEAD' if k in a else 'regenerated'}"
                  for k in sorted(set(a) ^ set(b))]
         for k in sorted(set(a) & set(b)):
-            diffs += _json_equal(a[k], b[k], rtol, f"{path}.{k}")
+            diffs += _json_equal(a[k], b[k], rtol, f"{path}.{k}", loose)
         return diffs
     if isinstance(a, list) and isinstance(b, list):
         if len(a) != len(b):
             return [f"{path}: length {len(a)} != {len(b)}"]
         out: list[str] = []
         for i, (x, y) in enumerate(zip(a, b)):
-            out += _json_equal(x, y, rtol, f"{path}[{i}]")
+            out += _json_equal(x, y, rtol, f"{path}[{i}]", loose)
         return out
     if isinstance(a, bool) != isinstance(b, bool):
         # Python's True == 1 and False == 0.0: a type change is not float noise
         return [f"{path}: {a!r} != {b!r} (type changed)"]
+    for pattern, loose_rtol, _ in loose:
+        if re.search(pattern, path):
+            if loose_rtol is None:
+                return []
+            rtol = loose_rtol
+            break
     if a == b or _close(a, b, rtol):
         return []
     return [f"{path}: {a!r} != {b!r}"]
@@ -152,7 +163,8 @@ def compare(path: str, rtol: float) -> list[str]:
     new = (ROOT / path).read_text()
     if suffix == ".json":
         try:
-            return _json_equal(json.loads(old), json.loads(new), rtol)
+            return _json_equal(json.loads(old), json.loads(new), rtol,
+                               loose=OPTIMIZER_OUTPUTS.get(path, ()))
         except json.JSONDecodeError as exc:
             return [f"unparseable JSON: {exc}"]
     if suffix == ".csv":

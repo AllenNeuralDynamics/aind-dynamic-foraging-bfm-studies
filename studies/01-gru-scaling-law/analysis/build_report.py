@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 """Build the v1-vs-v2 data-scaling held-out report: cell-level paired test (loaded),
-per-held-out-subject repeated-measures (pulled from the offline heldout-rerun W&B
-tables). Writes report_data.json + figures (feeds reports/r1, r2). Run with the
-wrapper venv (wandb+scipy+mpl).
+per-held-out-subject repeated-measures (from the offline heldout-rerun W&B tables, frozen
+into per_subject_rows.json by freeze_per_subject.py). Writes report_data.json + figures
+(feeds reports/r1, r2). Offline.
 """
 from __future__ import annotations
 import json, math
 from collections import defaultdict
 from pathlib import Path
 import numpy as np
-import wandb
 from scipy import stats
 import matplotlib
 matplotlib.use("Agg")
@@ -19,65 +18,25 @@ from _meta import build_meta
 
 HERE = Path(__file__).parent
 PROJECT = "AIND-disRNN/mice_data_scaling"
-# offline per-subject re-run groups (v1 + v2, incl. retries)
-GROUP_PREFIXES = ("heldout-rerun-v1@", "heldout-rerun-v1-retry@",
-                  "heldout-rerun-v2@", "heldout-rerun-v2-retry@")
+# offline per-subject re-run groups (v1 + v2, incl. retries), pinned (posthoc-reporting):
+# freeze_per_subject.py reads only these.
+WANDB_GROUPS = [
+    "heldout-rerun-v1-retry@20260623-011405",
+    "heldout-rerun-v1-retry@20260623-011406",
+    "heldout-rerun-v1@20260623-004601",
+    "heldout-rerun-v1@20260623-005608",
+    "heldout-rerun-v2-retry@20260623-065818",
+    "heldout-rerun-v2@20260623-053951",
+]
 
-def _variant(meta):  # 'v1' / 'v2' from meta.variant (strip -retry)
-    v = (meta or {}).get("variant", "")
-    return "v1" if v.startswith("v1") else ("v2" if v.startswith("v2") else None)
+FROZEN = HERE / "per_subject_rows.json"   # written by freeze_per_subject.py (needs W&B)
 
 
-def _per_subject_table_dataframe(run):
-    for art in run.logged_artifacts():
-        if art.type != "run_table":
-            continue
-        for entry_name in art.manifest.entries:
-            if "per_subject_likelihood" not in str(entry_name):
-                continue
-            return art.get(entry_name).get_dataframe()
-    raise ValueError("no heldout/per_subject_likelihood table artifact found")
-
-def collect_per_subject():
-    api = wandb.Api()
-    rows = []  # variant, ratio, seed, subject, n_trials, ll
-    runs = [r for r in api.runs(PROJECT)
-            if any((r.group or "").startswith(p) for p in GROUP_PREFIXES) and r.state == "finished"]
-    groups = sorted({r.group for r in runs if r.group})
-    # DEDUP: validation + mass-launch + retries can produce >1 offline run per
-    # (variant, ratio, seed). Keep exactly one (the most recent) so seed-averaging
-    # isn't skewed by double-counted cells. (The offline finetune is deterministic
-    # from the same checkpoint, so duplicates are ~identical, but partial duplication
-    # — e.g. only seed 0 re-run — would over-weight that seed.)
-    by_cell = {}
-    for r in runs:
-        meta = r.config.get("meta", {}) or {}
-        var = _variant(meta)
-        ratio = meta.get("source_subject_ratio"); seed = meta.get("source_seed")
-        if var is None or ratio is None:
-            continue
-        key = (var, round(float(ratio), 3), seed)
-        prev = by_cell.get(key)
-        if prev is None or str(getattr(r, "created_at", "")) > str(getattr(prev, "created_at", "")):
-            by_cell[key] = r
-    runs = list(by_cell.values())
-    print(f"  deduped to {len(runs)} offline runs (one per variant,ratio,seed)")
-    for r in runs:
-        meta = r.config.get("meta", {}) or {}
-        var = _variant(meta)
-        ratio = meta.get("source_subject_ratio"); seed = meta.get("source_seed")
-        if var is None or ratio is None:
-            continue
-        try:
-            df = _per_subject_table_dataframe(r)
-        except Exception as e:
-            print(f"  [skip {r.name[:40]}] table err: {e}")
-            continue
-        for _, row in df.iterrows():
-            rows.append(dict(variant=var, ratio=round(float(ratio), 3), seed=seed,
-                             subject=str(row["heldout_subject_id"]),
-                             n_trials=int(row["n_trials"]), ll=float(row["eval_likelihood"])))
-    return rows, groups
+def load_per_subject():
+    """Per-held-out-subject rows (variant, ratio, seed, subject, n_trials, ll) and the
+    W&B groups they came from, from the frozen pull."""
+    frozen = json.loads(FROZEN.read_text())
+    return frozen["rows"], frozen["_meta"]["wandb_groups"]
 
 def per_subject_analysis(rows):
     # average over seeds -> (variant, ratio, subject) mean ll
@@ -128,7 +87,7 @@ def make_figures(cell, persub, mean, ratios):
 
 def main():
     cell = json.load(open(HERE/"paired_v1_v2_cell.json"))
-    rows, groups = collect_per_subject()
+    rows, groups = load_per_subject()
     print(f"collected {len(rows)} per-subject rows")
     persub, mean, ratios = per_subject_analysis(rows)
     figs = make_figures(cell, persub, mean, ratios)

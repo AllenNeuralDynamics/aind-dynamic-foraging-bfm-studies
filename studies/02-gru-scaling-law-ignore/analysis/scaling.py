@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""Regenerate the ignore-trials scaling figure from live W&B + the 2-way baseline grid.
+"""Regenerate the ignore-trials scaling figure from the frozen grid + the 2-way baseline grid.
 
-Just re-run this whenever new grid cells land; it always pulls the current state
-from W&B and overlays the frozen 2-way (data-scaling-law) grid for reference.
+Offline: reads ``frozen_runs.json`` (one row per kept run, written by ``freeze_runs.py``,
+which is the only step that needs W&B) and overlays the frozen 2-way grid for reference.
+To take in newly landed cells, run ``make freeze`` first and commit the refreshed file.
 
-    python plot_scaling.py                       # writes ignore_scaling.png + .csv
-    WANDB_API_KEY must be set (or ~/.netrc has wandb creds).
+    python scaling.py                            # writes fig_scaling.png, scaling.json/.csv
 
 Outputs (next to this script):
     ignore_scaling.png   3-panel figure: LR-engaged vs D, ignore PR-AUC/recall vs D
@@ -19,7 +19,7 @@ The 3-way grid lives in W&B project mice_ignore_scaling across these sweeps:
 The 2-way reference grid is 01-gru-scaling-law/analysis/nxd_scaling.json
 (metric heldout/final/eval_likelihood, same fixed held-out set, same D×H layout).
 """
-import os, sys, json, base64, urllib.request
+import sys, json
 from collections import defaultdict
 from pathlib import Path
 
@@ -96,77 +96,26 @@ from plot_style import apply_presentation_style, HCOLOR, t975 as _t975  # noqa: 
 apply_presentation_style()
 
 
-def _wb(query):
-    key = os.environ["WANDB_API_KEY"]
-    data = json.dumps({"query": query}).encode()
-    req = urllib.request.Request(
-        "https://api.wandb.ai/graphql", data=data,
-        headers={"Content-Type": "application/json",
-                 "Authorization": "Basic " + base64.b64encode(f"api:{key}".encode()).decode()})
-    return json.load(urllib.request.urlopen(req))
+FROZEN_RUNS = HERE / "frozen_runs.json"   # written by freeze_runs.py (needs W&B)
+METRIC_KEYS = ["eval_likelihood_LR_engaged", "eval_likelihood_engage", "eval_likelihood",
+               "engage_ignore_f1", "engage_ignore_recall", "engage_ignore_precision",
+               "engage_ignore_pr_auc", "engage_ignore_base_rate"]
 
 
-def fetch_3way(first=500):
-    """Live pull of the 3-way grid (HPC + Beaker runs alike).
+def load_3way():
+    """The frozen 3-way grid: metric -> (D,H) -> [seed values], plus the groups used.
 
-    Returns nested dict metric -> (D,H) -> [seed values], deduped to one value
-    per (D,H,seed) -- if a seed was rerun more than once (e.g. after an OOM
-    retry), the run with the highest _step (most training) wins.
+    One row per (D,H,seed), already deduplicated by freeze_runs.py; rows keep the
+    order the pull returned, so seed lists come out in the same order every time.
     """
-    q = ('query{project(name:"%s",entityName:"%s"){runs(first:%d){edges{node{'
-         'name state group sweepName config summaryMetrics}}}}}' % (PROJECT, ENTITY, first))
-    r = _wb(q)
-    fetch_3way.groups = set()  # W&B groups that contributed a kept run
-    keys = ["eval_likelihood_LR_engaged", "eval_likelihood_engage", "eval_likelihood",
-            "engage_ignore_f1", "engage_ignore_recall", "engage_ignore_precision",
-            "engage_ignore_pr_auc", "engage_ignore_base_rate"]
-    # first pass: collect one row per run, keyed by (D,H,seed) with a tiebreak on _step
-    best = {}  # (D,H,seed) -> (step, {metric: value})
-    for e in r["data"]["project"]["runs"]["edges"]:
-        n = e["node"]
-        if n.get("group") not in WANDB_GROUPS:
-            continue  # pinned allowlist: never absorb runs this study didn't declare
-        cfg = json.loads(n["config"] or "{}")
-        sm = json.loads(n["summaryMetrics"] or "{}")
-        H = _get_nested(cfg, "model.architecture.hidden_size")
-        sr = _get_nested(cfg, "data.subject_ratio")
-        seed = _get_nested(cfg, "data.seed", "seed", "data.subject_sample_seed")
-        D = SR_TO_D.get(sr)
-        if H not in HS or D is None or seed is None:
-            continue
-        lr = sm.get("heldout/final/eval_likelihood_LR_engaged")
-        if not isinstance(lr, (int, float)):
-            continue  # held-out not finished for this run
-        step = sm.get("_step", 0) or 0
-        # Prefer the run that carries ignore metrics, then prefer the LOWEST _step.
-        # IMPORTANT (corrected 2026-07-11): the DISRNN_RESTORE_FROM_RUN_ID restore
-        # path resumes BASE TRAINING (early-stop patience resets), over-training the
-        # model ~30k steps past the original early-stop, so restore/backfill runs
-        # (higher _step, e.g. 120505 vs the native 90505) hold a DIFFERENT, degraded
-        # model -- both their LR-engaged AND ignore metrics are wrong (e.g. D10/H256
-        # native 0.71841 vs restore 0.64816). The 12 affected cells were re-scored
-        # exactly via resume_heldout_beaker.py, writing correct ignore metrics INTO
-        # the native run at its own (lower) step. So among ignore-bearing runs the
-        # native run (lowest _step) is canonical; tie-break lowest step picks it and
-        # discards the over-trained restore run. Cells never touched by restore have
-        # a single native ignore-bearing run, so the rule is a no-op for them.
-        has_ig = isinstance(sm.get("heldout/final/engage_ignore_pr_auc"), (int, float))
-        score = (1 if has_ig else 0, -step)  # ignore-bearing first, then LOWEST step
-        key = (D, H, seed)
-        if key in best and best[key][0] >= score:
-            continue  # keep the better run (ignore-bearing, then native/least-trained)
-        vals = {k: sm.get("heldout/final/" + k) for k in keys}
-        best[key] = (score, vals)
-        if n.get("group"):
-            fetch_3way.groups.add(n["group"])
-
-    out = {k: defaultdict(list) for k in keys}
-    for (D, H, seed), (score, vals) in best.items():
-        for k in keys:
-            v = vals.get(k)
+    rows = json.loads(FROZEN_RUNS.read_text())["runs"]
+    out = {k: defaultdict(list) for k in METRIC_KEYS}
+    for r in rows:
+        for k in METRIC_KEYS:
+            v = r[k]
             if isinstance(v, (int, float)):
-                out[k][(D, H)].append(v)
-    return out
+                out[k][(r["D"], r["H"])].append(v)
+    return out, sorted({r["wandb_group"] for r in rows if r["wandb_group"]})
 
 
 def load_2way():
@@ -214,7 +163,7 @@ def line_for_H(ax, stats, H, Ds_all, show_raw=True, **kw):
 
 
 def main():
-    three = fetch_3way()
+    three, groups = load_3way()
     lr3 = agg(three["eval_likelihood_LR_engaged"])
     prauc3 = agg(three["engage_ignore_pr_auc"])
     rec3 = agg(three["engage_ignore_recall"])
@@ -306,10 +255,8 @@ def main():
                 "ignore_pr_auc": {"mean": pa, "sem": pas, "ci95": paci, "n": max(n_pa, n_rc)},
                 "ignore_recall": {"mean": rc, "sem": rcs, "ci95": rcci, "n": max(n_pa, n_rc)},
             }
-    # Report the groups that actually contributed a kept run. These are a subset of
-    # the pinned WANDB_GROUPS allowlist by construction, so _meta can never advertise
-    # a group the study never declared.
-    groups = sorted(getattr(fetch_3way, "groups", set()))
+    # `groups` are those that contributed a kept run: a subset of the pinned
+    # WANDB_GROUPS allowlist by construction (freeze_runs.py filters on it).
     out = {
         "_meta": build_meta("analysis/scaling.py", groups, study_root=STUDY),
         "metric_note": (

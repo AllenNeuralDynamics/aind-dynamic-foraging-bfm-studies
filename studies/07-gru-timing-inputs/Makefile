@@ -6,20 +6,24 @@
 # HERE = Path(__file__).parent.
 #
 # timing_scaling.py is the single producer for BOTH reports (r1 = block
-# decomposition, r2 = selection reliability): it pulls the live W&B project
-# mice_rt_lick_scaling, writes analysis/timing_scaling.json (+ .csv + the three
-# study-root figures), and regenerates the BEGIN/END blocks in both reports via
-# update_reports.py. So r1 and r2 share one producer run.
+# decomposition, r2 = selection reliability): it reads the frozen grid
+# (analysis/frozen_runs.json), writes analysis/timing_scaling.json (+ .csv + the
+# three study-root figures), and regenerates the BEGIN/END blocks in both reports
+# via update_reports.py. Offline; CI runs it.
 #
-# Requires WANDB_API_KEY (or ~/.netrc wandb creds) to reach the W&B project.
+# `freeze` is the only target that reads W&B (needs WANDB_API_KEY): it refreshes
+# frozen_runs.json from the pinned groups. Never a prerequisite of `all`.
 
 PY ?= python
-.PHONY: all r1 r2
+.PHONY: all r1 r2 freeze
 
 all: r1
 
-# r1 and r2 are produced together by timing_scaling.py (one W&B pull, three
+# r1 and r2 are produced together by timing_scaling.py (one frozen grid, three
 # figures, both report blocks). Listing them separately is for discoverability;
 # both run the same command.
 r1 r2:
 	$(PY) analysis/timing_scaling.py
+
+freeze:
+	$(PY) analysis/freeze_runs.py

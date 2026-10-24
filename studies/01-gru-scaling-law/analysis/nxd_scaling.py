@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """N x D joint scaling analysis.
 
-Pulls held-out-mouse eval likelihood for the N x D joint grid from W&B:
+Reads held-out-mouse eval likelihood for the N x D joint grid, frozen from W&B into
+analysis/nxd_runs.json by freeze_nxd.py (the only step that needs W&B):
   * N (hidden_size) in {16, 64, 256} x D in {10, 30, 100, 614} x seed in {0,1,2}
     from nxd-grid groups
   * N=128 column at D in {10, 30, 100, 614} x seed in {0,1,2}
@@ -23,7 +24,7 @@ Outputs:
   - analysis/fig_nxd_scaling.png  (heatmap + per-N curves vs D + per-D curves vs N)
   - analysis/nxd_scaling_verdict.md
 
-Run with the wrapper venv (wandb + scipy required).
+Offline (scipy + matplotlib).
 """
 from __future__ import annotations
 
@@ -33,12 +34,10 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
-import wandb
 from scipy.optimize import curve_fit
 from scipy import stats
 
 from _meta import build_meta
-from wandb_keys import HELDOUT_LL_KEYS
 
 PROJECT = "AIND-disRNN/mice_data_scaling"
 NXD_GROUPS = [
@@ -57,60 +56,14 @@ TARGET_HS = [16, 64, 128, 256, 512]
 OUTDIR = Path(__file__).parent
 
 
-def _ratio_key(x):
-    if x is None:
-        return None
-    f = float(x)
-    for r in TARGET_RATIOS:
-        if abs(f - r) < 1e-4:
-            return r
-    return None
+FROZEN = OUTDIR / "nxd_runs.json"   # written by freeze_nxd.py (needs W&B)
 
 
 def collect():
-    """Return cell[(N, D)][seed] = aggregate heldout/final/eval_likelihood."""
-    api = wandb.Api()
-    runs = []
-    groups = [*NXD_GROUPS, H128_GROUP]
-    for grp in groups:
-        runs.extend(api.runs(PROJECT, filters={"group": grp}))
-    runs = [r for r in runs if r.state == "finished"]
-    print(f"  found {len(runs)} finished runs across {', '.join(groups)}")
-
-    by_cell = {}
-    for r in runs:
-        h = r.config.get("model", {}).get("architecture", {}).get("hidden_size")
-        rk = _ratio_key(r.config.get("data", {}).get("subject_ratio"))
-        seed = r.config.get("data", {}).get("subject_sample_seed")
-        if h not in TARGET_HS or rk is None or seed is None:
-            continue
-        D = RATIO_D[rk]
-        key = (h, D, int(seed))
-        prior = by_cell.get(key)
-        if prior is None or str(getattr(r, "created_at", "")) > str(getattr(prior, "created_at", "")):
-            by_cell[key] = r
-
-    target = len(TARGET_HS) * len(TARGET_RATIOS) * 3
-    print(f"  unique (N, D, seed) cells: {len(by_cell)} "
-          f"(rectangular target {target} = {len(TARGET_HS)}x{len(TARGET_RATIOS)}x3; "
-          f"H=512 is missing D=614, so the achievable max is "
-          f"{target - 1 * 3} = {len(TARGET_HS)-1}x{len(TARGET_RATIOS)}x3 + 1x{len(TARGET_RATIOS)-1}x3)")
-
+    """Return cell[(N, D)][seed] = aggregate heldout/final/eval_likelihood, from the frozen pull."""
     cell = defaultdict(dict)
-    no_scalar = 0
-    for (h, D, seed), r in by_cell.items():
-        s = next((r.summary.get(k) for k in HELDOUT_LL_KEYS if r.summary.get(k) is not None), None)
-        if s is None:
-            no_scalar += 1
-            continue
-        cell[(h, D)][seed] = float(s)
-    if no_scalar:
-        print(f"  WARN: skipped {no_scalar} runs missing {HELDOUT_LL_KEYS[0]}")
-    if by_cell and no_scalar == len(by_cell):
-        raise KeyError(
-            f"all {len(by_cell)} cells missing {HELDOUT_LL_KEYS} "
-            f"(wrapper schema changed? see analysis/wandb_keys.py)"
-        )
+    for r in json.loads(FROZEN.read_text())["runs"]:
+        cell[(r["N"], r["D"])][r["seed"]] = r["heldout_ll"]
     return cell
 
 
@@ -361,10 +314,12 @@ def write_verdict(Ns, Ds, mean_grid, se_grid, fit_add, fit_int, fit_ll, seed_sca
         degenerate = (abs(Bv + Cv) < 0.1 * max(abs(Bv), abs(Cv), 1.0)) and abs(gv) < 0.01
         lines.append(f"**Interaction** `L = E + A*N^-alpha + B*D^-beta + C*N^-gamma*D^-delta`")
         lines.append(f"- E = {fit_int['E']:.4f}, alpha = {fit_int['alpha']:.3f}, beta = {fit_int['beta']:.3f}")
-        lines.append(f"- C = {fit_int['C']:.4f}, gamma = {fit_int['gamma']:.3f}, delta = {fit_int['delta']:.3f}")
+        # B and C are not identified when the term is degenerate (only their ratio is), so
+        # print C/B rather than either value: their raw fits differ by ~10% across machines.
+        lines.append(f"- C/B = {Cv / Bv:.3f}, gamma = {fit_int['gamma']:.3f}, delta = {fit_int['delta']:.3f}")
         deg_note = ""
         if degenerate:
-            deg_note = f" -- BUT C={Cv:.2f} ~ -B={-Bv:.2f} with gamma~0 means the interaction term is nearly degenerate with a constant shift of E; the AIC win is mostly re-parameterization, not a clean synergy"
+            deg_note = f" -- BUT C ~ -B (C/B = {Cv / Bv:.3f}) with gamma~0 means the interaction term is nearly degenerate with a constant shift of E; the AIC win is mostly re-parameterization, not a clean synergy"
         lines.append(f"- AIC = {fit_int['aic']:.1f} (delta-AIC vs additive: {d_aic:+.1f}; negative favors interaction, but with {fit_int['n']} pts vs {fit_int['k']} params this is fragile{deg_note})")
     lines.append("")
 
@@ -448,7 +403,7 @@ def write_verdict(Ns, Ds, mean_grid, se_grid, fit_add, fit_int, fit_ll, seed_sca
 
 
 def main():
-    print("Pulling W&B runs...")
+    print("Reading the frozen grid...")
     cell = collect()
     Ns, Ds, mean_grid, se_grid, seed_scalars = aggregate(cell)
 

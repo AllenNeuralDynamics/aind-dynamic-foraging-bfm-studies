@@ -95,9 +95,10 @@ W&B project: **`mice_ignore_scaling`** (one project per study; one group per lau
 
 ## Analysis
 
-Run `make -C studies/02-gru-scaling-law-ignore` (needs `WANDB_API_KEY`) to regenerate everything:
-`analysis/scaling.py` pulls the live grid → `analysis/scaling.json` + `scaling.csv` +
-`fig_scaling.png`, then rewrites the report blocks. Reports: [`analysis/reports/INDEX.md`](analysis/reports/INDEX.md).
+Run `make -C studies/02-gru-scaling-law-ignore` to regenerate everything offline:
+`analysis/scaling.py` reads the frozen grid `analysis/frozen_runs.json` → `analysis/scaling.json` +
+`scaling.csv` + `fig_scaling.png`, then rewrites the report blocks. `make freeze` (needs
+`WANDB_API_KEY`) refreshes the frozen grid from the pinned W&B groups. Reports: [`analysis/reports/INDEX.md`](analysis/reports/INDEX.md).
 
 - ✅ **Choice (r1):** conditional L/R on engaged trials vs D, overlaid on the 2-way reference.
 - ✅ **Detection (r2):** ignore-class PR-AUC + recall vs D.

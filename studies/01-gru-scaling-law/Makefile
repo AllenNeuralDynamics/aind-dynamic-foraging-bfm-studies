@@ -14,10 +14,32 @@
 # Targets that produce these figures chain rl_baseline.py last so the
 # committed PNGs end up with the overlay.
 
-.PHONY: all r1 r2 r3 r4 r5 r6 r7 r8 r9 r11 freeze-embedding-dimension
+.PHONY: all r1 r2 r3 r4 r5 r6 r7 r8 r9 r11 freeze freeze-per-subject freeze-rl-baseline freeze-nxd freeze-generative freeze-embedding-dimension
 
 # r2 is subsumed by r1 (same producer); r6 has no committed producer.
 all: r1 r3 r4 r5 r7 r8 r9
+
+# `all` is offline: every producer reads committed frozen inputs. The freeze-* targets
+# below are the only ones that read W&B (or /allen); run them on an authenticated node
+# and commit the refreshed file -- the git diff is the audit trail. Never prerequisites
+# of `all`.
+freeze: freeze-per-subject freeze-rl-baseline freeze-nxd freeze-generative
+
+# GRU per-held-out-subject rows of the heldout-rerun groups (read by r1, r3, r8).
+freeze-per-subject:
+	python analysis/freeze_per_subject.py
+
+# Held-out per-subject tables of the classical-RL runs (r8 + the RL overlays).
+freeze-rl-baseline:
+	python analysis/freeze_rl_baseline.py
+
+# The N x D grid's aggregate held-out likelihood per run (r7).
+freeze-nxd:
+	python analysis/freeze_nxd.py
+
+# Generative-rollout scalars (r9).
+freeze-generative:
+	python analysis/freeze_generative.py
 
 freeze-embedding-dimension:
 	python analysis/freeze_embedding_dimension.py
@@ -58,7 +80,7 @@ r8:
 	python analysis/update_r8.py
 
 # r9: generative behavioral-match vs D (switch-triggered + history-dependent).
-# Pulls W&B groups generative-v{1,2}@*; writes generative_match.json,
+# Reads the frozen rollouts (freeze-generative); writes generative_match.json,
 # fig_generative_match.png, fig_generative_match_history.png.
 # pswitch_history_patterns.py is offline (reads study 05's committed frozen
 # per-pattern rows) and writes the RL companion scatter.
