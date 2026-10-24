@@ -21,6 +21,11 @@ its half. The cohorts are frozen before any result in `../../analysis/adaptation
 every subject; the cohort is applied when the results are frozen, which is equivalent
 because each subject's embedding is fitted independently.
 
-GPU only: one-GPU Beaker tasks on `ai1/octo-hub-aws-h200`, mounting the same canonical
-dataset (`01M1RC0MMA9SX0FF87S1V3YPTQ`) and pyarrow bundle as the matched-half variants.
+GPU only. Planned as one-GPU Beaker tasks (`sweep_*.yaml`, `experiment.yaml`), but every
+Beaker hub pool stayed saturated and no task started in 2 h, so the three experiments were
+stopped and the grid ran on HPC A100s instead (`gru_adaptation_budget.slurm`; W&B group
+`gru-adaptation-budget@20261024-060709-hpc`; SLURM `27495243` for the one-cell validation,
+`27495250` for the rest). Every cell ran there, so the K comparison stays within one backend.
+The tasks regenerate the checksum-verified canonical tables exactly as the Q tasks do; record:
+`launch_record_hpc/hpc_gruk.json`.
 Comparator: `../q-adaptation-budget/`.

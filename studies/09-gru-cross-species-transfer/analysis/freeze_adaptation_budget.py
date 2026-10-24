@@ -1,7 +1,6 @@
 """Freeze the adaptation-budget GRU and Q results (dispatcher #166) from their pinned launches.
 
-Credentialed (W&B GraphQL + the ``beaker`` CLI), like ``freeze_matched_half.py``, whose
-helpers it reuses. One record per (dataset, K, seed) for the GRU and per (dataset, K) for
+Credentialed (W&B GraphQL), like ``freeze_matched_half.py``, whose helpers it reuses. One record per (dataset, K, seed) for the GRU and per (dataset, K) for
 Q, keyed by W&B run id and the evaluation artifact's digest, carrying per-subject and
 per-session test likelihoods. It refuses to write unless every GRU cell and every Q fit of a
 dataset scored exactly the same ordered test trials: a budget changes only what adapts.
@@ -20,16 +19,14 @@ STUDY = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 sys.path.insert(0, str(STUDY.parent / "util"))
 from _meta import build_meta  # noqa: E402
-from freeze_matched_half import (ENTITY, PROJECT, _artifact, _beaker_tasks,  # noqa: E402
-                                 _cached_wandb_report_files, _job_env, _prediction_summary,
+from freeze_matched_half import (ENTITY, PROJECT, _artifact,  # noqa: E402
+                                 _cached_wandb_report_files, _prediction_summary,
                                  _report_metrics, _unwrapped, _wandb_runs)
 
-# (W&B group, Beaker experiment) per GRU launch; launch_record_*/beaker_resumable.json
-GRU_LAUNCHES = [
-    ("gru-adaptation-budget@20261024-035513", "01M5PRT2DQ0RJJ8YV1SV98EW45"),   # Grossman K
-    ("gru-adaptation-budget@20261024-035645", "01M5PRWVDKZSQG18N6AZK1H7GQ"),   # Chen K
-    ("gru-adaptation-budget@20261024-035535", "01M5PRTKMSHQKWY97M3XG38KFB"),   # both, half
-]
+# The GRU grid ran on HPC A100s (launch_record_hpc/hpc_gruk.json): the Beaker
+# experiments in launch_record_k-*/half were stopped before any task started.
+GRU_LAUNCH = ("gru-adaptation-budget@20261024-060709-hpc", ["27495243", "27495250"])
+N_GRU_CELLS = 30
 Q_LAUNCH = ("q-adaptation-budget@20261024-035709", "27494714")   # q-adaptation-budget/launch_record
 CACHE = STUDY / "analysis" / "_cache_adaptation_budget"
 COHORT = STUDY / "analysis" / "adaptation_budget_cohort.json"
@@ -66,26 +63,22 @@ def _checked(node: dict, prefix: str, root: Path) -> dict:
 
 
 def _freeze_gru() -> dict:
+    group, slurm_array_job_ids = GRU_LAUNCH
+    runs = _wandb_runs(group)
+    if len(runs) != N_GRU_CELLS:
+        raise AssertionError(f"W&B group {group} has {len(runs)} runs, expected {N_GRU_CELLS}")
     out: dict = {}
-    for group, experiment_id in GRU_LAUNCHES:
-        runs = _wandb_runs(group)
-        for task in _beaker_tasks(experiment_id):
-            job = task["jobs"][-1]
-            if "finalized" not in job["status"] or job["status"].get("exitCode") != 0:
-                raise AssertionError(f"Beaker job {job['id']} is not a successful final result")
-            node = runs.pop(_job_env(job)["WANDB_RUN_ID"])
-            config = json.loads(node["config"] or "{}")
-            source, target = _unwrapped(config, "source"), _unwrapped(config, "target")
-            dataset, k = target["dataset"], _budget(target)
-            record = _checked(node, "external-gru-output-", CACHE / "gru" / dataset)
-            record.update(source_key=source["key"], seed=source["seed"], wandb_group=group,
-                          beaker_experiment_id=experiment_id, beaker_job_id=job["id"])
-            cell = out.setdefault(dataset, {}).setdefault(k, {})
-            if source["key"] in cell:
-                raise AssertionError(f"duplicate GRU cell {dataset}/K={k}/{source['key']}")
-            cell[source["key"]] = record
-        if runs:
-            raise AssertionError(f"W&B group {group} has runs absent from Beaker: {sorted(runs)}")
+    for node in runs.values():
+        config = json.loads(node["config"] or "{}")
+        source, target = _unwrapped(config, "source"), _unwrapped(config, "target")
+        dataset, k = target["dataset"], _budget(target)
+        record = _checked(node, "external-gru-output-", CACHE / "gru" / dataset)
+        record.update(source_key=source["key"], seed=source["seed"], wandb_group=group,
+                      slurm_array_job_ids=slurm_array_job_ids)
+        cell = out.setdefault(dataset, {}).setdefault(k, {})
+        if source["key"] in cell:
+            raise AssertionError(f"duplicate GRU cell {dataset}/K={k}/{source['key']}")
+        cell[source["key"]] = record
     return out
 
 
@@ -118,10 +111,10 @@ def main() -> None:
             raise AssertionError(f"{dataset}: {len(keys)} distinct ordered test-trial key sets")
     output = {
         "_meta": build_meta("analysis/freeze_adaptation_budget.py",
-                            [g for g, _ in GRU_LAUNCHES] + [Q_LAUNCH[0]], study_root=STUDY),
+                            [GRU_LAUNCH[0], Q_LAUNCH[0]], study_root=STUDY),
         "contract": {
             "metric": "per-subject mean test log likelihood (nats/trial)",
-            "gru": "frozen-core H=128 E4 D=614, seeds 0-2; embedding-only fine-tune, 500 steps",
+            "gru": "frozen-core H=128 E4 D=614, seeds 0-2; embedding-only fine-tune, 500 steps; HPC A100",
             "q": "ForagerQLearning_L1F1_CK1_softmax (Bari2019 common Q)",
             "cohorts": str(COHORT.relative_to(STUDY)),
             "exact_ordered_trial_keys": True,

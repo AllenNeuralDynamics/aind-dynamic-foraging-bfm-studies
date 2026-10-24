@@ -1,0 +1,54 @@
+{
+  "_meta": {
+    "produced_by": "launch_record.write_intervention",
+    "produced_at_pt": "2026-10-24T06:13:51-07:00",
+    "studies_git_sha": "3fa7ff727b6312e66f022113d715539dad314e62",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4",
+    "wandb_groups": [
+      "gru-adaptation-budget@20261024-060709-hpc"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): gru-adaptation-budget@20261024-060709-hpc"
+    ]
+  },
+  "kind": "resubmit",
+  "platform": "hpc",
+  "wandb_group": "gru-adaptation-budget@20261024-060709-hpc",
+  "job_refs": [
+    {
+      "type": "slurm_array_job",
+      "id": "27495243"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27495250"
+    }
+  ],
+  "supersedes": [
+    "01M5PRT2DQ0RJJ8YV1SV98EW45",
+    "01M5PRWVDKZSQG18N6AZK1H7GQ",
+    "01M5PRTKMSHQKWY97M3XG38KFB"
+  ],
+  "trigger": {
+    "symptom": "none of the 30 Beaker tasks started in 2 h",
+    "cause": "every usable hub pool saturated (aws-h200 0/32 schedulable, 84 queued; onprem-h200 0/16, 73 queued) while HPC had 8 free A100s",
+    "evidence": {
+      "check_gpu_availability_at": "2026-10-24 06:00 PT",
+      "beaker_experiments_stopped_before_any_task_started": true
+    }
+  },
+  "tasks": [],
+  "deviations": {
+    "backend": "Beaker H200 -> HPC A100 (every cell, so the K comparison stays within one backend)",
+    "data": "canonical tables regenerated per task by external_bandit_datasets.cli (checksum-verified release), the same route as q-adaptation-budget",
+    "source_manifest": "--source-manifest file instead of the inlined text; same bytes, same manifest_sha256",
+    "pyarrow": "pinned pyarrow-21.0.0 wheel (sha256 b7ae0bbd...) on PYTHONPATH instead of Beaker's /deps",
+    "first_attempt": "27495239 failed before wandb.init (WANDB_API_KEY unset); no W&B run"
+  },
+  "cost": {}
+}

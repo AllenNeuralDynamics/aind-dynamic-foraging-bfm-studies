@@ -5,9 +5,7 @@ status: draft
 authors: [han, claude]
 issue: 166
 wandb_groups:
-  - gru-adaptation-budget@20261024-035513
-  - gru-adaptation-budget@20261024-035645
-  - gru-adaptation-budget@20261024-035535
+  - gru-adaptation-budget@20261024-060709-hpc
   - q-adaptation-budget@20261024-035709
 inputs:
   - analysis/adaptation_budget_cohort.json
