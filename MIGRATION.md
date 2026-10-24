@@ -16,7 +16,7 @@ This repository was extracted from
 | abandoned branches | none: no remote branch carried a `studies/` commit absent from `main` at extraction |
 | initial direct push | the one documented exception to "every change through a PR": an empty repository has no protected base branch |
 | tag | `studies-split-v1`, annotated, on the first published tip |
-| assembly commit | recorded in the next commit (see below) |
+| assembly commit | `76ed77a1ab54a000c3be49807127e08f251e70e3` |
 
 ## What was verified before publishing
 
