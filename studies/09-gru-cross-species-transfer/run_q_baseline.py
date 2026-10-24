@@ -87,6 +87,7 @@ def main() -> None:
             "study": "09-gru-cross-species-transfer",
             "variant": os.environ.get("BFM_META_VARIANT", "q-matched-half"),
             "dispatcher_commit": os.environ.get("DISPATCHER_COMMIT"),
+            "studies_commit": os.environ.get("STUDIES_COMMIT"),
             "wrapper_commit": os.environ.get("WRAPPER_COMMIT"),
             "foraging_models_commit": os.environ.get("FORAGING_MODELS_COMMIT"),
             "slurm_job_id": os.environ.get("SLURM_JOB_ID"),

@@ -3,12 +3,23 @@ project: gru_cross_species_transfer
 name: gru-e4-pair-d614-diagnostic
 method: grid
 command:
-  - python
-  - /workspace/aind-dynamic-foraging-bfm-dispatcher/studies/09-gru-cross-species-transfer/run_gru_transfer.py
-  - --source-manifest=source_runs_e4_pair.json
-  - ${args_no_hyphens}
+- python
+- -m
+- external_transfer.gru_transfer
+- --source-manifest-name=source_runs_e4_pair.json
+- --source-manifest-json
+- "{\n  \"schema_version\": 1,\n  \"status\": \"complete\",\n  \"entity\": \"AIND-disRNN\",\n  \"project\": \"mice_data_scaling\",\n  \"group\": \"e4-e8-d614-source@20260906-195409\",\n  \"source_beaker_experiment_id\": \"01M1WWK9HP269XQS440Y29631F\",\n  \"architecture\": {\n    \"model\": \"gru\",\n    \"hidden_size\": 128,\n    \"subject_embedding_size\": 4\n  },\n  \"source_dispatcher_commit\": \"ab399a50a736add59fcc189d0ac14e2dc6687279\",\n  \"source_wrapper_commit\": \"9595dd371ab87de49c281d8ca4bb6ae8af7c32e4\",\n  \"source_foraging_models_commit\": \"faa0f5ad063e375765aa9c31c7d3fee5eca78ecf\",\n  \"checkpoint_policy\": \"best_eval\",\n  \"embedding_finetuning\": {\n    \"n_steps\": 500,\n    \"lr\": 0.001,\n    \"selection_policy\": \"fixed_final\"\n  },\n  \"runs\": {\n    \"e4-d614-s0\": {\n      \"nominal_D\": 614,\n      \"actual_n_source_subjects\": 614,\n      \"seed\": 0,\n      \"subject_embedding_size\": 4,\n      \"run_id\": \"e4-e8-d614-source-20260906-195409-c160507b\",\n      \"wandb_url\": \"https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/e4-e8-d614-source-20260906-195409-c160507b\",\n      \"artifact_id\": \"QXJ0aWZhY3Q6MzU1NTk3MzcxMQ==\",\n      \"artifact_digest\": \"2a127fc6148883d9514879615dec1a79\",\n      \"heldout_table_artifact_id\": \"QXJ0aWZhY3Q6MzU1NjA5NzYyNA==\",\n      \"heldout_table_artifact_digest\": \"1a3f3ecf462e9f961b23d65e92f45b9e\",\n      \"beaker_job_id\": \"01M1WWK9NE0M7WJPWH0RS2CFZV\",\n      \"beaker_result_dataset_id\": \"01M1WWK9HZ597B06GBKQ2N31X0\",\n      \"heldout_final_eval_likelihood\": 0.7289683818817139,\n      \"heldout_final_train_likelihood\": 0.7264866828918457\n    },\n    \"e4-d614-s1\": {\n      \"nominal_D\": 614,\n      \"actual_n_source_subjects\": 614,\n      \"seed\": 1,\n      \"subject_embedding_size\": 4,\n      \"run_id\": \"e4-e8-d614-source-20260906-195409-c3820c43\",\n      \"wandb_url\": \"https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/e4-e8-d614-source-20260906-195409-c3820c43\",\n      \"artifact_id\": \"QXJ0aWZhY3Q6MzU1NDY5Nzg1MQ==\",\n      \"artifact_digest\": \"2cd3fd7613dce6ff43e4df9a5658ff88\",\n      \"heldout_table_artifact_id\": \"QXJ0aWZhY3Q6MzU1NDgwNTgxMQ==\",\n      \"heldout_table_artifact_digest\": \"afa6189652222ba61add44b5f8688a1c\",\n      \"beaker_job_id\": \"01M1WWK9RVGPNXKVAK5GZGY1TQ\",\n      \"beaker_result_dataset_id\": \"01M1WWK9NNHV7592T2MZ8R0VZ0\",\n      \"heldout_final_eval_likelihood\": 0.7288877367973328,\n      \"heldout_final_train_likelihood\": 0.7263257503509521\n    },\n    \"e4-d614-s2\": {\n      \"nominal_D\": 614,\n      \"actual_n_source_subjects\": 614,\n      \"seed\": 2,\n      \"subject_embedding_size\": 4,\n      \"run_id\": \"e4-e8-d614-source-20260906-195409-464e627f\",\n      \"wandb_url\": \"https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/e4-e8-d614-source-20260906-195409-464e627f\",\n      \"artifact_id\": \"QXJ0aWZhY3Q6MzU1NDY1MjY2MQ==\",\n      \"artifact_digest\": \"17f148b7da45a6cd1b79a393a44eb951\",\n      \"heldout_table_artifact_id\": \"QXJ0aWZhY3Q6MzU1NDc1MTk5NA==\",\n      \"heldout_table_artifact_digest\": \"0c4520d1446f262f225b0f1ddfe0a656\",\n      \"beaker_job_id\": \"01M1WWK9W98JKJRNDASECSAXZH\",\n      \"beaker_result_dataset_id\": \"01M1WWK9S1WDAZY35Z98VS69SZ\",\n      \"heldout_final_eval_likelihood\": 0.7288655638694763,\n      \"heldout_final_train_likelihood\": 0.726438581943512\n    }\n  },\n  \"frozen_at_pt\": \"2026-09-07T09:28:32-07:00\"\n}\n"
+- ${args_no_hyphens}
 parameters:
   --dataset:
-    values: [grossman, lebedeva, miller, findling, eckstein]
+    values:
+    - grossman
+    - lebedeva
+    - miller
+    - findling
+    - eckstein
   --source-key:
-    values: [e4-d614-s0, e4-d614-s1, e4-d614-s2]
+    values:
+    - e4-d614-s0
+    - e4-d614-s1
+    - e4-d614-s2

@@ -34,6 +34,9 @@ jobs:
       - name: Unit tests (shared study helpers, launcher-record contract)
         run: python -m unittest discover -s tests -t . -v
 
+      - name: Study 09 sweeps inline their current source manifests
+        run: python studies/09-gru-cross-species-transfer/sync_transfer_sweeps.py --check
+
       - name: Regenerate every study and compare with HEAD
         env:
           WANDB_MODE: disabled
