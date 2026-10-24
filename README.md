@@ -86,6 +86,9 @@ conventions are skills in the dispatcher's
 [`aind-behavior-foundation-model-skills/`](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/tree/main/aind-behavior-foundation-model-skills):
 `study-conventions` (layout, naming, W&B groups, launch provenance),
 `posthoc-reporting` (report, JSON and `results.md` contracts), `issue-tracking`.
+A study branch started in the dispatcher before the split moves here with
+[`docs/migrate-a-live-study-branch.md`](docs/migrate-a-live-study-branch.md).
+
 Work is tracked on the
 [AIND-behavior-fm project board](https://github.com/orgs/AllenNeuralDynamics/projects/184/).
 

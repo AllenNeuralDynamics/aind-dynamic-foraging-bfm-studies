@@ -59,3 +59,9 @@ study scripts.
 - `.gitattributes` (git-LFS) from the reviewed seed is not applied at publish: LFS attributes on
   files that history stores as plain blobs make every fresh clone report them as modified.
   Enabling LFS needs a renormalize commit with git-lfs installed; tracked as a follow-up.
+
+## Migrating a study branch that is still in the dispatcher
+
+Follow [`docs/migrate-a-live-study-branch.md`](docs/migrate-a-live-study-branch.md): archive the
+old branch, move its `studies/` commits with `git format-patch` / `git am --3way`, fix what the
+split changed, and open PRs here.
