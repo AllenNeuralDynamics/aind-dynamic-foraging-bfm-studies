@@ -54,12 +54,19 @@ STUDIES_COMMIT="$(git -C "${STUDIES_ROOT}" rev-parse HEAD)"
 WRAPPER_COMMIT="$(git -C "${WRAPPER_ROOT}" rev-parse HEAD)"
 FORAGING_MODELS_COMMIT="$(git -C "${MODELS_ROOT}" rev-parse HEAD)"
 
-python -m external_bandit_datasets.cli "${DATASET}" --cache-root "${DATA_ROOT}"
+# CANONICAL_ROOT: a canonical/ directory built once by the same CLI, read-only here. Per-task
+# downloads of the release hit the host's rate limit (HTTP 429) when many tasks start at once.
+if [[ -n "${CANONICAL_ROOT:-}" ]]; then
+  CANONICAL="${CANONICAL_ROOT}"
+else
+  python -m external_bandit_datasets.cli "${DATASET}" --cache-root "${DATA_ROOT}"
+  CANONICAL="${DATA_ROOT}/canonical"
+fi
 cd "${WRAPPER_ROOT}/code"
 python -m external_transfer.gru_transfer \
   --dataset "${DATASET}" \
   --source-key "${SOURCE_KEY}" \
   --source-manifest "${STUDIES_ROOT}/studies/09-gru-cross-species-transfer/source_runs.json" \
-  --data-root "${DATA_ROOT}/canonical" \
+  --data-root "${CANONICAL}" \
   --output-root "${RUN_ROOT}/${DATASET}-${BUDGET}-${SOURCE_KEY}" \
   "${BUDGET_ARGS[@]}"
