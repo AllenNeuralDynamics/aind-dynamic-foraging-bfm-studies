@@ -3,7 +3,7 @@ CACHE_ROOT ?= data-cache
 SOURCE_DIMENSION ?=
 PYTHONPATH := ../../code
 
-.PHONY: all suite rebuild validate smoke-loaders freeze-matched freeze-authors examples freeze-embeddings freeze-generalization freeze-task-design freeze-llm-task-similarity freeze-source-embedding-manifests freeze-embedding-dimension freeze-embedding-dimension-expansion freeze-adaptation-budget-cohort r1 r2 r3 r4 r5 r6
+.PHONY: all suite rebuild validate smoke-loaders freeze-matched freeze-authors examples freeze-embeddings freeze-generalization freeze-task-design freeze-llm-task-similarity freeze-source-embedding-manifests freeze-embedding-dimension freeze-embedding-dimension-expansion freeze-adaptation-budget-cohort freeze-adaptation-budget r1 r2 r3 r4 r5 r6 r7
 
 all: r1 r2 r3 r4 r5 r6
 
@@ -47,6 +47,10 @@ freeze-task-design:
 freeze-llm-task-similarity:
 	$(PYTHON) analysis/freeze_llm_task_similarity.py
 
+# dispatcher #166: the K-budget GRU/Q results (W&B + beaker CLI). Not part of `all`.
+freeze-adaptation-budget:
+	$(PYTHON) analysis/freeze_adaptation_budget.py
+
 # dispatcher #166: the adaptation-budget cohorts and per-K sessions, fixed before any result.
 # Compute node: needs the canonical tables (external_bandit_datasets.cli) and the wrapper.
 freeze-adaptation-budget-cohort:
@@ -78,3 +82,7 @@ r5:
 
 r6:
 	$(PYTHON) analysis/report_llm_task_similarity.py
+
+# r7 joins `all` once adaptation_budget_results.json is frozen (dispatcher #166).
+r7:
+	$(PYTHON) analysis/report_adaptation_budget.py

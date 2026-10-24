@@ -8,3 +8,4 @@
 | [r4](r4-embedding-dimension-transfer.md) | embedding-dimension-transfer | live | E8 has higher mean held-out likelihood in 10/13 cohorts; six comparisons are strict paired reruns and seven use historical E4 |
 | [r5](r5-maturity-audit.md) | maturity-audit | live | 11 cohorts are reusable, Kwak (mouse) needs a DMSO-only rerun, and Miller (rat) plus Alsiö (rat) leave mature-primary inference |
 | [r6](r6-llm-task-similarity.md) | llm-task-similarity | live | A species-hidden single-Codex judge ranks task similarity to AIND and relates the frozen rank to E8 transfer and embedding distance |
+| [r7](r7-adaptation-budget.md) | adaptation-budget | draft | GRU vs Bari2019 Q at K in {0,1,2,4,8,half} adaptation sessions for Grossman and Chen; runs launched 2026-10-24 |
