@@ -1,0 +1,44 @@
+# embedding-recovery / split-smoke -- infrastructure smoke for the studies-repo split
+# (dispatcher #175 / #124), not a scientific variant. One tiny gru-stage1-style cell on
+# in-process synthetic data (no S3), launched from this repository through the dispatcher's
+# launch_beaker_resumable.py, to show that a real run records all four commits:
+# meta.studies_commit in W&B, and studies/dispatcher/wrapper/models SHAs in the launch record.
+
+entity: AIND-disRNN
+project: embedding_recovery
+name: split-smoke
+
+method: grid
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=synthetic_hierarchical
+  - model=gru
+  - data.num_sessions_per_subject=10
+  - data.num_trials=200
+  - data.batch_size=64
+  - data.eval_every_n=2
+  - data/task=random_walk
+  - data.task.reward_baiting=false
+  - model.architecture.multisubject=true
+  - model.architecture.session_encoding_type=none
+  - model.training.n_steps=300
+  - model.training.lr=0.001
+  - model.training.checkpoint_every_n_steps=100
+  - model.training.auto_heldout_finetune.enabled=false
+  - wandb.entity=AIND-disRNN
+  - wandb.project=embedding_recovery     # this launcher sets only the group; Hydra's default is `test`
+  - "wandb.tags=[split-smoke]"
+  - ${args_no_hyphens}
+
+parameters:
+  data.num_subjects:
+    values: [10]
+  model.architecture.hidden_size:
+    values: [16]
+  model.architecture.subject_embedding_size:
+    values: [2]
+  seed:
+    values: [0]
