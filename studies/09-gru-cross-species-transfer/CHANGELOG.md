@@ -9,6 +9,10 @@
   `source.manifest` and `manifest_sha256` are unchanged. Launch records are untouched.
 - The four author-baseline runners stay here and run on HPC; their SLURM scripts now
   require `STUDIES_ROOT` (a studies checkout) and record `studies_commit`.
+- The five templates pinned to wrapper `9595dd3`, which predates `external_transfer`, now pin
+  `2c37f57` (#104's merge). Between the two the transfer path is unchanged:
+  `heldout_finetuning`, `evaluation` and `data_loaders` are identical, and the only
+  `gru_trainer` change is an opt-in frozen-core ablation.
 
 ## 2026-09-15
 
