@@ -19,7 +19,9 @@ subject-balanced RMSE = sqrt of the subject-balanced delta MSE. Both on the `com
 GRU comparison is study 01's **v2** arm (session conditioning ACTIVE), which is the arm whose
 architecture matches these disRNN runs (session_encoding_type=scalar).
 
-Reads:  W&B group generative-dscan-mult2@20260714-060524 (project AIND-disRNN/disrnn_data_scaling)
+Reads:  analysis/generative_runs.json  (frozen per-cell scalars of W&B group
+        generative-dscan-mult2@20260714-060524, written by freeze_generative.py -- the only
+        step that needs W&B; offline otherwise)
         studies/01-gru-scaling-law/analysis/generative_match.json  (committed GRU numbers)
 Writes: analysis/generative_match.json, analysis/fig_generative_match.png
         + regenerates the result markers in analysis/reports/r4-generative-behavioral-match.md
@@ -34,7 +36,6 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
-import wandb
 import matplotlib
 
 matplotlib.use("Agg")
@@ -47,7 +48,6 @@ sys.path.insert(0, str(STUDY.parent / "util"))     # shared studies/util (_meta,
 
 from _meta import build_meta  # noqa: E402
 from plot_style import apply_presentation_style  # noqa: E402
-from wandb_keys import hist_corr, hist_mse, switch_corr, switch_mse  # noqa: E402
 
 PROJECT = "AIND-disRNN/disrnn_data_scaling"
 
@@ -75,47 +75,12 @@ STAT = "post_switch_by_reward_and_run_length"
 HIST_PATTERN, HIST_N_BACK = "abstract", 3
 
 
-def collect() -> list[dict]:
-    api = wandb.Api()
-    runs = [r for r in api.runs(PROJECT, {"group": GROUP}) if r.state == "finished"]
-    by_cell: dict[tuple, object] = {}
-    for r in runs:
-        meta = r.config.get("meta", {}) or {}
-        ratio, seed = meta.get("source_subject_ratio"), meta.get("source_seed")
-        if ratio is None:
-            continue
-        key = (round(float(ratio), 3), seed)
-        prev = by_cell.get(key)
-        if prev is None or str(getattr(r, "created_at", "")) > str(getattr(prev, "created_at", "")):
-            by_cell[key] = r
+FROZEN_ROLLOUTS = HERE / "generative_runs.json"   # written by freeze_generative.py (needs W&B)
 
-    rows = []
-    for (ratio, seed), r in by_cell.items():
-        s = r.summary
-        corr, mse = s.get(switch_corr(STAT)), s.get(switch_mse(STAT))
-        if corr is None or mse is None:
-            print(f"    [skip {r.name[:40]}] missing combined switch scalars")
-            continue
-        hc = s.get(hist_corr(HIST_PATTERN, HIST_N_BACK))
-        hm = s.get(hist_mse(HIST_PATTERN, HIST_N_BACK))
-        rows.append(
-            dict(
-                D=DLAB.get(ratio, ratio),
-                seed=seed,
-                corr=float(corr),
-                rmse=math.sqrt(float(mse)),
-                hist_corr=float(hc) if hc is not None else None,
-                hist_rmse=math.sqrt(float(hm)) if hm is not None else None,
-            )
-        )
-    # All finished cells missing the scalars means a renamed key, not a few partial runs.
-    if by_cell and not rows:
-        raise KeyError(
-            f"none of {len(by_cell)} finished cells in {GROUP} carry the switch-triggered "
-            f"scalars (wrapper schema changed? see analysis/wandb_keys.py)"
-        )
-    print(f"  {len(runs)} finished rollouts -> {len(rows)} cells")
-    return rows
+
+def load_rows() -> list[dict]:
+    """One row per (D, seed) cell from the frozen pull."""
+    return json.loads(FROZEN_ROLLOUTS.read_text())["rows"]
 
 
 def aggregate(rows: list[dict]) -> dict:
@@ -271,7 +236,9 @@ def render_markers(disrnn: dict, gru: dict, rl: dict) -> None:
         d614, g614 = disrnn.get("D614", {}), gru.get("D614", {})
         lines += [
             "",
-            "**(c) RL baselines at D=614** — per-subject fits (r1), rolled out through the SAME "
+            "**(c) RL baselines at D=614** — per-subject fits from study 01's "
+            "`rl-baseline-{bari,ctt,hattori}` variant (same fits behind study 01's r8 and this "
+            "study's r1), rolled out through the SAME "
             "task construction as the disRNN/GRU rollouts (not a D-sweep: one fit per mouse, all "
             "614 mice):",
             "",
@@ -308,7 +275,7 @@ def render_markers(disrnn: dict, gru: dict, rl: dict) -> None:
 
 
 def main() -> None:
-    rows = collect()
+    rows = load_rows()
     disrnn = aggregate(rows)
     gru = gru_reference()
     rl = rl_reference()

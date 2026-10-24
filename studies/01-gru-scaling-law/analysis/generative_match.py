@@ -14,26 +14,25 @@ For each (variant, D) cell we average corr / RMSE over 3 seeds. RMSE is sqrt(MSE
 subject-balanced delta MSE under ``delta_significance_summary`` (per-subject mean delta,
 then MSE across subjects).
 
-Run with the wrapper venv (or any env with wandb + numpy + matplotlib). Source W&B groups:
-``generative-v{1,2}@<launch_id>`` in project ``AIND-disRNN/mice_data_scaling``.
+Offline: reads ``analysis/generative_runs.json``, frozen by ``freeze_generative.py`` (the only
+step that needs W&B) from groups ``generative-v{1,2}@<launch_id>`` in project
+``AIND-disRNN/mice_data_scaling``.
 """
 from __future__ import annotations
 import json, math
 from collections import defaultdict
 from pathlib import Path
 import numpy as np
-import wandb
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from _meta import build_meta
-from wandb_keys import (SWITCH_CORR_OVERALL, hist_corr, hist_mse, switch_corr,
-                        switch_mse)
+from wandb_keys import SWITCH_CORR_OVERALL, switch_corr, switch_mse
 
 HERE = Path(__file__).parent
 PROJECT = "AIND-disRNN/mice_data_scaling"
-PREFIXES = ("generative-v1@", "generative-v2@")
+WANDB_GROUPS = ["generative-v1@20260623-180747", "generative-v2@20260623-180750"]  # pinned; freeze_generative.py reads only these
 DLAB = {0.016: 10, 0.049: 30, 0.163: 100, 0.489: 300, 1.0: 614}
 
 # RL baselines: rolled out generatively under study 05 (variants/generative-rl-baseline), same
@@ -58,54 +57,13 @@ HIST_N_BACKS = (1, 2, 3)
 HIST_HEADLINE = ("abstract", 3)  # (pattern_type, n_back) shown in fig_generative_match_history.png
 
 
-def _variant(meta):
-    v = (meta or {}).get("variant", "")
-    return "v1" if v.startswith("v1") else ("v2" if v.startswith("v2") else None)
+FROZEN = HERE / "generative_runs.json"   # written by freeze_generative.py (needs W&B)
 
 
 def collect():
-    api = wandb.Api()
-    runs = [r for r in api.runs(PROJECT)
-            if any((r.group or "").startswith(p) for p in PREFIXES) and r.state == "finished"]
-    groups = sorted({r.group for r in runs if r.group})
-    by_cell = {}
-    for r in runs:
-        meta = r.config.get("meta", {}) or {}
-        var = _variant(meta)
-        ratio = meta.get("source_subject_ratio"); seed = meta.get("source_seed")
-        if var is None or ratio is None:
-            continue
-        key = (var, round(float(ratio), 3), seed)
-        prev = by_cell.get(key)
-        if prev is None or str(getattr(r, "created_at", "")) > str(getattr(prev, "created_at", "")):
-            by_cell[key] = r
-    print(f"  {len(runs)} finished generative runs -> {len(by_cell)} cells")
-    rows = []
-    for (var, ratio, seed), r in by_cell.items():
-        s = r.summary
-        corr = s.get(K_CORR); mse = s.get(K_MSE); corr_o = s.get(K_CORR_OVERALL)
-        if corr is None or mse is None:
-            print(f"    [skip {r.name[:40]}] missing combined scalars")
-            continue
-        row = dict(variant=var, ratio=ratio, D=DLAB.get(ratio, ratio), seed=seed,
-                   corr=float(corr), corr_overall=float(corr_o) if corr_o is not None else None,
-                   rmse=math.sqrt(float(mse)))
-        # history-dependent metric: corr + sqrt(subject-balanced MSE), per (pattern, n_back).
-        for pattern in HIST_PATTERNS:
-            for n in HIST_N_BACKS:
-                hc = s.get(hist_corr(pattern, n))
-                hm = s.get(hist_mse(pattern, n))
-                row[f"hist_{pattern}_n{n}_corr"] = float(hc) if hc is not None else None
-                row[f"hist_{pattern}_n{n}_rmse"] = math.sqrt(float(hm)) if hm is not None else None
-        rows.append(row)
-    # All finished cells missing the required scalars means a renamed key, not
-    # a few partial runs -> fail loudly rather than emit an empty report.
-    if by_cell and not rows:
-        raise KeyError(
-            f"none of {len(by_cell)} finished generative cells carry {K_CORR!r}/"
-            f"{K_MSE!r} (wrapper schema changed? see analysis/wandb_keys.py)"
-        )
-    return rows, groups
+    """One row per (variant, D, seed) cell and the source W&B groups, from the frozen pull."""
+    frozen = json.loads(FROZEN.read_text())
+    return frozen["rows"], frozen["_meta"]["wandb_groups"]
 
 
 def rl_reference():

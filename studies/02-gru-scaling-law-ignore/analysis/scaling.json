@@ -1,8 +1,9 @@
 {
   "_meta": {
     "produced_by": "analysis/scaling.py",
-    "produced_at_pt": "2026-07-12T13:41:59-07:00",
-    "dispatcher_git_sha": "8106160cb15ce128f8c4106a880a1f4599f62902",
+    "produced_at_pt": "2026-10-24T02:37:52-07:00",
+    "studies_git_sha": "e3eb90d604aef6081295164e338f80771273a773",
+    "studies_git_dirty": true,
     "wrapper_git_sha": "0a9141b0732d869ec312d4d15d7bcd1bc1eda933",
     "wandb_groups": [
       "nxd-3way@20260704-205230",
@@ -13,11 +14,16 @@
       "nxd-3way@20260707-075412",
       "nxd-3way@20260707-110227",
       "nxd-3way@20260707-110245",
-      "nxd-3way@20260708-231204",
       "nxd-3way@20260708-231938",
-      "nxd-3way@20260709-231516",
       "rerun_H16D10s2@20260705-104925",
       "sweep-validate-capnsteps@20260710-183333"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): nxd-3way@20260704-205230, nxd-3way@20260704-205239, nxd-3way@20260707-075359, nxd-3way@20260707-075401, nxd-3way@20260707-075406, nxd-3way@20260707-075412, nxd-3way@20260707-110227, nxd-3way@20260707-110245, nxd-3way@20260708-231938, rerun_H16D10s2@20260705-104925, sweep-validate-capnsteps@20260710-183333"
     ]
   },
   "metric_note": "3-way (L/R/ignore) held-out finetune. LR_engaged = conditional L/R likelihood on engaged trials (comparable to 2-way, chance 1/2). ignore_* = ignore-class detection (rare positive, base rate ~0.05-0.10). Raw 3-way NL (chance 1/3) is NOT comparable to 2-way and is not tabulated here. Error bars in fig_scaling.png are SEM (n=3 seeds/cell).",

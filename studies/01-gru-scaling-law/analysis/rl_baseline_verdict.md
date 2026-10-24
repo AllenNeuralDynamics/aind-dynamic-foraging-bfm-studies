@@ -1,6 +1,6 @@
 # RL baseline (simple, per-mouse independent fit) — verdict
 
-Source: [bg3nzqz9](https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/bg3nzqz9) (group `None`). Model: `baseline_rl` / `ForagerQLearning` (L1F1_CK1 — 1 learn-rate, 1 forget-rate, 1-step choice kernel, softmax). One DE optimizer fit per held-out mouse on its own train sessions, scored on its own eval sessions. Same fixed held-out cohort (n=149) and eval sessions as the GRU.
+Source: [bg3nzqz9](https://wandb.ai/AIND-disRNN/mice_data_scaling/runs/bg3nzqz9) (group `rl-baseline-bari@20260713-010244`). Model: `baseline_rl` / `ForagerQLearning` (L1F1_CK1 — 1 learn-rate, 1 forget-rate, 1-step choice kernel, softmax). One DE optimizer fit per held-out mouse on its own train sessions, scored on its own eval sessions. Same fixed held-out cohort (n=149) and eval sessions as the GRU.
 
 ## RL reference band
 

@@ -1,8 +1,9 @@
 {
   "_meta": {
     "produced_by": "analysis/report_llm_task_similarity.py",
-    "produced_at_pt": "2026-09-15T22:15:47-07:00",
-    "dispatcher_git_sha": null,
+    "produced_at_pt": "2026-10-24T02:43:59-07:00",
+    "studies_git_sha": "e3eb90d604aef6081295164e338f80771273a773",
+    "studies_git_dirty": true,
     "wrapper_git_sha": "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4",
     "wandb_groups": [
       "gru-grossman-matched-half@20260905-022602",
@@ -46,6 +47,41 @@
       "miller-rhg@slurm-25582234",
       "zid-history-kernel@20260905-123624",
       "zid-history-kernel@20260905-151851"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [
+      "000831451aca5400344efdba23a989a39d2cbc03",
+      "0c2257cb1d2cf7d86fed235aeb2f2419e138d727",
+      "11fa6c141cdb42d1715fd81966c887d66937f5af",
+      "1248fdd5b05ade9ca006f4976e7cd5d6139c2273",
+      "230fee7666b6b253e37591b2907702665b39c807",
+      "2bd9a945621ead0729cae72c781f6b2bbc3d0b3e",
+      "37ac3519e6f0e913e824a7641232156449d457a3",
+      "409761e3204fbbd844eb0f544df1e4f1ee71b275",
+      "533a2dd783c3708e5e442478452a45552cf81829",
+      "56b0536e82d594001d924ba3af2ca99f30e49d55",
+      "703e750eb44e9103214aca1ced8c82557925849f",
+      "757484606ee15dde5314c3287312037bf49f73ff",
+      "8159f838afdbad0984b2a79a42d34accf4cf8c1d",
+      "d7463e9ffa8513c13307402b60f2365ec298595b"
+    ],
+    "source_wrapper_git_shas": [
+      "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4"
+    ],
+    "source_foraging_models_git_shas": [
+      "25f5f1ce64705edbf266feb8d57ff83a018b12c5",
+      "459c05c38332eb5c954e7cbca328f0a0fe370891",
+      "a75ae23e0d5bce7985d3c4f5f7f30c7a971e0070",
+      "d855a1a2b4075ee02c8d6597e97f768174eb031c",
+      "eaeadec2a56c4a8099f3e8cfa315a9467c2f6a24",
+      "faa0f5ad063e375765aa9c31c7d3fee5eca78ecf"
+    ],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): e4-e8-d614-source@20260906-195409, gru-chen-matched-half@20260905-024731, gru-grossman-matched-half@20260905-022602, gru-zid-matched-half@20260905-025752",
+      "no studies SHA in the launch record(s) of W&B group(s): alsio-dual-rate-sticky@slurm-26383281, beron-rflr@slurm-25582233, chen-rlck@20260905-123624, costa-feedback-dependent-bias-ck1@slurm-26386211, costa-feedback-dependent-bias@slurm-26386087, eckstein-bi@slurm-25582240, eckstein-rl@slurm-25582239, findling-weber@slurm-25582235, findling-weber@slurm-25582241, grossman-meta-learning@20260905-124420, gru-alsio-matched-half@20260905-232925, gru-beron-matched-half@20260905-232924, gru-costa-matched-half@20260905-232924, gru-costa-matched-half@20260914-162457, gru-e8-d614-diagnostic@20260907-071400, gru-e8-d614-expansion@20260907-132415, gru-e8-d614-expansion@20260907-132625, gru-e8-d614-expansion@20260914-162554, gru-eckstein-matched-half@20260905-232924, gru-findling-matched-half@20260905-232924, gru-hattori-matched-half@20260907-200328, gru-hattori-matched-half@20260907-200329, gru-kwak-matched-half@20260906-071413, gru-lebedeva-matched-half@20260905-232924, gru-lopez-mouse-matched-half@20260905-232924, gru-miller-matched-half@20260905-232924, hattori-q-learning@slurm-25585754, lebedeva-pr@slurm-25582232, lopez-double-trace@slurm-26383278, miller-rhg@slurm-25582234, q-expanded-matched-half@20260906-001656, q-expanded-matched-half@20260906-kwak-choicefix, q-expanded-matched-half@slurm-26386210, q-hattori-matched-half@slurm-25585753, q-matched-half@20260905-024031, zid-history-kernel@20260905-123624, zid-history-kernel@20260905-151851",
+      "no dispatcher SHA in the launch record(s) of W&B group(s): costa-feedback-dependent-bias-ck1@slurm-26386211, costa-feedback-dependent-bias@slurm-26386087, q-expanded-matched-half@20260906-kwak-choicefix, q-expanded-matched-half@slurm-26386210, zid-history-kernel@20260905-151851",
+      "no wrapper SHA in the launch record(s) of W&B group(s): costa-feedback-dependent-bias-ck1@slurm-26386211, costa-feedback-dependent-bias@slurm-26386087, gru-costa-matched-half@20260914-162457, gru-e8-d614-expansion@20260914-162554, q-expanded-matched-half@20260906-kwak-choicefix, q-expanded-matched-half@slurm-26386210, zid-history-kernel@20260905-151851",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): costa-feedback-dependent-bias-ck1@slurm-26386211, costa-feedback-dependent-bias@slurm-26386087, gru-costa-matched-half@20260914-162457, gru-e8-d614-expansion@20260914-162554, q-expanded-matched-half@20260906-kwak-choicefix, q-expanded-matched-half@slurm-26386210, zid-history-kernel@20260905-151851"
     ]
   },
   "inputs": {
@@ -109,16 +145,14 @@
         "nearest_aind_proxy": "uncoupled_no_baiting",
         "empirical_schedule_distance_to_grossman": 0.0,
         "pc_scores": [
-          -0.03025685407557096,
+          0.03025685407557134,
           0.43844001995754706,
-          0.08789465779257981,
-          -0.02027746768061553,
-          0.02996169277221274,
-          -0.12366399527239628,
-          0.05114215673072506,
-          0.031490941706333715,
-          -3.740087348535159e-18,
-          -6.993359147934748e-17
+          -0.0878946577925797,
+          0.0202774676806155,
+          0.029961692772213045,
+          -0.12366399527239655,
+          -0.051142156730724614,
+          0.031490941706333715
         ]
       }
     },
@@ -147,20 +181,18 @@
       ],
       "complete_case_feature_geometry": {
         "feature_task_distance_to_aind_proxy": 1.0945884093046936,
-        "full_pc_space_distance_to_aind_proxy": 1.1263636042612404,
+        "full_pc_space_distance_to_aind_proxy": 1.1263636042612406,
         "nearest_aind_proxy": "coupled_baiting",
         "empirical_schedule_distance_to_grossman": 1.5929186853096884,
         "pc_scores": [
-          -0.5382060949687034,
-          -0.44741792573287886,
-          -0.07059243400497478,
-          0.5451325234764027,
-          -0.09164898261288598,
-          -0.03821103816692869,
-          0.01620763426602855,
-          0.00547211923887676,
-          -3.233447062661541e-17,
-          4.8753186558887186e-17
+          0.538206094968703,
+          -0.4474179257328793,
+          0.07059243400497434,
+          -0.5451325234764026,
+          -0.09164898261288626,
+          -0.038211038166928654,
+          -0.016207634266028146,
+          0.005472119238876499
         ]
       }
     },
@@ -212,21 +244,19 @@
         2.6355145530330972
       ],
       "complete_case_feature_geometry": {
-        "feature_task_distance_to_aind_proxy": 0.9983671923406058,
-        "full_pc_space_distance_to_aind_proxy": 1.050956039888428,
+        "feature_task_distance_to_aind_proxy": 0.9983671923406057,
+        "full_pc_space_distance_to_aind_proxy": 1.0509560398884277,
         "nearest_aind_proxy": "coupled_baiting",
         "empirical_schedule_distance_to_grossman": 1.3868319688562305,
         "pc_scores": [
-          -0.6502706428470313,
-          -0.304180150195893,
-          -0.10271179307555309,
-          -0.27784783193976154,
-          0.13645481039385915,
-          -0.05137583755757389,
-          -0.16863254740933376,
-          -0.0011615973823068844,
-          -4.621225843442987e-17,
-          2.099761094325827e-17
+          0.650270642847031,
+          -0.30418015019589345,
+          0.10271179307555318,
+          0.2778478319397615,
+          0.13645481039385923,
+          -0.05137583755757316,
+          0.16863254740933395,
+          -0.0011615973823067697
         ]
       }
     },
@@ -254,21 +284,19 @@
         4.796599537933474
       ],
       "complete_case_feature_geometry": {
-        "feature_task_distance_to_aind_proxy": 0.9328124757992029,
-        "full_pc_space_distance_to_aind_proxy": 0.9772805661846338,
+        "feature_task_distance_to_aind_proxy": 0.932812475799203,
+        "full_pc_space_distance_to_aind_proxy": 0.9772805661846339,
         "nearest_aind_proxy": "coupled_baiting",
         "empirical_schedule_distance_to_grossman": 1.217203015734388,
         "pc_scores": [
-          -0.47609747877123326,
-          -0.3377928129830434,
-          0.13451440758870037,
-          -0.30972434809451327,
-          -0.026619519662118164,
-          0.09060233008518455,
-          0.18128086111973793,
-          -0.010527621607335936,
-          -6.009004624224432e-17,
-          7.119823135443813e-18
+          0.47609747877123315,
+          -0.33779281298304376,
+          -0.13451440758870026,
+          0.30972434809451344,
+          -0.026619519662118316,
+          0.09060233008518359,
+          -0.1812808611197384,
+          -0.010527621607336016
         ]
       }
     },
@@ -321,20 +349,18 @@
       ],
       "complete_case_feature_geometry": {
         "feature_task_distance_to_aind_proxy": 0.9446860685948997,
-        "full_pc_space_distance_to_aind_proxy": 1.0048953300790227,
+        "full_pc_space_distance_to_aind_proxy": 1.0048953300790229,
         "nearest_aind_proxy": "uncoupled_no_baiting",
         "empirical_schedule_distance_to_grossman": 1.2034120979118856,
         "pc_scores": [
-          0.5016142316732726,
-          -0.10684967444439361,
-          -0.443422389647086,
-          -0.19321173444307005,
-          -0.28813326102465164,
-          -0.027607974331541277,
-          -0.02782492247378315,
-          0.004363504871456393,
-          -2.4350923596157083e-17,
-          -1.2040213978735261e-17
+          -0.5016142316732728,
+          -0.10684967444439337,
+          0.44342238964708597,
+          0.19321173444306977,
+          -0.28813326102465187,
+          -0.027607974331541517,
+          0.027824922473783025,
+          0.0043635048714563895
         ]
       }
     },
@@ -362,21 +388,19 @@
         11.023632124127465
       ],
       "complete_case_feature_geometry": {
-        "feature_task_distance_to_aind_proxy": 1.3453309668967786,
-        "full_pc_space_distance_to_aind_proxy": 1.3535303781441563,
+        "feature_task_distance_to_aind_proxy": 1.3453309668967783,
+        "full_pc_space_distance_to_aind_proxy": 1.353530378144156,
         "nearest_aind_proxy": "uncoupled_no_baiting",
         "empirical_schedule_distance_to_grossman": 1.7585961439993991,
         "pc_scores": [
-          0.8261228812056424,
-          -0.4859335933275094,
-          0.5580729874783618,
-          0.011264898231229205,
+          -0.8261228812056425,
+          -0.4859335933275088,
+          -0.5580729874783616,
+          -0.011264898231228915,
           0.017962610617501637,
-          -0.015799401281055808,
-          -0.046020235848226,
-          0.0013281346999624135,
-          -2.888613300193716e-17,
-          -3.830663448486401e-17
+          -0.015799401281055645,
+          0.04602023584822613,
+          0.0013281346999627027
         ]
       }
     },
@@ -472,21 +496,19 @@
         11.481511746432396
       ],
       "complete_case_feature_geometry": {
-        "feature_task_distance_to_aind_proxy": 0.9679986947562644,
-        "full_pc_space_distance_to_aind_proxy": 1.0143738776023141,
+        "feature_task_distance_to_aind_proxy": 0.9679986947562648,
+        "full_pc_space_distance_to_aind_proxy": 1.0143738776023146,
         "nearest_aind_proxy": "uncoupled_no_baiting",
         "empirical_schedule_distance_to_grossman": 1.1591475371315754,
         "pc_scores": [
-          0.5608427440238314,
-          -0.08243136734448522,
-          -0.4581908329228043,
-          0.11428245538992954,
-          0.2702484694461084,
-          0.05746276125292828,
-          0.05371291860933258,
-          -0.005679540154569064,
-          -1.6133481169222206e-16,
-          -9.432018727590515e-17
+          -0.5608427440238319,
+          -0.08243136734448493,
+          0.45819083292280427,
+          -0.1142824553899298,
+          0.27024846944610853,
+          0.057462761252928776,
+          -0.05371291860933277,
+          -0.0056795401545690115
         ]
       }
     }
@@ -570,7 +592,7 @@
       "aind_proxy": "The three categorical AIND prototypes are exact. Their empirical schedule coordinates use Grossman (mouse), because source-curriculum empirical schedule summaries are not yet frozen. Interpret this as an AIND proxy.",
       "pca": "PCA is fit outcome-blind to seven complete-case cohorts plus three AIND proxy rows. Distance uses the smallest leading-PC subspace explaining at least 90% of feature variance; all-PC distance is retained as sensitivity.",
       "retained_components": 4,
-      "retained_explained_variance": 0.9290701823130357
+      "retained_explained_variance": 0.9290701823130356
     },
     "feature_names": [
       "categorical::schedule_family::blockwise",
@@ -600,75 +622,73 @@
       "empirical::equal_probability_fraction"
     ],
     "explained_variance_ratio": [
-      0.41244038865176785,
-      0.26942241924404264,
+      0.4124403886517678,
+      0.26942241924404253,
       0.14749649470278808,
-      0.09971087971443719,
-      0.03535819877492571,
-      0.016335947813959622,
-      0.0149042068701481,
-      0.004331464227930844,
-      9.866558445875273e-33,
-      2.3598541209004197e-34
+      0.09971087971443729,
+      0.03535819877492575,
+      0.016335947813959646,
+      0.01490420687014809,
+      0.004331464227930847
     ],
     "principal_component_loadings": [
       {
         "component": 1,
-        "explained_variance_ratio": 0.41244038865176785,
+        "explained_variance_ratio": 0.4124403886517678,
         "top_loadings": [
           {
             "feature": "empirical::mean_absolute_arm_step_on_change",
-            "loading": -0.44900547999077706
+            "loading": 0.44900547999077745
           },
           {
             "feature": "empirical::cross_arm_correlation",
-            "loading": 0.4360385735992135
+            "loading": -0.4360385735992135
           },
           {
             "feature": "empirical::mean_absolute_reward_gap",
-            "loading": -0.40045579991082836
+            "loading": 0.40045579991082847
           },
           {
             "feature": "empirical::probability_change_rate",
-            "loading": 0.35355695464345993
+            "loading": -0.35355695464345993
           },
           {
             "feature": "empirical::mean_arm_lag1_autocorrelation",
-            "loading": -0.23842277121223135
+            "loading": 0.2384227712122309
           },
           {
             "feature": "empirical::mean_reward_probability",
-            "loading": 0.22256276869935485
+            "loading": -0.2225627686993547
           }
         ]
       },
       {
         "component": 2,
-        "explained_variance_ratio": 0.26942241924404264,
+        "explained_variance_ratio": 0.26942241924404253,
         "top_loadings": [
           {
             "feature": "empirical::equal_probability_fraction",
-            "loading": 0.7849840897210068
+            "loading": 0.7849840897210069
           },
           {
             "feature": "empirical::mean_absolute_arm_step_on_change",
-            "loading": 0.2816949270718152
+            "loading": 0.2816949270718149
           },
           {
             "feature": "empirical::probability_change_rate",
-            "loading": -0.24513003363153238
+            "loading": -0.24513003363153216
           },
           {
             "feature": "empirical::mean_reward_probability",
-            "loading": 0.23181649799498646
+            "loading": 0.2318164979949866
           },
           {
             "feature": "empirical::cross_arm_correlation",
-            "loading": 0.21030330825487656
+            "loading": 0.21030330825487692
           },
           {
             "feature": "categorical::response_modality::lick",
-            "loading": 0.17284276944573893
+            "loading": 0.1728427694457389
           }
         ]
       },
@@ -678,27 +698,27 @@
         "top_loadings": [
           {
             "feature": "empirical::mean_arm_lag1_autocorrelation",
-            "loading": -0.7047128191298309
+            "loading": 0.7047128191298307
           },
           {
             "feature": "empirical::probability_change_rate",
-            "loading": 0.44229289164431684
+            "loading": -0.4422928916443167
           },
           {
             "feature": "empirical::mean_absolute_reward_gap",
-            "loading": 0.3309689175848286
+            "loading": -0.3309689175848282
           },
           {
             "feature": "empirical::mean_absolute_arm_step_on_change",
-            "loading": 0.2591194763262243
+            "loading": -0.25911947632622423
           },
           {
-            "feature": "categorical::response_modality::computer_input",
-            "loading": -0.10982520218903252
+            "feature": "categorical::choice_target::abstract_option",
+            "loading": 0.10982520218903252
           },
           {
-            "feature": "categorical::reward_modality::monetary_points",
-            "loading": -0.10982520218903252
+            "feature": "categorical::choice_target::spatial_action",
+            "loading": -0.10982520218903258
           }
         ]
       }
@@ -726,16 +746,14 @@
           "equal_probability_fraction": 0.1701539508003226
         },
         "pc_scores": [
-          -0.03025685407557096,
+          0.03025685407557134,
           0.43844001995754706,
-          0.08789465779257981,
-          -0.02027746768061553,
-          0.02996169277221274,
-          -0.12366399527239628,
-          0.05114215673072506,
-          0.031490941706333715,
-          -3.740087348535159e-18,
-          -6.993359147934748e-17
+          -0.0878946577925797,
+          0.0202774676806155,
+          0.029961692772213045,
+          -0.12366399527239655,
+          -0.051142156730724614,
+          0.031490941706333715
         ],
         "feature_task_distance_to_aind_proxy": 0.0,
         "full_pc_space_distance_to_aind_proxy": 0.0,
@@ -764,19 +782,17 @@
           "equal_probability_fraction": 0.1111018448398747
         },
         "pc_scores": [
-          0.5016142316732726,
-          -0.10684967444439361,
-          -0.443422389647086,
-          -0.19321173444307005,
-          -0.28813326102465164,
-          -0.027607974331541277,
-          -0.02782492247378315,
-          0.004363504871456393,
-          -2.4350923596157083e-17,
-          -1.2040213978735261e-17
+          -0.5016142316732728,
+          -0.10684967444439337,
+          0.44342238964708597,
+          0.19321173444306977,
+          -0.28813326102465187,
+          -0.027607974331541517,
+          0.027824922473783025,
+          0.0043635048714563895
         ],
         "feature_task_distance_to_aind_proxy": 0.9446860685948997,
-        "full_pc_space_distance_to_aind_proxy": 1.0048953300790227,
+        "full_pc_space_distance_to_aind_proxy": 1.0048953300790229,
         "nearest_aind_proxy": "uncoupled_no_baiting",
         "empirical_schedule_distance_to_grossman": 1.2034120979118856
       },
@@ -802,19 +818,17 @@
           "equal_probability_fraction": 0.09999999999999999
         },
         "pc_scores": [
-          0.5608427440238314,
-          -0.08243136734448522,
-          -0.4581908329228043,
-          0.11428245538992954,
-          0.2702484694461084,
-          0.05746276125292828,
-          0.05371291860933258,
-          -0.005679540154569064,
-          -1.6133481169222206e-16,
-          -9.432018727590515e-17
+          -0.5608427440238319,
+          -0.08243136734448493,
+          0.45819083292280427,
+          -0.1142824553899298,
+          0.27024846944610853,
+          0.057462761252928776,
+          -0.05371291860933277,
+          -0.0056795401545690115
         ],
-        "feature_task_distance_to_aind_proxy": 0.9679986947562644,
-        "full_pc_space_distance_to_aind_proxy": 1.0143738776023141,
+        "feature_task_distance_to_aind_proxy": 0.9679986947562648,
+        "full_pc_space_distance_to_aind_proxy": 1.0143738776023146,
         "nearest_aind_proxy": "uncoupled_no_baiting",
         "empirical_schedule_distance_to_grossman": 1.1591475371315754
       },
@@ -840,19 +854,17 @@
           "equal_probability_fraction": 0.0
         },
         "pc_scores": [
-          -0.6502706428470313,
-          -0.304180150195893,
-          -0.10271179307555309,
-          -0.27784783193976154,
-          0.13645481039385915,
-          -0.05137583755757389,
-          -0.16863254740933376,
-          -0.0011615973823068844,
-          -4.621225843442987e-17,
-          2.099761094325827e-17
+          0.650270642847031,
+          -0.30418015019589345,
+          0.10271179307555318,
+          0.2778478319397615,
+          0.13645481039385923,
+          -0.05137583755757316,
+          0.16863254740933395,
+          -0.0011615973823067697
         ],
-        "feature_task_distance_to_aind_proxy": 0.9983671923406058,
-        "full_pc_space_distance_to_aind_proxy": 1.050956039888428,
+        "feature_task_distance_to_aind_proxy": 0.9983671923406057,
+        "full_pc_space_distance_to_aind_proxy": 1.0509560398884277,
         "nearest_aind_proxy": "coupled_baiting",
         "empirical_schedule_distance_to_grossman": 1.3868319688562305
       },
@@ -878,19 +890,17 @@
           "equal_probability_fraction": 0.0
         },
         "pc_scores": [
-          -0.47609747877123326,
-          -0.3377928129830434,
-          0.13451440758870037,
-          -0.30972434809451327,
-          -0.026619519662118164,
-          0.09060233008518455,
-          0.18128086111973793,
-          -0.010527621607335936,
-          -6.009004624224432e-17,
-          7.119823135443813e-18
+          0.47609747877123315,
+          -0.33779281298304376,
+          -0.13451440758870026,
+          0.30972434809451344,
+          -0.026619519662118316,
+          0.09060233008518359,
+          -0.1812808611197384,
+          -0.010527621607336016
         ],
-        "feature_task_distance_to_aind_proxy": 0.9328124757992029,
-        "full_pc_space_distance_to_aind_proxy": 0.9772805661846338,
+        "feature_task_distance_to_aind_proxy": 0.932812475799203,
+        "full_pc_space_distance_to_aind_proxy": 0.9772805661846339,
         "nearest_aind_proxy": "coupled_baiting",
         "empirical_schedule_distance_to_grossman": 1.217203015734388
       },
@@ -916,19 +926,17 @@
           "equal_probability_fraction": 0.016618267999066814
         },
         "pc_scores": [
-          0.8261228812056424,
-          -0.4859335933275094,
-          0.5580729874783618,
-          0.011264898231229205,
+          -0.8261228812056425,
+          -0.4859335933275088,
+          -0.5580729874783616,
+          -0.011264898231228915,
           0.017962610617501637,
-          -0.015799401281055808,
-          -0.046020235848226,
-          0.0013281346999624135,
-          -2.888613300193716e-17,
-          -3.830663448486401e-17
+          -0.015799401281055645,
+          0.04602023584822613,
+          0.0013281346999627027
         ],
-        "feature_task_distance_to_aind_proxy": 1.3453309668967786,
-        "full_pc_space_distance_to_aind_proxy": 1.3535303781441563,
+        "feature_task_distance_to_aind_proxy": 1.3453309668967783,
+        "full_pc_space_distance_to_aind_proxy": 1.353530378144156,
         "nearest_aind_proxy": "uncoupled_no_baiting",
         "empirical_schedule_distance_to_grossman": 1.7585961439993991
       },
@@ -954,19 +962,17 @@
           "equal_probability_fraction": 0.0
         },
         "pc_scores": [
-          -0.5382060949687034,
-          -0.44741792573287886,
-          -0.07059243400497478,
-          0.5451325234764027,
-          -0.09164898261288598,
-          -0.03821103816692869,
-          0.01620763426602855,
-          0.00547211923887676,
-          -3.233447062661541e-17,
-          4.8753186558887186e-17
+          0.538206094968703,
+          -0.4474179257328793,
+          0.07059243400497434,
+          -0.5451325234764026,
+          -0.09164898261288626,
+          -0.038211038166928654,
+          -0.016207634266028146,
+          0.005472119238876499
         ],
         "feature_task_distance_to_aind_proxy": 1.0945884093046936,
-        "full_pc_space_distance_to_aind_proxy": 1.1263636042612404,
+        "full_pc_space_distance_to_aind_proxy": 1.1263636042612406,
         "nearest_aind_proxy": "coupled_baiting",
         "empirical_schedule_distance_to_grossman": 1.5929186853096884
       },
@@ -992,16 +998,14 @@
           "equal_probability_fraction": 0.1701539508003226
         },
         "pc_scores": [
-          -0.05299093297348904,
-          0.46027791146189945,
-          0.10021096158659618,
-          0.07296738422294392,
-          -0.03422266220979506,
-          0.03506230874806938,
-          -0.03385209155773093,
-          -0.12678366958569298,
-          -3.149566296416407e-17,
-          -4.217801586371856e-17
+          0.05299093297348939,
+          0.4602779114618995,
+          -0.1002109615865962,
+          -0.07296738422294378,
+          -0.03422266220979502,
+          0.03506230874806947,
+          0.03385209155773077,
+          -0.12678366958569298
         ]
       },
       "aind::uncoupled_no_baiting": {
@@ -1026,16 +1030,14 @@
           "equal_probability_fraction": 0.1701539508003226
         },
         "pc_scores": [
-          -0.03025685407557096,
+          0.03025685407557134,
           0.43844001995754706,
-          0.08789465779257981,
-          -0.02027746768061553,
-          0.02996169277221274,
-          -0.12366399527239628,
-          0.05114215673072506,
-          0.031490941706333715,
-          -3.740087348535159e-18,
-          -6.993359147934748e-17
+          -0.0878946577925797,
+          0.0202774676806155,
+          0.029961692772213045,
+          -0.12366399527239655,
+          -0.051142156730724614,
+          0.031490941706333715
         ]
       },
       "aind::coupled_baiting": {
@@ -1060,16 +1062,14 @@
           "equal_probability_fraction": 0.1701539508003226
         },
         "pc_scores": [
-          -0.1105009991911474,
+          0.11050099919114778,
           0.42744757265121003,
-          0.10632977741160024,
-          0.07769158851807072,
-          -0.04396485049244393,
-          0.19719484179571023,
-          -0.07715593016747531,
-          0.0700067865069417,
-          -3.740087348535159e-18,
-          -1.442244024808965e-17
+          -0.10632977741160032,
+          -0.07769158851807058,
+          -0.04396485049244427,
+          0.19719484179571056,
+          0.0771559301674746,
+          0.07000678650694171
         ]
       }
     }

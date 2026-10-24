@@ -246,6 +246,14 @@ def _mixed_feature_geometry(task_features: dict, row_by_cohort: dict[str, dict])
     matrix = np.vstack(matrix_rows)
     centered = matrix - matrix.mean(axis=0, keepdims=True)
     _, singular_values, right_vectors = np.linalg.svd(centered, full_matrices=False)
+    # SVD fixes each component only up to sign, and components past the numerical rank
+    # (centering removes one) have arbitrary directions, so neither regenerates
+    # identically across machines (dispatcher #177). Keep the rank-many components and
+    # orient each so its largest-magnitude loading is positive.
+    rank = int(np.sum(singular_values > singular_values[0] * 1e-10))
+    singular_values, right_vectors = singular_values[:rank], right_vectors[:rank]
+    signs = np.sign(right_vectors[np.arange(rank), np.argmax(np.round(np.abs(right_vectors), 12), axis=1)])
+    right_vectors = right_vectors * signs[:, None]
     variance = singular_values**2
     explained = variance / variance.sum()
     cumulative = np.cumsum(explained)
@@ -288,7 +296,10 @@ def _mixed_feature_geometry(task_features: dict, row_by_cohort: dict[str, dict])
 
     loading_rows = []
     for component in range(min(3, len(explained))):
-        order = np.argsort(np.abs(right_vectors[component]))[::-1][:6]
+        # exact ties in |loading| (equal-weight categorical levels) break by feature order,
+        # not by floating-point noise
+        magnitude = np.round(np.abs(right_vectors[component]), 12)
+        order = np.lexsort((np.arange(len(magnitude)), -magnitude))[:6]
         loading_rows.append(
             {
                 "component": component + 1,
