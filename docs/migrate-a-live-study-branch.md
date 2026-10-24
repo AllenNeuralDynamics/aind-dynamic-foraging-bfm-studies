@@ -80,13 +80,16 @@ git am --3way /tmp/<study>-patches/*.patch
 
 ## 4. Fix what the split changed
 
-Run these from `studies/<NN-study>/` and fix every hit.
+Run these from `studies/<NN-study>/` and fix every hit in a **live** file: sweeps,
+experiment templates, scripts. Never edit anything under `launch_record*/`. Those are frozen
+records of what actually ran, and the old paths in them are correct history; the greps
+below already exclude them.
 
 **Beaker jobs have no studies checkout.** A sweep or experiment that runs a script out of the
 study at job time will fail:
 
 ```bash
-grep -rn '/workspace/aind-dynamic-foraging-bfm-dispatcher/studies' . --include='*.yaml'
+grep -rn --exclude-dir='launch_record*' '/workspace/aind-dynamic-foraging-bfm-dispatcher/studies' . --include='*.yaml'
 ```
 
 Move such a runner into the wrapper and call it as `python -m <module>`, as study 09 did
@@ -96,7 +99,7 @@ the command line. HPC jobs can still run study scripts from a studies checkout (
 **HPC scripts take the study from `STUDIES_ROOT`:**
 
 ```bash
-grep -rn 'DISPATCHER_ROOT}*/studies' . --include='*.slurm' --include='*.sh' --include='*.sbatch'
+grep -rn --exclude-dir='launch_record*' 'DISPATCHER_ROOT}*/studies' . --include='*.slurm' --include='*.sh' --include='*.sbatch'
 ```
 
 Replace with `${STUDIES_ROOT}/studies/...`. Add
@@ -129,8 +132,11 @@ Changes outside `studies/` (launchers, `code/`, configs, skills) stay in the dis
 a dispatcher PR from a fresh branch off dispatcher `main`, carrying only those changes:
 
 ```bash
+cd ../aind-dynamic-foraging-bfm-dispatcher      # back in the dispatcher clone
+git switch <study-branch>                       # the original (now archived) branch
+BASE=$(git merge-base HEAD origin/main)
 git format-patch -o /tmp/<study>-code "$BASE"..HEAD -- . ':!studies/'
-# then, on a new branch off origin/main:
+git switch -c <study>-code origin/main          # a fresh branch for the dispatcher PR
 git am --3way /tmp/<study>-code/*.patch
 ```
 
