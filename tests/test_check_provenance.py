@@ -67,6 +67,9 @@ RECORD = {
     "job_refs": [{"type": "beaker_experiment", "id": "01KEXAMPLE"}],
     "revisions": {"studies": SHA, "dispatcher": SHA, "wrapper": SHA},
     "manifests": ["sweep.yaml"],
+    "data": {"source": "snapshot", "config": "mice_snapshot", "type": "mice_snapshot", "snapshot": "20260603",
+             "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/", "manifest_sha256": "f" * 64},
+    "image": {"platform": "beaker", "name": "han-hou/disrnn-wrapper-main-20260712", "id": "01KIMAGE"},
 }
 
 
@@ -405,6 +408,14 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertIn(f"record-orphan-intervention|{STUDY}/variants/base/launch_record/rescue1.json|",
                       self.keys())
+
+    def test_launch_without_data_or_image_is_a_warning(self):
+        rec = {k: v for k, v in RECORD.items() if k not in ("data", "image")}
+        (self.study / "variants/base/launch_record/beaker.json").write_text(json.dumps(rec))
+        self.commit()
+        path = f"{STUDY}/variants/base/launch_record/beaker.json"
+        self.assertEqual({k for k in self.keys() if k.startswith("record-")},
+                         {f"record-data-unrecorded|{path}|", f"record-image-unrecorded|{path}|"})
 
     def test_v1_record_is_never_rejudged(self):
         (self.study / "variants/base/launch_record/old.json").write_text(json.dumps({"mode": "resumable-grid"}))

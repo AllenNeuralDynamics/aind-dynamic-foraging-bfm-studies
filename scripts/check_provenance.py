@@ -74,6 +74,8 @@ FIX = {
     "record-orphan-intervention": "an intervention joins an existing launch's group (ADR 0001); "
                                   "record the initial launch, or launch anew",
     "record-manifest-missing": "commit the manifest the record names, beside it in the variant",
+    "record-data-unrecorded": "launch with a dispatcher that records `data` (studies#25), or add it to the record",
+    "record-image-unrecorded": "launch with a dispatcher that records `image` (studies#25), or add it to the record",
     "report-name": "name reports rN-<slug>.md",
     "report-frontmatter-missing": "add frontmatter (schemas/report-frontmatter.v1.schema.json)",
     "report-frontmatter": "fix the frontmatter field named in the message "
@@ -351,6 +353,11 @@ class Checker:
             for m in rec.get("manifests") or []:
                 if not (v / m).exists() and not (p.parent / m).exists():
                     self.add("error", "record-manifest-missing", p, f"manifest {m} not found", item=m)
+            # what the runs trained on and ran in (studies#25); a backfill submits nothing
+            if rec.get("platform") in ("beaker", "hpc"):
+                for field in ("data", "image"):
+                    if field not in rec:
+                        self.add("warn", f"record-{field}-unrecorded", p, f"the launch record has no `{field}`")
 
     def check_reports(self, study: Path, targets: set[str]) -> None:
         A = self.layout["analysis"]

@@ -46,7 +46,32 @@
     },
     "deviations": {"type": "object", "description": "Manifest fields that differ from the launch's, field -> value or true."},
     "cost": {"type": "object"},
-    "tasks": {"type": "array"}
+    "tasks": {"type": "array"},
+    "data": {
+      "type": "object", "required": ["source", "config"], "additionalProperties": false,
+      "description": "What the runs trained and were evaluated on. snapshot: a dated, immutable copy of the foraging database, by id and the sha256 of its snapshot_manifest.json; live: the growing database (not reproducible; launchers refuse it without --allow-live-data); generated: a synthetic population defined by the config itself.",
+      "properties": {
+        "source": {"enum": ["snapshot", "live", "generated"]},
+        "config": {"type": "string", "description": "The Hydra data config, e.g. mice_snapshot_scaling."},
+        "type": {"type": ["string", "null"], "description": "The data config's `type`, e.g. mice_snapshot."},
+        "snapshot": {"type": ["string", "null"]},
+        "uri": {"type": ["string", "null"]},
+        "manifest_sha256": {"$ref": "#/$defs/sha256_or_null"},
+        "build_id": {"type": ["string", "integer", "null"]},
+        "n_sessions": {"type": ["integer", "null"]}
+      },
+      "if": {"properties": {"source": {"const": "snapshot"}}},
+      "then": {"required": ["snapshot", "uri", "manifest_sha256"], "properties": {"snapshot": {"type": "string", "minLength": 1}}}
+    },
+    "image": {
+      "description": "The environment the code ran in. Beaker: the image name from the experiment template and the immutable image id it resolved to at submit. HPC: the conda env the job activated and a sha256 over its installed packages.",
+      "oneOf": [
+        {"type": "object", "required": ["platform", "name", "id"], "additionalProperties": false,
+         "properties": {"platform": {"const": "beaker"}, "name": {"type": "string", "minLength": 1}, "id": {"type": ["string", "null"]}}},
+        {"type": "object", "required": ["platform", "conda_env", "lock_sha256"], "additionalProperties": false,
+         "properties": {"platform": {"const": "hpc"}, "conda_env": {"type": "string", "minLength": 1}, "lock_sha256": {"$ref": "#/$defs/sha256_or_null"}}}
+      ]
+    }
   },
   "allOf": [
     {"if": {"properties": {"kind": {"not": {"const": "initial"}}}},
@@ -55,5 +80,6 @@
      "then": {"properties": {"platform": {"const": "none"}, "job_refs": {"maxItems": 0}}},
      "else": {"properties": {"platform": {"enum": ["beaker", "hpc"]}, "job_refs": {"minItems": 1}}}}
   ],
-  "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"}}
+  "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+            "sha256_or_null": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}}
 }

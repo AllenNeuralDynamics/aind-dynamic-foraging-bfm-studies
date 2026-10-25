@@ -181,6 +181,29 @@ class WriteInterventionV2Tests(unittest.TestCase):
         check_records_parse(load_records(self.lr), findings)
         self.assertEqual(findings, [])
 
+    def test_data_and_image_are_inherited_by_interventions_but_not_backfills(self):
+        initial = json.loads((self.lr / "beaker_resumable.json").read_text())
+        initial["data"] = {"source": "snapshot", "config": "mice_snapshot_scaling", "type": "mice_snapshot",
+                           "snapshot": "20260603", "manifest_sha256": "f" * 64,
+                           "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/"}
+        initial["image"] = {"platform": "beaker", "name": "han-hou/disrnn-wrapper-main-20260712", "id": "01KIMAGE"}
+        (self.lr / "beaker_resumable.json").write_text(json.dumps(initial))
+        rescue = self.write()
+        self.assertEqual((rescue["data"]["snapshot"], rescue["image"]["id"]), ("20260603", "01KIMAGE"))
+        self.assertEqual(self.schema_errors(rescue), [])
+        backfill = self.write("backfill1.json", kind="backfill", platform="none", job_refs=[])
+        self.assertNotIn("data", backfill)
+        self.assertNotIn("image", backfill)
+
+    def test_data_and_image_shapes(self):
+        rec = self.write()
+        snapshot = {"source": "snapshot", "config": "mice_snapshot"}
+        self.assertTrue(self.schema_errors({**rec, "data": snapshot}))           # a snapshot needs id, uri, digest
+        self.assertEqual(self.schema_errors({**rec, "data": {"source": "generated", "config": "synthetic"}}), [])
+        self.assertTrue(self.schema_errors({**rec, "image": {"platform": "beaker", "name": "x"}}))   # id required
+        self.assertEqual(self.schema_errors({**rec, "image": {"platform": "hpc", "conda_env": "/envs/x",
+                                                               "lock_sha256": "e" * 64}}), [])
+
     def test_backfill_validates(self):
         rec = self.write("backfill1.json", kind="backfill", platform="none", job_refs=[])
         self.assertEqual(self.schema_errors(rec), [])
