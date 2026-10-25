@@ -39,7 +39,7 @@ class GroupProvenanceTest(unittest.TestCase):
                                       "uri": f"{frp.SNAPSHOT_PREFIX}/snapshots/20260603/", "manifest_sha256": "e" * 64,
                                       "build_id": "B", "n_sessions": 7, "n_runs": 2}])
         self.assertEqual(g["revisions"]["wrapper"], {SHA["w"]: 2})
-        self.assertEqual(g["image"], [{"platform": "beaker", "id": "01KIMAGE", "n_runs": 2}])
+        self.assertEqual(g["image"], [{"platform": "beaker", "id": "01KIMAGE", "via": "beaker job", "n_runs": 2}])
         self.assertEqual(g["unrecovered"], {})
         self.assertIn({"type": "wandb_run", "id": "AIND-disRNN/p/a", "state": "finished"}, sources)
 
@@ -48,9 +48,16 @@ class GroupProvenanceTest(unittest.TestCase):
                                run("b", {}, commits=False),                     # re-scoring job: nothing logged
                                run("c", {"type": "synthetic_hierarchical"}, "J1")])
         self.assertEqual({d["source"] for d in g["data"]}, {"live", "unrecorded", "generated"})
-        self.assertIn({"platform": "beaker", "id": None, "n_runs": 1}, g["image"])
+        self.assertIn({"platform": "beaker", "id": None, "via": "beaker job", "n_runs": 1}, g["image"])   # JobNotFound
         self.assertEqual(g["unrecovered"]["wrapper commit"], 1)
-        self.assertEqual(g["unrecovered"]["image (no Beaker job: an HPC or local run)"], 1)
+        self.assertEqual(g["unrecovered"]["image (no Beaker job id logged)"], 1)        # not "HPC": unknown
+
+    def test_jobless_runs_take_the_launch_record_experiment_image(self):
+        with mock.patch.object(frp, "manifest", return_value=(None, {}, "u")):
+            g, sources = frp.group_provenance([run("a", {}, commits=False)], "e/p", lambda j: None,
+                                              {"01KEXP": {"01KIMG"}})
+        self.assertEqual(g["image"], [{"platform": "beaker", "id": "01KIMG", "via": "launch-record experiment", "n_runs": 1}])
+        self.assertIn({"type": "url", "id": "https://beaker.org/ex/01KEXP"}, sources)
 
 
 if __name__ == "__main__":

@@ -3,10 +3,10 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "../util/freeze_run_provenance.py",
-    "produced_at_pt": "2026-10-25T16:21:35-07:00",
-    "studies_git_sha": "8229ea344d1d5b2be3c253827d380ea7c5cafe0c",
+    "produced_at_pt": "2026-10-25T16:51:39-07:00",
+    "studies_git_sha": "06751a98ae2fadfabcc3791351c4a8a044879a44",
     "studies_git_dirty": true,
-    "wrapper_git_sha": null,
+    "wrapper_git_sha": "c11b83a5a081b0e9348ca0faf0c5c03e90b4b0cc",
     "wandb_groups": [
       "stage1-no-penalty@20260909-021133",
       "stage2-linear-update-net@20260909-021223",
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/util/freeze_run_provenance.py",
-        "sha256": "48a9a0be493f4cf102291b18896c719fdc1422a780740b6bf1ddf3369db76f3c"
+        "sha256": "9f62a32a0c35a458ce62c8eb7a4c6da2d4ab4218ca338c07477a7fdc464ea980"
       }
     ],
     "inputs": [],
@@ -89,16 +89,32 @@
       {
         "type": "url",
         "id": "https://beaker.org/job/01M23ZX6RP5MCPBDPYJSAPZAJG"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01M23VHJSCFKF6Y80WDZGSJCZ0"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01M23R4PMW6C88W4JQM7A1BSEG"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01M23ZX664WP1QJQJNVBYY1V13"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01M23R8FKZSW7D1CDQZFSNDGW4"
       }
     ],
     "outputs": [
       {
         "path": "studies/11-disrnn-near-gru-ceiling/analysis/provenance/run_provenance.json",
-        "sha256": "5c9c434fd24010b1af510800f74dc919a3c969127ce57541bbd0b8ba006943f4"
+        "sha256": "e290319af74009a5d6fa4493d54872c35ed302486c25c4eceafac6eb1dc65dbb"
       }
     ]
   },
-  "recovered_at_pt": "2026-10-25T16:21:36-07:00",
+  "recovered_at_pt": "2026-10-25T16:51:40-07:00",
   "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
   "groups": {
     "stage1-no-penalty@20260909-021133": {
@@ -131,6 +147,7 @@
         {
           "platform": "beaker",
           "id": "01M1JHDCQEEMRMH4EHQGEX7QY8",
+          "via": "beaker job",
           "n_runs": 2
         }
       ],
@@ -166,6 +183,7 @@
         {
           "platform": "beaker",
           "id": "01M1JHDCQEEMRMH4EHQGEX7QY8",
+          "via": "beaker job",
           "n_runs": 2
         }
       ],
@@ -201,6 +219,7 @@
         {
           "platform": "beaker",
           "id": "01M1JHDCQEEMRMH4EHQGEX7QY8",
+          "via": "beaker job",
           "n_runs": 2
         }
       ],

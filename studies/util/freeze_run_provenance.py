@@ -51,8 +51,14 @@ def _values(v) -> list[str]:
     return [str(x) for x in (v if isinstance(v, list) else [v]) if x]
 
 
-def group_provenance(runs: list, project: str, image_of) -> tuple[dict, list[dict]]:
-    """The recovered record for one group's runs, and the sources it read."""
+def group_provenance(runs: list, project: str, image_of, experiment_images: dict | None = None) -> tuple[dict, list[dict]]:
+    """The recovered record for one group's runs, and the sources it read.
+
+    ``experiment_images`` maps the Beaker experiments the group's launch records name to the
+    image ids their jobs ran; it covers runs that logged no BEAKER_JOB_ID when it names exactly
+    one image."""
+    experiment_images = experiment_images or {}
+    exp_ids = {i for ids in experiment_images.values() for i in ids}
     data, revisions, images, sources = Counter(), defaultdict(Counter), Counter(), []
     unrecovered = Counter()
     for r in runs:
@@ -68,10 +74,14 @@ def group_provenance(runs: list, project: str, image_of) -> tuple[dict, list[dic
                 unrecovered[f"{repo} commit"] += 1
         job = cfg.get("BEAKER_JOB_ID")
         if job:
-            images[image_of(job)] += 1
+            images[(image_of(job), "beaker job")] += 1
             sources.append({"type": "url", "id": f"https://beaker.org/job/{job}"})
+        elif len(exp_ids) == 1:
+            images[(next(iter(exp_ids)), "launch-record experiment")] += 1
         else:
-            unrecovered["image (no Beaker job: an HPC or local run)"] += 1
+            unrecovered["image (no Beaker job id logged)"] += 1
+    for exp in experiment_images:
+        sources.append({"type": "url", "id": f"https://beaker.org/ex/{exp}"})
     out_data = []
     for (dtype, snap, logged), n in sorted(data.items(), key=lambda kv: -kv[1]):
         if snap:
@@ -89,8 +99,8 @@ def group_provenance(runs: list, project: str, image_of) -> tuple[dict, list[dic
         "project": project, "n_runs": len(runs),
         "data": out_data,
         "revisions": {repo: dict(c.most_common()) for repo, c in revisions.items()},
-        "image": [{"platform": "beaker", "id": i, "n_runs": n} for i, n in images.most_common() if i]
-                 + ([{"platform": "beaker", "id": None, "n_runs": images[None]}] if images.get(None) else []),
+        # id None: the job no longer exists on Beaker (JobNotFound)
+        "image": [{"platform": "beaker", "id": i, "via": via, "n_runs": n} for (i, via), n in images.most_common()],
         "unrecovered": dict(unrecovered),
     }, sources
 
@@ -104,21 +114,41 @@ def main(argv: list[str] | None = None) -> None:
 
     import wandb
     api = wandb.Api(timeout=120)
-    beaker = None
-    if os.environ.get("BEAKER_TOKEN"):
-        from beaker import Beaker, Config
-        beaker = Beaker(Config(user_token=os.environ["BEAKER_TOKEN"], default_org="ai1"))
+    if not os.environ.get("BEAKER_TOKEN"):
+        sys.exit("freeze_run_provenance: BEAKER_TOKEN is required to read the images Beaker jobs ran")
+    from beaker import Beaker, Config
+    beaker = Beaker(Config(user_token=os.environ["BEAKER_TOKEN"], default_org="ai1"))
     cache: dict[str, str | None] = {}
 
     def image_of(job: str) -> str | None:
-        """The image id a Beaker job ran (its spec names the id it resolved at submit)."""
+        """The image id a Beaker job ran (its spec names the id it resolved at submit); None only
+        for a job Beaker no longer has. Any other error stops the freeze."""
         if job not in cache:
             try:
-                cache[job] = beaker.job.get(job).execution.spec.image.beaker if beaker else None
-            except Exception as exc:                 # a purged job: the image is not recoverable
-                print(f"  WARNING: Beaker job {job}: {exc}")
+                cache[job] = beaker.job.get(job).execution.spec.image.beaker
+            except Exception as exc:
+                if not type(exc).__name__.endswith("NotFound"):
+                    raise
+                print(f"  WARNING: Beaker job {job} no longer exists; its image is not recoverable")
                 cache[job] = None
         return cache[job]
+
+    def experiment_images(group: str) -> dict[str, set[str]]:
+        """Beaker experiments the study's launch records name for ``group`` -> the images their jobs ran."""
+        out = {}
+        for path in [*a.study.glob("variants/*/launch_record/**/*.json"), *a.study.glob("*.json")]:
+            try:
+                rec = json.loads(path.read_text())
+            except (OSError, ValueError):
+                continue
+            if not isinstance(rec, dict) or group not in json.dumps(rec):
+                continue
+            ids = {rec.get("experiment_id")} | {r.get("id") for r in rec.get("job_refs") or []
+                                                if isinstance(r, dict) and r.get("type") == "beaker_experiment"}
+            for exp in filter(None, ids):
+                jobs = beaker.experiment.get(exp).jobs or []
+                out[exp] = {j.execution.spec.image.beaker for j in jobs if j.execution}
+        return out
 
     groups, sources = {}, []
     for g in a.group:
@@ -129,7 +159,7 @@ def main(argv: list[str] | None = None) -> None:
         else:
             sys.exit(f"freeze_run_provenance: no runs in group {g} in {a.project}")
         print(f"{g}: {len(runs)} runs in {project}")
-        groups[g], src = group_provenance(runs, project, image_of)
+        groups[g], src = group_provenance(runs, project, image_of, experiment_images(g))
         sources += src
     seen, uniq = set(), []
     for s in sources:

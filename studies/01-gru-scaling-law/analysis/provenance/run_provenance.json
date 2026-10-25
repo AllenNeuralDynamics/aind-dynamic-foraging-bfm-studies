@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "../util/freeze_run_provenance.py",
-    "produced_at_pt": "2026-10-25T16:20:41-07:00",
-    "studies_git_sha": "8229ea344d1d5b2be3c253827d380ea7c5cafe0c",
+    "produced_at_pt": "2026-10-25T16:50:41-07:00",
+    "studies_git_sha": "06751a98ae2fadfabcc3791351c4a8a044879a44",
     "studies_git_dirty": true,
     "wrapper_git_sha": "870e6ddd56c0bfba4d2a314b63af0e056ef0153c",
     "wandb_groups": [
@@ -30,7 +30,7 @@
     "code": [
       {
         "path": "studies/util/freeze_run_provenance.py",
-        "sha256": "48a9a0be493f4cf102291b18896c719fdc1422a780740b6bf1ddf3369db76f3c"
+        "sha256": "9f62a32a0c35a458ce62c8eb7a4c6da2d4ab4218ca338c07477a7fdc464ea980"
       }
     ],
     "inputs": [],
@@ -39,6 +39,10 @@
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_data_scaling/wpz9pf0u",
         "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVSQ2ZKXYAW26QH5YVXKKNAZ"
       },
       {
         "type": "wandb_run",
@@ -116,6 +120,10 @@
         "state": "finished"
       },
       {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVSQNGDB4MKP4SN42671WD1J"
+      },
+      {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_data_scaling/08rggiic",
         "state": "finished"
@@ -189,6 +197,10 @@
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_data_scaling/iqd04zz9",
         "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVT7X0E68RA016G5ATA5H576"
       },
       {
         "type": "wandb_run",
@@ -324,6 +336,10 @@
       {
         "type": "url",
         "id": "https://beaker.org/job/01KVRMSAZE06KG565CQSSJNNGE"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVRMSAAJTRSJMFV5JT7JAP6X"
       },
       {
         "type": "wandb_run",
@@ -653,11 +669,11 @@
     "outputs": [
       {
         "path": "studies/01-gru-scaling-law/analysis/provenance/run_provenance.json",
-        "sha256": "c440f6fdb1877496058a754a55a36cfd65797fcbcddfd386e4142f500c15a9bf"
+        "sha256": "d82e8089c30a8f8e70923d24ea38b7874b818789c3fb57992ee93dcaa8d1e35f"
       }
     ]
   },
-  "recovered_at_pt": "2026-10-25T16:20:42-07:00",
+  "recovered_at_pt": "2026-10-25T16:50:43-07:00",
   "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
   "groups": {
     "heldout-rerun-v1@20260623-004601": {
@@ -672,12 +688,18 @@
         }
       ],
       "revisions": {},
-      "image": [],
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "launch-record experiment",
+          "n_runs": 1
+        }
+      ],
       "unrecovered": {
         "wrapper commit": 1,
         "dispatcher commit": 1,
-        "foraging_models commit": 1,
-        "image (no Beaker job: an HPC or local run)": 1
+        "foraging_models commit": 1
       }
     },
     "heldout-rerun-v1@20260623-005608": {
@@ -692,12 +714,18 @@
         }
       ],
       "revisions": {},
-      "image": [],
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "launch-record experiment",
+          "n_runs": 15
+        }
+      ],
       "unrecovered": {
         "wrapper commit": 15,
         "dispatcher commit": 15,
-        "foraging_models commit": 15,
-        "image (no Beaker job: an HPC or local run)": 15
+        "foraging_models commit": 15
       }
     },
     "heldout-rerun-v2@20260623-053951": {
@@ -712,12 +740,18 @@
         }
       ],
       "revisions": {},
-      "image": [],
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "launch-record experiment",
+          "n_runs": 15
+        }
+      ],
       "unrecovered": {
         "wrapper commit": 15,
         "dispatcher commit": 15,
-        "foraging_models commit": 15,
-        "image (no Beaker job: an HPC or local run)": 15
+        "foraging_models commit": 15
       }
     },
     "v2-sc-active@20260622-144622": {
@@ -743,6 +777,7 @@
         {
           "platform": "beaker",
           "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "beaker job",
           "n_runs": 15
         }
       ],
@@ -776,6 +811,7 @@
         {
           "platform": "beaker",
           "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "beaker job",
           "n_runs": 27
         }
       ],
@@ -806,6 +842,7 @@
         {
           "platform": "beaker",
           "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "beaker job",
           "n_runs": 9
         }
       ],
