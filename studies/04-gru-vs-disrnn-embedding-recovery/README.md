@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 04-gru-vs-disrnn-embedding-recovery
+question: Do a sequence model's learned subject embeddings and session conditioning recover the known
+  generative structure of synthetic foraging agents, or are they arbitrary codes?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: embedding_recovery
+verdict: They recover it where a correct-model baseline stops being sufficient (97.5-100% for the GRU);
+  the disRNN replicates family recovery at 0.95-0.98.
+---
 # Study: 04-gru-vs-disrnn-embedding-recovery
 
 > **formerly:** `embedding-recovery` (renamed 2026-07-11 to the `NN-{model}-{purpose}`

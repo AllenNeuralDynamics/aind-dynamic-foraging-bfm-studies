@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 03-disrnn-beta-scan
+question: At a fixed 100-mouse cohort, does a stronger penalty on the disRNN's update-net interaction
+  gate sparsify it without costing held-out transfer?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: disrnn_updnet_bottleneck_ratio_100mice
+verdict: 'The multiplier monotonically closes the interaction gate, but the model compensates elsewhere:
+  capacity is conserved, not removed.'
+---
 # Study: update-net-ratio β-scan (disRNN interaction sparsity at 100 mice)
 
 *Folder `03-disrnn-beta-scan` — formerly `beta-scan`. W&B project

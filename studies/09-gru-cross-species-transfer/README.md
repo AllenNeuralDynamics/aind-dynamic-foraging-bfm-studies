@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 09-gru-cross-species-transfer
+question: Does the GRU core learned from AIND dynamic foraging transfer to external two-armed-bandit behaviour
+  in other mouse cohorts and in humans?
+status: active
+wandb:
+  entity: AIND-disRNN
+  project: gru_cross_species_transfer
+issues:
+- AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#32
+---
 # Study 09: GRU cross-species and cross-dataset transfer
 
 Issues: dispatcher [#32](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/issues/32),

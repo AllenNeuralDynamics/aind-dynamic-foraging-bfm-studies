@@ -1,3 +1,14 @@
+---
+schema_version: 1
+id: 11-disrnn-near-gru-ceiling
+question: How much of the disRNN's residual held-out gap to the GRU at D=614 is due to its architecture
+  capacity and regularization design?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: disrnn_near_gru_ceiling
+verdict: At most ~12% of the residual GRU gap closes, and not monotonically or completely at any stage.
+---
 # 11 — disRNN near-GRU ceiling
 
 > **Formerly `10-disrnn-near-gru-ceiling`.** Renumbered to 11 before merge because `studies/10-gru-reservoir-ablation/` (a different, unrelated study) landed on `main` first under accession number 10. W&B tags/groups (`study10`), the wrapper-repo issue [aind-dynamic-foraging-bfm-wrapper#99](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper/issues/99), and this study's launch records still say `study10` / "study 10" — that is the immutable historical stamp from when the runs were launched, not a typo.

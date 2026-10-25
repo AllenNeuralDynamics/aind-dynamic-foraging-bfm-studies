@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 01-gru-scaling-law
+question: Does training a behaviour foundation model on more mice improve prediction of mice it has never
+  seen?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: mice_data_scaling
+verdict: Yes, but the held-out gain saturates by ~100 mice and per-trial choice likelihood sits near a
+  predictability ceiling.
+---
 # Study: Mouse data-scaling law
 
 *Folder `01-gru-scaling-law` — formerly `data-scaling-law`. W&B projects `mice_scaling`
