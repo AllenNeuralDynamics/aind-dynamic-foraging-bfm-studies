@@ -61,8 +61,12 @@ Times are Seattle per AGENTS.md section 7.
 from __future__ import annotations
 
 import json
+import re
+import subprocess
 from pathlib import Path
 from typing import Any
+
+import yaml
 
 from _meta import build_meta
 
@@ -102,6 +106,10 @@ def write_intervention(
     tasks: list[dict[str, Any]] | None = None,
     deviations: dict[str, Any] | None = None,
     cost: dict[str, Any] | None = None,
+    label: str | None = None,
+    note: str | None = None,
+    manifests: list[str] | None = None,
+    revisions: dict[str, str] | None = None,
     produced_by: str = "launch_record.write_intervention",
 ) -> dict:
     """Write a schema-conformant intervention record and return it.
@@ -132,6 +140,17 @@ def write_intervention(
             Every study-06 intervention made such a choice for a real reason; capturing it
             here makes the reason auditable instead of buried in a commit message.
         cost: what the action gave up, e.g. ``{"progress_discarded_steps": {...}}``.
+        label, note: as for a launch; ``label`` defaults to the record's file stem and
+            ``note`` to the trigger's symptom and cause.
+        manifests: variant-relative paths of the manifests this action submitted (e.g. its
+            own snapshot under ``launch_record/``). Each must equal the launch's manifest of
+            the same file name, as submitted then, except for keys named in ``deviations``
+            (dotted paths, e.g. ``"parameters.n_steps"``); only ``extend`` may change the step
+            budget (docs/adr/0001). Defaults to the launch's own manifests.
+        revisions: repo -> full SHA of the code that ran; defaults to the initial launch's.
+
+    The record is v2 (schemas/launch-record.v2.schema.json) and must join a W&B group that
+    has an initial launch record in the same variant.
 
     Raises:
         ValueError: on an unknown ``kind``/``platform``/ref type, a ``trigger`` missing
@@ -185,23 +204,171 @@ def write_intervention(
                     f"job_ref {r!r} not valid for platform {platform!r}; expected type in {sorted(allowed)}"
                 )
 
+    path = Path(path).resolve()      # a repo-relative destination must not mix with resolved paths
+    launch_dir = _launch_record_root(path)
+    initial = _initial_launch(launch_dir, wandb_group)
+    variant_dir = launch_dir.parent
+    deviations = dict(deviations or {})
+    if note is not None and len(note.strip()) < 10:
+        raise ValueError("note must say why this action exists (at least 10 characters; "
+                         "schemas/launch-record.v2.schema.json)")
+    inherited = manifests is None
+    if inherited:
+        manifests = list(initial.get("manifests") or [])
+    if not manifests:
+        raise ValueError("manifests is empty; a record must name what it submitted "
+                         "(schemas/launch-record.v2.schema.json)")
+    resolved = _resolve_manifests(path.parent, variant_dir, initial, manifests, inherited)
+    if kind != "backfill":            # a backfill submits nothing, so there is no submission to diff
+        _check_manifest_diff(variant_dir, initial, kind, resolved, deviations)
+    # stored variant-relative, so scripts/check_provenance.py finds each one from the variant
+    manifests = [p.relative_to(variant_dir).as_posix() for p in resolved.values()]
+    revisions = dict(revisions or initial.get("revisions") or {})
+
+    meta = build_meta(produced_by, [wandb_group], study_root=study_root)
     record = {
-        "_meta": build_meta(produced_by, [wandb_group], study_root=study_root),
+        "_meta": {"schema_version": 2, **meta},
         "kind": kind,
         "platform": platform,
         "wandb_group": wandb_group,
+        "label": label or path.stem,
+        "note": note or f"{kind}: {trigger['symptom']} (cause: {trigger['cause']})",
+        "revisions": revisions,
+        "manifests": list(manifests),
         "job_refs": job_refs,
         "supersedes": list(supersedes or []),
         "trigger": trigger,
         "tasks": list(tasks or []),
-        "deviations": dict(deviations or {}),
+        "deviations": deviations,
         "cost": dict(cost or {}),
     }
 
-    path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(record, indent=2) + "\n")
     return record
+
+
+def _launch_record_root(path: Path) -> Path:
+    """The variant's launch_record/ directory that ``path`` lives in (subdirectories allowed)."""
+    for parent in [path.parent, *path.parent.parents]:
+        if parent.name == "launch_record":
+            return parent
+    raise ValueError(f"{path} is not under a variant's launch_record/ directory")
+
+
+def _initial_launch(launch_dir: Path, wandb_group: str) -> dict:
+    """The v2 initial launch record of ``wandb_group`` in this variant (ADR 0001)."""
+    for p in sorted(launch_dir.rglob("*.json")):
+        try:
+            rec = json.loads(p.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        if (isinstance(rec, dict) and rec.get("kind") == "initial"
+                and rec.get("wandb_group") == wandb_group):
+            rec["_dir"] = p.parent
+            return rec
+    raise ValueError(
+        f"no initial launch record for {wandb_group} in {launch_dir}; an intervention joins an "
+        "existing launch's group (docs/adr/0001). A different configuration is a new launch.")
+
+
+_OVERRIDE = re.compile(r"^[+~]*([A-Za-z_][\w.]*)=(.*)$")
+
+
+def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:
+    """Dotted key -> leaf value. Lists are flattened too, so a Hydra override inside a sweep
+    `command` or a Beaker `tasks[*].command` (``model.training.n_steps=150000``) becomes its
+    own key (``...command.=model.training.n_steps``) rather than hiding in one list leaf."""
+    if isinstance(obj, dict):
+        out: dict[str, Any] = {}
+        for k, v in obj.items():
+            out.update(_flatten(v, f"{prefix}{k}."))
+        return out or {prefix.rstrip("."): {}}
+    if isinstance(obj, list):
+        out = {}
+        for i, v in enumerate(obj):
+            m = _OVERRIDE.match(v) if isinstance(v, str) else None
+            if m:                     # keep the whole token: `~k=v` (delete) differs from `k=v`
+                out[f"{prefix}={m[1]}"] = v
+            else:
+                out.update(_flatten(v, f"{prefix}{i}."))
+        return out or {prefix.rstrip("."): []}
+    return {prefix.rstrip("."): obj}
+
+
+# Only `extend` may change the step budget (docs/adr/0001); any other kind that changes it is
+# a new launch, whatever `deviations` declares.
+_EXTEND_ONLY = ("n_steps",)
+
+
+def _launch_manifest_text(name: str, initial: dict, variant_dir: Path) -> str:
+    """The launch's manifest as submitted: its immutable snapshot beside the launch record,
+    else the file at the launch's studies commit. Never the variant's current file, which
+    may have been edited since."""
+    snap = initial["_dir"] / Path(name).name
+    if snap.exists():
+        return snap.read_text()
+    sha = (initial.get("revisions") or {}).get("studies")
+    if sha:
+        target = (variant_dir / name).resolve()
+        try:
+            top = subprocess.run(["git", "-C", str(variant_dir), "rev-parse", "--show-toplevel"],
+                                 capture_output=True, text=True, check=True).stdout.strip()
+            rel = target.relative_to(Path(top).resolve()).as_posix()
+            return subprocess.run(["git", "-C", top, "show", f"{sha}:{rel}"],
+                                  capture_output=True, text=True, check=True).stdout
+        except (subprocess.CalledProcessError, ValueError, OSError):
+            pass
+    raise ValueError(f"cannot recover the launch's {name} (no snapshot beside its record, and not "
+                     f"at studies {sha or '<no revision>'}); refusing to compare against a file "
+                     "that may have changed since the launch")
+
+
+def _resolve_manifests(record_dir: Path, variant_dir: Path, initial: dict,
+                       manifests: list[str], inherited: bool) -> dict[str, Path]:
+    """name -> file. Explicit manifests are variant-relative paths that must exist as given;
+    only the launch's own (inherited) manifests fall back to beside the new or launch record,
+    so a missing submission artifact is never silently replaced by the launch's file."""
+    out = {}
+    for name in manifests:
+        candidates = ((variant_dir / name, record_dir / Path(name).name, initial["_dir"] / Path(name).name)
+                      if inherited else (variant_dir / name,))
+        found = next((p for p in candidates if p.exists()), None)
+        if found is None:
+            raise ValueError(f"manifest {name} not found in {variant_dir}, {record_dir} or beside "
+                             "the launch record")
+        out[name] = found.resolve()
+    return out
+
+
+def _check_manifest_diff(variant_dir: Path, initial: dict, kind: str,
+                         manifests: dict[str, Path], deviations: dict) -> None:
+    """Refuse a submitted manifest that differs from the launch's in an undeclared key.
+
+    Each submitted file is matched to the launch manifest with the same file name and compared
+    key by key (a key present in one and absent in the other differs, even if null).
+    """
+    launch = {Path(m).name: m for m in initial.get("manifests") or []}
+    declared = set(deviations)
+    missing = object()
+    for name, new in manifests.items():
+        if Path(name).name not in launch:
+            raise ValueError(f"{name} matches none of the launch's manifests {sorted(launch.values())}; "
+                             "a different spec is a new launch (docs/adr/0001)")
+        a = _flatten(yaml.safe_load(_launch_manifest_text(launch[Path(name).name], initial, variant_dir)) or {})
+        b = _flatten(yaml.safe_load(new.read_text()) or {})
+        changed = sorted(k for k in a.keys() | b.keys() if a.get(k, missing) != b.get(k, missing))
+        covered = lambda k: any(k == d or k.startswith(d + ".") for d in declared)
+        undeclared = [k for k in changed if not covered(k)]
+        if undeclared:
+            raise ValueError(
+                f"{name} differs from the launch's in undeclared key(s) {undeclared}; declare each "
+                "in deviations, or launch anew if the configuration changed (docs/adr/0001)")
+        restricted = [k for k in changed
+                      if any(part.lstrip("=") in _EXTEND_ONLY for part in k.split("."))]
+        if restricted and kind != "extend":
+            raise ValueError(f"{kind} changes {restricted}; only an extend may change the step "
+                             "budget (docs/adr/0001). Use kind='extend', or launch anew")
 
 
 def load_records(launch_record_dir: Path | str) -> list[dict]:
@@ -220,7 +387,9 @@ def load_records(launch_record_dir: Path | str) -> list[dict]:
         except (OSError, json.JSONDecodeError) as e:
             out.append({"_schema": "unreadable", "_path": str(p), "_error": f"{type(e).__name__}: {e}"})
             continue
-        if "_meta" in d and "kind" in d:
+        if isinstance(d.get("_meta"), dict) and d["_meta"].get("schema_version") == 2:
+            schema = "v2"            # schemas/launch-record.v2.schema.json (launchers and interventions)
+        elif "_meta" in d and "kind" in d:
             schema = "current"
         elif d.get("mode") in ("resumable-grid", "hpc-sweep") or "sweep_id" in d:
             schema = "launcher"

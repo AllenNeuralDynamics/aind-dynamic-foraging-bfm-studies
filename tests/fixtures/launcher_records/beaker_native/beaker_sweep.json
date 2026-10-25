@@ -1,23 +1,53 @@
 {
-  "sweep_id": "AIND-disRNN/proj/abc123",
-  "wandb_group": "stan-arm@20261024-000001",
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_beaker.py",
+    "produced_at_pt": "2026-10-24T22:11:13-07:00"
+  },
+  "kind": "initial",
+  "platform": "beaker",
+  "wandb_group": "stan-arm@20261023-000000",
+  "label": "arm",
+  "note": "baseline launch: does the example converge?",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "abc123"
+    },
+    {
+      "type": "beaker_experiment",
+      "id": "01KEXAMPLEEXPERIMENT0000000"
+    }
+  ],
+  "revisions": {
+    "studies": "e67c24ea481ad448a90b8399f76bf19d62599551",
+    "dispatcher": "5f81d3923b1d58e0a84a575e72f08bccd8053d3b",
+    "wrapper": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "foraging_models": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "manifests": [
+    "sweep.yaml",
+    "experiment_submitted.yaml"
+  ],
+  "n_tasks": 4,
+  "sweep_id": "AIND-disRNN/test/abc123",
   "wandb_sweep_id": "abc123",
-  "sweep_url": "https://wandb.ai/AIND-disRNN/proj/sweeps/abc123",
-  "experiment_id": null,
-  "experiment_url": null,
-  "dispatcher_commit": "818cc6ef556eedf2600eb28e6dca89035c3fa2d8",
-  "studies_git_commit": "abcdb3d82f5524af25f031a996383e536995c528",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/test/sweeps/abc123",
+  "experiment_id": "01KEXAMPLEEXPERIMENT0000000",
+  "experiment_url": "https://beaker.org/ex/01KEXAMPLEEXPERIMENT0000000",
+  "dispatcher_commit": "5f81d3923b1d58e0a84a575e72f08bccd8053d3b",
+  "studies_git_commit": "e67c24ea481ad448a90b8399f76bf19d62599551",
   "studies_git_branch": "master",
   "studies_git_dirty": false,
   "studies_dirty_paths": [],
   "studies_sweep_tracked": true,
-  "dispatcher_git_commit": "818cc6ef556eedf2600eb28e6dca89035c3fa2d8",
-  "dispatcher_git_branch": "main",
+  "dispatcher_git_commit": "5f81d3923b1d58e0a84a575e72f08bccd8053d3b",
+  "dispatcher_git_branch": "HEAD",
   "dispatcher_git_dirty": false,
   "provenance_warnings": [],
   "wrapper_git_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "foraging_models_git_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
   "studies_dirty_override": null,
-  "sweep_file": "/workspace/aind-dynamic-foraging-bfm-studies/studies/08-hb-vs-gru-heldout/variants/stan-arm/sweep.yaml",
-  "created_utc": "2026-10-24T08:33:50.024094+00:00"
+  "sweep_file": "/tmp/studies-fixture/studies-repo/studies/08-hb-vs-gru-heldout/variants/stan-arm/sweep.yaml",
+  "created_utc": "2026-10-25T05:11:13.882750+00:00"
 }
