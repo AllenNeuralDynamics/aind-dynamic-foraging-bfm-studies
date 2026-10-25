@@ -31,8 +31,12 @@ import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-import yaml
-from jsonschema import Draft202012Validator
+try:
+    import yaml
+    from jsonschema import Draft202012Validator
+except ImportError as e:              # e.g. the HPC's system python
+    sys.exit(f"check_provenance: {e}. Install the dev requirements first:\n"
+             "    python -m pip install -r requirements-dev.txt")
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "studies" / "util"))
@@ -40,7 +44,8 @@ from _meta import block_digest, body_digest, file_digest, result_blocks  # noqa:
 
 SCHEMAS = REPO / "schemas"
 BASELINE = SCHEMAS / "provenance-baseline.json"
-RULE_FILES = ("schemas/", "scripts/check_provenance.py")
+# Files whose change introduces or alters a rule, and so may add baseline entries.
+RULE_FILE = re.compile(r"^(schemas/[^/]+\.schema\.json|schemas/layout\.yaml|scripts/check_provenance\.py)$")
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 GROUP = re.compile(r"\b([A-Za-z0-9][\w.-]*@\d{8}-\d{6})\b")
 MAKE_TARGET = re.compile(r"^([A-Za-z0-9][\w.-]*(?:\s+[A-Za-z0-9][\w.-]*)*)\s*:(?!=)", re.M)
@@ -115,7 +120,10 @@ class Checker:
                                     "launch-record.v2")}
         self.findings: list[Finding] = []
         self._keys: set[str] = set()
+        # committed (in the index): what may be an input. visible: also new, not-yet-added
+        # files, so `make validate` before `git add` sees what CI will see.
         self.tracked = set(self._git("ls-files").splitlines())
+        self.visible = self.tracked | set(self._git("ls-files", "--others", "--exclude-standard").splitlines())
         self.studies = sorted(p for p in (root / "studies").iterdir()
                               if p.is_dir() and re.match(r"^\d{2}-", p.name))
         self.groups = self._group_index()
@@ -233,7 +241,7 @@ class Checker:
 
     def _is_tracked_tree(self, p: Path) -> bool:
         r = self.rel(p)
-        return r in self.tracked or any(t.startswith(r + "/") for t in self.tracked)
+        return r in self.visible or any(t.startswith(r + "/") for t in self.visible)
 
     def check_variant(self, study: Path, v: Path) -> None:
         V = self.layout["variant"]
@@ -330,7 +338,7 @@ class Checker:
         has_freeze = False
         cache = self.layout["analysis"]["cache_pattern"]
         for p in sorted((study / "analysis").rglob("*.json")):
-            if any(cache in part for part in p.relative_to(study).parts) or self.rel(p) not in self.tracked:
+            if any(cache in part for part in p.relative_to(study).parts) or self.rel(p) not in self.visible:
                 continue
             try:
                 obj = json.loads(p.read_text())
@@ -433,9 +441,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.base_ref:
         base = load_baseline(git("show", f"{args.base_ref}:schemas/provenance-baseline.json"))
         changed = (git("diff", "--name-only", f"{args.base_ref}...HEAD") or "").splitlines()
-        rule_change = any(c.startswith(RULE_FILES) and c != "schemas/provenance-baseline.json" for c in changed)
-        if base and not rule_change:
-            grown = sorted(baseline - base)
+        added = set((git("diff", "--name-only", "--diff-filter=A", f"{args.base_ref}...HEAD") or "").splitlines())
+        rule_change = any(RULE_FILE.match(c) for c in changed)
+        if base:
+            # A rule change may baseline what its new rule finds in existing files; nothing
+            # may baseline a finding on a file this change adds, which is always strict.
+            grown = sorted(k for k in baseline - base
+                           if not rule_change or k.split("|")[1].split("#")[0] in added)
 
     if args.format == "json":
         json.dump({"findings": [f.as_dict() for f in findings], "new": [f.key for f in new],
@@ -453,7 +465,8 @@ def main(argv: list[str] | None = None) -> int:
             for k in fixed[:20]:
                 print(f"    {k}")
         for k in grown:
-            print(f"\nBASELINE GROWN without a rule change: {k}\n    fix: fix the finding instead of baselining it")
+            print(f"\nBASELINE GROWN: {k}\n    only a change to a schema, layout.yaml or the checker may add "
+                  "entries, and never for a file it adds\n    fix: fix the finding instead of baselining it")
     return 1 if new or fixed or grown else 0
 
 

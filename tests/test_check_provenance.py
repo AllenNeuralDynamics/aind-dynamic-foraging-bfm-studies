@@ -138,6 +138,25 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertIn(f"artifact-no-meta|{STUDY}/analysis/out.json|", self.keys())
 
+    def test_untracked_new_files_are_seen_before_git_add(self):
+        """`make validate` runs before `git add`; it must see what CI will see."""
+        (self.study / "analysis/out.json").write_text('{"x": 1}')
+        (self.study / "analyze.py").write_text("")
+        keys = self.keys()
+        self.assertIn(f"artifact-no-meta|{STUDY}/analysis/out.json|", keys)
+        self.assertIn(f"study-root-extra|{STUDY}/analyze.py|analyze.py", keys)
+
+    def test_int_keyed_artifact_is_not_stale_after_reading_back(self):
+        a = self.study / "analysis"
+        with mock.patch.object(_meta, "REPO_ROOT", self.root.resolve()), \
+                mock.patch.object(_meta, "_studies_state", return_value=(SHA, False)), \
+                mock.patch.object(_meta, "_with_util_modules", side_effect=lambda code: code):
+            meta = _meta.build_meta("analysis/produce.py", [], code=[a / "produce.py"],
+                                    inputs=[a / "grid.csv"])
+            _meta.write_artifact(a / "by_d.json", {"_meta": meta, "by_d": {10: 0.71, 614: 0.72}})
+        self.commit()
+        self.assertEqual(self.keys(), set())
+
     def test_edited_figure_and_input_are_stale(self):
         with mock.patch.object(_meta, "_with_util_modules", side_effect=lambda code: code):
             out = self.write_v2_artifact()

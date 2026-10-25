@@ -244,14 +244,16 @@ def file_digest(path: Path | str) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def body_digest(obj: dict) -> str:
+def body_digest(obj: dict, default=None) -> str:
     """Digest of a JSON artifact without its `_meta`, canonically serialised.
 
     A file cannot contain its own hash, so the artifact's entry in its own `outputs` covers
     the body only. Sorted keys and fixed separators make the bytes independent of insertion
-    order and indentation.
+    order and indentation. The body is round-tripped through JSON first, so an in-memory
+    object hashes the same as the file read back: int keys ({10: .., 614: ..}) become the
+    strings they are on disk, and `default` (e.g. for numpy values) is applied.
     """
-    body = {k: v for k, v in obj.items() if k != "_meta"}
+    body = json.loads(json.dumps({k: v for k, v in obj.items() if k != "_meta"}, default=default))
     text = json.dumps(body, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     return hashlib.sha256(text.encode()).hexdigest()
 
@@ -297,7 +299,8 @@ def _with_util_modules(code: list) -> list:
     return out
 
 
-def write_artifact(path: Path | str, obj: dict, outputs: list | None = None, indent: int = 2) -> None:
+def write_artifact(path: Path | str, obj: dict, outputs: list | None = None, indent: int = 2,
+                   default=None) -> None:
     """Write a JSON artifact whose ``_meta`` is v2, filling ``_meta.outputs``.
 
     ``outputs`` are the other files this run wrote (figures, CSVs, ``report.md#block``), written
@@ -307,6 +310,6 @@ def write_artifact(path: Path | str, obj: dict, outputs: list | None = None, ind
     if meta.get("schema_version") != 2:
         raise ValueError("write_artifact needs a v2 _meta: call build_meta(..., code=[__file__])")
     path = Path(path)
-    meta["outputs"] = [{"path": repo_path(path), "sha256": body_digest(obj)}] + \
+    meta["outputs"] = [{"path": repo_path(path), "sha256": body_digest(obj, default)}] + \
         [digest_entry(p) for p in outputs or []]
-    path.write_text(json.dumps(obj, indent=indent, ensure_ascii=False) + "\n")
+    path.write_text(json.dumps(obj, indent=indent, ensure_ascii=False, default=default) + "\n")
