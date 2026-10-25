@@ -40,3 +40,11 @@ freeze-generative:
 # committed CSV is the source of truth so reports regenerate offline.
 pull:
 	$(PY) analysis/pull_grid.py
+
+# freeze-provenance = what the headline results' launches trained on and ran in, recovered from
+# W&B run configs and Beaker jobs (#28). Needs W&B credentials and BEAKER_TOKEN: compute node only.
+.PHONY: freeze-provenance
+freeze-provenance:
+	$(PY) ../util/freeze_run_provenance.py --study . --project AIND-disRNN/disrnn_data_scaling \
+	  --group dscan-mult2@20260713-003428 \
+	  --group mult-beta-d614@20260713-003501

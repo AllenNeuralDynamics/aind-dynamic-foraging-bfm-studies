@@ -1,0 +1,210 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "../util/freeze_run_provenance.py",
+    "produced_at_pt": "2026-10-25T16:21:35-07:00",
+    "studies_git_sha": "8229ea344d1d5b2be3c253827d380ea7c5cafe0c",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "stage1-no-penalty@20260909-021133",
+      "stage2-linear-update-net@20260909-021223",
+      "stage3-wide-latent@20260909-140640"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): stage1-no-penalty@20260909-021133, stage2-linear-update-net@20260909-021223",
+      "no studies SHA in the launch record(s) of W&B group(s): stage3-wide-latent@20260909-140640",
+      "no dispatcher SHA in the launch record(s) of W&B group(s): stage3-wide-latent@20260909-140640",
+      "no wrapper SHA in the launch record(s) of W&B group(s): stage3-wide-latent@20260909-140640",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): stage3-wide-latent@20260909-140640"
+    ],
+    "code": [
+      {
+        "path": "studies/util/freeze_run_provenance.py",
+        "sha256": "48a9a0be493f4cf102291b18896c719fdc1422a780740b6bf1ddf3369db76f3c"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_near_gru_ceiling/stage1-no-penalty-20260909-021133-4fec023d",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01M22PZRJ355HD485GGNZGYYPN"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_near_gru_ceiling/stage1-no-penalty-20260909-021133-b679f864",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01M22PZRY6QAC1GQCXVG9Q6TPY"
+      },
+      {
+        "type": "url",
+        "id": "https://aind-scratch-data.s3.amazonaws.com/aind-dynamic-foraging-cache/snapshots/20260603/snapshot_manifest.json",
+        "sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_near_gru_ceiling/stage2-linear-update-net-20260909-021223-2e578b41",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01M22Q19XW2Y5D7NYZZ86WAJZY"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_near_gru_ceiling/stage2-linear-update-net-20260909-021223-7bcb8c76",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01M22Q19T9ZV9Q2NHTK30RF1B0"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_near_gru_ceiling/stage3-wide-latent-20260909-140640-6ebc7ff0",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01M23ZX6HGGR9W2T0RYDZ67M3M"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_near_gru_ceiling/stage3-wide-latent-20260909-140640-c1ac9510",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01M23ZX6RP5MCPBDPYJSAPZAJG"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/11-disrnn-near-gru-ceiling/analysis/provenance/run_provenance.json",
+        "sha256": "5c9c434fd24010b1af510800f74dc919a3c969127ce57541bbd0b8ba006943f4"
+      }
+    ]
+  },
+  "recovered_at_pt": "2026-10-25T16:21:36-07:00",
+  "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
+  "groups": {
+    "stage1-no-penalty@20260909-021133": {
+      "project": "AIND-disRNN/disrnn_near_gru_ceiling",
+      "n_runs": 2,
+      "data": [
+        {
+          "source": "snapshot",
+          "type": "mice_snapshot",
+          "snapshot": "20260603",
+          "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+          "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+          "build_id": "20260630T054811Z",
+          "n_sessions": 23585,
+          "n_runs": 2
+        }
+      ],
+      "revisions": {
+        "wrapper": {
+          "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4": 2
+        },
+        "dispatcher": {
+          "4b926dc53ee7b4be8c0b55a8f195b7fbde5fd5f3": 2
+        },
+        "foraging_models": {
+          "faa0f5ad063e375765aa9c31c7d3fee5eca78ecf": 2
+        }
+      },
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01M1JHDCQEEMRMH4EHQGEX7QY8",
+          "n_runs": 2
+        }
+      ],
+      "unrecovered": {}
+    },
+    "stage2-linear-update-net@20260909-021223": {
+      "project": "AIND-disRNN/disrnn_near_gru_ceiling",
+      "n_runs": 2,
+      "data": [
+        {
+          "source": "snapshot",
+          "type": "mice_snapshot",
+          "snapshot": "20260603",
+          "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+          "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+          "build_id": "20260630T054811Z",
+          "n_sessions": 23585,
+          "n_runs": 2
+        }
+      ],
+      "revisions": {
+        "wrapper": {
+          "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4": 2
+        },
+        "dispatcher": {
+          "4b926dc53ee7b4be8c0b55a8f195b7fbde5fd5f3": 2
+        },
+        "foraging_models": {
+          "faa0f5ad063e375765aa9c31c7d3fee5eca78ecf": 2
+        }
+      },
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01M1JHDCQEEMRMH4EHQGEX7QY8",
+          "n_runs": 2
+        }
+      ],
+      "unrecovered": {}
+    },
+    "stage3-wide-latent@20260909-140640": {
+      "project": "AIND-disRNN/disrnn_near_gru_ceiling",
+      "n_runs": 2,
+      "data": [
+        {
+          "source": "snapshot",
+          "type": "mice_snapshot",
+          "snapshot": "20260603",
+          "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+          "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+          "build_id": "20260630T054811Z",
+          "n_sessions": 23585,
+          "n_runs": 2
+        }
+      ],
+      "revisions": {
+        "wrapper": {
+          "9595dd371ab87de49c281d8ca4bb6ae8af7c32e4": 2
+        },
+        "dispatcher": {
+          "4b926dc53ee7b4be8c0b55a8f195b7fbde5fd5f3": 2
+        },
+        "foraging_models": {
+          "faa0f5ad063e375765aa9c31c7d3fee5eca78ecf": 2
+        }
+      },
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01M1JHDCQEEMRMH4EHQGEX7QY8",
+          "n_runs": 2
+        }
+      ],
+      "unrecovered": {}
+    }
+  }
+}
