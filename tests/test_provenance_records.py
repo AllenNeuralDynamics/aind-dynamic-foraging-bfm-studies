@@ -279,6 +279,24 @@ class WriteInterventionV2Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "undeclared key"):
             self.write("rescue1/r.json", manifests=[m])
 
+    def test_missing_explicit_manifest_is_refused_not_substituted(self):
+        with self.assertRaisesRegex(ValueError, "not found"):
+            self.write("rescue1.json", manifests=["launch_record/rescue1/sweep.yaml"])
+
+    def test_relative_destination(self):
+        cwd = os.getcwd()
+        os.chdir(self.tmp.name)
+        try:
+            from launch_record import write_intervention
+            with mock.patch("launch_record.build_meta", return_value={"produced_by": "x"}):
+                rec = write_intervention("studies/12-gru-x/variants/base/launch_record/backfill.json",
+                                         kind="backfill", platform="none", wandb_group=self.GROUP,
+                                         study_root=self.study, trigger={"symptom": "lost metric",
+                                                                         "cause": "logger crash"})
+        finally:
+            os.chdir(cwd)
+        self.assertEqual(rec["manifests"], ["sweep.yaml"])
+
     def test_short_note_is_refused(self):
         with self.assertRaisesRegex(ValueError, "at least 10"):
             self.write(note="oops")

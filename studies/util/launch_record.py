@@ -204,7 +204,7 @@ def write_intervention(
                     f"job_ref {r!r} not valid for platform {platform!r}; expected type in {sorted(allowed)}"
                 )
 
-    path = Path(path)
+    path = Path(path).resolve()      # a repo-relative destination must not mix with resolved paths
     launch_dir = _launch_record_root(path)
     initial = _initial_launch(launch_dir, wandb_group)
     variant_dir = launch_dir.parent
@@ -212,12 +212,13 @@ def write_intervention(
     if note is not None and len(note.strip()) < 10:
         raise ValueError("note must say why this action exists (at least 10 characters; "
                          "schemas/launch-record.v2.schema.json)")
-    if manifests is None:
+    inherited = manifests is None
+    if inherited:
         manifests = list(initial.get("manifests") or [])
     if not manifests:
         raise ValueError("manifests is empty; a record must name what it submitted "
                          "(schemas/launch-record.v2.schema.json)")
-    resolved = _resolve_manifests(path.parent, variant_dir, initial, manifests)
+    resolved = _resolve_manifests(path.parent, variant_dir, initial, manifests, inherited)
     if kind != "backfill":            # a backfill submits nothing, so there is no submission to diff
         _check_manifest_diff(variant_dir, initial, kind, resolved, deviations)
     # stored variant-relative, so scripts/check_provenance.py finds each one from the variant
@@ -324,11 +325,14 @@ def _launch_manifest_text(name: str, initial: dict, variant_dir: Path) -> str:
 
 
 def _resolve_manifests(record_dir: Path, variant_dir: Path, initial: dict,
-                       manifests: list[str]) -> dict[str, Path]:
-    """name -> file, looked up in the variant, beside the new record, then beside the launch."""
+                       manifests: list[str], inherited: bool) -> dict[str, Path]:
+    """name -> file. Explicit manifests are variant-relative paths that must exist as given;
+    only the launch's own (inherited) manifests fall back to beside the new or launch record,
+    so a missing submission artifact is never silently replaced by the launch's file."""
     out = {}
     for name in manifests:
-        candidates = (variant_dir / name, record_dir / Path(name).name, initial["_dir"] / Path(name).name)
+        candidates = ((variant_dir / name, record_dir / Path(name).name, initial["_dir"] / Path(name).name)
+                      if inherited else (variant_dir / name,))
         found = next((p for p in candidates if p.exists()), None)
         if found is None:
             raise ValueError(f"manifest {name} not found in {variant_dir}, {record_dir} or beside "
