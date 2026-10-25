@@ -9,6 +9,14 @@ wandb:
   project: mice_rt_lick_scaling
 verdict: Previous-trial response features help by a real but flat ~+0.0075 across D~100-614; the apparent
   growth is an input-width effect.
+motivated_by:
+- study: 01-gru-scaling-law
+  report: r7
+  note: 'choice likelihood sits near a ceiling across model size and cohort: is the limit the behaviour
+    or the inputs?'
+- study: 02-gru-scaling-law-ignore
+  report: r1
+  note: the 3-way head reaches the same choice ceiling
 ---
 # Study: Timing inputs — previous-trial reaction time and lick counts
 

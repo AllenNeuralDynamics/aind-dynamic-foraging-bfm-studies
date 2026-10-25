@@ -32,6 +32,7 @@ README = textwrap.dedent("""\
     question: Does the example question have an answer?
     status: active
     wandb: {entity: AIND-disRNN, project: example}
+    motivated_by: []
     ---
     # Study: example
     """)
@@ -359,6 +360,34 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertEqual(self.upstream_keys(),
                          {f"report-upstream-undeclared|{STUDY}/analysis/reports/r1-example.md|{other}"})
+
+    # -- motivation (ADR 0002) --------------------------------------------------------------------
+    def motivate(self, entries: str) -> None:
+        readme = self.study / "README.md"
+        readme.write_text(readme.read_text().replace("motivated_by: []", f"motivated_by: {entries}"))
+        self.commit()
+
+    def test_motivation_must_resolve_and_point_back_in_time(self):
+        self.other_report(1)                                 # studies/05-disrnn-other/.../r1
+        later = self.root / "studies/13-gru-later/analysis/reports/r1-x.md"
+        later.parent.mkdir(parents=True)
+        later.write_text("---\nid: r1\n---\n")
+        readme = f"{STUDY}/README.md"
+        self.motivate("[{study: 05-disrnn-other, report: r1, note: the earlier curve peaked},"
+                      " {study: 05-disrnn-other, report: r9, note: no such report here},"
+                      " {study: 13-gru-later, report: r1, note: a later study cannot motivate},"
+                      " {issue: 23, note: a roadmap item asked for it}]")
+        mine = {k for k in self.keys() if k.startswith("study-motivation")}
+        self.assertEqual(mine, {f"study-motivation-unresolved|{readme}|05-disrnn-other/r9",
+                                f"study-motivation-order|{readme}|13-gru-later/r1"})
+        info = {f.key for f in cp.Checker(self.root).run() if f.level == "info"}
+        self.assertIn(f"study-motivation-many|{readme}|", info)
+
+    def test_missing_motivated_by_is_a_schema_error(self):
+        readme = self.study / "README.md"
+        readme.write_text(readme.read_text().replace("motivated_by: []\n", ""))
+        self.commit()
+        self.assertIn(f"study-frontmatter|{STUDY}/README.md|(top):motivated_by", self.keys())
 
     # -- launch records (ADR 0001) ----------------------------------------------------------------
     def test_group_prefix_must_be_variant(self):

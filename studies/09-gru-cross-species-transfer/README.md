@@ -9,6 +9,10 @@ wandb:
   project: gru_cross_species_transfer
 issues:
 - AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#32
+motivated_by:
+- study: 01-gru-scaling-law
+  report: r4
+  note: the GRU generalizes to held-out AIND mice; does its core transfer to other datasets and species?
 ---
 # Study 09: GRU cross-species and cross-dataset transfer
 

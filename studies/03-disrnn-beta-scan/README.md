@@ -9,6 +9,7 @@ wandb:
   project: disrnn_updnet_bottleneck_ratio_100mice
 verdict: 'The multiplier monotonically closes the interaction gate, but the model compensates elsewhere:
   capacity is conserved, not removed.'
+motivated_by: []
 ---
 # Study: update-net-ratio β-scan (disRNN interaction sparsity at 100 mice)
 

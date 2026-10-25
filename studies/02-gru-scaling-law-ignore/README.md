@@ -9,6 +9,11 @@ wandb:
   project: mice_ignore_scaling
 verdict: The 3-way head is free on choice; choice still scales with D capacity-dependently (best 0.7315
   at H256/D614) and ignore detection is real and scales.
+motivated_by:
+- study: 01-gru-scaling-law
+  report: r1
+  note: per-trial choice likelihood flattens near a ceiling; would ignore trials as a third class show
+    the scaling slope choice lacks?
 ---
 # Study: Include-ignore-trials scaling (3-way output)
 

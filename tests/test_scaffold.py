@@ -37,9 +37,9 @@ class ScaffoldTest(unittest.TestCase):
         return [f.key for f in cp.Checker(self.root).run()
                 if f.level != "info" and "11-gru-existing" not in f.path]
 
-    def new_study(self, name="12-gru-example"):
+    def new_study(self, name="12-gru-example", motivated_by="none"):
         scaffold.main(["study", "--name", name, "--question", "Does the example hold up?",
-                       "--project", "gru_example", "--variant", "base"])
+                       "--project", "gru_example", "--variant", "base", "--motivated-by", motivated_by])
 
     def test_study_variant_report_validate_clean(self):
         self.new_study()
@@ -69,9 +69,12 @@ class ScaffoldTest(unittest.TestCase):
     def test_refusals_leave_the_tree_unchanged(self):
         before = self.tree()
         for argv in (["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "Bad Name"],                     # bad first variant
+                      "--project", "p", "--variant", "Bad Name", "--motivated-by", "none"],   # bad first variant
                      ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "base", "--issue", "#14"],        # malformed issue
+                      "--project", "p", "--variant", "base", "--issue", "#14",
+                      "--motivated-by", "none"],                                       # malformed issue
+                     ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                      "--project", "p", "--variant", "base"],                          # no MOTIVATED_BY
                      ["variant", "--study", "", "--name", "wider"]):                   # missing STUDY
             with self.assertRaises(SystemExit):
                 scaffold.main(argv)
@@ -93,9 +96,29 @@ class ScaffoldTest(unittest.TestCase):
 
     def test_local_issue_number_becomes_an_int(self):
         scaffold.main(["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                       "--project", "p", "--variant", "base", "--issue", "14"])
+                       "--project", "p", "--variant", "base", "--issue", "14", "--motivated-by", "none"])
         self.assertIn("- 14\n", (self.root / "studies/12-gru-example/README.md").read_text())
         self.assertEqual(self.findings(), [])
+
+    def test_motivated_by_resolves_earlier_results_and_issues(self):
+        reports = self.root / "studies/11-gru-existing/analysis/reports"
+        reports.mkdir(parents=True)
+        (self.root / "studies/13-gru-later").mkdir()
+        for bad in ("11/r2", "13", "14/r1", "05-x/r1/extra"):    # no such report, later, missing, malformed
+            with self.assertRaises(SystemExit):
+                self.new_study(motivated_by=bad)
+        (self.root / "studies/13-gru-later").rmdir()             # only there to test the order refusal
+        (reports / "r1-curve.md").write_text("---\nid: r1\n---\n")
+        self.new_study(motivated_by="11/r1, #23")
+        readme = (self.root / "studies/12-gru-example/README.md").read_text()
+        self.assertIn("study: 11-gru-existing\n  report: r1\n", readme)
+        self.assertIn("- issue: 23\n", readme)
+        self.assertIn(scaffold.MOTIVATION_TODO, readme)
+        self.assertEqual(self.findings(), [])
+
+    def test_root_study_has_an_empty_list(self):
+        self.new_study()
+        self.assertIn("motivated_by: []", (self.root / "studies/12-gru-example/README.md").read_text())
 
     def test_report_numbers_skip_leftover_targets_and_outputs_are_unique(self):
         self.new_study()
@@ -137,7 +160,7 @@ class MakeTargetTest(unittest.TestCase):
         q = 'Does "high D" help, and isn\'t $HOME expanded?'
         run = lambda *a: subprocess.run(["make", "-s", "-C", str(self.root), *a, f"PY={sys.executable}"],
                                         check=True, capture_output=True, text=True)
-        run("new-study", "NAME=12-gru-quoting", f"QUESTION={q}", "PROJECT=p", "VARIANT=base")
+        run("new-study", "NAME=12-gru-quoting", f"QUESTION={q}", "PROJECT=p", "VARIANT=base", "MOTIVATED_BY=none")
         run("new-report", "STUDY=12-gru-quoting", "SLUG=curve", 'TITLE=The "curve"')
         study = self.root / "studies" / "12-gru-quoting"
         self.assertIn('Does "high D" help', (study / "README.md").read_text())

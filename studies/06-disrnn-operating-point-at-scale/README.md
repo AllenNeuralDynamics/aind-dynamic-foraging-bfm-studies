@@ -9,6 +9,13 @@ wandb:
   project: disrnn_data_scaling
 verdict: At mult=1, beta=3e-4 held-out rises monotonically to 0.7221 at D=614 and halves the GRU gap;
   the step-budget question is still open.
+motivated_by:
+- study: 05-disrnn-scaling-law
+  report: r1
+  note: at a fixed penalty, held-out transfer peaks near D=100 and then declines
+- study: 03-disrnn-beta-scan
+  report: r2
+  note: sparsity looked free at D=100; each study froze the axis the other varied
 ---
 # Study: disRNN operating point at scale
 

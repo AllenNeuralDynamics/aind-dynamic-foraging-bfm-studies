@@ -11,6 +11,10 @@ issues:
 - AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#151
 verdict: 'Learned dynamics matter: the frozen reservoir stays near 0.711 while the trained GRU reaches
   0.7282; paired D=614 difference -0.0163, below the margin.'
+motivated_by:
+- study: 01-gru-scaling-law
+  report: r1
+  note: held-out prediction improves with more training mice; does that need learned recurrent dynamics?
 ---
 # Study 10: GRU reservoir ablation
 
