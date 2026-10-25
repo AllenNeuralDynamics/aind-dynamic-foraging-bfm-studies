@@ -58,6 +58,9 @@ FIX = {
     "study-root-extra": "move code/data/figures under analysis/ and launch records under "
                         "variants/<v>/launch_record/; only *.md docs and reference/ may sit at the root",
     "study-environment-lock": "a study with a freeze needs environment.lock (pip freeze of the env that ran it)",
+    "study-motivation-unresolved": "point `motivated_by` at an existing study (and report), or an issue",
+    "study-motivation-order": "a study can only be motivated by an earlier study (lower accession number)",
+    "study-motivation-many": "more than 3 motivations usually mixes in what the study uses; move those to its reports' `upstream`",
     "study-frontmatter-missing": "add README frontmatter (schemas/study-frontmatter.v1.schema.json)",
     "study-frontmatter": "fix the README frontmatter field named in the message "
                          "(schemas/study-frontmatter.v1.schema.json)",
@@ -269,6 +272,7 @@ class Checker:
             if fm.get("id") not in (None, study.name):
                 self.add("error", "study-frontmatter", study / "README.md",
                          f"id {fm.get('id')!r} != directory {study.name}", item="id")
+            self.check_motivation(study, fm)
 
         targets = self.makefile_targets(study)
         for t in self.layout["makefile"]["required_targets"]:
@@ -285,6 +289,23 @@ class Checker:
                 self.add("warn", "study-environment-lock", study, "study has a freeze but no environment.lock")
             if not any(re.match(self.layout["makefile"]["per_freeze_target"], t) for t in targets):
                 self.add("error", "makefile-target", study / "Makefile", "no `freeze-*` target", item="freeze")
+
+    def check_motivation(self, study: Path, fm: dict) -> None:
+        """`motivated_by` points back in time at results that exist (CONTEXT.md, Motivation)."""
+        entries = fm.get("motivated_by") if isinstance(fm.get("motivated_by"), list) else []  # else: a schema error
+        refs = [m for m in entries if isinstance(m, dict) and "study" in m]
+        readme = study / "README.md"
+        for m in refs:
+            target = str(m["study"])
+            ref = f"{target}/{m['report']}" if "report" in m else target
+            if not (self.root / "studies" / target).is_dir() or (
+                    "report" in m and ref not in self.reports):
+                self.add("error", "study-motivation-unresolved", readme, f"motivated_by {ref} not found", item=ref)
+            elif target[:2].isdigit() and int(target[:2]) >= int(study.name[:2]):
+                self.add("error", "study-motivation-order", readme,
+                         f"motivated_by {ref} is not an earlier study than {study.name}", item=ref)
+        if len(entries) > 3:
+            self.add("info", "study-motivation-many", readme, f"{len(entries)} motivations")
 
     def _is_tracked_tree(self, p: Path) -> bool:
         r = self.rel(p)

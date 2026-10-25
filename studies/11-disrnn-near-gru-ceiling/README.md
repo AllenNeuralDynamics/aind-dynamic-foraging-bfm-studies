@@ -8,6 +8,10 @@ wandb:
   entity: AIND-disRNN
   project: disrnn_near_gru_ceiling
 verdict: At most ~12% of the residual GRU gap closes, and not monotonically or completely at any stage.
+motivated_by:
+- study: 06-disrnn-operating-point-at-scale
+  report: r2
+  note: the tuned operating point halves the gap to the GRU at D=614; what closes the rest?
 ---
 # 11 — disRNN near-GRU ceiling
 

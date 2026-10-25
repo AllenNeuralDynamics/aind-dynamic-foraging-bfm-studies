@@ -9,6 +9,11 @@ wandb:
   project: mice_data_scaling
 verdict: 'Negative: no HB rung passes the convergence gates and the D~99-614 chains did not mix, so the
   HB ladder gives no usable scaling curve.'
+motivated_by:
+- study: 01-gru-scaling-law
+  report: r8
+  note: the GRU beats the classical-RL suite on held-out mice; does a hierarchical Bayesian cognitive
+    baseline close the gap?
 ---
 # Study 08 — HB vs GRU on held-out subjects
 

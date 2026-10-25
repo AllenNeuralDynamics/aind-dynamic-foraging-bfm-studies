@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Scaffold a study, a variant, or a report that passes `make validate` from the first commit.
 
-    make new-study   NAME=12-gru-foo QUESTION="Does ...?" PROJECT=gru_foo VARIANT=base
+    make new-study   NAME=12-gru-foo QUESTION="Does ...?" PROJECT=gru_foo VARIANT=base MOTIVATED_BY=06/r2
     make new-variant STUDY=12-gru-foo NAME=wider
     make new-report  STUDY=12-gru-foo SLUG=heldout-curve TITLE="Held-out vs D"
 
@@ -65,6 +65,44 @@ def parse_issue(ref: str) -> int | str:
     fail(f"ISSUE {ref!r} must be a number (this repo) or AllenNeuralDynamics/<repo>#N")
 
 
+MOTIVATION_TODO = "TODO what this result showed that raised this question"
+
+
+def parse_motivation(spec: str | None, new_number: str) -> list[dict]:
+    """`none` -> [] (a root study); else comma-separated `05/r1`, `05` (the study's verdict) or `#23` /
+    `AllenNeuralDynamics/<repo>#N` (an issue). Each target must exist and predate the new study."""
+    if not spec:
+        fail("MOTIVATED_BY is required: the earlier results this study follows up (e.g. 05/r1,03/r2), "
+             "or `none` for a root study")
+    if spec.strip() == "none":
+        return []
+    out = []
+    for part in (p.strip() for p in spec.split(",")):
+        if m := re.fullmatch(r"#([1-9][0-9]*)", part):
+            out.append({"issue": int(m[1]), "note": MOTIVATION_TODO})
+            continue
+        if re.fullmatch(r"AllenNeuralDynamics/[\w.-]+#[1-9][0-9]*", part):
+            out.append({"issue": part, "note": MOTIVATION_TODO})
+            continue
+        m = re.fullmatch(r"([0-9]{2})(-[a-z0-9-]+)?(?:/(r[0-9]+))?", part)
+        if not m:
+            fail(f"MOTIVATED_BY entry {part!r} must look like 05/r1, 05, #23 or AllenNeuralDynamics/<repo>#N")
+        # a full name must match its directory exactly; the shorthand `05` resolves by accession number
+        found = ([STUDIES / (m[1] + m[2])] if m[2] else sorted(STUDIES.glob(f"{m[1]}-*")))
+        found = [p for p in found if p.is_dir()]
+        if not found:
+            fail(f"MOTIVATED_BY {part!r}: no study {m[1] + (m[2] or '')} under studies/")
+        if int(m[1]) >= int(new_number):
+            fail(f"MOTIVATED_BY {part!r}: a study can only be motivated by an earlier one")
+        entry = {"study": found[0].name}
+        if m[3]:
+            if not any((found[0] / "analysis" / "reports").glob(f"{m[3]}-*.md")):
+                fail(f"MOTIVATED_BY {part!r}: {found[0].name} has no report {m[3]}")
+            entry["report"] = m[3]
+        out.append({**entry, "note": MOTIVATION_TODO})
+    return out
+
+
 # a rule line names one or more targets before `:` (`r1 r2:`), never `:=` assignments
 MAKE_RULE = re.compile(r"^([A-Za-z0-9][\w.-]*(?:[ \t]+[A-Za-z0-9][\w.-]*)*)[ \t]*:(?!=)", re.M)
 
@@ -98,9 +136,10 @@ def new_study(a: argparse.Namespace) -> None:
         fail("PROJECT is the study's W&B project (one per study)")
     check_variant_name(a.variant)
     issue = parse_issue(a.issue) if a.issue else None
+    motivated_by = parse_motivation(a.motivated_by, m["number"])
     d = STUDIES / a.name
     front = {"schema_version": 1, "id": a.name, "question": a.question, "status": "planned",
-             "wandb": {"entity": a.entity, "project": a.project}}
+             "wandb": {"entity": a.entity, "project": a.project}, "motivated_by": motivated_by}
     if issue is not None:
         front["issues"] = [issue]
     print(f"new study {a.name}")
@@ -124,6 +163,8 @@ def new_study(a: argparse.Namespace) -> None:
     files.update(_variant_files(d, a.variant))
     commit(files)
     print(f"  variant {a.variant}: add sweep.yaml / experiment.yaml next to notes.md before launching")
+    if motivated_by:
+        print("  motivated_by: replace each TODO note with what that result showed")
     print("next: fill in README.md (Design), then `make new-report` when a result exists; "
           "run `make validate` before opening the PR")
 
@@ -218,6 +259,7 @@ def main(argv: list[str] | None = None) -> None:
     s.add_argument("--entity", default="AIND-disRNN")
     s.add_argument("--variant", required=True, help="first variant")
     s.add_argument("--issue", help="e.g. AllenNeuralDynamics/aind-dynamic-foraging-bfm-studies#20")
+    s.add_argument("--motivated-by", help="earlier results this study follows up: 05/r1,03/r2 | 05 | #23 | none")
     v = sub.add_parser("variant")
     v.add_argument("--study", required=True)
     v.add_argument("--name", required=True)

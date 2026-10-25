@@ -68,6 +68,20 @@ Another study's report or launch whose results a report uses as input or compari
 dependencies are the union of their reports' upstreams; a mere link is a citation.
 _Avoid_: depends_on, prerequisite
 
+**Citation**:
+A link in a report or README to another study or report. It implies no use and is not a
+relationship.
+
+**Motivation**:
+The earlier result a study exists to follow up, with one line on what that result showed. It
+records why the work was started, not what it uses (that is upstream).
+_Avoid_: decision, prompted-by, parent
+
+**Lineage**:
+The chain from a result block back through its producer, frozen inputs, W&B groups and
+launches to the data it came from.
+_Avoid_: trace, thread, provenance chain
+
 **Producer**:
 The committed script that computes an analysis artifact from frozen inputs.
 _Avoid_: notebook, analysis script

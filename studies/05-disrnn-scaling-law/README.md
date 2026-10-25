@@ -11,6 +11,14 @@ issues:
 - AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#16
 verdict: At mult=2, beta=1e-3 held-out peaks near D=100 and sits ~0.010 below the GRU; study 06 shows
   the decline comes from the fixed penalty.
+motivated_by:
+- study: 01-gru-scaling-law
+  report: r1
+  note: the GRU's held-out data-scaling law was established; the disRNN had never been trained on the
+    full cohort
+- study: 03-disrnn-beta-scan
+  report: r2
+  note: held-out transfer was flat across the penalty multiplier, but only ever tested at a fixed D=100
 ---
 # Study: disRNN data-scaling law (the disRNN half of issue #16)
 
