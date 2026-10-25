@@ -76,9 +76,11 @@ def check_records_parse(records: list[dict], findings: list) -> None:
                          f"{Path(r['_path']).name}: incomplete launcher record "
                          f"(missing={missing}, dispatcher_commit={r.get('dispatcher_commit')!r})")
             continue
-        if r.get("_schema") != "current":
+        if r.get("_schema") == "v2" and r.get("kind") == "initial":
+            continue                    # an initial launch has no trigger (schemas/launch-record.v2)
+        if r.get("_schema") not in ("current", "v2"):
             continue
-        if not r.get("trigger", {}).get("cause"):
+        if not (r.get("trigger") or {}).get("cause"):
             _finding(findings, "ERROR", "records",
                      f"{Path(r['_path']).name}: kind={r.get('kind')} has no trigger.cause")
 

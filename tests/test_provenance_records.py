@@ -129,5 +129,74 @@ class ProvenanceRecordsTests(unittest.TestCase):
         self.assertEqual(findings[0]["level"], "ERROR")
 
 
+
+class WriteInterventionV2Tests(unittest.TestCase):
+    """write_intervention emits v2, joins an initial launch, and refuses undeclared changes."""
+
+    GROUP = "base@20261024-101500"
+
+    def setUp(self):
+        import yaml  # noqa: F401  (dependency of launch_record)
+        self.tmp = tempfile.TemporaryDirectory()
+        self.variant = Path(self.tmp.name) / "studies" / "12-gru-x" / "variants" / "base"
+        self.lr = self.variant / "launch_record"
+        self.lr.mkdir(parents=True)
+        (self.variant / "sweep.yaml").write_text("parameters:\n  n_steps: {value: 60000}\n  lr: {value: 0.001}\n")
+        initial = {"_meta": {"schema_version": 2, "produced_by": "launch_beaker_resumable.py",
+                             "produced_at_pt": "2026-10-24T10:15:00-07:00"},
+                   "kind": "initial", "platform": "beaker", "wandb_group": self.GROUP, "label": "base",
+                   "note": "baseline launch of the example", "manifests": ["sweep.yaml"],
+                   "job_refs": [{"type": "beaker_experiment", "id": "01K"}],
+                   "revisions": {"studies": "a" * 40, "dispatcher": "b" * 40, "wrapper": "c" * 40}}
+        (self.lr / "beaker_resumable.json").write_text(json.dumps(initial))
+        self.study = self.variant.parents[1]
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def write(self, name="rescue1.json", **kw):
+        from launch_record import write_intervention
+        args = dict(kind="rescue", platform="beaker", wandb_group=self.GROUP, study_root=self.study,
+                    job_refs=[{"type": "beaker_experiment", "id": "01KNEW"}],
+                    trigger={"symptom": "3 tasks wedged", "cause": "bad node"})
+        args.update(kw)
+        with mock.patch("launch_record.build_meta", return_value={
+                "produced_by": "x", "produced_at_pt": "2026-10-25T00:00:00-07:00", "wandb_groups": [self.GROUP]}):
+            return write_intervention(self.lr / name, **args)
+
+    def schema_errors(self, rec):
+        from jsonschema import Draft202012Validator
+        schema = json.loads((Path(__file__).resolve().parents[1] / "schemas" / "launch-record.v2.schema.json").read_text())
+        return [e.message for e in Draft202012Validator(schema).iter_errors(rec)]
+
+    def test_rescue_is_v2_and_inherits_the_launch(self):
+        rec = self.write()
+        self.assertEqual(rec["_meta"]["schema_version"], 2)
+        self.assertEqual(rec["revisions"]["dispatcher"], "b" * 40)
+        self.assertEqual(rec["manifests"], ["sweep.yaml"])
+        self.assertEqual(self.schema_errors(rec), [])
+        findings = []
+        check_records_parse(load_records(self.lr), findings)
+        self.assertEqual(findings, [])
+
+    def test_backfill_validates(self):
+        rec = self.write("backfill1.json", kind="backfill", platform="none", job_refs=[])
+        self.assertEqual(self.schema_errors(rec), [])
+
+    def test_orphan_group_is_refused(self):
+        with self.assertRaisesRegex(ValueError, "no initial launch record"):
+            self.write(wandb_group="base@20261101-000000")
+
+    def test_undeclared_manifest_change_is_refused(self):
+        resub = self.lr / "rescue1"
+        resub.mkdir()
+        (resub / "sweep.yaml").write_text("parameters:\n  n_steps: {value: 120000}\n  lr: {value: 0.001}\n")
+        with self.assertRaisesRegex(ValueError, "undeclared key.*n_steps"):
+            self.write("rescue1/rescue1.json", kind="extend", manifests=["sweep.yaml"])
+        rec = self.write("rescue1/rescue1.json", kind="extend", manifests=["sweep.yaml"],
+                         deviations={"parameters.n_steps": 120000})
+        self.assertEqual(rec["deviations"], {"parameters.n_steps": 120000})
+
+
 if __name__ == "__main__":
     unittest.main()

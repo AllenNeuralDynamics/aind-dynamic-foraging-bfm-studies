@@ -2,9 +2,11 @@
 
 The launchers live in the dispatcher and the validator here, so neither repo's tests can run
 both since the split (dispatcher #175). ``fixtures/launcher_records/`` holds one record per
-launcher, written by the launchers themselves at dispatcher ``818cc6e`` (only the temp-dir
-sweep path and branch name normalized). When a launcher's record schema changes, regenerate
-these from the dispatcher and keep this test green.
+launcher, written by the launchers themselves at dispatcher ``5f81d39`` (launch-record v2,
+dispatcher #188; only the temp-dir path normalized, ids fixed). When a launcher's record
+schema changes, regenerate these from the dispatcher and keep this test green. Each record
+must validate against schemas/launch-record.v2.schema.json and still carry the legacy keys
+older readers use.
 """
 
 import json
@@ -12,12 +14,16 @@ import sys
 import unittest
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "launcher_records"
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "studies" / "util"))
 
 from launch_record import load_records, refs_in  # noqa: E402
 from validate_provenance import check_records_parse  # noqa: E402
 
+SCHEMA = Draft202012Validator(json.loads(
+    (Path(__file__).resolve().parents[1] / "schemas" / "launch-record.v2.schema.json").read_text()))
 FOUR_SHAS = ("studies_git_commit", "dispatcher_git_commit", "wrapper_git_commit",
              "foraging_models_git_commit")
 
@@ -25,7 +31,10 @@ FOUR_SHAS = ("studies_git_commit", "dispatcher_git_commit", "wrapper_git_commit"
 class TestLauncherRecords(unittest.TestCase):
     def _records(self, launcher: str) -> list[dict]:
         records = load_records(FIXTURES / launcher)
-        self.assertEqual([r["_schema"] for r in records], ["launcher"])
+        self.assertEqual([r["_schema"] for r in records], ["v2"])
+        rec = {k: v for k, v in records[0].items() if k not in ("_schema", "_path")}
+        self.assertEqual([e.message for e in SCHEMA.iter_errors(rec)], [])
+        self.assertEqual(rec["kind"], "initial")
         findings = []
         check_records_parse(records, findings)
         self.assertEqual(findings, [])

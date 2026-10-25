@@ -64,6 +64,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 from _meta import build_meta
 
 # Kinds of post-launch intervention. Keep this list short and meaningful: it is what makes
@@ -102,6 +104,10 @@ def write_intervention(
     tasks: list[dict[str, Any]] | None = None,
     deviations: dict[str, Any] | None = None,
     cost: dict[str, Any] | None = None,
+    label: str | None = None,
+    note: str | None = None,
+    manifests: list[str] | None = None,
+    revisions: dict[str, str] | None = None,
     produced_by: str = "launch_record.write_intervention",
 ) -> dict:
     """Write a schema-conformant intervention record and return it.
@@ -132,6 +138,16 @@ def write_intervention(
             Every study-06 intervention made such a choice for a real reason; capturing it
             here makes the reason auditable instead of buried in a commit message.
         cost: what the action gave up, e.g. ``{"progress_discarded_steps": {...}}``.
+        label, note: as for a launch; ``label`` defaults to the record's file stem and
+            ``note`` to the trigger's symptom and cause.
+        manifests: variant-relative manifests this action submitted. Each must equal the
+            initial launch's manifest of the same name except for keys named in
+            ``deviations`` (dotted paths, e.g. ``"parameters.n_steps"``; docs/adr/0001).
+            Defaults to the launch's own manifests (a resubmit of the same spec).
+        revisions: repo -> full SHA of the code that ran; defaults to the initial launch's.
+
+    The record is v2 (schemas/launch-record.v2.schema.json) and must join a W&B group that
+    has an initial launch record in the same variant.
 
     Raises:
         ValueError: on an unknown ``kind``/``platform``/ref type, a ``trigger`` missing
@@ -185,23 +201,98 @@ def write_intervention(
                     f"job_ref {r!r} not valid for platform {platform!r}; expected type in {sorted(allowed)}"
                 )
 
+    path = Path(path)
+    launch_dir = _launch_record_root(path)
+    initial = _initial_launch(launch_dir, wandb_group)
+    variant_dir = launch_dir.parent
+    deviations = dict(deviations or {})
+    if manifests is None:
+        manifests = list(initial.get("manifests") or [])
+    _check_manifest_diff(path.parent, variant_dir, initial, manifests, deviations)
+    revisions = dict(revisions or initial.get("revisions") or {})
+
+    meta = build_meta(produced_by, [wandb_group], study_root=study_root)
     record = {
-        "_meta": build_meta(produced_by, [wandb_group], study_root=study_root),
+        "_meta": {"schema_version": 2, **meta},
         "kind": kind,
         "platform": platform,
         "wandb_group": wandb_group,
+        "label": label or path.stem,
+        "note": note or f"{kind}: {trigger['symptom']} (cause: {trigger['cause']})",
+        "revisions": revisions,
+        "manifests": list(manifests),
         "job_refs": job_refs,
         "supersedes": list(supersedes or []),
         "trigger": trigger,
         "tasks": list(tasks or []),
-        "deviations": dict(deviations or {}),
+        "deviations": deviations,
         "cost": dict(cost or {}),
     }
 
-    path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(record, indent=2) + "\n")
     return record
+
+
+def _launch_record_root(path: Path) -> Path:
+    """The variant's launch_record/ directory that ``path`` lives in (subdirectories allowed)."""
+    for parent in [path.parent, *path.parent.parents]:
+        if parent.name == "launch_record":
+            return parent
+    raise ValueError(f"{path} is not under a variant's launch_record/ directory")
+
+
+def _initial_launch(launch_dir: Path, wandb_group: str) -> dict:
+    """The v2 initial launch record of ``wandb_group`` in this variant (ADR 0001)."""
+    for p in sorted(launch_dir.rglob("*.json")):
+        try:
+            rec = json.loads(p.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        if (isinstance(rec, dict) and rec.get("kind") == "initial"
+                and rec.get("wandb_group") == wandb_group):
+            rec["_dir"] = p.parent
+            return rec
+    raise ValueError(
+        f"no initial launch record for {wandb_group} in {launch_dir}; an intervention joins an "
+        "existing launch's group (docs/adr/0001). A different configuration is a new launch.")
+
+
+def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:
+    if isinstance(obj, dict):
+        out: dict[str, Any] = {}
+        for k, v in obj.items():
+            out.update(_flatten(v, f"{prefix}{k}."))
+        return out or {prefix.rstrip("."): {}}
+    return {prefix.rstrip("."): obj}
+
+
+def _check_manifest_diff(record_dir: Path, variant_dir: Path, initial: dict,
+                         manifests: list[str], deviations: dict) -> None:
+    """Refuse a manifest that differs from the launch's in a key not named in ``deviations``.
+
+    The submitted manifest is looked up beside the new record first (a resubmission saves its
+    own copy there), then in the variant; the launch's beside its record, then in the variant.
+    """
+    def find(name: str, *dirs: Path) -> Path | None:
+        return next((d / name for d in dirs if (d / name).exists()), None)
+
+    declared = set(deviations)
+    for name in manifests:
+        new = find(name, record_dir, variant_dir)
+        if new is None:
+            raise ValueError(f"manifest {name} not found in {record_dir} or {variant_dir}")
+        if name not in (initial.get("manifests") or []):
+            raise ValueError(f"{name} is not one of the launch's manifests {initial.get('manifests')}; "
+                             "a different spec is a new launch (docs/adr/0001)")
+        old = find(name, initial["_dir"], variant_dir)
+        a, b = (_flatten(yaml.safe_load(f.read_text()) or {}) for f in (old, new))
+        changed = sorted(k for k in a.keys() | b.keys() if a.get(k) != b.get(k))
+        undeclared = [k for k in changed if not any(k == d or k.startswith(d + ".") for d in declared)]
+        if new.resolve() != old.resolve() and undeclared:
+            raise ValueError(
+                f"{name} differs from the launch's in undeclared key(s) {undeclared}; declare each "
+                "in deviations, or launch anew if the configuration changed (docs/adr/0001)")
 
 
 def load_records(launch_record_dir: Path | str) -> list[dict]:
@@ -220,7 +311,9 @@ def load_records(launch_record_dir: Path | str) -> list[dict]:
         except (OSError, json.JSONDecodeError) as e:
             out.append({"_schema": "unreadable", "_path": str(p), "_error": f"{type(e).__name__}: {e}"})
             continue
-        if "_meta" in d and "kind" in d:
+        if isinstance(d.get("_meta"), dict) and d["_meta"].get("schema_version") == 2:
+            schema = "v2"            # schemas/launch-record.v2.schema.json (launchers and interventions)
+        elif "_meta" in d and "kind" in d:
             schema = "current"
         elif d.get("mode") in ("resumable-grid", "hpc-sweep") or "sweep_id" in d:
             schema = "launcher"
