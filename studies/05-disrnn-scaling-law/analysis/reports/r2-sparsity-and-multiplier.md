@@ -13,6 +13,13 @@ inputs:
   figures:
     - analysis/fig_sparsity_vs_d.png
     - analysis/fig_mult_axis_d614.png
+upstream:
+  - study: 01-gru-scaling-law
+    report: r1
+    note: the fixed-H128 GRU held-out curve (analysis/report_data.json)
+  - study: 01-gru-scaling-law
+    report: r8
+    note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/05-disrnn-scaling-law r2
 ---
 

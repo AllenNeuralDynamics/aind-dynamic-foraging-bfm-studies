@@ -13,6 +13,13 @@ inputs:
   data_wave2: analysis/grid_wave2.csv
   summary: analysis/r3_summary.json
   figure: reports/fig_r3_penalty_edge_extension.png
+upstream:
+  - study: 01-gru-scaling-law
+    report: r1
+    note: the fixed-H128 GRU held-out curve (analysis/report_data.json)
+  - study: 01-gru-scaling-law
+    report: r8
+    note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r3
 ---
 

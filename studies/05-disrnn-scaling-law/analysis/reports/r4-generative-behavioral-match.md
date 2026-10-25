@@ -11,6 +11,10 @@ inputs:
   figure: analysis/fig_generative_match.png
   reference: studies/01-gru-scaling-law/analysis/generative_match.json
   rl_reference: variants/generative-rl-baseline/rl_rollout_summaries/{ctt,bari,hattori}_quantitative_summary.json
+upstream:
+  - study: 01-gru-scaling-law
+    report: r9
+    note: the GRU generative match (analysis/generative_match.json)
 reproduce: make -C studies/05-disrnn-scaling-law r4
 ---
 

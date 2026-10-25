@@ -46,7 +46,8 @@ STUDY = HERE.parent
 sys.path.insert(0, str(HERE))                      # this study's wandb_keys
 sys.path.insert(0, str(STUDY.parent / "util"))     # shared studies/util (_meta, plot_style)
 
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
+from cross_study import GENERATIVE_SOURCE  # noqa: E402
 from plot_style import apply_presentation_style  # noqa: E402
 
 PROJECT = "AIND-disRNN/disrnn_data_scaling"
@@ -56,7 +57,7 @@ PROJECT = "AIND-disRNN/disrnn_data_scaling"
 # on the wrong task family. Including them would silently mix bad rollouts into the result.
 GROUP = "generative-dscan-mult2@20260714-060524"
 
-GRU_JSON = STUDY.parent / "01-gru-scaling-law" / "analysis" / "generative_match.json"
+GRU_JSON = GENERATIVE_SOURCE   # study 01 r9's committed GRU numbers
 GRU_ARM = "v2"  # session conditioning active -- the arm architecturally matched to these runs
 
 # RL baselines: rolled out generatively from variants/generative-rl-baseline (r1's per-subject
@@ -281,7 +282,9 @@ def main() -> None:
     rl = rl_reference()
 
     payload = {
-        "_meta": build_meta("analysis/generative_match.py", [GROUP]),
+        "_meta": build_meta("analysis/generative_match.py", [GROUP], study_root=STUDY, code=[__file__],
+                            inputs=[FROZEN_ROLLOUTS, GRU_JSON,
+                                    *sorted(RL_RESULTS_DIR.glob("*_quantitative_summary.json"))]),
         "metric": {
             "switch_stat": STAT,
             "history": {"pattern": HIST_PATTERN, "n_back": HIST_N_BACK},
@@ -296,10 +299,11 @@ def main() -> None:
         "gru": gru,
         "rl": rl,
     }
-    (HERE / "generative_match.json").write_text(json.dumps(payload, indent=2))
-
     figure(disrnn, gru, rl)
     render_markers(disrnn, gru, rl)
+    write_artifact(HERE / "generative_match.json", payload,
+                   outputs=[HERE / "fig_generative_match.png",
+                            f"{HERE / 'reports' / 'r4-generative-behavioral-match.md'}#result-4"])
 
     print(f"\n{'D':>5} {'corr':>8} {'GRU':>8} {'rmse':>8} {'GRU':>8}")
     for D in sorted(v["D"] for v in disrnn.values()):

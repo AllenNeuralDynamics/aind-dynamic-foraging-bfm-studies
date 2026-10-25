@@ -1,11 +1,75 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
     "produced_by": "analysis/generative_match.py",
-    "produced_at_pt": "2026-07-15T11:52:17-07:00",
-    "dispatcher_git_sha": "59ddea12e1e6e542c62f6c440bb9a3a55dfda7a0",
+    "produced_at_pt": "2026-10-25T02:04:17-07:00",
+    "studies_git_sha": "a693dd0f2a7625cfe9af4cb2de2328f5b259c570",
+    "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "generative-dscan-mult2@20260714-060524"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [
+      "1c1638e5a4612991fd9a5db3023e8f143979e485"
+    ],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no studies SHA in the launch record(s) of W&B group(s): generative-dscan-mult2@20260714-060524",
+      "no wrapper SHA in the launch record(s) of W&B group(s): generative-dscan-mult2@20260714-060524",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): generative-dscan-mult2@20260714-060524"
+    ],
+    "code": [
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/generative_match.py",
+        "sha256": "3c294f06cfe67649a3c0cb627a810c6b84cbe07c2ade9df944ce8a71807d1550"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/generative_runs.json",
+        "sha256": "4574d62ff3f8f98e38b8eec316158eaf639a678e12657651c14ece57b50b7b92"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/generative_match.json",
+        "sha256": "4e3a4fd6f421d8de582b5d7adca7b642b5efa7e5a444f0478e80ab5f3be36847"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/variants/generative-rl-baseline/rl_rollout_summaries/bari_quantitative_summary.json",
+        "sha256": "e6e0714cf0b4ff1850be73b69fb0dd9b794c21e2dc999693a025d99ed7246587"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/variants/generative-rl-baseline/rl_rollout_summaries/ctt_quantitative_summary.json",
+        "sha256": "da289ddcb04db7bf0775bc87fe16d6f053136703a02993ea439129173b214812"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/variants/generative-rl-baseline/rl_rollout_summaries/hattori_quantitative_summary.json",
+        "sha256": "6cff26befe4db4fb82762c0ff2f0b91da01bf99fa01036dbebbc393618a158c8"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/generative_match.json",
+        "sha256": "666052124b51063adc46142547b9dfc6dbdc92774289bcdb9850add45c7b0564"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/fig_generative_match.png",
+        "sha256": "11f6ad28e1a7636e2e7942448aeb747c1a0e130f94e0253aeb30b69e6d5f8c6b"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/reports/r4-generative-behavioral-match.md#result-4",
+        "sha256": "ac1b4b5d932f706d98d600c7522434f6cdaecabb0f99544b8a04827436dd7bb5"
+      }
     ]
   },
   "metric": {

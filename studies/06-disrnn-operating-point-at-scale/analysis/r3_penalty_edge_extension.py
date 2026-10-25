@@ -34,7 +34,6 @@ grid.csv/grid_wave2.csv must produce an EMPTY diff on the report file.
 from __future__ import annotations
 
 import csv
-import json
 import re
 import sys
 from pathlib import Path
@@ -48,7 +47,8 @@ HERE = Path(__file__).resolve().parent
 STUDY = HERE.parent
 REPO = HERE.parents[2]
 sys.path.insert(0, str(REPO / "studies" / "util"))
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
+from cross_study import GRU_CURVE_SOURCE, RL_SOURCE, gru_h128_curve, rl_baseline  # noqa: E402
 
 GRID_CSV = HERE / "grid.csv"
 WAVE2_CSV = HERE / "grid_wave2.csv"
@@ -61,8 +61,8 @@ WANDB_GROUPS = [
 
 D_NOMINAL = (10, 30, 100, 300, 614)
 D_SNAP_TOL = 3
-GRU = {10: 0.7219, 30: 0.7250, 100: 0.7262, 300: 0.7267, 614: 0.7268}   # study 01
-RL_BASELINE = 0.7170                                                    # study 05 r1
+GRU = gru_h128_curve()             # study 01 r1, read from its committed JSON
+RL_BASELINE = rl_baseline("ctt")   # study 01 r8
 
 
 def nominal_d(d: int) -> int:
@@ -200,7 +200,8 @@ def main() -> None:
     )
 
     summary = {
-        "_meta": build_meta("analysis/r3_penalty_edge_extension.py", WANDB_GROUPS, study_root=STUDY),
+        "_meta": build_meta("analysis/r3_penalty_edge_extension.py", WANDB_GROUPS, study_root=STUDY,
+                            code=[__file__], inputs=[GRID_CSV, WAVE2_CSV, GRU_CURVE_SOURCE, RL_SOURCE]),
         "note": (f"wave2 pulled via W&B GraphQL from the sandbox (wandb.Api() is blocked there); "
                  f"see analysis/pull_wave2_grid.py docstring. {n_wave2_finished}/{n_wave2_total} "
                  f"wave2 rows state=='finished', {n_wave2_backfilled} wave2 rows backfilled. "
@@ -214,15 +215,15 @@ def main() -> None:
         "gru_reference": GRU,
         "rl_baseline": RL_BASELINE,
     }
-    with (HERE / "r3_summary.json").open("w") as f:
-        json.dump(summary, f, indent=2)
-    print(f"wrote {HERE / 'r3_summary.json'} — {len(cells)} cells")
-
     make_figure(all_rows, beta_axis_settings, mult_axis_settings)
     print(f"wrote {FIG}")
 
     update_report_block(cells)
     print(f"updated {REPORT}")
+
+    write_artifact(HERE / "r3_summary.json", summary,
+                   outputs=[FIG, f"{REPORT}#result-1", f"{REPORT}#result-2"])
+    print(f"wrote {HERE / 'r3_summary.json'} — {len(cells)} cells")
 
 
 def make_figure(all_rows, beta_axis_settings, mult_axis_settings):

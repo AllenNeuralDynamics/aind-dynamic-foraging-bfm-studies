@@ -241,6 +241,125 @@ class CheckProvenanceTest(unittest.TestCase):
         self.assertIn(f"report-ref-unresolved|{STUDY}/analysis/reports/r1-example.md|05-disrnn-scaling-law/r9",
                       self.keys())
 
+    # -- cross-study upstream ---------------------------------------------------------------------
+    OTHER = "studies/05-disrnn-other"
+
+    def other_report(self, n: int, extra: str = "", status: str = "live") -> None:
+        """A report in a second study, enough for the report index (its own findings are ignored)."""
+        p = self.root / self.OTHER / f"analysis/reports/r{n}-other.md"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(f"---\nschema_version: 1\nid: r{n}\nslug: other\nstatus: {status}\n{extra}---\n# r{n}\n")
+
+    def cite(self, *refs: str) -> None:
+        report = self.study / "analysis/reports/r1-example.md"
+        lines = "".join(f"  - {{study: {r.split('/')[0]}, report: {r.split('/')[1]}}}\n" for r in refs)
+        report.write_text(report.read_text().replace("reproduce:", f"upstream:\n{lines}reproduce:"))
+
+    def upstream_keys(self) -> set[str]:
+        return {k for k in self.keys() if k.startswith("report-upstream-")}
+
+    def test_corrected_upstream_is_stale_until_the_correction_is_cited(self):
+        self.other_report(1)
+        self.other_report(2, f"corrects: [{{study: {self.OTHER.split('/')[1]}, report: r1, note: wrong}}]\n")
+        other = self.OTHER.split("/")[1]
+        self.cite(f"{other}/r1")
+        self.commit()
+        self.assertEqual(self.upstream_keys(),
+                         {f"report-upstream-stale|{STUDY}/analysis/reports/r1-example.md|{other}/r1"})
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace(
+            f"  - {{study: {other}, report: r1}}\n",
+            f"  - {{study: {other}, report: r1}}\n  - {{study: {other}, report: r2}}\n"))
+        self.commit()
+        self.assertEqual(self.upstream_keys(), set())
+
+    def test_withdrawn_or_replaced_correction_resolves_to_what_stands(self):
+        other = self.OTHER.split("/")[1]
+        stale = {f"report-upstream-stale|{STUDY}/analysis/reports/r1-example.md|{other}/r1"}
+        corrects = f"corrects: [{{study: {other}, report: r1, note: wrong}}]\n"
+        self.other_report(1)
+        # r2 corrects r1 but is superseded by r3: r3 carries the correction
+        self.other_report(2, corrects + f"superseded_by: {{study: {other}, report: r3}}\n", status="superseded")
+        self.other_report(3)
+        self.cite(f"{other}/r1", f"{other}/r3")
+        self.commit()
+        self.assertEqual(self.upstream_keys(), set())
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace(f"  - {{study: {other}, report: r3}}\n", ""))
+        self.commit()
+        self.assertEqual(self.upstream_keys(), stale)
+        # a retracted correction binds no one
+        self.other_report(2, corrects, status="retracted")
+        self.commit()
+        self.assertEqual(self.upstream_keys(), set())
+
+    def test_superseded_upstream_is_stale_and_the_corrector_itself_is_not(self):
+        other = self.OTHER.split("/")[1]
+        self.other_report(1, status="superseded")
+        self.cite(f"{other}/r1")
+        self.commit()
+        self.assertEqual(self.upstream_keys(),
+                         {f"report-upstream-stale|{STUDY}/analysis/reports/r1-example.md|{other}/r1"})
+        # a corrected (still live) report cited by the very report that corrects it is fine
+        self.other_report(1)
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace(
+            "reproduce:", f"corrects: [{{study: {other}, report: r1, note: wrong}}]\nreproduce:"))
+        self.commit()
+        self.assertEqual(self.upstream_keys(), set())
+
+    def test_incomplete_upstream_ref_is_a_schema_error_not_a_crash(self):
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace("reproduce:", "upstream: [{report: r1}]\nreproduce:"))
+        self.commit()
+        self.assertTrue(any(k.startswith(f"report-frontmatter|{STUDY}/analysis/reports/r1-example.md|upstream/0")
+                            for k in self.keys()))
+
+    def test_reading_another_study_needs_upstream(self):
+        other = self.OTHER.split("/")[1]
+        src = self.root / self.OTHER / "analysis/curve.json"
+        src.parent.mkdir(parents=True, exist_ok=True)
+        src.write_text('{"614": 0.7268}')
+        self.commit()
+        a = self.study / "analysis"
+        with mock.patch.object(_meta, "REPO_ROOT", self.root.resolve()), \
+                mock.patch.object(_meta, "_studies_state", return_value=(SHA, False)), \
+                mock.patch.object(_meta, "_with_util_modules", side_effect=lambda code: code):
+            meta = _meta.build_meta("analysis/produce.py", [GROUP], study_root=self.study,
+                                    code=[a / "produce.py"], inputs=[a / "grid.csv", src])
+            _meta.write_artifact(a / "summary.json", {"_meta": meta, "x": 0.7},
+                                 outputs=[f"{a}/reports/r1-example.md#result-1"])
+        self.commit()
+        self.assertEqual(self.upstream_keys(),
+                         {f"report-upstream-undeclared|{STUDY}/analysis/reports/r1-example.md|{other}"})
+        # declaring it (here as raw data) clears it; the result block is untouched, so not stale
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace(
+            "reproduce:", f"upstream: [{{study: {other}, wandb_group: base@20261001-000000}}]\nreproduce:"))
+        self.commit()
+        self.assertEqual(self.upstream_keys(), set())
+        self.assertFalse(any(k.startswith("artifact-stale-") for k in self.keys()))
+
+    def test_report_citing_the_artifact_in_inputs_needs_upstream_too(self):
+        """No result-block output: the report is linked through its `inputs`, however spelled."""
+        other = self.OTHER.split("/")[1]
+        src = self.root / self.OTHER / "analysis/curve.json"
+        src.parent.mkdir(parents=True, exist_ok=True)
+        src.write_text('{"614": 0.7268}')
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace("  data: analysis/grid.csv\n",
+                                                     "  data: analysis/grid.csv\n  summary: ./analysis/summary.json\n"))
+        a = self.study / "analysis"
+        with mock.patch.object(_meta, "REPO_ROOT", self.root.resolve()), \
+                mock.patch.object(_meta, "_studies_state", return_value=(SHA, False)), \
+                mock.patch.object(_meta, "_with_util_modules", side_effect=lambda code: code):
+            meta = _meta.build_meta("analysis/produce.py", [GROUP], study_root=self.study,
+                                    code=[a / "produce.py"], inputs=[a / "grid.csv", src])
+            _meta.write_artifact(a / "summary.json", {"_meta": meta, "x": 0.7})
+        self.commit()
+        self.assertEqual(self.upstream_keys(),
+                         {f"report-upstream-undeclared|{STUDY}/analysis/reports/r1-example.md|{other}"})
+
     # -- launch records (ADR 0001) ----------------------------------------------------------------
     def test_group_prefix_must_be_variant(self):
         rec = dict(RECORD, wandb_group="other@20261024-101500")

@@ -47,12 +47,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "util"))
 from pull_grid import GRU_GROUPS, GRU_PROJECT, S06_GROUP, S06_PROJECT, STUDY10_GROUPS, STUDY10_PROJECT
+from _meta import build_meta, write_artifact  # noqa: E402
+from cross_study import RL_SOURCE, rl_baseline  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 REPORT = HERE / "reports" / "r1-near-gru-attribution.md"
 
-RL_BASELINE = 0.7170
+RL_BASELINE = rl_baseline("ctt")   # best per-mouse RL baseline, study 01 r8
 FOCAL = "#1f77b4"
 COLLAPSED = "#c44e52"
 GRU_COLOR = "#333333"
@@ -321,6 +324,17 @@ def main():
     out = HERE / "fig_gru_ceiling_attribution.png"
     fig.savefig(out, dpi=300)
     print(f"wrote {out}")
+
+    meta = build_meta("analysis/attribution_report.py",
+                      [*STUDY10_GROUPS.values(), S06_GROUP, *GRU_GROUPS], study_root=HERE.parent,
+                      code=[__file__, HERE / "pull_grid.py"],   # its group constants label result-2
+                      inputs=[HERE / "grid.csv", HERE / "reference_points.csv", RL_SOURCE])
+    write_artifact(HERE / "attribution_summary.json",
+                   {"_meta": meta, "gru_ceiling_h256_mean": gru_mean, "study06_tuned_mean": s06_mean,
+                    "baseline_gap": baseline_gap, "rl_baseline_ctt": RL_BASELINE,
+                    "stages": [{"label": lab.replace("\n", " "), "heldout_mean": float(m), "closure_pct": pct}
+                               for lab, m, pct in zip(labels, means, closure_pcts)]},
+                   outputs=[out, f"{REPORT}#result-1", f"{REPORT}#result-2", f"{REPORT}#result-3"])
 
 
 if __name__ == "__main__":

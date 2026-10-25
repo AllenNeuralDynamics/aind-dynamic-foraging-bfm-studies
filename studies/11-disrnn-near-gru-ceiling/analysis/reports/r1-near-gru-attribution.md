@@ -12,6 +12,15 @@ inputs:
   data: analysis/grid.csv
   reference_data: analysis/reference_points.csv
   figure: analysis/fig_gru_ceiling_attribution.png
+  summary: analysis/attribution_summary.json
+upstream:
+  - study: 01-gru-scaling-law
+    report: r8
+    note: the per-mouse RL baselines (analysis/rl_baseline.json)
+  - study: 01-gru-scaling-law
+    wandb_group: nxd-grid@20260623-102649
+  - study: 06-disrnn-operating-point-at-scale
+    wandb_group: mult-d-grid@20260718-151409
 reproduce: python analysis/pull_grid.py && python analysis/attribution_report.py
 ---
 

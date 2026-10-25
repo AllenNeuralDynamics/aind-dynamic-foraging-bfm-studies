@@ -28,6 +28,11 @@ the links give detail, they do not replace the rules.
   frozen number by an immutable digest, and inspect numeric and artifact diffs before
   claiming a result. New analysis JSON carries `_meta.studies_git_sha` and the
   `source_*_git_shas` arrays; never relabel this repository's HEAD as dispatcher provenance.
+- **Never retype another study's number.** Read it from that study's committed JSON (readers for
+  the shared references are in `studies/util/cross_study.py`), pass that source JSON (the
+  helper's `*_SOURCE` path, not the helper) in `build_meta(inputs=...)`, and
+  name the source in the report's `upstream` (`{study, report}` for a result, `{study,
+  wandb_group}` for raw data). The checker then flags the report when that source is corrected.
 - **Start from the scaffolder**: `make new-study`, `make new-variant`, `make new-report` (usage
   in the root `Makefile`). Their output passes `make validate` as written.
 - **Layout and provenance are schema-checked.** The rules are `schemas/` (fields, layout) and
