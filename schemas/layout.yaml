@@ -10,7 +10,9 @@ study:
   required: [README.md, Makefile, CHANGELOG.md, analysis/, variants/]
   # Root allowlist. Anything else at the study root (code, data, figures, launch records) is a
   # finding: code goes under analysis/ or a variant, launch records under a variant.
-  allowed: [README.md, Makefile, CHANGELOG.md, .gitignore, environment.lock, analysis/, variants/, reference/]
+  allowed: [README.md, Makefile, CHANGELOG.md, .gitignore, environment.lock, analysis/, variants/, reference/, adr/]
+  # adr/ holds the study's own decisions and a root CONTEXT.md its scientific vocabulary; the
+  # repository-wide ones stay in the repo root's docs/adr/ and CONTEXT.md.
   allowed_patterns: ['^[A-Z][A-Z0-9_]*\.md$']   # PLAN.md, FUTURE_DIRECTIONS.md, ...
   # environment.lock pins the env of credentialed freezes, which CI cannot rerun.
   environment_lock_required_when: has_freeze
