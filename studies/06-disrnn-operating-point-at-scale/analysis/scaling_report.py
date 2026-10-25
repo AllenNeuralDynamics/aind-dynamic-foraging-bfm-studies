@@ -17,7 +17,6 @@ Regenerates the <!-- BEGIN result-1 --> block in reports/r2-scaling-surface.md.
 from __future__ import annotations
 
 import csv
-import json
 import re
 import sys
 from pathlib import Path
@@ -31,14 +30,15 @@ HERE = Path(__file__).resolve().parent
 STUDY = HERE.parent
 REPO = HERE.parents[2]
 sys.path.insert(0, str(REPO / "studies" / "util"))
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
+from cross_study import GRU_CURVE_SOURCE, RL_SOURCE, gru_h128_curve, rl_baseline  # noqa: E402
 
 GRID_CSV = HERE / "grid.csv"
 S05_GRID_CSV = REPO / "studies/05-disrnn-scaling-law/analysis/grid.csv"
 REPORT = HERE / "reports" / "r2-scaling-surface.md"
 WANDB_GROUPS = ["mult-d-grid@20260718-151409"]
 
-GRU = {10: 0.7219, 30: 0.7250, 100: 0.7262, 300: 0.7267, 614: 0.7268}  # study 01
+GRU = gru_h128_curve()   # study 01 r1, read from its committed JSON
 BETA_COLOR = {0.0003: "#1f77b4", 0.001: "#d62728"}
 MULT_MARKER = {1: "o", 2: "s", 5: "^", 10: "x"}
 N_TOTAL = 80
@@ -52,7 +52,7 @@ FOCAL_COLOR = "#1f77b4"
 S05_COLOR = "#c44e52"                 # study 05's fixed penalty, the curve being corrected
 CONTEXT_GREY = "#b0b0b0"              # the other seven penalty settings
 # Best per-mouse classical RL baseline (compare-to-threshold), study 05 r1 -- the bar to clear.
-RL_BASELINE = 0.7170
+RL_BASELINE = rl_baseline("ctt")   # study 01 r8
 
 
 def _fmt_beta(b: float) -> str:
@@ -570,7 +570,9 @@ def main() -> None:
     gap_heatmap_path = fig_gap_sensitivity(gap_cells)
     scatter_path = fig_train_vs_heldout_scatter(usable)
 
-    payload = {"_meta": build_meta("analysis/scaling_report.py", WANDB_GROUPS, study_root=STUDY),
+    payload = {"_meta": build_meta("analysis/scaling_report.py", WANDB_GROUPS, study_root=STUDY,
+                                   code=[__file__],
+                                   inputs=[GRID_CSV, S05_GRID_CSV, GRU_CURVE_SOURCE, RL_SOURCE]),
                "note": ("LIVE report -- regenerate as the grid progresses. heldout_ll only "
                         "trusted for state=='finished' rows (written incrementally otherwise), "
                         "PLUS backfilled runs whose exact scalar was recovered post-hoc from the "
@@ -581,8 +583,9 @@ def main() -> None:
                             "failed": n_failed, "outstanding": n_outstanding,
                             "n_wandb_runs": len(rows), "n_total": N_TOTAL},
                "cells": cells, "generalization_gap_cells": gap_cells}
-    (HERE / "summary.json").write_text(json.dumps(payload, indent=2))
     update_report_block(cells, n_usable, n_running, n_outstanding, n_failed)
+    figs = [p for p in (fig_path, sens_path, gap_fig_path, gap_heatmap_path, scatter_path) if p]
+    write_artifact(HERE / "summary.json", payload, outputs=[*figs, f"{REPORT}#result-1"])
     fig_names = ", ".join(p.name for p in (fig_path, sens_path, gap_fig_path, gap_heatmap_path, scatter_path) if p)
     print(f"wrote {fig_names} and summary.json  ({n_usable}/{N_TOTAL} usable "
           f"({n_backfilled} backfilled), {n_finished} wandb-finished, "

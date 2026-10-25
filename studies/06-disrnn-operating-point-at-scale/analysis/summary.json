@@ -1,11 +1,82 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
     "produced_by": "analysis/scaling_report.py",
-    "produced_at_pt": "2026-08-04T10:31:17-07:00",
-    "dispatcher_git_sha": null,
+    "produced_at_pt": "2026-10-25T01:38:55-07:00",
+    "studies_git_sha": "169ba02bb63fe75e4994608da3818745d96e9ce9",
+    "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "mult-d-grid@20260718-151409"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no studies SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409",
+      "no dispatcher SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409",
+      "no wrapper SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409"
+    ],
+    "code": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/scaling_report.py",
+        "sha256": "e8a613df29036697d471665b5b71e4b60b45ba24e53666bcc625e95c0c0a5cdf"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "969097e5413ff3546a6a5667d21ea605fd19ab82ee3a293f72470465df5a26e6"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/grid.csv",
+        "sha256": "c5a487ea6bca42558ed822d1c47c93762a0f7f4f4459f5d173468a6bf4fbe332"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/grid.csv",
+        "sha256": "be0c131c4a770a7db9f96103d43b443eb5e5f29ab0a15269ce68a9b0f3de0ac4"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/report_data.json",
+        "sha256": "6b17fb3b7728c926161945f9e30d49d6c771466746ad6958c154b73371daf7f1"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
+        "sha256": "f3cba9eb9c351c48434653c882a11e8afd8f6de9fe383f96af1e5e6e38191baa"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/summary.json",
+        "sha256": "8fb03096432a8d4af1ce0815dc15809de6b4d456e0154781f4b8649ee8ba5a17"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/fig_scaling_surface.png",
+        "sha256": "9dc3002c62cf033506fa444778b3483d4a0d5d7e7cdd845aec17b102fa037fb7"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/fig_beta_mult_sensitivity.png",
+        "sha256": "7f19318a7a80add0e2e374a1f7b496766db88457064d3e7359f6f9889c7f39ce"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/fig_generalization_gap.png",
+        "sha256": "23bde1d532524f0e217c1dad62019150dca79e8900bc9b75227e1199c1568e86"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/fig_gap_sensitivity.png",
+        "sha256": "4522ae1a774b7a2245fb56d1d817c34e137cee793c7d621e687f4e2f862508f8"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/fig_train_vs_heldout_scatter.png",
+        "sha256": "bc954008d6336d92944e7acc8f34c9a88232e1cfca3b6fe9ece4382b10c395fa"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/reports/r2-scaling-surface.md#result-1",
+        "sha256": "f19dee360f9e61f757160c5dc1e1a2a8c55c990a8eeb63986f9b340149c426ef"
+      }
     ]
   },
   "note": "LIVE report -- regenerate as the grid progresses. heldout_ll only trusted for state=='finished' rows (written incrementally otherwise), PLUS backfilled runs whose exact scalar was recovered post-hoc from the per-subject table (backfill_lost_heldout.py). 'crashed' = preempted, autoResume reuses the run id; 'failed' = a real script error (e.g. NaN).",

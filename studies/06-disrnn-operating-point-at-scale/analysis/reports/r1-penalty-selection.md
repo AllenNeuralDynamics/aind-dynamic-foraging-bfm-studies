@@ -12,6 +12,9 @@ inputs:
   d100_csv: analysis/data/d100_selection.csv       # lr=1e-3 slice, pulled once (pull_selection_data.py)
   d614_source: ../../05-disrnn-scaling-law/analysis/grid.csv   # variant mult-beta-d614
   figure: analysis/fig_model_selection.png
+upstream:
+  - study: 05-disrnn-scaling-law
+    wandb_group: mult-beta-d614@20260713-003501
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r1
 ---
 

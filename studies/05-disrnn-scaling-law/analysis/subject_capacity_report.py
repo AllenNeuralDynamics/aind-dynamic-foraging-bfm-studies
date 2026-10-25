@@ -15,7 +15,6 @@ METRIC CAVEAT (study 03): openness is total_openness = Sigma(1-sigma). NEVER n_e
 from __future__ import annotations
 
 import csv
-import json
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -26,7 +25,8 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 STUDY = HERE.parent
 sys.path.insert(0, str(STUDY.parent / "util"))  # shared studies/util (_meta, plot_style)
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
+from cross_study import GRU_CURVE_SOURCE, RL_SOURCE, gru_h128_curve, rl_baseline  # noqa: E402
 from plot_style import apply_presentation_style  # noqa: E402
 
 GROUP = "subject-capacity@20260713-225831"
@@ -36,8 +36,8 @@ PENALTY_LABEL = {0.001: "1e-3 (β, unchanged)", 0.0001: "1e-4 (β/10)", 0.0: "0 
 
 # Same reference numbers as scaling_report.py / r1, restated here so r3 stands alone.
 DISRNN_D100 = 0.7174    # dscan-mult2 D=100, mult=2, beta=1e-3, embed=4 -- 3-seed mean (r1)
-GRU_D100 = 0.7262       # study 01
-RL_CTT = 0.7170         # compare-to-threshold, best per-mouse RL baseline (r1)
+GRU_D100 = gru_h128_curve()[100]   # study 01 r1, read from its committed JSON
+RL_CTT = rl_baseline("ctt")        # compare-to-threshold, best per-mouse RL baseline (study 01 r8)
 # per-seed dscan-mult2 D=100 values -- the regression-control target (NOT the 0.7188/0.7162
 # figures sometimes quoted; those are dscan's seed 2 / seed 1, not seed 0 / seed 1).
 DSCAN_D100_PER_SEED = {0: 0.71720, 1: 0.71624}
@@ -109,13 +109,13 @@ def main() -> None:
     best = table[best_key]
 
     payload = {
-        "_meta": build_meta("analysis/subject_capacity_report.py", [GROUP]),
+        "_meta": build_meta("analysis/subject_capacity_report.py", [GROUP], study_root=STUDY, code=[__file__],
+                            inputs=[HERE / "grid.csv", GRU_CURVE_SOURCE, RL_SOURCE]),
         "reference": {"disrnn_D100": DISRNN_D100, "gru_D100": GRU_D100, "rl_ctt": RL_CTT},
         "regression_control": reg,
         "table": table,
         "best_cell": {**best, "key": best_key},
     }
-    (HERE / "subject_capacity.json").write_text(json.dumps(payload, indent=2))
 
     # --- figure: held-out LL vs subject_embedding_size, one line per penalty ---
     apply_presentation_style()
@@ -205,6 +205,8 @@ def main() -> None:
     if new == text and "<!-- BEGIN result-3 -->" not in text:
         raise RuntimeError("result-3 markers not found in r3 report")
     report.write_text(new)
+    write_artifact(HERE / "subject_capacity.json", payload,
+                   outputs=[HERE / "fig_subject_capacity.png", f"{report}#result-3"])
 
     print(f"\nbest cell: {best_key} -> {best['ho_mean']:.4f}")
     print("regression control deltas:", {k: round(v["delta"], 4) for k, v in reg.items()})

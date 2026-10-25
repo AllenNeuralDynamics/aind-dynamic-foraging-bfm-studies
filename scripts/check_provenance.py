@@ -199,6 +199,7 @@ class Checker:
         """
         A = self.layout["analysis"]
         reports: dict[str, dict] = {}
+        self.report_paths: dict[str, Path] = {}
         corrected_by: dict[str, set[str]] = {}
         for study in self.studies:
             for p in sorted((study / A["reports_dir"]).glob("r*.md")):
@@ -208,6 +209,7 @@ class Checker:
                 fm = self.frontmatter(p)[0] or {}
                 key = f"{study.name}/r{m['n']}"
                 reports[key] = fm
+                self.report_paths[key] = p
                 for c in fm.get("corrects") or []:
                     if isinstance(c, dict):
                         corrected_by.setdefault(f"{c.get('study')}/{c.get('report')}", set()).add(key)
@@ -440,13 +442,21 @@ class Checker:
                     self.add("error", "artifact-group-unrecorded", p, f"W&B group {g} has no launch record", item=g)
 
     def check_upstream_declared(self, p: Path, meta: dict) -> None:
-        """A report whose result blocks are written from another study's files names that
-        study in `upstream`, so a correction there can reach it (report-upstream-stale)."""
+        """A report written from another study's files names that study in `upstream`, so a
+        correction there can reach it (report-upstream-stale). "Written from" is a result block
+        this artifact wrote, or the artifact listed in the report's `inputs`."""
         own = self.rel(p).split("/")[1]
         read = {path.split("/")[1] for e in meta.get("inputs") or []
                 if re.match(r"^studies/\d{2}-[^/]+/", path := str(e.get("path", ""))) and path.split("/")[1] != own}
         written = {str(e.get("path", "")).split("#", 1)[0] for e in meta.get("outputs") or []
                    if "#" in str(e.get("path", ""))}
+        # ... and the reports that cite this artifact in `inputs`, whose prose may use its numbers
+        study, art = self.rel(p).split("/", 2)[1], self.rel(p).split("/", 2)[2]
+        for key, path in self.report_paths.items():
+            fm = self.reports[key]
+            if key.startswith(f"{study}/") and isinstance(fm.get("inputs"), dict) and any(
+                    art in (v if isinstance(v, list) else [v]) for v in fm["inputs"].values()):
+                written.add(self.rel(path))
         for report in sorted(written):
             if not (self.root / report).exists():
                 continue                                 # artifact-stale-output covers it
@@ -454,7 +464,7 @@ class Checker:
             declared = {u.get("study") for u in fm.get("upstream") or [] if isinstance(u, dict)}
             for other in sorted(read - declared):
                 self.add("warn", "report-upstream-undeclared", report,
-                         f"its result blocks are written from studies/{other} files ({self.rel(p)}), "
+                         f"it is written from studies/{other} files via {self.rel(p)}, "
                          f"but `upstream` names nothing in {other}", item=other)
 
     def _check_file_digest(self, p: Path, e: dict, check: str) -> None:

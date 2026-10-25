@@ -25,7 +25,6 @@ Colour = base beta; marker = multiplier. The point is to pick beta, THEN fix it 
 """
 from __future__ import annotations
 
-import json
 import re
 import sys
 from pathlib import Path
@@ -39,7 +38,7 @@ HERE = Path(__file__).resolve().parent
 STUDY = HERE.parent                                # studies/06-disrnn-operating-point-at-scale
 REPO = HERE.parents[2]
 sys.path.insert(0, str(REPO / "studies" / "util"))  # shared studies/util
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
 
 D100_CSV = HERE / "data" / "d100_selection.csv"   # committed lr=1e-3 slice (pull_selection_data.py)
 D614_CSV = REPO / "studies/05-disrnn-scaling-law/analysis/grid.csv"
@@ -120,14 +119,15 @@ def main() -> None:
     print(f"wrote {out_png}")
 
     summary = summarize(alldf)
-    payload = {"_meta": build_meta("analysis/model_selection.py", WANDB_GROUPS, study_root=STUDY),
+    payload = {"_meta": build_meta("analysis/model_selection.py", WANDB_GROUPS, study_root=STUDY,
+                                   code=[__file__], inputs=[D100_CSV, D614_CSV]),
                "note": ("axes = in-sample (training mice) vs held-out (unseen mice) NormLik; the "
                         "population-transfer analog of Kevin's within-subject odd/even plot. "
                         "gap = in - heldout > 0 means the penalty overfits the training cohort. "
                         "Both D panels are lr=1e-3 (study 03's lr=1e-3 slice via pull_selection_data.py)."),
                "per_D_beta_centroid": summary}
-    (HERE / "model_selection.json").write_text(json.dumps(payload, indent=2))
     update_report_block(summary)
+    write_artifact(HERE / "model_selection.json", payload, outputs=[out_png, f"{REPORT}#result-1"])
     print("\nper-(D, β) centroid  [heldout | in-sample | gap=in-heldout | n]")
     for r in summary:
         print(f"  D={r['D']:>3}  β={r['beta']:<7g}  heldout={r['heldout_ll']:.4f}  "

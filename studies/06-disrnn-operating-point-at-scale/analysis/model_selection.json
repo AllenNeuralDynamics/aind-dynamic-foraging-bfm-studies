@@ -1,12 +1,52 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
     "produced_by": "analysis/model_selection.py",
-    "produced_at_pt": "2026-07-18T10:20:30-07:00",
-    "dispatcher_git_sha": "f8c9e9ecc117fcc0f8501f8ef1f331c49f15104f",
+    "produced_at_pt": "2026-10-25T01:38:45-07:00",
+    "studies_git_sha": "169ba02bb63fe75e4994608da3818745d96e9ce9",
+    "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "updnet-ratio-100mice@20260703-200122",
       "mult-beta-d614@20260713-003501"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): mult-beta-d614@20260713-003501, updnet-ratio-100mice@20260703-200122"
+    ],
+    "code": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/model_selection.py",
+        "sha256": "4b503380b730512834a66ff7bf62ff36563499c3d1e457289c3e3ffbcf8ec940"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/data/d100_selection.csv",
+        "sha256": "699796bf636e35fa40f763e78c2dc94b43be074c38de5d8bdfc8b1327587607f"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/grid.csv",
+        "sha256": "be0c131c4a770a7db9f96103d43b443eb5e5f29ab0a15269ce68a9b0f3de0ac4"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/model_selection.json",
+        "sha256": "4e82876d007a2ecaa5b5b9c458eb1ff693e56352406498d3d8be7960e576b651"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/fig_model_selection.png",
+        "sha256": "4219c4bf14b1f711db36d0e80fd379ef9399ee632ece588232d1b4157cf2f9e8"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/reports/r1-penalty-selection.md#result-1",
+        "sha256": "0613c62ea19e677b6e31e925cd945e8a21020b81b5da997f21efc0335a044e5b"
+      }
     ]
   },
   "note": "axes = in-sample (training mice) vs held-out (unseen mice) NormLik; the population-transfer analog of Kevin's within-subject odd/even plot. gap = in - heldout > 0 means the penalty overfits the training cohort. Both D panels are lr=1e-3 (study 03's lr=1e-3 slice via pull_selection_data.py).",

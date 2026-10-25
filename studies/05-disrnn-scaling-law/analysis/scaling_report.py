@@ -18,7 +18,6 @@ n_eff_open_frac -- it is scale-invariant and reads high even for a fully shut bo
 from __future__ import annotations
 
 import csv
-import json
 import statistics
 import sys
 from collections import defaultdict
@@ -30,15 +29,18 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 STUDY = HERE.parent
 sys.path.insert(0, str(STUDY.parent / "util"))  # shared studies/util (_meta, plot_style)
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
+from cross_study import GRU_CURVE_SOURCE, RL_SOURCE, gru_h128_curve, rl_baseline  # noqa: E402
 from plot_style import apply_presentation_style, t975  # noqa: E402
 
 WANDB_GROUPS = ["dscan-mult2@20260713-003428", "mult-beta-d614@20260713-003501"]
 
 # Reference numbers, all on the SAME fixed held-out cohort and the SAME metric key
-# (heldout/eval_likelihood), so they are directly comparable to this study's y-axis.
-GRU = {10: 0.7219, 30: 0.7250, 100: 0.7262, 300: 0.7267, 614: 0.7268}  # study 01
-RL = {"compare-to-threshold": 0.7170, "Bari (L1F1_CK1)": 0.7149, "Hattori (L2F1)": 0.7127}
+# (heldout/eval_likelihood), so they are directly comparable to this study's y-axis. Read from
+# study 01's committed JSON (r1: GRU curve, r8: RL baselines), never retyped.
+GRU = gru_h128_curve()
+RL = {"compare-to-threshold": rl_baseline("ctt"), "Bari (L1F1_CK1)": rl_baseline("bari"),
+      "Hattori (L2F1)": rl_baseline("hattori")}
 # study 03's interaction openness at D=100 (the same (mult, beta) cells we re-ran at D=614)
 SEED_SD_D614 = 0.0  # set from data in main(); yardstick for the single-seed wave 2
 S03_D100 = {3e-4: {1: 3.11, 2: 1.16, 5: 0.11, 10: 0.00},
@@ -105,13 +107,14 @@ def summarize(rows):
 
 
 def write_outputs(curve, cells, noise):
-    payload = {"_meta": build_meta("analysis/scaling_report.py", WANDB_GROUPS, study_root=STUDY),
+    """Write summary.csv, then return the summary.json payload (written last, see main)."""
+    payload = {"_meta": build_meta("analysis/scaling_report.py", WANDB_GROUPS, study_root=STUDY,
+                                   code=[__file__], inputs=[HERE / "grid.csv", GRU_CURVE_SOURCE, RL_SOURCE]),
                "note": ("openness = total_openness = Sigma(1-sigma); NEVER n_eff_open_frac. "
                         "GRU and RL references share this study's held-out cohort and metric key."),
                "gru_reference": GRU, "rl_baselines": RL,
                "seed_noise_at_D614": noise,
                "wave1_curve_by_D": curve, "wave2_cells_at_D614": cells}
-    (HERE / "summary.json").write_text(json.dumps(payload, indent=2))
 
     with (HERE / "summary.csv").open("w", newline="") as f:
         w = csv.writer(f)
@@ -120,7 +123,7 @@ def write_outputs(curve, cells, noise):
         for d, c in curve.items():
             w.writerow([d, c["heldout"]["n"], c["heldout"]["mean"], c["heldout"]["sem"],
                         c["gru"], c["gap_vs_gru"]] + [c[fam]["mean"] for fam, _ in FAMILIES])
-    print("wrote summary.json + summary.csv")
+    return payload
 
 
 def fig_scaling_curve(curve):
@@ -280,10 +283,14 @@ def main() -> None:
     noise = seed_noise(rows)
     SEED_SD_D614 = noise["heldout_sd"] or 0.0
     curve, cells = summarize(rows)
-    write_outputs(curve, cells, noise)
+    payload = write_outputs(curve, cells, noise)
     fig_scaling_curve(curve)
     fig_sparsity_vs_d(curve)
     fig_mult_axis_d614(cells)
+    write_artifact(HERE / "summary.json", payload,
+                   outputs=[HERE / n for n in ("summary.csv", "fig_scaling_curve.png",
+                                               "fig_sparsity_vs_d.png", "fig_mult_axis_d614.png")])
+    print("wrote summary.json + summary.csv")
     print(f"seed noise @ D=614: heldout SD {noise['heldout_sd']:.4f} | "
           f"openness SD {noise['interaction_openness_sd']:.3f}")
 

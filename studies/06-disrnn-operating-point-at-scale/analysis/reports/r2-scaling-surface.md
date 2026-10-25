@@ -20,6 +20,15 @@ corrects:
     note: >-
       05 r1's peak-then-decline at D~100 is an artifact of its fixed penalty (mult=2, beta=1e-3);
       at mult=1, beta=3e-4 held-out rises monotonically to 0.7221 at D=614.
+upstream:
+  - study: 05-disrnn-scaling-law
+    wandb_group: dscan-mult2@20260713-003428
+  - study: 01-gru-scaling-law
+    report: r1
+    note: the fixed-H128 GRU held-out curve (analysis/report_data.json)
+  - study: 01-gru-scaling-law
+    report: r8
+    note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r2
 ---
 
