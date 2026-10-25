@@ -93,7 +93,7 @@ class ScaffoldTest(unittest.TestCase):
     def test_report_numbers_skip_leftover_targets_and_outputs_are_unique(self):
         self.new_study()
         mk = self.root / "studies/12-gru-example/Makefile"
-        mk.write_text(mk.read_text() + "\nr1:\n\t$(PY) analysis/old.py\n")      # deleted draft's target
+        mk.write_text(mk.read_text() + "\nr0 r1:\n\t$(PY) analysis/old.py\n")   # multi-target rule left behind
         scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Curve"])
         self.assertTrue((self.root / "studies/12-gru-example/analysis/reports/r2-curve.md").exists())
         self.assertIn("analysis/r2_curve.py", mk.read_text())

@@ -65,6 +65,16 @@ def parse_issue(ref: str) -> int | str:
     fail(f"ISSUE {ref!r} must be a number (this repo) or AllenNeuralDynamics/<repo>#N")
 
 
+# a rule line names one or more targets before `:` (`r1 r2:`), never `:=` assignments
+MAKE_RULE = re.compile(r"^([A-Za-z0-9][\w.-]*(?:[ \t]+[A-Za-z0-9][\w.-]*)*)[ \t]*:(?!=)", re.M)
+
+
+def make_targets(study: Path) -> set[str]:
+    mk = study / "Makefile"
+    text = mk.read_text() if mk.exists() else ""
+    return {t for rule in MAKE_RULE.findall(text) for t in rule.split()}
+
+
 def make_var(study: Path) -> str:
     """The interpreter variable a study's Makefile already defines (PY or PYTHON)."""
     text = (study / "Makefile").read_text() if (study / "Makefile").exists() else ""
@@ -148,8 +158,8 @@ def new_report(a: argparse.Namespace) -> None:
     nums = [int(m["n"]) for p in reports.glob("r*.md")
             if (m := re.match(LAYOUT["analysis"]["report_name_pattern"], p.name))]
     # a deleted draft can leave its rN target behind; never hand its number to a new report
-    targets = re.findall(r"^r([0-9]+)\s*:", (d / "Makefile").read_text(), re.M) if (d / "Makefile").exists() else []
-    n = max(nums + [int(x) for x in targets], default=0) + 1
+    targets = make_targets(d)
+    n = max(nums + [int(t[1:]) for t in targets if re.fullmatch(r"r[0-9]+", t)], default=0) + 1
     rid, name = f"r{n}", f"r{n}-{a.slug}.md"
     front = {"schema_version": 1, "id": rid, "slug": a.slug, "status": "draft",
              "authors": [a.author], "wandb_groups": [],
@@ -185,7 +195,7 @@ def new_report(a: argparse.Namespace) -> None:
     commit(files)
     mk = d / "Makefile"
     text = mk.read_text()
-    if not re.search(rf"^{rid}\s*:", text, re.M):
+    if rid not in make_targets(d):
         mk.write_text(text.rstrip("\n") + f"\n\n# {rid} = {a.title}\n.PHONY: {rid}\n{rid}:\n"
                       f"\t{make_var(d)} {front['inputs']['script']}\n")
         print(f"  added `{rid}` to Makefile (add it to `all` once the producer runs offline)")
