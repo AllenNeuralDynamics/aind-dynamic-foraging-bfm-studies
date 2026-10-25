@@ -80,6 +80,10 @@ FIX = {
     "report-group-unrecorded": "cite exact groups that have a launch record; a missing record is "
                                "recovered with studies/util/launch_record.py write_intervention(kind='backfill')",
     "report-ref-unresolved": "reference an existing {study, report}",
+    "report-upstream-stale": "the cited report no longer stands as cited: add the report that corrects or "
+                             "replaces it to `upstream`, check this report's conclusion still holds, and regenerate",
+    "report-upstream-undeclared": "declare what the producer reads from that study in `upstream`: "
+                                  "{study, report} for a result, {study, wandb_group} for raw data",
     "report-not-indexed": "link the report from analysis/reports/INDEX.md",
     "report-no-result-block": "wrap the report's numbers in <!-- BEGIN result-N --> / <!-- END result-N -->",
     "artifact-unreadable": "fix the JSON so it parses",
@@ -127,6 +131,7 @@ class Checker:
         self.studies = sorted(p for p in (root / "studies").iterdir()
                               if p.is_dir() and re.match(r"^\d{2}-", p.name))
         self.groups = self._group_index()
+        self.reports, self.corrected_by = self._report_index()
 
     # -- helpers ------------------------------------------------------------------------------
     def _git(self, *args: str) -> str:
@@ -185,6 +190,28 @@ class Checker:
                 for g in set(GROUP.findall(text)):
                     index.setdefault(g, []).append({"path": p, "record": rec if isinstance(rec, dict) else None})
         return index
+
+    def _report_index(self) -> tuple[dict[str, dict], dict[str, set[str]]]:
+        """`<study>/rN` -> report frontmatter, and -> the reports that correct it.
+
+        A corrected report stays `live` (CONTEXT.md, Correction), so whether it still stands
+        is read from every other report's `corrects:`, never from its own status.
+        """
+        A = self.layout["analysis"]
+        reports: dict[str, dict] = {}
+        corrected_by: dict[str, set[str]] = {}
+        for study in self.studies:
+            for p in sorted((study / A["reports_dir"]).glob("r*.md")):
+                m = re.match(A["report_name_pattern"], p.name)
+                if not m:
+                    continue
+                fm = self.frontmatter(p)[0] or {}
+                key = f"{study.name}/r{m['n']}"
+                reports[key] = fm
+                for c in fm.get("corrects") or []:
+                    if isinstance(c, dict):
+                        corrected_by.setdefault(f"{c.get('study')}/{c.get('report')}", set()).add(key)
+        return reports, corrected_by
 
     def makefile_targets(self, study: Path) -> set[str]:
         mk = study / "Makefile"
@@ -332,6 +359,30 @@ class Checker:
             if not any(target.glob(f"{r.get('report')}-*.md")):
                 self.add("error", "report-ref-unresolved", p, f"{r.get('study')}/{r.get('report')} not found",
                          item=f"{r.get('study')}/{r.get('report')}")
+        self.check_upstream_stands(study, p, m, fm)
+
+    def check_upstream_stands(self, study: Path, p: Path, m, fm: dict) -> None:
+        """A cited report must still stand: not superseded or retracted, and not corrected by
+        a report this one does not also cite. A superseded or retracted report is history and
+        is not re-judged."""
+        if fm.get("status") in ("superseded", "retracted"):
+            return
+        me = f"{study.name}/r{m['n']}"
+        cited = {f"{r['study']}/{r['report']}" for r in fm.get("upstream") or []
+                 if isinstance(r, dict) and "report" in r}
+        corrects = {f"{r.get('study')}/{r.get('report')}" for r in fm.get("corrects") or [] if isinstance(r, dict)}
+        for ref in sorted(cited):
+            target = self.reports.get(ref)
+            if target is None:
+                continue                                 # report-ref-unresolved covers it
+            if target.get("status") in ("superseded", "retracted"):
+                self.add("warn", "report-upstream-stale", p, f"upstream {ref} is {target['status']}", item=ref)
+                continue
+            missed = sorted(self.corrected_by.get(ref, set()) - cited - {me})
+            if missed and ref not in corrects:
+                self.add("warn", "report-upstream-stale", p,
+                         f"upstream {ref} is corrected by {', '.join(missed)}, which this report does not cite",
+                         item=ref)
 
     def check_artifacts(self, study: Path) -> bool:
         """Check analysis JSON; return whether the study has a freeze."""
@@ -382,10 +433,29 @@ class Checker:
             if got != want:
                 self.add("error", "artifact-stale-output", p,
                          f"output {path} {'is missing' if got is None else 'does not match its digest'}", item=path)
+        self.check_upstream_declared(p, meta)
         if meta.get("kind") == "freeze":
             for g in meta.get("wandb_groups") or []:
                 if g not in self.groups:
                     self.add("error", "artifact-group-unrecorded", p, f"W&B group {g} has no launch record", item=g)
+
+    def check_upstream_declared(self, p: Path, meta: dict) -> None:
+        """A report whose result blocks are written from another study's files names that
+        study in `upstream`, so a correction there can reach it (report-upstream-stale)."""
+        own = self.rel(p).split("/")[1]
+        read = {path.split("/")[1] for e in meta.get("inputs") or []
+                if re.match(r"^studies/\d{2}-[^/]+/", path := str(e.get("path", ""))) and path.split("/")[1] != own}
+        written = {str(e.get("path", "")).split("#", 1)[0] for e in meta.get("outputs") or []
+                   if "#" in str(e.get("path", ""))}
+        for report in sorted(written):
+            if not (self.root / report).exists():
+                continue                                 # artifact-stale-output covers it
+            fm = self.frontmatter(self.root / report)[0] or {}
+            declared = {u.get("study") for u in fm.get("upstream") or [] if isinstance(u, dict)}
+            for other in sorted(read - declared):
+                self.add("warn", "report-upstream-undeclared", report,
+                         f"its result blocks are written from studies/{other} files ({self.rel(p)}), "
+                         f"but `upstream` names nothing in {other}", item=other)
 
     def _check_file_digest(self, p: Path, e: dict, check: str) -> None:
         path = e.get("path", "")
