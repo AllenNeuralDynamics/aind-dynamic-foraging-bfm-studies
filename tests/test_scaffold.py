@@ -63,6 +63,61 @@ class ScaffoldTest(unittest.TestCase):
         with self.assertRaises(SystemExit):
             scaffold.main(["variant", "--study", "12-gru-example", "--name", "base"])
 
+    def tree(self):
+        return sorted(str(p.relative_to(self.root)) for p in (self.root / "studies").rglob("*") if p.is_file())
+
+    def test_refusals_leave_the_tree_unchanged(self):
+        before = self.tree()
+        for argv in (["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                      "--project", "p", "--variant", "Bad Name"],                     # bad first variant
+                     ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                      "--project", "p", "--variant", "base", "--issue", "#14"],        # malformed issue
+                     ["variant", "--study", "", "--name", "wider"]):                   # missing STUDY
+            with self.assertRaises(SystemExit):
+                scaffold.main(argv)
+            self.assertEqual(self.tree(), before)
+        self.new_study()
+        scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Curve"])
+        (self.root / "studies/12-gru-example/analysis/reports/r1-curve.md").unlink()
+        before = self.tree()                                   # producer analysis/curve.py remains
+        with self.assertRaises(SystemExit):
+            scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Again"])
+        self.assertEqual(self.tree(), before)
+
+    def test_local_issue_number_becomes_an_int(self):
+        scaffold.main(["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                       "--project", "p", "--variant", "base", "--issue", "14"])
+        self.assertIn("- 14\n", (self.root / "studies/12-gru-example/README.md").read_text())
+        self.assertEqual(self.findings(), [])
+
+    def test_report_target_uses_the_studys_interpreter_variable(self):
+        self.new_study()
+        mk = self.root / "studies/12-gru-example/Makefile"
+        mk.write_text(mk.read_text().replace("PY ?= python", "PYTHON ?= python"))
+        scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Curve"])
+        self.assertIn("\t$(PYTHON) analysis/curve.py", mk.read_text())
+
+
+class MakeTargetTest(unittest.TestCase):
+    """Through `make`, in this checkout: shell characters in values must arrive intact."""
+
+    NAME = "98-gru-scaffold-quoting"
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(REPO_ROOT / "studies" / self.NAME, ignore_errors=True)
+
+    def test_quotes_in_question_and_title(self):
+        q = 'Does "high D" help, and isn\'t $HOME expanded?'
+        run = lambda *a: subprocess.run(["make", "-s", "-C", str(REPO_ROOT), *a, f"PY={sys.executable}"],
+                                        check=True, capture_output=True, text=True)
+        run("new-study", f"NAME={self.NAME}", f"QUESTION={q}", "PROJECT=p", "VARIANT=base")
+        run("new-report", f"STUDY={self.NAME}", "SLUG=curve", 'TITLE=The "curve"')
+        study = REPO_ROOT / "studies" / self.NAME
+        self.assertIn('Does "high D" help', (study / "README.md").read_text())
+        self.assertIn("$HOME", (study / "README.md").read_text())
+        self.assertIn('# r1 — The "curve"', (study / "analysis/reports/r1-curve.md").read_text())
+
 
 if __name__ == "__main__":
     unittest.main()
