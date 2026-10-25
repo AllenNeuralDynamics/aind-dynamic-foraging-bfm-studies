@@ -292,7 +292,8 @@ class Checker:
 
     def check_motivation(self, study: Path, fm: dict) -> None:
         """`motivated_by` points back in time at results that exist (CONTEXT.md, Motivation)."""
-        refs = [m for m in fm.get("motivated_by") or [] if isinstance(m, dict) and "study" in m]
+        entries = fm.get("motivated_by") if isinstance(fm.get("motivated_by"), list) else []  # else: a schema error
+        refs = [m for m in entries if isinstance(m, dict) and "study" in m]
         readme = study / "README.md"
         for m in refs:
             target = str(m["study"])
@@ -303,8 +304,8 @@ class Checker:
             elif target[:2].isdigit() and int(target[:2]) >= int(study.name[:2]):
                 self.add("error", "study-motivation-order", readme,
                          f"motivated_by {ref} is not an earlier study than {study.name}", item=ref)
-        if len(fm.get("motivated_by") or []) > 3:
-            self.add("info", "study-motivation-many", readme, f"{len(fm['motivated_by'])} motivations")
+        if len(entries) > 3:
+            self.add("info", "study-motivation-many", readme, f"{len(entries)} motivations")
 
     def _is_tracked_tree(self, p: Path) -> bool:
         r = self.rel(p)

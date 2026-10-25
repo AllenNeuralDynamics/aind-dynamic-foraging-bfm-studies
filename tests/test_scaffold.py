@@ -109,7 +109,9 @@ class ScaffoldTest(unittest.TestCase):
                 self.new_study(motivated_by=bad)
         (self.root / "studies/13-gru-later").rmdir()             # only there to test the order refusal
         (reports / "r1-curve.md").write_text("---\nid: r1\n---\n")
-        self.new_study(motivated_by="11/r1, #23")
+        with self.assertRaises(SystemExit):                      # r1 exists, but in 11-gru-existing:
+            self.new_study(motivated_by="11-gru-other/r1")       # a full name must match exactly
+        self.new_study(motivated_by="11-gru-existing/r1, #23")
         readme = (self.root / "studies/12-gru-example/README.md").read_text()
         self.assertIn("study: 11-gru-existing\n  report: r1\n", readme)
         self.assertIn("- issue: 23\n", readme)

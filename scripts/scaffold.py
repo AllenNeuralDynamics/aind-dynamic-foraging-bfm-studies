@@ -84,19 +84,21 @@ def parse_motivation(spec: str | None, new_number: str) -> list[dict]:
         if re.fullmatch(r"AllenNeuralDynamics/[\w.-]+#[1-9][0-9]*", part):
             out.append({"issue": part, "note": MOTIVATION_TODO})
             continue
-        m = re.fullmatch(r"([0-9]{2})(?:-[a-z0-9-]+)?(?:/(r[0-9]+))?", part)
+        m = re.fullmatch(r"([0-9]{2})(-[a-z0-9-]+)?(?:/(r[0-9]+))?", part)
         if not m:
             fail(f"MOTIVATED_BY entry {part!r} must look like 05/r1, 05, #23 or AllenNeuralDynamics/<repo>#N")
-        found = [p for p in STUDIES.glob(f"{m[1]}-*") if p.is_dir()]
+        # a full name must match its directory exactly; the shorthand `05` resolves by accession number
+        found = ([STUDIES / (m[1] + m[2])] if m[2] else sorted(STUDIES.glob(f"{m[1]}-*")))
+        found = [p for p in found if p.is_dir()]
         if not found:
-            fail(f"MOTIVATED_BY {part!r}: no study {m[1]} under studies/")
+            fail(f"MOTIVATED_BY {part!r}: no study {m[1] + (m[2] or '')} under studies/")
         if int(m[1]) >= int(new_number):
             fail(f"MOTIVATED_BY {part!r}: a study can only be motivated by an earlier one")
         entry = {"study": found[0].name}
-        if m[2]:
-            if not any((found[0] / "analysis" / "reports").glob(f"{m[2]}-*.md")):
-                fail(f"MOTIVATED_BY {part!r}: {found[0].name} has no report {m[2]}")
-            entry["report"] = m[2]
+        if m[3]:
+            if not any((found[0] / "analysis" / "reports").glob(f"{m[3]}-*.md")):
+                fail(f"MOTIVATED_BY {part!r}: {found[0].name} has no report {m[3]}")
+            entry["report"] = m[3]
         out.append({**entry, "note": MOTIVATION_TODO})
     return out
 

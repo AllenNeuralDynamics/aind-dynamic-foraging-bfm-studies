@@ -383,9 +383,11 @@ class CheckProvenanceTest(unittest.TestCase):
         info = {f.key for f in cp.Checker(self.root).run() if f.level == "info"}
         self.assertIn(f"study-motivation-many|{readme}|", info)
 
-    def test_missing_motivated_by_is_a_schema_error(self):
+    def test_missing_or_malformed_motivated_by_is_a_schema_error(self):
         readme = self.study / "README.md"
-        readme.write_text(readme.read_text().replace("motivated_by: []\n", ""))
+        self.motivate("23")                                  # a scalar must not crash the run
+        self.assertIn(f"study-frontmatter|{STUDY}/README.md|motivated_by:type", self.keys())
+        readme.write_text(readme.read_text().replace("motivated_by: 23\n", ""))
         self.commit()
         self.assertIn(f"study-frontmatter|{STUDY}/README.md|(top):motivated_by", self.keys())
 
