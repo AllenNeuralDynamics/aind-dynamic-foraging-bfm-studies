@@ -78,10 +78,10 @@ class ScaffoldTest(unittest.TestCase):
             self.assertEqual(self.tree(), before)
         self.new_study()
         scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Curve"])
-        (self.root / "studies/12-gru-example/analysis/reports/r1-curve.md").unlink()
-        before = self.tree()                                   # producer analysis/curve.py remains
+        (self.root / "studies/12-gru-example/analysis/r2_again.py").write_text("")   # producer collision
+        before = self.tree()
         with self.assertRaises(SystemExit):
-            scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Again"])
+            scaffold.main(["report", "--study", "12-gru-example", "--slug", "again", "--title", "Again"])
         self.assertEqual(self.tree(), before)
 
     def test_local_issue_number_becomes_an_int(self):
@@ -90,34 +90,52 @@ class ScaffoldTest(unittest.TestCase):
         self.assertIn("- 14\n", (self.root / "studies/12-gru-example/README.md").read_text())
         self.assertEqual(self.findings(), [])
 
+    def test_report_numbers_skip_leftover_targets_and_outputs_are_unique(self):
+        self.new_study()
+        mk = self.root / "studies/12-gru-example/Makefile"
+        mk.write_text(mk.read_text() + "\nr1:\n\t$(PY) analysis/old.py\n")      # deleted draft's target
+        scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Curve"])
+        self.assertTrue((self.root / "studies/12-gru-example/analysis/reports/r2-curve.md").exists())
+        self.assertIn("analysis/r2_curve.py", mk.read_text())
+        (self.root / "studies/12-gru-example/analysis/r3_other.json").write_text("{}")   # frozen input
+        before = self.tree()
+        with self.assertRaises(SystemExit):
+            scaffold.main(["report", "--study", "12-gru-example", "--slug", "other", "--title", "Other"])
+        self.assertEqual(self.tree(), before)
+
     def test_report_target_uses_the_studys_interpreter_variable(self):
         self.new_study()
         mk = self.root / "studies/12-gru-example/Makefile"
         mk.write_text(mk.read_text().replace("PY ?= python", "PYTHON ?= python"))
         scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Curve"])
-        self.assertIn("\t$(PYTHON) analysis/curve.py", mk.read_text())
+        self.assertIn("\t$(PYTHON) analysis/r1_curve.py", mk.read_text())
 
 
 class MakeTargetTest(unittest.TestCase):
-    """Through `make`, in this checkout: shell characters in values must arrive intact."""
+    """Through `make`, in a temp copy of the repo skeleton: shell characters arrive intact."""
 
-    NAME = "98-gru-scaffold-quoting"
+    def setUp(self):
+        import shutil
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        for rel in ("Makefile", "scripts/scaffold.py", "schemas/layout.yaml"):
+            (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(REPO_ROOT / rel, self.root / rel)
+        (self.root / "studies").mkdir()
 
     def tearDown(self):
-        import shutil
-        shutil.rmtree(REPO_ROOT / "studies" / self.NAME, ignore_errors=True)
+        self.tmp.cleanup()
 
     def test_quotes_in_question_and_title(self):
         q = 'Does "high D" help, and isn\'t $HOME expanded?'
-        run = lambda *a: subprocess.run(["make", "-s", "-C", str(REPO_ROOT), *a, f"PY={sys.executable}"],
+        run = lambda *a: subprocess.run(["make", "-s", "-C", str(self.root), *a, f"PY={sys.executable}"],
                                         check=True, capture_output=True, text=True)
-        run("new-study", f"NAME={self.NAME}", f"QUESTION={q}", "PROJECT=p", "VARIANT=base")
-        run("new-report", f"STUDY={self.NAME}", "SLUG=curve", 'TITLE=The "curve"')
-        study = REPO_ROOT / "studies" / self.NAME
+        run("new-study", "NAME=12-gru-quoting", f"QUESTION={q}", "PROJECT=p", "VARIANT=base")
+        run("new-report", "STUDY=12-gru-quoting", "SLUG=curve", 'TITLE=The "curve"')
+        study = self.root / "studies" / "12-gru-quoting"
         self.assertIn('Does "high D" help', (study / "README.md").read_text())
         self.assertIn("$HOME", (study / "README.md").read_text())
         self.assertIn('# r1 — The "curve"', (study / "analysis/reports/r1-curve.md").read_text())
-
 
 if __name__ == "__main__":
     unittest.main()

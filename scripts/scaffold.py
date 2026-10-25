@@ -147,13 +147,18 @@ def new_report(a: argparse.Namespace) -> None:
         fail(f"SLUG {a.slug!r} must be lowercase words joined by -")
     nums = [int(m["n"]) for p in reports.glob("r*.md")
             if (m := re.match(LAYOUT["analysis"]["report_name_pattern"], p.name))]
-    n = max(nums, default=0) + 1
+    # a deleted draft can leave its rN target behind; never hand its number to a new report
+    targets = re.findall(r"^r([0-9]+)\s*:", (d / "Makefile").read_text(), re.M) if (d / "Makefile").exists() else []
+    n = max(nums + [int(x) for x in targets], default=0) + 1
     rid, name = f"r{n}", f"r{n}-{a.slug}.md"
     front = {"schema_version": 1, "id": rid, "slug": a.slug, "status": "draft",
              "authors": [a.author], "wandb_groups": [],
-             "inputs": {"script": f"analysis/{a.slug.replace('-', '_')}.py"},
+             "inputs": {"script": f"analysis/r{n}_{a.slug.replace('-', '_')}.py"},
              "reproduce": f"make -C studies/{a.study} {rid}"}
     producer = d / front["inputs"]["script"]
+    output = producer.with_suffix(".json")     # report-specific, so it cannot clobber a frozen input
+    if output.exists():
+        fail(f"{output.relative_to(REPO)} already exists; the new producer would overwrite it")
     files = {}
     files[reports / name] = ("---\n" + yaml.safe_dump(front, sort_keys=False) + "---\n"
           f"# {rid} — {a.title}\n\n"
@@ -174,7 +179,7 @@ def new_report(a: argparse.Namespace) -> None:
           "                      code=[__file__], inputs=inputs)\n"
           f"    # TODO: rewrite the result block in reports/{name}, then list it in outputs as\n"
           f"    #       HERE / 'reports' / '{name}#result-1' alongside any figures.\n"
-          f"    write_artifact(HERE / '{a.slug.replace('-', '_')}.json', {{'_meta': meta, **result}}, outputs=[])\n\n\n"
+          f"    write_artifact(HERE / '{output.name}', {{'_meta': meta, **result}}, outputs=[])\n\n\n"
           "if __name__ == '__main__':\n    main()\n")
     print(f"new report {a.study}/{rid}")
     commit(files)
