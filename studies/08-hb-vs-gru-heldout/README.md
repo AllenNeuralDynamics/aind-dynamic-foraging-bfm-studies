@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 08-hb-vs-gru-heldout
+question: Does a hierarchical Bayesian cognitive baseline (HB-Hattori2019) fit on study 01's cohort match
+  the GRU's held-out-subject likelihood?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: mice_data_scaling
+verdict: 'Negative: no HB rung passes the convergence gates and the D~99-614 chains did not mix, so the
+  HB ladder gives no usable scaling curve.'
+---
 # Study 08 — HB vs GRU on held-out subjects
 
 Fits the hierarchical Bayesian cognitive baseline (`HB-Hattori2019`) on **study 01's

@@ -1,3 +1,17 @@
+---
+schema_version: 1
+id: 05-disrnn-scaling-law
+question: Does training the disRNN on more mice improve prediction of mice it has never seen, and does
+  its interaction bottleneck stay interpretable as the cohort grows?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: disrnn_data_scaling
+issues:
+- AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#16
+verdict: At mult=2, beta=1e-3 held-out peaks near D=100 and sits ~0.010 below the GRU; study 06 shows
+  the decline comes from the fixed penalty.
+---
 # Study: disRNN data-scaling law (the disRNN half of issue #16)
 
 *Folder `05-disrnn-scaling-law`. W&B project

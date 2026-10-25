@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 02-gru-scaling-law-ignore
+question: With ignored trials as a third output class, does held-out-mouse prediction show a sustained
+  data-scaling slope that left/right choice lacks?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: mice_ignore_scaling
+verdict: The 3-way head is free on choice; choice still scales with D capacity-dependently (best 0.7315
+  at H256/D614) and ignore detection is real and scales.
+---
 # Study: Include-ignore-trials scaling (3-way output)
 
 *Folder `02-gru-scaling-law-ignore` — formerly `ignore-trials-scaling`. W&B project

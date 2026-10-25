@@ -14,6 +14,12 @@ inputs:
   figure_generalization_gap: analysis/fig_generalization_gap.png
   figure_gap_heatmap: analysis/fig_gap_sensitivity.png
   figure_train_vs_heldout: analysis/fig_train_vs_heldout_scatter.png
+corrects:
+  - study: 05-disrnn-scaling-law
+    report: r1
+    note: >-
+      05 r1's peak-then-decline at D~100 is an artifact of its fixed penalty (mult=2, beta=1e-3);
+      at mult=1, beta=3e-4 held-out rises monotonically to 0.7221 at D=614.
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r2
 ---
 

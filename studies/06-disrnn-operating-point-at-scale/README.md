@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 06-disrnn-operating-point-at-scale
+question: How should the disRNN's bottleneck penalty be configured as the training cohort grows, on the
+  penalty x D surface that studies 03 and 05 left open?
+status: active
+wandb:
+  entity: AIND-disRNN
+  project: disrnn_data_scaling
+verdict: At mult=1, beta=3e-4 held-out rises monotonically to 0.7221 at D=614 and halves the GRU gap;
+  the step-budget question is still open.
+---
 # Study: disRNN operating point at scale
 
 *Folder `06-disrnn-operating-point-at-scale`. W&B project

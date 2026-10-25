@@ -1,3 +1,17 @@
+---
+schema_version: 1
+id: 10-gru-reservoir-ablation
+question: Are an untrained frozen random GRU reservoir's dynamics sufficient for generalization to held-out
+  AIND subjects, or does study 01's result need learned dynamics?
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: gru_reservoir_ablation
+issues:
+- AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#151
+verdict: 'Learned dynamics matter: the frozen reservoir stays near 0.711 while the trained GRU reaches
+  0.7282; paired D=614 difference -0.0163, below the margin.'
+---
 # Study 10: GRU reservoir ablation
 
 Tracking: [#151](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/issues/151)

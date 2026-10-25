@@ -1,3 +1,15 @@
+---
+schema_version: 1
+id: 07-gru-timing-inputs
+question: 'Is the choice-prediction ceiling a property of the behaviour or of the inputs: do previous-trial
+  reaction time and lick counts buy held-out predictive power that scales?'
+status: complete
+wandb:
+  entity: AIND-disRNN
+  project: mice_rt_lick_scaling
+verdict: Previous-trial response features help by a real but flat ~+0.0075 across D~100-614; the apparent
+  growth is an input-width effect.
+---
 # Study: Timing inputs — previous-trial reaction time and lick counts
 
 *Folder `07-gru-timing-inputs`. W&B project `mice_rt_lick_scaling`, one group per
