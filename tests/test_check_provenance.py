@@ -288,6 +288,13 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertEqual(self.upstream_keys(), set())
 
+    def test_incomplete_upstream_ref_is_a_schema_error_not_a_crash(self):
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace("reproduce:", "upstream: [{report: r1}]\nreproduce:"))
+        self.commit()
+        self.assertTrue(any(k.startswith(f"report-frontmatter|{STUDY}/analysis/reports/r1-example.md|upstream/0")
+                            for k in self.keys()))
+
     def test_reading_another_study_needs_upstream(self):
         other = self.OTHER.split("/")[1]
         src = self.root / self.OTHER / "analysis/curve.json"

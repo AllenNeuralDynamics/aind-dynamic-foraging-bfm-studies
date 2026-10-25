@@ -371,7 +371,7 @@ class Checker:
             return
         me = f"{study.name}/r{m['n']}"
         cited = {f"{r['study']}/{r['report']}" for r in fm.get("upstream") or []
-                 if isinstance(r, dict) and "report" in r}
+                 if isinstance(r, dict) and "report" in r and "study" in r}   # else: a schema error
         corrects = {f"{r.get('study')}/{r.get('report')}" for r in fm.get("corrects") or [] if isinstance(r, dict)}
         for ref in sorted(cited):
             target = self.reports.get(ref)
