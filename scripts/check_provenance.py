@@ -80,8 +80,9 @@ FIX = {
     "report-group-unrecorded": "cite exact groups that have a launch record; a missing record is "
                                "recovered with studies/util/launch_record.py write_intervention(kind='backfill')",
     "report-ref-unresolved": "reference an existing {study, report}",
-    "report-upstream-stale": "the cited report no longer stands as cited: add the report that corrects or "
-                             "replaces it to `upstream`, check this report's conclusion still holds, and regenerate",
+    "report-upstream-stale": "the cited report no longer stands as cited. Corrected: also cite the correcting "
+                             "report in `upstream`. Superseded or retracted: replace the ref with its successor "
+                             "(or drop it). Then check this report's conclusion still holds and regenerate",
     "report-upstream-undeclared": "declare what the producer reads from that study in `upstream`: "
                                   "{study, report} for a result, {study, wandb_group} for raw data",
     "report-not-indexed": "link the report from analysis/reports/INDEX.md",
@@ -378,7 +379,10 @@ class Checker:
             if target is None:
                 continue                                 # report-ref-unresolved covers it
             if target.get("status") in ("superseded", "retracted"):
-                self.add("warn", "report-upstream-stale", p, f"upstream {ref} is {target['status']}", item=ref)
+                succ = target.get("superseded_by")
+                then = (f"; cite {succ.get('study')}/{succ.get('report')} instead"
+                        if isinstance(succ, dict) else "")
+                self.add("warn", "report-upstream-stale", p, f"upstream {ref} is {target['status']}{then}", item=ref)
                 continue
             missed = sorted(self.corrected_by.get(ref, set()) - cited - {me})
             if missed and ref not in corrects:
