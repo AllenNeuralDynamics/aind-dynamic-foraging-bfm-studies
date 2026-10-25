@@ -240,6 +240,35 @@ class WriteInterventionV2Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "undeclared key.*lr"):
             self.write()
 
+    def test_step_budget_override_in_a_command_list_is_extend_only(self):
+        cmd = ("command: [python, -m, run, model.training.n_steps=%d, '${args_no_hyphens}']\n")
+        (self.lr / "sweep.yaml").write_text(self.SWEEP + cmd % 60000)
+        (self.variant / "sweep.yaml").write_text(self.SWEEP + cmd % 60000)
+        m = self.resubmit(self.SWEEP + cmd % 150000)
+        with self.assertRaisesRegex(ValueError, "only an extend"):
+            self.write("rescue1/r.json", manifests=[m], deviations={"command": True})
+        rec = self.write("rescue1/e.json", kind="extend", manifests=[m], deviations={"command": True})
+        self.assertEqual(rec["kind"], "extend")
+
+    def test_inherited_record_local_manifest_is_found_beside_the_launch(self):
+        rec_path = self.lr / "beaker_resumable.json"
+        rec = json.loads(rec_path.read_text())
+        rec["manifests"] = ["sweep.yaml", "experiment_resumable_submitted.yaml"]
+        rec_path.write_text(json.dumps(rec))
+        (self.lr / "experiment_resumable_submitted.yaml").write_text("tasks: []\n")
+        (self.lr / "rescue2").mkdir()
+        out = self.write("rescue2/rescue2.json")
+        self.assertIn("experiment_resumable_submitted.yaml", out["manifests"])
+
+    def test_backfill_skips_the_submission_diff(self):
+        (self.variant / "sweep.yaml").write_text(self.SWEEP.replace("0.001", "0.005"))   # edited since
+        rec = self.write("backfill1.json", kind="backfill", platform="none", job_refs=[])
+        self.assertEqual(rec["manifests"], ["sweep.yaml"])
+
+    def test_short_note_is_refused(self):
+        with self.assertRaisesRegex(ValueError, "at least 10"):
+            self.write(note="oops")
+
     def test_unrecoverable_launch_manifest_is_refused(self):
         (self.lr / "sweep.yaml").unlink()                      # no snapshot, not a git repo
         with self.assertRaisesRegex(ValueError, "cannot recover"):

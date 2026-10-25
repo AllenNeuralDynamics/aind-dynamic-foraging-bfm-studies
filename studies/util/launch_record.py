@@ -61,6 +61,7 @@ Times are Seattle per AGENTS.md section 7.
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -208,9 +209,13 @@ def write_intervention(
     initial = _initial_launch(launch_dir, wandb_group)
     variant_dir = launch_dir.parent
     deviations = dict(deviations or {})
+    if note is not None and len(note.strip()) < 10:
+        raise ValueError("note must say why this action exists (at least 10 characters; "
+                         "schemas/launch-record.v2.schema.json)")
     if manifests is None:
         manifests = list(initial.get("manifests") or [])
-    _check_manifest_diff(path.parent, variant_dir, initial, kind, manifests, deviations)
+    if kind != "backfill":            # a backfill submits nothing, so there is no submission to diff
+        _check_manifest_diff(path.parent, variant_dir, initial, kind, manifests, deviations)
     revisions = dict(revisions or initial.get("revisions") or {})
 
     meta = build_meta(produced_by, [wandb_group], study_root=study_root)
@@ -260,12 +265,27 @@ def _initial_launch(launch_dir: Path, wandb_group: str) -> dict:
         "existing launch's group (docs/adr/0001). A different configuration is a new launch.")
 
 
+_OVERRIDE = re.compile(r"^[+~]*([A-Za-z_][\w.]*)=(.*)$")
+
+
 def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:
+    """Dotted key -> leaf value. Lists are flattened too, so a Hydra override inside a sweep
+    `command` or a Beaker `tasks[*].command` (``model.training.n_steps=150000``) becomes its
+    own key (``...command.=model.training.n_steps``) rather than hiding in one list leaf."""
     if isinstance(obj, dict):
         out: dict[str, Any] = {}
         for k, v in obj.items():
             out.update(_flatten(v, f"{prefix}{k}."))
         return out or {prefix.rstrip("."): {}}
+    if isinstance(obj, list):
+        out = {}
+        for i, v in enumerate(obj):
+            m = _OVERRIDE.match(v) if isinstance(v, str) else None
+            if m:
+                out[f"{prefix}={m[1]}"] = m[2]
+            else:
+                out.update(_flatten(v, f"{prefix}{i}."))
+        return out or {prefix.rstrip("."): []}
     return {prefix.rstrip("."): obj}
 
 
@@ -312,9 +332,11 @@ def _check_manifest_diff(record_dir: Path, variant_dir: Path, initial: dict, kin
     declared = set(deviations)
     missing = object()
     for name in manifests:
-        new = next((p for p in (variant_dir / name, record_dir / Path(name).name) if p.exists()), None)
+        candidates = (variant_dir / name, record_dir / Path(name).name, initial["_dir"] / Path(name).name)
+        new = next((p for p in candidates if p.exists()), None)
         if new is None:
-            raise ValueError(f"manifest {name} not found in {variant_dir} or {record_dir}")
+            raise ValueError(f"manifest {name} not found in {variant_dir}, {record_dir} or beside "
+                             "the launch record")
         if Path(name).name not in launch:
             raise ValueError(f"{name} matches none of the launch's manifests {sorted(launch.values())}; "
                              "a different spec is a new launch (docs/adr/0001)")
@@ -327,7 +349,8 @@ def _check_manifest_diff(record_dir: Path, variant_dir: Path, initial: dict, kin
             raise ValueError(
                 f"{name} differs from the launch's in undeclared key(s) {undeclared}; declare each "
                 "in deviations, or launch anew if the configuration changed (docs/adr/0001)")
-        restricted = [k for k in changed if any(part in _EXTEND_ONLY for part in k.split("."))]
+        restricted = [k for k in changed
+                      if any(part.lstrip("=") in _EXTEND_ONLY for part in k.split("."))]
         if restricted and kind != "extend":
             raise ValueError(f"{kind} changes {restricted}; only an extend may change the step "
                              "budget (docs/adr/0001). Use kind='extend', or launch anew")
