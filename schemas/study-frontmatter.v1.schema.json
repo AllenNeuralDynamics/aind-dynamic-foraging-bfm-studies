@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "study-frontmatter.v1",
+  "title": "Study cover",
+  "description": "YAML frontmatter of studies/<study>/README.md. Terms: CONTEXT.md (Study, Study status). Study dependencies are derived from report `upstream`, not declared here.",
+  "type": "object",
+  "required": ["schema_version", "id", "question", "status", "wandb"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^[0-9]{2}-[a-z0-9]+-[a-z0-9-]+$", "description": "Equals the directory name."},
+    "question": {"type": "string", "minLength": 10},
+    "status": {"enum": ["planned", "active", "complete", "superseded"]},
+    "superseded_by": {"type": "string", "pattern": "^[0-9]{2}-[a-z0-9]+-[a-z0-9-]+$"},
+    "wandb": {
+      "type": "object", "required": ["entity", "project"], "additionalProperties": false,
+      "properties": {"entity": {"type": "string"}, "project": {"type": "string"}}
+    },
+    "issues": {
+      "type": "array",
+      "items": {"oneOf": [
+        {"type": "integer", "minimum": 1},
+        {"type": "string", "pattern": "^AllenNeuralDynamics/[\\w.-]+#[0-9]+$"}
+      ]}
+    },
+    "verdict": {"type": "string", "maxLength": 200}
+  },
+  "if": {"properties": {"status": {"const": "superseded"}}},
+  "then": {"required": ["superseded_by"]}
+}

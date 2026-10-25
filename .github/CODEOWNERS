@@ -1,0 +1,7 @@
+# The provenance rules and the baseline of known violations. A red `provenance` check is fixed
+# in the study, not by loosening a schema or baselining the finding, so changes here need
+# the owner's review.
+/schemas/                    @hanhou
+/scripts/check_provenance.py @hanhou
+/CONTEXT.md                  @hanhou
+/docs/adr/                   @hanhou
