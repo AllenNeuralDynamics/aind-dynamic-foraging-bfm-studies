@@ -284,13 +284,19 @@ def digest_entry(spec: Path | str) -> dict:
 
 
 def _with_util_modules(code: list) -> list:
-    """The given code files plus every loaded module from studies/util (except this one)."""
+    """The given code files plus every loaded module from studies/util except this one.
+
+    _meta.py is left out on purpose: it shapes only `_meta`, which the digests verify on
+    their own, and recording it would mark every v2 artifact stale on any edit to this file.
+    Modules that change outputs (plot_style.py, ...) are recorded.
+    """
+    me = Path(__file__).resolve()
     paths = [Path(p).resolve() for p in code]
     for mod in list(sys.modules.values()):
         f = getattr(mod, "__file__", None)
-        if f and Path(f).resolve().parent == _UTIL_DIR and Path(f).resolve() != Path(__file__).resolve():
+        if f and Path(f).resolve().parent == _UTIL_DIR and Path(f).resolve() != me:
             paths.append(Path(f).resolve())
-    paths.append(Path(__file__).resolve())       # _meta.py itself shapes every artifact
+    paths = [p for p in paths if p != me]
     seen, out = set(), []
     for p in paths:
         if p not in seen:

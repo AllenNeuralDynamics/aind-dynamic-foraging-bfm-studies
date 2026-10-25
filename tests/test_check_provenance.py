@@ -198,6 +198,11 @@ class CheckProvenanceTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             _meta.build_meta("analysis/freeze.py", [GROUP], kind="freeze", code=[__file__])
 
+    def test_code_digests_skip_meta_module(self):
+        paths = _meta._with_util_modules([__file__])
+        self.assertEqual(paths[0], Path(__file__).resolve())
+        self.assertNotIn(Path(_meta.__file__).resolve(), paths)
+
     def test_v1_build_meta_is_unchanged(self):
         meta = _meta.build_meta("analysis/produce.py", [GROUP])
         self.assertNotIn("schema_version", meta)

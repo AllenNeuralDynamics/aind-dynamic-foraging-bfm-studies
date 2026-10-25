@@ -21,7 +21,7 @@
     "source_foraging_models_git_shas": {"$ref": "#/$defs/shas"},
     "provenance_findings": {"type": "array", "items": {"type": "string"}},
     "code": {
-      "description": "The producer script first, then every studies/util module it imports.",
+      "description": "The producer script first, then every studies/util module it imports except _meta.py, which shapes only _meta.",
       "type": "array", "items": {"$ref": "#/$defs/digest"}, "minItems": 1
     },
     "inputs": {
