@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_penalty_edge_extension.py",
-    "produced_at_pt": "2026-10-25T01:39:02-07:00",
-    "studies_git_sha": "169ba02bb63fe75e4994608da3818745d96e9ce9",
+    "produced_at_pt": "2026-10-25T02:04:32-07:00",
+    "studies_git_sha": "a693dd0f2a7625cfe9af4cb2de2328f5b259c570",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -30,7 +30,7 @@
       },
       {
         "path": "studies/util/cross_study.py",
-        "sha256": "969097e5413ff3546a6a5667d21ea605fd19ab82ee3a293f72470465df5a26e6"
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
       }
     ],
     "inputs": [
@@ -54,7 +54,7 @@
     "outputs": [
       {
         "path": "studies/06-disrnn-operating-point-at-scale/analysis/r3_summary.json",
-        "sha256": "5f7f41497b4cd298ce42776238f325c94914f92bcd4da86e07f0f8871c3b2e2a"
+        "sha256": "ef0223314e4e212ba0b8ff7a3ee78a91e9e884bc519cddea506fe299fcf51b55"
       },
       {
         "path": "studies/06-disrnn-operating-point-at-scale/analysis/reports/fig_r3_penalty_edge_extension.png",
@@ -234,11 +234,11 @@
     }
   ],
   "gru_reference": {
-    "10": 0.7218567728996277,
-    "30": 0.7249855995178223,
-    "100": 0.7262470126152039,
-    "300": 0.7266561388969421,
-    "614": 0.7267528573671976
+    "10": 0.7219,
+    "30": 0.725,
+    "100": 0.7262,
+    "300": 0.7267,
+    "614": 0.7268
   },
-  "rl_baseline": 0.7170386313758605
+  "rl_baseline": 0.717
 }

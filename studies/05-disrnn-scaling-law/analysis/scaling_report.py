@@ -18,6 +18,7 @@ n_eff_open_frac -- it is scale-invariant and reads high even for a fully shut bo
 from __future__ import annotations
 
 import csv
+import re
 import statistics
 import sys
 from collections import defaultdict
@@ -28,6 +29,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 STUDY = HERE.parent
+R1 = HERE / "reports" / "r1-heldout-scaling.md"
 sys.path.insert(0, str(STUDY.parent / "util"))  # shared studies/util (_meta, plot_style)
 from _meta import build_meta, write_artifact  # noqa: E402
 from cross_study import GRU_CURVE_SOURCE, RL_SOURCE, gru_h128_curve, rl_baseline  # noqa: E402
@@ -252,6 +254,32 @@ def fig_mult_axis_d614(cells):
     print("wrote fig_mult_axis_d614.png")
 
 
+def render_r1(curve) -> None:
+    """Regenerate r1's <!-- BEGIN result-1 --> table from the curve, so it cannot drift from summary.json."""
+    ds = sorted(curve)
+    peak = max(ds, key=lambda d: curve[d]["heldout"]["mean"])
+    seeds = {curve[d]["heldout"]["n"] for d in ds}
+    n = f"{seeds.pop()} seeds" if len(seeds) == 1 else "seeds vary"
+    cell = lambda d, v: f"**{v:.4f}**" if d == peak else f"{v:.4f}"
+    minus = lambda v: f"{v:.4f}".replace("-", "\u2212")
+    lines = ["| D | " + " | ".join(str(d) for d in ds) + " |",
+             "|---|" + "---|" * len(ds),
+             f"| **disRNN** (mult=2, β=1e-3, {n}) | "
+             + " | ".join(cell(d, curve[d]["heldout"]["mean"]) for d in ds) + " |",
+             "| GRU (study 01) | " + " | ".join(f"{curve[d]['gru']:.4f}" for d in ds) + " |",
+             "| gap | " + " | ".join(minus(curve[d]["gap_vs_gru"]) for d in ds) + " |",
+             "",
+             "Per-mouse RL baselines, same held-out cohort and metric: "
+             f"**compare-to-threshold {RL['compare-to-threshold']:.4f}**,",
+             f"Bari {RL['Bari (L1F1_CK1)']:.4f}, Hattori {RL['Hattori (L2F1)']:.4f}."]
+    text = R1.read_text()
+    new = re.sub(r"(<!-- BEGIN result-1 -->\n).*?(\n<!-- END result-1 -->)",
+                 lambda m: m.group(1) + "\n".join(lines) + m.group(2), text, flags=re.S)
+    if "<!-- BEGIN result-1 -->" not in text:
+        raise RuntimeError(f"{R1.name} has no result-1 markers")
+    R1.write_text(new)
+
+
 def seed_noise(rows):
     """Seed-to-seed SD at the SAME config (D=614, mult=2, beta=1e-3), across EVERY variant.
 
@@ -287,9 +315,11 @@ def main() -> None:
     fig_scaling_curve(curve)
     fig_sparsity_vs_d(curve)
     fig_mult_axis_d614(cells)
+    render_r1(curve)
     write_artifact(HERE / "summary.json", payload,
-                   outputs=[HERE / n for n in ("summary.csv", "fig_scaling_curve.png",
-                                               "fig_sparsity_vs_d.png", "fig_mult_axis_d614.png")])
+                   outputs=[*(HERE / n for n in ("summary.csv", "fig_scaling_curve.png",
+                                                 "fig_sparsity_vs_d.png", "fig_mult_axis_d614.png")),
+                            f"{R1}#result-1"])
     print("wrote summary.json + summary.csv")
     print(f"seed noise @ D=614: heldout SD {noise['heldout_sd']:.4f} | "
           f"openness SD {noise['interaction_openness_sd']:.3f}")

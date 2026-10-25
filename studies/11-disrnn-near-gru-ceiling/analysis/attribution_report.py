@@ -327,7 +327,8 @@ def main():
 
     meta = build_meta("analysis/attribution_report.py",
                       [*STUDY10_GROUPS.values(), S06_GROUP, *GRU_GROUPS], study_root=HERE.parent,
-                      code=[__file__], inputs=[HERE / "grid.csv", HERE / "reference_points.csv", RL_SOURCE])
+                      code=[__file__, HERE / "pull_grid.py"],   # its group constants label result-2
+                      inputs=[HERE / "grid.csv", HERE / "reference_points.csv", RL_SOURCE])
     write_artifact(HERE / "attribution_summary.json",
                    {"_meta": meta, "gru_ceiling_h256_mean": gru_mean, "study06_tuned_mean": s06_mean,
                     "baseline_gap": baseline_gap, "rl_baseline_ctt": RL_BASELINE,

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/attribution_report.py",
-    "produced_at_pt": "2026-10-25T01:39:15-07:00",
-    "studies_git_sha": "169ba02bb63fe75e4994608da3818745d96e9ce9",
+    "produced_at_pt": "2026-10-25T02:04:37-07:00",
+    "studies_git_sha": "a693dd0f2a7625cfe9af4cb2de2328f5b259c570",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -30,11 +30,15 @@
     "code": [
       {
         "path": "studies/11-disrnn-near-gru-ceiling/analysis/attribution_report.py",
-        "sha256": "e16289e003fd6385c352f7a4cea232cb5e0815340d123d914cfa0a226d2da084"
+        "sha256": "2a85be071f06fa62591d96054edcae133776975a3f7921940365e97c41c175ac"
+      },
+      {
+        "path": "studies/11-disrnn-near-gru-ceiling/analysis/pull_grid.py",
+        "sha256": "c61071c7481b2c43786260ed8cfcc10452f8f3c61db0299076e348a38923f84e"
       },
       {
         "path": "studies/util/cross_study.py",
-        "sha256": "969097e5413ff3546a6a5667d21ea605fd19ab82ee3a293f72470465df5a26e6"
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
       }
     ],
     "inputs": [
@@ -54,11 +58,11 @@
     "outputs": [
       {
         "path": "studies/11-disrnn-near-gru-ceiling/analysis/attribution_summary.json",
-        "sha256": "44cf1bbb2e61aeb68b3dee5a25c55503f3c42dbffdcb50cffa8f543007f30731"
+        "sha256": "ad77234f5fdb0d5ffa47d5c3c325a1435afce8593df99b325ccad0a4d45fb1af"
       },
       {
         "path": "studies/11-disrnn-near-gru-ceiling/analysis/fig_gru_ceiling_attribution.png",
-        "sha256": "933ebae543920c2752885805a1d051e6031d42937c76048eafef5e6db155eccb"
+        "sha256": "55845c0226ad52ef8948fe782d4666f1ad71cabf4803bd35c1065fc3d6897868"
       },
       {
         "path": "studies/11-disrnn-near-gru-ceiling/analysis/reports/r1-near-gru-attribution.md#result-1",
@@ -77,7 +81,7 @@
   "gru_ceiling_h256_mean": 0.7290228009223938,
   "study06_tuned_mean": 0.7220835983753204,
   "baseline_gap": 0.006939202547073364,
-  "rl_baseline_ctt": 0.7170386313758605,
+  "rl_baseline_ctt": 0.717,
   "stages": [
     {
       "label": "disRNN (study 06 tuned pt.)",

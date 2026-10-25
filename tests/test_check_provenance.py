@@ -320,6 +320,26 @@ class CheckProvenanceTest(unittest.TestCase):
         self.assertEqual(self.upstream_keys(), set())
         self.assertFalse(any(k.startswith("artifact-stale-") for k in self.keys()))
 
+    def test_report_citing_the_artifact_in_inputs_needs_upstream_too(self):
+        """No result-block output: the report is linked through its `inputs`, however spelled."""
+        other = self.OTHER.split("/")[1]
+        src = self.root / self.OTHER / "analysis/curve.json"
+        src.parent.mkdir(parents=True, exist_ok=True)
+        src.write_text('{"614": 0.7268}')
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace("  data: analysis/grid.csv\n",
+                                                     "  data: analysis/grid.csv\n  summary: ./analysis/summary.json\n"))
+        a = self.study / "analysis"
+        with mock.patch.object(_meta, "REPO_ROOT", self.root.resolve()), \
+                mock.patch.object(_meta, "_studies_state", return_value=(SHA, False)), \
+                mock.patch.object(_meta, "_with_util_modules", side_effect=lambda code: code):
+            meta = _meta.build_meta("analysis/produce.py", [GROUP], study_root=self.study,
+                                    code=[a / "produce.py"], inputs=[a / "grid.csv", src])
+            _meta.write_artifact(a / "summary.json", {"_meta": meta, "x": 0.7})
+        self.commit()
+        self.assertEqual(self.upstream_keys(),
+                         {f"report-upstream-undeclared|{STUDY}/analysis/reports/r1-example.md|{other}"})
+
     # -- launch records (ADR 0001) ----------------------------------------------------------------
     def test_group_prefix_must_be_variant(self):
         rec = dict(RECORD, wandb_group="other@20261024-101500")

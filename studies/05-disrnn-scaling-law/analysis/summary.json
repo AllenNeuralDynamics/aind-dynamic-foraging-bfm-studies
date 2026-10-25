@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/scaling_report.py",
-    "produced_at_pt": "2026-10-25T01:38:13-07:00",
-    "studies_git_sha": "169ba02bb63fe75e4994608da3818745d96e9ce9",
+    "produced_at_pt": "2026-10-25T02:04:08-07:00",
+    "studies_git_sha": "a693dd0f2a7625cfe9af4cb2de2328f5b259c570",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -21,11 +21,11 @@
     "code": [
       {
         "path": "studies/05-disrnn-scaling-law/analysis/scaling_report.py",
-        "sha256": "03dff6f11d93ccd296c30efdf781fb71378af9aa21901312793c1f87c834a7ae"
+        "sha256": "43ffc92e0f956539608675bad6f28aeb3898dfbeb2369198a2045e5eba9acc39"
       },
       {
         "path": "studies/util/cross_study.py",
-        "sha256": "969097e5413ff3546a6a5667d21ea605fd19ab82ee3a293f72470465df5a26e6"
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -49,15 +49,15 @@
     "outputs": [
       {
         "path": "studies/05-disrnn-scaling-law/analysis/summary.json",
-        "sha256": "9af8ec1cca8b12b234a2f99052930a75392983c3409c7f13a59ed13e2645365f"
+        "sha256": "96549601b693b7cfc309ed130de5d68d4aaf4866c09266fd49ebc520d5086a6c"
       },
       {
         "path": "studies/05-disrnn-scaling-law/analysis/summary.csv",
-        "sha256": "a64271a9059dec75143bb2e9e0a9c02267f10fa8254e3d6328ffc4c6cde062af"
+        "sha256": "e0dca14e58c84c24e4dbc7d85e708892911f5e13d4ab4ee7b493d3fea446829d"
       },
       {
         "path": "studies/05-disrnn-scaling-law/analysis/fig_scaling_curve.png",
-        "sha256": "9e2f3532ce51fe9fe9beb85713506e0ed0950a85caa5a33581d5224c8eceb2e6"
+        "sha256": "8ea57938275bfaa8feea4e9ac05b85fec1c872fc08fe14154046858abfb61fc5"
       },
       {
         "path": "studies/05-disrnn-scaling-law/analysis/fig_sparsity_vs_d.png",
@@ -65,22 +65,26 @@
       },
       {
         "path": "studies/05-disrnn-scaling-law/analysis/fig_mult_axis_d614.png",
-        "sha256": "2060ee8bdc639d829c49e9954bad65ee8fe901ef55240be6266843bc37f27cc3"
+        "sha256": "235ffe9e774f608da311e958a064a92dd8adf6b40de5f77aa874545d4b0364ec"
+      },
+      {
+        "path": "studies/05-disrnn-scaling-law/analysis/reports/r1-heldout-scaling.md#result-1",
+        "sha256": "cf4c7c259ba8f0949b032cd5de79421f24ed863ef2af916a735d0e88624b069b"
       }
     ]
   },
   "note": "openness = total_openness = Sigma(1-sigma); NEVER n_eff_open_frac. GRU and RL references share this study's held-out cohort and metric key.",
   "gru_reference": {
-    "10": 0.7218567728996277,
-    "30": 0.7249855995178223,
-    "100": 0.7262470126152039,
-    "300": 0.7266561388969421,
-    "614": 0.7267528573671976
+    "10": 0.7219,
+    "30": 0.725,
+    "100": 0.7262,
+    "300": 0.7267,
+    "614": 0.7268
   },
   "rl_baselines": {
-    "compare-to-threshold": 0.7170386313758605,
-    "Bari (L1F1_CK1)": 0.7149126531636378,
-    "Hattori (L2F1)": 0.7126671432016844
+    "compare-to-threshold": 0.717,
+    "Bari (L1F1_CK1)": 0.7149,
+    "Hattori (L2F1)": 0.7127
   },
   "seed_noise_at_D614": {
     "n_seeds": 4,
@@ -114,8 +118,8 @@
         "n": 3,
         "ci95": 0.011087797497585811
       },
-      "gru": 0.7218567728996277,
-      "gap_vs_gru": -0.011786778767903683,
+      "gru": 0.7219,
+      "gap_vs_gru": -0.011830005868275983,
       "update_net_latent": {
         "mean": 0.16083888212839764,
         "sem": 0.1525538061505358,
@@ -160,8 +164,8 @@
         "n": 3,
         "ci95": 0.003789318204529759
       },
-      "gru": 0.7249855995178223,
-      "gap_vs_gru": -0.010237952073415157,
+      "gru": 0.725,
+      "gap_vs_gru": -0.01025235255559287,
       "update_net_latent": {
         "mean": 0.4811072150866191,
         "sem": 0.019813989388320907,
@@ -206,8 +210,8 @@
         "n": 3,
         "ci95": 0.0032196920293753426
       },
-      "gru": 0.7262470126152039,
-      "gap_vs_gru": -0.008832395076751709,
+      "gru": 0.7262,
+      "gap_vs_gru": -0.008785382461547808,
       "update_net_latent": {
         "mean": 0.7743935187657675,
         "sem": 0.2011712011987338,
@@ -252,8 +256,8 @@
         "n": 3,
         "ci95": 0.003252046239193613
       },
-      "gru": 0.7266561388969421,
-      "gap_vs_gru": -0.010190407435099247,
+      "gru": 0.7267,
+      "gap_vs_gru": -0.01023426853815712,
       "update_net_latent": {
         "mean": 0.9219421744346619,
         "sem": 0.23129590221650526,
@@ -298,8 +302,8 @@
         "n": 3,
         "ci95": 0.0006312390706125919
       },
-      "gru": 0.7267528573671976,
-      "gap_vs_gru": -0.011311988035837772,
+      "gru": 0.7268,
+      "gap_vs_gru": -0.011359130668640138,
       "update_net_latent": {
         "mean": 0.6923823555310568,
         "sem": 0.2216614943325769,

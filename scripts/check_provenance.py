@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import posixpath
 import re
 import subprocess
 import sys
@@ -459,7 +460,8 @@ class Checker:
         for key, path in self.report_paths.items():
             fm = self.reports[key]
             if key.startswith(f"{study}/") and isinstance(fm.get("inputs"), dict) and any(
-                    art in (v if isinstance(v, list) else [v]) for v in fm["inputs"].values()):
+                    isinstance(i, str) and posixpath.normpath(i) == art
+                    for v in fm["inputs"].values() for i in (v if isinstance(v, list) else [v])):
                 written.add(self.rel(path))
         for report in sorted(written):
             if not (self.root / report).exists():
