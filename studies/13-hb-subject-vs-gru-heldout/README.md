@@ -7,7 +7,7 @@ question: Does a subject-level hierarchical Bayesian cognitive baseline (session
 status: planned
 wandb:
   entity: AIND-disRNN
-  project: hb_subject_heldout
+  project: mice_data_scaling
 motivated_by:
 - study: 08-hb-vs-gru-heldout
   note: the population-subject-session fit did not mix at D~99-614, so no HB rung was usable;
@@ -17,7 +17,8 @@ issues:
 ---
 # Study: 13-hb-subject-vs-gru-heldout
 
-W&B project [`hb_subject_heldout`](https://wandb.ai/AIND-disRNN/hb_subject_heldout).
+W&B project [`mice_data_scaling`](https://wandb.ai/AIND-disRNN/mice_data_scaling), shared with
+studies 01 and 08.
 
 **Question.** Does a subject-level hierarchical Bayesian cognitive baseline (sessions vary around each mouse, no population level), fit only on each held-out mouse's conditioning sessions, match the GRU's held-out-subject likelihood?
 
@@ -41,6 +42,12 @@ marginal is reported alongside it for continuity. The question is answered by wh
 variant lands between the per-mouse MLE (no session variability) and the GRU.
 
 Design decisions and their reasons: issue #27; PLAN.md to follow.
+
+## Deviations from study-conventions
+
+- **Shared W&B project.** The convention is one project per study. Like study 08, this study
+  logs into study 01's `mice_data_scaling` on purpose, so its held-out numbers sit beside the
+  GRU and HB runs they are compared with instead of needing a manual join across projects.
 
 ## Verdict
 
