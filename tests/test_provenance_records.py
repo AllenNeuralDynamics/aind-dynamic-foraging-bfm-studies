@@ -141,7 +141,9 @@ class WriteInterventionV2Tests(unittest.TestCase):
         self.variant = Path(self.tmp.name) / "studies" / "12-gru-x" / "variants" / "base"
         self.lr = self.variant / "launch_record"
         self.lr.mkdir(parents=True)
-        (self.variant / "sweep.yaml").write_text("parameters:\n  n_steps: {value: 60000}\n  lr: {value: 0.001}\n")
+        self.SWEEP = "parameters:\n  n_steps: {value: 60000}\n  lr: {value: 0.001}\n"
+        (self.variant / "sweep.yaml").write_text(self.SWEEP)
+        (self.lr / "sweep.yaml").write_text(self.SWEEP)      # the launcher's immutable snapshot
         initial = {"_meta": {"schema_version": 2, "produced_by": "launch_beaker_resumable.py",
                              "produced_at_pt": "2026-10-24T10:15:00-07:00"},
                    "kind": "initial", "platform": "beaker", "wandb_group": self.GROUP, "label": "base",
@@ -187,16 +189,61 @@ class WriteInterventionV2Tests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "no initial launch record"):
             self.write(wandb_group="base@20261101-000000")
 
-    def test_undeclared_manifest_change_is_refused(self):
-        resub = self.lr / "rescue1"
-        resub.mkdir()
-        (resub / "sweep.yaml").write_text("parameters:\n  n_steps: {value: 120000}\n  lr: {value: 0.001}\n")
-        with self.assertRaisesRegex(ValueError, "undeclared key.*n_steps"):
-            self.write("rescue1/rescue1.json", kind="extend", manifests=["sweep.yaml"])
-        rec = self.write("rescue1/rescue1.json", kind="extend", manifests=["sweep.yaml"],
-                         deviations={"parameters.n_steps": 120000})
-        self.assertEqual(rec["deviations"], {"parameters.n_steps": 120000})
+    def resubmit(self, text: str) -> str:
+        (self.lr / "rescue1").mkdir(exist_ok=True)
+        (self.lr / "rescue1" / "sweep.yaml").write_text(text)
+        return "launch_record/rescue1/sweep.yaml"
 
+    def test_undeclared_manifest_change_is_refused(self):
+        m = self.resubmit(self.SWEEP.replace("60000", "120000"))
+        with self.assertRaisesRegex(ValueError, "undeclared key.*n_steps"):
+            self.write("rescue1/extend1.json", kind="extend", manifests=[m])
+        rec = self.write("rescue1/extend1.json", kind="extend", manifests=[m],
+                         deviations={"parameters.n_steps": 120000})
+        self.assertEqual(rec["manifests"], [m])               # the submitted path, not the launch's
+
+    def test_only_extend_may_change_the_step_budget(self):
+        m = self.resubmit(self.SWEEP.replace("60000", "120000"))
+        with self.assertRaisesRegex(ValueError, "only an extend"):
+            self.write("rescue1/r.json", manifests=[m], deviations={"parameters.n_steps": 120000})
+
+    def test_variant_edited_after_launch_is_compared_with_the_snapshot(self):
+        (self.variant / "sweep.yaml").write_text(self.SWEEP.replace("0.001", "0.005"))
+        with self.assertRaisesRegex(ValueError, "undeclared key.*lr"):
+            self.write()                                       # default: the launch's manifests
+
+    def test_added_null_key_is_a_change(self):
+        m = self.resubmit(self.SWEEP + "  extra: {value: null}\n")
+        with self.assertRaisesRegex(ValueError, "undeclared key.*extra"):
+            self.write("rescue1/r.json", manifests=[m])
+
+    def test_empty_manifests_and_unknown_manifest_are_refused(self):
+        with self.assertRaisesRegex(ValueError, "manifests is empty"):
+            self.write(manifests=[])
+        (self.variant / "other.yaml").write_text("a: 1\n")
+        with self.assertRaisesRegex(ValueError, "matches none"):
+            self.write(manifests=["other.yaml"])
+
+    def test_launch_manifest_is_read_at_the_launch_commit(self):
+        import subprocess
+        root = Path(self.tmp.name)
+        git = lambda *a: subprocess.run(["git", "-C", str(root), *a], check=True,
+                                        capture_output=True, text=True).stdout.strip()
+        (self.lr / "sweep.yaml").unlink()                      # no snapshot: fall back to git
+        git("init", "-q"); git("add", "-A")
+        git("-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "launch")
+        rec_path = self.lr / "beaker_resumable.json"
+        rec = json.loads(rec_path.read_text())
+        rec["revisions"]["studies"] = git("rev-parse", "HEAD")
+        rec_path.write_text(json.dumps(rec))
+        (self.variant / "sweep.yaml").write_text(self.SWEEP.replace("0.001", "0.005"))   # edited since
+        with self.assertRaisesRegex(ValueError, "undeclared key.*lr"):
+            self.write()
+
+    def test_unrecoverable_launch_manifest_is_refused(self):
+        (self.lr / "sweep.yaml").unlink()                      # no snapshot, not a git repo
+        with self.assertRaisesRegex(ValueError, "cannot recover"):
+            self.write()
 
 if __name__ == "__main__":
     unittest.main()
