@@ -4,6 +4,8 @@ The record of every scientific question asked of dynamic-foraging-bfm: what was 
 it produced, and what was concluded. This glossary fixes the provenance vocabulary; model and
 evaluation terms (held-out subject, few-shot, condition, ...) are defined in the
 [dispatcher glossary](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/blob/main/CONTEXT.md).
+A study may keep its own `CONTEXT.md` for the vocabulary only that study uses, and its own
+`adr/` for the decisions that shaped it; this file and `docs/adr/` hold what is repo-wide.
 
 ## Language
 

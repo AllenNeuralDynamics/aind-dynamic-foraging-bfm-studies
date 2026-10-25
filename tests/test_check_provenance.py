@@ -216,6 +216,13 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertEqual(self.keys(), {f"study-root-extra|{STUDY}/analyze.py|analyze.py"})
 
+    def test_study_context_and_adrs_are_allowed(self):
+        (self.study / "CONTEXT.md").write_text("")
+        (self.study / "adr").mkdir()
+        (self.study / "adr/0001-example.md").write_text("")
+        self.commit()
+        self.assertEqual(self.keys(), set())
+
     def test_glob_group_and_command_input(self):
         report = self.study / "analysis/reports/r1-example.md"
         report.write_text(report.read_text()
