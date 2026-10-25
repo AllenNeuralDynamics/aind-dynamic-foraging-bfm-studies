@@ -28,6 +28,8 @@ the links give detail, they do not replace the rules.
   frozen number by an immutable digest, and inspect numeric and artifact diffs before
   claiming a result. New analysis JSON carries `_meta.studies_git_sha` and the
   `source_*_git_shas` arrays; never relabel this repository's HEAD as dispatcher provenance.
+- **Start from the scaffolder**: `make new-study`, `make new-variant`, `make new-report` (usage
+  in the root `Makefile`). Their output passes `make validate` as written.
 - **Layout and provenance are schema-checked.** The rules are `schemas/` (fields, layout) and
   `CONTEXT.md` (vocabulary: study, variant, launch, intervention, report, freeze, ...); read
   them rather than copying an old study, whose files may predate a rule. Write analysis JSON
