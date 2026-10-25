@@ -84,6 +84,13 @@ class ScaffoldTest(unittest.TestCase):
             scaffold.main(["report", "--study", "12-gru-example", "--slug", "again", "--title", "Again"])
         self.assertEqual(self.tree(), before)
 
+    def test_cache_slug_is_refused(self):
+        self.new_study()
+        before = self.tree()
+        with self.assertRaises(SystemExit):
+            scaffold.main(["report", "--study", "12-gru-example", "--slug", "cache-sensitivity", "--title", "C"])
+        self.assertEqual(self.tree(), before)
+
     def test_local_issue_number_becomes_an_int(self):
         scaffold.main(["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
                        "--project", "p", "--variant", "base", "--issue", "14"])

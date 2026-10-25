@@ -155,6 +155,9 @@ def new_report(a: argparse.Namespace) -> None:
     reports = d / "analysis" / "reports"
     if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", a.slug):
         fail(f"SLUG {a.slug!r} must be lowercase words joined by -")
+    if LAYOUT["analysis"]["cache_pattern"] in a.slug:
+        fail(f"SLUG {a.slug!r} contains {LAYOUT['analysis']['cache_pattern']!r}: files named so are "
+             "gitignored caches and skipped by the checker; pick another word")
     nums = [int(m["n"]) for p in reports.glob("r*.md")
             if (m := re.match(LAYOUT["analysis"]["report_name_pattern"], p.name))]
     # a deleted draft can leave its rN target behind; never hand its number to a new report
