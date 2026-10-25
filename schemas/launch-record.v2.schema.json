@@ -49,10 +49,10 @@
     "tasks": {"type": "array"},
     "data": {
       "type": "object", "required": ["source", "config"], "additionalProperties": false,
-      "description": "What the runs trained and were evaluated on. snapshot: a dated, immutable copy of the foraging database, by id and the sha256 of its snapshot_manifest.json; live: the growing database (not reproducible; launchers refuse it without --allow-live-data); generated: a synthetic population defined by the config itself.",
+      "description": "What the runs trained and were evaluated on. snapshot: a dated, immutable copy of the foraging database, by id and the sha256 of its snapshot_manifest.json; live: the growing database (not reproducible; launchers refuse it without --allow-live-data); generated: a synthetic population defined by the config itself; external: a dataset outside the foraging database, read by a non-Hydra runner (e.g. study 09's external_transfer), named in `config`.",
       "properties": {
-        "source": {"enum": ["snapshot", "live", "generated"]},
-        "config": {"type": "string", "description": "The Hydra data config, e.g. mice_snapshot_scaling."},
+        "source": {"enum": ["snapshot", "live", "generated", "external"]},
+        "config": {"type": "string", "description": "The Hydra data config, e.g. mice_snapshot_scaling; for an external source, the runner and its dataset argument."},
         "type": {"type": ["string", "null"], "description": "The data config's `type`, e.g. mice_snapshot."},
         "snapshot": {"type": ["string", "null"]},
         "uri": {"type": ["string", "null"]},

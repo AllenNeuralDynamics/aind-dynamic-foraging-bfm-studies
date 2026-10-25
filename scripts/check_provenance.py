@@ -366,10 +366,16 @@ class Checker:
                     self.add("warn", "record-data-unrecorded", p, "the runs read the live database (no snapshot)")
                 elif data.get("source") == "snapshot" and not (data.get("uri") and data.get("manifest_sha256")):
                     self.add("warn", "record-data-unrecorded", p, "the snapshot has no uri or manifest digest")
+                # the image must describe this record's backend: a Beaker id for Beaker, a conda
+                # lock digest for HPC; the other backend's identity proves nothing about this run
+                identity = {"beaker": "id", "hpc": "lock_sha256"}[rec["platform"]]
                 if not isinstance(image, dict):
                     self.add("warn", "record-image-unrecorded", p, "the launch record has no `image`")
-                elif not (image.get("id") or image.get("lock_sha256")):
-                    self.add("warn", "record-image-unrecorded", p, f"`image` has no immutable id or digest ({image.get('name') or image.get('conda_env')})")
+                elif image.get("platform") != rec["platform"]:
+                    self.add("warn", "record-image-unrecorded", p,
+                             f"`image` describes {image.get('platform')}, but the launch ran on {rec['platform']}")
+                elif not image.get(identity):
+                    self.add("warn", "record-image-unrecorded", p, f"`image` has no immutable {identity} ({image.get('name') or image.get('conda_env')})")
 
     def check_reports(self, study: Path, targets: set[str]) -> None:
         A = self.layout["analysis"]

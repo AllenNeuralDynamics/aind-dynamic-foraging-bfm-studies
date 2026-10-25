@@ -420,12 +420,14 @@ class CheckProvenanceTest(unittest.TestCase):
     def test_unpinned_data_or_image_is_a_warning_even_when_present(self):
         path = f"{STUDY}/variants/base/launch_record/beaker.json"
         for data, image in (({**RECORD["data"], "manifest_sha256": None}, RECORD["image"]),
-                            ({"source": "live", "config": "mice_snapshot"}, {**RECORD["image"], "id": None})):
+                            ({"source": "live", "config": "mice_snapshot"}, {**RECORD["image"], "id": None}),
+                            (RECORD["data"], {"platform": "hpc", "conda_env": "/envs/x", "lock_sha256": "e" * 64})):
             (self.study / "variants/base/launch_record/beaker.json").write_text(json.dumps({**RECORD, "data": data, "image": image}))
             self.commit()
             got = {k for k in self.keys() if k.startswith("record-")}
-            self.assertIn(f"record-data-unrecorded|{path}|", got)
-        self.assertIn(f"record-image-unrecorded|{path}|", got)
+            if data is not RECORD["data"]:
+                self.assertIn(f"record-data-unrecorded|{path}|", got)
+        self.assertIn(f"record-image-unrecorded|{path}|", got)      # an HPC lock on a Beaker launch is no pin
 
     def test_v1_record_is_never_rejudged(self):
         (self.study / "variants/base/launch_record/old.json").write_text(json.dumps({"mode": "resumable-grid"}))
