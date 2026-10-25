@@ -215,7 +215,23 @@ class Checker:
                 for c in fm.get("corrects") or []:
                     if isinstance(c, dict):
                         corrected_by.setdefault(f"{c.get('study')}/{c.get('report')}", set()).add(key)
-        return reports, corrected_by
+
+        def standing(key: str) -> str | None:
+            """The report that now carries `key`'s correction: itself if it stands, its
+            successor if superseded, nothing if retracted (a withdrawn correction binds no one)."""
+            seen = set()
+            while key in reports and key not in seen:
+                seen.add(key)
+                fm = reports[key]
+                if fm.get("status") == "retracted":
+                    return None
+                succ = fm.get("superseded_by")
+                if fm.get("status") != "superseded" or not isinstance(succ, dict):
+                    return key
+                key = f"{succ.get('study')}/{succ.get('report')}"
+            return None
+        corrected_by = {t: {s for c in cs if (s := standing(c))} for t, cs in corrected_by.items()}
+        return reports, {t: cs for t, cs in corrected_by.items() if cs}
 
     def makefile_targets(self, study: Path) -> set[str]:
         mk = study / "Makefile"

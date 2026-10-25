@@ -273,6 +273,26 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertEqual(self.upstream_keys(), set())
 
+    def test_withdrawn_or_replaced_correction_resolves_to_what_stands(self):
+        other = self.OTHER.split("/")[1]
+        stale = {f"report-upstream-stale|{STUDY}/analysis/reports/r1-example.md|{other}/r1"}
+        corrects = f"corrects: [{{study: {other}, report: r1, note: wrong}}]\n"
+        self.other_report(1)
+        # r2 corrects r1 but is superseded by r3: r3 carries the correction
+        self.other_report(2, corrects + f"superseded_by: {{study: {other}, report: r3}}\n", status="superseded")
+        self.other_report(3)
+        self.cite(f"{other}/r1", f"{other}/r3")
+        self.commit()
+        self.assertEqual(self.upstream_keys(), set())
+        report = self.study / "analysis/reports/r1-example.md"
+        report.write_text(report.read_text().replace(f"  - {{study: {other}, report: r3}}\n", ""))
+        self.commit()
+        self.assertEqual(self.upstream_keys(), stale)
+        # a retracted correction binds no one
+        self.other_report(2, corrects, status="retracted")
+        self.commit()
+        self.assertEqual(self.upstream_keys(), set())
+
     def test_superseded_upstream_is_stale_and_the_corrector_itself_is_not(self):
         other = self.OTHER.split("/")[1]
         self.other_report(1, status="superseded")
