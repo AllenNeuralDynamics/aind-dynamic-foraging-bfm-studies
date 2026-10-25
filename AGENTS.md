@@ -28,6 +28,13 @@ the links give detail, they do not replace the rules.
   frozen number by an immutable digest, and inspect numeric and artifact diffs before
   claiming a result. New analysis JSON carries `_meta.studies_git_sha` and the
   `source_*_git_shas` arrays; never relabel this repository's HEAD as dispatcher provenance.
+- **Layout and provenance are schema-checked.** The rules are `schemas/` (fields, layout) and
+  `CONTEXT.md` (vocabulary: study, variant, launch, intervention, report, freeze, ...); read
+  them rather than copying an old study, whose files may predate a rule. Write analysis JSON
+  with `build_meta(..., code=[__file__], inputs=[...])` + `write_artifact()`. Run
+  `make validate` before opening a PR: every new finding prints a fix, and CI's `provenance`
+  check fails on it. Fix the study; never loosen a schema or add to
+  `schemas/provenance-baseline.json` to get green.
 - Use Conventional Commits. Open a PR for every change; **never squash-merge**, and never
   merge any PR without explicit user confirmation. Resolve every review thread.
 - Human-facing times are Seattle time (`TZ=America/Los_Angeles`, e.g. `10:48 PT`), and any
