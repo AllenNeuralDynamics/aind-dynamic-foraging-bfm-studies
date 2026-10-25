@@ -427,7 +427,8 @@ class CheckProvenanceTest(unittest.TestCase):
             got = {k for k in self.keys() if k.startswith("record-")}
             if data is not RECORD["data"]:
                 self.assertIn(f"record-data-unrecorded|{path}|", got)
-        self.assertIn(f"record-image-unrecorded|{path}|", got)      # an HPC lock on a Beaker launch is no pin
+            if image is not RECORD["image"]:     # a null id, or an HPC lock on a Beaker launch: no pin
+                self.assertIn(f"record-image-unrecorded|{path}|", got)
 
     def test_v1_record_is_never_rejudged(self):
         (self.study / "variants/base/launch_record/old.json").write_text(json.dumps({"mode": "resumable-grid"}))
