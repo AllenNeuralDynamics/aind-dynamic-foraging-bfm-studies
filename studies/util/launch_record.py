@@ -214,8 +214,14 @@ def write_intervention(
                          "schemas/launch-record.v2.schema.json)")
     if manifests is None:
         manifests = list(initial.get("manifests") or [])
+    if not manifests:
+        raise ValueError("manifests is empty; a record must name what it submitted "
+                         "(schemas/launch-record.v2.schema.json)")
+    resolved = _resolve_manifests(path.parent, variant_dir, initial, manifests)
     if kind != "backfill":            # a backfill submits nothing, so there is no submission to diff
-        _check_manifest_diff(path.parent, variant_dir, initial, kind, manifests, deviations)
+        _check_manifest_diff(variant_dir, initial, kind, resolved, deviations)
+    # stored variant-relative, so scripts/check_provenance.py finds each one from the variant
+    manifests = [p.relative_to(variant_dir).as_posix() for p in resolved.values()]
     revisions = dict(revisions or initial.get("revisions") or {})
 
     meta = build_meta(produced_by, [wandb_group], study_root=study_root)
@@ -281,8 +287,8 @@ def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:
         out = {}
         for i, v in enumerate(obj):
             m = _OVERRIDE.match(v) if isinstance(v, str) else None
-            if m:
-                out[f"{prefix}={m[1]}"] = m[2]
+            if m:                     # keep the whole token: `~k=v` (delete) differs from `k=v`
+                out[f"{prefix}={m[1]}"] = v
             else:
                 out.update(_flatten(v, f"{prefix}{i}."))
         return out or {prefix.rstrip("."): []}
@@ -317,26 +323,31 @@ def _launch_manifest_text(name: str, initial: dict, variant_dir: Path) -> str:
                      "that may have changed since the launch")
 
 
-def _check_manifest_diff(record_dir: Path, variant_dir: Path, initial: dict, kind: str,
-                         manifests: list[str], deviations: dict) -> None:
+def _resolve_manifests(record_dir: Path, variant_dir: Path, initial: dict,
+                       manifests: list[str]) -> dict[str, Path]:
+    """name -> file, looked up in the variant, beside the new record, then beside the launch."""
+    out = {}
+    for name in manifests:
+        candidates = (variant_dir / name, record_dir / Path(name).name, initial["_dir"] / Path(name).name)
+        found = next((p for p in candidates if p.exists()), None)
+        if found is None:
+            raise ValueError(f"manifest {name} not found in {variant_dir}, {record_dir} or beside "
+                             "the launch record")
+        out[name] = found.resolve()
+    return out
+
+
+def _check_manifest_diff(variant_dir: Path, initial: dict, kind: str,
+                         manifests: dict[str, Path], deviations: dict) -> None:
     """Refuse a submitted manifest that differs from the launch's in an undeclared key.
 
-    ``manifests`` are variant-relative paths of what this action submitted; each is matched
-    to the launch manifest with the same file name and compared key by key (a key present
-    in one and absent in the other differs, even if its value is null).
+    Each submitted file is matched to the launch manifest with the same file name and compared
+    key by key (a key present in one and absent in the other differs, even if null).
     """
-    if not manifests:
-        raise ValueError("manifests is empty; a record must name what it submitted "
-                         "(schemas/launch-record.v2.schema.json)")
     launch = {Path(m).name: m for m in initial.get("manifests") or []}
     declared = set(deviations)
     missing = object()
-    for name in manifests:
-        candidates = (variant_dir / name, record_dir / Path(name).name, initial["_dir"] / Path(name).name)
-        new = next((p for p in candidates if p.exists()), None)
-        if new is None:
-            raise ValueError(f"manifest {name} not found in {variant_dir}, {record_dir} or beside "
-                             "the launch record")
+    for name, new in manifests.items():
         if Path(name).name not in launch:
             raise ValueError(f"{name} matches none of the launch's manifests {sorted(launch.values())}; "
                              "a different spec is a new launch (docs/adr/0001)")

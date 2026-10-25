@@ -258,12 +258,26 @@ class WriteInterventionV2Tests(unittest.TestCase):
         (self.lr / "experiment_resumable_submitted.yaml").write_text("tasks: []\n")
         (self.lr / "rescue2").mkdir()
         out = self.write("rescue2/rescue2.json")
-        self.assertIn("experiment_resumable_submitted.yaml", out["manifests"])
+        # variant-relative paths the CI checker resolves from the variant directory
+        self.assertEqual(out["manifests"], ["sweep.yaml", "launch_record/experiment_resumable_submitted.yaml"])
+        self.assertTrue(all((self.variant / m).exists() for m in out["manifests"]))
 
     def test_backfill_skips_the_submission_diff(self):
         (self.variant / "sweep.yaml").write_text(self.SWEEP.replace("0.001", "0.005"))   # edited since
         rec = self.write("backfill1.json", kind="backfill", platform="none", job_refs=[])
         self.assertEqual(rec["manifests"], ["sweep.yaml"])
+
+    def test_backfill_with_no_manifests_is_refused(self):
+        with self.assertRaisesRegex(ValueError, "manifests is empty"):
+            self.write("backfill1.json", kind="backfill", platform="none", job_refs=[], manifests=[])
+
+    def test_hydra_delete_operator_is_a_change(self):
+        cmd = "command: [python, -m, run, '%smodel.training.lr=0.001']\n"
+        (self.lr / "sweep.yaml").write_text(self.SWEEP + cmd % "")
+        (self.variant / "sweep.yaml").write_text(self.SWEEP + cmd % "")
+        m = self.resubmit(self.SWEEP + cmd % "~")
+        with self.assertRaisesRegex(ValueError, "undeclared key"):
+            self.write("rescue1/r.json", manifests=[m])
 
     def test_short_note_is_refused(self):
         with self.assertRaisesRegex(ValueError, "at least 10"):
