@@ -4,6 +4,10 @@ The scientific studies of the `dynamic-foraging-bfm` stack: a behavioural founda
 for rodent dynamic foraging. Each study is one scientific question, with its launch
 manifests, immutable launch records, frozen inputs, analysis code and reports in one folder.
 
+**Browse it:** the [atlas](https://allenneuraldynamics.github.io/aind-dynamic-foraging-bfm-atlas/)
+shows every study, report and number here, traced back to its producer, inputs, W&B group and
+commits ([source](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-atlas)).
+
 The code that launches and trains lives in two sibling repositories, which this one expects
 side by side:
 
