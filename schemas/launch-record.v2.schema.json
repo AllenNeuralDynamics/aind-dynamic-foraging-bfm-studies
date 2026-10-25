@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "launch-record.v2",
+  "title": "Launch record",
+  "description": "One JSON per launch or intervention, under studies/<study>/variants/<variant>/launch_record/. Written by the dispatcher launchers and studies/util/launch_record.py. Terms: CONTEXT.md (Launch, Intervention, W&B group); rules: docs/adr/0001. Records without `_meta.schema_version: 2` are v1 (frozen history) and only warn.",
+  "type": "object",
+  "required": ["_meta", "kind", "platform", "wandb_group", "label", "note", "job_refs", "revisions", "manifests"],
+  "properties": {
+    "_meta": {
+      "type": "object", "required": ["schema_version", "produced_by", "produced_at_pt"],
+      "properties": {"schema_version": {"const": 2}}
+    },
+    "kind": {"enum": ["initial", "resubmit", "rescue", "probe", "tier-change", "backfill", "extend"]},
+    "platform": {"enum": ["beaker", "hpc"]},
+    "wandb_group": {"type": "string", "pattern": "^[A-Za-z0-9][\\w.-]*@[0-9]{8}-[0-9]{6}$",
+                    "description": "Prefix before `@` equals the variant directory name."},
+    "label": {"type": "string", "minLength": 1},
+    "note": {"type": "string", "minLength": 10, "description": "The launcher --note: why the run exists and what it should teach us."},
+    "job_refs": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["type", "id"],
+        "properties": {
+          "type": {"enum": ["beaker_experiment", "wandb_sweep", "slurm_array_job", "slurm_job"]},
+          "id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "revisions": {
+      "type": "object", "required": ["studies", "dispatcher", "wrapper"],
+      "additionalProperties": false,
+      "properties": {
+        "studies": {"$ref": "#/$defs/sha"},
+        "dispatcher": {"$ref": "#/$defs/sha"},
+        "wrapper": {"$ref": "#/$defs/sha"},
+        "foraging_models": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "manifests": {"type": "array", "minItems": 1, "items": {"type": "string"},
+                  "description": "Variant-relative paths of the submitted sweep/experiment manifests."},
+    "n_tasks": {"type": "integer", "minimum": 1},
+    "supersedes": {"type": "array", "items": {"type": "string"}},
+    "trigger": {
+      "type": ["object", "null"],
+      "properties": {"symptom": {"type": "string"}, "cause": {"type": "string"}, "evidence": {}}
+    },
+    "deviations": {"type": "object", "description": "Manifest fields that differ from the launch's, field -> value or true."},
+    "cost": {"type": "object"},
+    "tasks": {"type": "array"}
+  },
+  "if": {"properties": {"kind": {"not": {"const": "initial"}}}},
+  "then": {"required": ["trigger"], "properties": {"trigger": {"type": "object", "required": ["symptom"]}}},
+  "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"}}
+}

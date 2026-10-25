@@ -21,10 +21,12 @@ Times stamped in America/Los_Angeles per AGENTS.md section 7.
 from __future__ import annotations
 
 import datetime
+import hashlib
 import json
 import os
 import re
 import subprocess
+import sys
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -32,11 +34,14 @@ _FULL_SHA = re.compile(r"^[0-9a-f]{40}$")
 
 # _meta key -> the launch-record keys that hold that repo's SHA, newest schema first, then
 # the legacy launcher key, then the `launch.revisions` block hand-written records carry.
+# The bare repo names are the keys of a v2 record's `revisions` block
+# (schemas/launch-record.v2.schema.json).
 _SOURCE_SHA_KEYS = {
-    "source_studies_git_shas": ("studies_git_commit", "studies_commit"),
-    "source_dispatcher_git_shas": ("dispatcher_git_commit", "dispatcher_commit"),
-    "source_wrapper_git_shas": ("wrapper_git_commit", "wrapper_commit"),
-    "source_foraging_models_git_shas": ("foraging_models_git_commit", "foraging_models_commit"),
+    "source_studies_git_shas": ("studies_git_commit", "studies_commit", "studies"),
+    "source_dispatcher_git_shas": ("dispatcher_git_commit", "dispatcher_commit", "dispatcher"),
+    "source_wrapper_git_shas": ("wrapper_git_commit", "wrapper_commit", "wrapper"),
+    "source_foraging_models_git_shas": ("foraging_models_git_commit", "foraging_models_commit",
+                                        "foraging_models"),
 }
 
 
@@ -130,7 +135,7 @@ def _source_shas(study_root: Path | None, wandb_groups: list[str]) -> tuple[dict
                 continue
             covered |= groups
             revisions = (rec.get("launch") or {}).get("revisions") if isinstance(rec.get("launch"), dict) else None
-            sources = [rec] + ([revisions] if isinstance(revisions, dict) else [])
+            sources = [rec] + [r for r in (revisions, rec.get("revisions")) if isinstance(r, dict)]
             for key, aliases in _SOURCE_SHA_KEYS.items():
                 for src in sources:
                     for alias in aliases:
@@ -171,7 +176,9 @@ def _wrapper_sha(study_root: Path) -> str | None:
         return None
 
 
-def build_meta(produced_by: str, wandb_groups: list[str], study_root: Path | str | None = None) -> dict:
+def build_meta(produced_by: str, wandb_groups: list[str], study_root: Path | str | None = None,
+               *, kind: str | None = None, code: list | None = None, inputs: list | None = None,
+               sources: list[dict] | None = None) -> dict:
     """Return a _meta dict per the JSON output contract.
 
     Args:
@@ -181,12 +188,19 @@ def build_meta(produced_by: str, wandb_groups: list[str], study_root: Path | str
         study_root: path to ``studies/<study>/`` (where environment.lock and the variants'
             launch records live). If None, the wrapper sha and the ``source_*_git_shas``
             arrays are omitted, and ``provenance_findings`` says so.
+        kind, code, inputs, sources: passing ``code`` opts into ``_meta`` v2
+            (schemas/meta.v2.schema.json). ``kind`` is ``"producer"`` (default) or ``"freeze"``;
+            ``code`` is the producer script (pass ``__file__``), to which every imported
+            ``studies/util`` module is added; ``inputs`` are the committed files it read;
+            ``sources`` the external objects a freeze read. Write the artifact with
+            ``write_artifact()``, which adds the ``outputs`` digests. Without ``code`` the
+            v1 shape is returned unchanged, so existing producers regenerate identically.
     """
     now_pt = datetime.datetime.now(ZoneInfo("America/Los_Angeles"))
     studies_sha, studies_dirty = _studies_state()
     root = Path(study_root) if study_root else None
-    sources, findings = _source_shas(root, list(wandb_groups))
-    return {
+    source_shas, findings = _source_shas(root, list(wandb_groups))
+    meta = {
         "produced_by": produced_by,
         "produced_at_pt": now_pt.isoformat(timespec="seconds"),
         # The checkout this producer ran from (studies repo after #124). Pre-split outputs
@@ -195,6 +209,104 @@ def build_meta(produced_by: str, wandb_groups: list[str], study_root: Path | str
         "studies_git_dirty": studies_dirty,
         "wrapper_git_sha": _wrapper_sha(study_root) if study_root else None,
         "wandb_groups": list(wandb_groups),
-        **sources,
+        **source_shas,
         "provenance_findings": findings,
     }
+    if code is None:
+        return meta
+    kind = kind or "producer"
+    if kind not in ("producer", "freeze"):
+        raise ValueError(f"kind must be 'producer' or 'freeze', not {kind!r}")
+    if kind == "freeze" and not sources:
+        raise ValueError("a freeze must list the external `sources` it read")
+    meta = {"schema_version": 2, "kind": kind, **meta,
+            "code": [digest_entry(p) for p in _with_util_modules(code)],
+            "inputs": [digest_entry(p) for p in inputs or []]}
+    if sources:
+        meta["sources"] = list(sources)
+    return meta
+
+
+# --- _meta v2 digests ---------------------------------------------------------------------
+# One implementation shared by producers (write) and scripts/check_provenance.py (verify), so
+# the two can never disagree on what a digest covers.
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+_UTIL_DIR = Path(__file__).resolve().parent
+
+
+def repo_path(path: Path | str) -> str:
+    """Repository-relative POSIX path; relative inputs are resolved against the cwd."""
+    return Path(path).resolve().relative_to(REPO_ROOT).as_posix()
+
+
+def file_digest(path: Path | str) -> str:
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def body_digest(obj: dict) -> str:
+    """Digest of a JSON artifact without its `_meta`, canonically serialised.
+
+    A file cannot contain its own hash, so the artifact's entry in its own `outputs` covers
+    the body only. Sorted keys and fixed separators make the bytes independent of insertion
+    order and indentation.
+    """
+    body = {k: v for k, v in obj.items() if k != "_meta"}
+    text = json.dumps(body, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
+RESULT_BLOCK = re.compile(r"<!-- BEGIN ([\w.-]+) -->\n?(.*?)<!-- END \1 -->", re.S)
+
+
+def block_digest(text: str) -> str:
+    """Digest of a result block, ignoring trailing whitespace and surrounding blank lines."""
+    norm = "\n".join(line.rstrip() for line in text.strip("\n").splitlines()).strip()
+    return hashlib.sha256(norm.encode()).hexdigest()
+
+
+def result_blocks(report: Path | str) -> dict[str, str]:
+    return dict(RESULT_BLOCK.findall(Path(report).read_text()))
+
+
+def digest_entry(spec: Path | str) -> dict:
+    """``{path, sha256}`` for a file, or for ``<report.md>#<block>`` a result block."""
+    spec = str(spec)
+    if "#" in spec:
+        report, block = spec.split("#", 1)
+        blocks = result_blocks(report)
+        if block not in blocks:
+            raise KeyError(f"{report} has no result block {block!r}")
+        return {"path": f"{repo_path(report)}#{block}", "sha256": block_digest(blocks[block])}
+    return {"path": repo_path(spec), "sha256": file_digest(spec)}
+
+
+def _with_util_modules(code: list) -> list:
+    """The given code files plus every loaded module from studies/util (except this one)."""
+    paths = [Path(p).resolve() for p in code]
+    for mod in list(sys.modules.values()):
+        f = getattr(mod, "__file__", None)
+        if f and Path(f).resolve().parent == _UTIL_DIR and Path(f).resolve() != Path(__file__).resolve():
+            paths.append(Path(f).resolve())
+    paths.append(Path(__file__).resolve())       # _meta.py itself shapes every artifact
+    seen, out = set(), []
+    for p in paths:
+        if p not in seen:
+            seen.add(p)
+            out.append(p)
+    return out
+
+
+def write_artifact(path: Path | str, obj: dict, outputs: list | None = None, indent: int = 2) -> None:
+    """Write a JSON artifact whose ``_meta`` is v2, filling ``_meta.outputs``.
+
+    ``outputs`` are the other files this run wrote (figures, CSVs, ``report.md#block``), written
+    before this call. The artifact's own entry is the digest of its body without ``_meta``.
+    """
+    meta = obj.get("_meta") or {}
+    if meta.get("schema_version") != 2:
+        raise ValueError("write_artifact needs a v2 _meta: call build_meta(..., code=[__file__])")
+    path = Path(path)
+    meta["outputs"] = [{"path": repo_path(path), "sha256": body_digest(obj)}] + \
+        [digest_entry(p) for p in outputs or []]
+    path.write_text(json.dumps(obj, indent=indent, ensure_ascii=False) + "\n")

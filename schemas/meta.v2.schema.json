@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "meta.v2",
+  "title": "Analysis artifact _meta",
+  "description": "The opening `_meta` key of every analysis JSON, written by studies/util/_meta.py build_meta(). Terms: CONTEXT.md (Producer, Freeze, Analysis artifact, Input digest). A JSON without `schema_version` is v1 (legacy) and is only checked for presence. All digest paths are repository-relative.",
+  "type": "object",
+  "required": ["schema_version", "kind", "produced_by", "produced_at_pt", "studies_git_sha",
+               "wandb_groups", "code", "inputs", "outputs"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "kind": {"enum": ["producer", "freeze"]},
+    "produced_by": {"type": "string", "description": "Study-relative path of the producer script."},
+    "produced_at_pt": {"type": "string", "format": "date-time"},
+    "studies_git_sha": {"$ref": "#/$defs/sha"},
+    "studies_git_dirty": {"type": ["boolean", "null"], "description": "Whole-checkout flag; informational only. Reproducibility is `code` + `inputs`."},
+    "wrapper_git_sha": {"oneOf": [{"$ref": "#/$defs/sha"}, {"type": "null"}]},
+    "wandb_groups": {"type": "array", "items": {"type": "string", "pattern": "^[A-Za-z0-9][\\w.-]*@[0-9]{8}-[0-9]{6}$"}},
+    "source_studies_git_shas": {"$ref": "#/$defs/shas"},
+    "source_dispatcher_git_shas": {"$ref": "#/$defs/shas"},
+    "source_wrapper_git_shas": {"$ref": "#/$defs/shas"},
+    "source_foraging_models_git_shas": {"$ref": "#/$defs/shas"},
+    "provenance_findings": {"type": "array", "items": {"type": "string"}},
+    "code": {
+      "description": "The producer script first, then every studies/util module it imports.",
+      "type": "array", "items": {"$ref": "#/$defs/digest"}, "minItems": 1
+    },
+    "inputs": {
+      "description": "Committed files the producer read. Never a gitignored cache.",
+      "type": "array", "items": {"$ref": "#/$defs/digest"}
+    },
+    "outputs": {
+      "description": "Every file the run wrote, including this JSON (digest of its canonical body without `_meta`) and result blocks (`<report path>#<block name>`, digest of the whitespace-normalised block).",
+      "type": "array", "items": {"$ref": "#/$defs/digest"}, "minItems": 1
+    },
+    "sources": {
+      "description": "Mutable external objects a freeze read.",
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["type", "id"],
+        "properties": {
+          "type": {"enum": ["wandb_run", "beaker_dataset", "url", "doi", "file"]},
+          "id": {"type": "string", "minLength": 1},
+          "step": {"type": "integer"},
+          "state": {"type": "string"},
+          "updated_at": {"type": "string"},
+          "sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"kind": {"const": "freeze"}}}, "then": {"required": ["sources"]}},
+    {"if": {"properties": {"kind": {"const": "producer"}}}, "then": {"properties": {"inputs": {"minItems": 1}}}}
+  ],
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "shas": {"type": "array", "items": {"$ref": "#/$defs/sha"}},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "digest": {
+      "type": "object", "required": ["path", "sha256"], "additionalProperties": false,
+      "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}
+    }
+  }
+}
