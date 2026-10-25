@@ -74,8 +74,10 @@ FIX = {
     "record-orphan-intervention": "an intervention joins an existing launch's group (ADR 0001); "
                                   "record the initial launch, or launch anew",
     "record-manifest-missing": "commit the manifest the record names, beside it in the variant",
-    "record-data-unrecorded": "launch with a dispatcher that records `data` (studies#25), or add it to the record",
-    "record-image-unrecorded": "launch with a dispatcher that records `image` (studies#25), or add it to the record",
+    "record-data-unrecorded": "launch with a pinned data snapshot from a dispatcher that records `data` (studies#25); "
+                              "a null digest means the manifest could not be read at launch",
+    "record-image-unrecorded": "launch with a dispatcher that records `image` (studies#25) and with BEAKER_TOKEN set, "
+                               "so the image name resolves to its immutable id",
     "report-name": "name reports rN-<slug>.md",
     "report-frontmatter-missing": "add frontmatter (schemas/report-frontmatter.v1.schema.json)",
     "report-frontmatter": "fix the frontmatter field named in the message "
@@ -353,11 +355,21 @@ class Checker:
             for m in rec.get("manifests") or []:
                 if not (v / m).exists() and not (p.parent / m).exists():
                     self.add("error", "record-manifest-missing", p, f"manifest {m} not found", item=m)
-            # what the runs trained on and ran in (studies#25); a backfill submits nothing
+            # what the runs trained on and ran in (studies#25); a backfill submits nothing.
+            # The schema accepts a null digest or id (a launcher without network or token
+            # writes one rather than failing), so the checker warns on those too.
             if rec.get("platform") in ("beaker", "hpc"):
-                for field in ("data", "image"):
-                    if field not in rec:
-                        self.add("warn", f"record-{field}-unrecorded", p, f"the launch record has no `{field}`")
+                data, image = rec.get("data"), rec.get("image")
+                if not isinstance(data, dict):
+                    self.add("warn", "record-data-unrecorded", p, "the launch record has no `data`")
+                elif data.get("source") == "live":
+                    self.add("warn", "record-data-unrecorded", p, "the runs read the live database (no snapshot)")
+                elif data.get("source") == "snapshot" and not (data.get("uri") and data.get("manifest_sha256")):
+                    self.add("warn", "record-data-unrecorded", p, "the snapshot has no uri or manifest digest")
+                if not isinstance(image, dict):
+                    self.add("warn", "record-image-unrecorded", p, "the launch record has no `image`")
+                elif not (image.get("id") or image.get("lock_sha256")):
+                    self.add("warn", "record-image-unrecorded", p, f"`image` has no immutable id or digest ({image.get('name') or image.get('conda_env')})")
 
     def check_reports(self, study: Path, targets: set[str]) -> None:
         A = self.layout["analysis"]

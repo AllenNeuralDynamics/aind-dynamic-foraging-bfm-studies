@@ -417,6 +417,16 @@ class CheckProvenanceTest(unittest.TestCase):
         self.assertEqual({k for k in self.keys() if k.startswith("record-")},
                          {f"record-data-unrecorded|{path}|", f"record-image-unrecorded|{path}|"})
 
+    def test_unpinned_data_or_image_is_a_warning_even_when_present(self):
+        path = f"{STUDY}/variants/base/launch_record/beaker.json"
+        for data, image in (({**RECORD["data"], "manifest_sha256": None}, RECORD["image"]),
+                            ({"source": "live", "config": "mice_snapshot"}, {**RECORD["image"], "id": None})):
+            (self.study / "variants/base/launch_record/beaker.json").write_text(json.dumps({**RECORD, "data": data, "image": image}))
+            self.commit()
+            got = {k for k in self.keys() if k.startswith("record-")}
+            self.assertIn(f"record-data-unrecorded|{path}|", got)
+        self.assertIn(f"record-image-unrecorded|{path}|", got)
+
     def test_v1_record_is_never_rejudged(self):
         (self.study / "variants/base/launch_record/old.json").write_text(json.dumps({"mode": "resumable-grid"}))
         self.commit()
