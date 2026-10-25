@@ -230,7 +230,11 @@ def write_intervention(
     revisions = dict(revisions or initial.get("revisions") or {})
     if platform != "none":
         data = data if data is not None else initial.get("data")
-        image = image if image is not None else initial.get("image")
+        # an image only carries over to the same backend (an HPC rescue of a Beaker launch runs
+        # in a conda env, not the Beaker image); otherwise it stays unrecorded unless given
+        inherited = initial.get("image")
+        if image is None and isinstance(inherited, dict) and inherited.get("platform") == platform:
+            image = inherited
 
     meta = build_meta(produced_by, [wandb_group], study_root=study_root)
     record = {

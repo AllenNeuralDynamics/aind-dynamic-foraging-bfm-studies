@@ -194,6 +194,9 @@ class WriteInterventionV2Tests(unittest.TestCase):
         backfill = self.write("backfill1.json", kind="backfill", platform="none", job_refs=[])
         self.assertNotIn("data", backfill)
         self.assertNotIn("image", backfill)
+        hpc = self.write("rescue_hpc.json", platform="hpc", job_refs=[{"type": "slurm_array_job", "id": "77"}])
+        self.assertEqual(hpc["data"]["snapshot"], "20260603")
+        self.assertNotIn("image", hpc)                      # a Beaker image never describes an HPC run
 
     def test_data_and_image_shapes(self):
         rec = self.write()
