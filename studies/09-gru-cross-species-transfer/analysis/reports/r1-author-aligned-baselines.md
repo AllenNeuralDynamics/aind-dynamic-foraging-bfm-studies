@@ -98,6 +98,9 @@ inputs:
     - analysis/fig_example_sessions_hattori_median.png
     - analysis/fig_example_sessions_hattori_upper.png
 reproduce: make -C studies/09-gru-cross-species-transfer r1
+tags:
+  model: [gru, cognitive]
+  question: [transfer, comparison]
 ---
 
 # Result 1 — Stage-A external transfer decision report

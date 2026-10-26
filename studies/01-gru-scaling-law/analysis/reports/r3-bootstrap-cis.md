@@ -11,6 +11,9 @@ inputs:
   data: analysis/bootstrap_scaling.json
   figure: null
 reproduce: python studies/data-scaling-law/analysis/bootstrap_scaling.py
+tags:
+  model: [gru]
+  question: [scaling]
 ---
 
 # Result 3 — bootstrap CIs on the scaling shape (resample 149 held-out mice ×1000)

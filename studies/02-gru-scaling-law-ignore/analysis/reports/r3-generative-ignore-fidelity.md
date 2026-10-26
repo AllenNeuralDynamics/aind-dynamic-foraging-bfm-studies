@@ -24,6 +24,9 @@ inputs:
   session_plot_script: analysis/generative/plot_example_sessions.py
 wrapper_ref: 4aa3aec699552fcf92b083de914e21b4665fdf80  # merged to wrapper main via PR #62 (merge 6cdf1ab0)
 hpc_jobs: [25336319, 5a199cf7, f8b8d1d2]
+tags:
+  model: [gru]
+  question: [generative-run, more-inputs]
 ---
 
 # Does the 3-way GRU generate realistic ignore trials?

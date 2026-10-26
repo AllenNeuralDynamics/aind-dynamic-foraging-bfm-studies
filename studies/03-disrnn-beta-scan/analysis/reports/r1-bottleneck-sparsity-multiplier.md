@@ -14,6 +14,9 @@ inputs:
   related_scripts:
     - analysis/update_reports.py    # regenerates the block below
 reproduce: make -C studies/beta-scan r1
+tags:
+  model: [disrnn]
+  question: [tuning, interpretation]
 ---
 
 # Result 1 — the multiplier monotonically closes the interaction bottleneck; the model compensates

@@ -26,6 +26,9 @@ reproduce: |
   # once, needs BEAKER_TOKEN + network (beaker.org, data.beaker.org); streams ~3.1 GB:
   python studies/01-gru-scaling-law/analysis/fetch_gru_history_patterns.py
   python studies/01-gru-scaling-law/analysis/pswitch_history_patterns.py
+tags:
+  model: [gru]
+  question: [generative-run]
 ---
 
 # Result 9 — generative model-vs-animal behavioral match vs D (2nd-order validation)

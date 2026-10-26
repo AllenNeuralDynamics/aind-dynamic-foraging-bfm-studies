@@ -10,6 +10,9 @@ wandb:
 verdict: 'The multiplier monotonically closes the interaction gate, but the model compensates elsewhere:
   capacity is conserved, not removed.'
 motivated_by: []
+tags:
+  model: [disrnn]
+  question: [tuning, interpretation]
 ---
 # Study: update-net-ratio β-scan (disRNN interaction sparsity at 100 mice)
 

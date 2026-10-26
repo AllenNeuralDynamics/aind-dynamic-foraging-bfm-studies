@@ -15,6 +15,9 @@ motivated_by:
 - study: 01-gru-scaling-law
   report: r1
   note: held-out prediction improves with more training mice; does that need learned recurrent dynamics?
+tags:
+  model: [gru]
+  question: [ablation]
 ---
 # Study 10: GRU reservoir ablation
 

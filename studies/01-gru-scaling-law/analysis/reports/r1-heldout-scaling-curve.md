@@ -11,6 +11,9 @@ inputs:
   data: analysis/report_data.json
   figure: analysis/fig_scaling_v1_v2.png
 reproduce: python studies/data-scaling-law/analysis/build_report.py
+tags:
+  model: [gru]
+  question: [scaling]
 ---
 
 # Result 1 — held-out scaling curve (cell-level, n=15 matched pairs)

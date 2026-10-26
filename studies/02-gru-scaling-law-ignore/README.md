@@ -14,6 +14,9 @@ motivated_by:
   report: r1
   note: per-trial choice likelihood flattens near a ceiling; would ignore trials as a third class show
     the scaling slope choice lacks?
+tags:
+  model: [gru]
+  question: [scaling, more-inputs, generative-run]
 ---
 # Study: Include-ignore-trials scaling (3-way output)
 

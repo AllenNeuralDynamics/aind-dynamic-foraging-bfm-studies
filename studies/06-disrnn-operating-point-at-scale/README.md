@@ -16,6 +16,9 @@ motivated_by:
 - study: 03-disrnn-beta-scan
   report: r2
   note: sparsity looked free at D=100; each study froze the axis the other varied
+tags:
+  model: [disrnn]
+  question: [tuning, scaling]
 ---
 # Study: disRNN operating point at scale
 

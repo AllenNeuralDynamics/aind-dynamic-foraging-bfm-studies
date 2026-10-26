@@ -15,6 +15,9 @@ inputs:
   data: analysis/convergence.json
   figure: analysis/fig_convergence.png
 reproduce: make -C studies/08-hb-vs-gru-heldout r4
+tags:
+  model: [cognitive/bh]
+  question: [methods]
 ---
 
 # Result 4 — Do the HB fits mix, what do sampler settings buy, and what does Stan cost

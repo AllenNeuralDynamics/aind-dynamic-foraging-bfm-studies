@@ -30,6 +30,9 @@ upstream:
     report: r8
     note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r2
+tags:
+  model: [disrnn]
+  question: [tuning, scaling]
 ---
 
 # r2 — The mult-d-grid held-out-transfer surface

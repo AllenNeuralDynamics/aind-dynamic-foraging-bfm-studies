@@ -60,6 +60,8 @@ FIX = {
     "study-environment-lock": "a study with a freeze needs environment.lock (pip freeze of the env that ran it)",
     "study-motivation-unresolved": "point `motivated_by` at an existing study (and report), or an issue",
     "study-motivation-order": "a study can only be motivated by an earlier study (lower accession number)",
+    "tag-unknown": "use a value listed in schemas/tags.yaml, or add it there (with a label and description) in the same PR",
+    "study-tag-unreported": "tag the live report that does this work (report frontmatter `tags`), or drop the study tag",
     "study-motivation-many": "more than 3 motivations usually mixes in what the study uses; move those to its reports' `upstream`",
     "study-frontmatter-missing": "add README frontmatter (schemas/study-frontmatter.v1.schema.json)",
     "study-frontmatter": "fix the README frontmatter field named in the message "
@@ -131,6 +133,7 @@ class Checker:
         self.schema = {name: Draft202012Validator(json.loads((SCHEMAS / f"{name}.schema.json").read_text()))
                        for name in ("report-frontmatter.v1", "study-frontmatter.v1", "meta.v2",
                                     "launch-record.v2")}
+        self.tags = yaml.safe_load((SCHEMAS / "tags.yaml").read_text())["facets"]
         self.findings: list[Finding] = []
         self._keys: set[str] = set()
         # committed (in the index): what may be an input. visible: also new, not-yet-added
@@ -277,6 +280,7 @@ class Checker:
                 self.add("error", "study-frontmatter", study / "README.md",
                          f"id {fm.get('id')!r} != directory {study.name}", item="id")
             self.check_motivation(study, fm)
+            self.check_study_tags(study, fm)
 
         targets = self.makefile_targets(study)
         for t in self.layout["makefile"]["required_targets"]:
@@ -310,6 +314,34 @@ class Checker:
                          f"motivated_by {ref} is not an earlier study than {study.name}", item=ref)
         if len(entries) > 3:
             self.add("info", "study-motivation-many", readme, f"{len(entries)} motivations")
+
+    def check_tags(self, tags, path: Path) -> None:
+        """Every tag value is in schemas/tags.yaml (CONTEXT.md, Tag); shape errors are the schema's."""
+        for facet, values in (tags.items() if isinstance(tags, dict) else []):
+            known = (self.tags.get(facet) or {}).get("values") or {}
+            for v in values if isinstance(values, list) and known else []:
+                if v not in known:
+                    self.add("error", "tag-unknown", path, f"tags.{facet}: {v!r} is not in schemas/tags.yaml", item=f"{facet}:{v}")
+
+    def check_study_tags(self, study: Path, fm: dict) -> None:
+        """A complete study's tags are each carried by one of its live reports (`cognitive/bh` on a
+        report covers `cognitive` on the study). Planned and active studies have nothing to show yet."""
+        tags = fm.get("tags")
+        self.check_tags(tags, study / "README.md")
+        live = [r for k, r in self.reports.items() if k.startswith(study.name + "/") and r.get("status") == "live"]
+        if fm.get("status") != "complete" or not live or not isinstance(tags, dict):
+            return
+        for facet, values in tags.items():
+            carried = set()
+            for r in live:
+                rt = (r.get("tags") or {}).get(facet) if isinstance(r.get("tags"), dict) else None
+                for t in rt if isinstance(rt, list) else []:
+                    parts = str(t).split("/")
+                    carried |= {"/".join(parts[:i + 1]) for i in range(len(parts))}
+            for v in values if isinstance(values, list) else []:
+                if v not in carried:
+                    self.add("warn", "study-tag-unreported", study / "README.md",
+                             f"tags.{facet}: {v!r} is on no live report of this complete study", item=f"{facet}:{v}")
 
     def _is_tracked_tree(self, p: Path) -> bool:
         r = self.rel(p)
@@ -401,6 +433,7 @@ class Checker:
 
     def check_report_frontmatter(self, study: Path, p: Path, m, fm: dict, targets: set[str]) -> None:
         self.schema_errors("report-frontmatter.v1", fm, "report-frontmatter", p)
+        self.check_tags(fm.get("tags"), p)
         if fm.get("id") != f"r{m['n']}" or (fm.get("slug") and fm.get("slug") != m["slug"]):
             self.add("error", "report-id-mismatch", p,
                      f"frontmatter id/slug {fm.get('id')}/{fm.get('slug')} != filename r{m['n']}-{m['slug']}")

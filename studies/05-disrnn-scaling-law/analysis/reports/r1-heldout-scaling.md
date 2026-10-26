@@ -18,6 +18,9 @@ upstream:
     report: r8
     note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/05-disrnn-scaling-law r1
+tags:
+  model: [disrnn]
+  question: [scaling]
 ---
 
 # r1 — Held-out transfer vs cohort size: the disRNN peaks at ~100 mice, then declines

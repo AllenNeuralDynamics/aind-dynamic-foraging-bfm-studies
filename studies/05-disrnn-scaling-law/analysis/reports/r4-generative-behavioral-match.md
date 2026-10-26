@@ -16,6 +16,9 @@ upstream:
     report: r9
     note: the GRU generative match (analysis/generative_match.json)
 reproduce: make -C studies/05-disrnn-scaling-law r4
+tags:
+  model: [disrnn, cognitive]
+  question: [generative-run, comparison]
 ---
 
 # r4 — Does the disRNN *behave* like a mouse? No: it is measurably less mouse-like than the GRU at every D

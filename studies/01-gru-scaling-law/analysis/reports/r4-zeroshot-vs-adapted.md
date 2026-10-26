@@ -14,6 +14,9 @@ inputs:
   figure: analysis/fig_zeroshot_vs_d.png
   notes: source script not committed; figure overlay produced by analysis/rl_baseline.py
 reproduce: python studies/data-scaling-law/analysis/rl_baseline.py  # refreshes RL overlay only
+tags:
+  model: [gru]
+  question: [transfer]
 ---
 
 # Result 4 — zero-shot vs adapted held-out generalization

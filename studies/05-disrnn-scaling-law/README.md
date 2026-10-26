@@ -19,6 +19,9 @@ motivated_by:
 - study: 03-disrnn-beta-scan
   report: r2
   note: held-out transfer was flat across the penalty multiplier, but only ever tested at a fixed D=100
+tags:
+  model: [disrnn, cognitive]
+  question: [scaling, interpretation, generative-run]
 ---
 # Study: disRNN data-scaling law (the disRNN half of issue #16)
 

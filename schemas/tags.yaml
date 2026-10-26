@@ -1,0 +1,55 @@
+# Tag vocabulary for study and report frontmatter (CONTEXT.md, Tag).
+#
+# `tags: {model: [...], question: [...]}` on a study README (both required) and optionally on
+# a report. A value must be listed here; scripts/check_provenance.py rejects any other.
+# A `/` nests a tag: `cognitive/bh` also counts as `cognitive`.
+# `label` and `description` are what the atlas shows on a chip and in its tooltip.
+schema_version: 1
+facets:
+  model:
+    label: Model
+    description: A model the study or report trains or fits itself. Numbers read from another study do not count.
+    values:
+      gru:
+        label: GRU
+        description: Gated recurrent unit sequence model
+      disrnn:
+        label: disRNN
+        description: Disentangled RNN with an information bottleneck
+      cognitive:
+        label: Cognitive
+        description: Classical cognitive and reinforcement-learning models, fit per mouse
+      cognitive/bh:
+        label: Cognitive › BH
+        description: Hierarchical Bayesian cognitive model (e.g. HB-Hattori2019)
+  question:
+    label: Question
+    description: The kind of question the study asks, or a report answers.
+    values:
+      scaling:
+        label: Scaling
+        description: How prediction changes with more training mice (D) or a bigger model
+      tuning:
+        label: Tuning
+        description: Choosing a hyperparameter or operating point, such as a bottleneck penalty or embedding width
+      ablation:
+        label: Ablation
+        description: Removing, freezing or relaxing a model component to see what it contributes
+      more-inputs:
+        label: More inputs
+        description: Adding input signals (reaction time, licks) or output classes beyond left/right choice
+      comparison:
+        label: Comparison
+        description: Held-out likelihood against another model family, such as cognitive models
+      interpretation:
+        label: Interpretation
+        description: "What the model learned: bottleneck latents, sparsity, subject embeddings"
+      transfer:
+        label: Transfer
+        description: Generalizing to new mice, datasets or species, including few-shot adaptation
+      generative-run:
+        label: Generative run
+        description: Rolling the model out to generate behaviour and comparing it with real mice
+      methods:
+        label: Methods
+        description: Checks on the measurement itself, such as evaluation subsets, checkpoint selection or sampler convergence
