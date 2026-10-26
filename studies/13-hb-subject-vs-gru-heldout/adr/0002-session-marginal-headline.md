@@ -14,8 +14,12 @@ with 08.
 
 ## Consequences
 
-- The estimator is Monte Carlo over draws, and for sessions of hundreds of trials it is
-  dominated by a few draws. Its Monte Carlo error is reported with the score, and the draw
-  count (or importance sampling) is chosen so that error is well below the GRU's seed spread.
+- The estimator is Monte Carlo over draws, and averaging plain draws starves: on synthetic
+  120-trial sessions the weight ESS was 4–12 of 300 draws, and real sessions are ~500 trials.
+  The headline therefore uses importance sampling: a proposal fitted to each scored session
+  (Laplace at the mode, heavy-tailed, mixed with the conditioned subject's own distribution so
+  weights stay bounded), reweighted so the estimate stays exact in expectation. Plain draw
+  averaging is kept as a cross-check on short sessions. The Monte Carlo error and ESS are
+  reported with the score, and must sit well below the GRU's seed spread.
 - foraging-models has only the trial-marginal scorer (`posterior_predictive_choice_prob`,
   `batched_heldout_log_lik`); the session-marginal scorer is new code there.

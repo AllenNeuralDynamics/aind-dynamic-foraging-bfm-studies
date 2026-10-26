@@ -16,8 +16,9 @@ GRU? One trial-weighted pooled likelihood per forager, against the GRU's D curve
 | model | two-level HB per held-out subject, no population, training subjects unused | ADR 0001 |
 | hyperprior | fixed, as `hattori2019_two_level`; all parameters vary by session | ADR 0003 |
 | cohort and split | study 08's: snapshot `20260603`, `min_sessions=10`, `heldout_every_n=5`; per held-out subject, even-indexed sessions are context and odd-indexed are scored (`eval_every_n=2`, wrapper `compute_train_eval_session_ids`) | the GRU fine-tune and per-subject MLE were scored on these same eval sessions (study 01 r8). The GRU's `heldout/test_likelihood` is a different quantity and is not a comparator |
-| headline score | session-marginal likelihood, with Monte Carlo error; trial-marginal beside it | ADR 0002 |
-| compute | Beaker GPU, all held-out subjects in one batched fit with several chains | fits are independent and already vectorise; chains make the per-subject R-hat gate possible |
+| headline score | session-marginal likelihood by importance sampling, with Monte Carlo error and ESS; trial-marginal beside it | ADR 0002 |
+| W&B keys | `heldout/eval_likelihood` carries the headline; new keys carry the trial-marginal, SE and ESS. **No `heldout/test_likelihood`**: for the GRU that key is a zero-shot score, and this study has no population level, so nothing here matches it ([wrapper#107](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper/issues/107)) | keeps matched and zero-shot numbers apart |
+| compute | Beaker GPU, all held-out subjects in one batched fit, 4 chains | fits are independent and already vectorise; chains make the per-subject R-hat gate possible |
 
 ## Variants
 
@@ -47,8 +48,8 @@ comparators score all of them.
 
 1. foraging-models: session-marginal scorer
    ([foraging-models#78](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-models/pull/78)).
-   On synthetic 120-trial sessions its weight ESS is 4–12 of 300 draws, so ~500-trial sessions
-   need many more draws or an importance proposal before the headline is trusted.
+   On synthetic 120-trial sessions its weight ESS is 4–12 of 300 draws, so the headline needs
+   the importance-sampled estimator (ADR 0002), built next in foraging-models.
 2. No new model: `adapt_subjects_batched` with the constant prior `{population_mean: 0,
    population_scale: 1, log_sigma_mean: -1, log_sigma_spread: 1}` is `hattori2019_two_level`
    (ADR 0003). Needed: `fit_adaptation_batched` taking a chain count, and a wrapper HB mode
