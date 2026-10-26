@@ -67,6 +67,9 @@ RECORD = {
     "job_refs": [{"type": "beaker_experiment", "id": "01KEXAMPLE"}],
     "revisions": {"studies": SHA, "dispatcher": SHA, "wrapper": SHA},
     "manifests": ["sweep.yaml"],
+    "data": {"source": "snapshot", "config": "mice_snapshot", "type": "mice_snapshot", "snapshot": "20260603",
+             "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/", "manifest_sha256": "f" * 64},
+    "image": {"platform": "beaker", "name": "han-hou/disrnn-wrapper-main-20260712", "id": "01KIMAGE"},
 }
 
 
@@ -215,6 +218,13 @@ class CheckProvenanceTest(unittest.TestCase):
         (self.study / "PLAN.md").write_text("")          # docs are allowed
         self.commit()
         self.assertEqual(self.keys(), {f"study-root-extra|{STUDY}/analyze.py|analyze.py"})
+
+    def test_study_context_and_adrs_are_allowed(self):
+        (self.study / "CONTEXT.md").write_text("")
+        (self.study / "adr").mkdir()
+        (self.study / "adr/0001-example.md").write_text("")
+        self.commit()
+        self.assertEqual(self.keys(), set())
 
     def test_glob_group_and_command_input(self):
         report = self.study / "analysis/reports/r1-example.md"
@@ -405,6 +415,27 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertIn(f"record-orphan-intervention|{STUDY}/variants/base/launch_record/rescue1.json|",
                       self.keys())
+
+    def test_launch_without_data_or_image_is_a_warning(self):
+        rec = {k: v for k, v in RECORD.items() if k not in ("data", "image")}
+        (self.study / "variants/base/launch_record/beaker.json").write_text(json.dumps(rec))
+        self.commit()
+        path = f"{STUDY}/variants/base/launch_record/beaker.json"
+        self.assertEqual({k for k in self.keys() if k.startswith("record-")},
+                         {f"record-data-unrecorded|{path}|", f"record-image-unrecorded|{path}|"})
+
+    def test_unpinned_data_or_image_is_a_warning_even_when_present(self):
+        path = f"{STUDY}/variants/base/launch_record/beaker.json"
+        for data, image in (({**RECORD["data"], "manifest_sha256": None}, RECORD["image"]),
+                            ({"source": "live", "config": "mice_snapshot"}, {**RECORD["image"], "id": None}),
+                            (RECORD["data"], {"platform": "hpc", "conda_env": "/envs/x", "lock_sha256": "e" * 64})):
+            (self.study / "variants/base/launch_record/beaker.json").write_text(json.dumps({**RECORD, "data": data, "image": image}))
+            self.commit()
+            got = {k for k in self.keys() if k.startswith("record-")}
+            if data is not RECORD["data"]:
+                self.assertIn(f"record-data-unrecorded|{path}|", got)
+            if image is not RECORD["image"]:     # a null id, or an HPC lock on a Beaker launch: no pin
+                self.assertIn(f"record-image-unrecorded|{path}|", got)
 
     def test_v1_record_is_never_rejudged(self):
         (self.study / "variants/base/launch_record/old.json").write_text(json.dumps({"mode": "resumable-grid"}))

@@ -110,6 +110,8 @@ def write_intervention(
     note: str | None = None,
     manifests: list[str] | None = None,
     revisions: dict[str, str] | None = None,
+    data: dict[str, Any] | None = None,
+    image: dict[str, Any] | None = None,
     produced_by: str = "launch_record.write_intervention",
 ) -> dict:
     """Write a schema-conformant intervention record and return it.
@@ -148,6 +150,8 @@ def write_intervention(
             (dotted paths, e.g. ``"parameters.n_steps"``); only ``extend`` may change the step
             budget (docs/adr/0001). Defaults to the launch's own manifests.
         revisions: repo -> full SHA of the code that ran; defaults to the initial launch's.
+        data, image: what the runs trained on and ran in (studies#25); default to the initial
+            launch's, and are left out of a backfill (it submits nothing) unless given.
 
     The record is v2 (schemas/launch-record.v2.schema.json) and must join a W&B group that
     has an initial launch record in the same variant.
@@ -224,6 +228,13 @@ def write_intervention(
     # stored variant-relative, so scripts/check_provenance.py finds each one from the variant
     manifests = [p.relative_to(variant_dir).as_posix() for p in resolved.values()]
     revisions = dict(revisions or initial.get("revisions") or {})
+    if platform != "none":
+        data = data if data is not None else initial.get("data")
+        # an image only carries over to the same backend (an HPC rescue of a Beaker launch runs
+        # in a conda env, not the Beaker image); otherwise it stays unrecorded unless given
+        inherited = initial.get("image")
+        if image is None and isinstance(inherited, dict) and inherited.get("platform") == platform:
+            image = inherited
 
     meta = build_meta(produced_by, [wandb_group], study_root=study_root)
     record = {
@@ -241,6 +252,8 @@ def write_intervention(
         "tasks": list(tasks or []),
         "deviations": deviations,
         "cost": dict(cost or {}),
+        **({"data": data} if data is not None else {}),
+        **({"image": image} if image is not None else {}),
     }
 
     path.parent.mkdir(parents=True, exist_ok=True)
