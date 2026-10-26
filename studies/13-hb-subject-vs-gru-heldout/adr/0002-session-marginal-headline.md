@@ -14,12 +14,12 @@ with 08.
 
 ## Consequences
 
-- The estimator is Monte Carlo over draws, and averaging plain draws starves: on synthetic
-  120-trial sessions the weight ESS was 4–12 of 300 draws, and real sessions are ~500 trials.
-  The headline therefore uses importance sampling: a proposal fitted to each scored session
-  (Laplace at the mode, heavy-tailed, mixed with the conditioned subject's own distribution so
-  weights stay bounded), reweighted so the estimate stays exact in expectation. Plain draw
-  averaging is kept as a cross-check on short sessions. The Monte Carlo error and ESS are
-  reported with the score, and must sit well below the GRU's seed spread.
-- foraging-models has only the trial-marginal scorer (`posterior_predictive_choice_prob`,
-  `batched_heldout_log_lik`); the session-marginal scorer is new code there.
+- The estimator is a plain Monte Carlo average over draws, which can starve: on long sessions
+  a few draws carry the weight, and a starved average is biased low. Measured on
+  model-generated 500-trial sessions, the weight ESS grows in proportion to the draws (median
+  14 → 208 → 831 at 400 → 6,400 → 25,600 draws) and the pooled score is stable from 400 draws,
+  so the headline uses plain draw-averaging with many session draws per posterior draw
+  (default 64), not importance sampling. Each session is gated on its Pareto k̂ (< 0.7;
+  Vehtari et al. 2024), used as a diagnostic only: the score and its SE stay unsmoothed.
+  Importance sampling with a Laplace proposal is built only if real sessions fail the gate.
+- The scorer is `batched_heldout_scores` (foraging-models#78), with its SE and pooled error.
