@@ -1,0 +1,110 @@
+"""Producer for r1: pool the per-subject HB-Hattori2019 runs and compare them with the per-subject
+MLE and the GRU.
+
+Offline. Reads the frozen run table (``hattori_runs.json``, ``make freeze-hattori``) and the
+comparators from study 01's committed JSON through ``studies/util/cross_study.py``. Each run fitted
+one held-out subject alone, so the pooled trial-weighted likelihood is
+``exp(sum of log_lik_sum / sum of trials)``, and Monte Carlo errors add in quadrature across runs
+(separate runs share no posterior draws, and each run's key folds in its subject).
+"""
+import json
+import math
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[1] / "util"))
+from _meta import build_meta, write_artifact  # noqa: E402
+import cross_study  # noqa: E402
+
+WANDB_GROUPS = ["hattori@20261026-002131"]   # read via the committed freeze
+RUNS = HERE / "hattori_runs.json"
+REPORT = HERE / "reports" / "r1-hattori-pooled.md"
+N_SUBJECTS = 149
+
+
+def _pool(rows, key, se_key=None):
+    """Trial-weighted pooled likelihood over runs, with its standard error if ``se_key`` is given."""
+    total = sum(r[key] for r in rows)
+    trials = sum(r["heldout/num_eval_trials"] for r in rows)
+    pooled = math.exp(total / trials)
+    if se_key is None:
+        return pooled, None
+    total_se = math.sqrt(sum(r[se_key] ** 2 for r in rows))
+    return pooled, pooled * total_se / trials
+
+
+def compute() -> dict:
+    """Pool the frozen rows and line them up against the comparators."""
+    rows = [r for r in json.loads(RUNS.read_text())["rows"] if r["state"] == "finished"]
+    assert len(rows) == len({r["subject_id"] for r in rows}), "a subject was fitted twice"
+    converged = [r for r in rows if r["hb/n_subjects_converged"] == 1]
+    headline, headline_se = _pool(rows, "heldout/eval_log_lik_sum", "heldout/eval_log_lik_sum_se")
+    rl = json.loads(cross_study.RL_SOURCE.read_text())["models"]
+    return {
+        "n_subjects": len(rows),
+        "n_subjects_expected": N_SUBJECTS,
+        "n_trials": sum(r["heldout/num_eval_trials"] for r in rows),
+        "n_trials_comparators": rl["hattori"]["n_trials"],
+        "hb_session_marginal": headline,
+        "hb_session_marginal_se": headline_se,
+        "hb_trial_marginal": _pool(rows, "heldout/eval_log_lik_sum_trial_marginal")[0],
+        "hb_session_marginal_converged_only": _pool(converged, "heldout/eval_log_lik_sum")[0]
+        if converged else None,
+        "n_subjects_converged": len(converged),
+        "n_sessions": sum(r["heldout/n_sessions"] for r in rows),
+        "n_sessions_pareto_k_fail": sum(r["heldout/n_sessions_pareto_k_fail"] for r in rows),
+        "divergences": sum(r["hb/divergences"] or 0 for r in rows),
+        "max_r_hat": max(r["hb/max_r_hat"] for r in rows),
+        "min_ess_bulk": min(r["hb/min_ess_bulk"] for r in rows),
+        "mle_hattori": cross_study.rl_baseline("hattori"),
+        "mle_ctt": cross_study.rl_baseline("ctt"),
+        "gru_by_d": {str(d): v for d, v in cross_study.gru_h128_curve().items()},
+    }
+
+
+def render(r: dict) -> str:
+    """The result-1 block."""
+    gru = ", ".join(f"D≈{d} {v:.4f}" for d, v in r["gru_by_d"].items())
+    conv = r["hb_session_marginal_converged_only"]
+    lines = [] if r["n_subjects"] == r["n_subjects_expected"] else [
+        f"**Incomplete: {r['n_subjects']} of {r['n_subjects_expected']} subjects finished; "
+        "not a result.**", ""]
+    lines += [
+        "| arm | held-out likelihood (trial-weighted) |",
+        "|---|---|",
+        f"| HB-Hattori2019 two-level, session-marginal (headline) | **{r['hb_session_marginal']:.4f}** "
+        f"± {r['hb_session_marginal_se']:.1e} (MC) |",
+        f"| HB-Hattori2019 two-level, trial-marginal | {r['hb_trial_marginal']:.4f} |",
+        f"| per-subject MLE Hattori (study 01 r8) | {r['mle_hattori']:.4f} |",
+        f"| per-subject MLE CTT (study 01 r8) | {r['mle_ctt']:.4f} |",
+        f"| GRU H128 (study 01 r1) | {gru} |",
+        "",
+        f"- Subjects {r['n_subjects']}; scored trials {r['n_trials']:,} (comparators: "
+        f"{r['n_trials_comparators']:,}).",
+        f"- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400): {r['n_subjects_converged']} of "
+        f"{r['n_subjects']} subjects pass; worst R-hat {r['max_r_hat']:.3f}, lowest ESS "
+        f"{r['min_ess_bulk']:.0f}; {r['divergences']} divergences. Converged subjects only: "
+        + (f"{conv:.4f}." if conv else "n/a."),
+        f"- Pareto k̂ gate: {r['n_sessions_pareto_k_fail']} of {r['n_sessions']} scored sessions "
+        "fail (k̂ ≥ 0.7 or unjudged).",
+    ]
+    return "\n".join(lines)
+
+
+def main() -> None:
+    """Compute, rewrite the result block, and write the JSON."""
+    result = compute()
+    begin, end = "<!-- BEGIN result-1 -->", "<!-- END result-1 -->"
+    head, rest = REPORT.read_text().split(begin)
+    _, tail = rest.split(end)
+    REPORT.write_text(f"{head}{begin}\n{render(result)}\n{end}{tail}")
+    meta = build_meta("analysis/r1_hattori_pooled.py", WANDB_GROUPS, study_root=HERE.parent,
+                      code=[__file__], inputs=[RUNS, cross_study.RL_SOURCE,
+                                               cross_study.GRU_CURVE_SOURCE])
+    write_artifact(HERE / "r1_hattori_pooled.json", {"_meta": meta, **result},
+                   outputs=[HERE / "reports" / "r1-hattori-pooled.md#result-1"])
+
+
+if __name__ == "__main__":
+    main()
