@@ -1,0 +1,188 @@
+# Production: study 08's sampler settings (2000 warmup, 500 draws, 4 chains) and 64 session
+# draws per posterior draw (ADR 0002), one held-out subject per array task.
+#
+# Per-subject route (PLAN.md, Compute): each array task fits ONE held-out subject with its
+# own sampler, on CPU. A shared sampler over all 149 is set by the hardest subject's step
+# size; one subject alone runs ~100x faster per iteration (launch_record/probe/).
+# Subject ids: the 149 held-out subjects scored by the comparators, read from studies/01-gru-scaling-law/analysis/rl_baseline.json
+# (models.hattori.per_subject_likelihood keys). Runs pool via heldout/eval_log_lik_sum.
+# wandb.project must be in the command: the launcher sets only the group.
+
+entity: AIND-disRNN
+project: mice_data_scaling
+name: hb-heldout-two-level-per-subject
+
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=hb_hattori
+  - model.estimator=heldout_two_level
+  - model.num_warmup=2000
+  - model.num_samples=500
+  - model.num_chains=4
+  - +model.session_draws_per_posterior_draw=64
+  - data.subject_ratio=0.016
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_data_scaling
+  - ${args_no_hyphens}
+
+parameters:
+  data.test_subject_ids:
+    values:
+      - "[452275]"
+      - "[453476]"
+      - "[453478]"
+      - "[455525]"
+      - "[472184]"
+      - "[494693]"
+      - "[616134]"
+      - "[627042]"
+      - "[637701]"
+      - "[639875]"
+      - "[641494]"
+      - "[643773]"
+      - "[648586]"
+      - "[651475]"
+      - "[651554]"
+      - "[652743]"
+      - "[655100]"
+      - "[656489]"
+      - "[659778]"
+      - "[663373]"
+      - "[668551]"
+      - "[671245]"
+      - "[673396]"
+      - "[682342]"
+      - "[684039]"
+      - "[697929]"
+      - "[697930]"
+      - "[699982]"
+      - "[700708]"
+      - "[708299]"
+      - "[710414]"
+      - "[711039]"
+      - "[711041]"
+      - "[711254]"
+      - "[711281]"
+      - "[712031]"
+      - "[713379]"
+      - "[713862]"
+      - "[716324]"
+      - "[721403]"
+      - "[722683]"
+      - "[722989]"
+      - "[726649]"
+      - "[727456]"
+      - "[736198]"
+      - "[736199]"
+      - "[744779]"
+      - "[745505]"
+      - "[746346]"
+      - "[747886]"
+      - "[749472]"
+      - "[751153]"
+      - "[751765]"
+      - "[751920]"
+      - "[753122]"
+      - "[754372]"
+      - "[756567]"
+      - "[757214]"
+      - "[761406]"
+      - "[762611]"
+      - "[763704]"
+      - "[764693]"
+      - "[765232]"
+      - "[765365]"
+      - "[765373]"
+      - "[765861]"
+      - "[766556]"
+      - "[766998]"
+      - "[767462]"
+      - "[767463]"
+      - "[769359]"
+      - "[770803]"
+      - "[774826]"
+      - "[775741]"
+      - "[775745]"
+      - "[776259]"
+      - "[777027]"
+      - "[777098]"
+      - "[777271]"
+      - "[778103]"
+      - "[778336]"
+      - "[780618]"
+      - "[780621]"
+      - "[781162]"
+      - "[781369]"
+      - "[781896]"
+      - "[781897]"
+      - "[782394]"
+      - "[784956]"
+      - "[785951]"
+      - "[786234]"
+      - "[787625]"
+      - "[788732]"
+      - "[788733]"
+      - "[790584]"
+      - "[790726]"
+      - "[790768]"
+      - "[791174]"
+      - "[793397]"
+      - "[795395]"
+      - "[797673]"
+      - "[798520]"
+      - "[798664]"
+      - "[800175]"
+      - "[801996]"
+      - "[802292]"
+      - "[802953]"
+      - "[805496]"
+      - "[807885]"
+      - "[808584]"
+      - "[809488]"
+      - "[810756]"
+      - "[810758]"
+      - "[812305]"
+      - "[812307]"
+      - "[813165]"
+      - "[813167]"
+      - "[813171]"
+      - "[813992]"
+      - "[814147]"
+      - "[814196]"
+      - "[815334]"
+      - "[818020]"
+      - "[818585]"
+      - "[818908]"
+      - "[819169]"
+      - "[820243]"
+      - "[821576]"
+      - "[823161]"
+      - "[823163]"
+      - "[823166]"
+      - "[826160]"
+      - "[829048]"
+      - "[829489]"
+      - "[829569]"
+      - "[832634]"
+      - "[835178]"
+      - "[835444]"
+      - "[836656]"
+      - "[836657]"
+      - "[837689]"
+      - "[838101]"
+      - "[838332]"
+      - "[839483]"
+      - "[841356]"
+      - "[841363]"
+      - "[841599]"
+      - "[845710]"
+      - "[850597]"
