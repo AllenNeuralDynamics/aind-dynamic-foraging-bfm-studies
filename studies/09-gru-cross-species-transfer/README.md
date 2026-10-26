@@ -13,6 +13,9 @@ motivated_by:
 - study: 01-gru-scaling-law
   report: r4
   note: the GRU generalizes to held-out AIND mice; does its core transfer to other datasets and species?
+tags:
+  model: [gru, cognitive]
+  question: [transfer, comparison]
 ---
 # Study 09: GRU cross-species and cross-dataset transfer
 

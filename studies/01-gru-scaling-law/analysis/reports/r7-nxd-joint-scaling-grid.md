@@ -16,6 +16,9 @@ inputs:
     - analysis/rl_baseline.py    # overlays RL reference band on fig_nxd_scaling.png (cross-producer; see posthoc-analysis.md)
     - analysis/update_final_report_nxd.py    # regenerates the body of this report
 reproduce: python studies/data-scaling-law/analysis/nxd_scaling.py && python studies/data-scaling-law/analysis/rl_baseline.py && python studies/data-scaling-law/analysis/update_final_report_nxd.py
+tags:
+  model: [gru]
+  question: [scaling]
 ---
 
 # Result 7 — N × D joint scaling grid (Chinchilla-style)

@@ -16,6 +16,8 @@ upstream:
   - study: 05-disrnn-scaling-law
     wandb_group: mult-beta-d614@20260713-003501
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r1
+tags:
+  question: [tuning]
 ---
 
 # r1 — Penalty selection: free at D=100, overfits at D=614 → why we run the grid

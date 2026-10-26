@@ -18,6 +18,9 @@ upstream:
     report: r8
     note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/05-disrnn-scaling-law r3
+tags:
+  model: [disrnn]
+  question: [tuning]
 ---
 
 # r3 — Is the subject bottleneck the transfer cap? The mechanism works; the hypothesis doesn't

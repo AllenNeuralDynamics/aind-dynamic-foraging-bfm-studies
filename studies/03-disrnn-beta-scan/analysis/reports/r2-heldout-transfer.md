@@ -14,6 +14,9 @@ inputs:
   related_scripts:
     - analysis/update_reports.py    # regenerates the block below
 reproduce: make -C studies/beta-scan r2
+tags:
+  model: [disrnn]
+  question: [tuning]
 ---
 
 # Result 2 — held-out transfer is flat across the multiplier (no sparsity tax)

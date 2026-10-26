@@ -18,6 +18,9 @@ inputs:
   reference: reference/study01-trained-gru.json
   figure: analysis/fig_reservoir_vs_trained.png
 reproduce: make -C studies/10-gru-reservoir-ablation r1
+tags:
+  model: [gru]
+  question: [ablation, scaling]
 ---
 
 # Result 1 - frozen-random GRU reservoir

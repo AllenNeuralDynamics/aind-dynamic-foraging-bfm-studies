@@ -22,6 +22,9 @@ upstream:
   - study: 06-disrnn-operating-point-at-scale
     wandb_group: mult-d-grid@20260718-151409
 reproduce: python analysis/pull_grid.py && python analysis/attribution_report.py
+tags:
+  model: [disrnn]
+  question: [ablation]
 ---
 
 # r1 — Staged attribution of the residual GRU gap

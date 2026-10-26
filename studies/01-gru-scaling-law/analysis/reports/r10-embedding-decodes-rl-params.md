@@ -19,6 +19,9 @@ reproduce: |
   python run_analysis.py embedding-params --model1-dir <GRU_RUN> --model2-dir <BARI_RUN> --output-dir <E>/bari
   # 2. decode
   python studies/01-gru-scaling-law/analysis/embedding_param_decode.py --ctt <E>/ctt --bari <E>/bari
+tags:
+  model: [gru, cognitive]
+  question: [interpretation]
 ---
 
 # Result 10 — the GRU's subject embedding decodes classical-RL parameters

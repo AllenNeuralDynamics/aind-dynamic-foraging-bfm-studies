@@ -12,6 +12,9 @@ motivated_by:
 - study: 06-disrnn-operating-point-at-scale
   report: r2
   note: the tuned operating point halves the gap to the GRU at D=614; what closes the rest?
+tags:
+  model: [disrnn]
+  question: [ablation]
 ---
 # 11 — disRNN near-GRU ceiling
 

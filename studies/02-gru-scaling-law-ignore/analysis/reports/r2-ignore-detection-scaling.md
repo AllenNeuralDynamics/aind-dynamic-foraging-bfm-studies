@@ -28,6 +28,9 @@ inputs:
   related_scripts:
     - analysis/update_reports.py    # regenerates the block below
 reproduce: make -C studies/ignore-trials-scaling r2
+tags:
+  model: [gru]
+  question: [scaling, more-inputs]
 ---
 
 # Result 2 — Ignore-class detection is well above chance and improves with D

@@ -11,6 +11,9 @@ inputs:
   data: analysis/report_data.json
   figure: analysis/fig_per_subject_delta.png
 reproduce: python studies/data-scaling-law/analysis/build_report.py
+tags:
+  model: [gru]
+  question: [scaling]
 ---
 
 # Result 2 — per-held-out-mouse repeated measures (n=149 mice/D, paired by mouse)

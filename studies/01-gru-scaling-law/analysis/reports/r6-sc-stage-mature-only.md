@@ -12,6 +12,9 @@ inputs:
   figure: null
   notes: see also analysis/mature_sc_verdict.md (manually authored alongside the JSON)
 reproduce: TBD  # producer script not yet wired
+tags:
+  model: [gru]
+  question: [methods]
 ---
 
 # Result 6 — SC-stage verdict (mature-only eval)

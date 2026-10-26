@@ -33,6 +33,7 @@ README = textwrap.dedent("""\
     status: active
     wandb: {entity: AIND-disRNN, project: example}
     motivated_by: []
+    tags: {model: [gru], question: [scaling]}
     ---
     # Study: example
     """)
@@ -400,6 +401,38 @@ class CheckProvenanceTest(unittest.TestCase):
         readme.write_text(readme.read_text().replace("motivated_by: 23\n", ""))
         self.commit()
         self.assertIn(f"study-frontmatter|{STUDY}/README.md|(top):motivated_by", self.keys())
+
+    # -- tags (CONTEXT.md, Tag) ------------------------------------------------------------------
+    def set_tags(self, path: Path, old: str, new: str) -> None:
+        path.write_text(path.read_text().replace(old, new))
+        self.commit()
+
+    def test_tag_values_come_from_the_vocabulary(self):
+        report = self.study / "analysis/reports/r1-example.md"
+        self.set_tags(self.study / "README.md", "tags: {model: [gru], question: [scaling]}",
+                      "tags: {model: [gru, lstm], question: [scaling]}")
+        self.set_tags(report, "reproduce:", "tags: {question: [vibes]}\nreproduce:")
+        mine = {k for k in self.keys() if k.startswith("tag-")}
+        self.assertEqual(mine, {f"tag-unknown|{STUDY}/README.md|model:lstm",
+                                f"tag-unknown|{STUDY}/analysis/reports/r1-example.md|question:vibes"})
+
+    def test_a_complete_study_shows_each_tag_on_a_live_report(self):
+        readme, report = self.study / "README.md", self.study / "analysis/reports/r1-example.md"
+        self.set_tags(readme, "tags: {model: [gru], question: [scaling]}",
+                      "tags: {model: [gru, cognitive], question: [scaling, comparison]}")
+        unreported = lambda: {k for k in self.keys() if k.startswith("study-tag-unreported")}
+        self.assertEqual(unreported(), set())                 # active: nothing to show yet
+        self.set_tags(readme, "status: active", "status: complete")
+        self.assertEqual(unreported(), {f"study-tag-unreported|{STUDY}/README.md|{t}" for t in
+                                        ("model:gru", "model:cognitive", "question:scaling", "question:comparison")})
+        # a nested report tag covers its parent; a parent never covers a child
+        self.set_tags(report, "reproduce:", "tags: {model: [gru, cognitive/bh], question: [scaling]}\nreproduce:")
+        self.assertEqual(unreported(), {f"study-tag-unreported|{STUDY}/README.md|question:comparison"})
+        # a retracted report is no evidence; malformed entries are the schema's, never a crash
+        self.set_tags(report, "status: live", "status: retracted")
+        self.assertEqual(len(unreported()), 4)
+        self.set_tags(readme, "model: [gru, cognitive]", "model: [{name: gru}]")
+        self.assertIn(f"study-frontmatter|{STUDY}/README.md|tags/model/0:type", self.keys())
 
     # -- launch records (ADR 0001) ----------------------------------------------------------------
     def test_group_prefix_must_be_variant(self):

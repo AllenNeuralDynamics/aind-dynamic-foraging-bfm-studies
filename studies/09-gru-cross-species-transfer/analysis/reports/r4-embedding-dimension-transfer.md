@@ -25,6 +25,9 @@ inputs:
     - analysis/fig_embedding_dimension_transfer.png
     - analysis/fig_subject_embedding_dimension_delta.png
 reproduce: make -C studies/09-gru-cross-species-transfer r4
+tags:
+  model: [gru]
+  question: [tuning, transfer]
 ---
 
 # Result 4 — does a wider subject embedding improve external transfer?

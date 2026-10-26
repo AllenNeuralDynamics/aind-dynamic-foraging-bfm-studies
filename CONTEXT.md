@@ -79,6 +79,12 @@ The earlier result a study exists to follow up, with one line on what that resul
 records why the work was started, not what it uses (that is upstream).
 _Avoid_: decision, prompted-by, parent
 
+**Tag**:
+A value from a fixed vocabulary that says which model a study or report trains or fits, and what
+kind of question it asks. A study's tags say what it asks; a report's say what it does. A model
+whose numbers are only read from another study is not a tag.
+_Avoid_: label, category, keyword
+
 **Lineage**:
 The chain from a result block back through its producer, frozen inputs, W&B groups and
 launches to the data it came from.

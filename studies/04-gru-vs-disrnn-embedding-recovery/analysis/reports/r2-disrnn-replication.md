@@ -11,6 +11,9 @@ inputs:
   grid: analysis/disrnn_stage4a_recovery_grid.csv
   figure: analysis/fig_disrnn_stage4a.png
 reproduce: make -C studies/04-gru-vs-disrnn-embedding-recovery r2
+tags:
+  model: [disrnn]
+  question: [interpretation]
 ---
 
 # Result 2 — the interpretable disRNN embedding recovers model family nearly as well as the GRU

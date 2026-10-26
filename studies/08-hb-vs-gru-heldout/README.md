@@ -14,6 +14,9 @@ motivated_by:
   report: r8
   note: the GRU beats the classical-RL suite on held-out mice; does a hierarchical Bayesian cognitive
     baseline close the gap?
+tags:
+  model: [cognitive/bh, cognitive]
+  question: [comparison]
 ---
 # Study 08 — HB vs GRU on held-out subjects
 

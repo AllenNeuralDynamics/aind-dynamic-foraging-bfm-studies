@@ -11,6 +11,9 @@ inputs:
   data: analysis/three_arm.json
   figure: analysis/fig_three_arm.png
 reproduce: make -C studies/08-hb-vs-gru-heldout r1
+tags:
+  model: [cognitive/bh, cognitive]
+  question: [comparison]
 ---
 
 # Result 1 — Held-out likelihood: the hierarchical model against per-mouse RL and the GRU

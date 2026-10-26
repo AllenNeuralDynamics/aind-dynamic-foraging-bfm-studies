@@ -91,6 +91,9 @@ inputs:
     - analysis/fig_task_design_drivers_e8.png
     - analysis/fig_task_design_drivers_all_valid_e8.png
 reproduce: make -C studies/09-gru-cross-species-transfer r3
+tags:
+  model: [gru]
+  question: [transfer]
 ---
 
 # Result 3 — what predicts external GRU transfer?

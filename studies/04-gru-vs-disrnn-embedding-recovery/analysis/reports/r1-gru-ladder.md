@@ -16,6 +16,9 @@ inputs:
   grid: analysis/ladder_results.csv
   figure: analysis/fig_ladder.png
 reproduce: make -C studies/04-gru-vs-disrnn-embedding-recovery r1
+tags:
+  model: [gru, cognitive]
+  question: [interpretation, comparison]
 ---
 
 # Result 1 — the GRU embedding recovers generative structure where the correct-model baseline breaks
