@@ -7,7 +7,11 @@ It is the HB's fit with no between-session spread and no within-session inferenc
 predictor shape as the per-subject MLE, but with HB's prior and partial pooling across sessions. So:
 
 - plug-in minus MLE = how the parameters were fitted (prior, pooling);
-- session-marginal minus plug-in = between-session spread plus within-session inference.
+- zero-spread minus plug-in = averaging over posterior uncertainty in ``mu_p`` (the zero-spread
+  control keeps every posterior draw of ``mu_p``, sets the between-session spread to zero, and scores
+  each session by the session-marginal over those draws);
+- session-marginal minus zero-spread = modelling between-session spread, and inferring within each
+  session where it sits.
 
 The eval sessions are reloaded through the wrapper's own data loader and split helpers (the same path
 ``HBTrainer`` used), from the pinned code worktree the production runs used, and every subject's
@@ -53,6 +57,26 @@ def _heldout_frame():
     return instantiate(cfg.data, split="heldout", multisubject=True).load().raw
 
 
+def _per_draw_log_lik(choices, rewards, thetas, beta_max):
+    """Exact summed log probability of one session under each of many fixed parameter sets."""
+    import jax
+    import jax.numpy as jnp
+    from aind_dynamic_foraging_models.hierarchical_bayes.likelihood import hattori2019_value_trajectory
+    from aind_dynamic_foraging_models.hierarchical_bayes.model import hattori2019_session_params
+
+    choices_j, rewards_j = jnp.asarray(choices), jnp.asarray(rewards, dtype=jnp.float32)
+
+    def one(theta):
+        """One parameter set's summed log probability."""
+        p = hattori2019_session_params(theta, beta_max=beta_max)
+        q, _ = hattori2019_value_trajectory(choices_j, rewards_j, **{k: p[k] for k in p})
+        logits = p["softmax_inverse_temperature"] * q.T + jnp.array([p["bias_l"], 0.0])
+        log_p = jax.nn.log_softmax(logits, axis=-1)[jnp.arange(len(choices)), choices_j]
+        return jnp.sum(log_p)
+
+    return np.asarray(jax.jit(jax.vmap(one))(jnp.asarray(thetas)), dtype=np.float64)
+
+
 def _log_lik(choices, rewards, theta, beta_max) -> float:
     """Exact summed log probability of one session's choices under one fixed parameter set."""
     import jax
@@ -81,19 +105,28 @@ def main() -> None:
         index_of = {sid: i for i, sid in enumerate(session_ids[key])}
         run_dir = ARTIFACT_ROOT / runs[subject]["wandb_run_id"]
         draws_path = run_dir / "heldout_two_level_draws.npz"
-        beta_max = json.loads((run_dir / "heldout_two_level_fit.json").read_text())["beta_max"]
-        theta = np.median(np.asarray(np.load(draws_path)["mu_p"])[:, 0, :], axis=0)
-        total, trials = 0.0, 0
+        fit_json = run_dir / "heldout_two_level_fit.json"   # beta_max sets the temperature scale
+        beta_max = json.loads(fit_json.read_text())["beta_max"]
+        mu_draws = np.asarray(np.load(draws_path)["mu_p"])[:, 0, :]
+        theta = np.median(mu_draws, axis=0)
+        total, zero_spread, trials = 0.0, 0.0, 0
         for sid in eval_ids:
             c, r = choices[key][index_of[sid]], rewards[key][index_of[sid]]
             total += _log_lik(c, r, theta, beta_max)
+            per_draw = _per_draw_log_lik(c, r, mu_draws, beta_max)
+            top = per_draw.max()
+            zero_spread += float(top + np.log(np.mean(np.exp(per_draw - top))))
             trials += len(c)
         assert trials == runs[subject]["heldout/num_eval_trials"], (subject, trials)
         digest = hashlib.sha256(draws_path.read_bytes()).hexdigest()
+        fit_digest = hashlib.sha256(fit_json.read_bytes()).hexdigest()
         rows.append({"subject_id": subject, "wandb_run_id": runs[subject]["wandb_run_id"],
-                     "draws_sha256": digest, "theta_unconstrained": theta.tolist(),
-                     "plugin_log_lik_sum": total, "n_trials": trials})
-        sources.append({"type": "file", "id": str(draws_path), "sha256": digest})
+                     "draws_sha256": digest, "fit_json_sha256": fit_digest, "beta_max": beta_max,
+                     "theta_unconstrained": theta.tolist(),
+                     "plugin_log_lik_sum": total, "zero_spread_log_lik_sum": zero_spread,
+                     "n_trials": trials})
+        sources += [{"type": "file", "id": str(draws_path), "sha256": digest},
+                    {"type": "file", "id": str(fit_json), "sha256": fit_digest}]
     data = json.loads(LAUNCH.read_text())["data"]
     sources.append({"type": "url", "id": data["uri"], "sha256": data["manifest_sha256"]})
     meta = build_meta("analysis/freeze_plugin.py", WANDB_GROUPS, study_root=HERE.parent,

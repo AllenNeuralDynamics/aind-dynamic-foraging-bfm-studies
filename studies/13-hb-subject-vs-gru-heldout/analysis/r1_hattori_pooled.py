@@ -55,6 +55,8 @@ def compute() -> dict:
         "hb_session_marginal_se": headline_se,
         "hb_trial_marginal": _pool(rows, "heldout/eval_log_lik_sum_trial_marginal")[0],
         "hb_plugin": math.exp(sum(r["plugin_log_lik_sum"] for r in plugin.values()) / plugin_trials),
+        "hb_zero_spread": math.exp(sum(r["zero_spread_log_lik_sum"] for r in plugin.values())
+                                   / plugin_trials),
         "hb_session_marginal_converged_only": _pool(converged, "heldout/eval_log_lik_sum")[0]
         if converged else None,
         "n_subjects_converged": len(converged),
@@ -83,6 +85,8 @@ def render(r: dict) -> str:
         f"± {r['hb_session_marginal_se']:.1e} (MC) |",
         f"| HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session "
         f"posterior median), no within-session inference | {r['hb_plugin']:.4f} |",
+        f"| HB-Hattori2019 two-level, zero-spread: every posterior draw of the typical session, no "
+        f"between-session spread, session-marginal | {r['hb_zero_spread']:.4f} |",
         f"| HB-Hattori2019 two-level, trial-marginal | {r['hb_trial_marginal']:.4f} |",
         f"| per-subject MLE Hattori (study 01 r8) | {r['mle_hattori']:.4f} |",
         f"| per-subject MLE CTT (study 01 r8) | {r['mle_ctt']:.4f} |",
