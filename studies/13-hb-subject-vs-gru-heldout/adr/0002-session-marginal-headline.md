@@ -8,8 +8,10 @@ Because it cannot learn within a session which parameters fit, it most likely un
 model when draws that fit one trial well also fit the rest, which is the usual case. We
 average the whole session's likelihood over draws instead (session-marginal, a log-mean-exp
 per session). That equals predicting trial by trial while updating belief about the session's
-parameters as trials arrive, which is what the GRU's hidden state does within a session, so
-it is the fair comparison. The trial-marginal is still reported, beside it, for continuity
+parameters as trials arrive (chain rule), so each trial is predicted from that session's
+earlier trials only. The GRU's hidden state also uses only earlier trials, though not by
+Bayesian inference, so the two models have the same information, which makes this the fair
+comparison. The trial-marginal is still reported, beside it, for continuity
 with 08.
 
 ## Consequences
