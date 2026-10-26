@@ -31,7 +31,7 @@ command:
   - model.num_samples=100
   - model.num_chains=4
   - +model.session_draws_per_posterior_draw=16
-  - model.progress_bar=true
+  - +model.progress_bar=true
   - seed=0
   - wandb.entity=AIND-disRNN
   - wandb.project=mice_data_scaling
