@@ -10,7 +10,9 @@ wandb_groups:
 inputs:
   script: analysis/r1_hattori_pooled.py
   data: analysis/hattori_runs.json
+  plugin: analysis/hattori_plugin.json
   freeze: analysis/freeze_hattori.py
+  freeze_plugin: analysis/freeze_plugin.py
 upstream:
 - study: 01-gru-scaling-law
   report: r8
@@ -39,6 +41,8 @@ r8 for the per-subject MLE and r1 for the GRU H128 curve.
 | arm | held-out likelihood (trial-weighted) |
 |---|---|
 | HB-Hattori2019 two-level, session-marginal (headline) | **0.7213** ± 1.7e-06 (MC) |
+| HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session posterior median), no within-session inference | 0.7107 |
+| HB-Hattori2019 two-level, zero-spread: every posterior draw of the typical session, no between-session spread, session-marginal | 0.7174 |
 | HB-Hattori2019 two-level, trial-marginal | 0.7090 |
 | per-subject MLE Hattori (study 01 r8) | 0.7127 |
 | per-subject MLE CTT (study 01 r8) | 0.7170 |
@@ -60,6 +64,20 @@ Read off the frozen result above (2026-10-26):
   in a point estimate. Isolating the session spread would need a zero-spread Bayesian control.
 - **It roughly ties the smallest GRU and stays below the rest.** It matches the GRU at D≈10. The
   GRU from D≈30 up is still clearly ahead; those gaps are many times the GRU's ~0.0004 seed spread.
+- **Where the gain over the MLE comes from (two controls).** All three are HB fits on the same
+  subjects, scored on the same eval sessions:
+  - **plug-in:** one fixed parameter set, the median of the typical-session posterior. It scores
+    slightly *below* the per-subject MLE, so the prior and partial pooling alone don't beat the MLE.
+  - **zero-spread:** every posterior draw of the typical session, no between-session spread,
+    session-marginal. This gives most of the gain over the plug-in. It averages over uncertainty about
+    the subject, and within each session it reweights those draws by the session's earlier trials.
+    That alone already matches the best per-subject MLE (CTT).
+  - **full HB:** adds between-session spread. It gains a smaller further step on top of zero-spread.
+
+  So the HB's advantage is mostly posterior averaging with within-session inference over the
+  subject's uncertain parameters, plus a smaller part from explicitly modelling how sessions differ.
+  r3's example of a degenerate MLE fit is regularized by the prior, but in aggregate the prior is not
+  where the gain comes from.
 - **The scoring method decides the comparison.** Scored by the trial-marginal (study 08's method),
   the same fits fall *below* the per-subject MLE. ADR 0002 explains why the session-marginal is the
   fair score: it predicts each trial from the session's earlier trials, as the GRU does.

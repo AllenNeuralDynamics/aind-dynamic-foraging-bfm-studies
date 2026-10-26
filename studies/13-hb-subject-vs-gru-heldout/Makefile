@@ -34,3 +34,9 @@ r3:
 .PHONY: freeze-posteriors
 freeze-posteriors:
 	JAX_PLATFORMS=cpu $(PY) analysis/freeze_posteriors.py
+
+# freeze-plugin = the HB plug-in control for r1: reloads the eval sessions through the wrapper's loader
+# (pinned code at ~/code/wt/hpc13b) and scores one fixed parameter set per subject; never part of `all`.
+.PHONY: freeze-plugin
+freeze-plugin:
+	JAX_PLATFORMS=cpu $(PY) analysis/freeze_plugin.py
