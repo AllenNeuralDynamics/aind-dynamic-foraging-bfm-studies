@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1
+all: r1 r2
 
 # r1 = HB-Hattori2019 two-level vs GRU and per-subject MLE on held-out subjects
 .PHONY: r1
@@ -18,3 +18,8 @@ r1:
 .PHONY: freeze-hattori
 freeze-hattori:
 	$(PY) analysis/freeze_hattori.py
+
+# r2 = Per-subject held-out likelihood: HB vs GRU vs per-subject MLE
+.PHONY: r2
+r2:
+	$(PY) analysis/r2_per_subject.py

@@ -1,0 +1,127 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r2_per_subject.py",
+    "produced_at_pt": "2026-10-26T02:38:22-07:00",
+    "studies_git_sha": "d95f35ced1811825c83953eef69dd6906cfe57d4",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "hattori@20261026-002131"
+    ],
+    "source_studies_git_shas": [
+      "32bcf415c5f18d16a07dda5fb4dee914feabd177"
+    ],
+    "source_dispatcher_git_shas": [
+      "5936f5d0b94b1fb5ec9d95058067716f261e5555"
+    ],
+    "source_wrapper_git_shas": [
+      "04878a6cdb081b0156b96ac1e61dde5de58d492e"
+    ],
+    "source_foraging_models_git_shas": [
+      "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r2_per_subject.py",
+        "sha256": "cdbc9f0832cf41f3ec97ad9228f4fc77d85d56af025b12b2b8d17dc19f9a03eb"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
+        "sha256": "47361e29ee51c91658f6adf8b9385863bbb846f86ae57297c46f2276f6fac9da"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
+        "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
+        "sha256": "f3cba9eb9c351c48434653c882a11e8afd8f6de9fe383f96af1e5e6e38191baa"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r2_per_subject.json",
+        "sha256": "7052648209a1d11b0320ccde66b9f6013b509afb92bc5382e3da137d333bacc9"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r2_per_subject.png",
+        "sha256": "20e5ef97ba913080f21261a434d0f7a3413b0da641ea43177ec7729e4ddb6308"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r2-per-subject.md#result-1",
+        "sha256": "4b9fc54e738d595ea5ae65d5da74d2934dcbefbc99467ab1bb9b161048e8690d"
+      }
+    ]
+  },
+  "n_subjects": 146,
+  "subjects_not_in_every_arm": {
+    "HB two-level": [
+      "722683",
+      "795395",
+      "820243"
+    ],
+    "GRU D≈30": [
+      "764791",
+      "808057",
+      "823164"
+    ],
+    "GRU D≈614": [
+      "764791",
+      "808057",
+      "823164"
+    ],
+    "MLE Hattori": [
+      "722683",
+      "795395",
+      "820243"
+    ],
+    "MLE CTT": [
+      "722683",
+      "795395",
+      "820243"
+    ]
+  },
+  "subjects_trial_count_differs_from_gru": [],
+  "per_arm_median": {
+    "HB two-level": 0.734737417606758,
+    "GRU D≈30": 0.7393048190124966,
+    "GRU D≈614": 0.7406768090823538,
+    "MLE Hattori": 0.7284707209900985,
+    "MLE CTT": 0.7330180774630222
+  },
+  "hb_minus": {
+    "GRU D≈30": {
+      "median": -0.004534947600310035,
+      "mean": -0.004450985578535249,
+      "frac_hb_higher": 0.06164383561643835,
+      "n": 146
+    },
+    "GRU D≈614": {
+      "median": -0.006128501213929216,
+      "mean": -0.006142695794989259,
+      "frac_hb_higher": 0.03424657534246575,
+      "n": 146
+    },
+    "MLE Hattori": {
+      "median": 0.0073270723103526225,
+      "mean": 0.008341477052414097,
+      "frac_hb_higher": 0.9931506849315068,
+      "n": 146
+    },
+    "MLE CTT": {
+      "median": 0.0036304712479542367,
+      "mean": 0.0036855615226567937,
+      "frac_hb_higher": 0.7876712328767124,
+      "n": 146
+    }
+  }
+}
