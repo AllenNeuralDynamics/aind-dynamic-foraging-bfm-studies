@@ -40,3 +40,10 @@ pull:
 # Refresh analysis/grid_wave2.csv from W&B, filtered to wave 2's group (needs WANDB_API_KEY).
 pull_wave2:
 	$(PY) analysis/pull_wave2_grid.py
+
+# freeze-provenance = what the headline results' launches trained on and ran in, recovered from
+# W&B run configs and Beaker jobs (#28). Needs W&B credentials and BEAKER_TOKEN: compute node only.
+.PHONY: freeze-provenance
+freeze-provenance:
+	$(PY) ../util/freeze_run_provenance.py --study . --project AIND-disRNN/disrnn_data_scaling \
+	  --group mult-d-grid@20260718-151409

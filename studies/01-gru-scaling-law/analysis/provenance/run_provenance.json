@@ -1,0 +1,871 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "../util/freeze_run_provenance.py",
+    "produced_at_pt": "2026-10-25T17:04:40-07:00",
+    "studies_git_sha": "cc29654ff38184692632686c85ada2f1c00b92ad",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "870e6ddd56c0bfba4d2a314b63af0e056ef0153c",
+    "wandb_groups": [
+      "heldout-rerun-v1@20260623-004601",
+      "heldout-rerun-v1@20260623-005608",
+      "heldout-rerun-v2@20260623-053951",
+      "v2-sc-active@20260622-144622",
+      "nxd-grid@20260623-102649",
+      "nxd-grid@20260624-141106"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [
+      "a1b92b50d31364a1bef88e76594cf6563004c13e"
+    ],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): heldout-rerun-v1@20260623-004601, heldout-rerun-v1@20260623-005608, heldout-rerun-v2@20260623-053951, nxd-grid@20260623-102649, nxd-grid@20260624-141106",
+      "no studies SHA in the launch record(s) of W&B group(s): v2-sc-active@20260622-144622",
+      "no wrapper SHA in the launch record(s) of W&B group(s): v2-sc-active@20260622-144622",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): v2-sc-active@20260622-144622"
+    ],
+    "code": [
+      {
+        "path": "studies/util/freeze_run_provenance.py",
+        "sha256": "f758d33ea82be4adf865b5968d2a1cf8cd05d76dcd9cbf4b465eab5217bd7ce0"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/01-gru-scaling-law/heldout_rerun_v1_20260623-004601.json",
+        "sha256": "d586087df73359f8065f427e8458b944f0b35c45a6dae55ba6d69700641adfe8"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/heldout_rerun_v1_20260623-005608.json",
+        "sha256": "364fcb232551a8efc73d34de19b0c9788641817e03a1b4caf7269cca45153c26"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/heldout_rerun_v2_20260623-053951.json",
+        "sha256": "b111e0e4a0b48cd70a20e1f8d4d1fc8c19861081c11c39dcbed6ac609a98c13d"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/variants/v2-sc-active/launch_record/beaker_resumable.json",
+        "sha256": "e172476ca5dea72becbb7f88f0aadb5fbb2f8c524204052afe185dc489786fc6"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/wpz9pf0u",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVSQ2ZKXYAW26QH5YVXKKNAZ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/ri9lr1hs",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/ulhmucru",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/0enk2xna",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/jyj9ez7t",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/qwospdnh",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/r8u6p3wd",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/uunzuwvl",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/4hcl7z5p",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/5rbvyik3",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/8vx7miih",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/mdxc0tae",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/y0cd7yr8",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/h0v0arju",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/4a48isq9",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/xoskyvfc",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVSQNGDB4MKP4SN42671WD1J"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/08rggiic",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/28rr7de1",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/2bdj3cz3",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/dtgf4j8v",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/hmoqun98",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/q5vi25gf",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/encaswlt",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/zpnx6yj1",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/snoqxiql",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/zcgxz4hk",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/tqfa6pdg",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/hed0kdjp",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/qm6udlew",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/qpxz6qav",
+        "state": "finished"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/iqd04zz9",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVT7X0E68RA016G5ATA5H576"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-4bb879a6",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSAEGNGK7FXS6VXSFF9PV"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-c4f91751",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSAQPM86BYCN2ERG4GFAY"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-e8c3edb2",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSAVQJW762CQ80K33S691"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-f8f4f377",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSAKMFFD7TFFBT0CBP930"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-3603897b",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSBZ9AM2JJM62ADG9WSB3"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-d6462060",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSC2JXGD78HG3J67ES3Q4"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-8c0d52a5",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSBRRZES0R93GSNP31MXH"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-c4ff4e08",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSBNGY9WC4XSAXM62W8PS"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-e7f3851f",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSBA78RFT0K79E4PJTR40"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-ecd6f7e6",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSBW0EGVFQ710TRN1ECX1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-19a88c23",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSB3JWEVP73134NPQM3F1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-212ad763",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSBHJBZ6DV9X96W1V87FG"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-35610e21",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSBE4YS584MWAQHCYWNVD"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-4becb8b9",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSB6XVH14NZ1AP1DKC89J"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/v2-sc-active-20260622-144622-5e008e40",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVRMSAZE06KG565CQSSJNNGE"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KVRMSAAJTRSJMFV5JT7JAP6X"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-368c9931",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAGEV5KBRNPBHK9JKY4S3"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-88a1afe7",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAGJX9RJZ92BCYK00VJ9P"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-cfdcbee4",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAFZWQV5RKCWKK3PRQ29Q"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-e225ee22",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAGAK5TGW0XZPYQ35WNZ3"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-e306a046",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAFWHKN8H65PAQS0D00YA"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-e3d303a2",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAG32Q6S6P3NQNE9492QA"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-e8df2cdb",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAG6KPA10K7S5S80HKQJQ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-f506e94f",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAGQV9X20K02PVKA7WM2A"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-1de6455e",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVV53NSGC6BB7D8MEASAS1WM"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-3f09abfe",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAF9QHVNB4ZH30RQK7037"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-4e971eab",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAFGHV6YMBKKNHC4SKB26"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-e663d794",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAFME6HQ1Y51QB388EXH8"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-18e65dc2",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAFD2DZAR52967RKB4WCB"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-79d54f5d",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAFRHVH0FJ1SA96DWMZSZ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-287afe8a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVV5JMF1DKTNXW7136EJWEYM"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-27bd5ac3",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVV5M5BMFDN4A57QYFM112TM"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-e144140c",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVV5Q6SPFR2C9A180FJ98W9Q"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-3f93a188",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVV626CKPKRVZ8EEMP2HNPTB"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-1bb4f364",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAHJE7TB3M8JDXAS0DFFN"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-5e4a6cf3",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAHNNP0P12GNK5AHEM3GM"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-d2eaf831",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAHRZB920BNVM5FH2WXJM"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-993442f6",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAHWP5AM8MAKEQXKR8BSE"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-08c18c82",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAJ0SM9RZ5PH2VFNXS4CH"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-94c45e43",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAJ41R9KHDW2AVERK0Y3Q"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-78e14bfc",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAJ7HM21ERJGDQMEPBS58"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-0554750e",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAJBFYAZWJ9D7B473W22Y"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-6eb7c553",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVTRAJGMFH14WYBY4S0Q7BX2"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-50d837a8",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHW9SAZCC4ZRRVZ1KMY5B"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-562f9bb2",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHWKX2GFSY1XYSCXKZ2DT"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-714b076c",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHXWWM34AM8ZRRQ6VMH3M"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-9d91a4c4",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHV8PQ2P01X18F6QQJ75Q"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-c0ae38fe",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXR6Y20ZH1G80084SCSCG27"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-e9e26cd6",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHXD0KSTSZQTTRQ17NY15"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-eeebc21b",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHWWNQQS9RVSWEEW6K1AJ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-efdfec96",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHVR4CHN60E91X435ASJV"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260624-141106-f2771d3a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KVXQHY2YSTD2BQ8XP10VSF36"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/01-gru-scaling-law/analysis/provenance/run_provenance.json",
+        "sha256": "3d246a9442d1253f0fae1260fcd3e33ac0c1df51c7db3add0f3fbd114687b27a"
+      }
+    ]
+  },
+  "recovered_at_pt": "2026-10-25T17:04:42-07:00",
+  "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
+  "groups": {
+    "heldout-rerun-v1@20260623-004601": {
+      "project": "AIND-disRNN/mice_data_scaling",
+      "n_runs": 1,
+      "data": [
+        {
+          "source": "unrecorded",
+          "type": null,
+          "snapshot": null,
+          "n_runs": 1
+        }
+      ],
+      "revisions": {},
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "launch-record experiment",
+          "n_runs": 1
+        }
+      ],
+      "unrecovered": {
+        "wrapper commit": 1,
+        "dispatcher commit": 1,
+        "foraging_models commit": 1
+      }
+    },
+    "heldout-rerun-v1@20260623-005608": {
+      "project": "AIND-disRNN/mice_data_scaling",
+      "n_runs": 15,
+      "data": [
+        {
+          "source": "unrecorded",
+          "type": null,
+          "snapshot": null,
+          "n_runs": 15
+        }
+      ],
+      "revisions": {},
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "launch-record experiment",
+          "n_runs": 15
+        }
+      ],
+      "unrecovered": {
+        "wrapper commit": 15,
+        "dispatcher commit": 15,
+        "foraging_models commit": 15
+      }
+    },
+    "heldout-rerun-v2@20260623-053951": {
+      "project": "AIND-disRNN/mice_data_scaling",
+      "n_runs": 15,
+      "data": [
+        {
+          "source": "unrecorded",
+          "type": null,
+          "snapshot": null,
+          "n_runs": 15
+        }
+      ],
+      "revisions": {},
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "launch-record experiment",
+          "n_runs": 15
+        }
+      ],
+      "unrecovered": {
+        "wrapper commit": 15,
+        "dispatcher commit": 15,
+        "foraging_models commit": 15
+      }
+    },
+    "v2-sc-active@20260622-144622": {
+      "project": "AIND-disRNN/mice_data_scaling",
+      "n_runs": 15,
+      "data": [
+        {
+          "source": "live",
+          "type": "mice_snapshot",
+          "snapshot": null,
+          "n_runs": 15
+        }
+      ],
+      "revisions": {
+        "wrapper": {
+          "65c3350d801c7596f88f57adef6f4d7e435b9c35": 15
+        },
+        "dispatcher": {
+          "1cc0303fe7ec36039e54e9a1a9acddc990c007db": 15
+        }
+      },
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "beaker job",
+          "n_runs": 15
+        }
+      ],
+      "unrecovered": {
+        "foraging_models commit": 15
+      }
+    },
+    "nxd-grid@20260623-102649": {
+      "project": "AIND-disRNN/mice_data_scaling",
+      "n_runs": 27,
+      "data": [
+        {
+          "source": "live",
+          "type": "mice_snapshot",
+          "snapshot": null,
+          "n_runs": 27
+        }
+      ],
+      "revisions": {
+        "wrapper": {
+          "4f296807f4ea06f9a58afa4eeb0553c220db4726": 27
+        },
+        "dispatcher": {
+          "99aa2fcaf34ba8a879ec0771030c008573d5f5fa": 13,
+          "7b5a7b47444087c13a9bc8dae5c358e894348e5f": 11,
+          "226cbe5a592ad24c684d0e29b14c70626021f075": 2,
+          "0463de3240763143261016a5980cfa38c5a560d1": 1
+        }
+      },
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "beaker job",
+          "n_runs": 27
+        }
+      ],
+      "unrecovered": {
+        "foraging_models commit": 27
+      }
+    },
+    "nxd-grid@20260624-141106": {
+      "project": "AIND-disRNN/mice_data_scaling",
+      "n_runs": 9,
+      "data": [
+        {
+          "source": "live",
+          "type": "mice_snapshot",
+          "snapshot": null,
+          "n_runs": 9
+        }
+      ],
+      "revisions": {
+        "wrapper": {
+          "4f296807f4ea06f9a58afa4eeb0553c220db4726": 9
+        },
+        "dispatcher": {
+          "3316a905e4f3fb1ebf157a240c4d58e586e3d44a": 9
+        }
+      },
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KVEHPZ76A85CHWEWBQ43R6EY",
+          "via": "beaker job",
+          "n_runs": 9
+        }
+      ],
+      "unrecovered": {
+        "foraging_models commit": 9
+      }
+    }
+  }
+}
