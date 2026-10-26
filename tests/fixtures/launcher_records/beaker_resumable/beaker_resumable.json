@@ -2,7 +2,7 @@
   "_meta": {
     "schema_version": 2,
     "produced_by": "launch_beaker_resumable.py",
-    "produced_at_pt": "2026-10-24T22:11:13-07:00"
+    "produced_at_pt": "2026-10-25T17:32:07-07:00"
   },
   "kind": "initial",
   "platform": "beaker",
@@ -16,8 +16,8 @@
     }
   ],
   "revisions": {
-    "studies": "e67c24ea481ad448a90b8399f76bf19d62599551",
-    "dispatcher": "5f81d3923b1d58e0a84a575e72f08bccd8053d3b",
+    "studies": "7922ce91f708b50d16f773633b71665144ebef47",
+    "dispatcher": "0a3a820eba29581d090fd2ffba6bbfdd66adcc7e",
     "wrapper": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "foraging_models": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
   },
@@ -26,16 +26,31 @@
     "experiment_resumable_submitted.yaml"
   ],
   "n_tasks": 1,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "beaker",
+    "name": "han-hou/disrnn-wrapper-main-20260712",
+    "id": "01KXCF2EASQ8NV463684PZJ0ZP"
+  },
   "mode": "resumable-grid",
   "experiment_id": "01KEXAMPLEEXPERIMENT0000000",
   "experiment_url": "https://beaker.org/ex/01KEXAMPLEEXPERIMENT0000000",
-  "dispatcher_commit": "5f81d3923b1d58e0a84a575e72f08bccd8053d3b",
-  "studies_git_commit": "e67c24ea481ad448a90b8399f76bf19d62599551",
+  "dispatcher_commit": "0a3a820eba29581d090fd2ffba6bbfdd66adcc7e",
+  "studies_git_commit": "7922ce91f708b50d16f773633b71665144ebef47",
   "studies_git_branch": "master",
   "studies_git_dirty": false,
   "studies_dirty_paths": [],
   "studies_sweep_tracked": true,
-  "dispatcher_git_commit": "5f81d3923b1d58e0a84a575e72f08bccd8053d3b",
+  "dispatcher_git_commit": "0a3a820eba29581d090fd2ffba6bbfdd66adcc7e",
   "dispatcher_git_branch": "HEAD",
   "dispatcher_git_dirty": false,
   "provenance_warnings": [],
@@ -43,5 +58,5 @@
   "foraging_models_git_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
   "studies_dirty_override": null,
   "sweep_file": "/tmp/studies-fixture/studies-repo/studies/08-hb-vs-gru-heldout/variants/stan-arm/sweep.yaml",
-  "created_utc": "2026-10-25T05:11:13.837252+00:00"
+  "created_utc": "2026-10-26T00:32:07.079331+00:00"
 }
