@@ -92,6 +92,8 @@ inputs:
   data:
     - analysis/maturity_audit.json
 reproduce: make -C studies/09-gru-cross-species-transfer r5
+tags:
+  question: [methods]
 ---
 
 # Result 5 — mature-session eligibility audit

@@ -61,7 +61,7 @@ FIX = {
     "study-motivation-unresolved": "point `motivated_by` at an existing study (and report), or an issue",
     "study-motivation-order": "a study can only be motivated by an earlier study (lower accession number)",
     "tag-unknown": "use a value listed in schemas/tags.yaml, or add it there (with a label and description) in the same PR",
-    "study-tag-unreported": "tag the live report that does this work (report frontmatter `tags`), or drop the study tag",
+    "study-tag-unreported": "tag the report that does this work (report frontmatter `tags`), or drop the study tag",
     "study-motivation-many": "more than 3 motivations usually mixes in what the study uses; move those to its reports' `upstream`",
     "study-frontmatter-missing": "add README frontmatter (schemas/study-frontmatter.v1.schema.json)",
     "study-frontmatter": "fix the README frontmatter field named in the message "
@@ -320,28 +320,33 @@ class Checker:
         for facet, values in (tags.items() if isinstance(tags, dict) else []):
             known = (self.tags.get(facet) or {}).get("values") or {}
             for v in values if isinstance(values, list) and known else []:
-                if v not in known:
+                if isinstance(v, str) and v not in known:       # other types: the schema reports them
                     self.add("error", "tag-unknown", path, f"tags.{facet}: {v!r} is not in schemas/tags.yaml", item=f"{facet}:{v}")
 
     def check_study_tags(self, study: Path, fm: dict) -> None:
-        """A complete study's tags are each carried by one of its live reports (`cognitive/bh` on a
-        report covers `cognitive` on the study). Planned and active studies have nothing to show yet."""
+        """A complete study's tags are each carried by one of its standing (live or draft) reports;
+        `cognitive/bh` on a report covers `cognitive` on the study. Planned and active studies have
+        nothing to show yet, and a study none of whose reports has frontmatter is already flagged
+        by report-frontmatter-missing."""
         tags = fm.get("tags")
         self.check_tags(tags, study / "README.md")
-        live = [r for k, r in self.reports.items() if k.startswith(study.name + "/") and r.get("status") == "live"]
-        if fm.get("status") != "complete" or not live or not isinstance(tags, dict):
+        mine = [r for k, r in self.reports.items() if k.startswith(study.name + "/")]
+        if fm.get("status") != "complete" or not isinstance(tags, dict) or not any(mine):
             return
+        live = [r for r in mine if r.get("status") in ("live", "draft")]
         for facet, values in tags.items():
             carried = set()
             for r in live:
                 rt = (r.get("tags") or {}).get(facet) if isinstance(r.get("tags"), dict) else None
                 for t in rt if isinstance(rt, list) else []:
-                    parts = str(t).split("/")
+                    if not isinstance(t, str):
+                        continue
+                    parts = t.split("/")
                     carried |= {"/".join(parts[:i + 1]) for i in range(len(parts))}
             for v in values if isinstance(values, list) else []:
-                if v not in carried:
+                if isinstance(v, str) and v not in carried:
                     self.add("warn", "study-tag-unreported", study / "README.md",
-                             f"tags.{facet}: {v!r} is on no live report of this complete study", item=f"{facet}:{v}")
+                             f"tags.{facet}: {v!r} is on no live or draft report of this complete study", item=f"{facet}:{v}")
 
     def _is_tracked_tree(self, p: Path) -> bool:
         r = self.rel(p)

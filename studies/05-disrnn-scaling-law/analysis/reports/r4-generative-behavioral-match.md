@@ -17,7 +17,7 @@ upstream:
     note: the GRU generative match (analysis/generative_match.json)
 reproduce: make -C studies/05-disrnn-scaling-law r4
 tags:
-  model: [disrnn, cognitive]
+  model: [disrnn]
   question: [generative-run, comparison]
 ---
 

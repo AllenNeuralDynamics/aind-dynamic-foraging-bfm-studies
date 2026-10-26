@@ -428,6 +428,11 @@ class CheckProvenanceTest(unittest.TestCase):
         # a nested report tag covers its parent; a parent never covers a child
         self.set_tags(report, "reproduce:", "tags: {model: [gru, cognitive/bh], question: [scaling]}\nreproduce:")
         self.assertEqual(unreported(), {f"study-tag-unreported|{STUDY}/README.md|question:comparison"})
+        # a retracted report is no evidence; malformed entries are the schema's, never a crash
+        self.set_tags(report, "status: live", "status: retracted")
+        self.assertEqual(len(unreported()), 4)
+        self.set_tags(readme, "model: [gru, cognitive]", "model: [{name: gru}]")
+        self.assertIn(f"study-frontmatter|{STUDY}/README.md|tags/model/0:type", self.keys())
 
     # -- launch records (ADR 0001) ----------------------------------------------------------------
     def test_group_prefix_must_be_variant(self):

@@ -17,7 +17,6 @@ upstream:
     wandb_group: mult-beta-d614@20260713-003501
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r1
 tags:
-  model: [disrnn]
   question: [tuning]
 ---
 
