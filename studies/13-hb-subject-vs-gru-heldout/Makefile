@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1 r2
+all: r1 r2 r3
 
 # r1 = HB-Hattori2019 two-level vs GRU and per-subject MLE on held-out subjects
 .PHONY: r1
@@ -23,3 +23,14 @@ freeze-hattori:
 .PHONY: r2
 r2:
 	$(PY) analysis/r2_per_subject.py
+
+# r3 = What the HB learns: session-to-session variability and parameters vs per-subject MLE
+.PHONY: r3
+r3:
+	$(PY) analysis/r3_posteriors_vs_mle.py
+
+# freeze-posteriors = per-subject posterior summaries for r3, from each run's saved draws on the HPC
+# filesystem; never part of `all`. Run on a compute node, then commit analysis/hattori_posteriors.json.
+.PHONY: freeze-posteriors
+freeze-posteriors:
+	JAX_PLATFORMS=cpu $(PY) analysis/freeze_posteriors.py
