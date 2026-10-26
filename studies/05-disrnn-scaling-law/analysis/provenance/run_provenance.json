@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "../util/freeze_run_provenance.py",
-    "produced_at_pt": "2026-10-25T16:50:57-07:00",
-    "studies_git_sha": "06751a98ae2fadfabcc3791351c4a8a044879a44",
+    "produced_at_pt": "2026-10-25T17:04:54-07:00",
+    "studies_git_sha": "cc29654ff38184692632686c85ada2f1c00b92ad",
     "studies_git_dirty": true,
     "wrapper_git_sha": "c11b83a5a081b0e9348ca0faf0c5c03e90b4b0cc",
     "wandb_groups": [
@@ -21,7 +21,7 @@
     "code": [
       {
         "path": "studies/util/freeze_run_provenance.py",
-        "sha256": "9f62a32a0c35a458ce62c8eb7a4c6da2d4ab4218ca338c07477a7fdc464ea980"
+        "sha256": "f758d33ea82be4adf865b5968d2a1cf8cd05d76dcd9cbf4b465eab5217bd7ce0"
       }
     ],
     "inputs": [],
@@ -278,11 +278,11 @@
     "outputs": [
       {
         "path": "studies/05-disrnn-scaling-law/analysis/provenance/run_provenance.json",
-        "sha256": "b712465fc4c8441a869adb1ac07f331149b4efbb19ffde10fc400b7646bbb9b6"
+        "sha256": "c7d3f69290488752850a22afa25e2c36d3718aff0c58db33325a2bfce8f95720"
       }
     ]
   },
-  "recovered_at_pt": "2026-10-25T16:50:58-07:00",
+  "recovered_at_pt": "2026-10-25T17:04:55-07:00",
   "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
   "groups": {
     "dscan-mult2@20260713-003428": {

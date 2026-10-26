@@ -52,6 +52,11 @@ class GroupProvenanceTest(unittest.TestCase):
         self.assertEqual(g["unrecovered"]["wrapper commit"], 1)
         self.assertEqual(g["unrecovered"]["image (no Beaker job id logged)"], 1)        # not "HPC": unknown
 
+    def test_an_unreadable_manifest_stops_the_freeze(self):
+        with mock.patch.object(frp.urllib.request, "urlopen", side_effect=OSError("S3 down")):
+            with self.assertRaises(SystemExit):
+                frp.manifest("20260603")
+
     def test_jobless_runs_take_the_launch_record_experiment_image(self):
         with mock.patch.object(frp, "manifest", return_value=(None, {}, "u")):
             g, sources = frp.group_provenance([run("a", {}, commits=False)], "e/p", lambda j: None,

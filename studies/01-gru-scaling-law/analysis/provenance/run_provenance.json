@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "../util/freeze_run_provenance.py",
-    "produced_at_pt": "2026-10-25T16:50:41-07:00",
-    "studies_git_sha": "06751a98ae2fadfabcc3791351c4a8a044879a44",
+    "produced_at_pt": "2026-10-25T17:04:40-07:00",
+    "studies_git_sha": "cc29654ff38184692632686c85ada2f1c00b92ad",
     "studies_git_dirty": true,
     "wrapper_git_sha": "870e6ddd56c0bfba4d2a314b63af0e056ef0153c",
     "wandb_groups": [
@@ -30,10 +30,27 @@
     "code": [
       {
         "path": "studies/util/freeze_run_provenance.py",
-        "sha256": "9f62a32a0c35a458ce62c8eb7a4c6da2d4ab4218ca338c07477a7fdc464ea980"
+        "sha256": "f758d33ea82be4adf865b5968d2a1cf8cd05d76dcd9cbf4b465eab5217bd7ce0"
       }
     ],
-    "inputs": [],
+    "inputs": [
+      {
+        "path": "studies/01-gru-scaling-law/heldout_rerun_v1_20260623-004601.json",
+        "sha256": "d586087df73359f8065f427e8458b944f0b35c45a6dae55ba6d69700641adfe8"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/heldout_rerun_v1_20260623-005608.json",
+        "sha256": "364fcb232551a8efc73d34de19b0c9788641817e03a1b4caf7269cca45153c26"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/heldout_rerun_v2_20260623-053951.json",
+        "sha256": "b111e0e4a0b48cd70a20e1f8d4d1fc8c19861081c11c39dcbed6ac609a98c13d"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/variants/v2-sc-active/launch_record/beaker_resumable.json",
+        "sha256": "e172476ca5dea72becbb7f88f0aadb5fbb2f8c524204052afe185dc489786fc6"
+      }
+    ],
     "sources": [
       {
         "type": "wandb_run",
@@ -669,11 +686,11 @@
     "outputs": [
       {
         "path": "studies/01-gru-scaling-law/analysis/provenance/run_provenance.json",
-        "sha256": "d82e8089c30a8f8e70923d24ea38b7874b818789c3fb57992ee93dcaa8d1e35f"
+        "sha256": "3d246a9442d1253f0fae1260fcd3e33ac0c1df51c7db3add0f3fbd114687b27a"
       }
     ]
   },
-  "recovered_at_pt": "2026-10-25T16:50:43-07:00",
+  "recovered_at_pt": "2026-10-25T17:04:42-07:00",
   "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
   "groups": {
     "heldout-rerun-v1@20260623-004601": {

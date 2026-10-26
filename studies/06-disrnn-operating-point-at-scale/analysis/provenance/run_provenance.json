@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "../util/freeze_run_provenance.py",
-    "produced_at_pt": "2026-10-25T16:51:29-07:00",
-    "studies_git_sha": "06751a98ae2fadfabcc3791351c4a8a044879a44",
+    "produced_at_pt": "2026-10-25T17:05:25-07:00",
+    "studies_git_sha": "cc29654ff38184692632686c85ada2f1c00b92ad",
     "studies_git_dirty": true,
     "wrapper_git_sha": "c11b83a5a081b0e9348ca0faf0c5c03e90b4b0cc",
     "wandb_groups": [
@@ -23,10 +23,35 @@
     "code": [
       {
         "path": "studies/util/freeze_run_provenance.py",
-        "sha256": "9f62a32a0c35a458ce62c8eb7a4c6da2d4ab4218ca338c07477a7fdc464ea980"
+        "sha256": "f758d33ea82be4adf865b5968d2a1cf8cd05d76dcd9cbf4b465eab5217bd7ce0"
       }
     ],
-    "inputs": [],
+    "inputs": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_nanretry1.json",
+        "sha256": "cd78fa3d5c2087c7d62e53bca1b0df83469bca6f125e72c738a129a176caa9ea"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_rescue1.json",
+        "sha256": "74e53e4d34ccbdada8bce3094704274e14f8fafcd89e4ee8309c7142096037b5"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_resubmit20.json",
+        "sha256": "06ec19c664d1ec7f01d990514fd2b4c0d481ca8e09af5d6e226d0ebb25c39806"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_resumable.json",
+        "sha256": "8ea29e364d11321f0a0e88c179303a7b184abd8f19ce50894b8582d921bc522f"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_tier1.json",
+        "sha256": "e22e3556fb7b0917bfd6609deb6159aa96a89f571b4a98d18b08b58b3bf189cb"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_tier1_008.json",
+        "sha256": "43e9341a61778b4ad4400abe5fad790b6882f42d6ecb4e4a12864723cf42afff"
+      }
+    ],
     "sources": [
       {
         "type": "wandb_run",
@@ -844,27 +869,15 @@
       },
       {
         "type": "url",
-        "id": "https://beaker.org/ex/01KYB43A78GH0X95K1W70EFNSZ"
-      },
-      {
-        "type": "url",
         "id": "https://beaker.org/ex/01KYB43HX8G6GPSTZFH09MGQZ4"
       },
       {
         "type": "url",
+        "id": "https://beaker.org/ex/01KYB43A78GH0X95K1W70EFNSZ"
+      },
+      {
+        "type": "url",
         "id": "https://beaker.org/ex/01KYJQ472RT9638M68WWH6HJRK"
-      },
-      {
-        "type": "url",
-        "id": "https://beaker.org/ex/01KXVN986D229GE1P5CZDHRX8S"
-      },
-      {
-        "type": "url",
-        "id": "https://beaker.org/ex/01KXVN8CPDJTNFVJD9VCPGF8HH"
-      },
-      {
-        "type": "url",
-        "id": "https://beaker.org/ex/01KXVN95GHN340BNAWDM91BC3T"
       },
       {
         "type": "url",
@@ -876,11 +889,23 @@
       },
       {
         "type": "url",
+        "id": "https://beaker.org/ex/01KXVN8CPDJTNFVJD9VCPGF8HH"
+      },
+      {
+        "type": "url",
         "id": "https://beaker.org/ex/01KXVN8HQYA8Y6MHNGPDSX900R"
       },
       {
         "type": "url",
+        "id": "https://beaker.org/ex/01KXVN986D229GE1P5CZDHRX8S"
+      },
+      {
+        "type": "url",
         "id": "https://beaker.org/ex/01KXVN8VBAEBB07F0T6AKKJMBK"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN95GHN340BNAWDM91BC3T"
       },
       {
         "type": "url",
@@ -903,11 +928,11 @@
     "outputs": [
       {
         "path": "studies/06-disrnn-operating-point-at-scale/analysis/provenance/run_provenance.json",
-        "sha256": "29ef1504e155be809ead927a92996adbe2e7212892246c5cfc477cdbba9e51fc"
+        "sha256": "915d881ed207af39c61d1ecd046d524149de09cfb3811913cffb4d3a88d527f3"
       }
     ]
   },
-  "recovered_at_pt": "2026-10-25T16:51:31-07:00",
+  "recovered_at_pt": "2026-10-25T17:05:26-07:00",
   "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
   "groups": {
     "mult-d-grid@20260718-151409": {

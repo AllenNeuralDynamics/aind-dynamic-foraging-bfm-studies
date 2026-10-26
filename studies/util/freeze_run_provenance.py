@@ -35,16 +35,16 @@ SNAPSHOT_HTTPS = "https://aind-scratch-data.s3.amazonaws.com/aind-dynamic-foragi
 COMMITS = {"wrapper": "wrapper_commit", "dispatcher": "dispatcher_commit", "foraging_models": "foraging_models_commit"}
 
 
-def manifest(snapshot: str) -> tuple[str | None, dict, str]:
-    """sha256, body and url of a snapshot's snapshot_manifest.json."""
+def manifest(snapshot: str) -> tuple[str, dict, str]:
+    """sha256, body and url of a snapshot's snapshot_manifest.json. A failed read stops the
+    freeze, so an outage can never overwrite recovered digests with nulls."""
     url = f"{SNAPSHOT_HTTPS}/snapshots/{snapshot}/snapshot_manifest.json"
     try:
         with urllib.request.urlopen(url, timeout=30) as resp:
             body = resp.read()
         return hashlib.sha256(body).hexdigest(), json.loads(body), url
     except (OSError, ValueError) as exc:
-        print(f"  WARNING: {url}: {exc}")
-        return None, {}, url
+        sys.exit(f"freeze_run_provenance: could not read {url} ({exc}); nothing written")
 
 
 def _values(v) -> list[str]:
@@ -86,7 +86,7 @@ def group_provenance(runs: list, project: str, image_of, experiment_images: dict
     for (dtype, snap, logged), n in sorted(data.items(), key=lambda kv: -kv[1]):
         if snap:
             digest, m, url = manifest(snap)
-            sources.append({"type": "url", "id": url, **({"sha256": digest} if digest else {})})
+            sources.append({"type": "url", "id": url, "sha256": digest})
             out_data.append({"source": "snapshot", "type": dtype, "snapshot": snap,
                              "uri": f"{SNAPSHOT_PREFIX}/snapshots/{snap}/", "manifest_sha256": digest,
                              "build_id": m.get("latest_build_id"), "n_sessions": m.get("n_sessions"), "n_runs": n})
@@ -133,8 +133,11 @@ def main(argv: list[str] | None = None) -> None:
                 cache[job] = None
         return cache[job]
 
+    records_read: list[Path] = []
+
     def experiment_images(group: str) -> dict[str, set[str]]:
-        """Beaker experiments the study's launch records name for ``group`` -> the images their jobs ran."""
+        """Beaker experiments the study's launch records name for ``group`` -> the images their jobs
+        ran. The records it reads become the freeze's inputs, so a changed mapping marks it stale."""
         out = {}
         for path in [*a.study.glob("variants/*/launch_record/**/*.json"), *a.study.glob("*.json")]:
             try:
@@ -145,6 +148,8 @@ def main(argv: list[str] | None = None) -> None:
                 continue
             ids = {rec.get("experiment_id")} | {r.get("id") for r in rec.get("job_refs") or []
                                                 if isinstance(r, dict) and r.get("type") == "beaker_experiment"}
+            if any(ids):
+                records_read.append(path)
             for exp in filter(None, ids):
                 jobs = beaker.experiment.get(exp).jobs or []
                 out[exp] = {j.execution.spec.image.beaker for j in jobs if j.execution}
@@ -170,7 +175,7 @@ def main(argv: list[str] | None = None) -> None:
     out = study / "analysis" / "provenance" / "run_provenance.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     meta = build_meta("../util/freeze_run_provenance.py", list(groups), study_root=study, kind="freeze",
-                      code=[__file__], inputs=[], sources=uniq)
+                      code=[__file__], inputs=sorted(set(records_read)), sources=uniq)
     write_artifact(out, {"_meta": meta,
                          "recovered_at_pt": datetime.datetime.now(ZoneInfo("America/Los_Angeles")).isoformat(timespec="seconds"),
                          "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches "

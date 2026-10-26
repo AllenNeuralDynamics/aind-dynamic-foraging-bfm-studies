@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "../util/freeze_run_provenance.py",
-    "produced_at_pt": "2026-10-25T16:51:39-07:00",
-    "studies_git_sha": "06751a98ae2fadfabcc3791351c4a8a044879a44",
+    "produced_at_pt": "2026-10-25T17:05:34-07:00",
+    "studies_git_sha": "cc29654ff38184692632686c85ada2f1c00b92ad",
     "studies_git_dirty": true,
     "wrapper_git_sha": "c11b83a5a081b0e9348ca0faf0c5c03e90b4b0cc",
     "wandb_groups": [
@@ -26,10 +26,15 @@
     "code": [
       {
         "path": "studies/util/freeze_run_provenance.py",
-        "sha256": "9f62a32a0c35a458ce62c8eb7a4c6da2d4ab4218ca338c07477a7fdc464ea980"
+        "sha256": "f758d33ea82be4adf865b5968d2a1cf8cd05d76dcd9cbf4b465eab5217bd7ce0"
       }
     ],
-    "inputs": [],
+    "inputs": [
+      {
+        "path": "studies/11-disrnn-near-gru-ceiling/variants/stage3-wide-latent/launch_record/beaker_resubmit_latent32.json",
+        "sha256": "461404e279b1504b12882ba20c7ee0d9df957ddfd1d8976fda509637b93fe37f"
+      }
+    ],
     "sources": [
       {
         "type": "wandb_run",
@@ -96,11 +101,11 @@
       },
       {
         "type": "url",
-        "id": "https://beaker.org/ex/01M23R4PMW6C88W4JQM7A1BSEG"
+        "id": "https://beaker.org/ex/01M23ZX664WP1QJQJNVBYY1V13"
       },
       {
         "type": "url",
-        "id": "https://beaker.org/ex/01M23ZX664WP1QJQJNVBYY1V13"
+        "id": "https://beaker.org/ex/01M23R4PMW6C88W4JQM7A1BSEG"
       },
       {
         "type": "url",
@@ -110,11 +115,11 @@
     "outputs": [
       {
         "path": "studies/11-disrnn-near-gru-ceiling/analysis/provenance/run_provenance.json",
-        "sha256": "e290319af74009a5d6fa4493d54872c35ed302486c25c4eceafac6eb1dc65dbb"
+        "sha256": "f38caa92b199a06874b41a5a9ea3b65d5ce69e0838caca4d65b69454256d09c0"
       }
     ]
   },
-  "recovered_at_pt": "2026-10-25T16:51:40-07:00",
+  "recovered_at_pt": "2026-10-25T17:05:35-07:00",
   "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
   "groups": {
     "stage1-no-penalty@20260909-021133": {
