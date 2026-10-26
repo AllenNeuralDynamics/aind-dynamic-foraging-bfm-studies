@@ -1,0 +1,41 @@
+# Production: study 08's sampler settings (2000 warmup, 500 draws, 4 chains), so 2000
+# posterior draws per subject, each with 64 session draws: 128,000 draws behind every
+# session-marginal (ADR 0002).
+#
+# Study 13 / hattori: each held-out subject fitted alone under the fixed hyperprior, on its
+# even-indexed sessions, scored on its odd-indexed eval sessions (PLAN.md).
+#   data  -> dispatcher code/config/data/mice_snapshot_scaling.yaml (snapshot 20260603)
+#   model -> dispatcher code/config/model/hb_hattori.yaml, estimator overridden below
+# The held-out cohort does not depend on data.subject_ratio; the smallest rung is used
+# only because the trainer never reads the training cohort and it loads fastest.
+# wandb.project must be in the command: the launcher sets only the group.
+
+entity: AIND-disRNN
+project: mice_data_scaling
+name: hb-heldout-two-level
+
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=hb_hattori
+  - model.estimator=heldout_two_level
+  - model.num_warmup=2000
+  - model.num_samples=500
+  - model.num_chains=4
+  - +model.session_draws_per_posterior_draw=64
+  - model.progress_bar=true
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_data_scaling
+  - ${args_no_hyphens}
+
+parameters:
+  data.subject_ratio:
+    values: [0.016]
