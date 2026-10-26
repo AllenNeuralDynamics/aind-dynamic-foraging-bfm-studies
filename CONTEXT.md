@@ -44,7 +44,7 @@ _Avoid_: retry, relaunch
 
 **Launch record**:
 The immutable file recording one launch or intervention: what was submitted, from which
-commits, and why.
+commits, on which data snapshot and in which image, and why.
 
 ### Results
 
