@@ -19,6 +19,9 @@ inputs:
   related_scripts:
     - analysis/update_r8.py    # regenerates the paired table in this report
 reproduce: python studies/data-scaling-law/analysis/rl_baseline.py && python studies/data-scaling-law/analysis/update_r8.py
+tags:
+  model: [gru, cognitive]
+  question: [comparison]
 ---
 
 # Result 8 — paired GRU vs the classical-RL suite on the same 149 held-out mice

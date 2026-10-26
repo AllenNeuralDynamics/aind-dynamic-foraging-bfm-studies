@@ -10,6 +10,9 @@ wandb:
 verdict: They recover it where a correct-model baseline stops being sufficient (97.5-100% for the GRU);
   the disRNN replicates family recovery at 0.95-0.98.
 motivated_by: []
+tags:
+  model: [gru, disrnn, cognitive]
+  question: [interpretation, comparison]
 ---
 # Study: 04-gru-vs-disrnn-embedding-recovery
 

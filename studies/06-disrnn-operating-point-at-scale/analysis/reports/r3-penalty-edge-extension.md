@@ -21,6 +21,9 @@ upstream:
     report: r8
     note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/06-disrnn-operating-point-at-scale r3
+tags:
+  model: [disrnn]
+  question: [tuning]
 ---
 
 # r3 — Pushing past `mult-d-grid`'s tested penalty floor: one axis keeps helping, the other reverses

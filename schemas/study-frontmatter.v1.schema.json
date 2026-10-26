@@ -2,9 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "study-frontmatter.v1",
   "title": "Study cover",
-  "description": "YAML frontmatter of studies/<study>/README.md. Terms: CONTEXT.md (Study, Study status, Motivation). Study dependencies are derived from report `upstream`, not declared here; `motivated_by` records why the study exists.",
+  "description": "YAML frontmatter of studies/<study>/README.md. Terms: CONTEXT.md (Study, Study status, Motivation, Tag). Study dependencies are derived from report `upstream`, not declared here; `motivated_by` records why the study exists.",
   "type": "object",
-  "required": ["schema_version", "id", "question", "status", "wandb", "motivated_by"],
+  "required": ["schema_version", "id", "question", "status", "wandb", "motivated_by", "tags"],
   "additionalProperties": false,
   "properties": {
     "schema_version": {"const": 1},
@@ -24,6 +24,15 @@
       ]}
     },
     "verdict": {"type": "string", "maxLength": 200},
+    "tags": {
+      "type": "object",
+      "description": "What the study asks (CONTEXT.md, Tag). Values come from schemas/tags.yaml; the checker rejects others. They place the study on the atlas map.",
+      "required": ["model", "question"], "additionalProperties": false,
+      "properties": {
+        "model": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9-]+(/[a-z0-9-]+)*$"}, "minItems": 1, "uniqueItems": true},
+        "question": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9-]+(/[a-z0-9-]+)*$"}, "minItems": 1, "uniqueItems": true}
+      }
+    },
     "motivated_by": {
       "type": "array",
       "description": "Why this study exists (CONTEXT.md, Motivation): the earlier results it follows up; entries are equal and none is primary. [] marks a root study. Each note says what that result showed.",

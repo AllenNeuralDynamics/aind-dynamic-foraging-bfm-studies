@@ -11,6 +11,9 @@ inputs:
   data: analysis/shrinkage.json
   figure: analysis/fig_shrinkage.png
 reproduce: make -C studies/08-hb-vs-gru-heldout r3
+tags:
+  model: [cognitive/bh]
+  question: [interpretation]
 ---
 
 # Result 3 — Where HB pulls individual mice toward the population

@@ -65,6 +65,8 @@ inputs:
     - analysis/fig_full_design_vs_llm_task_distance.png
     - analysis/fig_full_design_vs_llm_task_distance.svg
 reproduce: make -C studies/09-gru-cross-species-transfer r6
+tags:
+  question: [methods]
 ---
 
 # Result 6 — prompt-blinded LLM task distance to AIND

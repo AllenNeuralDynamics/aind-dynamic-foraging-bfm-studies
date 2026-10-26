@@ -13,6 +13,9 @@ inputs:
     - analysis/fig_embedding_dimension_source.png
     - analysis/fig_embedding_dimension_spectrum.png
 reproduce: make -C studies/01-gru-scaling-law r11
+tags:
+  model: [gru]
+  question: [tuning]
 ---
 
 # Result 11 — is E=4 a source subject-embedding capacity bottleneck?

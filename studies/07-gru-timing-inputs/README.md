@@ -17,6 +17,9 @@ motivated_by:
 - study: 02-gru-scaling-law-ignore
   report: r1
   note: the 3-way head reaches the same choice ceiling
+tags:
+  model: [gru]
+  question: [more-inputs]
 ---
 # Study: Timing inputs — previous-trial reaction time and lick counts
 

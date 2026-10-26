@@ -14,7 +14,15 @@
     "superseded_by": {"$ref": "#/$defs/report_ref", "description": "Required when status is superseded."},
     "authors": {"type": "array", "items": {"type": "string"}, "minItems": 1},
     "issue": {"$ref": "#/$defs/issue_ref"},
-    "tags": {"type": "array", "items": {"type": "string"}},
+    "tags": {
+      "type": "object",
+      "description": "What this report does (CONTEXT.md, Tag), from schemas/tags.yaml. The atlas filters a study by its own tags plus its reports'.",
+      "additionalProperties": false,
+      "properties": {
+        "model": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9-]+(/[a-z0-9-]+)*$"}, "uniqueItems": true},
+        "question": {"type": "array", "items": {"type": "string", "pattern": "^[a-z0-9-]+(/[a-z0-9-]+)*$"}, "uniqueItems": true}
+      }
+    },
     "aliases": {"type": "array", "items": {"type": "string"}},
     "wandb_groups": {
       "type": "array",

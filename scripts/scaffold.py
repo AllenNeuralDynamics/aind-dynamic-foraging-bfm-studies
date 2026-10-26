@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Scaffold a study, a variant, or a report that passes `make validate` from the first commit.
 
-    make new-study   NAME=12-gru-foo QUESTION="Does ...?" PROJECT=gru_foo VARIANT=base MOTIVATED_BY=06/r2
+    make new-study   NAME=12-gru-foo QUESTION="Does ...?" PROJECT=gru_foo VARIANT=base MOTIVATED_BY=06/r2 \
+                     MODEL=gru QUESTION_TYPE=scaling,comparison
     make new-variant STUDY=12-gru-foo NAME=wider
     make new-report  STUDY=12-gru-foo SLUG=heldout-curve TITLE="Held-out vs D"
 
@@ -23,6 +24,7 @@ import yaml
 REPO = Path(__file__).resolve().parents[1]
 STUDIES = REPO / "studies"
 LAYOUT = yaml.safe_load((REPO / "schemas" / "layout.yaml").read_text())
+TAGS = yaml.safe_load((REPO / "schemas" / "tags.yaml").read_text())["facets"]
 TODAY = datetime.datetime.now(ZoneInfo("America/Los_Angeles")).date().isoformat()
 
 
@@ -107,6 +109,17 @@ def parse_motivation(spec: str | None, new_number: str) -> list[dict]:
 MAKE_RULE = re.compile(r"^([A-Za-z0-9][\w.-]*(?:[ \t]+[A-Za-z0-9][\w.-]*)*)[ \t]*:(?!=)", re.M)
 
 
+def parse_tags(facet: str, spec: str | None, var: str) -> list[str]:
+    """A comma-separated list of schemas/tags.yaml values for one facet; at least one."""
+    known = TAGS[facet]["values"]
+    values = [v.strip() for v in (spec or "").split(",") if v.strip()]
+    if not values:
+        fail(f"{var} is required: comma-separated, from {', '.join(known)} (schemas/tags.yaml)")
+    if bad := [v for v in values if v not in known]:
+        fail(f"{var}: {', '.join(bad)} not in schemas/tags.yaml ({', '.join(known)})")
+    return list(dict.fromkeys(values))
+
+
 def make_targets(study: Path) -> set[str]:
     mk = study / "Makefile"
     text = mk.read_text() if mk.exists() else ""
@@ -137,9 +150,11 @@ def new_study(a: argparse.Namespace) -> None:
     check_variant_name(a.variant)
     issue = parse_issue(a.issue) if a.issue else None
     motivated_by = parse_motivation(a.motivated_by, m["number"])
+    tags = {"model": parse_tags("model", a.model, "MODEL"),
+            "question": parse_tags("question", a.question_type, "QUESTION_TYPE")}
     d = STUDIES / a.name
     front = {"schema_version": 1, "id": a.name, "question": a.question, "status": "planned",
-             "wandb": {"entity": a.entity, "project": a.project}, "motivated_by": motivated_by}
+             "wandb": {"entity": a.entity, "project": a.project}, "motivated_by": motivated_by, "tags": tags}
     if issue is not None:
         front["issues"] = [issue]
     print(f"new study {a.name}")
@@ -243,6 +258,7 @@ def new_report(a: argparse.Namespace) -> None:
         mk.write_text(text.rstrip("\n") + f"\n\n# {rid} = {a.title}\n.PHONY: {rid}\n{rid}:\n"
                       f"\t{make_var(d)} {front['inputs']['script']}\n")
         print(f"  added `{rid}` to Makefile (add it to `all` once the producer runs offline)")
+    print("  tags: add `tags: {model: [...], question: [...]}` for what this report does (schemas/tags.yaml)")
     index = reports / "INDEX.md"
     if index.exists() and name not in index.read_text():
         index.write_text(index.read_text().rstrip("\n") + f"\n| [{rid} — {a.title}]({name}) | TODO | — |\n")
@@ -260,6 +276,8 @@ def main(argv: list[str] | None = None) -> None:
     s.add_argument("--variant", required=True, help="first variant")
     s.add_argument("--issue", help="e.g. AllenNeuralDynamics/aind-dynamic-foraging-bfm-studies#20")
     s.add_argument("--motivated-by", help="earlier results this study follows up: 05/r1,03/r2 | 05 | #23 | none")
+    s.add_argument("--model", help="models the study trains or fits, from schemas/tags.yaml: gru,cognitive")
+    s.add_argument("--question-type", help="kinds of question it asks, from schemas/tags.yaml: scaling,comparison")
     v = sub.add_parser("variant")
     v.add_argument("--study", required=True)
     v.add_argument("--name", required=True)

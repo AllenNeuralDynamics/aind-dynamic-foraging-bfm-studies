@@ -28,6 +28,9 @@ inputs:
   related_scripts:
     - analysis/update_reports.py    # regenerates the block below
 reproduce: make -C studies/ignore-trials-scaling r1
+tags:
+  model: [gru]
+  question: [scaling, more-inputs]
 ---
 
 # Result 1 — 3-way choice likelihood matches the 2-way ceiling and scales with D

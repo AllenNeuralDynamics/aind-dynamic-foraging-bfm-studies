@@ -17,6 +17,8 @@ import check_provenance as cp  # noqa: E402
 import scaffold  # noqa: E402
 
 
+TAGS = ["--model", "gru", "--question-type", "scaling"]
+
 class ScaffoldTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -39,7 +41,8 @@ class ScaffoldTest(unittest.TestCase):
 
     def new_study(self, name="12-gru-example", motivated_by="none"):
         scaffold.main(["study", "--name", name, "--question", "Does the example hold up?",
-                       "--project", "gru_example", "--variant", "base", "--motivated-by", motivated_by])
+                       "--project", "gru_example", "--variant", "base", "--motivated-by", motivated_by,
+                       "--model", "gru", "--question-type", "scaling"])
 
     def test_study_variant_report_validate_clean(self):
         self.new_study()
@@ -69,12 +72,17 @@ class ScaffoldTest(unittest.TestCase):
     def test_refusals_leave_the_tree_unchanged(self):
         before = self.tree()
         for argv in (["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "Bad Name", "--motivated-by", "none"],   # bad first variant
+                      "--project", "p", "--variant", "Bad Name", "--motivated-by", "none", *TAGS],   # bad first variant
                      ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
                       "--project", "p", "--variant", "base", "--issue", "#14",
-                      "--motivated-by", "none"],                                       # malformed issue
+                      "--motivated-by", "none", *TAGS],                                       # malformed issue
                      ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "base"],                          # no MOTIVATED_BY
+                      "--project", "p", "--variant", "base", *TAGS],                   # no MOTIVATED_BY
+                     ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                      "--project", "p", "--variant", "base", "--motivated-by", "none"],   # no tags
+                     ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                      "--project", "p", "--variant", "base", "--motivated-by", "none",
+                      "--model", "lstm", "--question-type", "scaling"],               # tag not in the vocabulary
                      ["variant", "--study", "", "--name", "wider"]):                   # missing STUDY
             with self.assertRaises(SystemExit):
                 scaffold.main(argv)
@@ -96,7 +104,7 @@ class ScaffoldTest(unittest.TestCase):
 
     def test_local_issue_number_becomes_an_int(self):
         scaffold.main(["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                       "--project", "p", "--variant", "base", "--issue", "14", "--motivated-by", "none"])
+                       "--project", "p", "--variant", "base", "--issue", "14", "--motivated-by", "none", *TAGS])
         self.assertIn("- 14\n", (self.root / "studies/12-gru-example/README.md").read_text())
         self.assertEqual(self.findings(), [])
 
@@ -150,7 +158,7 @@ class MakeTargetTest(unittest.TestCase):
         import shutil
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        for rel in ("Makefile", "scripts/scaffold.py", "schemas/layout.yaml"):
+        for rel in ("Makefile", "scripts/scaffold.py", "schemas/layout.yaml", "schemas/tags.yaml"):
             (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(REPO_ROOT / rel, self.root / rel)
         (self.root / "studies").mkdir()
@@ -162,11 +170,13 @@ class MakeTargetTest(unittest.TestCase):
         q = 'Does "high D" help, and isn\'t $HOME expanded?'
         run = lambda *a: subprocess.run(["make", "-s", "-C", str(self.root), *a, f"PY={sys.executable}"],
                                         check=True, capture_output=True, text=True)
-        run("new-study", "NAME=12-gru-quoting", f"QUESTION={q}", "PROJECT=p", "VARIANT=base", "MOTIVATED_BY=none")
+        run("new-study", "NAME=12-gru-quoting", f"QUESTION={q}", "PROJECT=p", "VARIANT=base", "MOTIVATED_BY=none",
+            "MODEL=gru,cognitive", "QUESTION_TYPE=scaling")
         run("new-report", "STUDY=12-gru-quoting", "SLUG=curve", 'TITLE=The "curve"')
         study = self.root / "studies" / "12-gru-quoting"
         self.assertIn('Does "high D" help', (study / "README.md").read_text())
         self.assertIn("$HOME", (study / "README.md").read_text())
+        self.assertIn("  - cognitive\n", (study / "README.md").read_text())
         self.assertIn('# r1 — The "curve"', (study / "analysis/reports/r1-curve.md").read_text())
 
 if __name__ == "__main__":

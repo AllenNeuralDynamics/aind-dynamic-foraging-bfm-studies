@@ -16,6 +16,9 @@ inputs:
     - analysis/mature_fewshot_curve.py
     - analysis/rl_baseline.py
 reproduce: python studies/data-scaling-law/analysis/rl_baseline.py  # refreshes RL overlay only
+tags:
+  model: [gru]
+  question: [transfer]
 ---
 
 # Result 5 — few-shot adaptation curve (K = # new-mouse sessions used to adapt)

@@ -10,6 +10,9 @@ wandb:
 verdict: Yes, but the held-out gain saturates by ~100 mice and per-trial choice likelihood sits near a
   predictability ceiling.
 motivated_by: []
+tags:
+  model: [gru, cognitive]
+  question: [scaling, comparison]
 ---
 # Study: Mouse data-scaling law
 

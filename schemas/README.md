@@ -10,6 +10,7 @@ rather than restating fields.
 | `layout.yaml` | study and variant directories, root allowlist, Makefile targets |
 | `study-frontmatter.v1.schema.json` | YAML frontmatter of `studies/<study>/README.md` |
 | `report-frontmatter.v1.schema.json` | YAML frontmatter of `analysis/reports/rN-<slug>.md` |
+| `tags.yaml` | the study and report tag vocabulary: values, labels, tooltip text |
 | `meta.v2.schema.json` | `_meta` of every analysis JSON (`build_meta(..., code=[__file__])`) |
 | `launch-record.v2.schema.json` | `variants/<v>/launch_record/*.json` |
 | `provenance-baseline.json` | findings that predate a rule; may only shrink |

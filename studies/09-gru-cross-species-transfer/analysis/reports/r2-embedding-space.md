@@ -38,6 +38,9 @@ wandb_groups:
   - gru-hattori-matched-half@20260907-200329
   - gru-hattori-matched-half@20260907-200328
 reproduce: make r2
+tags:
+  model: [gru]
+  question: [interpretation, transfer]
 ---
 
 # Result 2: where transferred subjects land in the GRU embedding space

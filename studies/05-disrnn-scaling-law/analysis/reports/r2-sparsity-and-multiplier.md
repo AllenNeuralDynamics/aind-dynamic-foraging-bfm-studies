@@ -21,6 +21,9 @@ upstream:
     report: r8
     note: the per-mouse RL baselines (analysis/rl_baseline.json)
 reproduce: make -C studies/05-disrnn-scaling-law r2
+tags:
+  model: [disrnn]
+  question: [interpretation, scaling]
 ---
 
 # r2 — Sparsity vs cohort size, and the multiplier at the full cohort

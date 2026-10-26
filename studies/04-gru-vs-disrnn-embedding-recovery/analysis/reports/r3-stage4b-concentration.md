@@ -15,6 +15,9 @@ inputs:
 reproduce: >
   python analysis/s4b_concentration_recovery.py
   --ctx-dir <dir with ctx_*.csv from `beaker dataset fetch 01KXBYQV5P9NSPWQ72WG7G2A87`>
+tags:
+  model: [gru]
+  question: [interpretation]
 ---
 
 # Result 3 — session conditioning fails to recover discrete per-session regimes at *any* mixing level (the null is architectural)

@@ -11,6 +11,9 @@ inputs:
   data: analysis/per_mouse.json
   figure: analysis/fig_per_mouse.png
 reproduce: make -C studies/08-hb-vs-gru-heldout r2
+tags:
+  model: [cognitive/bh, cognitive]
+  question: [comparison]
 ---
 
 # Result 2 — Per mouse: HB against the same mouse's own classical-RL fit

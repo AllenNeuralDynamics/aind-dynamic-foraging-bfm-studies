@@ -11,6 +11,9 @@ inputs:
   - analysis/adaptation_budget_cohort.json
   - analysis/adaptation_budget_results.json
 reproduce: make -C studies/09-gru-cross-species-transfer r7
+tags:
+  model: [gru, cognitive]
+  question: [transfer]
 ---
 
 # r7 -- How transfer depends on the target adaptation budget
