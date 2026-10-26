@@ -19,6 +19,7 @@ import cross_study  # noqa: E402
 
 WANDB_GROUPS = ["hattori@20261026-002131"]   # read via the committed freeze
 RUNS = HERE / "hattori_runs.json"
+PLUGIN = HERE / "hattori_plugin.json"   # freeze_plugin.py: one fixed parameter set per subject
 REPORT = HERE / "reports" / "r1-hattori-pooled.md"
 N_SUBJECTS = 149
 
@@ -42,6 +43,9 @@ def compute() -> dict:
     converged = [r for r in rows if r["hb/n_subjects_converged"] == 1 and not r["hb/divergences"]]
     headline, headline_se = _pool(rows, "heldout/eval_log_lik_sum", "heldout/eval_log_lik_sum_se")
     rl = json.loads(cross_study.RL_SOURCE.read_text())["models"]
+    plugin = {r["subject_id"]: r for r in json.loads(PLUGIN.read_text())["rows"]}
+    assert set(plugin) == {r["subject_id"] for r in rows}, "plug-in must cover the same subjects"
+    plugin_trials = sum(r["n_trials"] for r in plugin.values())
     return {
         "n_subjects": len(rows),
         "n_subjects_expected": N_SUBJECTS,
@@ -50,6 +54,7 @@ def compute() -> dict:
         "hb_session_marginal": headline,
         "hb_session_marginal_se": headline_se,
         "hb_trial_marginal": _pool(rows, "heldout/eval_log_lik_sum_trial_marginal")[0],
+        "hb_plugin": math.exp(sum(r["plugin_log_lik_sum"] for r in plugin.values()) / plugin_trials),
         "hb_session_marginal_converged_only": _pool(converged, "heldout/eval_log_lik_sum")[0]
         if converged else None,
         "n_subjects_converged": len(converged),
@@ -76,6 +81,8 @@ def render(r: dict) -> str:
         "|---|---|",
         f"| HB-Hattori2019 two-level, session-marginal (headline) | **{r['hb_session_marginal']:.4f}** "
         f"± {r['hb_session_marginal_se']:.1e} (MC) |",
+        f"| HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session "
+        f"posterior median), no within-session inference | {r['hb_plugin']:.4f} |",
         f"| HB-Hattori2019 two-level, trial-marginal | {r['hb_trial_marginal']:.4f} |",
         f"| per-subject MLE Hattori (study 01 r8) | {r['mle_hattori']:.4f} |",
         f"| per-subject MLE CTT (study 01 r8) | {r['mle_ctt']:.4f} |",
@@ -101,7 +108,7 @@ def main() -> None:
     _, tail = rest.split(end)
     REPORT.write_text(f"{head}{begin}\n{render(result)}\n{end}{tail}")
     meta = build_meta("analysis/r1_hattori_pooled.py", WANDB_GROUPS, study_root=HERE.parent,
-                      code=[__file__], inputs=[RUNS, cross_study.RL_SOURCE,
+                      code=[__file__], inputs=[RUNS, PLUGIN, cross_study.RL_SOURCE,
                                                cross_study.GRU_CURVE_SOURCE])
     write_artifact(HERE / "r1_hattori_pooled.json", {"_meta": meta, **result},
                    outputs=[HERE / "reports" / "r1-hattori-pooled.md#result-1"])

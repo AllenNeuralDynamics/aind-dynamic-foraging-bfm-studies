@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_hattori_pooled.py",
-    "produced_at_pt": "2026-10-26T02:38:18-07:00",
-    "studies_git_sha": "d95f35ced1811825c83953eef69dd6906cfe57d4",
+    "produced_at_pt": "2026-10-26T08:44:21-07:00",
+    "studies_git_sha": "e58ae3993ec24645fc2129717b041e0ca9235d97",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.py",
-        "sha256": "b53e37c1ae8d5d7cf1937b7414785f6c4224498d5f1d6e0bdbc568d034b72e4a"
+        "sha256": "658a5c7444c60719ad26e21d4230b2ad3d9547bfece190e1cc959814ad3feb4f"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -37,6 +37,10 @@
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
         "sha256": "47361e29ee51c91658f6adf8b9385863bbb846f86ae57297c46f2276f6fac9da"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_plugin.json",
+        "sha256": "c88108475dfe3307c8f8188331b829621e198d51d86538d3ae1d38f458803f21"
       },
       {
         "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
@@ -50,11 +54,11 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.json",
-        "sha256": "3a14961497902308a1f682b2fd3ade5e8b38ab2e8ddb5f342554009f1c6a8402"
+        "sha256": "3e106de71e4fbd8c2d713859ccc04f798f2470312aef5311e793f7a2ceec858c"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r1-hattori-pooled.md#result-1",
-        "sha256": "97284ff7cb2cc82ce3597cb46b351f9b6c6ea00a2ef92022a4cbb41ac240d046"
+        "sha256": "8217d365de2d6720b695e6caafa34507177a04a8f23d57218fdd56583f01b661"
       }
     ]
   },
@@ -65,6 +69,7 @@
   "hb_session_marginal": 0.7212945969317852,
   "hb_session_marginal_se": 1.6552877886128957e-06,
   "hb_trial_marginal": 0.7090194990537151,
+  "hb_plugin": 0.7106704312325619,
   "hb_session_marginal_converged_only": 0.7166201551075587,
   "n_subjects_converged": 103,
   "n_sessions": 2138,
