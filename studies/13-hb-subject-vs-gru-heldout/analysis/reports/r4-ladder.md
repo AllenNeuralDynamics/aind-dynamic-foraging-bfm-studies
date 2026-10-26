@@ -74,8 +74,11 @@ MLE pooled from study 08's per-subject table: 0.7127 (study 01 r8 publishes 0.71
 
 ## What it says
 
-- **The prior alone doesn't help.** The plug-in, one parameter set from the HB, is worse than the
-  per-subject MLE for most subjects. Partial pooling and the prior are not where the gain comes from.
+- **One HB point estimate doesn't beat the MLE.** The plug-in, a single parameter set from the HB
+  (the typical-session posterior median), scores below the per-subject MLE for most subjects. That
+  step changes the prior, the pooling across sessions and the point estimator all at once, so it
+  doesn't isolate any one of them. In particular, it doesn't show that the prior contributes nothing
+  to the higher rungs. What it does show is that the HB's gain needs more than a single point summary.
 - **The big step is within-session inference over posterior draws.** Keeping every posterior draw
   and letting each held-out session reweight them by its own earlier trials improves every one of
   the 149 subjects. Even without any between-session spread, this already matches the best

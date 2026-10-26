@@ -67,7 +67,9 @@ Read off the frozen result above (2026-10-26):
 - **Where the gain over the MLE comes from (two controls).** All three are HB fits on the same
   subjects, scored on the same eval sessions:
   - **plug-in:** one fixed parameter set, the median of the typical-session posterior. It scores
-    slightly *below* the per-subject MLE, so the prior and partial pooling alone don't beat the MLE.
+    slightly *below* the per-subject MLE. That step changes the prior, the pooling and the point
+    estimator together, so it shows that a single HB point summary doesn't beat the MLE, not that
+    the prior contributes nothing.
   - **zero-spread:** every posterior draw of the typical session, no between-session spread,
     session-marginal. This gives most of the gain over the plug-in. It averages over uncertainty about
     the subject, and within each session it reweights those draws by the session's earlier trials.
@@ -76,8 +78,8 @@ Read off the frozen result above (2026-10-26):
 
   So the HB's advantage is mostly posterior averaging with within-session inference over the
   subject's uncertain parameters, plus a smaller part from explicitly modelling how sessions differ.
-  r3's example of a degenerate MLE fit is regularized by the prior, but in aggregate the prior is not
-  where the gain comes from.
+  How much the prior contributes inside those steps is not isolated here; r3's degenerate MLE fit is
+  one case where it clearly matters.
 - **The scoring method decides the comparison.** Scored by the trial-marginal (study 08's method),
   the same fits fall *below* the per-subject MLE. ADR 0002 explains why the session-marginal is the
   fair score: it predicts each trial from the session's earlier trials, as the GRU does.
