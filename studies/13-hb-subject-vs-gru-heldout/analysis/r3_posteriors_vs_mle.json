@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_posteriors_vs_mle.py",
-    "produced_at_pt": "2026-10-26T03:12:22-07:00",
-    "studies_git_sha": "4f892505b86aa0187e5b5e9155319aa1093b5d8c",
+    "produced_at_pt": "2026-10-26T03:24:38-07:00",
+    "studies_git_sha": "2093f033e976ce624ab79cd5340278676eb33cce",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r3_posteriors_vs_mle.py",
-        "sha256": "26992ec05e206f2f97e36c5373c30c0c880edcd359d6f9b8b43a3d877914b92b"
+        "sha256": "c20d43f60e05727655c87b8f0fc2a4cd3028dc1a8c242a1b52b3b55bb51352bb"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -36,7 +36,7 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_posteriors.json",
-        "sha256": "3d0047f0d9465b494ef3a670d7fd1f682fa707363da2670e2bc83a71726e8658"
+        "sha256": "1b763f0932bc47ce3f5afcb7e74985259989d111e2e5c0bff69c7c9d99e715cb"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
@@ -54,7 +54,7 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r3_posteriors_vs_mle.json",
-        "sha256": "8512b209c5b62a353a6fea630eecea1f799bcfe90ec7eabbdcf630fbe6094b10"
+        "sha256": "d957ce60717f315ada9d91e0091f55b39cbbf7e12f7df291422fdbec02eaf840"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_params_vs_mle.png",
@@ -62,7 +62,7 @@
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_session_spread.png",
-        "sha256": "444064ea971d1ca56494c95d6168dfa72aed67f9ab9829cc73d475f6d32184c5"
+        "sha256": "e9a64dd69a6566bd14a40379e18876baf8f1aa7d2139e2b3861e4e4c34bfdd02"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_gain_vs_spread.png",
@@ -70,7 +70,7 @@
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r3-posteriors-vs-mle.md#result-1",
-        "sha256": "84b7275ceaf9fbb5ab0462cd0c3cd192dac164e2359f4091bad0d4132af80732"
+        "sha256": "beeb5d50acf41eca3bf16c8645dae10b76a0907e972f8b9e40930153896e32e2"
       }
     ]
   },
@@ -82,12 +82,12 @@
       "median_mle": 0.5255566894426373
     },
     "learn_rate_unrew": {
-      "spearman": 0.9308688554326138,
+      "spearman": 0.9300373585303973,
       "median_hb": 0.11111553013324738,
       "median_mle": 0.06619117916924104
     },
     "forget_rate_unchosen": {
-      "spearman": 0.8941665155087974,
+      "spearman": 0.8940087663362447,
       "median_hb": 0.7640575170516968,
       "median_mle": 0.7977335349563813
     },
@@ -104,23 +104,23 @@
   },
   "spread": {
     "learn_rate_rew": {
-      "median_session_10_90_width": 0.3937667429447176,
+      "median_session_10_90_width": 0.33472195267677307,
       "median_sigma": 0.3616715669631958
     },
     "learn_rate_unrew": {
-      "median_session_10_90_width": 0.19147090911865236,
+      "median_session_10_90_width": 0.17341306805610657,
       "median_sigma": 0.37623730301856995
     },
     "forget_rate_unchosen": {
-      "median_session_10_90_width": 0.3654617011547089,
+      "median_session_10_90_width": 0.29323631525039673,
       "median_sigma": 0.39088915288448334
     },
     "softmax_inverse_temperature": {
-      "median_session_10_90_width": 1.8316551446914677,
+      "median_session_10_90_width": 1.6286442875862122,
       "median_sigma": 0.17904667556285858
     },
     "bias_l": {
-      "median_session_10_90_width": 1.0766628113865124,
+      "median_session_10_90_width": 0.9961963891983032,
       "median_sigma": 0.3886680603027344
     }
   },

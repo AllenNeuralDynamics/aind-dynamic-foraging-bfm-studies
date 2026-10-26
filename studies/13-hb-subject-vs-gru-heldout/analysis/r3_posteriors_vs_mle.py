@@ -39,10 +39,21 @@ LABEL = {"learn_rate_rew": "learning rate, rewarded", "learn_rate_unrew": "learn
          "inverse temperature", "bias_l": "left bias"}
 
 
+def _ranks(values) -> np.ndarray:
+    """Ranks with ties given their average rank, as Spearman's correlation requires."""
+    values = np.asarray(values, dtype=float)
+    order = np.argsort(values, kind="stable")
+    ranks = np.empty(len(values))
+    ranks[order] = np.arange(len(values))
+    for value in np.unique(values):
+        tied = values == value
+        ranks[tied] = ranks[tied].mean()
+    return ranks
+
+
 def _spearman(x, y) -> float:
-    """Rank correlation."""
-    rx, ry = (np.argsort(np.argsort(v)) for v in (np.asarray(x), np.asarray(y)))
-    return float(np.corrcoef(rx, ry)[0, 1])
+    """Spearman rank correlation, tie-aware (the MLE has rates at exactly 0 and 1)."""
+    return float(np.corrcoef(_ranks(x), _ranks(y))[0, 1])
 
 
 def load() -> dict:
@@ -73,7 +84,7 @@ def compute(d: dict) -> dict:
         mle = [float(d["mle"][s][MLE_NAME.get(n, n)]) for s in subjects]
         agreement[n] = {"spearman": _spearman(hb_mid, mle),
                         "median_hb": statistics.median(hb_mid), "median_mle": statistics.median(mle)}
-        widths = [d["hb"][s][n]["session"][2] - d["hb"][s][n]["session"][0] for s in subjects]
+        widths = [d["hb"][s][n]["session_width"][1] for s in subjects]
         spread[n] = {"median_session_10_90_width": statistics.median(widths),
                      "median_sigma": statistics.median(d["hb"][s][n]["sigma"][1] for s in subjects)}
     mean_sigma = [statistics.fmean(d["hb"][s][n]["sigma"][1] for n in names) for s in subjects]
@@ -120,11 +131,11 @@ def plot(d: dict, r: dict) -> None:
 
     fig, axes = plt.subplots(1, 5, figsize=(20, 4.2))
     for ax, n in zip(axes, names):
-        widths = [d["hb"][s][n]["session"][2] - d["hb"][s][n]["session"][0] for s in subjects]
+        widths = [d["hb"][s][n]["session_width"][1] for s in subjects]
         ax.violinplot(widths, showmedians=True)
         ax.set_xticks([])
         ax.set_title(f"{LABEL[n]}\nmedian {statistics.median(widths):.3g}")
-    axes[0].set_ylabel("session range\n(10–90%, own scale)")
+    axes[0].set_ylabel("between-session width\n(10–90% session, own scale)")
     fig.tight_layout(); fig.savefig(FIG_SPREAD, dpi=150); plt.close(fig)
 
     p = r["_plot"]
@@ -146,7 +157,7 @@ def plot(d: dict, r: dict) -> None:
 def render(r: dict) -> str:
     """The result-1 block."""
     lines = [f"![parameters vs MLE](../{FIG_PARAMS.name})", "",
-             "| parameter | Spearman HB vs MLE | median HB | median MLE | median between-session range (10–90%) |",
+             "| parameter | Spearman HB vs MLE | median HB | median MLE | median between-session width (10–90% session) |",
              "|---|---|---|---|---|"]
     for n, a in r["agreement"].items():
         lines.append(f"| {LABEL[n]} | {a['spearman']:.2f} | {a['median_hb']:.3g} | {a['median_mle']:.3g} | "
