@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1 r2 r3
+all: r1 r2 r3 r4
 
 # r1 = HB-Hattori2019 two-level vs GRU and per-subject MLE on held-out subjects
 .PHONY: r1
@@ -40,3 +40,8 @@ freeze-posteriors:
 .PHONY: freeze-plugin
 freeze-plugin:
 	JAX_PLATFORMS=cpu $(PY) analysis/freeze_plugin.py
+
+# r4 = The HB ladder: from per-subject MLE to the full two-level HB, step by step
+.PHONY: r4
+r4:
+	$(PY) analysis/r4_ladder.py
