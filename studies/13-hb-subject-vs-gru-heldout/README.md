@@ -14,6 +14,9 @@ motivated_by:
     does dropping the population level and fitting each held-out subject alone give a usable baseline?
 issues:
 - 27
+tags:
+  model: [cognitive/bh]
+  question: [comparison]
 ---
 # Study: 13-hb-subject-vs-gru-heldout
 
