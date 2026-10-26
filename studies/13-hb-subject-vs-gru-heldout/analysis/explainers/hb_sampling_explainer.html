@@ -2,30 +2,37 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How a held-out session is scored: plug-in vs zero-spread vs full (interactive)</title>
 <style>
-  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; background: #fafafa; color: #222; }
-  header { padding: 14px 24px 6px; }
-  h1 { font-size: 20px; margin: 0 0 4px; }
-  .sub { color: #666; font-size: 13px; }
-  .warn { color: #b05000; font-size: 12px; }
-  .steps { display: flex; gap: 8px; padding: 8px 24px; flex-wrap: wrap; }
-  .steps button, .modes button, .ctrl button { border: 1px solid #bbb; background: #fff; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  /* a single reading column, Medium-style */
+  body { margin: 0; background: #fff; color: #242424; }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 20px 60px; }
+  p, .explain, .note, li { font-family: Charter, "Bitstream Charter", Georgia, "Times New Roman", serif; }
+  h1, h2, h3, button, label, .sub, .warn, .legend, .ctrl { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 10px; }
+  h2 { font-size: 22px; margin: 40px 0 8px; }
+  .sub { color: #6b6b6b; font-size: 15px; }
+  .warn { color: #a04a00; font-size: 14px; margin-top: 8px; }
+  .steps { display: flex; gap: 8px; margin: 26px 0 10px; flex-wrap: wrap; }
+  .steps button, .modes button, .ctrl button { border: 1px solid #bbb; background: #fff; padding: 6px 12px; border-radius: 16px; cursor: pointer; font-size: 13px; }
   .steps button.on, .modes button.on { background: #1f77b4; color: #fff; border-color: #1f77b4; }
-  .explain { margin: 4px 24px 10px; padding: 10px 14px; background: #fff; border-left: 4px solid #1f77b4; font-size: 14px; line-height: 1.6; min-height: 64px; }
-  .row { display: flex; gap: 16px; padding: 0 24px; flex-wrap: wrap; }
-  .panel { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px; }
-  .panel h3 { margin: 2px 4px 6px; font-size: 14px; font-weight: 600; }
-  canvas { display: block; }
-  .ctrl { display: flex; gap: 18px; align-items: center; padding: 10px 24px; flex-wrap: wrap; font-size: 13px; }
+  .explain { margin: 6px 0 18px; padding: 4px 0 4px 18px; border-left: 3px solid #1f77b4; font-size: 18px; line-height: 1.65; min-height: 90px; }
+  .panel { margin: 14px 0; }
+  .panel h3 { margin: 0 0 6px; font-size: 14px; font-weight: 600; color: #444; }
+  canvas { display: block; width: 100%; height: auto; border: 1px solid #eee; border-radius: 6px; }
+  .ctrl { display: flex; gap: 16px; align-items: center; margin: 10px 0; flex-wrap: wrap; font-size: 13px; }
   .ctrl label { display: flex; align-items: center; gap: 6px; }
-  .modes { display: flex; gap: 6px; }
+  .modes { display: flex; gap: 6px; flex-wrap: wrap; }
   .legend span { display: inline-block; margin-right: 14px; font-size: 12px; }
   .sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin-right: 4px; }
-  .note { font-size: 12px; color: #555; padding: 6px 24px 20px; line-height: 1.6; }
+  .note { font-size: 17px; color: #333; line-height: 1.7; margin: 14px 0; }
+  #summary { font-size: 14px; color: #555; font-family: -apple-system, "Segoe UI", sans-serif; }
+  math[display="block"] { font-size: 20px; margin: 18px 0; overflow-x: auto; }
 </style>
 </head>
 <body>
+<main>
 <header>
   <h1>How one mouse's held-out session is scored: plug-in / zero-spread / full</h1>
   <div class="sub">Toy model: a single parameter (learning rate α), fixed softmax temperature, no bias, no forgetting. The data are simulated.</div>
@@ -35,14 +42,14 @@
 <div class="steps" id="steps"></div>
 <div class="explain" id="explain"></div>
 
-<div class="row">
+<div>
   <div class="panel">
     <h3 id="leftTitle">Samples (each dot = one candidate α; dot size = its implied weight so far)</h3>
-    <canvas id="cloud" width="560" height="330"></canvas>
+    <canvas id="cloud" width="680" height="340"></canvas>
   </div>
   <div class="panel">
     <h3>Average per-trial likelihood up to trial t (higher is better)</h3>
-    <canvas id="score" width="560" height="330"></canvas>
+    <canvas id="score" width="680" height="340"></canvas>
     <div class="legend" id="legend"></div>
   </div>
 </div>
@@ -60,6 +67,26 @@
 </div>
 
 <div class="note" id="summary" role="status" aria-live="polite"></div>
+<h2>Why the samples that fit so far dominate: the algebra</h2>
+<p class="note">Write <i>p<sub>t</sub>(θ<sub>d</sub>)</i> for the probability sample <i>d</i> gives the choice actually made on trial <i>t</i>,
+running the session by teacher forcing with its fixed parameter <i>θ<sub>d</sub></i> (<i>D</i> samples, <i>T</i> trials).
+The score averages each sample's <b>whole-session</b> likelihood:</p>
+<!-- \frac{1}{D}\sum_{d=1}^{D}\prod_{t=1}^{T} p_t(\theta_d) -->
+<math display="block"><mfrac><mn>1</mn><mi>D</mi></mfrac><munderover><mo>&#x2211;</mo><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><mi>D</mi></munderover><munderover><mo>&#x220F;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><msub><mi>p</mi><mi>t</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo></math>
+<p class="note">Nothing is reweighted in that computation. But the same number can be split into one factor per trial:</p>
+<!-- = \prod_{t=1}^{T}\frac{\sum_{d} w_d^{(t)}\,p_t(\theta_d)}{\sum_{d} w_d^{(t)}},\qquad w_d^{(t)}=\prod_{s=1}^{t-1}p_s(\theta_d),\; w_d^{(1)}=1 -->
+<math display="block"><mo>=</mo><munderover><mo>&#x220F;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mfrac><mrow><munder><mo>&#x2211;</mo><mi>d</mi></munder><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup><mspace width="0.17em"/><msub><mi>p</mi><mi>t</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo></mrow><mrow><munder><mo>&#x2211;</mo><mi>d</mi></munder><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup></mrow></mfrac><mo>,</mo><mspace width="1.5em"/><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup><mo>=</mo><munderover><mo>&#x220F;</mo><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>t</mi><mo>&#x2212;</mo><mn>1</mn></mrow></munderover><msub><mi>p</mi><mi>s</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo></math>
+<p class="note">Each factor is the prediction for trial <i>t</i>: an average of the samples' predictions, weighted by
+<i>w<sub>d</sub><sup>(t)</sup></i>, each sample's likelihood of the <b>earlier</b> trials <i>1,…,t-1</i>. With the slider at trial <i>t</i>, the left panel's
+dot sizes are <i>w<sub>d</sub><sup>(t+1)</sup></i>: the weights for predicting the <b>next</b> trial, <i>t</i>+1, from trials 1,…,<i>t</i>. The two lines are equal because the product telescopes: factor <i>t</i>'s numerator is factor <i>t+1</i>'s
+denominator, <i>Σ<sub>d</sub> w<sub>d</sub><sup>(t+1)</sup></i>, so everything cancels except <i>Σ<sub>d</sub> w<sub>d</sub><sup>(T+1)</sup> / Σ<sub>d</sub> w<sub>d</sub><sup>(1)</sup></i>, the first line.
+No future trial ever enters a weight.</p>
+<p class="note">Per-trial averaging (the grey dashed line) keeps every weight equal on every trial:</p>
+<!-- \prod_{t=1}^{T}\frac{1}{D}\sum_{d=1}^{D}p_t(\theta_d) -->
+<math display="block"><munderover><mo>&#x220F;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mfrac><mn>1</mn><mi>D</mi></mfrac><munderover><mo>&#x2211;</mo><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><mi>D</mi></munderover><msub><mi>p</mi><mi>t</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo></math>
+<p class="note">That is a product of averages, not an average of products: no sample ever gains from having explained earlier
+trials, and the result is not the probability of the session under any single sample.</p>
+
 <div class="note">
 <b>Reading the right panel:</b> each line is the geometric mean of the predicted probabilities of the trials so far. The zero-spread and full lines average <b>each sample's whole-session likelihood</b>, then split that average by trial;
 per-trial averaging (grey dashed) averages <b>each trial's probability</b> separately, then multiplies.<br>
@@ -67,6 +94,7 @@ per-trial averaging (grey dashed) averages <b>each trial's probability</b> separ
 Dot size is only an equivalent reading of that average: when it is split by trial, each sample's implied share of the next trial's prediction equals its likelihood of the earlier trials. Both readings give exactly the same number.
 </div>
 
+</main>
 <script>
 // ---------- toy forager and session ----------
 const BETA = 5.0;               // fixed softmax inverse temperature
