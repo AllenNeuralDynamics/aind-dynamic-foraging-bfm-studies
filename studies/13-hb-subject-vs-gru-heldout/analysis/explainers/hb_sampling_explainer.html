@@ -59,6 +59,7 @@
   <button id="resim">重新模拟 session</button>
 </div>
 
+<div class="note" id="summary" role="status" aria-live="polite"></div>
 <div class="note">
 <b>怎么读右图：</b>每条线是"到目前为止，各 trial 预测概率的几何平均"。zero-spread 和 full 的线，是对<b>每个样本的整场似然</b>取平均后，再按 trial 拆开得到的；
 per-trial 平均（灰色虚线）则是对<b>每个 trial 的概率</b>分别取平均再相乘。<br>
@@ -222,7 +223,18 @@ function drawScore() {
   g.setLineDash([]); g.lineWidth = 1;
   els("legend").innerHTML = show.map(k => `<span><span class="sw" style="background:${COLORS[k]}"></span>${k}</span>`).join("");
 }
-function draw() { drawCloud(); drawScore(); els("trialLbl").textContent = t; els("trial").value = t; }
+function summarize() {
+  // the plots' numbers as text, for screen readers and copying
+  if (step === 0 || t === 0) { els("summary").textContent = `trial ${t} of ${T}: press play or move the trial slider.`; return; }
+  const parts = ["plug-in", "zero-spread", "full", "per-trial 平均"].filter(k => curves[k])
+    .map(k => `${k} ${curves[k][t - 1].toFixed(3)}`);
+  const list = samples[mode];
+  let m = -Infinity; list.forEach(s => { m = Math.max(m, s.cum[t]); });
+  let num = 0, den = 0; list.forEach(s => { const w = Math.exp(s.cum[t] - m); num += w * s.a; den += w; });
+  els("summary").textContent = `trial ${t} of ${T}. 平均每-trial 似然：${parts.join("，")}。` +
+    `左图（${mode}）按隐含权重的平均 α ≈ ${(num / den).toFixed(2)}；今天真实的 α = ${(+els("truth").value).toFixed(2)}。`;
+}
+function draw() { drawCloud(); drawScore(); summarize(); els("trialLbl").textContent = t; els("trial").value = t; }
 
 // ---------- narration ----------
 const STEPS = [
