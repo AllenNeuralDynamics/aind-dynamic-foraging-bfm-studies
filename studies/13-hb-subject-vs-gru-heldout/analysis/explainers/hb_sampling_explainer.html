@@ -118,12 +118,14 @@ function drawPosterior(n, sigmaTrue) {
 let S, post, samples, curves, play = false, t = 0, mode = "full", step = 0;
 const els = id => document.getElementById(id);
 
-function build() {
+let sessionSeed = 7;
+function build(newSession) {
   const truth = +els("truth").value, sigmaTrue = +els("sigma").value, n = +els("nsamp").value;
-  rngState = 7; S = simulateSession(truth);
+  if (newSession || !S) { rngState = sessionSeed; S = simulateSession(truth); }
   rngState = 11; post = drawPosterior(n, sigmaTrue);
   const muSorted = [...post.mu].sort((a, b) => a - b);
-  const median = muSorted[Math.floor(n / 2)];
+  // the scorer's np.median: the middle draw, or the mean of the two middle draws
+  const median = n % 2 ? muSorted[(n - 1) / 2] : (muSorted[n / 2 - 1] + muSorted[n / 2]) / 2;
   rngState = 13;
   samples = {
     "plug-in": [{ a: sigm(median) }],
@@ -199,7 +201,9 @@ function drawCloud() {
 function drawScore() {
   const c = els("score"), g = c.getContext("2d"), W = c.width, H = c.height;
   g.clearRect(0, 0, W, H);
-  const lo = 0.5, hi = 0.85;
+  const all = Object.values(curves).flat();
+  const lo = Math.max(0, Math.floor((Math.min(...all) - 0.02) * 20) / 20);
+  const hi = Math.min(1, Math.ceil((Math.max(...all) + 0.02) * 20) / 20);
   const x = tt => 50 + (tt / T) * (W - 70), y = v => H - 30 - ((v - lo) / (hi - lo)) * (H - 50);
   g.strokeStyle = "#999"; g.beginPath(); g.moveTo(50, 20); g.lineTo(50, H - 30); g.lineTo(W - 20, H - 30); g.stroke();
   g.fillStyle = "#444"; g.font = "12px sans-serif";
@@ -236,7 +240,8 @@ const STEPS = [
   { name: "④ full", mode: "full", text:
     "<b>full</b>：每个 (mu, σ) 样本再抽『今天的 α』= mu + σ × 随机数（在 logit 尺度上），候选范围更宽，包含『今天可能不一样』。" +
     "计算方式和 zero-spread 一样：每个候选各自跑完整个 session，对整场似然取平均。范围更宽，所以今天的 α 即使离典型值较远，也有候选能贴近它。" +
-    "灰色虚线是 per-trial 平均（对每个 trial 的概率分别取平均）：它永远不会偏向合适的候选，所以最低。" },
+    "灰色虚线是 per-trial 平均（对每个 trial 的概率分别取平均）：它对所有候选始终一视同仁，不会偏向解释了前面 trial 的候选。" +
+    "它和其他做法之间没有固定的高低关系（『平均之积』和『积之平均』谁大不一定），在某些设置下甚至可能更高；区别在于它不是一个自洽的预测器。" },
 ];
 function setStep(i) {
   step = i; mode = STEPS[i].mode; t = i === 0 ? 0 : t;
@@ -251,15 +256,15 @@ STEPS.forEach((s, i) => { const b = document.createElement("button"); b.textCont
 
 els("play").onclick = () => { if (step === 0) setStep(1); play = !play; els("play").textContent = play ? "⏸ 暂停" : "▶ 播放"; if (play && t >= T) t = 0; };
 els("trial").oninput = e => { t = +e.target.value; if (step === 0) setStep(1); draw(); };
+// the true alpha defines today's session, so changing it re-simulates; sigma and the sample count
+// only change the posterior samples, so the observed session stays the same
 for (const id of ["truth", "sigma", "nsamp"]) els(id).oninput = e => {
-  els(id + "Lbl").textContent = (+e.target.value).toFixed(id === "nsamp" ? 0 : 2); build(); draw(); };
-els("resim").onclick = () => { rngState = Math.floor(Math.random() * 1e6); const keep = rngState;
-  const truth = +els("truth").value; rngState = keep; S = simulateSession(truth);
-  for (const k in samples) samples[k].forEach(s => { s.p = perTrialProbs(s.a, S); s.cum = cumLogs(s.p); });
-  curves = computeCurves(); t = 0; draw(); };
+  els(id + "Lbl").textContent = (+e.target.value).toFixed(id === "nsamp" ? 0 : 2);
+  build(id === "truth"); draw(); };
+els("resim").onclick = () => { sessionSeed = 1 + Math.floor(Math.random() * 1e6); build(true); t = 0; draw(); };
 
 function tick() { if (play) { t = Math.min(T, t + 2); if (t >= T) { play = false; els("play").textContent = "▶ 播放"; } draw(); } requestAnimationFrame(tick); }
-build(); setStep(0); tick();
+build(true); setStep(0); tick();
 </script>
 </body>
 </html>
