@@ -1,11 +1,18 @@
 # Analysis environment for studies/13-hb-subject-vs-gru-heldout/ (per the posthoc-reporting contract).
-# Not a full `pip freeze`: it pins what freeze_hattori.py and r1_hattori_pooled.py import, in the env they ran in
+# Not a full `pip freeze`: it pins what the freezes (freeze_hattori.py, freeze_posteriors.py) and the
+# r1-r3 producers import, in the env they ran in
 # (/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu, on an HPC compute node), 2026-10-26 PT.
 #   Python 3.12.13
 numpy==2.4.6
 requests==2.34.2
 jsonschema==4.26.0
 PyYAML==6.0.3
+matplotlib==3.10.9  # r2/r3 figures; byte-identical only on one machine (posthoc-reporting)
+# freeze_posteriors.py also imports foraging-models' hierarchical_bayes.model, which pulls in its [bayes] stack:
+aind-dynamic-foraging-models==0.22.0  # installed from git at ef1d31a291e41a756d49b46ee15b3e0c3fa373b2 (direct_url.json)
+jax==0.6.1
+jaxlib==0.6.1
+numpyro==0.19.0
 #
 # Code whose outputs are frozen here: the runs' W&B summary keys and scores files were written by
 # aind-dynamic-foraging-bfm-wrapper 04878a6cdb081b0156b96ac1e61dde5de58d492e (HBTrainer, estimator heldout_two_level)

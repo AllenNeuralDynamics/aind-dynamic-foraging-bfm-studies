@@ -1,0 +1,140 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r3_posteriors_vs_mle.py",
+    "produced_at_pt": "2026-10-26T03:36:24-07:00",
+    "studies_git_sha": "6ae8a5fe5478b4c45c2f3a2148092ba89a76e50d",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "hattori@20261026-002131"
+    ],
+    "source_studies_git_shas": [
+      "32bcf415c5f18d16a07dda5fb4dee914feabd177"
+    ],
+    "source_dispatcher_git_shas": [
+      "5936f5d0b94b1fb5ec9d95058067716f261e5555"
+    ],
+    "source_wrapper_git_shas": [
+      "04878a6cdb081b0156b96ac1e61dde5de58d492e"
+    ],
+    "source_foraging_models_git_shas": [
+      "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r3_posteriors_vs_mle.py",
+        "sha256": "11b4fb87e10d1333cfdb70711e18aa11a0118faafec9fef7496f07b1e74b3d0a"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_posteriors.json",
+        "sha256": "efae0c42298c0f7c97a0eda17e149664ed09318bccb47877567b6ba1802fd0a5"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
+        "sha256": "47361e29ee51c91658f6adf8b9385863bbb846f86ae57297c46f2276f6fac9da"
+      },
+      {
+        "path": "studies/08-hb-vs-gru-heldout/analysis/ml_params/ml_hattori_heldout.csv",
+        "sha256": "02190f6a06cc7d84a5d66bafebcef9a7f87196d3339b989c7d89064d3c35bad9"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
+        "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r3_posteriors_vs_mle.json",
+        "sha256": "d957ce60717f315ada9d91e0091f55b39cbbf7e12f7df291422fdbec02eaf840"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_params_vs_mle.png",
+        "sha256": "26b9d56afbb90fba86c0501eaa5fb2ce9ec345cd8951514dd399534463d661bf"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_session_spread.png",
+        "sha256": "e9a64dd69a6566bd14a40379e18876baf8f1aa7d2139e2b3861e4e4c34bfdd02"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_gain_vs_spread.png",
+        "sha256": "2f636653e5916b3f7487abab922863e17c1e024cd0910471afb6c2dfb3e2f8ee"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_example_subjects.png",
+        "sha256": "54f326475d2e961c7dd798c172743ccbba561ad3ef1418538b784167b772c0e4"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r3-posteriors-vs-mle.md#result-1",
+        "sha256": "d5883d9d951f9a5d7e820e41d68946d68672c243de3c2a44f977b69be16e54f3"
+      }
+    ]
+  },
+  "n_subjects": 149,
+  "agreement": {
+    "learn_rate_rew": {
+      "spearman": 0.8754906584436787,
+      "median_hb": 0.5804931819438934,
+      "median_mle": 0.5255566894426373
+    },
+    "learn_rate_unrew": {
+      "spearman": 0.9300373585303973,
+      "median_hb": 0.11111553013324738,
+      "median_mle": 0.06619117916924104
+    },
+    "forget_rate_unchosen": {
+      "spearman": 0.8940087663362447,
+      "median_hb": 0.7640575170516968,
+      "median_mle": 0.7977335349563813
+    },
+    "softmax_inverse_temperature": {
+      "spearman": 0.9343732994739706,
+      "median_hb": 3.446520209312439,
+      "median_mle": 3.266603894962657
+    },
+    "bias_l": {
+      "spearman": 0.9714202793397425,
+      "median_hb": -0.03602815419435501,
+      "median_mle": -0.0370379560575838
+    }
+  },
+  "spread": {
+    "learn_rate_rew": {
+      "median_session_10_90_width": 0.33472195267677307,
+      "median_sigma": 0.3616715669631958
+    },
+    "learn_rate_unrew": {
+      "median_session_10_90_width": 0.17341306805610657,
+      "median_sigma": 0.37623730301856995
+    },
+    "forget_rate_unchosen": {
+      "median_session_10_90_width": 0.29323631525039673,
+      "median_sigma": 0.39088915288448334
+    },
+    "softmax_inverse_temperature": {
+      "median_session_10_90_width": 1.6286442875862122,
+      "median_sigma": 0.17904667556285858
+    },
+    "bias_l": {
+      "median_session_10_90_width": 0.9961963891983032,
+      "median_sigma": 0.3886680603027344
+    }
+  },
+  "gain_vs_mle": {
+    "spearman_with_mean_sigma": 0.4941447487756213,
+    "median": 0.0074064798185233816
+  },
+  "gap_to_gru_d614": {
+    "spearman_with_mean_sigma": -0.10637887653880639,
+    "median": -0.006128501213929216,
+    "n": 146
+  }
+}
