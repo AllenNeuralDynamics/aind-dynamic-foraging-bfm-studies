@@ -4,7 +4,7 @@ id: 13-hb-subject-vs-gru-heldout
 question: Does a two-level hierarchical Bayesian cognitive baseline (sessions vary
   around each subject, no population level), conditioned only on each held-out subject's
   context sessions, match the GRU's held-out-subject likelihood?
-status: planned
+status: active
 wandb:
   entity: AIND-disRNN
   project: mice_data_scaling

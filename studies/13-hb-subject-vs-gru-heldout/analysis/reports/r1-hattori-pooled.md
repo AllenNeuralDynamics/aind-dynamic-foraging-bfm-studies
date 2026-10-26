@@ -36,28 +36,43 @@ subjects; Monte Carlo errors add in quadrature across runs. Comparators are read
 r8 for the per-subject MLE and r1 for the GRU H128 curve.
 
 <!-- BEGIN result-1 -->
-**Incomplete: 32 of 149 subjects finished; not a result.**
-
 | arm | held-out likelihood (trial-weighted) |
 |---|---|
-| HB-Hattori2019 two-level, session-marginal (headline) | **0.7433** ± 4.4e-06 (MC) |
-| HB-Hattori2019 two-level, trial-marginal | 0.7326 |
+| HB-Hattori2019 two-level, session-marginal (headline) | **0.7213** ± 1.7e-06 (MC) |
+| HB-Hattori2019 two-level, trial-marginal | 0.7090 |
 | per-subject MLE Hattori (study 01 r8) | 0.7127 |
 | per-subject MLE CTT (study 01 r8) | 0.7170 |
 | GRU H128 (study 01 r1) | D≈10 0.7219, D≈30 0.7250, D≈100 0.7262, D≈300 0.7267, D≈614 0.7268 |
 
-- Subjects 32; scored trials 145,985 (comparators: 1,013,172).
-- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400): 32 of 32 subjects pass; worst R-hat 1.006, lowest ESS 1005; 66 divergences. Converged subjects only: 0.7433.
-- Pareto k̂ gate: 33 of 369 scored sessions fail (k̂ ≥ 0.7 or unjudged).
+- Subjects 149; scored trials 1,013,172 (comparators: 1,013,172).
+- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400): 142 of 149 subjects pass; worst R-hat 1.173, lowest ESS 16; 304 divergences. Converged subjects only: 0.7225.
+- Pareto k̂ gate: 262 of 2138 scored sessions fail (k̂ ≥ 0.7 or unjudged).
 <!-- END result-1 -->
 
 ## What it says
 
-Written once the full cohort is in; until then the block above is marked incomplete. Caveats
-that hold regardless:
+Read off the frozen result above (2026-10-26):
 
-- The MC error covers only the scoring average, not posterior uncertainty or seed-to-seed
-  variation. The GRU seed spread (~0.0004, study 01) is the yardstick for whether a gap matters.
-- Sessions failing the k̂ gate are kept in the headline. Their estimates may be biased low, which
-  would understate the HB.
-- One seed per subject: no run-to-run variance is measured.
+- **Session-to-session variability is worth ~0.009.** The two-level HB beats the same forager
+  fitted per subject with one parameter set (MLE Hattori) and the best classical family (MLE CTT).
+  The MLE is the HB with zero between-session spread, so this gap measures what that spread buys.
+- **It roughly ties the smallest GRU and stays below the rest.** It matches the GRU at D≈10. The
+  GRU from D≈30 up is still clearly ahead; those gaps are many times the GRU's ~0.0004 seed spread.
+- **The scoring method decides the comparison.** Scored by the trial-marginal (study 08's method),
+  the same fits fall *below* the per-subject MLE. ADR 0002 explains why the session-marginal is the
+  fair score: it predicts each trial from the session's earlier trials, as the GRU does.
+
+Why this stays `draft`:
+
+- **k̂.** 12% of scored sessions fail the Pareto k̂ gate. Their plain draw-average rests on few
+  draws and is likely biased low, so the headline probably understates the HB. Resolving it means
+  rescoring those sessions from the saved draws with importance sampling (ADR 0002's fallback); no
+  refit is needed.
+- **Convergence.** 7 subjects miss the R-hat/ESS gates and 304 divergences occurred. PLAN.md's
+  rule is one refit with longer chains for failing subjects. The converged-only number is given
+  beside the headline.
+- **Uncertainty.** The MC error covers only the scoring average, not posterior or seed variation.
+  There is one seed per subject, so no run-to-run variance is measured.
+- **Rescue.** 16 subjects ran out of memory at 64G during scoring and were rerun at 200G as a
+  recorded intervention (`variants/hattori/launch_record/production/hpc_rescue-oom.json`). Their
+  first runs are `crashed` in the freeze and excluded.
