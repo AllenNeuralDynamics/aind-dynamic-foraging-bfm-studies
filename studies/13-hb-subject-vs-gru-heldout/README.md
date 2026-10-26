@@ -36,7 +36,7 @@ to the GRU (`auto_heldout_finetune`) and the per-subject MLE baselines.
 
 | variant | model | status |
 |---|---|---|
-| [`hattori`](variants/hattori/notes.md) | HB-Hattori2019, all 5 parameters vary by session | not launched |
+| [`hattori`](variants/hattori/notes.md) | HB-Hattori2019, all 5 parameters vary by session | production done, `hattori@20261026-002131`; draft result in [r1](analysis/reports/r1-hattori-pooled.md) |
 | [`ctt`](variants/ctt/notes.md) | HB-CompareToThreshold, as the per-subject MLE CTT baseline | blocked on a JAX CTT likelihood |
 
 The headline score is the session-level marginal (log-mean-exp of the whole-session likelihood
