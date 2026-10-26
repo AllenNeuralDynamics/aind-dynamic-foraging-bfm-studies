@@ -1,0 +1,975 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "../util/freeze_run_provenance.py",
+    "produced_at_pt": "2026-10-25T17:05:25-07:00",
+    "studies_git_sha": "cc29654ff38184692632686c85ada2f1c00b92ad",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "c11b83a5a081b0e9348ca0faf0c5c03e90b4b0cc",
+    "wandb_groups": [
+      "mult-d-grid@20260718-151409"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no studies SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409",
+      "no dispatcher SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409",
+      "no wrapper SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): mult-d-grid@20260718-151409"
+    ],
+    "code": [
+      {
+        "path": "studies/util/freeze_run_provenance.py",
+        "sha256": "f758d33ea82be4adf865b5968d2a1cf8cd05d76dcd9cbf4b465eab5217bd7ce0"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_nanretry1.json",
+        "sha256": "cd78fa3d5c2087c7d62e53bca1b0df83469bca6f125e72c738a129a176caa9ea"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_rescue1.json",
+        "sha256": "74e53e4d34ccbdada8bce3094704274e14f8fafcd89e4ee8309c7142096037b5"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_resubmit20.json",
+        "sha256": "06ec19c664d1ec7f01d990514fd2b4c0d481ca8e09af5d6e226d0ebb25c39806"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_resumable.json",
+        "sha256": "8ea29e364d11321f0a0e88c179303a7b184abd8f19ce50894b8582d921bc522f"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_tier1.json",
+        "sha256": "e22e3556fb7b0917bfd6609deb6159aa96a89f571b4a98d18b08b58b3bf189cb"
+      },
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/variants/mult-d-grid/launch_record/beaker_tier1_008.json",
+        "sha256": "43e9341a61778b4ad4400abe5fad790b6882f42d6ecb4e4a12864723cf42afff"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-4365a75a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY0YNKM923RN9VVAP6FRVEF1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-299bc18e",
+        "state": "failed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVY95KT0BE074J8FY0GDQ6C"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-2f2cbd5a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY10640RB1TB9Z810TW2508Y"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-f5a8de89",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY0QA9ZNRNEWW8CPZ4M16B1Y"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-409c1995",
+        "state": "failed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8FG0ZJWFAE6ZY7Q6QZJE"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-2c06cbb0",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8G228CAQ6SW6V1Q53VES"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-3a4f8014",
+        "state": "failed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY3J2DVWVWYQ0R79HWKK20Y2"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-41ffd4b1",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8G8J62Z0YJ3YMPMXVAXY"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-44e89716",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY0Z30Z2TGG6Y13BMQYCZZTA"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-47e080fe",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8FKDZ9W51PYNHPHAFAJ1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-20ac5b3a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8FPTM7CK0FAXXS17SNM5"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-4f721b3e",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8FTNCJ4SCSN3S31F1A8M"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-fc23cbfd",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8FYVFVEDK3YFQR8HVPZQ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-46987656",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8HVCPAA3MGR84K2XRHMC"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-ad63c184",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8G5B4AF7WCH3ZZ5S7PKF"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-4ee7d1d0",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY106DSTF6XEC7TBD622CSZF"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-521d3632",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVY957WJT4JNBV69JRD1WG1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-c7037461",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVZDF33AZM8RY0Y61FM1BBQ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-24186bfc",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY0M3FA8G7X88NXN9C0GC3M7"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-c1f9515f",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVZCVHTGX1372N0M5M97ZTR"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-ffab411a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVY950PAHZ1AYHZW9AB72K8"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-545fc9ac",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVY87NTW7KV7N61E7JY0N22"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-746c9469",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVVZKHGX0GWAA88D6YGX7XP"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-ffdb9b3f",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY58P59N1X2YRT97SZCN3FM4"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-1267fa84",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVVZ9Y2QCGRP3ZBSWBXZZAQ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-9996e22a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY104WYPSGE7NY6NTGE7HQT1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-ffdce46f",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVY9RQRCZ8HKJ11AS8V9J0H"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-54da33d3",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVY95487P94NM10TKSXVRVV"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-731498aa",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVY87S9D1X5CJ7JE5N842Q0"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-fd2fa569",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY5J1TZ582KDDCQFAVQEX96Q"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-73b56a50",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8S36172YR40CAW7TMF6P"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-e5e965bd",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8S6K9TJ5AV1GJ2NNKZAM"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-ac9300f6",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8SA18TYD8D1E97HX0X0H"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-65d8979e",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY3J1GFW2XTYMZNPRQVP9513"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-781bb4b8",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8SM3MZ9D2QA2B2JYPQJG"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-18ca943f",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8SQC3B6VPZ4XAMN1SN0X"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-30b3e011",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8STJG095XS21B9PEFHZD"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-a055788c",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KXVN8SXSN5Y7VC37M9M8TVVJ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-2904e783",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY5PMAM2XPEQPFXNXCZ3KVYD"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-57a7fd40",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY3J2DREGJ1P7PDAYFV1TCMY"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-4896b6c5",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY7Y6QQTV3S4W2BV92ES7CMN"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-ab9fdf90",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY7Y7YRVSPSCCAE5XRTTSSG7"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-e6dbeefd",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XW33B6DXDZ6BV3E3ZZX9M"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-88d78245",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY8MKWSW8G329PCAMKGGFDEF"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-2cdbe62b",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XW2ZYZS0Q9SV775NSBDQA"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-0375bc0a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY5PMAEW62N2Y1JKK26TY92P"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-5d2d1bf6",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY8MN3WMWVEGNF6QHNRZ18K6"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-6bb110c3",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY8KYV32VA1XA5560PAZD42V"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-33c0e6f5",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XW2WCT51TK4QAYM4EN2SW"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-fa5b6d61",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYA3EKSAT5NJX4MK61J98BGY"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-68391cfd",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYAMNRG5X6KP50X9DMY5BHK6"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-0761b71d",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY7Y7MXCQD1YS500CD1763NQ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-d9e2902c",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XYTS7MCN15YW9JCPFF9ZK"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-3947b8e7",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYBK07E3V97TTFDT0AH3TY6X"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-b3f9e4ba",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XVFAZHKHM3T7BPFRN32ER"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-5d00f24c",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XXXQNEMZY0QPQC1R7R545"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-eb2f9dc2",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XXKSSBWEFTH0TM2QW0SDF"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-dda44a9e",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KY9XXXGBYKKAR6B40Y2SPS63"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-d3292e9e",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYBK07AW99SSJQFCVXKTF21X"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-f50608cd",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYBK0779BCJ0V4BN60W1XD04"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-f98da348",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ4C51D5W6H1YC306CZNBTD"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-11182963",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYK6530NJYYVG7CR72647MV4"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-4063ef92",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ7TAD8JGE52DYMXEAYDY2W"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-d111b057",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ4C4SZGFV3WG0TT9SJ6XG1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-f0945ec6",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ7TA8C406GM93JTMJRN24D"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-fec3f738",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ6SBRHHA6Y9CT9J4SGHNKR"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-63185747",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ7SPWAND3WWXPBAQ65A07S"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-0e73b2d0",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHDPM3WV1SJXFCH6V6DN2Y"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-094792f7",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ7SPMPESFM8MH69H3D61E5"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-301ff855",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ7HFNT8QSKQ73Z186KE6F9"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-e9b1af6e",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHDCW4CJBDYNS9G2R6M7NE"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-dfd5c47a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHS9WGVA12RPA6PX9KSMHJ"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-2ad4c6ce",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ6SBN19XW3AQTF3BQJHXAX"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-cc82e7f1",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHJWN0FW5A4SRJ3SYMER6E"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-4585cf1a",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHSKK6ARF37GG8CB275VX2"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-1e10f486",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHK6CMEKDBP8V66CA1BRYR"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-5c91f1e0",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHSA008AR0RCMXD2M0C0PK"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-14944b05",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHEKYWJAE4Z9ERB8HJ00YH"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-3a232ed8",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHS9RDG238QH9YYHQ09FQ4"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-20260718-151409-31dfe9f9",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJ22KCKCEW7XYQJGP81D38C"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-nanretry1-008-80069e74",
+        "state": "failed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYJQ4760G4566QPMEFGJV2WP"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-nanretry1-011-9ebfbc2c",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYSRB9Y50H9HTRX7JRDVQ71C"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-nanretry1-012-addc55a0",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYQHEA52W3FDGTQTCB0ERASC"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-rescue1-060-2ded6afd",
+        "state": "failed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYYG8MX4ZE2QD77DD164BGS0"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-rescue1-062-2ad6a289",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYYVGVR632XS4KEBV72RYKDK"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-rescue1-079-8d699a23",
+        "state": "crashed"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYYF43YKZ1C6DDJ27JEQ45Q7"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-tier1-060-2dccc268",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYYW59WRCM4D7MV952N3SDPF"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-tier1-062-84fe4677",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYYW5A07CXD48XT3P83Y7EPE"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-tier1-079-3dd65461",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KYYW5A3QDWMB2XEZ3NBSHB2X"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/disrnn_data_scaling/mult-d-grid-tier1-008-e8077edb",
+        "state": "finished"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/job/01KZ0JRW6BWKWWDH6EJDMN8R4B"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KZ0JRW2GT674CRM6BRHZG750"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KYB43HX8G6GPSTZFH09MGQZ4"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KYB43A78GH0X95K1W70EFNSZ"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KYJQ472RT9638M68WWH6HJRK"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN8RZSGET33Z05J7B61NQ0"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN8F5N493BJ4B7KC3FRKD1"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN8CPDJTNFVJD9VCPGF8HH"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN8HQYA8Y6MHNGPDSX900R"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN986D229GE1P5CZDHRX8S"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN8VBAEBB07F0T6AKKJMBK"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN95GHN340BNAWDM91BC3T"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KXVN92ZNTWAQ10YNV36DDGVQ"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KYXNJYA7KEY47JXWJGEG4M3Y"
+      },
+      {
+        "type": "url",
+        "id": "https://beaker.org/ex/01KYYW59S4YT65A9HRPTV7GWEX"
+      },
+      {
+        "type": "url",
+        "id": "https://aind-scratch-data.s3.amazonaws.com/aind-dynamic-foraging-cache/snapshots/20260603/snapshot_manifest.json",
+        "sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/06-disrnn-operating-point-at-scale/analysis/provenance/run_provenance.json",
+        "sha256": "915d881ed207af39c61d1ecd046d524149de09cfb3811913cffb4d3a88d527f3"
+      }
+    ]
+  },
+  "recovered_at_pt": "2026-10-25T17:05:26-07:00",
+  "note": "Recovered after the fact from W&B run configs and Beaker jobs (#28); launches from #25 on record data and image in their launch records instead.",
+  "groups": {
+    "mult-d-grid@20260718-151409": {
+      "project": "AIND-disRNN/disrnn_data_scaling",
+      "n_runs": 90,
+      "data": [
+        {
+          "source": "snapshot",
+          "type": "mice_snapshot",
+          "snapshot": "20260603",
+          "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+          "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+          "build_id": "20260630T054811Z",
+          "n_sessions": 23585,
+          "n_runs": 90
+        }
+      ],
+      "revisions": {
+        "wrapper": {
+          "eb5a6bb02c828bfabceeccf30aac4958477b4098": 90
+        },
+        "dispatcher": {
+          "f8c9e9ecc117fcc0f8501f8ef1f331c49f15104f": 90
+        },
+        "foraging_models": {
+          "54a8d3a45d98cdcbfbe741c900d0b82b11fa7d8c": 90
+        }
+      },
+      "image": [
+        {
+          "platform": "beaker",
+          "id": "01KXCF2EASQ8NV463684PZJ0ZP",
+          "via": "beaker job",
+          "n_runs": 90
+        }
+      ],
+      "unrecovered": {}
+    }
+  }
+}

@@ -2,7 +2,7 @@ entity: AIND-disRNN
 project: ai_hub_test
 name: unit-test-sweep
 method: grid
-command: [python, -m, run_hpc, data=synthetic, "${args_no_hyphens}"]
+command: [python, -m, run_hpc, data=mice_snapshot, "${args_no_hyphens}"]
 parameters:
   seed:
     values: [1]

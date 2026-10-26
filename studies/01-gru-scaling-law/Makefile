@@ -94,3 +94,15 @@ r9:
 # committed, so `r9` stays offline; re-run this only to add another D / seed / partition.
 r9-fetch-gru:
 	python analysis/fetch_gru_history_patterns.py
+
+# freeze-provenance = what the headline results' launches trained on and ran in, recovered from
+# W&B run configs and Beaker jobs (#28). Needs W&B credentials and BEAKER_TOKEN: compute node only.
+.PHONY: freeze-provenance
+freeze-provenance:
+	python ../util/freeze_run_provenance.py --study . --project AIND-disRNN/mice_data_scaling --project AIND-disRNN/mice_scaling --project AIND-disRNN/gru_cross_species_transfer \
+	  --group heldout-rerun-v1@20260623-004601 \
+	  --group heldout-rerun-v1@20260623-005608 \
+	  --group heldout-rerun-v2@20260623-053951 \
+	  --group v2-sc-active@20260622-144622 \
+	  --group nxd-grid@20260623-102649 \
+	  --group nxd-grid@20260624-141106
