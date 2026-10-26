@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_posteriors_vs_mle.py",
-    "produced_at_pt": "2026-10-26T03:24:38-07:00",
-    "studies_git_sha": "2093f033e976ce624ab79cd5340278676eb33cce",
+    "produced_at_pt": "2026-10-26T03:36:24-07:00",
+    "studies_git_sha": "6ae8a5fe5478b4c45c2f3a2148092ba89a76e50d",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r3_posteriors_vs_mle.py",
-        "sha256": "c20d43f60e05727655c87b8f0fc2a4cd3028dc1a8c242a1b52b3b55bb51352bb"
+        "sha256": "11b4fb87e10d1333cfdb70711e18aa11a0118faafec9fef7496f07b1e74b3d0a"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -36,7 +36,7 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_posteriors.json",
-        "sha256": "1b763f0932bc47ce3f5afcb7e74985259989d111e2e5c0bff69c7c9d99e715cb"
+        "sha256": "efae0c42298c0f7c97a0eda17e149664ed09318bccb47877567b6ba1802fd0a5"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
@@ -69,8 +69,12 @@
         "sha256": "2f636653e5916b3f7487abab922863e17c1e024cd0910471afb6c2dfb3e2f8ee"
       },
       {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_example_subjects.png",
+        "sha256": "54f326475d2e961c7dd798c172743ccbba561ad3ef1418538b784167b772c0e4"
+      },
+      {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r3-posteriors-vs-mle.md#result-1",
-        "sha256": "beeb5d50acf41eca3bf16c8645dae10b76a0907e972f8b9e40930153896e32e2"
+        "sha256": "d5883d9d951f9a5d7e820e41d68946d68672c243de3c2a44f977b69be16e54f3"
       }
     ]
   },

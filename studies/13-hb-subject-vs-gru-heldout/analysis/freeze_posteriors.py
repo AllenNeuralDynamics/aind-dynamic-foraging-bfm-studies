@@ -16,10 +16,16 @@ keeps, per subject and parameter:
 
 The mapping is foraging-models' ``hattori2019_session_params`` at the commit the runs used, so it cannot
 drift from the model. Each row is keyed by the W&B run id and the sha256 of the draws file it read.
+For three example subjects (the smallest, median and largest HB-over-MLE gain, chosen from the run
+table and the committed MLE table), it also keeps 1,000 samples per parameter of the typical session
+(``mu_p``) and of a fresh session (``mu_p + sigma z``), both on each parameter's own scale, for r3's
+example-subject figure.
+
 Needs the HPC filesystem, so it runs on a compute node. ``r3_posteriors_vs_mle.py`` is offline.
 """
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 import sys
@@ -40,6 +46,8 @@ WANDB_GROUPS = ["hattori@20261026-002131"]
 RUNS = HERE / "hattori_runs.json"
 ARTIFACT_ROOT = Path("/home/han.hou/outputs/disrnn/hb_artifacts")
 OUT = HERE / "hattori_posteriors.json"
+MLE_SOURCE = HERE.parents[1] / "08-hb-vs-gru-heldout" / "analysis" / "ml_params" / "ml_hattori_heldout.csv"
+N_EXAMPLE_SAMPLES = 1000
 QUANTILES = (5, 50, 95)
 
 
@@ -66,10 +74,34 @@ def _summary(path: Path, beta_max: float) -> dict:
             for k, name in enumerate(HATTORI2019_PARAMS)}
 
 
+def _examples(finished: list[dict]) -> list[str]:
+    """Subjects with the smallest, median and largest HB-over-MLE held-out gain."""
+    mle = {r["subject_id"]: float(r["eval_likelihood"]) for r in csv.DictReader(MLE_SOURCE.open())}
+    gains = sorted((r["heldout/eval_likelihood"] - mle[r["subject_id"]], r["subject_id"])
+                   for r in finished if r["subject_id"] in mle)
+    return [gains[0][1], gains[len(gains) // 2][1], gains[-1][1]]
+
+
+def _samples(path: Path, beta_max: float, seed: int) -> dict:
+    """Own-scale samples of the typical session and of a fresh session, per parameter."""
+    draws = np.load(path)
+    mu = np.asarray(draws["mu_p"])[:, 0, :]
+    sigma = np.exp(np.asarray(draws["log_sigma"])[:, 0, :])
+    rng = np.random.default_rng(seed)
+    pick = rng.choice(mu.shape[0], N_EXAMPLE_SAMPLES, replace=False)
+    typical = _bounded(mu[pick], beta_max)
+    fresh = _bounded(mu[pick] + sigma[pick] * rng.standard_normal(mu[pick].shape), beta_max)
+    return {name: {"typical": np.round(typical[:, k], 5).tolist(),
+                   "session": np.round(fresh[:, k], 5).tolist()}
+            for k, name in enumerate(HATTORI2019_PARAMS)}
+
+
 def main() -> None:
     """One row per finished run: its subject, draws digest, and posterior summaries."""
     rows, sources = [], []
     finished = [r for r in json.loads(RUNS.read_text())["rows"] if r["state"] == "finished"]
+    examples = _examples(finished)
+    example_samples = {}
     for run in sorted(finished, key=lambda r: r["subject_id"]):
         run_dir = ARTIFACT_ROOT / run["wandb_run_id"]
         path = run_dir / "heldout_two_level_draws.npz"
@@ -80,13 +112,18 @@ def main() -> None:
         rows.append({"wandb_run_id": run["wandb_run_id"], "subject_id": run["subject_id"],
                      "draws_sha256": digest, "fit_json_sha256": fit_digest, "beta_max": beta_max,
                      "params": _summary(path, beta_max)})
+        if run["subject_id"] in examples:
+            example_samples[run["subject_id"]] = _samples(path, beta_max,
+                                                          seed=examples.index(run["subject_id"]))
         sources += [{"type": "file", "id": str(path), "sha256": digest},
                     {"type": "file", "id": str(fit_json), "sha256": fit_digest}]
     meta = build_meta("analysis/freeze_posteriors.py", WANDB_GROUPS, study_root=HERE.parent,
-                      kind="freeze", code=[__file__], inputs=[RUNS], sources=sources)
+                      kind="freeze", code=[__file__], inputs=[RUNS, MLE_SOURCE], sources=sources)
     write_artifact(OUT, {"_meta": meta, "quantiles": {"subject": QUANTILES, "sigma": QUANTILES,
                                                       "session_width": QUANTILES},
-                         "param_order": list(HATTORI2019_PARAMS), "rows": rows}, outputs=[])
+                         "param_order": list(HATTORI2019_PARAMS), "rows": rows,
+                         "examples": {"subjects_by_gain": examples, "samples": example_samples}},
+                   outputs=[])
     print(f"froze posteriors for {len(rows)} subjects to {OUT}")
 
 

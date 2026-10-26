@@ -33,6 +33,7 @@ REPORT = HERE / "reports" / "r3-posteriors-vs-mle.md"
 FIG_PARAMS = HERE / "fig_r3_params_vs_mle.png"
 FIG_SPREAD = HERE / "fig_r3_session_spread.png"
 FIG_GAIN = HERE / "fig_r3_gain_vs_spread.png"
+FIG_EXAMPLES = HERE / "fig_r3_example_subjects.png"
 MLE_NAME = {"bias_l": "biasL"}   # the RL package's column names; biasL is the HB's bias_l
 LABEL = {"learn_rate_rew": "learning rate, rewarded", "learn_rate_unrew": "learning rate, unrewarded",
          "forget_rate_unchosen": "forget rate, unchosen", "softmax_inverse_temperature":
@@ -71,6 +72,7 @@ def load() -> dict:
     beta_max = {r["beta_max"] for r in post["rows"]}
     assert len(beta_max) == 1, beta_max
     return {"names": names, "subjects": subjects, "hb": hb, "runs": runs, "mle": mle,
+            "examples": post["examples"],
             "beta_max": beta_max.pop(),
             "gru": {s: statistics.fmean(v) for s, v in gru.items()}}
 
@@ -138,6 +140,41 @@ def plot(d: dict, r: dict) -> None:
     axes[0].set_ylabel("between-session width\n(10–90% session, own scale)")
     fig.tight_layout(); fig.savefig(FIG_SPREAD, dpi=150); plt.close(fig)
 
+    ex = d["examples"]
+    fig, axes = plt.subplots(3, 5, figsize=(20, 9), squeeze=False)
+    for row, (label, subject) in enumerate(zip(("smallest", "median", "largest"),
+                                               ex["subjects_by_gain"])):
+        gain = d["runs"][subject]["heldout/eval_likelihood"] - float(d["mle"][subject]["eval_likelihood"])
+        for col, n in enumerate(names):
+            ax = axes[row, col]
+            samples = ex["samples"][subject][n]
+            ax.hist(samples["session"], bins=40, density=True, alpha=0.45, color="C0",
+                    label="across sessions")
+            ax.hist(samples["typical"], bins=40, density=True, alpha=0.75, color="C1",
+                    label="typical session")
+            mle_value = float(d["mle"][subject][MLE_NAME.get(n, n)])
+            lo = min(min(samples["session"]), min(samples["typical"]))
+            hi = max(max(samples["session"]), max(samples["typical"]))
+            pad = 0.05 * (hi - lo)
+            if lo - pad <= mle_value <= hi + pad:
+                ax.axvline(mle_value, color="k", lw=1.5, label="MLE")
+            else:   # far outside the posterior: mark it at the edge rather than rescale the panel
+                edge = hi + pad if mle_value > hi else lo - pad
+                ax.annotate(f"MLE {mle_value:.3g}", xy=(edge, 0.5), xycoords=("data", "axes fraction"),
+                            ha="right" if mle_value > hi else "left", fontsize=9,
+                            arrowprops={"arrowstyle": "->"}, xytext=(-30 if mle_value > hi else 30, 0),
+                            textcoords="offset points")
+            ax.set_xlim(lo - pad, hi + pad)
+            if row == 0:
+                ax.set_title(LABEL[n])
+            if col == 0:
+                ax.set_ylabel(f"{subject}\n{label} gain\n{gain:+.4f}", fontsize=10)
+            ax.set_yticks([])
+    axes[0, 0].legend(fontsize=9, loc="upper right")
+    fig.suptitle("HB posterior for three subjects: the typical session vs how far sessions move, "
+                 "against the single MLE value")
+    fig.tight_layout(); fig.savefig(FIG_EXAMPLES, dpi=130); plt.close(fig)
+
     p = r["_plot"]
     fig, (a, b) = plt.subplots(1, 2, figsize=(13, 5))
     a.scatter(p["mean_sigma"], p["gain"], s=12, alpha=0.7)
@@ -165,6 +202,7 @@ def render(r: dict) -> str:
     g, c = r["gain_vs_mle"], r["gap_to_gru_d614"]
     lines += ["", f"![between-session spread](../{FIG_SPREAD.name})", "",
               f"![gain vs spread](../{FIG_GAIN.name})", "",
+              f"![example subjects](../{FIG_EXAMPLES.name})", "",
               f"- HB − MLE Hattori per subject: median {g['median']:+.4f}; Spearman with the subject's "
               f"between-session spread {g['spearman_with_mean_sigma']:+.2f} (n={r['n_subjects']}).",
               f"- HB − GRU D≈614 per subject: median {c['median']:+.4f}; Spearman with the same spread "
@@ -185,7 +223,7 @@ def main() -> None:
     meta = build_meta("analysis/r3_posteriors_vs_mle.py", WANDB_GROUPS, study_root=HERE.parent,
                       code=[__file__], inputs=[POSTERIORS, RUNS, MLE_SOURCE, GRU_SOURCE])
     write_artifact(HERE / "r3_posteriors_vs_mle.json", {"_meta": meta, **result},
-                   outputs=[FIG_PARAMS, FIG_SPREAD, FIG_GAIN,
+                   outputs=[FIG_PARAMS, FIG_SPREAD, FIG_GAIN, FIG_EXAMPLES,
                             HERE / "reports" / "r3-posteriors-vs-mle.md#result-1"])
 
 

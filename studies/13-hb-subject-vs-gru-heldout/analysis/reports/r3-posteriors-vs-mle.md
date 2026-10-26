@@ -16,6 +16,7 @@ inputs:
   - analysis/fig_r3_params_vs_mle.png
   - analysis/fig_r3_session_spread.png
   - analysis/fig_r3_gain_vs_spread.png
+  - analysis/fig_r3_example_subjects.png
 upstream:
 - study: 08-hb-vs-gru-heldout
   wandb_group: rl-baseline-hattori@20260713-005950
@@ -53,6 +54,8 @@ study 01 r8 exactly). Both were fitted on the same even-indexed context sessions
 
 ![gain vs spread](../fig_r3_gain_vs_spread.png)
 
+![example subjects](../fig_r3_example_subjects.png)
+
 - HB − MLE Hattori per subject: median +0.0074; Spearman with the subject's between-session spread +0.49 (n=149).
 - HB − GRU D≈614 per subject: median -0.0061; Spearman with the same spread -0.11 (n=146, subjects in both cohorts).
 <!-- END result-1 -->
@@ -76,6 +79,14 @@ study 01 r8 exactly). Both were fitted on the same even-indexed context sessions
   no clear association with that index (Spearman ≈ −0.1). One hypothesis is that the GRU captures
   trial-level dynamics the Hattori update rule cannot express. This analysis doesn't separate that
   from prior effects, estimation error, or r1's open convergence and k̂ issues.
+- **Three subjects up close** (example-subject figure: smallest, median and largest gain over the
+  MLE). For each parameter it shows the posterior of the subject's typical session (orange), the
+  distribution across its sessions (blue), and the single MLE value (black). In the first two, the
+  MLE sits inside the typical-session posterior while sessions spread well beyond it: the two fits
+  agree on the mouse, but only the HB represents how much it moves. The largest-gain subject's
+  MLE is degenerate: a rewarded learning rate of 0.015 and an inverse temperature of 56.6, far
+  outside where any of its sessions lie. The HB's prior keeps it in a sensible range. So part of
+  the gain over the MLE is regularizing pathological per-subject fits, not session variability.
 - **Shrinkage.** For forget rates near 1 the HB sits below the MLE. That fits the fixed prior (uniform
   on the bounded scale) and posterior averaging pulling extreme point estimates inward, not a
   disagreement about the mouse. The MLE inverse temperature is unbounded; one fit is above the HB's
