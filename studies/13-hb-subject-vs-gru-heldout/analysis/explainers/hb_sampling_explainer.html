@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>HB 采样过程：plug-in vs zero-spread vs full（交互演示）</title>
+<title>How a held-out session is scored: plug-in vs zero-spread vs full (interactive)</title>
 <style>
-  body { font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; background: #fafafa; color: #222; }
+  body { font-family: -apple-system, "Segoe UI", sans-serif; margin: 0; background: #fafafa; color: #222; }
   header { padding: 14px 24px 6px; }
   h1 { font-size: 20px; margin: 0 0 4px; }
   .sub { color: #666; font-size: 13px; }
@@ -27,9 +27,9 @@
 </head>
 <body>
 <header>
-  <h1>一只鼠的 held-out session 是怎么被打分的：plug-in / zero-spread / full</h1>
-  <div class="sub">玩具模型：只有一个参数（学习率 α），固定 softmax 温度，无偏好、无遗忘。数据是模拟的。</div>
-  <div class="warn">⚠ 示意演示，不是 study 13 的真实数据；但计算方式与真实打分完全相同（对每个样本的整场似然取平均）。</div>
+  <h1>How one mouse's held-out session is scored: plug-in / zero-spread / full</h1>
+  <div class="sub">Toy model: a single parameter (learning rate α), fixed softmax temperature, no bias, no forgetting. The data are simulated.</div>
+  <div class="warn">⚠ An illustration, not study 13's data. The computation is the same as the real scoring: average each sample's whole-session likelihood.</div>
 </header>
 
 <div class="steps" id="steps"></div>
@@ -37,11 +37,11 @@
 
 <div class="row">
   <div class="panel">
-    <h3 id="leftTitle">样本（每个点 = 一个候选 α；点的大小 = 到目前为止的隐含权重）</h3>
+    <h3 id="leftTitle">Samples (each dot = one candidate α; dot size = its implied weight so far)</h3>
     <canvas id="cloud" width="560" height="330"></canvas>
   </div>
   <div class="panel">
-    <h3>到第 t 个 trial 为止的平均每-trial 似然（越高越好）</h3>
+    <h3>Average per-trial likelihood up to trial t (higher is better)</h3>
     <canvas id="score" width="560" height="330"></canvas>
     <div class="legend" id="legend"></div>
   </div>
@@ -49,22 +49,22 @@
 
 <div class="ctrl">
   <div class="modes" id="modes"></div>
-  <button id="play">▶ 播放</button>
+  <button id="play">▶ Play</button>
   <label>trial <input type="range" id="trial" min="0" max="300" value="0" style="width:220px"><span id="trialLbl">0</span></label>
 </div>
 <div class="ctrl">
-  <label>今天这个 session 真实的 α <input type="range" id="truth" min="0.05" max="0.95" step="0.01" value="0.30"><span id="truthLbl">0.30</span></label>
-  <label>鼠的 session 间差异 σ（真实） <input type="range" id="sigma" min="0" max="1.2" step="0.05" value="0.6"><span id="sigmaLbl">0.60</span></label>
-  <label>样本数 <input type="range" id="nsamp" min="20" max="400" step="10" value="150"><span id="nsampLbl">150</span></label>
-  <button id="resim">重新模拟 session</button>
+  <label>This session's true α <input type="range" id="truth" min="0.05" max="0.95" step="0.01" value="0.30"><span id="truthLbl">0.30</span></label>
+  <label>Mouse's true between-session spread σ <input type="range" id="sigma" min="0" max="1.2" step="0.05" value="0.6"><span id="sigmaLbl">0.60</span></label>
+  <label>Samples <input type="range" id="nsamp" min="20" max="400" step="10" value="150"><span id="nsampLbl">150</span></label>
+  <button id="resim">Re-simulate session</button>
 </div>
 
 <div class="note" id="summary" role="status" aria-live="polite"></div>
 <div class="note">
-<b>怎么读右图：</b>每条线是"到目前为止，各 trial 预测概率的几何平均"。zero-spread 和 full 的线，是对<b>每个样本的整场似然</b>取平均后，再按 trial 拆开得到的；
-per-trial 平均（灰色虚线）则是对<b>每个 trial 的概率</b>分别取平均再相乘。<br>
-<b>左图的点变大变小，不是程序在运行中改权重。</b>程序只做一件事：每个样本参数固定、teacher forcing 跑完整个 session、对整场似然取平均。
-点的大小只是把这个平均值按 trial 拆开时，"预测下一个 trial 时各样本隐含占多少比重"（= 该样本对前面 trial 的似然）。两种读法得到的数字完全相同。
+<b>Reading the right panel:</b> each line is the geometric mean of the predicted probabilities of the trials so far. The zero-spread and full lines average <b>each sample's whole-session likelihood</b>, then split that average by trial;
+per-trial averaging (grey dashed) averages <b>each trial's probability</b> separately, then multiplies.<br>
+<b>The dots growing and shrinking on the left is not the code changing weights.</b> The code does one thing: hold each sample's parameter fixed, run the whole session by teacher forcing, and average the whole-session likelihoods.
+Dot size is only an equivalent reading of that average: when it is split by trial, each sample's implied share of the next trial's prediction equals its likelihood of the earlier trials. Both readings give exactly the same number.
 </div>
 
 <script>
@@ -156,12 +156,12 @@ function computeCurves() {
     let m = 0; samples.full.forEach(s => { m += s.p[tt]; }); acc += Math.log(m / samples.full.length);
     arr.push(Math.exp(acc / (tt + 1)));
   }
-  out["per-trial 平均"] = arr;
+  out["per-trial average"] = arr;
   return out;
 }
 
 // ---------- drawing ----------
-const COLORS = { "plug-in": "#ff7f0e", "zero-spread": "#2ca02c", "full": "#1f77b4", "per-trial 平均": "#888" };
+const COLORS = { "plug-in": "#ff7f0e", "zero-spread": "#2ca02c", "full": "#1f77b4", "per-trial average": "#888" };
 function drawCloud() {
   const c = els("cloud"), g = c.getContext("2d"), W = c.width, H = c.height;
   g.clearRect(0, 0, W, H);
@@ -169,16 +169,16 @@ function drawCloud() {
   g.strokeStyle = "#999"; g.beginPath(); g.moveTo(40, H - 30); g.lineTo(W - 20, H - 30); g.stroke();
   g.fillStyle = "#444"; g.font = "12px sans-serif";
   for (let v = 0; v <= 1.0001; v += 0.2) { g.fillText(v.toFixed(1), x(v) - 8, H - 12); }
-  g.fillText("学习率 α", W / 2 - 20, H - 0);
+  g.fillText("learning rate α", W / 2 - 20, H - 0);
   // truth and typical
   const truth = +els("truth").value;
   g.strokeStyle = "#d62728"; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(x(truth), 20); g.lineTo(x(truth), H - 30); g.stroke();
-  g.fillStyle = "#d62728"; g.fillText("今天真实的 α", x(truth) + 4, 30);
+  g.fillStyle = "#d62728"; g.fillText("this session's true α", x(truth) + 4, 30);
   g.strokeStyle = "#999"; g.beginPath(); g.moveTo(x(MU0), 20); g.lineTo(x(MU0), H - 30); g.stroke(); g.setLineDash([]);
-  g.fillStyle = "#666"; g.fillText("这只鼠的典型 α", x(MU0) + 4, 46);
+  g.fillStyle = "#666"; g.fillText("this mouse's typical α", x(MU0) + 4, 46);
   if (step === 0) {
     g.fillStyle = "#666"; g.font = "14px sans-serif";
-    g.fillText("（第 1 步：先看 context sessions 给了我们什么）", 60, H / 2);
+    g.fillText("(Step 1: first, what the context sessions give us)", 60, H / 2);
     return;
   }
   const list = samples[mode];
@@ -196,7 +196,7 @@ function drawCloud() {
   if (mode !== "plug-in" && t > 0) {
     let num = 0, den = 0; list.forEach((s, i) => { num += w[i] * s.a; den += w[i]; });
     g.fillStyle = "#000"; g.font = "12px sans-serif";
-    g.fillText(`按隐含权重的平均 α ≈ ${(num / den).toFixed(2)}`, 50, H - 40);
+    g.fillText(`weight-averaged α ≈ ${(num / den).toFixed(2)}`, 50, H - 40);
   }
 }
 function drawScore() {
@@ -211,11 +211,11 @@ function drawScore() {
   for (let v = lo; v <= hi + 1e-9; v += 0.05) g.fillText(v.toFixed(2), 8, y(v) + 4);
   for (let tt = 0; tt <= T; tt += 50) g.fillText(tt, x(tt) - 8, H - 12);
   if (step === 0) return;
-  const show = step === 1 ? ["plug-in"] : step === 2 ? ["plug-in", "zero-spread"] : ["plug-in", "zero-spread", "full", "per-trial 平均"];
+  const show = step === 1 ? ["plug-in"] : step === 2 ? ["plug-in", "zero-spread"] : ["plug-in", "zero-spread", "full", "per-trial average"];
   show.forEach(k => {
     const arr = curves[k];
     g.strokeStyle = COLORS[k]; g.lineWidth = k === mode ? 3 : 1.5;
-    g.setLineDash(k === "per-trial 平均" ? [5, 4] : []);
+    g.setLineDash(k === "per-trial average" ? [5, 4] : []);
     g.beginPath(); for (let tt = 1; tt <= Math.max(1, t); tt++) { const px = x(tt), py = y(arr[tt - 1]); tt === 1 ? g.moveTo(px, py) : g.lineTo(px, py); }
     g.stroke();
     if (t > 0) { g.fillStyle = COLORS[k]; g.fillText(arr[t - 1].toFixed(3), x(t) + 4, y(arr[t - 1])); }
@@ -226,34 +226,34 @@ function drawScore() {
 function summarize() {
   // the plots' numbers as text, for screen readers and copying
   if (step === 0 || t === 0) { els("summary").textContent = `trial ${t} of ${T}: press play or move the trial slider.`; return; }
-  const parts = ["plug-in", "zero-spread", "full", "per-trial 平均"].filter(k => curves[k])
+  const parts = ["plug-in", "zero-spread", "full", "per-trial average"].filter(k => curves[k])
     .map(k => `${k} ${curves[k][t - 1].toFixed(3)}`);
   const list = samples[mode];
   let m = -Infinity; list.forEach(s => { m = Math.max(m, s.cum[t]); });
   let num = 0, den = 0; list.forEach(s => { const w = Math.exp(s.cum[t] - m); num += w * s.a; den += w; });
-  els("summary").textContent = `trial ${t} of ${T}. 平均每-trial 似然：${parts.join("，")}。` +
-    `左图（${mode}）按隐含权重的平均 α ≈ ${(num / den).toFixed(2)}；今天真实的 α = ${(+els("truth").value).toFixed(2)}。`;
+  els("summary").textContent = `trial ${t} of ${T}. Average per-trial likelihood: ${parts.join(", ")}. ` +
+    `Left panel (${mode}): weight-averaged α ≈ ${(num / den).toFixed(2)}; this session's true α = ${(+els("truth").value).toFixed(2)}.`;
 }
 function draw() { drawCloud(); drawScore(); summarize(); els("trialLbl").textContent = t; els("trial").value = t; }
 
 // ---------- narration ----------
 const STEPS = [
-  { name: "① context sessions → 后验样本", mode: "full", text:
-    "我们只用这只鼠的 context sessions（偶数场）做 MCMC。得到的不是一个答案，而是一大批样本：每个样本是一对 (mu, σ)。" +
-    "<b>mu</b> = 它的典型 α（因为数据有限，我们不确定它到底是多少，所以 mu 有很多个样本）；<b>σ</b> = 它每天的 α 会偏离典型值多少。" +
-    "这些样本拿到之后就<b>固定</b>了，评分 session 不会改变它们。按下一步看三种用法。" },
+  { name: "① context sessions → posterior samples", mode: "full", text:
+    "We run MCMC on this mouse's context sessions only (the even-indexed ones). The result is not one answer but many samples, each a pair (mu, σ). " +
+    "<b>mu</b> = its typical α (the data are limited, so we are unsure of it, hence many samples of mu); <b>σ</b> = how far its α moves from that typical value from day to day. " +
+    "Once drawn, these samples are <b>fixed</b>: the scored session never changes them. Step through to see three ways of using them." },
   { name: "② plug-in", mode: "plug-in", text:
-    "<b>plug-in</b>：取所有 mu 样本的<b>中位数</b>，只用这一个 α，teacher forcing 跑完今天的 session。整天都按同一个 α 预测，" +
-    "今天的 α 如果离典型值远（拖动『今天真实的 α』试试），就会一直猜偏。逐只 MLE 也是这种『一个数』的做法。" },
+    "<b>plug-in</b>: take the <b>median</b> of the mu samples and use only that one α to run today's session by teacher forcing. Every trial is predicted with the same α, " +
+    "so if today's α is far from the typical value (try dragging 'This session's true α'), every prediction stays off. The per-subject MLE is also a 'one number' predictor." },
   { name: "③ zero-spread", mode: "zero-spread", text:
-    "<b>zero-spread</b>：用<b>全部</b> mu 样本，每个样本的 α 固定、各自跑完整个 session，得到各自的整场似然，再取平均。" +
-    "没有加 σ（认为每天都一样），所以候选 α 只分布在『对典型值的不确定』这个小范围里。播放时点变大变小：" +
-    "这不是程序在改权重，而是把『整场似然的平均』按 trial 拆开后，整场（到 t 为止）似然高的样本自然在平均里占主导。" },
+    "<b>zero-spread</b>: use <b>every</b> mu sample. Each sample's α stays fixed, runs the whole session, and gives its whole-session likelihood; then average them. " +
+    "No σ is added (every day is assumed the same), so the candidate α only spans our uncertainty about the typical value, a narrow range. As it plays, the dots grow and shrink: " +
+    "the code is not changing weights. Splitting the average of whole-session likelihoods by trial, samples with a high likelihood so far naturally dominate the average." },
   { name: "④ full", mode: "full", text:
-    "<b>full</b>：每个 (mu, σ) 样本再抽『今天的 α』= mu + σ × 随机数（在 logit 尺度上），候选范围更宽，包含『今天可能不一样』。" +
-    "计算方式和 zero-spread 一样：每个候选各自跑完整个 session，对整场似然取平均。范围更宽，所以今天的 α 即使离典型值较远，也有候选能贴近它。" +
-    "灰色虚线是 per-trial 平均（对每个 trial 的概率分别取平均）：它对所有候选始终一视同仁，不会偏向解释了前面 trial 的候选。" +
-    "它和其他做法之间没有固定的高低关系（『平均之积』和『积之平均』谁大不一定），在某些设置下甚至可能更高；区别在于它不是一个自洽的预测器。" },
+    "<b>full</b>: from each (mu, σ) sample, also draw 'today's α' = mu + σ × a random draw (on the logit scale). The candidates now span a wider range that includes 'today may differ'. " +
+    "The computation is the same as zero-spread: each candidate runs the whole session, and the whole-session likelihoods are averaged. With the wider range, even an α far from the typical value has candidates near it. " +
+    "The grey dashed line is per-trial averaging (average each trial's probability separately): it treats every candidate equally throughout and never favours those that explained earlier trials. " +
+    "There is no fixed ordering between it and the others (a product of averages vs an average of products), so under some settings it can even score higher; the difference is that it is not a coherent predictor." },
 ];
 function setStep(i) {
   step = i; mode = STEPS[i].mode; t = i === 0 ? 0 : t;
@@ -263,10 +263,10 @@ function setStep(i) {
   draw();
 }
 STEPS.forEach((s, i) => { const b = document.createElement("button"); b.textContent = s.name; b.onclick = () => setStep(i); els("steps").appendChild(b); });
-["plug-in", "zero-spread", "full"].forEach(m => { const b = document.createElement("button"); b.textContent = "左图显示：" + m; b.dataset.m = m;
+["plug-in", "zero-spread", "full"].forEach(m => { const b = document.createElement("button"); b.textContent = "Left panel: " + m; b.dataset.m = m;
   b.onclick = () => { if (step === 0) setStep(3); mode = m; [...els("modes").children].forEach(x => x.classList.toggle("on", x.dataset.m === m)); draw(); }; els("modes").appendChild(b); });
 
-els("play").onclick = () => { if (step === 0) setStep(1); play = !play; els("play").textContent = play ? "⏸ 暂停" : "▶ 播放"; if (play && t >= T) t = 0; };
+els("play").onclick = () => { if (step === 0) setStep(1); play = !play; els("play").textContent = play ? "⏸ Pause" : "▶ Play"; if (play && t >= T) t = 0; };
 els("trial").oninput = e => { t = +e.target.value; if (step === 0) setStep(1); draw(); };
 // the true alpha defines today's session, so changing it re-simulates; sigma and the sample count
 // only change the posterior samples, so the observed session stays the same
@@ -275,7 +275,7 @@ for (const id of ["truth", "sigma", "nsamp"]) els(id).oninput = e => {
   build(id === "truth"); draw(); };
 els("resim").onclick = () => { sessionSeed = 1 + Math.floor(Math.random() * 1e6); build(true); t = 0; draw(); };
 
-function tick() { if (play) { t = Math.min(T, t + 2); if (t >= T) { play = false; els("play").textContent = "▶ 播放"; } draw(); } requestAnimationFrame(tick); }
+function tick() { if (play) { t = Math.min(T, t + 2); if (t >= T) { play = false; els("play").textContent = "▶ Play"; } draw(); } requestAnimationFrame(tick); }
 build(true); setStep(0); tick();
 </script>
 </body>
