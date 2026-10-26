@@ -1,0 +1,42 @@
+# Smoke of the per-subject route at PRODUCTION sampler settings, on the first 3 held-out
+# subjects: times the fit and the 128,000-draw scoring on CPU, and checks the pooling keys.
+#
+# Per-subject route (PLAN.md, Compute): each array task fits ONE held-out subject with its
+# own sampler, on CPU. A shared sampler over all 149 is set by the hardest subject's step
+# size; one subject alone runs ~100x faster per iteration (launch_record/probe/).
+# Subject ids: the 149 held-out subjects scored by the comparators, read from studies/01-gru-scaling-law/analysis/rl_baseline.json
+# (models.hattori.per_subject_likelihood keys). Runs pool via heldout/eval_log_lik_sum.
+# wandb.project must be in the command: the launcher sets only the group.
+
+entity: AIND-disRNN
+project: mice_data_scaling
+name: hb-heldout-two-level-per-subject-smoke
+
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=hb_hattori
+  - model.estimator=heldout_two_level
+  - model.num_warmup=2000
+  - model.num_samples=500
+  - model.num_chains=4
+  - +model.session_draws_per_posterior_draw=64
+  - data.subject_ratio=0.016
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_data_scaling
+  - ${args_no_hyphens}
+
+parameters:
+  data.test_subject_ids:
+    values:
+      - "[452275]"
+      - "[453476]"
+      - "[453478]"

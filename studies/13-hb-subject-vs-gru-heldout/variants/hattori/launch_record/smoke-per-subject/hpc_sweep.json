@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-10-25T23:52:49-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "hattori@20261025-235239",
+  "label": "smoke-per-subject",
+  "note": "Per-subject route smoke for study 13 hattori: 3 held-out subjects, one per CPU array task, at production settings (2000 warmup, 500 draws, 4 chains, 64 session draws). Times fit and scoring per subject, checks gates, k-hat, and the pooling totals, before the 149-subject array.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "xqud3auu"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27500512"
+    }
+  ],
+  "revisions": {
+    "studies": "03209ab26819453039017baa977719beadb6dcc7",
+    "dispatcher": "5936f5d0b94b1fb5ec9d95058067716f261e5555",
+    "wrapper": "04878a6cdb081b0156b96ac1e61dde5de58d492e",
+    "foraging_models": "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2"
+  },
+  "manifests": [
+    "sweep_hpc_per_subject_smoke.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 3,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e8a3a8e735e722e6ec842460b88eb429da2a43d036da93e7c7360d3bf160bba0"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "xqud3auu",
+  "wandb_sweep_path": "AIND-disRNN/mice_data_scaling/xqud3auu",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/mice_data_scaling/sweeps/xqud3auu",
+  "slurm_array_job_id": "27500512",
+  "slurm_autostop_job_id": "27500513",
+  "n_array_tasks": 3,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "5936f5d0b94b1fb5ec9d95058067716f261e5555",
+  "studies_git_commit": "03209ab26819453039017baa977719beadb6dcc7",
+  "studies_git_branch": "feat/27-study-13-hb-subject",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "5936f5d0b94b1fb5ec9d95058067716f261e5555",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "04878a6cdb081b0156b96ac1e61dde5de58d492e",
+  "foraging_models_git_commit": "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2",
+  "foraging_models_version": "0.22.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/studies-27/studies/13-hb-subject-vs-gru-heldout/variants/hattori/sweep_hpc_per_subject_smoke.yaml",
+  "created_utc": "2026-10-26T06:52:49.089046+00:00"
+}
