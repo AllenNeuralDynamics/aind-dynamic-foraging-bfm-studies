@@ -8,7 +8,11 @@ requests==2.34.2
 jsonschema==4.26.0
 PyYAML==6.0.3
 matplotlib==3.10.9  # r2/r3 figures; byte-identical only on one machine (posthoc-reporting)
-# freeze_posteriors.py also imports aind-dynamic-foraging-models (ef1d31a, below) and jax==0.6.1 from this env.
+# freeze_posteriors.py also imports foraging-models' hierarchical_bayes.model, which pulls in its [bayes] stack:
+aind-dynamic-foraging-models==0.22.0  # installed from git at ef1d31a291e41a756d49b46ee15b3e0c3fa373b2 (direct_url.json)
+jax==0.6.1
+jaxlib==0.6.1
+numpyro==0.19.0
 #
 # Code whose outputs are frozen here: the runs' W&B summary keys and scores files were written by
 # aind-dynamic-foraging-bfm-wrapper 04878a6cdb081b0156b96ac1e61dde5de58d492e (HBTrainer, estimator heldout_two_level)
