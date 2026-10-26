@@ -21,7 +21,8 @@ with 08.
   model-generated 500-trial sessions, the weight ESS grows in proportion to the draws (median
   14 → 208 → 831 at 400 → 6,400 → 25,600 draws) and the pooled score is stable from 400 draws,
   so the headline uses plain draw-averaging with many session draws per posterior draw
-  (default 64), not importance sampling. Each session is gated on its Pareto k̂ (< 0.7;
+  (production: 6,000 posterior draws × 24), not importance sampling. Each session is gated on its Pareto k̂ (< 0.7;
   Vehtari et al. 2024), used as a diagnostic only: the score and its SE stay unsmoothed.
-  Importance sampling with a Laplace proposal is built only if real sessions fail the gate.
+  Importance sampling with a Laplace proposal is built only if real sessions fail the gate. On
+  the per-subject smoke at 128,000 draws, 12 of 13 real sessions passed (one at k̂ 0.77).
 - The scorer is `batched_heldout_scores` (foraging-models#78), with its SE and pooled error.

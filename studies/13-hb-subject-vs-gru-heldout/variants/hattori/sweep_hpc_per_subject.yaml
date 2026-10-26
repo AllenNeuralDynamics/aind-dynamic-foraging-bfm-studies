@@ -1,5 +1,8 @@
-# Production: study 08's sampler settings (2000 warmup, 500 draws, 4 chains) and 64 session
-# draws per posterior draw (ADR 0002), one held-out subject per array task.
+# Production: 2000 warmup, 1500 draws x 4 chains (6,000 posterior draws), 24 session draws per
+# posterior draw (144,000 behind each session-marginal), one held-out subject per array task.
+# Set from the per-subject smoke (launch_record/smoke-per-subject/): at 500 draws per chain the
+# subjects sat at R-hat 1.009-1.012 / bulk ESS 301-423, just short of the gates; at 128,000 session
+# draws 12/13 sessions passed k-hat < 0.7; scoring peaked at 24-31 GB, so tasks request 64 GB.
 #
 # Per-subject route (PLAN.md, Compute): each array task fits ONE held-out subject with its
 # own sampler, on CPU. A shared sampler over all 149 is set by the hardest subject's step
@@ -25,9 +28,9 @@ command:
   - model=hb_hattori
   - model.estimator=heldout_two_level
   - model.num_warmup=2000
-  - model.num_samples=500
+  - model.num_samples=1500
   - model.num_chains=4
-  - +model.session_draws_per_posterior_draw=64
+  - +model.session_draws_per_posterior_draw=24
   - data.subject_ratio=0.016
   - seed=0
   - wandb.entity=AIND-disRNN
