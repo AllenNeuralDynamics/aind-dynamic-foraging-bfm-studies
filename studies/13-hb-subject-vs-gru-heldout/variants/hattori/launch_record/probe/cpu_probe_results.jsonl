@@ -1,0 +1,6 @@
+{"subject": 0, "chain_method": "parallel", "seconds": 4.0, "s_per_iter": 0.013, "median_num_steps": 63.0, "max_num_steps": 127, "divergences": 0}
+{"subject": 0, "chain_method": "vectorized", "seconds": 104.6, "s_per_iter": 0.349, "median_num_steps": 63.0, "max_num_steps": 127, "divergences": 0}
+{"subject": 1, "chain_method": "parallel", "seconds": 3.9, "s_per_iter": 0.013, "median_num_steps": 31.0, "max_num_steps": 95, "divergences": 0}
+{"subject": 1, "chain_method": "vectorized", "seconds": 77.8, "s_per_iter": 0.259, "median_num_steps": 31.0, "max_num_steps": 63, "divergences": 0}
+{"subject": 2, "chain_method": "parallel", "seconds": 4.1, "s_per_iter": 0.014, "median_num_steps": 31.0, "max_num_steps": 63, "divergences": 0}
+{"subject": 2, "chain_method": "vectorized", "seconds": 67.8, "s_per_iter": 0.226, "median_num_steps": 31.0, "max_num_steps": 63, "divergences": 1}

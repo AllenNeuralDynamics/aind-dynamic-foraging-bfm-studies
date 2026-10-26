@@ -1,0 +1,13 @@
+# Analysis environment for studies/13-hb-subject-vs-gru-heldout/ (per the posthoc-reporting contract).
+# Not a full `pip freeze`: it pins what freeze_hattori.py and r1_hattori_pooled.py import, in the env they ran in
+# (/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu, on an HPC compute node), 2026-10-26 PT.
+#   Python 3.12.13
+numpy==2.4.6
+requests==2.34.2
+jsonschema==4.26.0
+PyYAML==6.0.3
+#
+# Code whose outputs are frozen here: the runs' W&B summary keys and scores files were written by
+# aind-dynamic-foraging-bfm-wrapper 04878a6cdb081b0156b96ac1e61dde5de58d492e (HBTrainer, estimator heldout_two_level)
+# with aind-dynamic-foraging-models ef1d31a291e41a756d49b46ee15b3e0c3fa373b2, per the launch record
+# variants/hattori/launch_record/production/hpc_sweep.json.

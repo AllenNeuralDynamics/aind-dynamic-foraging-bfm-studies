@@ -1,0 +1,46 @@
+## Beaker task template for study 13's `hattori` variant: held-out subjects fitted alone.
+##
+## The resumable launcher reads image / cluster / resources / refs / secret from here,
+## keeps `command[:2]` and appends the sweep's `command:`; the tail below is a placeholder.
+##   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
+##     --sweep      studies/13-hb-subject-vs-gru-heldout/variants/hattori/sweep_beaker.yaml \
+##     --experiment studies/13-hb-subject-vs-gru-heldout/variants/hattori/experiment_beaker.yaml \
+##     --workspace  ai1/aind-dynamic-foraging-foundation-model --label ... --note "..."
+
+version: v2
+description: HB-Hattori2019 two-level fit of held-out subjects (template; the launcher rewrites this)
+tasks:
+  - name: hb-heldout-two-level
+    # Same image as study 08: it carries the models [bayes] extra (numpyro, arviz). The
+    # models code itself is cloned at FORAGING_MODELS_REF when the job starts.
+    image:
+      beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+    command:
+      - bash
+      - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+      - "true"
+    # HB has no checkpointing, so a preempted task restarts its fit from zero (study 08).
+    context:
+      priority: normal
+      preemptible: false
+    constraints:
+      cluster:
+        # Reaches AWS S3, which the snapshot parquet cache needs; GCP clusters cannot.
+        - ai1/octo-hub-onprem-h200
+    resources:
+      gpuCount: 1
+      memory: 128GiB
+    envVars:
+      - name: WANDB_API_KEY
+        secret: han-wandb-api-key
+      - name: BFM_OUTPUT_DIR
+        value: /results
+      # Readable values; the launcher submits the resolved full SHAs.
+      - name: WRAPPER_REF
+        value: main
+      - name: DISPATCHER_REF
+        value: main
+      - name: FORAGING_MODELS_REF
+        value: main
+    result:
+      path: /results

@@ -1,0 +1,71 @@
+version: v2
+description: "hattori@20261025-203046 \u2014 1 resumable grid tasks (autoResume)"
+tasks:
+- name: hattori-20261025-203046-000
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=hb_hattori
+  - model.estimator=heldout_two_level
+  - model.num_warmup=200
+  - model.num_samples=100
+  - model.num_chains=4
+  - +model.session_draws_per_posterior_draw=16
+  - model.progress_bar=true
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_data_scaling
+  - data.subject_ratio=0.016
+  context:
+    priority: normal
+    preemptible: false
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    memory: 128GiB
+  envVars:
+  - name: WANDB_API_KEY
+    secret: han-wandb-api-key
+  - name: BFM_OUTPUT_DIR
+    value: /results
+  - name: WRAPPER_REF
+    value: ac871917835fd60f45047e20d42ebe6158d38110
+  - name: DISPATCHER_REF
+    value: 0a3a820eba29581d090fd2ffba6bbfdd66adcc7e
+  - name: FORAGING_MODELS_REF
+    value: ef1d31a291e41a756d49b46ee15b3e0c3fa373b2
+  - name: BFM_RESUMABLE_OUTPUT_DIR
+    value: /results/run
+  - name: WANDB_RUN_ID
+    value: hattori-20261025-203046-86b47e58
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: hattori@20261025-203046
+  - name: BFM_META_STUDY
+    value: 13-hb-subject-vs-gru-heldout
+  - name: BFM_META_VARIANT
+    value: hattori
+  - name: BFM_META_LAUNCH_ID
+    value: 20261025-203046
+  - name: BFM_META_CONFIG_HASH
+    value: 0bd20401
+  - name: BFM_META_STUDIES_COMMIT
+    value: 4849203430584433bb9a2f6beaaf4e7374acce64
+  - name: BFM_META_LABEL
+    value: smoke
+  - name: BFM_META_NOTE
+    value: 'Smoke for study 13 hattori: the full held-out cohort through heldout_two_level
+      with short chains (200 warmup, 100 draws, 4 chains, 16 session draws). Should
+      show every subject fitted and scored, k-hat and weight-ESS populated, no test_likelihood,
+      and artifacts written; its likelihoods are not results.'
+  result:
+    path: /results

@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_beaker_resumable.py",
+    "produced_at_pt": "2026-10-25T21:06:52-07:00"
+  },
+  "kind": "initial",
+  "platform": "beaker",
+  "wandb_group": "hattori@20261025-210647",
+  "label": "smoke2",
+  "note": "Beaker route. Smoke for study 13 hattori, second attempt (the first failed at Hydra composition on +model.progress_bar). Full held-out cohort through heldout_two_level with short chains (200 warmup, 100 draws, 4 chains, 16 session draws). Should show every subject fitted and scored, k-hat and weight-ESS populated, no test_likelihood, artifacts written; its likelihoods are not results.",
+  "job_refs": [
+    {
+      "type": "beaker_experiment",
+      "id": "01M5V67H043CDYP1XEGGE4YVZQ"
+    }
+  ],
+  "revisions": {
+    "studies": "259161e3fc245f1510cfe531da724bc1974a9fd9",
+    "dispatcher": "0a3a820eba29581d090fd2ffba6bbfdd66adcc7e",
+    "wrapper": "ac871917835fd60f45047e20d42ebe6158d38110",
+    "foraging_models": "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2"
+  },
+  "manifests": [
+    "sweep_beaker_smoke.yaml",
+    "experiment_resumable_submitted.yaml"
+  ],
+  "n_tasks": 1,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "beaker",
+    "name": "han-hou/dynamic-foraging-bfm-wrapper-main-20260902",
+    "id": "01M1JHDCQEEMRMH4EHQGEX7QY8"
+  },
+  "mode": "resumable-grid",
+  "experiment_id": "01M5V67H043CDYP1XEGGE4YVZQ",
+  "experiment_url": "https://beaker.org/ex/01M5V67H043CDYP1XEGGE4YVZQ",
+  "dispatcher_commit": "0a3a820eba29581d090fd2ffba6bbfdd66adcc7e",
+  "studies_git_commit": "259161e3fc245f1510cfe531da724bc1974a9fd9",
+  "studies_git_branch": "feat/27-study-13-hb-subject",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "0a3a820eba29581d090fd2ffba6bbfdd66adcc7e",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "ac871917835fd60f45047e20d42ebe6158d38110",
+  "foraging_models_git_commit": "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2",
+  "studies_dirty_override": null,
+  "sweep_file": "studies/13-hb-subject-vs-gru-heldout/variants/hattori/sweep_beaker_smoke.yaml",
+  "created_utc": "2026-10-26T04:06:52.380108+00:00"
+}

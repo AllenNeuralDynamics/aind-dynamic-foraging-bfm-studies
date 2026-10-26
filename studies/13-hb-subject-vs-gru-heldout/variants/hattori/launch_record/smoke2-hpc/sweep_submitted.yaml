@@ -1,0 +1,50 @@
+entity: AIND-disRNN
+project: mice_data_scaling
+name: hb-heldout-two-level-smoke-20261025-210635
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+command:
+- python
+- -m
+- run_hpc
+- data=mice_snapshot_scaling
+- model=hb_hattori
+- model.estimator=heldout_two_level
+- model.num_warmup=200
+- model.num_samples=100
+- model.num_chains=4
+- +model.session_draws_per_posterior_draw=16
+- +model.progress_bar=true
+- seed=0
+- wandb.entity=AIND-disRNN
+- wandb.project=mice_data_scaling
+- ${args_no_hyphens}
+- +meta.study=13-hb-subject-vs-gru-heldout
+- +meta.variant=hattori
+- +meta.launch_id=20261025-210635
+- +meta.config_hash=b0368dc9
+- +meta.dispatcher_git_commit=0a3a820eba29581d090fd2ffba6bbfdd66adcc7e
+- +meta.dispatcher_git_branch=HEAD
+- +meta.dispatcher_git_dirty=no
+- +meta.wrapper_git_commit=ac871917835fd60f45047e20d42ebe6158d38110
+- +meta.wrapper_git_branch=HEAD
+- +meta.wrapper_git_dirty=no
+- +meta.studies_commit=259161e3fc245f1510cfe531da724bc1974a9fd9
+- +meta.studies_git_branch=feat/27-study-13-hb-subject
+- +meta.studies_git_dirty=no
+- +meta.sweep_yaml=/home/han.hou/code/wt/studies-27/studies/13-hb-subject-vs-gru-heldout/variants/hattori/sweep_beaker_smoke.yaml
+- +meta.owner=han.hou
+- +meta.launcher_cmd=/home/han.hou/code/wt/hpc13/aind-dynamic-foraging-bfm-dis...
+- +meta.mode=gpu
+- +meta.label=smoke2-hpc
+- +meta.note='HPC route. Smoke for study 13 hattori, second attempt (th...'
+- +wandb.group=hattori@20261025-210635
+- +meta.slurm_job_id='${oc.env:SLURM_JOB_ID,unknown}'
+- +meta.slurm_array_job_id='${oc.env:SLURM_ARRAY_JOB_ID,unknown}'
+- +meta.slurm_array_task_id='${oc.env:SLURM_ARRAY_TASK_ID,unknown}'
+parameters:
+  data.subject_ratio:
+    values:
+    - 0.016
