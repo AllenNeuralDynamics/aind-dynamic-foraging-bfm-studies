@@ -81,6 +81,8 @@ def main() -> None:
         for run in sorted(_runs(group), key=lambda r: r["name"]):
             summary = json.loads(run["summaryMetrics"] or "{}")
             scores = ARTIFACT_ROOT / run["name"] / "heldout_two_level_scores.npz"
+            # A finished run must carry its immutable key; only crashed runs may lack it.
+            assert run["state"] != "finished" or scores.exists(), f"{run['name']}: no {scores}"
             row = {"wandb_run_id": run["name"], "wandb_group": group, "state": run["state"],
                    "subject_id": _subject(json.loads(run["config"] or "{}")),
                    "scores_sha256": _sha256(scores) if scores.exists() else None,

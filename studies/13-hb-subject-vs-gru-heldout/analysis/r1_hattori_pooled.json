@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_hattori_pooled.py",
-    "produced_at_pt": "2026-10-26T01:54:18-07:00",
-    "studies_git_sha": "022ff7725288cc8171666650114e91ad81c1d7db",
+    "produced_at_pt": "2026-10-26T02:08:22-07:00",
+    "studies_git_sha": "0516d1d85321498407b5a59d5f3f8a9396be23df",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.py",
-        "sha256": "83483b4b595c78ce3952216e45174d01e44987c6a85242baf74bc0f80770f2de"
+        "sha256": "b53e37c1ae8d5d7cf1937b7414785f6c4224498d5f1d6e0bdbc568d034b72e4a"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -36,7 +36,7 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
-        "sha256": "08d197ae6c947189962939c1dbb96abda6db56e9bc54aad56f8fc0951786992f"
+        "sha256": "47361e29ee51c91658f6adf8b9385863bbb846f86ae57297c46f2276f6fac9da"
       },
       {
         "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
@@ -50,11 +50,11 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.json",
-        "sha256": "4808a2644415819de95c8ba8e52e064bb5d8072c505f74ad881e963a41b7dc5b"
+        "sha256": "3a14961497902308a1f682b2fd3ade5e8b38ab2e8ddb5f342554009f1c6a8402"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r1-hattori-pooled.md#result-1",
-        "sha256": "4324fb183d94cb48e4f47fa37471bffd6f525a466bd04fa3fb61997b62ac8089"
+        "sha256": "97284ff7cb2cc82ce3597cb46b351f9b6c6ea00a2ef92022a4cbb41ac240d046"
       }
     ]
   },
@@ -65,8 +65,8 @@
   "hb_session_marginal": 0.7212945969317852,
   "hb_session_marginal_se": 1.6552877886128957e-06,
   "hb_trial_marginal": 0.7090194990537151,
-  "hb_session_marginal_converged_only": 0.7224551083268314,
-  "n_subjects_converged": 142,
+  "hb_session_marginal_converged_only": 0.7166201551075587,
+  "n_subjects_converged": 103,
   "n_sessions": 2138,
   "n_sessions_pareto_k_fail": 262,
   "divergences": 304,

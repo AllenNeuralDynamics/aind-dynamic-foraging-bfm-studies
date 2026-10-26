@@ -9,8 +9,10 @@ and independent, so the sampling problem that sank 08 does not arise.
 
 - There is no D dial and no zero-shot score: the result is one number per forager, plotted as
   a horizontal line against the GRU's D curve.
-- The two-level HB nests the per-subject MLE (the same forager with zero between-session
-  spread), so the gap between them measures what session-to-session variability is worth.
+- The gap between the two-level HB and the per-subject MLE (the same forager, one parameter set
+  per subject) is the overall HB improvement. It is not session-to-session variability alone: the
+  HB also brings a fixed prior and averages over its posterior instead of plugging in a point
+  estimate. Isolating the spread would need a zero-spread Bayesian control.
 
 ## Considered options
 

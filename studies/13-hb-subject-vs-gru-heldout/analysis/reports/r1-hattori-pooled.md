@@ -45,7 +45,7 @@ r8 for the per-subject MLE and r1 for the GRU H128 curve.
 | GRU H128 (study 01 r1) | D≈10 0.7219, D≈30 0.7250, D≈100 0.7262, D≈300 0.7267, D≈614 0.7268 |
 
 - Subjects 149; scored trials 1,013,172 (comparators: 1,013,172).
-- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400): 142 of 149 subjects pass; worst R-hat 1.173, lowest ESS 16; 304 divergences. Converged subjects only: 0.7225.
+- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400, no divergences): 103 of 149 subjects pass; worst R-hat 1.173, lowest ESS 16; 304 divergences. Converged subjects only: 0.7166.
 - Pareto k̂ gate: 262 of 2138 scored sessions fail (k̂ ≥ 0.7 or unjudged).
 <!-- END result-1 -->
 
@@ -53,9 +53,11 @@ r8 for the per-subject MLE and r1 for the GRU H128 curve.
 
 Read off the frozen result above (2026-10-26):
 
-- **Session-to-session variability is worth ~0.009.** The two-level HB beats the same forager
+- **The HB improves on the per-subject MLE by ~0.009.** The two-level HB beats the same forager
   fitted per subject with one parameter set (MLE Hattori) and the best classical family (MLE CTT).
-  The MLE is the HB with zero between-session spread, so this gap measures what that spread buys.
+  This is the overall HB–MLE improvement, not session-to-session variability alone: the HB also
+  differs from the MLE by its fixed prior and by averaging over the posterior instead of plugging
+  in a point estimate. Isolating the session spread would need a zero-spread Bayesian control.
 - **It roughly ties the smallest GRU and stays below the rest.** It matches the GRU at D≈10. The
   GRU from D≈30 up is still clearly ahead; those gaps are many times the GRU's ~0.0004 seed spread.
 - **The scoring method decides the comparison.** Scored by the trial-marginal (study 08's method),
@@ -68,9 +70,12 @@ Why this stays `draft`:
   draws and is likely biased low, so the headline probably understates the HB. Resolving it means
   rescoring those sessions from the saved draws with importance sampling (ADR 0002's fallback); no
   refit is needed.
-- **Convergence.** 7 subjects miss the R-hat/ESS gates and 304 divergences occurred. PLAN.md's
+- **Convergence.** Some subjects miss the R-hat/ESS gates or have divergences (counts above). PLAN.md's
   rule is one refit with longer chains for failing subjects. The converged-only number is given
-  beside the headline.
+  beside the headline. Requiring zero divergences as well leaves about two thirds of subjects,
+  and that subset scores lower than the headline: the subjects that diverge are not a random
+  third, so the converged-only number describes a different population and is no like-for-like
+  comparison with the all-subject comparators.
 - **Uncertainty.** The MC error covers only the scoring average, not posterior or seed variation.
   There is one seed per subject, so no run-to-run variance is measured.
 - **Rescue.** 16 subjects ran out of memory at 64G during scoring and were rerun at 200G as a

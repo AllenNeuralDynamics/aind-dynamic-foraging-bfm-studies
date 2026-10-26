@@ -38,7 +38,8 @@ def compute() -> dict:
     """Pool the frozen rows and line them up against the comparators."""
     rows = [r for r in json.loads(RUNS.read_text())["rows"] if r["state"] == "finished"]
     assert len(rows) == len({r["subject_id"] for r in rows}), "a subject was fitted twice"
-    converged = [r for r in rows if r["hb/n_subjects_converged"] == 1]
+    # PLAN.md's gates: R-hat < 1.01 and bulk ESS >= 400 (the run's own flag), and no divergences.
+    converged = [r for r in rows if r["hb/n_subjects_converged"] == 1 and not r["hb/divergences"]]
     headline, headline_se = _pool(rows, "heldout/eval_log_lik_sum", "heldout/eval_log_lik_sum_se")
     rl = json.loads(cross_study.RL_SOURCE.read_text())["models"]
     return {
@@ -82,7 +83,7 @@ def render(r: dict) -> str:
         "",
         f"- Subjects {r['n_subjects']}; scored trials {r['n_trials']:,} (comparators: "
         f"{r['n_trials_comparators']:,}).",
-        f"- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400): {r['n_subjects_converged']} of "
+        f"- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400, no divergences): {r['n_subjects_converged']} of "
         f"{r['n_subjects']} subjects pass; worst R-hat {r['max_r_hat']:.3f}, lowest ESS "
         f"{r['min_ess_bulk']:.0f}; {r['divergences']} divergences. Converged subjects only: "
         + (f"{conv:.4f}." if conv else "n/a."),
