@@ -1,4 +1,4 @@
-"""Check that a saved SVG figure is editable in Illustrator and fits the paper style.
+"""Check that a saved SVG figure is editable in Illustrator and fits its style (paper or slide).
 
 Standard library only, so the CI provenance job (no matplotlib) can run it through
 ``scripts/check_figures.py``; ``figure_style.save_figure()`` runs it on every figure it writes.
@@ -9,8 +9,9 @@ What it catches, each a real failure seen in this repo:
 - labels split into one ``<tspan>`` per letter (math text such as default log ticks, ``$10^2$``),
   which Illustrator imports as separate characters;
 - a font other than Arial or its stand-ins, e.g. DejaVu Sans, the fallback on the compute nodes;
-- text under 5 pt or over 8 pt, or a figure wider than 183 mm or taller than 170 mm (Nature's
-  limits: 5-7 pt text, 8 pt panel letters, 89 or 183 mm wide).
+- text or a figure outside its style's limits (LIMITS): a paper figure has 5-8 pt text and is
+  at most 183 x 170 mm (Nature: 5-7 pt text, 8 pt panel letters, 89 or 183 mm wide); a slide
+  figure, kept under an `analysis/slides/` directory, has 12-28 pt text and fits a 16:9 slide.
 """
 from __future__ import annotations
 
@@ -19,8 +20,9 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 MM_PER_PT = 25.4 / 72
-MAX_WIDTH_MM, MAX_HEIGHT_MM = 183.0, 170.0
-MIN_PT, MAX_PT = 5.0, 8.0
+# style -> (max width mm, max height mm, min text pt, max text pt)
+LIMITS = {"paper": (183.0, 170.0, 5.0, 8.0), "slide": (338.7, 190.5, 12.0, 28.0)}
+SLIDES_DIR = "slides"
 FONTS = {"Arial", "Liberation Sans", "Helvetica", "sans-serif"}
 
 _SVG = "{http://www.w3.org/2000/svg}"
@@ -35,8 +37,9 @@ def _pt(value: str | None) -> float | None:
     return float(m.group(1)) if m else None
 
 
-def audit_svg(path: Path | str) -> list[str]:
-    """Problems with one SVG, each a short sentence; an empty list means it passes."""
+def audit_svg(path: Path | str, style: str = "paper") -> list[str]:
+    """Problems with one SVG under ``style`` (see LIMITS), each a short sentence; [] means it passes."""
+    max_w, max_h, min_pt, max_pt = LIMITS[style]
     path = Path(path)
     try:
         root = ET.parse(path).getroot()
@@ -47,10 +50,10 @@ def audit_svg(path: Path | str) -> list[str]:
     if width is None or height is None:
         problems.append("no width/height in pt on the <svg> element (save with figure_style.save_figure)")
     else:
-        if width * MM_PER_PT > MAX_WIDTH_MM + _TOL_MM:
-            problems.append(f"{width * MM_PER_PT:.0f} mm wide; the limit is {MAX_WIDTH_MM:.0f} mm")
-        if height * MM_PER_PT > MAX_HEIGHT_MM + _TOL_MM:
-            problems.append(f"{height * MM_PER_PT:.0f} mm tall; the limit is {MAX_HEIGHT_MM:.0f} mm")
+        if width * MM_PER_PT > max_w + _TOL_MM:
+            problems.append(f"{width * MM_PER_PT:.0f} mm wide; the {style} limit is {max_w:.0f} mm")
+        if height * MM_PER_PT > max_h + _TOL_MM:
+            problems.append(f"{height * MM_PER_PT:.0f} mm tall; the {style} limit is {max_h:.0f} mm")
 
     glyphs = [p.get("id") for p in root.iter(f"{_SVG}path")
               if p.get("id") and _GLYPH_ID.match(p.get("id"))]
@@ -63,19 +66,19 @@ def audit_svg(path: Path | str) -> list[str]:
 
     families, sizes = set(), []
     for el in root.iter():
-        style = el.get("style") or ""
-        m = re.search(r"font-family:\s*([^;]+)", style)
+        css = el.get("style") or ""
+        m = re.search(r"font-family:\s*([^;]+)", css)
         if m:
             families |= {f.strip(" '\"") for f in m.group(1).split(",")}
-        m = re.search(r"font-size:\s*([\d.]+)px", style)
+        m = re.search(r"font-size:\s*([\d.]+)px", css)
         if m:
             sizes.append(float(m.group(1)))      # matplotlib's SVG user unit is 1 pt
     if families - FONTS:
         problems.append(f"fonts {sorted(families - FONTS)}; only {sorted(FONTS)} are allowed")
-    small = sorted({s for s in sizes if s < MIN_PT - 1e-6})
-    large = sorted({s for s in sizes if s > MAX_PT + 1e-6})
+    small = sorted({s for s in sizes if s < min_pt - 1e-6})
+    large = sorted({s for s in sizes if s > max_pt + 1e-6})
     if small:
-        problems.append(f"text at {', '.join(f'{s:g}' for s in small)} pt; the minimum is {MIN_PT:g} pt")
+        problems.append(f"text at {', '.join(f'{s:g}' for s in small)} pt; the {style} minimum is {min_pt:g} pt")
     if large:
-        problems.append(f"text at {', '.join(f'{s:g}' for s in large)} pt; the maximum is {MAX_PT:g} pt")
+        problems.append(f"text at {', '.join(f'{s:g}' for s in large)} pt; the {style} maximum is {max_pt:g} pt")
     return problems

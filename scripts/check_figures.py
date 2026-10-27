@@ -4,7 +4,8 @@
 For each study not listed in LEGACY_STUDIES, every figure it commits (tracked or new, not
 gitignored; launch_record/ and reference/ excluded) must be an SVG that passes
 studies/util/figure_audit.py: text kept as Arial <text>, no label split into per-letter
-<tspan>s, 5-8 pt text, at most 183 x 170 mm. Raster or PDF figures (.png, .jpg, .gif, .pdf,
+<tspan>s, and the paper limits (5-8 pt text, at most 183 x 170 mm), or the slide limits for
+figures under a slides/ directory. Raster or PDF figures (.png, .jpg, .gif, .pdf,
 .eps, .tif) are findings: save with figure_style.save_figure(), which writes SVG only.
 
 LEGACY_STUDIES predate the style (#44) and are printed as EXEMPT, never silently skipped;
@@ -50,7 +51,8 @@ def check_study(study: Path) -> list[str]:
         if f.suffix.lower() in RASTER:
             findings.append(f"{rel}: {f.suffix} figure; save it with figure_style.save_figure() (SVG only)")
         elif f.suffix.lower() == ".svg":
-            findings += [f"{rel}: {p}" for p in figure_audit.audit_svg(f)]
+            style = "slide" if figure_audit.SLIDES_DIR in f.relative_to(study).parts else "paper"
+            findings += [f"{rel}: {p}" for p in figure_audit.audit_svg(f, style)]
     return findings
 
 

@@ -1,7 +1,13 @@
-"""The paper figure style every study figure uses, and the one way to save a figure.
+"""The figure styles study figures use, and the one way to save a figure.
 
-Nature-family final size (research-figure-guide.nature.com): 89 mm (single column) or 183 mm
-(double) wide, at most 170 mm tall, 5-7 pt sans-serif text, 8 pt bold lowercase panel letters.
+Paper style, the default for every report figure: Nature-family final size
+(research-figure-guide.nature.com), 89 mm (single column) or 183 mm (double) wide, at most 170 mm
+tall, 5-7 pt sans-serif text, 8 pt bold lowercase panel letters.
+
+Slide style, for a talk: a 16:9 slide (13.33 x 7.5 in) at 1:1, 14-22 pt text and heavy marks.
+Slide figures live under an ``analysis/slides/`` directory and are saved with
+``save_figure(..., style="slide")``; reports embed the paper figures.
+
 Figures are saved as SVG only, with text kept as editable ``<text>`` in Arial, and are checked as
 they are written (``figure_audit``), so a figure that would break in Illustrator never lands.
 
@@ -31,6 +37,7 @@ import figure_audit
 
 MM = 1 / 25.4                                   # inches per mm
 SINGLE_MM, DOUBLE_MM, MAX_HEIGHT_MM = 89.0, 183.0, 170.0
+SLIDE_IN = (13.333, 7.5)                        # 16:9 slide; leave room for the slide's own title
 SANS = ["Arial", "Liberation Sans", "Helvetica"]
 FONT_DIR = Path(__file__).resolve().parent / "fonts"
 
@@ -63,29 +70,52 @@ def _register_fonts() -> None:
                            f"is {FONT_DIR} present?")
 
 
-def apply_paper_style() -> None:
-    """Reset matplotlib and apply the paper style: 5-7 pt Arial, 0.5 pt axes, Okabe-Ito colours."""
+def _apply(sizes: dict) -> None:
     mpl.rcdefaults()
     _register_fonts()
     mpl.rcParams.update({
         **_EXPORT,
         "font.family": "sans-serif", "font.sans-serif": SANS,
-        "font.size": 7, "axes.labelsize": 7, "axes.titlesize": 7, "figure.titlesize": 7,
-        "figure.labelsize": 7, "legend.fontsize": 6, "legend.title_fontsize": 6,
-        "xtick.labelsize": 6, "ytick.labelsize": 6,
-        "axes.linewidth": 0.5, "axes.spines.top": False, "axes.spines.right": False,
-        "axes.titlepad": 3, "axes.labelpad": 2,
-        "xtick.major.width": 0.5, "ytick.major.width": 0.5, "xtick.minor.width": 0.4,
-        "ytick.minor.width": 0.4, "xtick.major.size": 2.5, "ytick.major.size": 2.5,
-        "xtick.minor.size": 1.5, "ytick.minor.size": 1.5, "xtick.major.pad": 2, "ytick.major.pad": 2,
-        "lines.linewidth": 1.0, "lines.markersize": 2.5, "patch.linewidth": 0.5,
-        "hatch.linewidth": 0.5, "grid.linewidth": 0.4, "errorbar.capsize": 0,
-        "legend.frameon": False, "legend.handlelength": 1.2, "legend.borderaxespad": 0.2,
-        "figure.dpi": 150, "savefig.dpi": 300,  # 300 dpi applies only to rasterized artists
+        "axes.spines.top": False, "axes.spines.right": False,
+        "errorbar.capsize": 0, "legend.frameon": False,
         "figure.constrained_layout.use": True,
         "axes.prop_cycle": mpl.cycler(color=[OKABE_ITO[k] for k in
                                              ("blue", "vermillion", "green", "orange", "purple", "sky",
                                               "yellow", "black")]),
+        **sizes,
+    })
+
+
+def apply_paper_style() -> None:
+    """Reset matplotlib and apply the paper style: 5-7 pt Arial, 0.5 pt axes, Okabe-Ito colours."""
+    _apply({
+        "font.size": 7, "axes.labelsize": 7, "axes.titlesize": 7, "figure.titlesize": 7,
+        "figure.labelsize": 7, "legend.fontsize": 6, "legend.title_fontsize": 6,
+        "xtick.labelsize": 6, "ytick.labelsize": 6,
+        "axes.linewidth": 0.5, "axes.titlepad": 3, "axes.labelpad": 2,
+        "xtick.major.width": 0.5, "ytick.major.width": 0.5, "xtick.minor.width": 0.4,
+        "ytick.minor.width": 0.4, "xtick.major.size": 2.5, "ytick.major.size": 2.5,
+        "xtick.minor.size": 1.5, "ytick.minor.size": 1.5, "xtick.major.pad": 2, "ytick.major.pad": 2,
+        "lines.linewidth": 1.0, "lines.markersize": 2.5, "patch.linewidth": 0.5,
+        "hatch.linewidth": 0.5, "grid.linewidth": 0.4,
+        "legend.handlelength": 1.2, "legend.borderaxespad": 0.2,
+        "figure.dpi": 150, "savefig.dpi": 300,  # 300 dpi applies only to rasterized artists
+    })
+
+
+def apply_slide_style() -> None:
+    """Reset matplotlib and apply the slide style: 14-20 pt Arial, 1.5 pt axes, heavy lines."""
+    _apply({
+        "font.size": 18, "axes.labelsize": 20, "axes.titlesize": 20, "figure.titlesize": 20,
+        "figure.labelsize": 20, "legend.fontsize": 16, "legend.title_fontsize": 16,
+        "xtick.labelsize": 16, "ytick.labelsize": 16,
+        "axes.linewidth": 1.5, "axes.titlepad": 8, "axes.labelpad": 6,
+        "xtick.major.width": 1.5, "ytick.major.width": 1.5, "xtick.minor.width": 1.0,
+        "ytick.minor.width": 1.0, "xtick.major.size": 6, "ytick.major.size": 6,
+        "xtick.minor.size": 3.5, "ytick.minor.size": 3.5,
+        "lines.linewidth": 3.0, "lines.markersize": 7, "patch.linewidth": 1.5,
+        "hatch.linewidth": 1.5, "grid.linewidth": 1.0,
+        "figure.dpi": 100, "savefig.dpi": 200,
     })
 
 
@@ -103,15 +133,19 @@ def plain_log_axis(ax, which: str = "both") -> None:
 
 
 def panel_label(ax, letter: str, dx_pt: float = -24, dy_pt: float = 6) -> None:
-    """Nature panel letter (8 pt bold lowercase) above the axes' top-left corner, offset in points."""
+    """Panel letter, bold lowercase, 1 pt above the body text (8 pt in the paper style), above the
+    axes' top-left corner, offset in points."""
     ax.annotate(letter, xy=(0, 1), xycoords="axes fraction", xytext=(dx_pt, dy_pt),
-                textcoords="offset points", fontsize=8, fontweight="bold", ha="left", va="bottom")
+                textcoords="offset points", fontsize=mpl.rcParams["font.size"] + 1, fontweight="bold",
+                ha="left", va="bottom")
 
 
 def violins(ax, groups, colors, labels=None, width: float = 0.7, alpha: float = 0.35):
     """One violin per group, with its interquartile range as a bar and its median as a white dot.
 
-    Returns the x positions (1, 2, ...). ``labels`` become the x tick labels."""
+    Returns the x positions (1, 2, ...). ``labels`` become the x tick labels. Marks scale with the
+    style's line width, so the same call reads on a page and on a slide."""
+    lw = mpl.rcParams["lines.linewidth"]
     pos = np.arange(1, len(groups) + 1)
     parts = ax.violinplot(groups, positions=pos, widths=width, showextrema=False)
     for body, c in zip(parts["bodies"], colors):
@@ -120,25 +154,30 @@ def violins(ax, groups, colors, labels=None, width: float = 0.7, alpha: float = 
         body.set_edgecolor("none")
     for x, g, c in zip(pos, groups, colors):
         q1, med, q3 = np.percentile(g, [25, 50, 75])
-        ax.vlines(x, q1, q3, color=c, lw=1.2, zorder=2)
-        ax.scatter([x], [med], s=6, color="white", edgecolor=c, linewidth=0.6, zorder=3)
+        ax.vlines(x, q1, q3, color=c, lw=1.2 * lw, zorder=2)
+        ax.scatter([x], [med], s=6 * lw ** 2, color="white", edgecolor=c, linewidth=0.6 * lw, zorder=3)
     ax.set_xticks(pos, labels if labels is not None else [""] * len(pos))
     ax.set_xlim(0.4, len(groups) + 0.6)
     return pos
 
 
-def save_figure(fig, path: Path | str) -> Path:
+def save_figure(fig, path: Path | str, style: str = "paper") -> Path:
     """Save ``fig`` as SVG at its own size and check it; raises ValueError if it would not pass.
 
-    Dense layers (thousands of points, image-like heatmaps) keep the file small when drawn with
-    ``rasterized=True``; axes and text stay vector.
+    ``style`` sets the size and text limits checked: "paper" (default, report figures) or "slide"
+    (figures under an ``analysis/slides/`` directory). Dense layers (thousands of points,
+    image-like heatmaps) keep the file small when drawn with ``rasterized=True``; axes and text
+    stay vector.
     """
     path = Path(path)
     if path.suffix != ".svg":
         raise ValueError(f"{path.name}: figures are saved as .svg only")
+    if (style == "slide") != (figure_audit.SLIDES_DIR in path.parts):
+        raise ValueError(f"{path.name}: slide figures, and only they, go under an "
+                         f"'{figure_audit.SLIDES_DIR}/' directory (style={style!r})")
     with mpl.rc_context(_EXPORT):
         fig.savefig(path, format="svg", metadata={"Date": None})
-    problems = figure_audit.audit_svg(path)
+    problems = figure_audit.audit_svg(path, style)
     if problems:
         raise ValueError(f"{path.name}: " + "; ".join(problems))
     return path

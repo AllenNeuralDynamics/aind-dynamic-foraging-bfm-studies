@@ -73,6 +73,14 @@ class AuditTest(unittest.TestCase):
         problems = self.audit(svg("", width="250pt", height="500pt"))
         self.assertTrue(any("tall" in p for p in problems), problems)
 
+    def test_slide_limits(self):
+        p = Path(self.tmp.name) / "s.svg"
+        p.write_text(svg(f'<text style="font-size: 18px; {ARIAL}">x</text>', width="936pt", height="446pt"))
+        self.assertEqual(figure_audit.audit_svg(p, "slide"), [])
+        self.assertTrue(figure_audit.audit_svg(p, "paper"))          # too wide, text too large
+        p.write_text(svg(f'<text style="font-size: 7px; {ARIAL}">x</text>'))
+        self.assertTrue(any("slide minimum" in x for x in figure_audit.audit_svg(p, "slide")))
+
 
 class CheckFiguresTest(unittest.TestCase):
     def setUp(self):
@@ -99,6 +107,12 @@ class CheckFiguresTest(unittest.TestCase):
         self.assertEqual(len(findings), 2, findings)
         self.assertTrue(any("fig_a.png" in f for f in findings))
         self.assertTrue(any("fig_b.svg" in f and "wide" in f for f in findings))
+
+    def test_slides_dir_uses_slide_limits(self):
+        slide = svg(f'<text style="font-size: 18px; {ARIAL}">x</text>', width="936pt", height="446pt")
+        self.study("14-gru-new", {"analysis/slides/fig_talk.svg": slide, "analysis/fig_talk.svg": slide})
+        findings = check_figures.check_study(self.root / "studies" / "14-gru-new")
+        self.assertTrue(findings and all("slides/" not in f for f in findings), findings)
 
     def test_gitignored_and_legacy_are_skipped(self):
         self.study("14-gru-new", {".gitignore": "_cache*\n", "analysis/_cache_plot.png": "x"})
@@ -143,6 +157,19 @@ class SaveFigureTest(unittest.TestCase):
     def test_only_svg(self):
         with self.assertRaisesRegex(ValueError, "svg only"):
             fs.save_figure(self.plot(plain=True), Path(self.tmp.name) / "c.png")
+
+    def test_slide_style_saves_under_slides(self):
+        fs.apply_slide_style()
+        fig, ax = plt.subplots(figsize=(fs.SLIDE_IN[0], 6))
+        fs.violins(ax, [[1, 2, 3, 4], [2, 3, 4, 5]], ["C0", "C1"], ["HB", "GRU"])
+        ax.set_ylabel("held-out likelihood")
+        slides = Path(self.tmp.name) / "slides"
+        slides.mkdir()
+        self.assertEqual(figure_audit.audit_svg(fs.save_figure(fig, slides / "s.svg", style="slide"), "slide"), [])
+        with self.assertRaisesRegex(ValueError, "slides/"):
+            fs.save_figure(fig, Path(self.tmp.name) / "s.svg", style="slide")
+        with self.assertRaisesRegex(ValueError, "slides/"):
+            fs.save_figure(fig, slides / "t.svg")          # paper style may not go in slides/
 
 
 if __name__ == "__main__":
