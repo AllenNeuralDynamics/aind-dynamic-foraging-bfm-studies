@@ -51,8 +51,7 @@ def check_study(study: Path) -> list[str]:
         if f.suffix.lower() in RASTER:
             findings.append(f"{rel}: {f.suffix} figure; save it with figure_style.save_figure() (SVG only)")
         elif f.suffix.lower() == ".svg":
-            style = "slide" if figure_audit.SLIDES_DIR in f.relative_to(study).parts else "paper"
-            findings += [f"{rel}: {p}" for p in figure_audit.audit_svg(f, style)]
+            findings += [f"{rel}: {p}" for p in figure_audit.audit_svg(f, figure_audit.style_for(f))]
     return findings
 
 

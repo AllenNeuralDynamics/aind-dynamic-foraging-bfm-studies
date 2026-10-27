@@ -172,8 +172,8 @@ def save_figure(fig, path: Path | str, style: str = "paper") -> Path:
     path = Path(path)
     if path.suffix != ".svg":
         raise ValueError(f"{path.name}: figures are saved as .svg only")
-    if (style == "slide") != (figure_audit.SLIDES_DIR in path.parts):
-        raise ValueError(f"{path.name}: slide figures, and only they, go under an "
+    if style != figure_audit.style_for(path):
+        raise ValueError(f"{path.name}: slide figures, and only they, go in a "
                          f"'{figure_audit.SLIDES_DIR}/' directory (style={style!r})")
     with mpl.rc_context(_EXPORT):
         fig.savefig(path, format="svg", metadata={"Date": None})

@@ -27,9 +27,11 @@ except ImportError:          # the provenance job has no matplotlib; the regener
 ARIAL = "font-family: 'Arial', 'Liberation Sans', 'Helvetica', sans-serif"
 
 
-def svg(body: str, width: str = "252.28pt", height: str = "150pt") -> str:   # 89 mm wide
+def svg(body: str, width: str = "252.28pt", height: str = "150pt", box: str | None = None) -> str:
+    """A matplotlib-shaped SVG; 89 mm wide by default, viewBox = the page in pt unless ``box``."""
+    box = box or f"0 0 {width.removesuffix('pt')} {height.removesuffix('pt')}"
     return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
-            f'width="{width}" height="{height}" viewBox="0 0 250 150">{body}</svg>')
+            f'width="{width}" height="{height}" viewBox="{box}">{body}</svg>')
 
 
 GOOD = svg(f'<text style="font-size: 7px; {ARIAL}" x="10" y="20">held-out likelihood</text>')
@@ -68,6 +70,19 @@ class AuditTest(unittest.TestCase):
         self.assertTrue(any("minimum" in p for p in problems), problems)
         good = f'<g style="font-size: 7px; {ARIAL}"><text>label</text></g>'
         self.assertEqual(self.audit(svg(good)), [])
+
+    def test_font_stack_must_start_with_a_named_font(self):
+        for family in ("sans-serif", "sans-serif, Arial"):
+            problems = self.audit(svg(f'<text style="font-size: 7px; font-family: {family}">x</text>'))
+            self.assertTrue(any("must start with" in p for p in problems), (family, problems))
+
+    def test_scaled_text(self):
+        scaled_box = svg(f'<text style="font-size: 7px; {ARIAL}">x</text>', box="0 0 504.56 300")
+        self.assertTrue(any("viewBox" in p for p in self.audit(scaled_box)))
+        scaled_group = svg(f'<g transform="scale(0.5)"><text style="font-size: 7px; {ARIAL}">x</text></g>')
+        self.assertTrue(any("scale/matrix" in p for p in self.audit(scaled_group)))
+        rotated = svg(f'<text style="font-size: 7px; {ARIAL}" transform="rotate(-90 5 5)">x</text>')
+        self.assertEqual(self.audit(rotated), [])
 
     def test_only_column_widths(self):
         problems = self.audit(svg("", width="340.16pt"))             # 120 mm
@@ -179,6 +194,11 @@ class SaveFigureTest(unittest.TestCase):
     def test_only_svg(self):
         with self.assertRaisesRegex(ValueError, "svg only"):
             fs.save_figure(self.plot(plain=True), Path(self.tmp.name) / "c.png")
+
+    def test_checkout_under_a_slides_directory_is_still_paper(self):
+        out = Path(self.tmp.name) / "slides" / "studies" / "14-x" / "analysis"
+        out.mkdir(parents=True)
+        self.assertEqual(figure_audit.audit_svg(fs.save_figure(self.plot(plain=True), out / "f.svg")), [])
 
     def test_slide_style_saves_under_slides(self):
         fs.apply_slide_style()

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_per_subject.py",
-    "produced_at_pt": "2026-10-26T19:56:06-07:00",
-    "studies_git_sha": "5ead9813da546bdb9adc9333fef2785e13573e68",
+    "produced_at_pt": "2026-10-26T20:14:57-07:00",
+    "studies_git_sha": "0aff90890202e9dfdc84089c93065c1a05aca321",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -30,11 +30,11 @@
       },
       {
         "path": "studies/util/figure_audit.py",
-        "sha256": "5b5ce58fa587369397ca33de4da03508e837fb397a4f70de4f842305b45739da"
+        "sha256": "2398370181969f51eb10e7e392bcdc1ab23b2a79def5ecaf03c6cf700b59d5c8"
       },
       {
         "path": "studies/util/figure_style.py",
-        "sha256": "e3fd4054d9500b45c35ac476ab297dcda087e2127837f05e2913e903897b1bd0"
+        "sha256": "e195d22372099b415318f2c4340fb6d09695ee5f7b3825a93f134279f960a8fa"
       }
     ],
     "inputs": [
