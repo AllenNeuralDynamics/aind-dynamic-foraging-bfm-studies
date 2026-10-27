@@ -4,6 +4,13 @@ Paper style, the default for every report figure: Nature-family final size
 (research-figure-guide.nature.com), 89 mm (single column) or 183 mm (double) wide, at most 170 mm
 tall, 5-7 pt sans-serif text, 8 pt bold lowercase panel letters.
 
+Size from the content, not the column. A report figure is a panel: it is drawn at the size it is
+printed (never rescaled, so its 5-7 pt text stays 5-7 pt) and is only as wide as its content needs,
+about 15 mm per bar or violin, 35-45 mm per scatter panel (square), plus about 18 mm for each
+y axis and its label; ``fit_width()`` adds this up. Use the full 183 mm only when the content
+fills it, e.g. five scatter panels in a row. Height follows the content too: 45-60 mm for a row
+of plots, more only for stacked rows.
+
 Slide style, for a talk: a 16:9 slide (13.33 x 7.5 in) at 1:1, 14-22 pt text and heavy marks.
 Slide figures live under an ``analysis/slides/`` directory and are saved with
 ``save_figure(..., style="slide")``; reports embed the paper figures.
@@ -56,6 +63,15 @@ _EXPORT = {
 def mm(width: float, height: float) -> tuple[float, float]:
     """A matplotlib figsize (inches) from millimetres: ``figsize=fs.mm(183, 90)``."""
     return width * MM, height * MM
+
+
+GROUP_MM, SQUARE_PANEL_MM, AXIS_MM = 15.0, 40.0, 18.0
+
+
+def fit_width(groups: int = 0, square_panels: int = 0, axes: int = 1) -> float:
+    """A compact paper width (mm) for the content: ``groups`` bars/violins, ``square_panels``
+    scatter panels, ``axes`` y axes with labels. At most 183 mm. ``figsize=fs.mm(fs.fit_width(4), 55)``."""
+    return min(DOUBLE_MM, axes * AXIS_MM + groups * GROUP_MM + square_panels * SQUARE_PANEL_MM)
 
 
 def _register_fonts() -> None:

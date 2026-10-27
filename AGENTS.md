@@ -29,9 +29,10 @@ the links give detail, they do not replace the rules.
   claiming a result. New analysis JSON carries `_meta.studies_git_sha` and the
   `source_*_git_shas` arrays; never relabel this repository's HEAD as dispatcher provenance.
 - **Figures are paper-style SVGs.** Draw every figure with `studies/util/figure_style.py`
-  (`apply_paper_style()`, final size via `fs.mm(...)`: 89 or 183 mm wide, ≤170 mm tall, 5–7 pt
-  Arial) and save it only with `fs.save_figure(fig, ...svg)`, which refuses text that Illustrator
-  cannot edit. No PNG/PDF figures. Reports embed the paper style; a slide version
+  (`apply_paper_style()`, 5–7 pt Arial) at the size it is printed, sized by its content, not the
+  column: ≈15 mm per bar or violin, 35–45 mm per scatter panel, + 18 mm per y axis
+  (`fs.fit_width()`), at most 183 × 170 mm. Save it only with `fs.save_figure(fig, ...svg)`,
+  which refuses text that Illustrator cannot edit. No PNG/PDF figures. Reports embed the paper style; a slide version
   (`fs.apply_slide_style()`, `style="slide"`) goes under `analysis/slides/`. `make validate`
   and CI run `scripts/check_figures.py`; studies 01–11 are exempt until redrawn (#44).
 - **Never retype another study's number.** Read it from that study's committed JSON (readers for

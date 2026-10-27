@@ -145,7 +145,7 @@ def plot(d: dict, r: dict) -> None:
     fig.supxlabel("Per-subject MLE")
     fs.save_figure(fig, FIG_PARAMS); plt.close(fig)
 
-    fig, axes = plt.subplots(1, 5, figsize=fs.mm(183, 45))
+    fig, axes = plt.subplots(1, 5, figsize=fs.mm(fs.fit_width(groups=5, axes=5), 42))
     for ax, n in zip(axes, names):
         widths = [d["hb"][s][n]["session_width"][1] for s in subjects]
         fs.violins(ax, [widths], [fs.OKABE_ITO["vermillion"]], width=0.8)
@@ -190,7 +190,7 @@ def plot(d: dict, r: dict) -> None:
     fs.save_figure(fig, FIG_EXAMPLES); plt.close(fig)
 
     p = r["_plot"]
-    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(183, 62))
+    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(fs.fit_width(square_panels=2, axes=2), 55))
     for ax, xs, ys, ylabel, rho, letter in (
             (a, p["mean_sigma"], p["gain"], "HB − MLE Hattori", r["gain_vs_mle"]["spearman_with_mean_sigma"], "a"),
             (b, p["gap_sigma"], p["gap"], "HB − GRU D≈614", r["gap_to_gru_d614"]["spearman_with_mean_sigma"], "b")):

@@ -87,10 +87,11 @@ class AuditTest(unittest.TestCase):
         rotated = svg(f'<text style="font-size: 7px; {ARIAL}" transform="rotate(-90 5 5)">x</text>')
         self.assertEqual(self.audit(rotated), [])
 
-    def test_only_column_widths(self):
-        problems = self.audit(svg("", width="340.16pt"))             # 120 mm
-        self.assertTrue(any("89 or 183 mm" in p for p in problems), problems)
-        self.assertEqual(self.audit(svg("", width="518.74pt")), [])  # 183 mm
+    def test_any_width_up_to_183_mm(self):
+        self.assertEqual(self.audit(svg("", width="221.10pt")), [])     # 78 mm, a compact panel
+        self.assertEqual(self.audit(svg("", width="518.74pt")), [])     # 183 mm
+        problems = self.audit(svg("", width="538.58pt"))                # 190 mm
+        self.assertTrue(any("limit is 183 mm" in p for p in problems), problems)
 
     def test_per_letter_tspans(self):
         body = (f'<text style="font-size: 6px; {ARIAL}"><tspan x="1" y="2">1</tspan>'

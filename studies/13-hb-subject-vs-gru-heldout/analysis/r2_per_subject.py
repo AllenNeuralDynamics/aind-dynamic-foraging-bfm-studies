@@ -104,7 +104,7 @@ ARM_TICK = {"HB two-level": "HB\ntwo-level", "GRU D≈30": "GRU\nD≈30", "GRU D
 def plot(data: dict, result: dict) -> None:
     """a: per-subject likelihood per arm. b: per-subject HB minus each arm, share of subjects HB wins."""
     fs.apply_paper_style()
-    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(183, 62), width_ratios=[5, 4])
+    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(fs.fit_width(groups=9, axes=2), 55), width_ratios=[5, 4])
     names = list(data["arms"])
     fs.violins(a, [list(data["arms"][n].values()) for n in names], [ARM_COLOR[n] for n in names],
                [ARM_TICK[n] for n in names])

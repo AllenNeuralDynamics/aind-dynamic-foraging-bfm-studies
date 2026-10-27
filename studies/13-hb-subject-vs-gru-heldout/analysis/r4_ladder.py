@@ -94,7 +94,7 @@ RUNG_TICK = ["Per-subject\nMLE", "HB plug-in\n(1 fixed θ)", "HB zero-\nspread (
 
 def plot_ladder(r: dict) -> None:
     """Pooled likelihood per rung, steps annotated, GRU curve as reference lines."""
-    fig, ax = plt.subplots(figsize=fs.mm(89, 72))
+    fig, ax = plt.subplots(figsize=fs.mm(fs.fit_width(groups=4), 60))
     xs = np.arange(len(RUNGS))
     ys = [r["pooled"][k] for k in RUNGS]
     ax.bar(xs, [y - 0.700 for y in ys], bottom=0.700, color=[RUNG_COLOR[k] for k in RUNGS], width=0.6)
@@ -127,7 +127,7 @@ def plot_steps(r: dict) -> None:
     names = list(r["steps"])
     colors = [RUNG_COLOR[n.split(" − ")[0]] if n.split(" − ")[0] in RUNG_COLOR else fs.OKABE_ITO["blue"]
               for n in names]
-    fig, ax = plt.subplots(figsize=fs.mm(183, 65))
+    fig, ax = plt.subplots(figsize=fs.mm(fs.fit_width(groups=4), 55))
     fs.violins(ax, [r["steps"][n]["_values"] for n in names], colors, [n.replace(" − ", "\n− ") for n in names])
     ax.axhline(0, color="0.5", ls=(0, (3, 2)), lw=0.5, zorder=0)
     for i, n in enumerate(names, start=1):

@@ -10,8 +10,9 @@ What it catches, each a real failure seen in this repo:
   which Illustrator imports as separate characters;
 - a font other than Arial or its stand-ins, e.g. DejaVu Sans, the fallback on the compute nodes;
 - text or a figure outside its style's limits (LIMITS): a paper figure has 5-8 pt text and is
-  89 or 183 mm wide and at most 170 mm tall (Nature: 5-7 pt text, 8 pt panel letters); a slide
-  figure, kept under an `analysis/slides/` directory, has 12-28 pt text and fits a 16:9 slide.
+  at most 183 x 170 mm, drawn at the size it is printed (Nature: 5-7 pt text, 8 pt panel
+  letters); a slide figure, kept under an `analysis/slides/` directory, has 12-28 pt text and
+  fits a 16:9 slide.
 """
 from __future__ import annotations
 
@@ -20,9 +21,10 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 MM_PER_PT = 25.4 / 72
-# style -> widths allowed (mm; None = any up to max_w), max width, max height (mm), text range (pt)
-LIMITS = {"paper": {"widths": (89.0, 183.0), "max_w": 183.0, "max_h": 170.0, "pt": (5.0, 8.0)},
-          "slide": {"widths": None, "max_w": 338.7, "max_h": 190.5, "pt": (12.0, 28.0)}}
+# style -> max width, max height (mm), text range (pt). A paper figure is drawn at the size it is
+# printed (a panel, or a whole 89 or 183 mm figure) and never rescaled, so its text sizes are final.
+LIMITS = {"paper": {"max_w": 183.0, "max_h": 170.0, "pt": (5.0, 8.0)},
+          "slide": {"max_w": 338.7, "max_h": 190.5, "pt": (12.0, 28.0)}}
 SLIDES_DIR = "slides"
 NAMED_FONTS = ("Arial", "Liberation Sans", "Helvetica")   # the first font in a stack must be one of these
 FONTS = {*NAMED_FONTS, "sans-serif"}
@@ -93,10 +95,7 @@ def audit_svg(path: Path | str, style: str = "paper") -> list[str]:
         problems.append("no width/height in pt on the <svg> element (save with figure_style.save_figure)")
     else:
         w, h = width * MM_PER_PT, height * MM_PER_PT
-        if lim["widths"] and not any(abs(w - x) <= _TOL_MM for x in lim["widths"]):
-            problems.append(f"{w:.0f} mm wide; a {style} figure is "
-                            + " or ".join(f"{x:g}" for x in lim["widths"]) + " mm wide")
-        elif w > lim["max_w"] + _TOL_MM:
+        if w > lim["max_w"] + _TOL_MM:
             problems.append(f"{w:.0f} mm wide; the {style} limit is {lim['max_w']:g} mm")
         if h > lim["max_h"] + _TOL_MM:
             problems.append(f"{h:.0f} mm tall; the {style} limit is {lim['max_h']:g} mm")
