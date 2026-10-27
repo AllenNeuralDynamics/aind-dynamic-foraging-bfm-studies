@@ -64,7 +64,8 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
   Each mouse's even sessions are context and its odd sessions are scored.
 - **Protocol.** Wrapper `GLMHMMTrainer` (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#110):
   1. A global fit on the training mice's train sessions.
-  2. Zero-shot scores on the held-out mice (`heldout/test_likelihood`).
+  2. Zero-shot scores on the held-out mice's eval sessions (`heldout/zero_shot/*`; not
+     `heldout/test_likelihood`, which for the GRU covers every held-out session).
   3. A MAP refit per held-out mouse on its context sessions, scored on its eval sessions
      (`heldout/eval_likelihood`, `heldout/final/*`, the keys study 02 reads).
 
