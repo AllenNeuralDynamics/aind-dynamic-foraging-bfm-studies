@@ -20,12 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check the app credentials are configured
+      - name: Check both app credentials are configured
         id: creds
         env:
           APP_ID: ${{ secrets.ATLAS_APP_ID }}
+          APP_KEY: ${{ secrets.ATLAS_APP_KEY }}
         run: |
-          if [ -z "$APP_ID" ]; then
+          if [ -z "$APP_ID" ] || [ -z "$APP_KEY" ]; then
             echo "::warning::ATLAS_APP_ID / ATLAS_APP_KEY are not set; the atlas redeploys on its daily schedule instead"
             echo "ok=false" >> "$GITHUB_OUTPUT"
           else
