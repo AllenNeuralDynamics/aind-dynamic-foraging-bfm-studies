@@ -12,9 +12,9 @@ inputs:
   runs: analysis/hattori_runs.json
   plugin: analysis/hattori_plugin.json
   figures:
-  - analysis/fig_r4_ladder.png
-  - analysis/fig_r4_ladder_steps.png
-  - analysis/fig_r4_ladder_schematic.png
+  - analysis/fig_r4_ladder.svg
+  - analysis/fig_r4_ladder_steps.svg
+  - analysis/fig_r4_ladder_schematic.svg
 upstream:
 - study: 01-gru-scaling-law
   report: r8
@@ -50,7 +50,9 @@ earlier trials (schematic below). Neither rung refits anything on the scored ses
 later trials.
 
 <!-- BEGIN result-1 -->
-![ladder](../fig_r4_ladder.png)
+![ladder](../fig_r4_ladder.svg)
+
+*The HB ladder: what each ingredient adds over the per-subject MLE; dashed lines, the GRU H128 curve (study 01 r1).*
 
 | rung | pooled held-out likelihood | step |
 |---|---|---|
@@ -62,7 +64,9 @@ later trials.
 
 MLE pooled from study 08's per-subject table: 0.7127 (study 01 r8 publishes 0.7127).
 
-![steps](../fig_r4_ladder_steps.png)
+![steps](../fig_r4_ladder_steps.svg)
+
+*Each step, subject by subject (paired), with the share of subjects that gain.*
 
 | step, per subject | median | subjects with a gain |
 |---|---|---|
@@ -71,7 +75,9 @@ MLE pooled from study 08's per-subject table: 0.7127 (study 01 r8 publishes 0.71
 | full HB − zero-spread | +0.0028 | 95% (142/149) |
 | GRU D≈614 − full HB | +0.0061 | 97% (141/146) |
 
-![schematic](../fig_r4_ladder_schematic.png)
+![schematic](../fig_r4_ladder_schematic.svg)
+
+*Schematic, not data: what each rung predicts with, at the start of a session and after many trials. Dot size = weight while predicting the next trial; dotted line = this session’s own parameter.*
 <!-- END result-1 -->
 
 ## What it says

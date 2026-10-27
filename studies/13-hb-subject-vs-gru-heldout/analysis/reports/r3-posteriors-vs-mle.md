@@ -13,10 +13,10 @@ inputs:
   runs: analysis/hattori_runs.json
   freeze: analysis/freeze_posteriors.py
   figures:
-  - analysis/fig_r3_params_vs_mle.png
-  - analysis/fig_r3_session_spread.png
-  - analysis/fig_r3_gain_vs_spread.png
-  - analysis/fig_r3_example_subjects.png
+  - analysis/fig_r3_params_vs_mle.svg
+  - analysis/fig_r3_session_spread.svg
+  - analysis/fig_r3_gain_vs_spread.svg
+  - analysis/fig_r3_example_subjects.svg
 upstream:
 - study: 08-hb-vs-gru-heldout
   wandb_group: rl-baseline-hattori@20260713-005950
@@ -40,7 +40,9 @@ per-subject fits (`ml_hattori_heldout.csv`, study 01's run `unhmbrk4`; its held-
 study 01 r8 exactly). Both were fitted on the same even-indexed context sessions.
 
 <!-- BEGIN result-1 -->
-![parameters vs MLE](../fig_r3_params_vs_mle.png)
+![parameters vs MLE](../fig_r3_params_vs_mle.svg)
+
+*HB subject-level posterior (median, 5–95%) against the per-subject MLE, one dot per subject; dashed line = identity; ρ = Spearman.*
 
 | parameter | Spearman HB vs MLE | median HB | median MLE | median between-session width (10–90% session) |
 |---|---|---|---|---|
@@ -50,11 +52,17 @@ study 01 r8 exactly). Both were fitted on the same even-indexed context sessions
 | inverse temperature | 0.93 | 3.45 | 3.27 | 1.63 |
 | left bias | 0.97 | -0.036 | -0.037 | 0.996 |
 
-![between-session spread](../fig_r3_session_spread.png)
+![between-session spread](../fig_r3_session_spread.svg)
 
-![gain vs spread](../fig_r3_gain_vs_spread.png)
+*How far each parameter moves between a subject’s sessions (10–90% session width, own scale), one value per subject.*
 
-![example subjects](../fig_r3_example_subjects.png)
+![gain vs spread](../fig_r3_gain_vs_spread.svg)
+
+*Per held-out subject: held-out likelihood difference against the subject’s between-session spread; a, vs MLE Hattori; b, vs GRU D≈614.*
+
+![example subjects](../fig_r3_example_subjects.svg)
+
+*HB posterior for the subjects with the smallest, median and largest gain over the MLE: the typical session (outline) vs across sessions (filled), against the single MLE value.*
 
 - HB − MLE Hattori per subject: median +0.0074; Spearman with the subject's between-session spread +0.49 (n=149).
 - HB − GRU D≈614 per subject: median -0.0061; Spearman with the same spread -0.11 (n=146, subjects in both cohorts).

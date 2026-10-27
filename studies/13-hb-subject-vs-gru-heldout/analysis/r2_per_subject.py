@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
-import plot_style  # noqa: E402
+import figure_style as fs  # noqa: E402
 
 S01 = HERE.parents[1] / "01-gru-scaling-law" / "analysis"
 GRU_PER_SUBJECT_SOURCE = S01 / "per_subject_rows.json"   # study 01 r2: per-held-out-subject GRU rows
@@ -45,7 +45,7 @@ def _rl_per_subject(model):
 WANDB_GROUPS = ["hattori@20261026-002131"]   # read via the committed freeze
 RUNS = HERE / "hattori_runs.json"
 REPORT = HERE / "reports" / "r2-per-subject.md"
-FIG = HERE / "fig_r2_per_subject.png"
+FIG = HERE / "fig_r2_per_subject.svg"
 GRU_D = (30, 614)
 
 
@@ -95,23 +95,35 @@ def compute() -> tuple[dict, dict]:
     return result, {"arms": arms, "paired": paired}
 
 
-def plot(data: dict) -> None:
-    """Left: per-subject likelihood per arm. Right: per-subject HB minus each arm."""
-    plot_style.apply_presentation_style()
-    fig, (left, right) = plt.subplots(1, 2, figsize=(13, 5), gridspec_kw={"width_ratios": [5, 4]})
+ARM_COLOR = {"HB two-level": fs.OKABE_ITO["vermillion"], "GRU D≈30": fs.OKABE_ITO["sky"],
+             "GRU D≈614": fs.OKABE_ITO["blue"], "MLE Hattori": "0.45", "MLE CTT": "0.68"}
+ARM_TICK = {"HB two-level": "HB\ntwo-level", "GRU D≈30": "GRU\nD≈30", "GRU D≈614": "GRU\nD≈614",
+            "MLE Hattori": "MLE\nHattori", "MLE CTT": "MLE\nCTT"}
+
+
+def plot(data: dict, result: dict) -> None:
+    """a: per-subject likelihood per arm. b: per-subject HB minus each arm, share of subjects HB wins."""
+    fs.apply_paper_style()
+    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(fs.fit_width(groups=9, axes=2), 55), width_ratios=[5, 4])
     names = list(data["arms"])
-    left.violinplot([list(data["arms"][n].values()) for n in names], showmedians=True)
-    left.set_xticks(range(1, len(names) + 1), names, rotation=20)
-    left.set_ylabel("held-out likelihood per subject")
-    left.set_title(f"Per subject (n={len(next(iter(data['arms'].values())))})")
+    fs.violins(a, [list(data["arms"][n].values()) for n in names], [ARM_COLOR[n] for n in names],
+               [ARM_TICK[n] for n in names])
+    a.set_ylabel("Held-out likelihood")
+    a.text(1, 1, f"n = {result['n_subjects']} subjects", transform=a.transAxes, ha="right", va="top")
+    fs.panel_label(a, "a")
     diff_names = list(data["paired"])
-    right.violinplot([data["paired"][n] for n in diff_names], showmedians=True)
-    right.axhline(0.0, color="0.4", lw=1, ls="--")
-    right.set_xticks(range(1, len(diff_names) + 1), [f"HB − {n}" for n in diff_names], rotation=20)
-    right.set_ylabel("paired difference (HB minus arm)")
-    right.set_title("Paired by subject")
-    fig.tight_layout()
-    fig.savefig(FIG, dpi=150)
+    fs.violins(b, [data["paired"][n] for n in diff_names], [ARM_COLOR[n] for n in diff_names],
+               ["vs " + ARM_TICK[n] for n in diff_names])
+    b.axhline(0.0, color="0.5", lw=0.5, ls=(0, (3, 2)), zorder=0)
+    b.set_ylabel("Paired difference\n(HB − model)")
+    for x, n in enumerate(diff_names, start=1):
+        b.annotate(f"{result['hb_minus'][n]['frac_hb_higher']:.0%}", xy=(x, 1), xycoords=("data", "axes fraction"),
+                   ha="center", va="bottom", fontsize=6)
+    b.annotate("HB higher in", xy=(0, 1), xycoords="axes fraction", xytext=(0, 9), textcoords="offset points",
+               ha="left", va="bottom", fontsize=6, color="0.35")
+    fs.panel_label(b, "b")
+    fs.save_figure(fig, FIG)
+    plt.close(fig)
 
 
 def render(r: dict) -> str:
@@ -135,7 +147,7 @@ def render(r: dict) -> str:
 def main() -> None:
     """Compute, plot, rewrite the result block, and write the JSON."""
     result, data = compute()
-    plot(data)
+    plot(data, result)
     begin, end = "<!-- BEGIN result-1 -->", "<!-- END result-1 -->"
     head, rest = REPORT.read_text().split(begin)
     _, tail = rest.split(end)

@@ -10,7 +10,7 @@ wandb_groups:
 inputs:
   script: analysis/r2_per_subject.py
   data: analysis/hattori_runs.json
-  figure: analysis/fig_r2_per_subject.png
+  figure: analysis/fig_r2_per_subject.svg
 upstream:
 - study: 01-gru-scaling-law
   report: r2
@@ -37,7 +37,7 @@ Comparisons are paired by subject, because between-subject spread is an order of
 larger than the gaps between models.
 
 <!-- BEGIN result-1 -->
-![per-subject comparison](../fig_r2_per_subject.png)
+![per-subject comparison](../fig_r2_per_subject.svg)
 
 | HB − arm | median | mean | subjects where HB is higher |
 |---|---|---|---|
