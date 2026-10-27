@@ -27,6 +27,7 @@
   .legend span { display: inline-block; margin-right: 14px; font-size: 12px; }
   .sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin-right: 4px; }
   .note { font-size: 17px; color: #333; line-height: 1.7; margin: 14px 0; }
+  details.note summary { cursor: pointer; }
   #summary { font-size: 14px; color: #555; font-family: -apple-system, "Segoe UI", sans-serif; }
   math[display="block"] { font-size: 20px; margin: 18px 0; overflow-x: auto; }
 </style>
@@ -78,9 +79,30 @@ The score averages each sample's <b>whole-session</b> likelihood:</p>
 <math display="block"><mo>=</mo><munderover><mo>&#x220F;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mfrac><mrow><munder><mo>&#x2211;</mo><mi>d</mi></munder><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup><mspace width="0.17em"/><msub><mi>p</mi><mi>t</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo></mrow><mrow><munder><mo>&#x2211;</mo><mi>d</mi></munder><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup></mrow></mfrac><mo>,</mo><mspace width="1.5em"/><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup><mo>=</mo><munderover><mo>&#x220F;</mo><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>t</mi><mo>&#x2212;</mo><mn>1</mn></mrow></munderover><msub><mi>p</mi><mi>s</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo></math>
 <p class="note">Each factor is the prediction for trial <i>t</i>: an average of the samples' predictions, weighted by
 <i>w<sub>d</sub><sup>(t)</sup></i>, each sample's likelihood of the <b>earlier</b> trials <i>1,…,t-1</i>. With the slider at trial <i>t</i>, the left panel's
-dot sizes are <i>w<sub>d</sub><sup>(t+1)</sup></i>: the weights for predicting the <b>next</b> trial, <i>t</i>+1, from trials 1,…,<i>t</i>. The two lines are equal because the product telescopes: factor <i>t</i>'s numerator is factor <i>t+1</i>'s
-denominator, <i>Σ<sub>d</sub> w<sub>d</sub><sup>(t+1)</sup></i>, so everything cancels except <i>Σ<sub>d</sub> w<sub>d</sub><sup>(T+1)</sup> / Σ<sub>d</sub> w<sub>d</sub><sup>(1)</sup></i>, the first line.
+dot sizes are <i>w<sub>d</sub><sup>(t+1)</sup></i>: the weights for predicting the <b>next</b> trial, <i>t</i>+1, from trials 1,…,<i>t</i>.
 No future trial ever enters a weight.</p>
+<details class="note">
+<summary><b>Why the two expressions are equal (derivation)</b></summary>
+<p>Name the total weight before trial <i>t</i>:</p>
+<!-- S_t = \sum_d w_d^{(t)} -->
+<math display="block"><msub><mi>S</mi><mi>t</mi></msub><mo>=</mo><munder><mo>&#x2211;</mo><mi>d</mi></munder><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup></math>
+<p>Before any trial the product defining the weight is empty, so <i>w<sub>d</sub><sup>(1)</sup></i> = 1 and <i>S</i><sub>1</sub> = <i>D</i>.
+After the last trial, <i>w<sub>d</sub><sup>(T+1)</sup></i> is sample <i>d</i>'s whole-session likelihood, so the score is</p>
+<!-- \frac{1}{D}\sum_d \prod_t p_t(\theta_d) = S_{T+1} / S_1 -->
+<math display="block"><mfrac><mn>1</mn><mi>D</mi></mfrac><munder><mo>&#x2211;</mo><mi>d</mi></munder><munder><mo>&#x220F;</mo><mi>t</mi></munder><msub><mi>p</mi><mi>t</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo><mo>=</mo><mfrac><msub><mi>S</mi><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>S</mi><mn>1</mn></msub></mfrac></math>
+<p>Each trial multiplies every weight by one more factor, <i>w<sub>d</sub><sup>(t+1)</sup></i> = <i>w<sub>d</sub><sup>(t)</sup> p<sub>t</sub>(θ<sub>d</sub>)</i>. Summing over samples,</p>
+<!-- \sum_d w_d^{(t)} p_t(\theta_d) = S_{t+1} -->
+<math display="block"><munder><mo>&#x2211;</mo><mi>d</mi></munder><msubsup><mi>w</mi><mi>d</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></msubsup><mspace width="0.17em"/><msub><mi>p</mi><mi>t</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo><mo>=</mo><msub><mi>S</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub></math>
+<p>so factor <i>t</i> of the split is <i>S<sub>t+1</sub> / S<sub>t</sub></i>, and the product telescopes: each numerator cancels the next denominator.</p>
+<!-- \prod_{t=1}^{T} S_{t+1}/S_t = S_{T+1}/S_1 -->
+<math display="block"><munderover><mo>&#x220F;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mfrac><msub><mi>S</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>S</mi><mi>t</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>S</mi><mn>2</mn></msub><msub><mi>S</mi><mn>1</mn></msub></mfrac><mo>&#x22C5;</mo><mfrac><msub><mi>S</mi><mn>3</mn></msub><msub><mi>S</mi><mn>2</mn></msub></mfrac><mo>&#x22EF;</mo><mfrac><msub><mi>S</mi><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>S</mi><mi>T</mi></msub></mfrac><mo>=</mo><mfrac><msub><mi>S</mi><mrow><mi>T</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>S</mi><mn>1</mn></msub></mfrac></math>
+<p>This is an exact identity, not an approximation. It is the sample version of the chain rule,
+<i>p</i>(<i>y</i><sub>1:T</sub>) = ∏<sub><i>t</i></sub> <i>p</i>(<i>y<sub>t</sub></i> | <i>y</i><sub>1:t−1</sub>): factor <i>t</i> estimates the
+posterior-predictive probability of choice <i>t</i> given the choices before it.</p>
+</details>
+<p class="note">None of this is new. Scoring a model by its one-step-ahead predictions is Dawid's <i>prequential</i> analysis [1],
+and averaging whole-session likelihoods over fixed parameter samples is sequential importance sampling: a particle filter
+for a static parameter that never resamples, whose evidence estimate is this product of normalised weight increments [2].</p>
 <p class="note">Per-trial averaging (the grey dashed line) keeps every weight equal on every trial:</p>
 <!-- \prod_{t=1}^{T}\frac{1}{D}\sum_{d=1}^{D}p_t(\theta_d) -->
 <math display="block"><munderover><mo>&#x220F;</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><mi>T</mi></munderover><mfrac><mn>1</mn><mi>D</mi></mfrac><munderover><mo>&#x2211;</mo><mrow><mi>d</mi><mo>=</mo><mn>1</mn></mrow><mi>D</mi></munderover><msub><mi>p</mi><mi>t</mi></msub><mo>(</mo><msub><mi>&#x3B8;</mi><mi>d</mi></msub><mo>)</mo></math>
@@ -93,6 +115,12 @@ per-trial averaging (grey dashed) averages <b>each trial's probability</b> separ
 <b>The dots growing and shrinking on the left is not the code changing weights.</b> The code does one thing: hold each sample's parameter fixed, run the whole session by teacher forcing, and average the whole-session likelihoods.
 Dot size is only an equivalent reading of that average: when it is split by trial, each sample's implied share of the next trial's prediction equals its likelihood of the earlier trials. Both readings give exactly the same number.
 </div>
+
+<h2>References</h2>
+<ol class="note">
+<li>Dawid, A. P. (1984). Present position and potential developments: some personal views. Statistical theory: the prequential approach. <i>Journal of the Royal Statistical Society, Series A</i>, 147(2), 278–292.</li>
+<li>Chopin, N. &amp; Papaspiliopoulos, O. (2020). <i>An Introduction to Sequential Monte Carlo</i>. Springer.</li>
+</ol>
 
 </main>
 <script>
