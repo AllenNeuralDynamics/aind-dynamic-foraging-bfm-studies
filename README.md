@@ -8,8 +8,29 @@ manifests, immutable launch records, frozen inputs, analysis code and reports in
 shows every study, report and number here, traced back to its producer, inputs, W&B group and
 commits ([source](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-atlas)).
 
-The code that launches and trains lives in two sibling repositories, which this one expects
-side by side:
+## The stack
+
+[![Behavioral foundation model stack](https://raw.githubusercontent.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/main/docs/diagrams/bfm-stack.png)](https://raw.githack.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/main/docs/diagrams/bfm-stack.html)
+
+**[Open the interactive version](https://raw.githack.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/main/docs/diagrams/bfm-stack.html)**,
+also on the atlas's [About page](https://allenneuraldynamics.github.io/aind-dynamic-foraging-bfm-atlas/#/about);
+its source is the dispatcher's `docs/diagrams/bfm-stack.architecture.json`.
+
+This repository is the science record in that loop. A variant's sweep and experiment
+manifests go to the dispatcher's launchers, which refuse a dirty study directory and write a
+launch record back into the variant; the wrapper trains and logs to W&B; a freeze pulls what
+a study needs into committed files, its producers compute the reports from those, and the
+atlas publishes them.
+
+| Repository | Role |
+|---|---|
+| **`aind-dynamic-foraging-bfm-studies`** (this repo) | What to run and why: studies, variants, launch records, frozen inputs, analysis, reports, and the schemas and checker that hold them to the rules |
+| [`aind-dynamic-foraging-bfm-dispatcher`](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher) | Control plane: shared Hydra configs, Beaker / SLURM launchers, launch provenance, the agent skills pack |
+| [`aind-dynamic-foraging-bfm-wrapper`](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper) | Training and analysis payload: data loaders, the four model families, post-training analysis |
+| [`aind-dynamic-foraging-bfm-atlas`](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-atlas) | The browsable site, built from this repo's `main` |
+
+Launches and some study scripts expect the dispatcher and the wrapper side by side with this
+repository; the atlas needs no checkout of its own to read this one:
 
 ```text
 parent/
@@ -44,8 +65,10 @@ commits; that is what actually ran and is left as written.
 | [`09-gru-cross-species-transfer`](studies/09-gru-cross-species-transfer/) | Does the mouse-trained GRU transfer to external two-arm-bandit datasets across species? |
 | [`10-gru-reservoir-ablation`](studies/10-gru-reservoir-ablation/) | How much of the GRU's performance survives freezing its recurrent core at random? |
 | [`11-disrnn-near-gru-ceiling`](studies/11-disrnn-near-gru-ceiling/) | How much of the residual disRNN–GRU gap closes when the disRNN is relaxed toward a GRU? |
+| [`13-hb-subject-vs-gru-heldout`](studies/13-hb-subject-vs-gru-heldout/) | Does a two-level hierarchical Bayesian baseline, conditioned only on each held-out mouse's context sessions, match the GRU's held-out likelihood? |
 
-Each study's `README.md` carries its verdict; `analysis/reports/` the numbered reports;
+New studies, variants and reports start from the scaffolder (`make new-study`, `make
+new-variant`, `make new-report`). Each study's `README.md` carries its verdict; `analysis/reports/` the numbered reports;
 `variants/<variant>/notes.md` what each variant differs in and where it stands;
 `variants/<variant>/launch_record*/` what was launched, when, with which commits.
 
@@ -61,7 +84,9 @@ python3 scripts/check_regeneration.py        # every study, as CI runs it
 ```
 
 Two consecutive runs differ only in each artifact's `_meta` block (timestamps, checkout
-SHA); any other difference is a result change and belongs in a reviewed commit. Pulling new
+SHA); any other difference is a result change and belongs in a reviewed commit. Figures are
+paper-style SVGs drawn with `studies/util/figure_style.py`; `make validate` runs the
+provenance checker and the figure check that CI gates on. Pulling new
 numbers from W&B is a separate, credentialed producer target in each `Makefile`
 (`freeze-*`, `pull-*`) and is never a CI prerequisite.
 
@@ -78,10 +103,12 @@ python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
   --label <label> --note "why this run exists and what it should teach us"
 ```
 
-The launcher records the studies commit holding the sweep, the dispatcher commit running
-the launcher, and the wrapper and foraging-models commits the job will run, and refuses to
-launch from a `studies/<study>/` directory with uncommitted changes. Copy the record it
-writes into the variant's `launch_record/`.
+The launcher refuses to launch from a `studies/<study>/` directory with uncommitted changes,
+or on the live foraging database rather than a pinned snapshot. Its launch record
+(`schemas/launch-record.v2.schema.json`) names the studies commit holding the sweep, the
+dispatcher commit running the launcher, the wrapper and foraging-models commits the job will
+run, the data snapshot and the image. Copy the record it writes into the variant's
+`launch_record/`.
 
 ## Conventions
 
