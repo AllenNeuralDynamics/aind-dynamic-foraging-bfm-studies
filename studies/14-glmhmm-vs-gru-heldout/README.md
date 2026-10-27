@@ -77,7 +77,7 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
 |---|---|---|
 | `lag-scan` | K = 1, history length L ∈ {3, 5, 7, 10}, both emissions | which L the K grid uses |
 | `hurdle` | K = 1 … 10, hurdle emission, chosen L | held-out score vs K; states |
-| `reference` | K = 1 … 10, reference emission, chosen L | the same, for the `ssm`-style parameterisation |
+| `reference` | K = 1 … 10, reference emission, chosen L | the same, for Faeze's 3-class `ssm` parameterisation (ignore as the zero-logit class) |
 
 ## Verdict
 
