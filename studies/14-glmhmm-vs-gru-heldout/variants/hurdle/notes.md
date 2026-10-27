@@ -17,8 +17,9 @@ resolves a relative `--sweep-yaml` against the dispatcher, and writes the record
       --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/hurdle/launch_record/hurdle-k1-10" \
       --label hurdle-k1-10 --note "Study 14: hurdle GLM-HMM, K=1..10 at L=<from lag-scan>, held-out 3-way score vs study 02's GRU"
 
-**Or on Beaker**, which needs the image rebuilt with the `[glmhmm]` extra first (see
-`experiment_beaker.yaml`). Same grid, one non-preemptible CPU task per cell:
+**Or on Beaker**, which needs the GLM-HMM image built first (wrapper `beaker/glmhmm/Dockerfile`,
+AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111; see `experiment_beaker.yaml`). Same
+grid, one non-preemptible single-GPU task per cell:
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
       --sweep      "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/hurdle/sweep_beaker.yaml" \

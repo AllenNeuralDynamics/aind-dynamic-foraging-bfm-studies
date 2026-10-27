@@ -67,7 +67,9 @@ One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
   `--sbatch-extra "--cpus-per-task=8 --mem=64G --time=48:00:00"`.
   - At L = 10 a K = 10 reference cell is about 30 h on CPU, so if `lag-scan` picks L = 10,
     wait for the GPU.
-  - The Beaker templates are CPU-only for the same reason.
+  - On Beaker, the templates use one GPU on the GLM-HMM image, which carries the pin
+    (`beaker/glmhmm/Dockerfile`, AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111).
+    That image has to be built first.
 - **Iteration cap.** `max_em_iters` 300 stops the K = 10 hurdle fit 17 iterations short.
   - That costs 4e-5 nats/trial of prediction, but it compares restarts below their optimum.
   - Raise the cap to 500 before the K grids (AllenNeuralDynamics/aind-dynamic-foraging-models#82).

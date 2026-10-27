@@ -14,14 +14,14 @@ version: v2
 description: GLM-HMM global fit + per-mouse refits, study 14 lag-scan (template; the launcher rewrites this)
 tasks:
   - name: glmhmm-lag-scan
-    # NEEDS A NEW IMAGE. The image must carry the models package's [glmhmm] extra (dynamax and
-    # the pinned tfp-nightly). Jobs clone the code at the REFs below but install nothing, so the
-    # current main image (han-hou/dynamic-foraging-bfm-wrapper-main-20260902, [bayes] only)
-    # fails at `import dynamax`. Build from wrapper main once wrapper#110 (Dockerfile installs
-    # models[bayes,glmhmm]) and models#81 have merged, then set the name here. The launcher
-    # resolves the name to an immutable id and fails on a name that does not exist.
+    # NEEDS THE GLM-HMM IMAGE (wrapper beaker/glmhmm/Dockerfile, wrapper#111). It carries the
+    # models [glmhmm] extra plus the CUDA solver pin that GPU linear solves need. Jobs clone the
+    # code at the REFs below but install nothing, so the main image (no [glmhmm]) fails at
+    # `import dynamax`. Build it once models#81 and wrapper#110 have merged and run its
+    # smoke.yaml, then set the name here. The launcher resolves the name to an immutable id
+    # and fails on one that does not exist.
     image:
-      beaker: han-hou/dynamic-foraging-bfm-wrapper-main-glmhmm
+      beaker: han-hou/dynamic-foraging-bfm-glmhmm-YYYYMMDD
     command:
       - bash
       - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
@@ -35,10 +35,10 @@ tasks:
         # Reaches AWS S3, which the snapshot parquet cache needs; GCP clusters cannot.
         - ai1/octo-hub-onprem-h200
     resources:
-      # CPU only: the GLM-HMM computes on the CPU (AIND_GLMHMM_DEVICE below; GPU linear solves
-      # fail on the pinned jax 0.6.1 stack). If a hub cluster refuses CPU-only tasks, request
-      # gpuCount: 1; the job still computes on the CPU. The probes peak under 8 GB at L <= 10.
-      gpuCount: 0
+      # One GPU for the fits (AIND_GLMHMM_DEVICE below). At K = 10 on this cohort the global fit
+      # runs about 3x faster than on 8 CPU cores (PLAN.md, Compute). CPU and memory stay within
+      # one GPU bundle. The probes peak under 8 GB at L <= 10.
+      gpuCount: 1
       cpuCount: 8
       memory: 64GiB
     envVars:
@@ -47,7 +47,7 @@ tasks:
       - name: BFM_OUTPUT_DIR
         value: /results
       - name: AIND_GLMHMM_DEVICE
-        value: cpu
+        value: gpu
       # Readable values; the launcher submits the resolved full SHAs.
       - name: WRAPPER_REF
         value: main

@@ -5,7 +5,8 @@
 - Study created (#48): README design, PLAN.md, and variants `lag-scan`, `hurdle` and
   `reference` with HPC sweep manifests. `glmhmm` added to the model tag vocabulary. Not
   launched: waits for the code PRs to merge.
-- Beaker manifests added beside the HPC ones; CPU-only, for now.
+- Beaker manifests added beside the HPC ones: one GPU per task on the GLM-HMM image
+  (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111), which is still to be built.
 - PLAN.md's Compute section now holds timings measured on this study's cohort instead of the
   scale probe's estimate. It also gives the CPU-until-GPU backend plan
   (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111) and the `max_em_iters` 500
