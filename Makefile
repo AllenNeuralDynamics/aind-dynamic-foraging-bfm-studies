@@ -4,8 +4,10 @@ PY ?= python
 .PHONY: validate
 # Check every study against schemas/ (layout, frontmatter, _meta, launch records). Run before
 # opening a PR; CI runs the same check. Fix hints are printed with each new finding.
+# check_figures: every figure is an editable paper-style SVG (studies/util/figure_style.py).
 validate:
 	$(PY) scripts/check_provenance.py
+	$(PY) scripts/check_figures.py
 
 .PHONY: new-study new-variant new-report
 # Start every study, variant and report here; the result passes `make validate`.
