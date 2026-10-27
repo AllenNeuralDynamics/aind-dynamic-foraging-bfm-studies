@@ -22,7 +22,7 @@ the pooled held-out scores, beside study 02's GRU, then a description of the sta
 | data | `mice_snapshot_scaling`, `ignore_policy=include`, `mature_only: false`, full training pool | identical to study 02's 3-way GRU; stage is retained (`current_stage_actual`) for a split of the score, not as an input |
 | protocol | global fit (σ = 100, α = 1) on the training mice's train sessions → per-mouse MAP refit (σ = 2, α = 2, prior centred at 0), started from the global fit, on each mouse's context sessions → forward-filter score on its eval sessions | Ashwood et al. 2022's global → individual recipe, on the GRU's split |
 | headline keys | `heldout/eval_likelihood` (raw 3-way), `heldout/final/eval_likelihood_LR_engaged`, `heldout/final/eval_likelihood_engage`, `heldout/final/engage_ignore_pr_auc`; zero-shot `heldout/zero_shot/*` on the same eval trials | the keys study 02's `wandb_keys.py` reads for the GRU, computed by the same functions. Zero-shot is kept off `heldout/test_likelihood`, which for the GRU covers every held-out session (as study 13) |
-| pooling | `heldout/eval_log_lik_sum` / `heldout/num_eval_trials` | exact pooled score, as study 13 |
+| pooling | `exp(sum(heldout/eval_log_lik_sum) / sum(heldout/num_eval_trials))` over runs | the exact pooled, trial-weighted normalized likelihood, on the comparators' probability scale (as study 13's `r1_hattori_pooled.py`) |
 | K selection | per-mouse refits on the training mice, scored on their eval sessions (`glmhmm/select/eval_likelihood`) | never the held-out mice; never the global likelihood, which rewards states that encode between-mouse differences |
 | state alignment | Hungarian match of each mouse's states to the global ones by posterior overlap (weights as a check), with match quality and occupancy by stage | for interpreting states only; the score does not depend on labels |
 
@@ -33,7 +33,7 @@ the pooled held-out scores, beside study 02's GRU, then a description of the sta
 | `lag-scan` | K = 1; L ∈ {3, 5, 7, 10, 15} × {hurdle, reference} | merged and released code |
 | `hurdle` | K ∈ 1..10, L from `lag-scan` | `lag-scan` result |
 | `reference` | K ∈ 1..10, L from `lag-scan` | `lag-scan` result |
-| `faeze-crosscheck` (diagnostic, later) | her setup: `mature_only: true`, her mice and sessions, L = 7, her K (up to 10), reference emission | from Faeze: design matrix, ssm settings (prior_sigma, transition_alpha, restarts, tolerance), mice and sessions, curricula, fitted parameters |
+| `faeze-crosscheck` (diagnostic, later) | her setup: `mature_only: true`, her mice and sessions, L = 7, her K (up to 10), reference emission | from Faeze: design matrix, ssm settings (prior_sigma, transition_alpha, restarts, tolerance), mice and sessions, curricula, fitted parameters. Compare side contrasts (right − left) and class probabilities, not raw reference weights: in a state that almost never ignores, the common mode of the left and right logits is not identified (models recovery, `glm_hmm/recovery/RESULTS.md`) |
 | `all-data-inference` (+ `-mature`, later) | every mouse and session; K, L, emission and priors from the benchmark | snapshot coverage and flags for ophys/ephys sessions; a wrapper switch for no held-out reservation |
 
 `all-data-inference` serves later neural studies with per-trial smoothed and filtered
@@ -65,3 +65,4 @@ per-mouse refits.
 4. `hurdle` and `reference` K grids at that L.
 5. Reports: r1 held-out score vs K for both emissions against study 02; r2 what the states
    are (aligned weights, A, dwell times, occupancy by stage).
+   In r2, report each state's p(ignore) and p(right | respond), not raw logits: an engagement or common-mode weight of a state that never ignores is bounded, not identified.

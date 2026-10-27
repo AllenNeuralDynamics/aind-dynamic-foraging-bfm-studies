@@ -9,11 +9,14 @@
 are logged but never used to choose. At K = 1 the hurdle model is two history logistic
 regressions, so this is also the history-GLM baseline row of the K curve.
 
-**Launch** (after the code PRs merge and the models package is released):
+**Launch** from the studies repository root, so `$PWD` is this checkout (`launch_hpc.py`
+resolves a relative `--sweep-yaml` against the dispatcher, and writes the record to
+`--output-dir`) (after the code PRs merge and the models package is released):
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py \
-      --sweep-yaml studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/sweep_hpc.yaml \
+      --sweep-yaml "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/sweep_hpc.yaml" \
       --mode cpu --sbatch-extra "--cpus-per-task=8 --mem=64G --time=48:00:00" \
+      --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/launch_record/lag-scan" \
       --label lag-scan --note "Study 14: K=1 GLM-HMM over L x emission to fix the history length for the K grids, chosen on the training-mouse refit score"
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group
