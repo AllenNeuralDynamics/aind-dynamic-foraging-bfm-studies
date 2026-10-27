@@ -101,10 +101,10 @@ def audit_svg(path: Path | str, style: str = "paper") -> list[str]:
         if h > lim["max_h"] + _TOL_MM:
             problems.append(f"{h:.0f} mm tall; the {style} limit is {lim['max_h']:g} mm")
         box = (root.get("viewBox") or "").replace(",", " ").split()
-        size = [_pt(b) for b in box[2:]] if len(box) == 4 else [width, height]
+        size = [_pt(b) for b in box[2:]] if len(box) == 4 else [None]   # no viewBox: user units are px
         if None in size or not all(abs(b - s) <= 1e-3 * s for b, s in zip(size, (width, height))):
             # font sizes are in user units; they are points only when the viewBox is the page in pt
-            problems.append(f"viewBox {' '.join(box)} is not the page size in pt, so font sizes are not points")
+            problems.append(f"viewBox {' '.join(box) or '(missing)'} is not the page size in pt, so font sizes are not points")
 
     glyphs = [p.get("id") for p in root.iter(f"{_SVG}path")
               if p.get("id") and _GLYPH_ID.match(p.get("id"))]

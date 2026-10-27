@@ -79,6 +79,9 @@ class AuditTest(unittest.TestCase):
     def test_scaled_text(self):
         scaled_box = svg(f'<text style="font-size: 7px; {ARIAL}">x</text>', box="0 0 504.56 300")
         self.assertTrue(any("viewBox" in p for p in self.audit(scaled_box)))
+        no_box = svg(f'<text style="font-size: 5px; {ARIAL}">x</text>').replace(' viewBox="0 0 252.28 150"', "")
+        self.assertNotIn("viewBox", no_box)
+        self.assertTrue(any("viewBox (missing)" in p for p in self.audit(no_box)))
         scaled_group = svg(f'<g transform="scale(0.5)"><text style="font-size: 7px; {ARIAL}">x</text></g>')
         self.assertTrue(any("scale/matrix" in p for p in self.audit(scaled_group)))
         rotated = svg(f'<text style="font-size: 7px; {ARIAL}" transform="rotate(-90 5 5)">x</text>')
