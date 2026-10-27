@@ -18,7 +18,7 @@ its source is the dispatcher's `docs/diagrams/bfm-stack.architecture.json`.
 
 This repository is the science record in that loop. A variant's sweep and experiment
 manifests go to the dispatcher's launchers, which refuse a dirty study directory and write a
-launch record back into the variant; the wrapper trains and logs to W&B; a freeze pulls what
+launch record the variant keeps under `launch_record/`; the wrapper trains and logs to W&B; a freeze pulls what
 a study needs into committed files, its producers compute the reports from those, and the
 atlas publishes them.
 
