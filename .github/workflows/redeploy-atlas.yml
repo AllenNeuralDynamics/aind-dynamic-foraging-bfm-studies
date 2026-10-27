@@ -1,0 +1,52 @@
+name: Redeploy atlas
+
+# The atlas (https://allenneuraldynamics.github.io/aind-dynamic-foraging-bfm-atlas/) is a pure
+# function of this repository's main, but a merge here does not notify the atlas repository. This
+# starts its Deploy atlas workflow on every push to main. GITHUB_TOKEN cannot act on another
+# repository, so the bfm-atlas-redeploy GitHub App (installed on the atlas repository only, with
+# Actions: Read and write) mints an hour-long token for that one call. The atlas workflow's
+# concurrency group keeps one deploy running and only the newest queued, so bursts of merges
+# coalesce.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check both app credentials are configured
+        id: creds
+        env:
+          APP_ID: ${{ secrets.ATLAS_APP_ID }}
+          APP_KEY: ${{ secrets.ATLAS_APP_KEY }}
+        run: |
+          if [ -z "$APP_ID" ] || [ -z "$APP_KEY" ]; then
+            echo "::warning::ATLAS_APP_ID / ATLAS_APP_KEY are not set; the atlas redeploys on its daily schedule instead"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Mint a token for the atlas repository
+        if: steps.creds.outputs.ok == 'true'
+        id: app
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.ATLAS_APP_ID }}
+          private-key: ${{ secrets.ATLAS_APP_KEY }}
+          owner: AllenNeuralDynamics
+          repositories: aind-dynamic-foraging-bfm-atlas
+
+      - name: Start Deploy atlas
+        if: steps.creds.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+        run: |
+          gh workflow run pages.yml -R AllenNeuralDynamics/aind-dynamic-foraging-bfm-atlas --ref main
+          echo "Started Deploy atlas for studies ${GITHUB_SHA::7}: https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-atlas/actions/workflows/pages.yml" >> "$GITHUB_STEP_SUMMARY"
