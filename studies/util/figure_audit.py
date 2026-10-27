@@ -10,8 +10,8 @@ What it catches, each a real failure seen in this repo:
   which Illustrator imports as separate characters;
 - a font other than Arial or its stand-ins, e.g. DejaVu Sans, the fallback on the compute nodes;
 - text or a figure outside its style's limits (LIMITS): a paper figure has 5-8 pt text and is
-  at most 183 x 170 mm, drawn at the size it is printed (Nature: 5-7 pt text, 8 pt panel
-  letters); a slide figure, kept under an `analysis/slides/` directory, has 12-28 pt text and
+  at most 183 mm wide (any height), drawn at the size it is printed (Nature: 5-7 pt text, 8 pt
+  panel letters); a slide figure, kept under an `analysis/slides/` directory, has 12-28 pt text and
   fits a 16:9 slide.
 """
 from __future__ import annotations
@@ -21,9 +21,10 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 MM_PER_PT = 25.4 / 72
-# style -> max width, max height (mm), text range (pt). A paper figure is drawn at the size it is
-# printed (a panel, or a whole 89 or 183 mm figure) and never rescaled, so its text sizes are final.
-LIMITS = {"paper": {"max_w": 183.0, "max_h": 170.0, "pt": (5.0, 8.0)},
+# style -> max width, max height (mm; None = any height), text range (pt). A paper figure is
+# drawn at the size it is printed and never rescaled, so its text sizes are final; its height is
+# free (a prototype grid can be tall). A slide figure must fit the slide.
+LIMITS = {"paper": {"max_w": 183.0, "max_h": None, "pt": (5.0, 8.0)},
           "slide": {"max_w": 338.7, "max_h": 190.5, "pt": (12.0, 28.0)}}
 SLIDES_DIR = "slides"
 NAMED_FONTS = ("Arial", "Liberation Sans", "Helvetica")   # the first font in a stack must be one of these
@@ -97,7 +98,7 @@ def audit_svg(path: Path | str, style: str = "paper") -> list[str]:
         w, h = width * MM_PER_PT, height * MM_PER_PT
         if w > lim["max_w"] + _TOL_MM:
             problems.append(f"{w:.0f} mm wide; the {style} limit is {lim['max_w']:g} mm")
-        if h > lim["max_h"] + _TOL_MM:
+        if lim["max_h"] and h > lim["max_h"] + _TOL_MM:
             problems.append(f"{h:.0f} mm tall; the {style} limit is {lim['max_h']:g} mm")
         box = (root.get("viewBox") or "").replace(",", " ").split()
         size = [_pt(b) for b in box[2:]] if len(box) == 4 else [None]   # no viewBox: user units are px

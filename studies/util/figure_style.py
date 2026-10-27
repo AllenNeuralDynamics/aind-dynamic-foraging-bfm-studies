@@ -1,8 +1,9 @@
 """The figure styles study figures use, and the one way to save a figure.
 
 Paper style, the default for every report figure: Nature-family final size
-(research-figure-guide.nature.com), 89 mm (single column) or 183 mm (double) wide, at most 170 mm
-tall, 5-7 pt sans-serif text, 8 pt bold lowercase panel letters.
+(research-figure-guide.nature.com), at most 183 mm (double column) wide, 5-7 pt sans-serif
+text, 8 pt bold lowercase panel letters. Height is not limited, so a prototype grid can be as
+tall as it needs; Nature's 170 mm page height applies only when the final figure is assembled.
 
 Size from the content, not the column. A report figure is a panel: it is drawn at the size it is
 printed (never rescaled, so its 5-7 pt text stays 5-7 pt) and is only as wide as its content needs,
@@ -43,7 +44,7 @@ from matplotlib import font_manager, ticker
 import figure_audit
 
 MM = 1 / 25.4                                   # inches per mm
-SINGLE_MM, DOUBLE_MM, MAX_HEIGHT_MM = 89.0, 183.0, 170.0
+SINGLE_MM, DOUBLE_MM = 89.0, 183.0
 SLIDE_IN = (13.333, 7.5)                        # 16:9 slide; leave room for the slide's own title
 SANS = ["Arial", "Liberation Sans", "Helvetica"]
 FONT_DIR = Path(__file__).resolve().parent / "fonts"

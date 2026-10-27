@@ -111,8 +111,11 @@ class AuditTest(unittest.TestCase):
     def test_figure_size_limits(self):
         problems = self.audit(svg("", width="936pt", height="360pt"))   # 13 x 5 in
         self.assertTrue(any("wide" in p for p in problems), problems)
-        problems = self.audit(svg("", width="250pt", height="500pt"))
-        self.assertTrue(any("tall" in p for p in problems), problems)
+        tall = svg("", height="1400pt")                                  # 89 x 494 mm: a prototype grid
+        self.assertEqual(self.audit(tall), [])
+        p = Path(self.tmp.name) / "t.svg"
+        p.write_text(svg("", width="900pt", height="1400pt"))
+        self.assertTrue(any("tall" in x for x in figure_audit.audit_svg(p, "slide")))   # a slide must fit
 
     def test_slide_limits(self):
         p = Path(self.tmp.name) / "s.svg"
