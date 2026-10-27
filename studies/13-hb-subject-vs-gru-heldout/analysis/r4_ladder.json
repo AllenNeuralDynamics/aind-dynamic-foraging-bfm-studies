@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r4_ladder.py",
-    "produced_at_pt": "2026-10-26T19:30:36-07:00",
-    "studies_git_sha": "cb4e96e9b0c9697ee4cbe8ab710bac93757aa641",
+    "produced_at_pt": "2026-10-26T19:56:26-07:00",
+    "studies_git_sha": "5ead9813da546bdb9adc9333fef2785e13573e68",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r4_ladder.py",
-        "sha256": "1a3daa4ac3cdf982281242006c943fbb1bb8ea82103a4de1b8f03fbb00c5ee69"
+        "sha256": "13d38560f09749eeb71acfe8ee491a47c4de4b5bbc502472930e16c00dbfd931"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -34,7 +34,7 @@
       },
       {
         "path": "studies/util/figure_audit.py",
-        "sha256": "a4c5143591ee7f42823b9caaf7a10162eb29d5d1c453e9039e9e8d6c6c227dce"
+        "sha256": "5b5ce58fa587369397ca33de4da03508e837fb397a4f70de4f842305b45739da"
       },
       {
         "path": "studies/util/figure_style.py",
@@ -74,7 +74,7 @@
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r4_ladder.svg",
-        "sha256": "866cfc9aa41ae7dde4512dcfeffa7696ecc62b9e085db366e0c4feb2f04b16f4"
+        "sha256": "e7eba52996a9e059db16a05a2492cc2cbd31c889269fcb50b76099f774c8bb2a"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r4_ladder_steps.svg",

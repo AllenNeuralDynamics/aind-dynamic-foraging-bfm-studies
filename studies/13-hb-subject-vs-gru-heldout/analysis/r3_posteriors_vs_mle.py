@@ -190,7 +190,7 @@ def plot(d: dict, r: dict) -> None:
     fs.save_figure(fig, FIG_EXAMPLES); plt.close(fig)
 
     p = r["_plot"]
-    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(120, 55))
+    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(183, 62))
     for ax, xs, ys, ylabel, rho, letter in (
             (a, p["mean_sigma"], p["gain"], "HB − MLE Hattori", r["gain_vs_mle"]["spearman_with_mean_sigma"], "a"),
             (b, p["gap_sigma"], p["gap"], "HB − GRU D≈614", r["gap_to_gru_d614"]["spearman_with_mean_sigma"], "b")):

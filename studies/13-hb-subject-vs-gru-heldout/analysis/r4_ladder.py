@@ -89,13 +89,12 @@ def compute(d: dict) -> dict:
 
 RUNG_COLOR = {"MLE": "0.45", "plug-in": fs.OKABE_ITO["orange"], "zero-spread": fs.OKABE_ITO["green"],
               "full HB": fs.OKABE_ITO["vermillion"]}
-RUNG_TICK = ["Per-subject\nMLE", "HB plug-in\n(1 fixed θ)", "HB zero-spread\n(posterior, σ = 0)",
-             "HB full\n(posterior + σ)"]
+RUNG_TICK = ["Per-subject\nMLE", "HB plug-in\n(1 fixed θ)", "HB zero-\nspread (σ = 0)", "HB full\n(+ σ)"]
 
 
 def plot_ladder(r: dict) -> None:
     """Pooled likelihood per rung, steps annotated, GRU curve as reference lines."""
-    fig, ax = plt.subplots(figsize=fs.mm(120, 70))
+    fig, ax = plt.subplots(figsize=fs.mm(89, 72))
     xs = np.arange(len(RUNGS))
     ys = [r["pooled"][k] for k in RUNGS]
     ax.bar(xs, [y - 0.700 for y in ys], bottom=0.700, color=[RUNG_COLOR[k] for k in RUNGS], width=0.6)
@@ -114,7 +113,7 @@ def plot_ladder(r: dict) -> None:
     for k, (d, v) in enumerate(gru):
         ax.axhline(v, color=fs.OKABE_ITO["blue"], lw=0.5, ls=(0, (3, 2)), alpha=0.3 + 0.7 * k / (len(gru) - 1),
                    zorder=0)
-    ax.annotate(f"GRU, D≈{gru[0][0]} (lowest dashed line) to D≈{gru[-1][0]} (highest)",
+    ax.annotate(f"GRU, D≈{gru[0][0]} (lowest line) to D≈{gru[-1][0]}",
                 xy=(0, r["gru_by_d"][gru[-1][0]]), xycoords=("axes fraction", "data"), xytext=(2, 1.5),
                 textcoords="offset points", color=fs.OKABE_ITO["blue"], va="bottom", fontsize=6)
     ax.set_xticks(xs, RUNG_TICK)

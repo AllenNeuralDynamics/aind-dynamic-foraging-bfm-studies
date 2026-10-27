@@ -27,7 +27,7 @@ except ImportError:          # the provenance job has no matplotlib; the regener
 ARIAL = "font-family: 'Arial', 'Liberation Sans', 'Helvetica', sans-serif"
 
 
-def svg(body: str, width: str = "250pt", height: str = "150pt") -> str:
+def svg(body: str, width: str = "252.28pt", height: str = "150pt") -> str:   # 89 mm wide
     return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
             f'width="{width}" height="{height}" viewBox="0 0 250 150">{body}</svg>')
 
@@ -49,8 +49,30 @@ class AuditTest(unittest.TestCase):
         self.assertEqual(self.audit(GOOD), [])
 
     def test_outlined_letters(self):
-        problems = self.audit(svg('<defs><path id="DejaVuSans-31" d="M0 0"/></defs>'))
-        self.assertTrue(any("outlines" in p for p in problems), problems)
+        for glyph in ("DejaVuSans-31", "LiberationSans-Bold-41", "DejaVuSans-Oblique-78"):
+            problems = self.audit(svg(f'<defs><path id="{glyph}" d="M0 0"/></defs>'))
+            self.assertTrue(any("outlines" in p for p in problems), (glyph, problems))
+
+    def test_font_encodings_other_than_inline_longhand(self):
+        attr = svg('<text font-family="DejaVu Sans" font-size="4pt">label</text>')
+        shorthand = svg('<text style="font: 4px \'DejaVu Sans\'">label</text>')
+        for text in (attr, shorthand):
+            problems = self.audit(text)
+            self.assertTrue(any("font set by" in p for p in problems), problems)
+            self.assertTrue(any("no font-family or font-size" in p for p in problems), problems)
+
+    def test_font_inherited_from_group(self):
+        body = (f'<g style="font-size: 4px; font-family: \'DejaVu Sans\'"><text>label</text></g>')
+        problems = self.audit(svg(body))
+        self.assertTrue(any("DejaVu Sans" in p for p in problems), problems)
+        self.assertTrue(any("minimum" in p for p in problems), problems)
+        good = f'<g style="font-size: 7px; {ARIAL}"><text>label</text></g>'
+        self.assertEqual(self.audit(svg(good)), [])
+
+    def test_only_column_widths(self):
+        problems = self.audit(svg("", width="340.16pt"))             # 120 mm
+        self.assertTrue(any("89 or 183 mm" in p for p in problems), problems)
+        self.assertEqual(self.audit(svg("", width="518.74pt")), [])  # 183 mm
 
     def test_per_letter_tspans(self):
         body = (f'<text style="font-size: 6px; {ARIAL}"><tspan x="1" y="2">1</tspan>'

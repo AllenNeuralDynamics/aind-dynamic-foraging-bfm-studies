@@ -10,7 +10,7 @@ What it catches, each a real failure seen in this repo:
   which Illustrator imports as separate characters;
 - a font other than Arial or its stand-ins, e.g. DejaVu Sans, the fallback on the compute nodes;
 - text or a figure outside its style's limits (LIMITS): a paper figure has 5-8 pt text and is
-  at most 183 x 170 mm (Nature: 5-7 pt text, 8 pt panel letters, 89 or 183 mm wide); a slide
+  89 or 183 mm wide and at most 170 mm tall (Nature: 5-7 pt text, 8 pt panel letters); a slide
   figure, kept under an `analysis/slides/` directory, has 12-28 pt text and fits a 16:9 slide.
 """
 from __future__ import annotations
@@ -20,13 +20,15 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 MM_PER_PT = 25.4 / 72
-# style -> (max width mm, max height mm, min text pt, max text pt)
-LIMITS = {"paper": (183.0, 170.0, 5.0, 8.0), "slide": (338.7, 190.5, 12.0, 28.0)}
+# style -> widths allowed (mm; None = any up to max_w), max width, max height (mm), text range (pt)
+LIMITS = {"paper": {"widths": (89.0, 183.0), "max_w": 183.0, "max_h": 170.0, "pt": (5.0, 8.0)},
+          "slide": {"widths": None, "max_w": 338.7, "max_h": 190.5, "pt": (12.0, 28.0)}}
 SLIDES_DIR = "slides"
 FONTS = {"Arial", "Liberation Sans", "Helvetica", "sans-serif"}
 
 _SVG = "{http://www.w3.org/2000/svg}"
-_GLYPH_ID = re.compile(r"^[A-Za-z][\w]*-[0-9a-f]+$")   # matplotlib glyph outlines: DejaVuSans-31
+# matplotlib glyph outlines are ids "<PostScript name>-<hex code>": DejaVuSans-31, LiberationSans-Bold-41
+_GLYPH_ID = re.compile(r"^[A-Za-z][\w-]*-[0-9a-f]+$")
 _TOL_MM = 0.5
 
 
@@ -37,9 +39,38 @@ def _pt(value: str | None) -> float | None:
     return float(m.group(1)) if m else None
 
 
+def _fonts(el, family, size, out: list, problems: set) -> None:
+    """Walk the tree carrying the inherited font; record (family, size) for every <text>.
+
+    Only the encoding matplotlib writes is accepted (inline ``font-family`` / ``font-size: Npx``
+    longhand); anything else is reported rather than assumed compliant."""
+    css = el.get("style") or ""
+    if el.get("font-family") is not None or el.get("font-size") is not None or el.get("font") is not None:
+        problems.add("font set by an SVG attribute, not inline style (save with figure_style.save_figure)")
+    if re.search(r"(^|;)\s*font\s*:", css):
+        problems.add("font set by the CSS 'font:' shorthand (save with figure_style.save_figure)")
+    m = re.search(r"(^|;)\s*font-family:\s*([^;]+)", css)
+    if m:
+        family = frozenset(f.strip(" '\"") for f in m.group(2).split(","))
+    m = re.search(r"(^|;)\s*font-size:\s*([^;]+)", css)
+    if m:
+        n = re.fullmatch(r"\s*([\d.]+)px\s*", m.group(2))
+        if n:
+            size = float(n.group(1))              # matplotlib's SVG user unit is 1 pt
+        else:
+            problems.add(f"font-size {m.group(2).strip()!r}; only px (= pt) is written by matplotlib")
+    if el.tag == f"{_SVG}text":
+        if family is None or size is None:
+            problems.add("text with no font-family or font-size of its own or inherited")
+        out.append((family, size))
+    for child in el:
+        _fonts(child, family, size, out, problems)
+
+
 def audit_svg(path: Path | str, style: str = "paper") -> list[str]:
     """Problems with one SVG under ``style`` (see LIMITS), each a short sentence; [] means it passes."""
-    max_w, max_h, min_pt, max_pt = LIMITS[style]
+    lim = LIMITS[style]
+    min_pt, max_pt = lim["pt"]
     path = Path(path)
     try:
         root = ET.parse(path).getroot()
@@ -50,10 +81,14 @@ def audit_svg(path: Path | str, style: str = "paper") -> list[str]:
     if width is None or height is None:
         problems.append("no width/height in pt on the <svg> element (save with figure_style.save_figure)")
     else:
-        if width * MM_PER_PT > max_w + _TOL_MM:
-            problems.append(f"{width * MM_PER_PT:.0f} mm wide; the {style} limit is {max_w:.0f} mm")
-        if height * MM_PER_PT > max_h + _TOL_MM:
-            problems.append(f"{height * MM_PER_PT:.0f} mm tall; the {style} limit is {max_h:.0f} mm")
+        w, h = width * MM_PER_PT, height * MM_PER_PT
+        if lim["widths"] and not any(abs(w - x) <= _TOL_MM for x in lim["widths"]):
+            problems.append(f"{w:.0f} mm wide; a {style} figure is "
+                            + " or ".join(f"{x:g}" for x in lim["widths"]) + " mm wide")
+        elif w > lim["max_w"] + _TOL_MM:
+            problems.append(f"{w:.0f} mm wide; the {style} limit is {lim['max_w']:g} mm")
+        if h > lim["max_h"] + _TOL_MM:
+            problems.append(f"{h:.0f} mm tall; the {style} limit is {lim['max_h']:g} mm")
 
     glyphs = [p.get("id") for p in root.iter(f"{_SVG}path")
               if p.get("id") and _GLYPH_ID.match(p.get("id"))]
@@ -64,21 +99,19 @@ def audit_svg(path: Path | str, style: str = "paper") -> list[str]:
         problems.append(f"{split} labels split into one <tspan> per letter (math text; "
                         "use plain text or figure_style.plain_log_axis)")
 
-    families, sizes = set(), []
-    for el in root.iter():
-        css = el.get("style") or ""
-        m = re.search(r"font-family:\s*([^;]+)", css)
-        if m:
-            families |= {f.strip(" '\"") for f in m.group(1).split(",")}
-        m = re.search(r"font-size:\s*([\d.]+)px", css)
-        if m:
-            sizes.append(float(m.group(1)))      # matplotlib's SVG user unit is 1 pt
+    texts, font_problems = [], set()
+    _fonts(root, None, None, texts, font_problems)
+    problems += sorted(font_problems)
+    families = set().union(*(f for f, _ in texts if f))
+    sizes = {s for _, s in texts if s is not None}
     if families - FONTS:
         problems.append(f"fonts {sorted(families - FONTS)}; only {sorted(FONTS)} are allowed")
-    small = sorted({s for s in sizes if s < min_pt - 1e-6})
-    large = sorted({s for s in sizes if s > max_pt + 1e-6})
+    small = sorted(s for s in sizes if s < min_pt - 1e-6)
+    large = sorted(s for s in sizes if s > max_pt + 1e-6)
     if small:
-        problems.append(f"text at {', '.join(f'{s:g}' for s in small)} pt; the {style} minimum is {min_pt:g} pt")
+        problems.append(f"text at {', '.join(f'{s:g}' for s in small)} pt; "
+                        f"the {style} minimum is {min_pt:g} pt")
     if large:
-        problems.append(f"text at {', '.join(f'{s:g}' for s in large)} pt; the {style} maximum is {max_pt:g} pt")
+        problems.append(f"text at {', '.join(f'{s:g}' for s in large)} pt; "
+                        f"the {style} maximum is {max_pt:g} pt")
     return problems
