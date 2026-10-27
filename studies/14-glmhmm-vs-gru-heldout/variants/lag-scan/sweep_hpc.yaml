@@ -1,0 +1,37 @@
+# Study 14 / lag-scan: K = 1 on the full training pool, every history length L for both
+# emissions, to fix L for the K grids (PLAN.md). L is chosen on glmhmm/select/eval_likelihood,
+# the per-mouse refit score of the TRAINING mice; held-out keys are reported but never used
+# to choose. At K = 1 there are no restarts.
+#   data  -> dispatcher code/config/data/mice_snapshot_scaling.yaml (snapshot 20260603),
+#            ignore_policy=include as study 02's 3-way GRU, stage column retained for the split
+#   model -> dispatcher code/config/model/glmhmm.yaml
+# wandb.project must be in the command: the launcher sets only the group.
+
+entity: AIND-disRNN
+project: mice_glmhmm
+name: lag-scan
+
+method: grid
+metric:
+  name: glmhmm/select/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - data.ignore_policy=include
+  - +data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,current_stage_actual]
+  - model=glmhmm
+  - model.num_states=1
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_glmhmm
+  - ${args_no_hyphens}
+
+parameters:
+  model.emission:
+    values: [hurdle, reference]
+  model.n_lags:
+    values: [3, 5, 7, 10, 15]
