@@ -36,9 +36,10 @@ the pooled held-out scores, beside study 02's GRU, then a description of the sta
 | `faeze-crosscheck` (diagnostic, later) | her setup: `mature_only: true`, her mice and sessions, L = 7, her K (up to 10), reference emission | from Faeze: design matrix, ssm settings (prior_sigma, transition_alpha, restarts, tolerance), mice and sessions, curricula, fitted parameters. Compare side contrasts (right − left) and class probabilities, not raw reference weights: in a state that almost never ignores, the common mode of the left and right logits is not identified (models recovery, `glm_hmm/recovery/RESULTS.md`) |
 | `all-data-inference` (+ `-mature`, later) | every mouse and session; K, L, emission and priors from the benchmark | snapshot coverage and flags for ophys/ephys sessions; a wrapper switch for no held-out reservation |
 
-`all-data-inference` serves later neural studies with per-trial smoothed and filtered
-posteriors and Viterbi paths, keyed by (subject_id, ses_idx, trial) with stage. It reports no
-`heldout/*` metrics, and nothing about it is tuned on neural data.
+`all-data-inference` serves later studies of the ophys/ephys sessions with per-trial smoothed
+and filtered posteriors and Viterbi paths, keyed by (subject_id, ses_idx, trial) with stage.
+It reports no `heldout/*` metrics, and nothing about it is tuned on the ophys/ephys
+recordings.
 
 ## Comparators (read, never retyped)
 
