@@ -49,11 +49,31 @@ posteriors and Viterbi paths, keyed by (subject_id, ses_idx, trial) with stage. 
 
 ## Compute
 
-HPC CPU, one W&B run per (K, emission, L) cell, `--sbatch-extra "--cpus-per-task=8 --mem=64G
---time=48:00:00"`. These estimates come from the models PR's scale probe (1M trials, K = 10,
-L = 5: about 5–6 s per EM iteration, under 2 GB). A full-pool global fit (about 4.5M train trials) at
-K = 10 is roughly 25 s per iteration, about 7 h for 10 restarts, plus about 2–3 h of
-per-mouse refits.
+One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
+- **Data:** 614 training mice, 9,227 train sessions, 4.89M trials.
+- **Setup:** one restart from the K = 1 weights, on 8 CPU cores, a V100 or an A100.
+- **Source:** the timing jobs recorded on #48.
+
+| K = 10 cell | CPU (8 cores) | GPU |
+|---|---|---|
+| EM iteration, L = 5 | 8–13 s | about 3 s |
+| EM iteration, L = 10 | about 25 s (hurdle), about 47 s (reference) | about 5 s |
+| iterations to converge (1e-6 nats/trial), L = 5 | hurdle 317, reference 220 | same |
+| global fit, 10 restarts, L = 5 | about 7–8 h | about 1.4–2.6 h |
+| per-mouse refits (614 for K selection + 149 held-out) | about 1.8 h | slower on a GPU: keep on CPU |
+
+- **Backend.** Until the CUDA solver pin lands
+  (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111), run on HPC CPU with
+  `--sbatch-extra "--cpus-per-task=8 --mem=64G --time=48:00:00"`.
+  - At L = 10 a K = 10 reference cell is about 30 h on CPU, so if `lag-scan` picks L = 10,
+    wait for the GPU.
+  - The Beaker templates are CPU-only for the same reason.
+- **Iteration cap.** `max_em_iters` 300 stops the K = 10 hurdle fit 17 iterations short.
+  - That costs 4e-5 nats/trial of prediction, but it compares restarts below their optimum.
+  - Raise the cap to 500 before the K grids (AllenNeuralDynamics/aind-dynamic-foraging-models#82).
+- **Wall-clock.** Lower K is cheaper, and cells run in parallel, so a grid's wall-clock is its
+  K = 10 cell. `lag-scan` (K = 1) converges in about 2 iterations, so each of its cells is
+  dominated by the refits.
 
 ## Build order
 
@@ -66,3 +86,6 @@ per-mouse refits.
 5. Reports: r1 held-out score vs K for both emissions against study 02; r2 what the states
    are (aligned weights, A, dwell times, occupancy by stage).
    In r2, report each state's p(ignore) and p(right | respond), not raw logits: an engagement or common-mode weight of a state that never ignores is bounded, not identified.
+   Read states only as far as study 15 (#50) shows such states are recoverable. Study 15
+   simulates from known GLM-HMMs on the foraging gym's uncoupled-baiting task, including a
+   factorial of 8 designed strategies.
