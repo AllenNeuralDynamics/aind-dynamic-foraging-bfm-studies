@@ -35,8 +35,10 @@ tasks:
         # Reaches AWS S3, which the snapshot parquet cache needs; GCP clusters cannot.
         - ai1/octo-hub-onprem-h200
     resources:
-      # One GPU and well inside one bundle (the probes peak under 8 GB at L <= 10).
-      gpuCount: 1
+      # CPU only: the GLM-HMM computes on the CPU (AIND_GLMHMM_DEVICE below; GPU linear solves
+      # fail on the pinned jax 0.6.1 stack). If a hub cluster refuses CPU-only tasks, request
+      # gpuCount: 1; the job still computes on the CPU. The probes peak under 8 GB at L <= 10.
+      gpuCount: 0
       cpuCount: 8
       memory: 64GiB
     envVars:
@@ -44,6 +46,8 @@ tasks:
         secret: han-wandb-api-key
       - name: BFM_OUTPUT_DIR
         value: /results
+      - name: AIND_GLMHMM_DEVICE
+        value: cpu
       # Readable values; the launcher submits the resolved full SHAs.
       - name: WRAPPER_REF
         value: main

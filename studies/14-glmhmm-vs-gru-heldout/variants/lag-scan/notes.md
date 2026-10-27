@@ -21,7 +21,7 @@ resolves a relative `--sweep-yaml` against the dispatcher, and writes the record
       --label lag-scan --note "Study 14: K=1 GLM-HMM over L x emission to fix the history length for the K grids, chosen on the training-mouse refit score"
 
 **Or on Beaker**, which needs the image rebuilt with the `[glmhmm]` extra first (see
-`experiment_beaker.yaml`). Same grid, one non-preemptible GPU task per cell:
+`experiment_beaker.yaml`). Same grid, one non-preemptible CPU task per cell:
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
       --sweep      "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/sweep_beaker.yaml" \
