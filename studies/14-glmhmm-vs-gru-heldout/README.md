@@ -75,7 +75,7 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
 
 | variant | what varies | answers |
 |---|---|---|
-| `lag-scan` | K = 1, history length L ∈ {3, 5, 7, 10, 15}, both emissions | which L the K grid uses |
+| `lag-scan` | K = 1, history length L ∈ {3, 5, 7, 10}, both emissions | which L the K grid uses |
 | `hurdle` | K = 1 … 10, hurdle emission, chosen L | held-out score vs K; states |
 | `reference` | K = 1 … 10, reference emission, chosen L | the same, for the `ssm`-style parameterisation |
 

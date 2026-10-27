@@ -1,0 +1,55 @@
+## Beaker task template for study 14's `lag-scan` variant (GLM-HMM).
+##
+## The resumable launcher reads image / cluster / resources / refs / secret from here, keeps
+## `command[:2]` and appends the sweep's `command:`; the tail below is a placeholder. Run from
+## the studies root (relative paths would resolve against the dispatcher):
+##   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
+##     --sweep      "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/sweep_beaker.yaml" \
+##     --experiment "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/experiment_beaker.yaml" \
+##     --workspace  ai1/aind-dynamic-foraging-foundation-model \
+##     --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/launch_record/<label>" \
+##     --label <label> --note "..."
+
+version: v2
+description: GLM-HMM global fit + per-mouse refits, study 14 lag-scan (template; the launcher rewrites this)
+tasks:
+  - name: glmhmm-lag-scan
+    # NEEDS A NEW IMAGE. The image must carry the models package's [glmhmm] extra (dynamax and
+    # the pinned tfp-nightly). Jobs clone the code at the REFs below but install nothing, so the
+    # current main image (han-hou/dynamic-foraging-bfm-wrapper-main-20260902, [bayes] only)
+    # fails at `import dynamax`. Build from wrapper main once wrapper#110 (Dockerfile installs
+    # models[bayes,glmhmm]) and models#81 have merged, then set the name here. The launcher
+    # resolves the name to an immutable id and fails on a name that does not exist.
+    image:
+      beaker: han-hou/dynamic-foraging-bfm-wrapper-main-glmhmm
+    command:
+      - bash
+      - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+      - "true"
+    # No checkpointing: a preempted task restarts its fit, so keep the slot (as study 13).
+    context:
+      priority: normal
+      preemptible: false
+    constraints:
+      cluster:
+        # Reaches AWS S3, which the snapshot parquet cache needs; GCP clusters cannot.
+        - ai1/octo-hub-onprem-h200
+    resources:
+      # One GPU and well inside one bundle (the probes peak under 8 GB at L <= 10).
+      gpuCount: 1
+      cpuCount: 8
+      memory: 64GiB
+    envVars:
+      - name: WANDB_API_KEY
+        secret: han-wandb-api-key
+      - name: BFM_OUTPUT_DIR
+        value: /results
+      # Readable values; the launcher submits the resolved full SHAs.
+      - name: WRAPPER_REF
+        value: main
+      - name: DISPATCHER_REF
+        value: main
+      - name: FORAGING_MODELS_REF
+        value: main
+    result:
+      path: /results

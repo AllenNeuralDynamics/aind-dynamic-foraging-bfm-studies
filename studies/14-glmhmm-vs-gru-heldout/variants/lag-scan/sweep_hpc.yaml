@@ -34,4 +34,4 @@ parameters:
   model.emission:
     values: [hurdle, reference]
   model.n_lags:
-    values: [3, 5, 7, 10, 15]
+    values: [3, 5, 7, 10]  # capped at 10: Su2022 history-regression weights are near zero by lag 10, so longer histories buy little and cost compute

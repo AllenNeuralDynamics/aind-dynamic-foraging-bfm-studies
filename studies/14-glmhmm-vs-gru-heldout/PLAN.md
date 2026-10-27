@@ -30,7 +30,7 @@ the pooled held-out scores, beside study 02's GRU, then a description of the sta
 
 | variant | grid | needs first |
 |---|---|---|
-| `lag-scan` | K = 1; L ∈ {3, 5, 7, 10, 15} × {hurdle, reference} | merged and released code |
+| `lag-scan` | K = 1; L ∈ {3, 5, 7, 10} × {hurdle, reference}. L stops at 10: Su2022 history-regression weights are near zero by lag 10, so longer histories buy little and cost compute | merged and released code |
 | `hurdle` | K ∈ 1..10, L from `lag-scan` | `lag-scan` result |
 | `reference` | K ∈ 1..10, L from `lag-scan` | `lag-scan` result |
 | `faeze-crosscheck` (diagnostic, later) | her setup: `mature_only: true`, her mice and sessions, L = 7, her K (up to 10), reference emission | from Faeze: design matrix, ssm settings (prior_sigma, transition_alpha, restarts, tolerance), mice and sessions, curricula, fitted parameters. Compare side contrasts (right − left) and class probabilities, not raw reference weights: in a state that almost never ignores, the common mode of the left and right logits is not identified (models recovery, `glm_hmm/recovery/RESULTS.md`) |
