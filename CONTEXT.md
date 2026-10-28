@@ -146,16 +146,17 @@ one study uses belongs in that study's `CONTEXT.md`; the ones under
 <a id="metric-normalized-likelihood"></a>**Normalized likelihood**:
 The geometric mean, over a set of trials, of the probability the model gave to the choice the
 animal made: `exp(Σ log p / number of trials)`. It is a probability per trial from 0 to 1;
-chance is 0.5 for a left/right choice and 1/3 for left/right/ignore; higher is better. Every
-entry below is a normalized likelihood and names its trials and its aggregation.
+chance is 0.5 for a left/right choice and 1/3 for left/right/ignore; higher is better. Each
+likelihood entry below is a normalized likelihood and names its trials and its aggregation.
 _Avoid_: LL, log-likelihood, NLL, nats (it is a probability, not a log)
 _Code_: `rnn_utils.normalized_likelihood` in aind-disentangled-rnns, at the wrapper's pin
 
 <a id="metric-heldout-likelihood-trial-pooled"></a>**Held-out likelihood, trial-pooled**:
 The normalized likelihood over every scored trial of every held-out subject:
-`exp(Σ log p over all trials / total trials)`. One value per run; W&B logs it as
-`heldout/eval_likelihood` (also `heldout/final/eval_likelihood`, and
-`heldout/matched_likelihood` in study 08). GRU and disRNN curves usually give its seed mean.
+`exp(Σ log p over all trials / total trials)`. A GRU or disRNN run logs it in W&B under keys
+such as `heldout/eval_likelihood` and `heldout/final/eval_likelihood`; where each run fits one
+subject (study 13), the study's producer pools the runs. GRU and disRNN curves usually give its
+seed mean.
 _Avoid_: normalized likelihood, held-out LL, pooled LL, pooled likelihood, pooled held-out
 likelihood, trial-weighted pooled likelihood, held-out likelihood (trial-weighted), pooled LL
 (trial-wtd), cell-level likelihood, held-out choice likelihood per trial
@@ -193,7 +194,8 @@ _Code_: `studies/09-gru-cross-species-transfer/analysis/freeze_generalization_dr
 
 <a id="metric-heldout-likelihood-difference-trial-pooled"></a>**Held-out likelihood difference, trial-pooled**:
 Model A's trial-pooled held-out likelihood minus model B's, in probability units. Write it
-"A − B"; positive favours A.
+"A − B"; positive favours A. The same difference of subject-balanced values is the held-out
+likelihood difference, subject-balanced (study 09 r3, r6).
 _Avoid_: gap, Δ, step, residual gap, remaining gap, trial-pooled Δ, "GRU minus HB" with no
 aggregation, nats
 _Code_: `studies/13-hb-subject-vs-gru-heldout/analysis/r4_ladder.py`
@@ -255,8 +257,8 @@ _Code_: `studies/06-disrnn-operating-point-at-scale/analysis/model_selection.py`
 
 <a id="metric-generalization-gap"></a>**Generalization gap**:
 The held-out-session likelihood of the training subjects minus the trial-pooled held-out
-likelihood of the held-out subjects, for each run, then the seed mean. Positive means the model
-predicts the subjects it trained on better than new subjects. Study 07's JSON `gap` is a
+likelihood of the held-out subjects, for one run. Positive means the model predicts the
+subjects it trained on better than new subjects. Study 07's JSON `gap` is a
 different quantity: training sessions minus held-out sessions of the training subjects.
 _Avoid_: gap (in − held-out), train − held-out, residual (study 06 r2; opposite sign)
 _Code_: `studies/11-disrnn-near-gru-ceiling/analysis/attribution_report.py`
@@ -293,11 +295,11 @@ _Code_: wrapper `code/model_trainers/gru_trainer.py` (`engage_ignore_recall`)
 ### Generative match
 
 <a id="metric-generative-match-correlation"></a>**Generative-match correlation, subject-mean**:
-The Pearson correlation, across task conditions, between the animals' behaviour curve and the
-curve of the model run as a generator, each first averaged over subjects. Reports use two
-curves: switch-triggered (behaviour after a switch, by reward and run length) and
-history-dependent (switch probability after each of 32 recent choice-and-reward histories). From
-−1 to 1; higher is better. It is not a mean of per-subject correlations.
+The Pearson correlation, across task conditions, between the subject-averaged behaviour curve
+of the animals and that of the model run as a generator; it is not a mean of per-subject
+correlations. Reports use a switch-triggered curve (behaviour after a switch, by reward and run
+length) and a history-dependent curve (switch probability after each of 32 recent
+choice-and-reward histories). From −1 to 1; higher is better.
 _Avoid_: corr, subject-mean correlation, switch corr, history corr, r (both)
 _Code_: wrapper `code/post_training_analysis/generative_analysis.py`, read by
 `studies/01-gru-scaling-law/analysis/generative_match.py`
@@ -330,13 +332,11 @@ _Code_: `studies/03-disrnn-beta-scan/analysis/backfill_sparsity_metrics.py`
 
 <a id="metric-decoding-r2"></a>**Decoding R², cross-validated**:
 How well a linear decoder predicts a known quantity (a generating parameter, a mixture weight,
-session position) from a model's subject or session embedding, scored on held-out folds:
-`1 − residual variance / total variance`. At most 1; 0 is no better than the mean; it can be
-negative. Reports differ in decoder (ridge or ordinary least squares), fold unit (subjects or
-sessions) and target (the value or its rank), so name all three. Rank R² is decoding R² on the
-rank of the target; it is not Spearman ρ². A fitted forager's parameters compared directly with
-the true ones, with no decoder, give parameter-recovery R² instead (dispatcher glossary:
-parameter recovery).
+session position) from a model's embedding, scored on held-out folds: at most 1, 0 is no better
+than the mean, and it can be negative. Reports differ in decoder (ridge or least squares), fold
+unit (subjects or sessions) and target (the value or its rank), so name all three; rank R² is
+not Spearman ρ². Fitted forager parameters compared directly with the true ones, with no
+decoder, give parameter-recovery R² instead.
 _Avoid_: recovery, recovery R², Ridge R², mix-R², position-R², session-frac R²
 _Code_: `studies/01-gru-scaling-law/analysis/embedding_param_decode.py`,
 `studies/04-gru-vs-disrnn-embedding-recovery/analysis/recovery_scoring.py`
@@ -438,9 +438,9 @@ large inverse temperature.
 <a id="method-hb"></a>**Hierarchical Bayesian model (HB)**:
 A forager whose session-level parameters come from a subject-level distribution (two levels,
 study 13), which can itself come from a population distribution (three levels, study 08), all
-fitted together. Sessions with little data then borrow strength from the subject's other
-sessions (partial pooling). Studies use it to ask whether a classical model that lets parameters
-vary between sessions can match the GRU. Watch: results depend on the prior and on whether the
+fitted together, so that sessions with little data borrow strength from the others
+([partial pooling](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/blob/main/CONTEXT.md)). Studies use it to ask whether a classical model whose parameters vary
+between sessions can match the GRU. Watch: results depend on the prior and on whether the
 sampler converged ([convergence gates](#method-convergence-gates)).
 
 <a id="method-plug-in"></a>**Plug-in prediction**:
@@ -449,14 +449,12 @@ predictions of all posterior draws. Study 13 uses it to show how much the HB gai
 over draws.
 
 <a id="method-session-marginal"></a>**Session-marginal and trial-marginal scoring**:
-Two ways to score an HB on a held-out session whose own parameters are unknown. Session-marginal
-averages the likelihood of the whole session over parameter draws; this equals predicting each
-trial from the session's earlier trials while the draws are reweighted as trials arrive (a
-particle filter). Trial-marginal averages each trial's choice probability over the draws and
-multiplies across trials, so it cannot learn within a session. Study 13 headlines the
-session-marginal and defines both in
-[its glossary](studies/13-hb-subject-vs-gru-heldout/CONTEXT.md); study 08 used the
-trial-marginal. Watch: the two can rank models differently.
+Two ways to score an HB on a held-out session whose own parameters are unknown, defined in
+[study 13's glossary](studies/13-hb-subject-vs-gru-heldout/CONTEXT.md). Session-marginal
+(study 13) averages the likelihood of the whole session over parameter draws, which predicts
+each trial from the session's earlier trials as a particle filter does; trial-marginal (study
+08) averages each trial's choice probability over the draws, so it cannot learn within a
+session. Watch: the two can rank models differently.
 
 <a id="method-heldout-subject-scoring"></a>**Held-out-subject scoring**:
 How a model is scored on a subject it never trained on. A GRU or disRNN keeps its trained
@@ -487,12 +485,11 @@ chains start apart; each discards an initial warmup and keeps the rest as draws.
 13 fit their HBs this way. Watch: the draws describe the posterior only if the chains converged.
 
 <a id="method-convergence-gates"></a>**Convergence gates (R-hat, bulk ESS, divergences)**:
-Checks that MCMC draws can be trusted. R-hat compares the spread within and between chains (1
-means they agree; gate: below 1.01). Bulk ESS is the number of independent draws that the
-correlated chains are worth (gate: at least 400). A divergence is a step where the sampler failed
-in a sharply curved region (gate: none). Watch: passing does not prove convergence, and the
-subjects that fail are rarely a random subset, so a converged-only result describes a different
-population.
+Checks that MCMC draws can be trusted: R-hat compares the spread within and between chains
+(gate: below 1.01), bulk ESS counts how many independent draws the correlated chains are worth
+(gate: at least 400), and a divergence is a step where the sampler failed in a sharply curved
+region (gate: none). Watch: passing does not prove convergence, and the subjects that fail are
+rarely a random subset, so a converged-only result describes a different population.
 
 <a id="method-importance-sampling"></a>**Importance sampling**:
 Estimate an average under one distribution from draws taken from another (the proposal), and
