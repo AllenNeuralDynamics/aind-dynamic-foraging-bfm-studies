@@ -13,7 +13,6 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pyarrow.parquet as pq
 
 STUDY = Path(__file__).resolve().parents[1]
 # Which source run the producers analyse. The default (C-s0) writes to ``analysis/`` as
@@ -31,7 +30,7 @@ else:
     EXPLORE = CACHE / "explore" / "seeds" / MODEL_KEY
     ANALYSIS.mkdir(parents=True, exist_ok=True)
 sys.path.insert(0, str(STUDY.parent / "util"))
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, file_digest, write_artifact  # noqa: E402
 from plot_style import apply_presentation_style  # noqa: E402,F401
 
 HIDDEN = 128
@@ -53,6 +52,37 @@ TASK_COLORS = {
 LEFT_COLOR, RIGHT_COLOR, MODEL_COLOR = "#D55E00", "#0072B2", "#222222"
 
 
+# What this process read, for _meta v2: committed files (``inputs``) and cache files
+# (``sources`` of a freeze), by path; filled by read_json() and the cache loaders below.
+_INPUTS: dict[str, Path] = {}
+_CACHE_READS: dict[str, dict] = {}
+
+
+def _rel(path: Path) -> str:
+    """Repository-relative path, without resolving the _cache symlink out of the repository."""
+    return os.path.relpath(path, STUDY.parents[1])
+
+
+def _read_cache(path: Path) -> Path:
+    if str(path) not in _CACHE_READS:
+        _CACHE_READS[str(path)] = {"type": "file", "id": _rel(path), "sha256": file_digest(path)}
+    return path
+
+
+def read_json(path: Path | str) -> dict:
+    """Parse a committed JSON and record it as an input of whatever this process writes."""
+    path = Path(path)
+    _INPUTS[str(path)] = path
+    return json.loads(path.read_text())
+
+
+def model_sources(key: str = MODEL_KEY) -> list[dict]:
+    """The source run (and its artifact digest) every A1-derived output is computed from."""
+    manifest = json.loads((STUDY / "analysis" / "source_runs.json").read_text())
+    run = manifest["models"][key.split("-")[0]]["runs"][key]
+    return [{"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{run['run_id']}"}]
+
+
 def wandb_groups() -> list[str]:
     manifest = json.loads((STUDY / "analysis" / "source_runs.json").read_text())
     return [manifest["models"][MODEL_KEY.split("-")[0]]["group"]]
@@ -69,8 +99,10 @@ def load_trials(
 
     ``sessions`` restricts to those ``ses_idx`` values at read time (cheap for wide reads).
     """
+    import pyarrow.parquet as pq  # noqa: PLC0415 (freeze-only; CI's offline `all` has no pyarrow)
+
     filters = [("ses_idx", "in", list(sessions))] if sessions is not None else None
-    return pq.read_table(trial_table_path(key), columns=columns, filters=filters).to_pandas()
+    return pq.read_table(_read_cache(trial_table_path(key)), columns=columns, filters=filters).to_pandas()
 
 
 def pca_path(key: str = MODEL_KEY) -> Path:
@@ -79,7 +111,7 @@ def pca_path(key: str = MODEL_KEY) -> Path:
 
 def load_pca(key: str = MODEL_KEY) -> dict[str, np.ndarray]:
     """PCA written by ``b3_pca.py``: mean, components (PCs x units), eigenvalues, scores."""
-    with np.load(pca_path(key)) as data:
+    with np.load(_read_cache(pca_path(key))) as data:
         return {k: data[k] for k in data.files}
 
 
@@ -88,10 +120,22 @@ def rl_groups() -> list[str]:
     return [m["group"] for m in manifest["rl_baselines"]["models"].values()]
 
 
-def write_json(name: str, payload: dict, produced_by: str, extra_groups: list[str] = ()) -> Path:
+def write_json(name: str, payload: dict, produced_by: str, extra_groups: list[str] = (), *,
+               kind: str = "freeze", inputs: list[Path | str] = (), sources: list[dict] = ()) -> Path:
+    """Write ``analysis/<name>`` with a v2 ``_meta``.
+
+    Every producer behind a ``freeze-*`` target is a freeze (the default): its sources are the
+    model's source run plus every cache file read through the loaders here, and ``sources``
+    adds any other external object it read. An offline producer that only reads committed JSON
+    (``read_json``) passes ``kind="producer"``.
+    """
     path = ANALYSIS / name
-    out = {"_meta": build_meta(produced_by, wandb_groups() + list(extra_groups), study_root=STUDY), **payload}
-    path.write_text(json.dumps(out, indent=2, default=_json_default) + "\n")
+    read = list(dict.fromkeys([*map(Path, inputs), *_INPUTS.values()]))
+    extra = {} if kind == "producer" else {
+        "sources": model_sources() + list(_CACHE_READS.values()) + list(sources)}
+    meta = build_meta(produced_by, wandb_groups() + list(extra_groups), study_root=STUDY, kind=kind,
+                      code=[STUDY / produced_by], inputs=read, **extra)
+    write_artifact(path, {"_meta": meta, **payload}, default=_json_default)
     return path
 
 
@@ -123,9 +167,9 @@ def subsample_rows(n_rows: int, n: int, seed: int = 0) -> np.ndarray:
 def best_params(key: str = MODEL_KEY) -> dict:
     """Saved params of the best_eval checkpoint (highest eval likelihood in checkpoints/index.json)."""
     outputs = CACHE / "models" / key / "run" / "outputs"
-    index = json.loads((outputs / "checkpoints" / "index.json").read_text())
+    index = json.loads(_read_cache(outputs / "checkpoints" / "index.json").read_text())
     best = max(index["checkpoints"], key=lambda c: c["eval_likelihood"])
-    return json.loads((outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
+    return json.loads(_read_cache(outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
 
 
 def subject_embeddings(key: str = MODEL_KEY) -> pd.DataFrame:
@@ -135,7 +179,7 @@ def subject_embeddings(key: str = MODEL_KEY) -> pd.DataFrame:
     is added on top per session.
     """
     outputs = CACHE / "models" / key / "run" / "outputs"
-    index_map = json.loads((outputs / "subject_index_map.json").read_text())["subject_id_to_index"]
+    index_map = json.loads(_read_cache(outputs / "subject_index_map.json").read_text())["subject_id_to_index"]
     table = np.asarray(best_params(key)["multisubject_gru"]["subject_embeddings"])
     subjects = sorted(index_map, key=index_map.get)
     return pd.DataFrame(table[[index_map[s] for s in subjects]], index=pd.Index(subjects, name="subject_id"),

@@ -9,12 +9,10 @@ import json
 import re
 from pathlib import Path
 
-import numpy as np
 
 ANALYSIS = Path(__file__).resolve().parent
 REPORT = ANALYSIS / "reports" / "r6-integration-axis.md"
 BEGIN, END = "<!-- BEGIN result-6 -->", "<!-- END result-6 -->"
-RL_RUNS = {"bari": ("bg3nzqz9", "learn_rate"), "ctt": ("lmg1i9yd", "learn_rate")}
 
 
 def load(name: str) -> dict:
@@ -65,9 +63,8 @@ def block() -> str:
               + ", ".join(f"{k} {', '.join(f'{p[0]:+.2f}' for p in v['tdr'])} (logit {', '.join(f'{x:+.2f}' for x in v['logit_right'])})"
                           for k, v in att.items()) + "."]
     rl = []
-    for name, (run, key) in RL_RUNS.items():
-        fits = json.loads((ANALYSIS / "_cache" / "models" / "rl" / run / "baseline_rl_output.json").read_text())["fitted_params_per_subject"]
-        rl.append(f"{name} {key} median {np.median([f['fitted_params'][key] for f in fits.values()]):.2f}")
+    for name, m in load("rl_fit_medians.json")["medians"].items():   # frozen by freeze_rl_fit_medians.py
+        rl.append(f"{name} {m['param']} median {m['median']:.2f}")
     slopes = [r["slope"] for r in i3["transitions"].values()]
     lines += [f"Implied per-trial update fraction 1 − slope: {1 - max(slopes):.2f}–{1 - min(slopes):.2f}; fitted RL for "
               "reference: " + ", ".join(rl) + ".", "", "![I3](../fig_I3_tdr_dynamics.png)"]

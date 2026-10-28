@@ -39,7 +39,12 @@ def block() -> str:
                          f"{rec['frac_candidates_converged']:.2f} |" if tau is not None else " | — | — |")
     lines += ["", "Logit and λ columns describe the most extreme stable fixed point per row; all fixed points, their "
               "PC1–6 coordinates and the overlap of the three slowest modes with the readout and PCs 1/2/5 are in "
-              "`d_dynamics.json`.", "", "![D1](../fig_D1_flow_fields.png)", "![D2](../fig_D2_fixed_points.png)"]
+              "`d_dynamics.json`.", "", "![D1](../fig_D1_flow_fields.png)", "",
+             "*D1's arrows are one-step displacements drawn at full length, not trajectories. They converge",
+             "where one step lands, not on the attractor; repeating the input then drifts the state slowly,",
+             "over tens to hundreds of trials, onto the fixed point (D1b below, added 2026-10-27).*", "",
+             "![D1b](../fig_D1b_convergence.png)", "", "![D1c](../fig_D1c_flow_two_scales.png)",
+             "![D2](../fig_D2_fixed_points.png)"]
     return "\n".join(lines)
 
 

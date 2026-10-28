@@ -1,10 +1,21 @@
+# studies/50-gru-dynamics-embedding/Makefile
+#
+# `all` regenerates every report OFFLINE from committed JSON (CI runs it): each rN runs only
+# its renderer, plus g1 for r7, which reads the committed per-seed JSON.
+#
+# Everything that reads analysis/_cache/ (the A1 trial tables, PCA, downloaded checkpoints
+# and RL outputs), the GPU, W&B or the wrapper is a freeze: `make freeze-rN` reruns the
+# producers behind report rN and rewrites their committed JSON; `make freeze` reruns them all.
+# Never part of `all`. To reproduce rN from the raw sources: `make extract freeze-rN rN`.
+# Freezes need the wrapper checkout (WRAPPER) and the env pinned in environment.lock.
+
 PYTHON ?= python
 WRAPPER ?= ../../../aind-dynamic-foraging-bfm-wrapper/code
 MODEL ?= C-s0
 RUN = PYTHONPATH=$(WRAPPER) $(PYTHON)
 
-.PHONY: all g-seeds g1 g3 r7 b3h b3a-10 d1f i11 i11d i9d i9c i9b i2b d1e f10 f11 f12 f13 i10 i9 d1d d1c d1b i3b f7 f8 f9 f4b f4c report-r4-r5 h1 h2 h3 h4 r8 f5 f6 freeze-sources fetch extract b1 b2 b3 b3c-history b4 b5 b6 b7 r1 c-rollouts c1 c2 c2c-pc-pairs c3 c4 c4e r2 e1 f3 f1 f4 f2 r4 r5 d r3 i1 i2 i3 i4 i5 i6 i7 i8 r6 e2 e2b
-all: r1 r2 r3 r4 r5 r6 r8 b3c-history c2c-pc-pairs
+.PHONY: all freeze-sources fetch extract b1 b2 b3 b3c-history b3h b3a-10 b4 b5 b6 b7 freeze-r1 r1 c-rollouts c1 c2 c2c-pc-pairs c4 c4e c3 freeze-r2 r2 e1 f3 f1 f4 f2 f5 f4b f4c f7 f8 f9 f6 f10 f11 f12 f13 freeze-r4-r5 r4 r5 d d1b d1c d1d d1f d1e freeze-r3 r3 i1 i2 i3b i2b i3 i4 i5 i6 i7 i8 i9 i9b i9c i9d i9e i10 i11 i11d freeze-rl-medians freeze-r6 r6 e2 e2b h3 h4 h1 h2 freeze-r8 r8 g-seeds g1 g3 freeze-r7 r7 freeze
+all: r1 r2 r3 r4 r5 r6 r7 r8
 
 # Reads W&B over GraphQL; needs WANDB_API_KEY (or ~/.netrc). Rewrites source_runs.json.
 freeze-sources:
@@ -41,8 +52,10 @@ b6:
 b7: b3
 	$(RUN) analysis/b7_decoders.py
 
+freeze-r1: b1 b2 b3 b3c-history b4 b5 b6 b7
+
 # Offline formatter over the committed B JSONs.
-r1: b1 b2 b3 b4 b5 b6 b7
+r1:
 	$(PYTHON) analysis/report_r1.py
 
 # Phase C. Stage A: RL replays (CPU) and the GRU counterfactual (GPU, or JAX_PLATFORMS=cpu).
@@ -63,7 +76,9 @@ c4e: c-rollouts
 c3: c-rollouts b3
 	$(RUN) analysis/c3_decoders.py
 
-r2: c1 c2 c3 c4 c4e
+freeze-r2: c1 c2 c2c-pc-pairs c3 c4 c4e
+
+r2:
 	$(PYTHON) analysis/report_r2.py
 
 # Phase E/F, parts that need no step function (cached tables only).
@@ -100,9 +115,12 @@ f12: f10 extract
 	$(PYTHON) analysis/f12_context_learning_examples.py
 f13: f11 extract
 	$(PYTHON) analysis/f13_prototype_state_space.py
-report-r4-r5: e1 e2 e2b f1 f3 f4 f4b f4c f2 f5 f6 f7 f8 f9 f10 f11 f12 f13
+freeze-r4-r5: e1 e2 e2b f1 f3 f4 f4b f4c f2 f5 f6 f7 f8 f9 f10 f11 f12 f13
+
+# One renderer writes both reports.
+r4:
 	$(PYTHON) analysis/report_r4_r5.py
-r4 r5: report-r4-r5
+r5: r4
 
 # Phase D (stage A; ~40 min on CPU with JAX_PLATFORMS=cpu). Needs F1's groups.
 d: f1 b3
@@ -117,7 +135,9 @@ d1f: d1d b3h
 	$(RUN) analysis/d1f_fixed_points_flow.py
 d1e: d1d f2 f9
 	$(RUN) analysis/d1e_flow_own_context.py   # GPU
-r3: d
+freeze-r3: d
+
+r3:
 	$(PYTHON) analysis/report_r3.py
 
 # Phase I — integration axis (needs D's cached contexts and C's Hattori rollout).
@@ -157,7 +177,13 @@ i11: i2 i3 b3h
 	$(PYTHON) analysis/i11_value_across_lobes.py
 i11d: i11 i3b
 	$(PYTHON) analysis/i11d_carry_summary.py
-r6: i1 i2 i3 i4 i5 i6 i7 i8 i9 i9b i9c i9d i9e i10 i11
+# r6 quotes the RL baselines' median learning rates from the downloaded fits.
+freeze-rl-medians: c-rollouts
+	$(PYTHON) analysis/freeze_rl_fit_medians.py
+
+freeze-r6: i1 i2 i3 i4 i5 i6 i7 i8 i9 i9b i9c i9d i9e i10 i11 freeze-rl-medians
+
+r6:
 	$(PYTHON) analysis/report_r6.py
 
 # Phase E2 (stage A, CPU ok): ablations; e2b supersedes e2's single-axis reading.
@@ -175,7 +201,9 @@ h1: c-rollouts
 	$(PYTHON) analysis/h1_model_ladder.py   # GPU
 h2: d c-rollouts
 	$(RUN) analysis/h2_learning_rate.py   # GPU
-r8: h1 h2 h3 h4
+freeze-r8: h1 h2 h3 h4
+
+r8:
 	$(PYTHON) analysis/report_r8.py
 
 # Phase G — robustness (r7). G1/G3 seed checks: fetch + extract C-s1, C-s2, rerun the core
@@ -186,5 +214,10 @@ g1:
 	$(PYTHON) analysis/g1_seed_robustness.py
 g3:
 	$(PYTHON) analysis/g3_cross_seed_alignment.py
-r7: g1 g3
+freeze-r7: g-seeds g3
+
+# g1 reads the committed per-seed JSON under analysis/seeds/ and runs offline.
+r7: g1
 	$(PYTHON) analysis/report_r7.py
+
+freeze: freeze-sources freeze-r1 freeze-r2 freeze-r3 freeze-r4-r5 freeze-r6 freeze-r7 freeze-r8

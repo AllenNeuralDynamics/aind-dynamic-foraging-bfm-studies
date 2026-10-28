@@ -18,8 +18,8 @@ inputs:
   data:
     - analysis/trial_states_C-s1.json
     - analysis/trial_states_C-s2.json
-    - analysis/seeds/C-s1/*.json
-    - analysis/seeds/C-s2/*.json
+    - analysis/seeds/C-s1
+    - analysis/seeds/C-s2
     - analysis/g1_seed_robustness.json
     - analysis/g3_cross_seed_alignment.json
 reproduce: make -C studies/50-gru-dynamics-embedding r7

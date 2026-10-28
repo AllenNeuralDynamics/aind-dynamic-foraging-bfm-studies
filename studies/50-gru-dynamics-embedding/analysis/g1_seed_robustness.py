@@ -38,13 +38,13 @@ def seed_dir(key: str) -> Path:
 
 def load(key: str, name: str) -> dict | None:
     path = seed_dir(key) / f"{name}.json"
-    return json.loads(path.read_text()) if path.exists() else None
+    return s12.read_json(path) if path.exists() else None
 
 
 def metrics(key: str) -> dict[str, float]:
     """Every headline number for one seed; a missing producer leaves its metrics out."""
     m: dict[str, float] = {}
-    a1 = json.loads((s12.STUDY / "analysis" / f"trial_states_{key}.json").read_text())
+    a1 = s12.read_json(s12.STUDY / "analysis" / f"trial_states_{key}.json")
     m["eval likelihood (GRU)"] = a1["checks"]["recomputed_eval_likelihood"]
 
     if (c2 := load(key, "c2_compare")):
@@ -284,7 +284,7 @@ def main() -> None:
     s12.write_json("g1_seed_robustness.json", {
         "seeds": KEYS, "claims": claims, "metrics": per_seed, "spread": spread,
         "note": "basis-free quantities only; G3 aligns the representations across seeds",
-    }, produced_by="analysis/g1_seed_robustness.py")
+    }, produced_by="analysis/g1_seed_robustness.py", kind="producer")
     plot(per_seed, claims)
 
 
