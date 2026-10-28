@@ -9,6 +9,7 @@ Levels:
   error/warn  a broken or missing link in the provenance chain. Fails CI unless the finding
               is in ``schemas/provenance-baseline.json``.
   info        worth knowing, never fails (frozen v1 launch records, whole-checkout dirty flag).
+              The advisory ones (ADVISORY: version-2 report notes) are printed as `note`.
 
 The baseline holds the findings that existed when a rule was introduced. It may only shrink:
 a finding that disappears must be removed from it (``--prune-baseline``), and with
@@ -24,7 +25,9 @@ and a modified file may keep only the findings it already had.
 from __future__ import annotations
 
 import argparse
+import bisect
 import json
+import math
 import posixpath
 import re
 import subprocess
@@ -41,7 +44,9 @@ except ImportError as e:              # e.g. the HPC's system python
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "studies" / "util"))
+sys.path.insert(0, str(REPO / "scripts"))
 from _meta import block_digest, body_digest, file_digest, result_blocks  # noqa: E402
+import report_verdicts  # noqa: E402
 
 SCHEMAS = REPO / "schemas"
 BASELINE = SCHEMAS / "provenance-baseline.json"
@@ -50,6 +55,20 @@ RULE_FILE = re.compile(r"^(schemas/[^/]+\.schema\.json|schemas/layout\.yaml|scri
 FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 GROUP = re.compile(r"\b([A-Za-z0-9][\w.-]*@\d{8}-\d{6})\b")
 MAKE_TARGET = re.compile(r"^([A-Za-z0-9][\w.-]*(?:\s+[A-Za-z0-9][\w.-]*)*)\s*:(?!=)", re.M)
+
+# Version-2 reports (schemas/README.md). The skeleton: these headings, in this order.
+SKELETON = ["## Question", "## Answer", "## Methods", "## Results", "## What it means",
+            "## Caveats", "## Next", "## Provenance"]
+# A number in hand-written prose: a decimal, scientific notation or a percentage. Integers are
+# left alone (years, D=614, n=149, r1, F2, seed counts): too many are not results.
+PROSE_NUMBER = re.compile(r"(?<![\w.@/\\])(\d*\.\d+(?:[eE][-+−]?\d+)?|\d+[eE][-+−]?\d+|\d+(?:\.\d+)?%)(?![\w%]|\.\d)")
+JSON_NUMBER = re.compile(r"\d*\.?\d+(?:[eE][-+]?\d+)?")
+# Prose numbers that are conventions, not results. Write any other constant as code (`0.5`).
+PROSE_CONSTANTS = {"95%"}
+# Hand-written text the prose-number lint ignores besides blocks, comments and fenced code.
+NOT_PROSE = re.compile(r"`[^`\n]*`|\]\([^)\n]*\)|https?://\S+")
+# Advisory findings: `info`, so they never fail CI, but `make validate` prints them.
+ADVISORY = {"report-claim-unresolved", "report-prose-number"}
 
 # How to fix each finding: agents fix what CI tells them, so every check says how.
 FIX = {
@@ -81,9 +100,23 @@ FIX = {
     "record-image-unrecorded": "launch with a dispatcher that records `image` (studies#25) and with BEAKER_TOKEN set, "
                                "so the image name resolves to its immutable id",
     "report-name": "name reports rN-<slug>.md",
-    "report-frontmatter-missing": "add frontmatter (schemas/report-frontmatter.v1.schema.json)",
+    "report-frontmatter-missing": "add frontmatter (schemas/report-frontmatter.v2.schema.json; "
+                                  "`make new-report` writes it)",
     "report-frontmatter": "fix the frontmatter field named in the message "
-                          "(schemas/report-frontmatter.v1.schema.json)",
+                          "(schemas/report-frontmatter.v<schema_version>.schema.json)",
+    "report-skeleton": "give the report the version-2 headings, in order: `# rN — <the finding>`, "
+                       + ", ".join(f"`{h}`" for h in SKELETON) + " (`make new-report` writes them)",
+    "report-claim-unresolved": "point the claim at a value that exists, `<study-relative JSON path>#<JSON Pointer>` "
+                               "(e.g. analysis/r1_fit.json#/delta/mean), or regenerate the JSON; "
+                               "a draft may point ahead (advisory), a live report may not",
+    "report-prose-stale": "re-read every hand-written sentence against the changed block, and every sibling "
+                          "report that says \"same as rN\"; then set `prose_reviewed.blocks` to the digests "
+                          "the message prints and `prose_reviewed.date` to today",
+    "report-prose-number": "cite the finding by its id instead of retyping the number, or print a number the "
+                           "report's JSON holds (cite that JSON in `inputs`); write a constant that is not a "
+                           "result as code (`0.5`). Advisory: never fails CI",
+    "verdict-stale": "regenerate it: `make -C studies/<study> verdicts` (scripts/report_verdicts.py). "
+                     "The generated block copies the version-2 reports' claims: edit the claims, never the block",
     "report-id-mismatch": "make frontmatter id/slug equal the filename rN-<slug>.md",
     "report-reproduce": "point `reproduce:` at `make -C studies/<study> rN` and add that Makefile target",
     "report-input-missing": "`inputs` holds existing study-relative paths; commands go in `upstream`",
@@ -131,8 +164,9 @@ class Checker:
         self.root = root
         self.layout = yaml.safe_load((SCHEMAS / "layout.yaml").read_text())
         self.schema = {name: Draft202012Validator(json.loads((SCHEMAS / f"{name}.schema.json").read_text()))
-                       for name in ("report-frontmatter.v1", "study-frontmatter.v1", "meta.v2",
-                                    "launch-record.v2")}
+                       for name in ("report-frontmatter.v1", "report-frontmatter.v2", "study-frontmatter.v1",
+                                    "meta.v2", "launch-record.v2")}
+        self._json_numbers: dict[Path, list[float] | None] = {}
         self.tags = yaml.safe_load((SCHEMAS / "tags.yaml").read_text())["facets"]
         self.findings: list[Finding] = []
         self._keys: set[str] = set()
@@ -428,16 +462,22 @@ class Checker:
                 continue
             if p.name not in index:
                 self.add("warn", "report-not-indexed", p, "not linked from INDEX.md")
-            fm, _, err = self.frontmatter(p)
+            fm, body, err = self.frontmatter(p)
             if not result_blocks(p):
                 self.add("warn", "report-no-result-block", p, "no result block")
             if fm is None:
                 self.add("warn", "report-frontmatter-missing", p, err or "no frontmatter")
                 continue
+            if fm.get("schema_version") == 2:
+                # YAML reads an unquoted 2026-10-28 as a date; the schema sees the string
+                fm = json.loads(json.dumps(fm, default=str))
+                self.check_report_v2(study, p, m, fm, body)
             self.check_report_frontmatter(study, p, m, fm, targets)
+        self.check_verdicts(study)
 
     def check_report_frontmatter(self, study: Path, p: Path, m, fm: dict, targets: set[str]) -> None:
-        self.schema_errors("report-frontmatter.v1", fm, "report-frontmatter", p)
+        version = "v2" if fm.get("schema_version") == 2 else "v1"
+        self.schema_errors(f"report-frontmatter.{version}", fm, "report-frontmatter", p)
         self.check_tags(fm.get("tags"), p)
         if fm.get("id") != f"r{m['n']}" or (fm.get("slug") and fm.get("slug") != m["slug"]):
             self.add("error", "report-id-mismatch", p,
@@ -490,6 +530,148 @@ class Checker:
                 self.add("warn", "report-upstream-stale", p,
                          f"upstream {ref} is corrected by {', '.join(missed)}, which this report does not cite",
                          item=ref)
+
+    # -- version-2 reports (schemas/README.md, Version-2 reports) --------------------------------
+    def check_report_v2(self, study: Path, p: Path, m, fm: dict, body: str) -> None:
+        """Skeleton, claim pointers, stale prose and unsourced prose numbers. A superseded or
+        retracted report is history: only its skeleton is checked."""
+        self.check_skeleton(p, m, body)
+        if fm.get("status") in ("superseded", "retracted"):
+            return
+        self.check_claims(study, p, fm)
+        self.check_prose_reviewed(p, fm)
+        self.check_prose_numbers(study, p, fm, body)
+
+    def check_skeleton(self, p: Path, m, body: str) -> None:
+        heads = report_verdicts.headings(body)
+        if not heads or not re.fullmatch(rf"# r{m['n']} — \S.*", heads[0]):
+            self.add("error", "report-skeleton", p, f"the first heading must be `# r{m['n']} — <the finding>`, "
+                     f"not {heads[0] if heads else 'nothing'!r}", item="title")
+        h2, i = [h for h in heads if h.startswith("## ")], 0
+        for want in SKELETON:
+            if want in h2[i:]:
+                i = h2.index(want, i) + 1
+            else:
+                self.add("error", "report-skeleton", p, f"`{want}` is {'out of order' if want in h2 else 'missing'}",
+                         item=want)
+
+    def check_claims(self, study: Path, p: Path, fm: dict) -> None:
+        """Every claim points at a value. A draft may point ahead of its producer (advisory)."""
+        level = "error" if fm.get("status") == "live" else "info"
+        for c in fm.get("claims") if isinstance(fm.get("claims"), list) else []:
+            if not (isinstance(c, dict) and isinstance(c.get("pointer"), str) and "#" in c["pointer"]):
+                continue                                 # the schema reports it
+            path, pointer = c["pointer"].split("#", 1)
+            try:
+                doc = json.loads((study / path).read_text())
+                problem = None if self._resolves(doc, pointer) else f"{path} has no {pointer}"
+            except FileNotFoundError:
+                problem = f"{path} does not exist"
+            except (OSError, ValueError):
+                problem = f"{path} is not readable JSON"
+            if problem:
+                self.add(level, "report-claim-unresolved", p, f"{c.get('id')}: {problem}", item=str(c.get("id")))
+
+    @staticmethod
+    def _resolves(doc, pointer: str) -> bool:
+        """Whether an RFC 6901 JSON Pointer names a value in `doc`."""
+        if pointer and not pointer.startswith("/"):
+            return False
+        for token in pointer.split("/")[1:]:
+            token = token.replace("~1", "/").replace("~0", "~")
+            if isinstance(doc, dict) and token in doc:
+                doc = doc[token]
+            elif isinstance(doc, list) and re.fullmatch(r"0|[1-9][0-9]*", token) and int(token) < len(doc):
+                doc = doc[int(token)]
+            else:
+                return False
+        return True
+
+    def check_prose_reviewed(self, p: Path, fm: dict) -> None:
+        """The prose was re-read after the last change to any BEGIN/END block."""
+        reviewed = fm.get("prose_reviewed")
+        recorded = reviewed.get("blocks") if isinstance(reviewed, dict) else None
+        if not isinstance(recorded, dict):
+            return                                       # the schema reports it
+        now = {name: block_digest(text) for name, text in result_blocks(p).items()}
+        for name in sorted(set(now) | set(recorded)):
+            if now.get(name) == recorded.get(name):
+                continue
+            if name not in now:
+                msg = f"block {name} is gone; after re-reading the prose, remove prose_reviewed.blocks.{name}"
+            else:
+                what = "is new" if name not in recorded else f"changed after the prose review of {reviewed.get('date')}"
+                msg = f"block {name} {what}; after re-reading the prose, set prose_reviewed.blocks.{name}: {now[name]}"
+            self.add("warn", "report-prose-stale", p, msg, item=name)
+
+    def check_prose_numbers(self, study: Path, p: Path, fm: dict, body: str) -> None:
+        """Advisory: a decimal or percentage in hand-written prose matches a number in the JSON
+        the report cites (`inputs`, claim pointers), to the precision it is printed with."""
+        inputs = fm.get("inputs") if isinstance(fm.get("inputs"), dict) else {}
+        claims = fm.get("claims") if isinstance(fm.get("claims"), list) else []
+        cited = [i for v in inputs.values() for i in (v if isinstance(v, list) else [v])]
+        cited += [c["pointer"].split("#")[0] for c in claims if isinstance(c, dict) and isinstance(c.get("pointer"), str)]
+        files = sorted({posixpath.normpath(f) for f in cited if isinstance(f, str) and f.endswith(".json")})
+        values = sorted(v for f in files for v in self.json_numbers(study / f))
+        prose = report_verdicts.blank(report_verdicts.hand_written(body), NOT_PROSE)
+        offset = p.read_text(errors="replace").count("\n") - body.count("\n")
+        for n in PROSE_NUMBER.finditer(prose):
+            token = n.group(1)
+            if token in PROSE_CONSTANTS or self._sourced(token, values):
+                continue
+            line = offset + prose.count("\n", 0, n.start()) + 1
+            self.add("info", "report-prose-number", p,
+                     f"{token} (line {line}) matches no number in {', '.join(files) or 'the cited JSON (none cited)'}",
+                     item=token)
+
+    def json_numbers(self, path: Path) -> list[float]:
+        """Every number in a JSON file outside `_meta` (values, numeric keys, numbers inside
+        strings), as sorted absolute values; [] when the file is missing or unreadable."""
+        if path not in self._json_numbers:
+            try:
+                doc = json.loads(path.read_text())
+            except (OSError, ValueError):
+                doc = None
+            out: list[float] = []
+            stack = [{k: v for k, v in doc.items() if k != "_meta"} if isinstance(doc, dict) else doc]
+            while stack:
+                x = stack.pop()
+                if isinstance(x, bool) or x is None:
+                    continue
+                if isinstance(x, (int, float)):
+                    out.append(abs(float(x)))
+                elif isinstance(x, str):
+                    out += [abs(float(s)) for s in JSON_NUMBER.findall(x)]
+                elif isinstance(x, dict):
+                    stack += [*x.keys(), *x.values()]
+                elif isinstance(x, list):
+                    stack += x
+            self._json_numbers[path] = sorted(v for v in out if math.isfinite(v))
+        return self._json_numbers[path]
+
+    @staticmethod
+    def _sourced(token: str, values: list[float]) -> bool:
+        """Whether a printed number is one of `values` rounded to its printed precision; a
+        percentage may also be a fraction (12% ~ 0.12)."""
+        number = token.rstrip("%").replace("−", "-")
+        mantissa, _, exponent = number.lower().partition("e")
+        decimals = len(mantissa.split(".")[1]) if "." in mantissa else 0
+        x, tol = float(number), 0.5 * 10.0 ** (int(exponent or 0) - decimals)
+        for target, t in [(x, tol)] + ([(x / 100, tol / 100)] if token.endswith("%") else []):
+            slack = t * (1 + 1e-9) + 1e-15
+            i = bisect.bisect_left(values, target - slack)
+            if i < len(values) and values[i] <= target + slack:
+                return True
+        return False
+
+    def check_verdicts(self, study: Path) -> None:
+        """The generated INDEX table and README verdict still copy the version-2 reports' claims."""
+        for path, inner in report_verdicts.expected(study).items():
+            have = report_verdicts.current(path.read_text())
+            if have != inner:
+                self.add("warn", "verdict-stale", path,
+                         f"the generated verdicts block is {'missing' if have is None else 'out of date'}; "
+                         f"run `make -C {self.rel(study)} verdicts`", item="verdicts")
 
     def check_artifacts(self, study: Path) -> bool:
         """Check analysis JSON; return whether the study has a freeze."""
@@ -645,6 +827,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"provenance: {levels} — {len(baseline)} baselined, {len(new)} new, {len(fixed)} fixed")
         for f in new:
             print(f"\nNEW {f.level} [{f.check}] {f.path}\n    {f.message}\n    fix: {FIX.get(f.check, '')}")
+        for f in findings:
+            if f.level == "info" and f.check in ADVISORY:
+                print(f"\nnote [{f.check}] {f.path}\n    {f.message}\n    fix: {FIX.get(f.check, '')}")
         if fixed:
             print(f"\n{len(fixed)} baseline entries are fixed; remove them: "
                   "python scripts/check_provenance.py --prune-baseline")
