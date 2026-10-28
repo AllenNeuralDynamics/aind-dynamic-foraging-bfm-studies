@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "produced_by": "analysis/i4_distilled_model.py",
+    "produced_at_pt": "2026-10-27T02:41:58-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409",
+      "rl-baseline-bari@20260713-010244",
+      "rl-baseline-ctt@20260713-010305",
+      "rl-baseline-hattori@20260713-010255"
+    ]
+  },
+  "groups": [
+    "L unrewarded (stay)",
+    "L unrewarded (switch)",
+    "L unrewarded (first)",
+    "L rewarded (stay)",
+    "L rewarded (switch)",
+    "L rewarded (first)",
+    "R unrewarded (stay)",
+    "R unrewarded (switch)",
+    "R unrewarded (first)",
+    "R rewarded (stay)",
+    "R rewarded (switch)",
+    "R rewarded (first)"
+  ],
+  "pooled": {
+    "lam": [
+      0.7609350503596288,
+      0.7280631092081387,
+      0.0,
+      0.7557946956757914,
+      0.6911095569496443,
+      0.0,
+      0.7848512178061241,
+      0.6997370517845045,
+      0.0,
+      0.7788281304753192,
+      0.6950253200978885,
+      0.0
+    ],
+    "target": [
+      -2.2805025230089235,
+      -0.4488161462691188,
+      -1.104392747182653,
+      -3.154780314052011,
+      -1.1143989286232399,
+      -1.1663066836162737,
+      2.5677683478483346,
+      0.4277001621369625,
+      -0.04446067071889474,
+      2.913469292670197,
+      0.9483723179054806,
+      -0.03451429868786777
+    ],
+    "n": [
+      1070349,
+      97545,
+      2245,
+      795493,
+      176792,
+      2322,
+      1115683,
+      102224,
+      2137,
+      791283,
+      172232,
+      2194
+    ],
+    "readout_a": 0.8901066100847462,
+    "readout_b": [
+      -0.4108418005299155,
+      -1.5213762305715748,
+      0.3904942498653716,
+      1.608765389032185,
+      0.7953713282900263
+    ],
+    "readout_clusters": [
+      "L unrewarded",
+      "L rewarded",
+      "R unrewarded",
+      "R rewarded",
+      "first trial"
+    ],
+    "v0": -0.8973984593308764
+  },
+  "n_pooled_parameters": 31,
+  "teacher_forced_readout_r2": 0.9364020209709338,
+  "likelihood": {
+    "GRU": 0.7337655601581364,
+    "distilled, per mouse": 0.7175397634005873,
+    "distilled, pooled": 0.7064373793929271,
+    "distilled readout on GRU's own v (teacher-forced)": 0.7173769258104069,
+    "GRU, 1-d carried state (E2)": 0.7129135727882385,
+    "bari": 0.7180880511365625,
+    "ctt": 0.72104067239849,
+    "hattori": 0.7159216381741544
+  },
+  "per_mouse_frac_beats_ctt": 0.18078175895765472,
+  "simulated_vs_gru": {
+    "corr_v": 0.9886355621886735,
+    "corr_logit": 0.9660032080601004,
+    "corr_v_pooled": 0.9828877827796157
+  },
+  "n_mice": 614,
+  "min_per_group": 50
+}

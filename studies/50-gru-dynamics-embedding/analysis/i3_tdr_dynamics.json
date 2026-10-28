@@ -1,0 +1,198 @@
+{
+  "_meta": {
+    "produced_by": "analysis/i3_tdr_dynamics.py",
+    "produced_at_pt": "2026-10-19T16:52:54-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "n_transitions": 1000000,
+  "seed": 4,
+  "axes": [
+    "value",
+    "choice",
+    "reward",
+    "value\u00d7choice",
+    "choice\u00d7reward"
+  ],
+  "transitions": {
+    "R rewarded | from R lobe (stay)": {
+      "n": 183033,
+      "slope": 0.7935254532563268,
+      "intercept": 0.6013670698801291,
+      "r2": 0.9695514908715112,
+      "mean_jump": {
+        "value": 0.2646,
+        "choice": 0.1701,
+        "reward": 0.8403,
+        "value\u00d7choice": 0.1857,
+        "choice\u00d7reward": 0.1732
+      }
+    },
+    "R rewarded | from L lobe (switch)": {
+      "n": 39872,
+      "slope": 0.6623411182791884,
+      "intercept": 0.16635495615245385,
+      "r2": 0.9346308703391365,
+      "mean_jump": {
+        "value": 0.4325,
+        "choice": 2.3976,
+        "reward": 1.6324,
+        "value\u00d7choice": -0.0214,
+        "choice\u00d7reward": 0.4073
+      }
+    },
+    "R unrewarded | from R lobe (stay)": {
+      "n": 258359,
+      "slope": 0.797455890932143,
+      "intercept": 0.3462508159226381,
+      "r2": 0.9709825943114496,
+      "mean_jump": {
+        "value": 0.0359,
+        "choice": -0.0675,
+        "reward": -0.7609,
+        "value\u00d7choice": -0.1246,
+        "choice\u00d7reward": -0.2418
+      }
+    },
+    "R unrewarded | from L lobe (switch)": {
+      "n": 23537,
+      "slope": 0.6764563134144578,
+      "intercept": -0.0797815574829497,
+      "r2": 0.9605814188166882,
+      "mean_jump": {
+        "value": -0.0046,
+        "choice": 1.946,
+        "reward": -0.9044,
+        "value\u00d7choice": -0.1465,
+        "choice\u00d7reward": 0.2188
+      }
+    },
+    "L rewarded | from R lobe (switch)": {
+      "n": 40475,
+      "slope": 0.7315778524141584,
+      "intercept": -0.010447010379053264,
+      "r2": 0.9451072887799739,
+      "mean_jump": {
+        "value": -0.2199,
+        "choice": -1.9537,
+        "reward": 1.7038,
+        "value\u00d7choice": 0.0246,
+        "choice\u00d7reward": -0.3819
+      }
+    },
+    "L rewarded | from L lobe (stay)": {
+      "n": 184555,
+      "slope": 0.786492973977349,
+      "intercept": -0.5773639325785607,
+      "r2": 0.9829803443732333,
+      "mean_jump": {
+        "value": -0.2301,
+        "choice": -0.0086,
+        "reward": 0.9325,
+        "value\u00d7choice": 0.0925,
+        "choice\u00d7reward": -0.1737
+      }
+    },
+    "L unrewarded | from R lobe (switch)": {
+      "n": 22437,
+      "slope": 0.7396267305610009,
+      "intercept": 0.09299303454378101,
+      "r2": 0.9712803170440868,
+      "mean_jump": {
+        "value": 0.0294,
+        "choice": -2.1686,
+        "reward": -0.991,
+        "value\u00d7choice": -0.0691,
+        "choice\u00d7reward": -0.2492
+      }
+    },
+    "L unrewarded | from L lobe (stay)": {
+      "n": 247732,
+      "slope": 0.7809188411551512,
+      "intercept": -0.44361508610874056,
+      "r2": 0.9784376744605996,
+      "mean_jump": {
+        "value": -0.0952,
+        "choice": -0.0958,
+        "reward": -0.893,
+        "value\u00d7choice": -0.0701,
+        "choice\u00d7reward": 0.2508
+      }
+    }
+  },
+  "attractors_all_sessions_context": {
+    "R rewarded": {
+      "tdr": [
+        [
+          3.0733026027944064,
+          0.8682676280133703,
+          1.5108521995446464,
+          0.929725954340054,
+          -0.3677009472057593
+        ]
+      ],
+      "logit_right": [
+        4.3438730828394645
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "R unrewarded": {
+      "tdr": [
+        [
+          2.587337539100229,
+          1.0238169213930621,
+          -0.9932133598473066,
+          0.08935244524752786,
+          -0.9387700342435864
+        ]
+      ],
+      "logit_right": [
+        3.0493293305008056
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L rewarded": {
+      "tdr": [
+        [
+          -2.603653317931946,
+          -0.86463312938856,
+          1.8633770177453925,
+          1.0271050327694633,
+          -0.09448330054446594
+        ]
+      ],
+      "logit_right": [
+        -4.0374346351550425
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L unrewarded": {
+      "tdr": [
+        [
+          -2.5645346032839185,
+          -0.7908160776691335,
+          -1.0234889485349816,
+          0.059305960258608736,
+          0.7863669261893678
+        ]
+      ],
+      "logit_right": [
+        -3.0450457317946302
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    }
+  },
+  "forward_iterations": 600,
+  "n_starts": 300
+}

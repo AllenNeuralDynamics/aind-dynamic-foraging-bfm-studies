@@ -1,0 +1,444 @@
+{
+  "_meta": {
+    "produced_by": "analysis/f7_feature_library.py",
+    "produced_at_pt": "2026-10-27T08:11:02-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "features": [
+    "determinism",
+    "stickiness ratio",
+    "win-stay",
+    "lose-stay",
+    "reward memory span",
+    "choice memory span",
+    "bias",
+    "matching sensitivity",
+    "matching bias",
+    "poorer-side rate",
+    "switch rate",
+    "return after failed switch",
+    "stay through losses"
+  ],
+  "n_mice": 614,
+  "per_feature": {
+    "animal | determinism": {
+      "split_half_spearman": 0.8787038865635852,
+      "reliability_spearman_brown": 0.9354362790730781,
+      "embedding_rank_r2": 0.7570990572238908,
+      "null_95": -9.803642700622947e-05,
+      "share_of_reliable": 0.8652154920268724,
+      "n": 614
+    },
+    "animal | stickiness ratio": {
+      "split_half_spearman": 0.574517571571445,
+      "reliability_spearman_brown": 0.7297696538223433,
+      "embedding_rank_r2": 0.0922627885138243,
+      "null_95": 0.0016863277626138935,
+      "share_of_reliable": 0.17324271305112318,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.08101745687429607,
+      "spearman_with_determinism": 0.0881500126169171
+    },
+    "animal | win-stay": {
+      "split_half_spearman": 0.8822831015643667,
+      "reliability_spearman_brown": 0.9374605773500284,
+      "embedding_rank_r2": 0.7486820660962297,
+      "null_95": 0.0016158636615509318,
+      "share_of_reliable": 0.8519054625764777,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.3906120344227334,
+      "spearman_with_determinism": 0.9552564196294143
+    },
+    "animal | lose-stay": {
+      "split_half_spearman": 0.83292736925727,
+      "reliability_spearman_brown": 0.9088492901874065,
+      "embedding_rank_r2": 0.6331877892655932,
+      "null_95": 0.0018887440886120146,
+      "share_of_reliable": 0.7665646471826133,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.11461343867354234,
+      "spearman_with_determinism": 0.8633563124956989
+    },
+    "animal | reward memory span": {
+      "split_half_spearman": 0.24505283819651116,
+      "reliability_spearman_brown": 0.39364247151386134,
+      "embedding_rank_r2": 0.04138559816476839,
+      "null_95": 0.0007819874603742613,
+      "share_of_reliable": 0.2670824410201441,
+      "n": 612,
+      "embedding_rank_r2_beyond_determinism": 0.013174730054097417,
+      "spearman_with_determinism": 0.16540319227201486
+    },
+    "animal | choice memory span": {
+      "split_half_spearman": 0.6827461628894655,
+      "reliability_spearman_brown": 0.8114666108845712,
+      "embedding_rank_r2": 0.39064834299584683,
+      "null_95": 0.001761235265752933,
+      "share_of_reliable": 0.5932594666122428,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.29980918407042323,
+      "spearman_with_determinism": -0.41330005802356223
+    },
+    "animal | bias": {
+      "split_half_spearman": 0.6853181259416942,
+      "reliability_spearman_brown": 0.8132804310269475,
+      "embedding_rank_r2": 0.6367869284212146,
+      "null_95": 0.0014404919917711666,
+      "share_of_reliable": 0.9627499280279629,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.6326867946542101,
+      "spearman_with_determinism": -0.06479802369958595
+    },
+    "animal | matching sensitivity": {
+      "split_half_spearman": 0.4988955734479603,
+      "reliability_spearman_brown": 0.665684230823811,
+      "embedding_rank_r2": 0.1288032411923864,
+      "null_95": 0.0005901334542366853,
+      "share_of_reliable": 0.2906633356998484,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.00243056272395048,
+      "spearman_with_determinism": 0.3970522164106498
+    },
+    "animal | matching bias": {
+      "split_half_spearman": 0.6432335483943565,
+      "reliability_spearman_brown": 0.7828875560907038,
+      "embedding_rank_r2": 0.6017557267926052,
+      "null_95": 0.0014675443047022293,
+      "share_of_reliable": 0.9817964375929886,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.5957297816130447,
+      "spearman_with_determinism": -0.08008399872936564
+    },
+    "animal | poorer-side rate": {
+      "split_half_spearman": 0.6293498200958433,
+      "reliability_spearman_brown": 0.7725165122107701,
+      "embedding_rank_r2": 0.2872237650100693,
+      "null_95": 0.0013982652147237907,
+      "share_of_reliable": 0.4812877729734551,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.2434615744071823,
+      "spearman_with_determinism": -0.25430730662711515
+    },
+    "animal | switch rate": {
+      "split_half_spearman": 0.8738879065650869,
+      "reliability_spearman_brown": 0.9327003002724524,
+      "embedding_rank_r2": 0.7331391434593382,
+      "null_95": 0.00012976667810842362,
+      "share_of_reliable": 0.8427566238256949,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": -0.009153730721352948,
+      "spearman_with_determinism": -0.9780501672470536
+    },
+    "animal | return after failed switch": {
+      "split_half_spearman": 0.3961249330150645,
+      "reliability_spearman_brown": 0.5674634463544679,
+      "embedding_rank_r2": 0.19046095918886297,
+      "null_95": 0.001521948740519972,
+      "share_of_reliable": 0.5914665447165519,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.06414275058721552,
+      "spearman_with_determinism": -0.4372097470792234
+    },
+    "animal | stay through losses": {
+      "split_half_spearman": 0.4857445121940538,
+      "reliability_spearman_brown": 0.6538735404470543,
+      "embedding_rank_r2": 0.2667769412666017,
+      "null_95": -0.0008130406544166303,
+      "share_of_reliable": 0.6239657644340953,
+      "n": 613,
+      "embedding_rank_r2_beyond_determinism": 0.06131742270056373,
+      "spearman_with_determinism": 0.48162878533112224
+    },
+    "gru | determinism": {
+      "split_half_spearman": 0.9271125255404079,
+      "reliability_spearman_brown": 0.9621778834948143,
+      "embedding_rank_r2": 0.7977141112120416,
+      "null_95": -0.002100422128357263,
+      "share_of_reliable": 0.8616611942601403,
+      "n": 614
+    },
+    "gru | stickiness ratio": {
+      "split_half_spearman": 0.7184024527958263,
+      "reliability_spearman_brown": 0.8361282907004601,
+      "embedding_rank_r2": 0.5524040711848555,
+      "null_95": 0.0018709562356467562,
+      "share_of_reliable": 0.7901527105649064,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.13880199214696998,
+      "spearman_with_determinism": 0.7164593159181428
+    },
+    "gru | win-stay": {
+      "split_half_spearman": 0.9325943245776119,
+      "reliability_spearman_brown": 0.9651216633697193,
+      "embedding_rank_r2": 0.7921559147742178,
+      "null_95": -0.0008403986495325815,
+      "share_of_reliable": 0.8504456052996887,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.5099895623850992,
+      "spearman_with_determinism": 0.9674335013299281
+    },
+    "gru | lose-stay": {
+      "split_half_spearman": 0.8851138134051926,
+      "reliability_spearman_brown": 0.9390561006036651,
+      "embedding_rank_r2": 0.7371870222431378,
+      "null_95": -0.0014879680612679047,
+      "share_of_reliable": 0.8359775298341688,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.14631711528788716,
+      "spearman_with_determinism": 0.9245292956779382
+    },
+    "gru | reward memory span": {
+      "split_half_spearman": 0.5526005618384213,
+      "reliability_spearman_brown": 0.7118386730249429,
+      "embedding_rank_r2": 0.33012024676794716,
+      "null_95": -0.0028649346545389434,
+      "share_of_reliable": 0.6514918744236242,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.04487673983642837,
+      "spearman_with_determinism": 0.6047654750343807
+    },
+    "gru | choice memory span": {
+      "split_half_spearman": 0.8946340642750812,
+      "reliability_spearman_brown": 0.9443871839361055,
+      "embedding_rank_r2": 0.7049078491198095,
+      "null_95": 0.001010202991441622,
+      "share_of_reliable": 0.7903731476198393,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.6270936355070443,
+      "spearman_with_determinism": -0.5560758653215707
+    },
+    "gru | bias": {
+      "split_half_spearman": 0.8686518884028587,
+      "reliability_spearman_brown": 0.9297096947739127,
+      "embedding_rank_r2": 0.7740103083312206,
+      "null_95": 0.0007080926613448206,
+      "share_of_reliable": 0.895472030124073,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.7713832317503883,
+      "spearman_with_determinism": -0.04893608996879273
+    },
+    "gru | matching sensitivity": {
+      "split_half_spearman": 0.5702206904728936,
+      "reliability_spearman_brown": 0.7262936909857732,
+      "embedding_rank_r2": 0.27914033297508467,
+      "null_95": 0.0006577846335737732,
+      "share_of_reliable": 0.5291734531047244,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.0016722042561749806,
+      "spearman_with_determinism": 0.5690783792439208
+    },
+    "gru | matching bias": {
+      "split_half_spearman": 0.7227456960966128,
+      "reliability_spearman_brown": 0.839062547344284,
+      "embedding_rank_r2": 0.6718876506666727,
+      "null_95": 5.640495574549487e-05,
+      "share_of_reliable": 0.9543506779717907,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.6668036157437072,
+      "spearman_with_determinism": -0.07093003981035874
+    },
+    "gru | poorer-side rate": {
+      "split_half_spearman": 0.6427022312956311,
+      "reliability_spearman_brown": 0.7824938921385886,
+      "embedding_rank_r2": 0.31707580038736527,
+      "null_95": -0.00021342640542114496,
+      "share_of_reliable": 0.5178466663738464,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.2736919314781694,
+      "spearman_with_determinism": -0.26677175796100255
+    },
+    "gru | switch rate": {
+      "split_half_spearman": 0.9140937638473421,
+      "reliability_spearman_brown": 0.9551191076554234,
+      "embedding_rank_r2": 0.7853908472447517,
+      "null_95": -0.0005718181410629532,
+      "share_of_reliable": 0.8609358031907499,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.12766734767087395,
+      "spearman_with_determinism": -0.9912963879068892
+    },
+    "gru | return after failed switch": {
+      "split_half_spearman": 0.7319098128067105,
+      "reliability_spearman_brown": 0.8452054574603824,
+      "embedding_rank_r2": 0.5889494613098442,
+      "null_95": -0.0006867456699233068,
+      "share_of_reliable": 0.8244293485349062,
+      "n": 614,
+      "embedding_rank_r2_beyond_determinism": 0.39570851312850963,
+      "spearman_with_determinism": -0.6692120913482943
+    },
+    "gru | stay through losses": {
+      "split_half_spearman": 0.6987582873960323,
+      "reliability_spearman_brown": 0.8226694669635839,
+      "embedding_rank_r2": 0.5620998235741725,
+      "null_95": -0.0019416262015764028,
+      "share_of_reliable": 0.8305440878423815,
+      "n": 613,
+      "embedding_rank_r2_beyond_determinism": 0.10274020458579591,
+      "spearman_with_determinism": 0.7515783141053713
+    }
+  },
+  "named_axes": {
+    "names": [
+      "+lose-stay / +determinism / \u2212switch rate",
+      "+choice memory span / +return after failed switch / +poorer-side rate",
+      "+bias / +matching bias / \u2212reward memory span",
+      "+poorer-side rate / \u2212matching sensitivity / +stay through losses"
+    ],
+    "loadings": {
+      "determinism": [
+        0.8760445364825006,
+        -0.29755505815322514,
+        -0.02856404729645894,
+        -0.0061003388018299924
+      ],
+      "stickiness ratio": [
+        0.7867705565420728,
+        -0.00839444805217467,
+        0.006305471218875094,
+        -0.03318270622981922
+      ],
+      "win-stay": [
+        0.770056710832695,
+        -0.4845557776089914,
+        -0.05584426929353276,
+        0.003991652725468713
+      ],
+      "lose-stay": [
+        0.8769044708693222,
+        -0.1903119127933721,
+        -0.012235415985433623,
+        0.0042833299881060655
+      ],
+      "reward memory span": [
+        0.527110541233382,
+        -0.09061179121403269,
+        -0.1966446352487973,
+        0.004383188352469995
+      ],
+      "choice memory span": [
+        -0.37807465334897916,
+        0.7852855748445885,
+        0.0708378050184351,
+        -0.009017220875586917
+      ],
+      "bias": [
+        0.009037012162070769,
+        0.03782062798439417,
+        0.9110580366480686,
+        0.028405358859740673
+      ],
+      "matching sensitivity": [
+        0.556614164024928,
+        -0.04060022973367584,
+        0.021263502908879274,
+        -0.04582247479863069
+      ],
+      "matching bias": [
+        -0.02497908391240623,
+        0.05419584886717404,
+        0.8465729120771709,
+        -0.03342761087589524
+      ],
+      "poorer-side rate": [
+        -0.0469700036078163,
+        0.5685295476771959,
+        0.16340949051440318,
+        0.08350093158965013
+      ],
+      "switch rate": [
+        -0.8366387220410888,
+        0.35529469282062404,
+        0.03606415662049183,
+        -0.001027017548184363
+      ],
+      "return after failed switch": [
+        -0.4313767910387714,
+        0.6589321032927622,
+        -0.0108466404517825,
+        -0.025193222090905326
+      ],
+      "stay through losses": [
+        0.7823704659175138,
+        -0.06224759685548632,
+        0.09205500035138123,
+        0.03372718683432119
+      ]
+    },
+    "variance_explained_sum": [
+      4.9800816577151865,
+      1.8780487499046472,
+      1.6315706946159918,
+      0.014042759635906359
+    ],
+    "spearman_with_animal_features": {
+      "+lose-stay / +determinism / \u2212switch rate": {
+        "determinism": 0.8405498513381127,
+        "stickiness ratio": 0.1844884109048008,
+        "win-stay": 0.7446103568703146,
+        "lose-stay": 0.8061725820588866,
+        "reward memory span": 0.22157015087615534,
+        "choice memory span": -0.14985831078985531,
+        "bias": -0.0488367098760976,
+        "matching sensitivity": 0.36006187797529526,
+        "matching bias": -0.061289237672520314,
+        "poorer-side rate": -0.0469653884332096,
+        "switch rate": -0.8201470716504807,
+        "return after failed switch": -0.25122397329038915,
+        "stay through losses": 0.520306815814693
+      },
+      "+choice memory span / +return after failed switch / +poorer-side rate": {
+        "determinism": -0.31157864914355954,
+        "stickiness ratio": 0.22764487713637072,
+        "win-stay": -0.4809750820225986,
+        "lose-stay": -0.12249151128374897,
+        "reward memory span": 0.10340319049206792,
+        "choice memory span": 0.6253692959319613,
+        "bias": -0.017464586769720594,
+        "matching sensitivity": 0.011617802411690976,
+        "matching bias": -0.00498048751974998,
+        "poorer-side rate": 0.5204497350965827,
+        "switch rate": 0.323197980878534,
+        "return after failed switch": 0.3894695074170228,
+        "stay through losses": 0.018947451253163796
+      },
+      "+bias / +matching bias / \u2212reward memory span": {
+        "determinism": -0.03524553609326073,
+        "stickiness ratio": -0.010801506668562336,
+        "win-stay": -0.026200470515754828,
+        "lose-stay": -0.012159027329655098,
+        "reward memory span": -0.04872856034279265,
+        "choice memory span": 0.015500935673681814,
+        "bias": 0.8211861301783309,
+        "matching sensitivity": 0.01975556488989974,
+        "matching bias": 0.7920996973624747,
+        "poorer-side rate": 0.11445038130047173,
+        "switch rate": 0.019180694859698196,
+        "return after failed switch": 0.03314810422208938,
+        "stay through losses": 0.034288059632259886
+      },
+      "+poorer-side rate / \u2212matching sensitivity / +stay through losses": {
+        "determinism": 0.020253813231523605,
+        "stickiness ratio": -0.015659674246364393,
+        "win-stay": 0.03574106322107189,
+        "lose-stay": 0.022803272907351135,
+        "reward memory span": -0.05042867142718711,
+        "choice memory span": -0.050814565534159584,
+        "bias": 0.03379708549863262,
+        "matching sensitivity": -0.10848638338501712,
+        "matching bias": -0.013110421936405815,
+        "poorer-side rate": 0.038984601917797325,
+        "switch rate": -0.027377712134959927,
+        "return after failed switch": -0.05016396326217225,
+        "stay through losses": 0.02861895804492802
+      }
+    },
+    "method": "GRU features (z) regressed on the whitened embedding; varimax rotation of the 13 \u00d7 4 loadings"
+  },
+  "reliability": "odd vs even sessions within each mouse; Spearman across mice, Spearman\u2013Brown corrected",
+  "definitions": "F7: a behavioural feature library, how much of it the embedding carries, and named embedding axes.\n\n    python analysis/f7_feature_library.py\n\n1. Features, per mouse and per source \u2014 the animal's choices, and the GRU's predicted\n   P(right) on the same trials (soft labels; model-free features use expected values):\n     determinism      mean |history-driven logit| of the mouse's Su2022 fit (intercept excluded):\n                      the overall scale of history dependence, kept as its own feature\n     stickiness ratio UnrC(1) / RewC(1): how much of the tendency to repeat survives no reward\n     win-stay, lose-stay   P(stay | previous rewarded / unrewarded)\n     reward memory span    \u03a3 lags 2\u20135 / lag 1 of the reward effect (RewC \u2212 UnrC)\n     choice memory span    \u03a3 lags 2\u20135 / lag 1 of persistence ((RewC + UnrC) / 2)\n     bias             Su2022 intercept (rightward)\n     matching sensitivity / bias   Baum fit log(C_R/C_L) = s\u00b7log(I_R/I_L) + b over blocks of\n                      constant reward probabilities (incomes are the animal's)\n     poorer-side rate P(choosing the poorer side) \u2265 10 trials after a probability change, |\u0394P| \u2265 0.3\n     switch rate      P(switch)\n     return after failed switch    P(back to the old side | t\u22121 switched and was unrewarded)\n     stay through losses           P(stay | \u2265 2 losses in a row on a side just switched to)\n   "
+}

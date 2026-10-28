@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "produced_by": "analysis/f9_strategy_cards.py",
+    "produced_at_pt": "2026-10-26T14:00:58-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "axis_names": [
+    "determinism / stickiness",
+    "side bias",
+    "slow learning / long choice memory",
+    "dynamics-only (v retention \u2193)"
+  ],
+  "prototypes": {
+    "determinism / stickiness | low": "455526",
+    "determinism / stickiness | high": "802252",
+    "side bias | low": "473361",
+    "side bias | high": "770777",
+    "slow learning / long choice memory | low": "791096",
+    "slow learning / long choice memory | high": "632105",
+    "dynamics-only (v retention \u2193) | low": "790724",
+    "dynamics-only (v retention \u2193) | high": "823972"
+  },
+  "cards": [
+    "455526",
+    "802252",
+    "473361",
+    "770777",
+    "791096",
+    "632105",
+    "457495",
+    "818909",
+    "634704",
+    "808582",
+    "786237",
+    "632104"
+  ],
+  "profiles_csv": "analysis/f9_mouse_strategy_profiles.csv",
+  "n_mice": 614
+}

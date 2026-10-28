@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "produced_by": "analysis/c2_rl_rollouts.py",
+    "produced_at_pt": "2026-10-27T01:33:04-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409",
+      "rl-baseline-bari@20260713-010244",
+      "rl-baseline-ctt@20260713-010305",
+      "rl-baseline-hattori@20260713-010255"
+    ]
+  },
+  "models": {
+    "bari": {
+      "run_id": "bg3nzqz9",
+      "group": "rl-baseline-bari@20260713-010244",
+      "agent_class": "ForagerQLearning",
+      "agent_kwargs": {
+        "number_of_learning_rate": 1,
+        "number_of_forget_rate": 1,
+        "choice_kernel": "one_step",
+        "action_selection": "softmax"
+      },
+      "parameter_columns": [
+        "learn_rate",
+        "forget_rate_unchosen",
+        "choice_kernel_relative_weight",
+        "biasL",
+        "softmax_inverse_temperature",
+        "choice_kernel_step_size"
+      ],
+      "q_values": true,
+      "checks": {
+        "pooled_eval_likelihood": 0.7180880511365625,
+        "logged_pooled_eval_likelihood": 0.7180880511365625,
+        "pooled_abs_diff": 0.0,
+        "max_subject_abs_diff": 4.440892098500626e-16,
+        "n_subjects": 614
+      }
+    },
+    "ctt": {
+      "run_id": "lmg1i9yd",
+      "group": "rl-baseline-ctt@20260713-010305",
+      "agent_class": "ForagerCompareThreshold",
+      "agent_kwargs": {
+        "choice_kernel": "none"
+      },
+      "parameter_columns": [
+        "learn_rate",
+        "threshold",
+        "softmax_inverse_temperature",
+        "biasL"
+      ],
+      "q_values": false,
+      "checks": {
+        "pooled_eval_likelihood": 0.72104067239849,
+        "logged_pooled_eval_likelihood": 0.72104067239849,
+        "pooled_abs_diff": 0.0,
+        "max_subject_abs_diff": 1.1102230246251565e-16,
+        "n_subjects": 614
+      }
+    },
+    "hattori": {
+      "run_id": "unhmbrk4",
+      "group": "rl-baseline-hattori@20260713-010255",
+      "agent_class": "ForagerQLearning",
+      "agent_kwargs": {
+        "number_of_learning_rate": 2,
+        "number_of_forget_rate": 1,
+        "choice_kernel": "none",
+        "action_selection": "softmax"
+      },
+      "parameter_columns": [
+        "learn_rate_rew",
+        "learn_rate_unrew",
+        "forget_rate_unchosen",
+        "biasL",
+        "softmax_inverse_temperature"
+      ],
+      "q_values": true,
+      "checks": {
+        "pooled_eval_likelihood": 0.7159216381741544,
+        "logged_pooled_eval_likelihood": 0.7159216381741544,
+        "pooled_abs_diff": 0.0,
+        "max_subject_abs_diff": 2.220446049250313e-16,
+        "n_subjects": 614,
+        "q_policy_max_abs_diff": 2.220446049250313e-16
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "_meta": {
+    "produced_by": "analysis/d1f_fixed_points_flow.py",
+    "produced_at_pt": "2026-10-27T12:05:03-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "n_starts": 300,
+  "n_iter": 600,
+  "context": "all sessions",
+  "fixed_points": {
+    "R rewarded": [
+      {
+        "pc12": [
+          -3.1588,
+          -1.5381
+        ],
+        "stable": true,
+        "logit_right": 4.343873082839509,
+        "n_starts_reaching": 300
+      }
+    ],
+    "R unrewarded": [
+      {
+        "pc12": [
+          -2.7895,
+          1.0161
+        ],
+        "stable": true,
+        "logit_right": 3.0493293305008122,
+        "n_starts_reaching": 300
+      }
+    ],
+    "L rewarded": [
+      {
+        "pc12": [
+          2.6771,
+          -4.3601
+        ],
+        "stable": true,
+        "logit_right": -4.978460557476977,
+        "n_starts_reaching": 0
+      },
+      {
+        "pc12": [
+          2.71,
+          -4.0976
+        ],
+        "stable": false,
+        "logit_right": -4.947897027959329,
+        "n_starts_reaching": 0
+      },
+      {
+        "pc12": [
+          2.5675,
+          -2.0984
+        ],
+        "stable": true,
+        "logit_right": -4.037434635155488,
+        "n_starts_reaching": 300
+      }
+    ],
+    "L unrewarded": [
+      {
+        "pc12": [
+          2.6623,
+          0.8311
+        ],
+        "stable": true,
+        "logit_right": -3.045045731794646,
+        "n_starts_reaching": 300
+      }
+    ]
+  }
+}

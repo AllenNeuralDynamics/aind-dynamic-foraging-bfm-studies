@@ -1,0 +1,103 @@
+{
+  "_meta": {
+    "produced_by": "analysis/d1e_flow_own_context.py",
+    "produced_at_pt": "2026-10-26T17:38:27-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "attractor_check_vs_F2": {
+    "R rewarded": {
+      "median_abs_logit_diff_vs_F2": 0.0481912739655137,
+      "share_within_0.05": 0.5162866449511401
+    },
+    "R unrewarded": {
+      "median_abs_logit_diff_vs_F2": 0.009817143604855083,
+      "share_within_0.05": 0.9820846905537459
+    },
+    "L rewarded": {
+      "median_abs_logit_diff_vs_F2": 0.0721625550601932,
+      "share_within_0.05": 0.40522875816993464
+    },
+    "L unrewarded": {
+      "median_abs_logit_diff_vs_F2": 0.004046804199579146,
+      "share_within_0.05": 0.998371335504886
+    }
+  },
+  "attractor_spread": {
+    "R rewarded": {
+      "pc1_10_90": [
+        -3.39,
+        -2.936
+      ],
+      "pc2_10_90": [
+        -1.966,
+        -1.204
+      ],
+      "logit_10_50_90": [
+        3.636,
+        4.435,
+        5.335
+      ]
+    },
+    "R unrewarded": {
+      "pc1_10_90": [
+        -2.937,
+        -2.66
+      ],
+      "pc2_10_90": [
+        0.696,
+        1.294
+      ],
+      "logit_10_50_90": [
+        2.586,
+        3.07,
+        3.543
+      ]
+    },
+    "L rewarded": {
+      "pc1_10_90": [
+        2.333,
+        2.628
+      ],
+      "pc2_10_90": [
+        -2.43,
+        -1.429
+      ],
+      "logit_10_50_90": [
+        -4.183,
+        -3.806,
+        -3.278
+      ]
+    },
+    "L unrewarded": {
+      "pc1_10_90": [
+        2.508,
+        2.824
+      ],
+      "pc2_10_90": [
+        0.445,
+        1.195
+      ],
+      "logit_10_50_90": [
+        -3.437,
+        -3.066,
+        -2.742
+      ]
+    }
+  },
+  "prototypes": {
+    "determinism / stickiness | low": "455526",
+    "determinism / stickiness | high": "802252",
+    "side bias | low": "473361",
+    "side bias | high": "770777",
+    "slow learning / long choice memory | low": "791096",
+    "slow learning / long choice memory | high": "632105"
+  },
+  "n_sample": 20000,
+  "n_per_mouse": 8,
+  "n_iter": 800,
+  "seed": 19
+}

@@ -1,0 +1,1337 @@
+{
+  "_meta": {
+    "produced_by": "analysis/g1_seed_robustness.py",
+    "produced_at_pt": "2026-10-27T08:12:25-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "seeds": [
+    "C-s0",
+    "C-s1",
+    "C-s2"
+  ],
+  "claims": [
+    {
+      "claim": "GRU beats every RL model, in \u2265 99% of mice",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "GRU's choice kernels match the animals' (< 0.03) and \u2265 3\u00d7 better than any RL model",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "GRU calibrated over 3-trial histories (< 0.5 pp; every RL model \u2265 3\u00d7 worse)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Low-dimensional state (PC1 > 35%, participation ratio < 6)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Attractors on the chosen side; one per input for \u2265 3 of 4 inputs",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Rewarded attractors deeper than unrewarded (every context \u00d7 side)",
+      "C-s0": true,
+      "C-s1": false,
+      "C-s2": true
+    },
+    {
+      "claim": "Readout carries < 15% of the state variance (memory sits off the readout)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "v carried through every jump (slopes 0.6\u20130.85, R\u00b2 > 0.9)",
+      "C-s0": true,
+      "C-s1": false,
+      "C-s2": true
+    },
+    {
+      "claim": "A one-variable model of v tracks the GRU (corr > 0.97)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "v closes on itself (v-only R\u00b2 > 0.9 in every transition group)",
+      "C-s0": true,
+      "C-s1": false,
+      "C-s2": true
+    },
+    {
+      "claim": "Three-trace kernel wins by BIC in > 95% of mice",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Ablating v costs more than any random direction; the reward axis costs most",
+      "C-s0": true,
+      "C-s1": false,
+      "C-s2": true
+    },
+    {
+      "claim": "Non-saturating learning rate (reward effect 0.8\u20131.2 logit; switch/stay 0.9\u20131.1)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Delta rule after rewards in Q coordinates (|a + b| < 0.1), small update after losses (a < 0.15)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Embedding decodes bias, reward gain and learning rate (rank R\u00b2 > 0.5)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Embedding is a continuum (k = 2 components < 1.5 SD apart)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Bias is orthogonal to stickiness and learning rate (|cos| < 0.3); those two are not (cos > 0.4)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    },
+    {
+      "claim": "Every mouse's context has all four attractors (> 99% of mice)",
+      "C-s0": true,
+      "C-s1": true,
+      "C-s2": true
+    }
+  ],
+  "metrics": {
+    "C-s0": {
+      "eval likelihood (GRU)": 0.7338507031876187,
+      "likelihood ctt": 0.72104067239849,
+      "frac mice GRU > ctt": 1.0,
+      "likelihood bari": 0.7180880511365625,
+      "frac mice GRU > bari": 1.0,
+      "likelihood hattori": 0.7159216381741544,
+      "frac mice GRU > hattori": 1.0,
+      "median per-mouse gain vs CTT": 0.011719437868223548,
+      "kernel max |gru \u2212 animal|": 0.010905027389526367,
+      "kernel max |ctt \u2212 animal|": 0.07492077350616455,
+      "kernel max |bari \u2212 animal|": 0.20182132720947266,
+      "kernel max |hattori \u2212 animal|": 0.1968456506729126,
+      "3-trial history calibration error pp (gru)": 0.18334399260728557,
+      "3-trial history calibration error pp (hattori)": 2.241213020480357,
+      "3-trial history calibration error pp (bari)": 2.127030478917253,
+      "3-trial history calibration error pp (ctt)": 1.0979163179554523,
+      "return after failed switch error (gru)": 0.004508473496177517,
+      "return after failed switch error (hattori)": 0.09283784791848548,
+      "return after failed switch error (bari)": 0.08260716745046807,
+      "return after failed switch error (ctt)": 0.04861763751578686,
+      "PC1 variance share": 0.427432,
+      "PC2 variance share": 0.18016,
+      "PC3 variance share": 0.076433,
+      "PC4 variance share": 0.067973,
+      "PC5 variance share": 0.05617,
+      "participation ratio": 4.311,
+      "PCs for 90% variance": 9,
+      "readout variance share": 0.09867850951839685,
+      "fixed points (R rewarded)": 1,
+      "attractor on chosen side (R rewarded)": 1.0,
+      "main attractor logit (R rewarded)": 4.343873082839509,
+      "fixed points (R unrewarded)": 1,
+      "attractor on chosen side (R unrewarded)": 1.0,
+      "main attractor logit (R unrewarded)": 3.0493293305008122,
+      "fixed points (L rewarded)": 3,
+      "attractor on chosen side (L rewarded)": 1.0,
+      "main attractor logit (L rewarded)": -4.978460557476977,
+      "fixed points (L unrewarded)": 1,
+      "attractor on chosen side (L unrewarded)": 1.0,
+      "main attractor logit (L unrewarded)": -3.045045731794646,
+      "reward depth R (|rew| \u2212 |unrew| logit)": 1.2945437523386967,
+      "reward depth L (|rew| \u2212 |unrew| logit)": 1.9334148256823305,
+      "reward depth > 0, share of context \u00d7 side": 1.0,
+      "v carry slope min": 0.6623411182791884,
+      "v carry slope max": 0.797455890932143,
+      "v carry R\u00b2 min": 0.9346308703391365,
+      "v carry R\u00b2 max": 0.9829803443732333,
+      "1-variable model corr(v)": 0.9847316914581533,
+      "1-variable model likelihood (per mouse)": 0.7179662321111057,
+      "v closure R\u00b2 (v only), min over groups": 0.93316859943393,
+      "v perturbation retained at k=1": 0.6910039782524109,
+      "v kernel held-out R\u00b2 (free)": 0.9529295851619015,
+      "three traces best BIC share (mice)": 0.9950657894736842,
+      "share mice \u03bb_unr > \u03bb_rew (two outcomes)": 1.0,
+      "three traces median A_rew": 0.2915576688154951,
+      "three traces median lambda_rew": 0.7189381364937903,
+      "three traces median A_unr": 0.04489917928620352,
+      "three traces median lambda_unr": 0.9989999999894063,
+      "three traces median A_c": 0.3482064498284565,
+      "three traces median lambda_c": 0.6509976507249737,
+      "v axis participation ratio (units)": 31.845958382807126,
+      "v retention e\u1d40Je (median over groups)": 0.677235239615469,
+      "ablation \u0394 value axis": -0.027501404285430908,
+      "ablation \u0394 reward axis": -0.08123308420181274,
+      "ablation \u0394 choice axis": -0.001997232437133789,
+      "ablation \u0394 readout direction": -0.019289731979370117,
+      "ablation \u0394 random 1-d (mean)": -0.013359051942825318,
+      "ablation \u0394 random 1-d (worst)": -0.020609498023986816,
+      "reward effect on logit (GRU)": 1.0054870995945624,
+      "reward effect switch / stay (GRU)": 1.0179887073990543,
+      "Q decoding R\u00b2 (min of Q_L, Q_R)": 0.9392600755969488,
+      "Q_chosen update a (R rewarded)": 0.43404942866054225,
+      "Q_chosen update b (R rewarded)": -0.43353824683887965,
+      "Q_chosen update a (R unrewarded)": 0.050745543217341225,
+      "Q_chosen update b (R unrewarded)": -0.1292923308492711,
+      "mice with all four attractors": 1.0,
+      "mice bistable for any input": 79.0,
+      "per-mouse reward depth (median)": 1.0727,
+      "per-mouse slowest \u03c4 (median, trials)": 355.379,
+      "embedding decodes attractor depth (rank R\u00b2)": 0.8476423664002978,
+      "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": 0.7971184908176884,
+      "embedding PC1 variance share": 0.5759529709913123,
+      "embedding PC2 variance share": 0.22026038287648994,
+      "embedding PC3 variance share": 0.14028149695155268,
+      "embedding PC4 variance share": 0.06350514918064497,
+      "embedding decodes gru bias (rank R\u00b2)": 0.7816223700093001,
+      "embedding decodes gru reward gain (1 back) (rank R\u00b2)": 0.7795047702897498,
+      "embedding decodes ctt learn_rate (rank R\u00b2)": 0.673298881273416,
+      "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": 0.46949143056968856,
+      "mixture best k (BIC)": 2,
+      "mixture BIC gain \u2212 heavy-tail null 95%": 0.18912495185732325,
+      "mixture k=2 separation (Mahalanobis)": 0.9716031543921361,
+      "Mantel \u03c1 embedding vs animal behaviour": 0.48985354731431074,
+      "embedding explains animal determinism (R\u00b2)": 0.7437488321729542,
+      "embedding explains animal switch rate (R\u00b2)": 0.7217401111983026,
+      "embedding explains animal bias (R\u00b2)": 0.6546280837936881,
+      "cos(determinism, ctt learn_rate) in embedding": 0.6065126247617715,
+      "cos(determinism, bias) in embedding": -0.1122813112328936,
+      "cos(ctt learn_rate, bias) in embedding": 0.18454829632503258,
+      "cos(determinism, reward gain (1 back)) in embedding": 0.8360182096633829
+    },
+    "C-s1": {
+      "eval likelihood (GRU)": 0.7337670473621601,
+      "likelihood ctt": 0.72104067239849,
+      "frac mice GRU > ctt": 1.0,
+      "likelihood bari": 0.7180880511365625,
+      "frac mice GRU > bari": 1.0,
+      "likelihood hattori": 0.7159216381741544,
+      "frac mice GRU > hattori": 1.0,
+      "median per-mouse gain vs CTT": 0.01172373670374588,
+      "kernel max |gru \u2212 animal|": 0.01576089859008789,
+      "kernel max |ctt \u2212 animal|": 0.07492077350616455,
+      "kernel max |bari \u2212 animal|": 0.20182132720947266,
+      "kernel max |hattori \u2212 animal|": 0.1968456506729126,
+      "3-trial history calibration error pp (gru)": 0.23723245185573066,
+      "3-trial history calibration error pp (hattori)": 2.241213020480357,
+      "3-trial history calibration error pp (bari)": 2.127030478917253,
+      "3-trial history calibration error pp (ctt)": 1.0979163179554523,
+      "return after failed switch error (gru)": 0.00589990494795028,
+      "return after failed switch error (hattori)": 0.09283784791848548,
+      "return after failed switch error (bari)": 0.08260716745046807,
+      "return after failed switch error (ctt)": 0.04861763751578686,
+      "PC1 variance share": 0.424152,
+      "PC2 variance share": 0.183762,
+      "PC3 variance share": 0.091197,
+      "PC4 variance share": 0.060396,
+      "PC5 variance share": 0.053069,
+      "participation ratio": 4.3192,
+      "PCs for 90% variance": 9,
+      "readout variance share": 0.10468435874367565,
+      "fixed points (R rewarded)": 1,
+      "attractor on chosen side (R rewarded)": 1.0,
+      "main attractor logit (R rewarded)": 3.646957196163818,
+      "fixed points (R unrewarded)": 1,
+      "attractor on chosen side (R unrewarded)": 1.0,
+      "main attractor logit (R unrewarded)": 3.6318542059943884,
+      "fixed points (L rewarded)": 1,
+      "attractor on chosen side (L rewarded)": 1.0,
+      "main attractor logit (L rewarded)": -3.788984303645586,
+      "fixed points (L unrewarded)": 1,
+      "attractor on chosen side (L unrewarded)": 1.0,
+      "main attractor logit (L unrewarded)": -3.180771424562196,
+      "reward depth R (|rew| \u2212 |unrew| logit)": 0.01510299016942973,
+      "reward depth L (|rew| \u2212 |unrew| logit)": 0.6082128790833901,
+      "reward depth > 0, share of context \u00d7 side": 0.8,
+      "v carry slope min": 0.6049911282911422,
+      "v carry slope max": 0.7925635590052762,
+      "v carry R\u00b2 min": 0.8490430765293436,
+      "v carry R\u00b2 max": 0.9641425793414058,
+      "1-variable model corr(v)": 0.979243109953901,
+      "1-variable model likelihood (per mouse)": 0.7185472935421475,
+      "v closure R\u00b2 (v only), min over groups": 0.8435165130880187,
+      "v perturbation retained at k=1": 0.6725606918334961,
+      "v kernel held-out R\u00b2 (free)": 0.9385932287796857,
+      "three traces best BIC share (mice)": 0.9983552631578947,
+      "share mice \u03bb_unr > \u03bb_rew (two outcomes)": 0.9983552631578947,
+      "three traces median A_rew": 0.3126581376725065,
+      "three traces median lambda_rew": 0.741697920283612,
+      "three traces median A_unr": 0.045887417815307335,
+      "three traces median lambda_unr": 0.9989999999976775,
+      "three traces median A_c": 0.34359000515902105,
+      "three traces median lambda_c": 0.5061952634938013,
+      "v axis participation ratio (units)": 44.90298242448764,
+      "v retention e\u1d40Je (median over groups)": 0.6608912777117615,
+      "ablation \u0394 value axis": -0.026211261749267578,
+      "ablation \u0394 reward axis": -0.08453363180160522,
+      "ablation \u0394 choice axis": -0.003574967384338379,
+      "ablation \u0394 readout direction": -0.018818020820617676,
+      "ablation \u0394 random 1-d (mean)": -0.016856998205184937,
+      "ablation \u0394 random 1-d (worst)": -0.04029971361160278,
+      "reward effect on logit (GRU)": 1.027565803864561,
+      "reward effect switch / stay (GRU)": 1.0076417776819886,
+      "Q decoding R\u00b2 (min of Q_L, Q_R)": 0.9422440565261136,
+      "Q_chosen update a (R rewarded)": 0.3869201944021112,
+      "Q_chosen update b (R rewarded)": -0.37190020510861727,
+      "Q_chosen update a (R unrewarded)": 0.04481158632266314,
+      "Q_chosen update b (R unrewarded)": -0.12625909506685268,
+      "mice with all four attractors": 1.0,
+      "mice bistable for any input": 0.0,
+      "per-mouse reward depth (median)": 0.3581,
+      "per-mouse slowest \u03c4 (median, trials)": 1669.5017,
+      "embedding decodes attractor depth (rank R\u00b2)": 0.889000761760386,
+      "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": 0.8252160638502093,
+      "embedding PC1 variance share": 0.523989887993752,
+      "embedding PC2 variance share": 0.2313999495901516,
+      "embedding PC3 variance share": 0.22230580180205092,
+      "embedding PC4 variance share": 0.02230436061404546,
+      "embedding decodes gru bias (rank R\u00b2)": 0.7740103083312206,
+      "embedding decodes gru reward gain (1 back) (rank R\u00b2)": 0.7561851511366816,
+      "embedding decodes ctt learn_rate (rank R\u00b2)": 0.6754742761958372,
+      "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": 0.479106764140275,
+      "mixture best k (BIC)": 2,
+      "mixture BIC gain \u2212 heavy-tail null 95%": 2.0743448910210702,
+      "mixture k=2 separation (Mahalanobis)": 0.9594998119665508,
+      "Mantel \u03c1 embedding vs animal behaviour": 0.47063618584808037,
+      "embedding explains animal determinism (R\u00b2)": 0.7664941800608042,
+      "embedding explains animal switch rate (R\u00b2)": 0.7440720019094633,
+      "embedding explains animal bias (R\u00b2)": 0.6444358373502944,
+      "cos(determinism, ctt learn_rate) in embedding": 0.5964025422978502,
+      "cos(determinism, bias) in embedding": -0.08536644981935436,
+      "cos(ctt learn_rate, bias) in embedding": 0.23115628952738798,
+      "cos(determinism, reward gain (1 back)) in embedding": 0.833809838829481
+    },
+    "C-s2": {
+      "eval likelihood (GRU)": 0.7337655601717313,
+      "likelihood ctt": 0.72104067239849,
+      "frac mice GRU > ctt": 1.0,
+      "likelihood bari": 0.7180880511365625,
+      "frac mice GRU > bari": 1.0,
+      "likelihood hattori": 0.7159216381741544,
+      "frac mice GRU > hattori": 1.0,
+      "median per-mouse gain vs CTT": 0.011653195725030152,
+      "kernel max |gru \u2212 animal|": 0.014841079711914062,
+      "kernel max |ctt \u2212 animal|": 0.07492077350616455,
+      "kernel max |bari \u2212 animal|": 0.20182132720947266,
+      "kernel max |hattori \u2212 animal|": 0.1968456506729126,
+      "3-trial history calibration error pp (gru)": 0.19689724842716938,
+      "3-trial history calibration error pp (hattori)": 2.241213020480357,
+      "3-trial history calibration error pp (bari)": 2.127030478917253,
+      "3-trial history calibration error pp (ctt)": 1.0979163179554523,
+      "return after failed switch error (gru)": 0.005256807411093822,
+      "return after failed switch error (hattori)": 0.09283784791848548,
+      "return after failed switch error (bari)": 0.08260716745046807,
+      "return after failed switch error (ctt)": 0.04861763751578686,
+      "PC1 variance share": 0.489769,
+      "PC2 variance share": 0.1565,
+      "PC3 variance share": 0.066573,
+      "PC4 variance share": 0.062095,
+      "PC5 variance share": 0.050134,
+      "participation ratio": 3.6007,
+      "PCs for 90% variance": 9,
+      "readout variance share": 0.08908154298266921,
+      "fixed points (R rewarded)": 1,
+      "attractor on chosen side (R rewarded)": 1.0,
+      "main attractor logit (R rewarded)": 4.4962738118027845,
+      "fixed points (R unrewarded)": 1,
+      "attractor on chosen side (R unrewarded)": 1.0,
+      "main attractor logit (R unrewarded)": 3.4777297527663107,
+      "fixed points (L rewarded)": 1,
+      "attractor on chosen side (L rewarded)": 1.0,
+      "main attractor logit (L rewarded)": -3.9298608226518477,
+      "fixed points (L unrewarded)": 1,
+      "attractor on chosen side (L unrewarded)": 1.0,
+      "main attractor logit (L unrewarded)": -3.085722732946947,
+      "reward depth R (|rew| \u2212 |unrew| logit)": 1.0185440590364738,
+      "reward depth L (|rew| \u2212 |unrew| logit)": 0.8441380897049005,
+      "reward depth > 0, share of context \u00d7 side": 1.0,
+      "v carry slope min": 0.6918219114884594,
+      "v carry slope max": 0.7850871881373199,
+      "v carry R\u00b2 min": 0.9555592910333137,
+      "v carry R\u00b2 max": 0.9820026773186076,
+      "1-variable model corr(v)": 0.9886355621886735,
+      "1-variable model likelihood (per mouse)": 0.7175397634005873,
+      "v closure R\u00b2 (v only), min over groups": 0.9552590400008115,
+      "v perturbation retained at k=1": 0.7062115669250488,
+      "v kernel held-out R\u00b2 (free)": 0.9653153523773166,
+      "three traces best BIC share (mice)": 0.9917763157894737,
+      "share mice \u03bb_unr > \u03bb_rew (two outcomes)": 1.0,
+      "three traces median A_rew": 0.22003224729973203,
+      "three traces median lambda_rew": 0.7846317736165358,
+      "three traces median A_unr": 0.05066622655587957,
+      "three traces median lambda_unr": 0.9956086409487734,
+      "three traces median A_c": 0.4759356897982777,
+      "three traces median lambda_c": 0.6131347481876535,
+      "v axis participation ratio (units)": 39.48787687353465,
+      "v retention e\u1d40Je (median over groups)": 0.720609876847125,
+      "ablation \u0394 value axis": -0.03217458724975586,
+      "ablation \u0394 reward axis": -0.08944064378738403,
+      "ablation \u0394 choice axis": -0.003161311149597168,
+      "ablation \u0394 readout direction": -0.017706692218780518,
+      "ablation \u0394 random 1-d (mean)": -0.013693177700042724,
+      "ablation \u0394 random 1-d (worst)": -0.02324855327606201,
+      "reward effect on logit (GRU)": 1.011796164341364,
+      "reward effect switch / stay (GRU)": 1.002061910256839,
+      "Q decoding R\u00b2 (min of Q_L, Q_R)": 0.9416917174717316,
+      "Q_chosen update a (R rewarded)": 0.4290038563301528,
+      "Q_chosen update b (R rewarded)": -0.42094709980330447,
+      "Q_chosen update a (R unrewarded)": 0.03817336582922213,
+      "Q_chosen update b (R unrewarded)": -0.1190361693917011,
+      "mice with all four attractors": 1.0,
+      "mice bistable for any input": 9.0,
+      "per-mouse reward depth (median)": 0.9757,
+      "per-mouse slowest \u03c4 (median, trials)": 1634.6782,
+      "embedding decodes attractor depth (rank R\u00b2)": 0.8799741475988659,
+      "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": 0.7084221449874337,
+      "embedding PC1 variance share": 0.4176658613748007,
+      "embedding PC2 variance share": 0.35282147729580915,
+      "embedding PC3 variance share": 0.1939401587778574,
+      "embedding PC4 variance share": 0.03557250255153278,
+      "embedding decodes gru bias (rank R\u00b2)": 0.7681923806924897,
+      "embedding decodes gru reward gain (1 back) (rank R\u00b2)": 0.7802351321005194,
+      "embedding decodes ctt learn_rate (rank R\u00b2)": 0.659886992560092,
+      "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": 0.47819727177243254,
+      "mixture best k (BIC)": 2,
+      "mixture BIC gain \u2212 heavy-tail null 95%": -13.823818708240495,
+      "mixture k=2 separation (Mahalanobis)": 1.202279490452711,
+      "Mantel \u03c1 embedding vs animal behaviour": 0.48685344265147845,
+      "embedding explains animal determinism (R\u00b2)": 0.7475065563373418,
+      "embedding explains animal switch rate (R\u00b2)": 0.7343292393598875,
+      "embedding explains animal bias (R\u00b2)": 0.6216877715399345,
+      "cos(determinism, ctt learn_rate) in embedding": 0.6052173223840198,
+      "cos(determinism, bias) in embedding": -0.13638596754673885,
+      "cos(ctt learn_rate, bias) in embedding": 0.2142047695115508,
+      "cos(determinism, reward gain (1 back)) in embedding": 0.8022740556325819
+    }
+  },
+  "spread": {
+    "eval likelihood (GRU)": {
+      "values": [
+        0.7338507031876187,
+        0.7337670473621601,
+        0.7337655601717313
+      ],
+      "range": 8.514301588735673e-05,
+      "rel_range": 0.00011603115478255922
+    },
+    "likelihood ctt": {
+      "values": [
+        0.72104067239849,
+        0.72104067239849,
+        0.72104067239849
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "frac mice GRU > ctt": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "likelihood bari": {
+      "values": [
+        0.7180880511365625,
+        0.7180880511365625,
+        0.7180880511365625
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "frac mice GRU > bari": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "likelihood hattori": {
+      "values": [
+        0.7159216381741544,
+        0.7159216381741544,
+        0.7159216381741544
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "frac mice GRU > hattori": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "median per-mouse gain vs CTT": {
+      "values": [
+        0.011719437868223548,
+        0.01172373670374588,
+        0.011653195725030152
+      ],
+      "range": 7.05409787157274e-05,
+      "rel_range": 0.006029767020245796
+    },
+    "kernel max |gru \u2212 animal|": {
+      "values": [
+        0.010905027389526367,
+        0.01576089859008789,
+        0.014841079711914062
+      ],
+      "range": 0.0048558712005615234,
+      "rel_range": 0.35096758629008634
+    },
+    "kernel max |ctt \u2212 animal|": {
+      "values": [
+        0.07492077350616455,
+        0.07492077350616455,
+        0.07492077350616455
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "kernel max |bari \u2212 animal|": {
+      "values": [
+        0.20182132720947266,
+        0.20182132720947266,
+        0.20182132720947266
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "kernel max |hattori \u2212 animal|": {
+      "values": [
+        0.1968456506729126,
+        0.1968456506729126,
+        0.1968456506729126
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "3-trial history calibration error pp (gru)": {
+      "values": [
+        0.18334399260728557,
+        0.23723245185573066,
+        0.19689724842716938
+      ],
+      "range": 0.0538884592484451,
+      "rel_range": 0.26181743385476763
+    },
+    "3-trial history calibration error pp (hattori)": {
+      "values": [
+        2.241213020480357,
+        2.241213020480357,
+        2.241213020480357
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "3-trial history calibration error pp (bari)": {
+      "values": [
+        2.127030478917253,
+        2.127030478917253,
+        2.127030478917253
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "3-trial history calibration error pp (ctt)": {
+      "values": [
+        1.0979163179554523,
+        1.0979163179554523,
+        1.0979163179554523
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "return after failed switch error (gru)": {
+      "values": [
+        0.004508473496177517,
+        0.00589990494795028,
+        0.005256807411093822
+      ],
+      "range": 0.0013914314517727627,
+      "rel_range": 0.26646950721793616
+    },
+    "return after failed switch error (hattori)": {
+      "values": [
+        0.09283784791848548,
+        0.09283784791848548,
+        0.09283784791848548
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "return after failed switch error (bari)": {
+      "values": [
+        0.08260716745046807,
+        0.08260716745046807,
+        0.08260716745046807
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "return after failed switch error (ctt)": {
+      "values": [
+        0.04861763751578686,
+        0.04861763751578686,
+        0.04861763751578686
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "PC1 variance share": {
+      "values": [
+        0.427432,
+        0.424152,
+        0.489769
+      ],
+      "range": 0.06561700000000004,
+      "rel_range": 0.1467555520433474
+    },
+    "PC2 variance share": {
+      "values": [
+        0.18016,
+        0.183762,
+        0.1565
+      ],
+      "range": 0.02726200000000001,
+      "rel_range": 0.15715323333756073
+    },
+    "PC3 variance share": {
+      "values": [
+        0.076433,
+        0.091197,
+        0.066573
+      ],
+      "range": 0.024624000000000007,
+      "rel_range": 0.31541867525181155
+    },
+    "PC4 variance share": {
+      "values": [
+        0.067973,
+        0.060396,
+        0.062095
+      ],
+      "range": 0.007577000000000007,
+      "rel_range": 0.11934538810483881
+    },
+    "PC5 variance share": {
+      "values": [
+        0.05617,
+        0.053069,
+        0.050134
+      ],
+      "range": 0.006036,
+      "rel_range": 0.11362024935214873
+    },
+    "participation ratio": {
+      "values": [
+        4.311,
+        4.3192,
+        3.6007
+      ],
+      "range": 0.7185000000000006,
+      "rel_range": 0.17623396479408726
+    },
+    "PCs for 90% variance": {
+      "values": [
+        9,
+        9,
+        9
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "readout variance share": {
+      "values": [
+        0.09867850951839685,
+        0.10468435874367565,
+        0.08908154298266921
+      ],
+      "range": 0.015602815761006444,
+      "rel_range": 0.16005929839379335
+    },
+    "fixed points (R rewarded)": {
+      "values": [
+        1,
+        1,
+        1
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "attractor on chosen side (R rewarded)": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "main attractor logit (R rewarded)": {
+      "values": [
+        4.343873082839509,
+        3.646957196163818,
+        4.4962738118027845
+      ],
+      "range": 0.8493166156389664,
+      "rel_range": 0.20404649696104318
+    },
+    "fixed points (R unrewarded)": {
+      "values": [
+        1,
+        1,
+        1
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "attractor on chosen side (R unrewarded)": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "main attractor logit (R unrewarded)": {
+      "values": [
+        3.0493293305008122,
+        3.6318542059943884,
+        3.4777297527663107
+      ],
+      "range": 0.5825248754935761,
+      "rel_range": 0.1720237762367756
+    },
+    "fixed points (L rewarded)": {
+      "values": [
+        3,
+        1,
+        1
+      ],
+      "range": 2.0,
+      "rel_range": 1.2
+    },
+    "attractor on chosen side (L rewarded)": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "main attractor logit (L rewarded)": {
+      "values": [
+        -4.978460557476977,
+        -3.788984303645586,
+        -3.9298608226518477
+      ],
+      "range": 1.1894762538313906,
+      "rel_range": 0.2810382651536998
+    },
+    "fixed points (L unrewarded)": {
+      "values": [
+        1,
+        1,
+        1
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "attractor on chosen side (L unrewarded)": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "main attractor logit (L unrewarded)": {
+      "values": [
+        -3.045045731794646,
+        -3.180771424562196,
+        -3.085722732946947
+      ],
+      "range": 0.13572569276754987,
+      "rel_range": 0.04372822144813834
+    },
+    "reward depth R (|rew| \u2212 |unrew| logit)": {
+      "values": [
+        1.2945437523386967,
+        0.01510299016942973,
+        1.0185440590364738
+      ],
+      "range": 1.279440762169267,
+      "rel_range": 1.6486287481083286
+    },
+    "reward depth L (|rew| \u2212 |unrew| logit)": {
+      "values": [
+        1.9334148256823305,
+        0.6082128790833901,
+        0.8441380897049005
+      ],
+      "range": 1.3252019465989404,
+      "rel_range": 1.1742117089993296
+    },
+    "reward depth > 0, share of context \u00d7 side": {
+      "values": [
+        1.0,
+        0.8,
+        1.0
+      ],
+      "range": 0.19999999999999996,
+      "rel_range": 0.21428571428571427
+    },
+    "v carry slope min": {
+      "values": [
+        0.6623411182791884,
+        0.6049911282911422,
+        0.6918219114884594
+      ],
+      "range": 0.08683078319731719,
+      "rel_range": 0.1329616398589369
+    },
+    "v carry slope max": {
+      "values": [
+        0.797455890932143,
+        0.7925635590052762,
+        0.7850871881373199
+      ],
+      "range": 0.01236870279482305,
+      "rel_range": 0.015622923109906069
+    },
+    "v carry R\u00b2 min": {
+      "values": [
+        0.9346308703391365,
+        0.8490430765293436,
+        0.9555592910333137
+      ],
+      "range": 0.10651621450397009,
+      "rel_range": 0.11665623762534331
+    },
+    "v carry R\u00b2 max": {
+      "values": [
+        0.9829803443732333,
+        0.9641425793414058,
+        0.9820026773186076
+      ],
+      "range": 0.018837765031827547,
+      "rel_range": 0.019293571800249064
+    },
+    "1-variable model corr(v)": {
+      "values": [
+        0.9847316914581533,
+        0.979243109953901,
+        0.9886355621886735
+      ],
+      "range": 0.009392452234772586,
+      "rel_range": 0.009543201856798769
+    },
+    "1-variable model likelihood (per mouse)": {
+      "values": [
+        0.7179662321111057,
+        0.7185472935421475,
+        0.7175397634005873
+      ],
+      "range": 0.0010075301415601867,
+      "rel_range": 0.0014032106076671024
+    },
+    "v closure R\u00b2 (v only), min over groups": {
+      "values": [
+        0.93316859943393,
+        0.8435165130880187,
+        0.9552590400008115
+      ],
+      "range": 0.11174252691279285,
+      "rel_range": 0.12270660087572406
+    },
+    "v perturbation retained at k=1": {
+      "values": [
+        0.6910039782524109,
+        0.6725606918334961,
+        0.7062115669250488
+      ],
+      "range": 0.033650875091552734,
+      "rel_range": 0.048774656636529856
+    },
+    "v kernel held-out R\u00b2 (free)": {
+      "values": [
+        0.9529295851619015,
+        0.9385932287796857,
+        0.9653153523773166
+      ],
+      "range": 0.02672212359763093,
+      "rel_range": 0.02806122227644027
+    },
+    "three traces best BIC share (mice)": {
+      "values": [
+        0.9950657894736842,
+        0.9983552631578947,
+        0.9917763157894737
+      ],
+      "range": 0.006578947368421018,
+      "rel_range": 0.00661157024793385
+    },
+    "share mice \u03bb_unr > \u03bb_rew (two outcomes)": {
+      "values": [
+        1.0,
+        0.9983552631578947,
+        1.0
+      ],
+      "range": 0.00164473684210531,
+      "rel_range": 0.001645639056500321
+    },
+    "three traces median A_rew": {
+      "values": [
+        0.2915576688154951,
+        0.3126581376725065,
+        0.22003224729973203
+      ],
+      "range": 0.09262589037277447,
+      "rel_range": 0.33712869547142965
+    },
+    "three traces median lambda_rew": {
+      "values": [
+        0.7189381364937903,
+        0.741697920283612,
+        0.7846317736165358
+      ],
+      "range": 0.06569363712274545,
+      "rel_range": 0.08777612572557011
+    },
+    "three traces median A_unr": {
+      "values": [
+        0.04489917928620352,
+        0.045887417815307335,
+        0.05066622655587957
+      ],
+      "range": 0.005767047269676057,
+      "rel_range": 0.12231033189505543
+    },
+    "three traces median lambda_unr": {
+      "values": [
+        0.9989999999894063,
+        0.9989999999976775,
+        0.9956086409487734
+      ],
+      "range": 0.0033913590489040857,
+      "rel_range": 0.0033985996057025185
+    },
+    "three traces median A_c": {
+      "values": [
+        0.3482064498284565,
+        0.34359000515902105,
+        0.4759356897982777
+      ],
+      "range": 0.13234568463925667,
+      "rel_range": 0.34000695766631883
+    },
+    "three traces median lambda_c": {
+      "values": [
+        0.6509976507249737,
+        0.5061952634938013,
+        0.6131347481876535
+      ],
+      "range": 0.14480238723117245,
+      "rel_range": 0.24538234978660517
+    },
+    "v axis participation ratio (units)": {
+      "values": [
+        31.845958382807126,
+        44.90298242448764,
+        39.48787687353465
+      ],
+      "range": 13.057024041680513,
+      "rel_range": 0.33699367297373894
+    },
+    "v retention e\u1d40Je (median over groups)": {
+      "values": [
+        0.677235239615469,
+        0.6608912777117615,
+        0.720609876847125
+      ],
+      "range": 0.05971859913536348,
+      "rel_range": 0.08702221319497286
+    },
+    "ablation \u0394 value axis": {
+      "values": [
+        -0.027501404285430908,
+        -0.026211261749267578,
+        -0.03217458724975586
+      ],
+      "range": 0.005963325500488281,
+      "rel_range": 0.2082960604434994
+    },
+    "ablation \u0394 reward axis": {
+      "values": [
+        -0.08123308420181274,
+        -0.08453363180160522,
+        -0.08944064378738403
+      ],
+      "range": 0.008207559585571289,
+      "rel_range": 0.09648106848053878
+    },
+    "ablation \u0394 choice axis": {
+      "values": [
+        -0.001997232437133789,
+        -0.003574967384338379,
+        -0.003161311149597168
+      ],
+      "range": 0.0015777349472045898,
+      "rel_range": 0.5419589964783926
+    },
+    "ablation \u0394 readout direction": {
+      "values": [
+        -0.019289731979370117,
+        -0.018818020820617676,
+        -0.017706692218780518
+      ],
+      "range": 0.0015830397605895996,
+      "rel_range": 0.08508763780006856
+    },
+    "ablation \u0394 random 1-d (mean)": {
+      "values": [
+        -0.013359051942825318,
+        -0.016856998205184937,
+        -0.013693177700042724
+      ],
+      "range": 0.0034979462623596184,
+      "rel_range": 0.2389893719696593
+    },
+    "ablation \u0394 random 1-d (worst)": {
+      "values": [
+        -0.020609498023986816,
+        -0.04029971361160278,
+        -0.02324855327606201
+      ],
+      "range": 0.019690215587615967,
+      "rel_range": 0.7019037022294967
+    },
+    "reward effect on logit (GRU)": {
+      "values": [
+        1.0054870995945624,
+        1.027565803864561,
+        1.011796164341364
+      ],
+      "range": 0.022078704269998584,
+      "rel_range": 0.021753496260437908
+    },
+    "reward effect switch / stay (GRU)": {
+      "values": [
+        1.0179887073990543,
+        1.0076417776819886,
+        1.002061910256839
+      ],
+      "range": 0.015926797142215232,
+      "rel_range": 0.01578112476030232
+    },
+    "Q decoding R\u00b2 (min of Q_L, Q_R)": {
+      "values": [
+        0.9392600755969488,
+        0.9422440565261136,
+        0.9416917174717316
+      ],
+      "range": 0.0029839809291648534,
+      "rel_range": 0.0031708543311932858
+    },
+    "Q_chosen update a (R rewarded)": {
+      "values": [
+        0.43404942866054225,
+        0.3869201944021112,
+        0.4290038563301528
+      ],
+      "range": 0.047129234258431074,
+      "rel_range": 0.1131125620712965
+    },
+    "Q_chosen update b (R rewarded)": {
+      "values": [
+        -0.43353824683887965,
+        -0.37190020510861727,
+        -0.42094709980330447
+      ],
+      "range": 0.06163804173026238,
+      "rel_range": 0.1507797649171598
+    },
+    "Q_chosen update a (R unrewarded)": {
+      "values": [
+        0.050745543217341225,
+        0.04481158632266314,
+        0.03817336582922213
+      ],
+      "range": 0.012572177388119096,
+      "rel_range": 0.28203389257044853
+    },
+    "Q_chosen update b (R unrewarded)": {
+      "values": [
+        -0.1292923308492711,
+        -0.12625909506685268,
+        -0.1190361693917011
+      ],
+      "range": 0.01025616145757001,
+      "rel_range": 0.08213962437123794
+    },
+    "mice with all four attractors": {
+      "values": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "mice bistable for any input": {
+      "values": [
+        79.0,
+        0.0,
+        9.0
+      ],
+      "range": 79.0,
+      "rel_range": 2.6931818181818183
+    },
+    "per-mouse reward depth (median)": {
+      "values": [
+        1.0727,
+        0.3581,
+        0.9757
+      ],
+      "range": 0.7146,
+      "rel_range": 0.8908373156035735
+    },
+    "per-mouse slowest \u03c4 (median, trials)": {
+      "values": [
+        355.379,
+        1669.5017,
+        1634.6782
+      ],
+      "range": 1314.1227,
+      "rel_range": 1.077279586892289
+    },
+    "embedding decodes attractor depth (rank R\u00b2)": {
+      "values": [
+        0.8476423664002978,
+        0.889000761760386,
+        0.8799741475988659
+      ],
+      "range": 0.04135839536008823,
+      "rel_range": 0.04741816360753341
+    },
+    "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": {
+      "values": [
+        0.7971184908176884,
+        0.8252160638502093,
+        0.7084221449874337
+      ],
+      "range": 0.11679391886277557,
+      "rel_range": 0.15032961468699868
+    },
+    "embedding PC1 variance share": {
+      "values": [
+        0.5759529709913123,
+        0.523989887993752,
+        0.4176658613748007
+      ],
+      "range": 0.15828710961651155,
+      "rel_range": 0.3129010280969738
+    },
+    "embedding PC2 variance share": {
+      "values": [
+        0.22026038287648994,
+        0.2313999495901516,
+        0.35282147729580915
+      ],
+      "range": 0.1325610944193192,
+      "rel_range": 0.4943347114030913
+    },
+    "embedding PC3 variance share": {
+      "values": [
+        0.14028149695155268,
+        0.22230580180205092,
+        0.1939401587778574
+      ],
+      "range": 0.08202430485049825,
+      "rel_range": 0.44215772505273737
+    },
+    "embedding PC4 variance share": {
+      "values": [
+        0.06350514918064497,
+        0.02230436061404546,
+        0.03557250255153278
+      ],
+      "range": 0.041200788566599506,
+      "rel_range": 1.0182922766780476
+    },
+    "embedding decodes gru bias (rank R\u00b2)": {
+      "values": [
+        0.7816223700093001,
+        0.7740103083312206,
+        0.7681923806924897
+      ],
+      "range": 0.013429989316810387,
+      "rel_range": 0.017337780137028302
+    },
+    "embedding decodes gru reward gain (1 back) (rank R\u00b2)": {
+      "values": [
+        0.7795047702897498,
+        0.7561851511366816,
+        0.7802351321005194
+      ],
+      "range": 0.024049980963837814,
+      "rel_range": 0.031153833230326434
+    },
+    "embedding decodes ctt learn_rate (rank R\u00b2)": {
+      "values": [
+        0.673298881273416,
+        0.6754742761958372,
+        0.659886992560092
+      ],
+      "range": 0.015587283635745242,
+      "rel_range": 0.023280120784271326
+    },
+    "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": {
+      "values": [
+        0.46949143056968856,
+        0.479106764140275,
+        0.47819727177243254
+      ],
+      "range": 0.009615333570586415,
+      "rel_range": 0.02021733415152756
+    },
+    "mixture best k (BIC)": {
+      "values": [
+        2,
+        2,
+        2
+      ],
+      "range": 0.0,
+      "rel_range": 0.0
+    },
+    "mixture BIC gain \u2212 heavy-tail null 95%": {
+      "values": [
+        0.18912495185732325,
+        2.0743448910210702,
+        -13.823818708240495
+      ],
+      "range": 15.898163599261565,
+      "rel_range": 4.125696495258041
+    },
+    "mixture k=2 separation (Mahalanobis)": {
+      "values": [
+        0.9716031543921361,
+        0.9594998119665508,
+        1.202279490452711
+      ],
+      "range": 0.24277967848616022,
+      "rel_range": 0.23244498413374515
+    },
+    "Mantel \u03c1 embedding vs animal behaviour": {
+      "values": [
+        0.48985354731431074,
+        0.47063618584808037,
+        0.48685344265147845
+      ],
+      "range": 0.019217361466230376,
+      "rel_range": 0.0398330439954382
+    },
+    "embedding explains animal determinism (R\u00b2)": {
+      "values": [
+        0.7437488321729542,
+        0.7664941800608042,
+        0.7475065563373418
+      ],
+      "range": 0.022745347887849987,
+      "rel_range": 0.03022303474815219
+    },
+    "embedding explains animal switch rate (R\u00b2)": {
+      "values": [
+        0.7217401111983026,
+        0.7440720019094633,
+        0.7343292393598875
+      ],
+      "range": 0.022331890711160707,
+      "rel_range": 0.03045062175588879
+    },
+    "embedding explains animal bias (R\u00b2)": {
+      "values": [
+        0.6546280837936881,
+        0.6444358373502944,
+        0.6216877715399345
+      ],
+      "range": 0.0329403122537536,
+      "rel_range": 0.051449095235821814
+    },
+    "cos(determinism, ctt learn_rate) in embedding": {
+      "values": [
+        0.6065126247617715,
+        0.5964025422978502,
+        0.6052173223840198
+      ],
+      "range": 0.01011008246392131,
+      "rel_range": 0.01677435009261765
+    },
+    "cos(determinism, bias) in embedding": {
+      "values": [
+        -0.1122813112328936,
+        -0.08536644981935436,
+        -0.13638596754673885
+      ],
+      "range": 0.051019517727384486,
+      "rel_range": 0.45821286917376797
+    },
+    "cos(ctt learn_rate, bias) in embedding": {
+      "values": [
+        0.18454829632503258,
+        0.23115628952738798,
+        0.2142047695115508
+      ],
+      "range": 0.0466079932023554,
+      "rel_range": 0.22197476258512425
+    },
+    "cos(determinism, reward gain (1 back)) in embedding": {
+      "values": [
+        0.8360182096633829,
+        0.833809838829481,
+        0.8022740556325819
+      ],
+      "range": 0.033744154030801,
+      "rel_range": 0.04094995183389318
+    }
+  },
+  "note": "basis-free quantities only; G3 aligns the representations across seeds"
+}
