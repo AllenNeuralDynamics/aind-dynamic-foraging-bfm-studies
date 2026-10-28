@@ -1,4 +1,4 @@
-# Sessions failing Pareto k̂ are rescored by importance sampling; failing subjects are refit once, centred
+# Sessions failing Pareto k̂ are rescored by importance sampling; the centred refit was rejected
 
 ADR 0002 headlined the plain draw-average and promised importance sampling "only if real sessions
 fail the gate". In production they did: 262 of 2,138 scored sessions had k̂ ≥ 0.7 (none unjudged;
@@ -18,15 +18,21 @@ the importance-sampled value for the sessions that failed and the plain value el
 all-plain total is reported beside it (`*_plain`). Code: foraging-models'
 `importance_sampled_session_marginal`; the wrapper applies it with `importance_rescore`.
 
-**Refit.** Subjects failing any gate (R-hat ≥ 1.01, bulk ESS < 400, or any divergence) are
-refit once: centred session level (the non-centred form diverged where sessions are well
-constrained), target acceptance 0.95, 3000 warmup + 4 × 3000 draws, 12 session draws per
-posterior draw (144,000 per session, as before). A subject still failing after the refit keeps
-the refit and is reported as failing; there is no second refit.
+**Refit.** The 46 subjects failing any gate (R-hat ≥ 1.01, bulk ESS < 400, or any divergence)
+were refit once: centred session level, target acceptance 0.95, 3000 warmup + 4 × 3000 draws
+(`hattori@20261027-181415`). It was worse on every gate: divergences rose from 304 to 11,007
+(median 3 → 170 per subject), and subjects passing R-hat and ESS fell from 39 to 24; one subject
+passed every gate. Divergences rising 36-fold under the centred form is a funnel's signature: the
+sessions are weakly constrained, so the non-centred production geometry was the right one. The
+refit is not used (record: `variants/hattori/launch_record/refit/README.md`). The untried remedy
+is a non-centred refit at higher target acceptance; PLAN.md allowed one refit, so a second is a
+new decision, not part of this one.
 
-**Passing subjects** keep their production fit: their saved draws are scored again through the
-same data path (`draws_path`), which reproduces the production plain scores exactly, then the
-failing sessions are rescored.
+**Every subject keeps its production fit.** Its saved draws are scored again through the same
+data path (`draws_path`), which reproduces the production plain scores exactly, then the
+sessions failing k̂ are rescored (`hattori@20261027-181430` for the 103 subjects passing the
+gates, `hattori@20261027-201810` for the other 46). The headline covers all 149; the
+converged-only number beside it excludes the 46.
 
 ## Considered options
 
@@ -43,5 +49,5 @@ failing sessions are rescored.
 - The headline is a mix of two unbiased estimators of the same integral. Its SE keeps the error
   from the finite posterior draws whole (the plain joint error over every session) and adds the
   importance-sampled sessions' proposal error in quadrature.
-- The converged-only number and the headline are now computed after the refit, so they move
-  together; the production numbers stay in r1's history.
+- The production headline is shown beside the final one in r1, so the effect of the rescue is
+  read directly.

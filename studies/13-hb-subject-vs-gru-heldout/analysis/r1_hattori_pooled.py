@@ -17,8 +17,8 @@ sys.path.insert(0, str(HERE.parents[1] / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
 import cross_study  # noqa: E402
 
-# The final set (ADR 0004: refit + rescore) carries the headline; production is shown beside it.
-WANDB_GROUPS = ["hattori@20261026-002131", "hattori@20261027-181415", "hattori@20261027-181430"]
+# The final set (ADR 0004: production fits, k̂-rescued) carries the headline; production is shown beside it.
+WANDB_GROUPS = ["hattori@20261026-002131", "hattori@20261027-181430", "hattori@20261027-201810"]
 RUNS = HERE / "hattori_final_runs.json"
 PRODUCTION = HERE / "hattori_runs.json"
 PLUGIN = HERE / "hattori_plugin.json"   # freeze_plugin.py: one fixed parameter set per subject
@@ -93,10 +93,11 @@ def render(r: dict) -> str:
     lines += [
         "| arm | held-out likelihood (trial-weighted) |",
         "|---|---|",
-        f"| HB-Hattori2019 two-level, session-marginal (headline: refit + k̂ rescue, ADR 0004) | "
-        f"**{r['hb_session_marginal']:.4f}** ± {r['hb_session_marginal_se']:.1e} (MC) |",
-        f"| … same fits, plain draw-average on every session | {r['hb_session_marginal_plain']:.4f} |",
-        f"| … production (before refit and rescue) | {r['hb_session_marginal_production']:.4f} |",
+        f"| HB-Hattori2019 two-level, session-marginal (headline: k̂-failing sessions importance-sampled, "
+        f"ADR 0004) | **{r['hb_session_marginal']:.4f}** ± {r['hb_session_marginal_se']:.1e} (MC); "
+        f"{r['hb_session_marginal']:.6f} |",
+        f"| … same fits, plain draw-average on every session (= production) | "
+        f"{r['hb_session_marginal_plain']:.6f} |",
         f"| HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session "
         f"posterior median), no within-session inference | {r['hb_plugin']:.4f} |",
         f"| HB-Hattori2019 two-level, zero-spread: every posterior draw of the typical session, no "
@@ -116,9 +117,10 @@ def render(r: dict) -> str:
         f"fail on the plain draw-average (production: {r['n_sessions_pareto_k_fail_production']}); "
         f"{r['n_sessions_importance']} were rescored by importance sampling, after which "
         f"{r['n_sessions_pareto_k_fail']} still fail (k̂ ≥ 0.7 or unjudged).",
-        f"- Refit (ADR 0004): production had {r['n_subjects_converged_production']} of "
-        f"{r['n_subjects']} subjects passing every gate; after one centred refit of the rest, "
-        f"{r['n_subjects_converged']} pass.",
+        f"- Refit (ADR 0004): one centred refit of the {r['n_subjects'] - r['n_subjects_converged']} "
+        "subjects failing a gate was worse on every gate (divergences 304 → 11,007) and is not "
+        "used; every subject keeps its production fit "
+        "(`variants/hattori/launch_record/refit/README.md`).",
     ]
     return "\n".join(lines)
 

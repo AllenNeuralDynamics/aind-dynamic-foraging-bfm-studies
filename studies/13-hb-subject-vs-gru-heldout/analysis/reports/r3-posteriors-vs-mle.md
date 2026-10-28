@@ -6,11 +6,12 @@ status: draft
 authors:
 - han
 wandb_groups:
-- hattori@20261026-002131
+- hattori@20261027-181430
+- hattori@20261027-201810
 inputs:
   script: analysis/r3_posteriors_vs_mle.py
   posteriors: analysis/hattori_posteriors.json
-  runs: analysis/hattori_runs.json
+  runs: analysis/hattori_final_runs.json
   freeze: analysis/freeze_posteriors.py
   figures:
   - analysis/fig_r3_params_vs_mle.svg

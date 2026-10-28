@@ -28,8 +28,9 @@ from _meta import build_meta, write_artifact  # noqa: E402
 
 ENTITY, PROJECT = "AIND-disRNN", "mice_data_scaling"
 PRODUCTION = ["hattori@20261026-002131"]            # the production launch, pinned
-# ADR 0004: refit of the 46 subjects failing the gates, and rescore of the other 103.
-FINAL = ["hattori@20261027-181415", "hattori@20261027-181430"]
+# ADR 0004: every subject's production fit, rescored: the 103 passing the gates, then the 46 that
+# were refit (the centred refit, hattori@20261027-181415, was worse on every gate and is not used).
+FINAL = ["hattori@20261027-181430", "hattori@20261027-201810"]
 WANDB_GROUPS = PRODUCTION + FINAL
 ARTIFACT_ROOT = Path("/home/han.hou/outputs/disrnn/hb_artifacts")   # artifact_dir on HPC
 OUT = HERE / "hattori_runs.json"

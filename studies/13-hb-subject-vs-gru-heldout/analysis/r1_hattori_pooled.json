@@ -3,30 +3,37 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_hattori_pooled.py",
-    "produced_at_pt": "2026-10-26T21:45:12-07:00",
-    "studies_git_sha": "dabeea8b91bb692a70c7ce8d8663dff78bf4902c",
+    "produced_at_pt": "2026-10-27T21:21:30-07:00",
+    "studies_git_sha": "562f814c89ab0d90530421a851aaba3bb4bdcbb8",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
-      "hattori@20261026-002131"
+      "hattori@20261026-002131",
+      "hattori@20261027-181430",
+      "hattori@20261027-201810"
     ],
     "source_studies_git_shas": [
-      "32bcf415c5f18d16a07dda5fb4dee914feabd177"
+      "32bcf415c5f18d16a07dda5fb4dee914feabd177",
+      "41ef7f9a0dc1453b3637415829e48682eca05e90",
+      "562f814c89ab0d90530421a851aaba3bb4bdcbb8"
     ],
     "source_dispatcher_git_shas": [
-      "5936f5d0b94b1fb5ec9d95058067716f261e5555"
+      "5936f5d0b94b1fb5ec9d95058067716f261e5555",
+      "a4fe331b0fde0ca21aca8922d083e273e7868bcb"
     ],
     "source_wrapper_git_shas": [
-      "04878a6cdb081b0156b96ac1e61dde5de58d492e"
+      "04878a6cdb081b0156b96ac1e61dde5de58d492e",
+      "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43"
     ],
     "source_foraging_models_git_shas": [
+      "13f7e9c3af6e80bcaeaae65a970a410e0539077d",
       "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2"
     ],
     "provenance_findings": [],
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.py",
-        "sha256": "f4e854f531c9f70b6db7cc549a49e0bdbebf09c3eb1b481d143382974107aa39"
+        "sha256": "8233e86a667f938c710074fef7dd2473422f504060c4c1587dbf04facd43a391"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -35,12 +42,16 @@
     ],
     "inputs": [
       {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
+        "sha256": "6b3d4c6a82dcaecc27a915b87abb01e5f953cbc01d8ec808661e3cc87c45e1d7"
+      },
+      {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
-        "sha256": "47361e29ee51c91658f6adf8b9385863bbb846f86ae57297c46f2276f6fac9da"
+        "sha256": "feeed0fbf22a2cbef3e9dd1ce653294c86ce684d8b8746704ea68ec2c198df33"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_plugin.json",
-        "sha256": "9faa9f271df4a0f5eb6b4c5a8a148bfb488a84063446e4b2750a88077d81f896"
+        "sha256": "ca48d5cbb2fd817455e28211f6df9661cd9990c08eb5d567f042ccd5c01980fa"
       },
       {
         "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
@@ -54,11 +65,11 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.json",
-        "sha256": "e40159a619f317c58028b5caf12bacd85c3b1262b31f1a67fa5688759b8a61b3"
+        "sha256": "add798f9ab6d7c0b81226d961a38b4241abdede45f1149194109cd86bc7d58f3"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r1-hattori-pooled.md#result-1",
-        "sha256": "ca46b8e1124502d33c906963cd7f1da469c31c266a06a84b88c86830a7ec604d"
+        "sha256": "1d7cb5bdbd57741482b5381f7b9e77b4a62633e5b30dd12636317afe08dbf47b"
       }
     ]
   },
@@ -66,15 +77,21 @@
   "n_subjects_expected": 149,
   "n_trials": 1013172,
   "n_trials_comparators": 1013172,
-  "hb_session_marginal": 0.7212945969317852,
-  "hb_session_marginal_se": 1.6552877886128957e-06,
+  "hb_session_marginal": 0.7212967710838346,
+  "hb_session_marginal_se": 2.0139833179503164e-06,
+  "hb_session_marginal_plain": 0.7212945969317852,
+  "hb_session_marginal_production": 0.7212945969317852,
+  "n_sessions_importance": 262,
+  "n_sessions_pareto_k_fail_plain": 262,
+  "n_sessions_pareto_k_fail_production": 262,
+  "n_subjects_converged_production": 103,
   "hb_trial_marginal": 0.7090194990537151,
   "hb_plugin": 0.7106704312325619,
   "hb_zero_spread": 0.7173759107606891,
-  "hb_session_marginal_converged_only": 0.7166201551075587,
+  "hb_session_marginal_converged_only": 0.7166218444109982,
   "n_subjects_converged": 103,
   "n_sessions": 2138,
-  "n_sessions_pareto_k_fail": 262,
+  "n_sessions_pareto_k_fail": 44,
   "divergences": 304,
   "max_r_hat": 1.1728981662562876,
   "min_ess_bulk": 15.886845345407105,

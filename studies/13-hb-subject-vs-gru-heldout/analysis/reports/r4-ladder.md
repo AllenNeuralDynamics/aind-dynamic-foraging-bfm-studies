@@ -6,10 +6,11 @@ status: draft
 authors:
 - han
 wandb_groups:
-- hattori@20261026-002131
+- hattori@20261027-181430
+- hattori@20261027-201810
 inputs:
   script: analysis/r4_ladder.py
-  runs: analysis/hattori_runs.json
+  runs: analysis/hattori_final_runs.json
   plugin: analysis/hattori_plugin.json
   figures:
   - analysis/fig_r4_ladder.svg

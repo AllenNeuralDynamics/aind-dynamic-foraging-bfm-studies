@@ -2,14 +2,17 @@
 schema_version: 1
 id: r1
 slug: hattori-pooled
-status: draft
+status: live
 authors:
 - han
 wandb_groups:
 - hattori@20261026-002131
+- hattori@20261027-181430
+- hattori@20261027-201810
 inputs:
   script: analysis/r1_hattori_pooled.py
-  data: analysis/hattori_runs.json
+  data: analysis/hattori_final_runs.json
+  production: analysis/hattori_runs.json
   plugin: analysis/hattori_plugin.json
   freeze: analysis/freeze_hattori.py
   freeze_plugin: analysis/freeze_plugin.py
@@ -37,10 +40,18 @@ draws × 24 fresh session draws (ADR 0002). Pooled = exp(Σ log-likelihood / Σ 
 subjects; Monte Carlo errors add in quadrature across runs. Comparators are read from study 01:
 r8 for the per-subject MLE and r1 for the GRU H128 curve.
 
+**k̂ rescue (ADR 0004).** Every subject's production draws were scored again through the same
+data path (`hattori@20261027-181430` and `hattori@20261027-201810`; the plain scores reproduce
+production exactly), and each session failing Pareto k̂ on the plain draw-average was rescored by
+importance sampling against the exact predictive mixture: a t proposal at the session's mode,
+mixed defensively with the mixture, 24,000 draws. The headline uses the importance-sampled value
+for those sessions and the plain value elsewhere; both estimate the same integral.
+
 <!-- BEGIN result-1 -->
 | arm | held-out likelihood (trial-weighted) |
 |---|---|
-| HB-Hattori2019 two-level, session-marginal (headline) | **0.7213** ± 1.7e-06 (MC) |
+| HB-Hattori2019 two-level, session-marginal (headline: k̂-failing sessions importance-sampled, ADR 0004) | **0.7213** ± 2.0e-06 (MC); 0.721297 |
+| … same fits, plain draw-average on every session (= production) | 0.721295 |
 | HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session posterior median), no within-session inference | 0.7107 |
 | HB-Hattori2019 two-level, zero-spread: every posterior draw of the typical session, no between-session spread, session-marginal | 0.7174 |
 | HB-Hattori2019 two-level, trial-marginal | 0.7090 |
@@ -50,7 +61,8 @@ r8 for the per-subject MLE and r1 for the GRU H128 curve.
 
 - Subjects 149; scored trials 1,013,172 (comparators: 1,013,172).
 - Convergence gates (R-hat < 1.01, bulk ESS ≥ 400, no divergences): 103 of 149 subjects pass; worst R-hat 1.173, lowest ESS 16; 304 divergences. Converged subjects only: 0.7166.
-- Pareto k̂ gate: 262 of 2138 scored sessions fail (k̂ ≥ 0.7 or unjudged).
+- Pareto k̂ gate: 262 of 2138 scored sessions fail on the plain draw-average (production: 262); 262 were rescored by importance sampling, after which 44 still fail (k̂ ≥ 0.7 or unjudged).
+- Refit (ADR 0004): one centred refit of the 46 subjects failing a gate was worse on every gate (divergences 304 → 11,007) and is not used; every subject keeps its production fit (`variants/hattori/launch_record/refit/README.md`).
 <!-- END result-1 -->
 
 ## What it says
@@ -84,15 +96,20 @@ Read off the frozen result above (2026-10-26):
   the same fits fall *below* the per-subject MLE. ADR 0002 explains why the session-marginal is the
   fair score: it predicts each trial from the session's earlier trials, as the GRU does.
 
-Why this stays `draft`:
+- **The starved plain average was not biased.** Rescoring the sessions that failed k̂ by
+  importance sampling moves the headline by less than 1e-5 (the first two rows
+  above): over all rescored sessions the two estimators differ by +3 nats in total, against
+  about a million scored trials. The k̂ failures flagged unreliable *weights*, not a biased total.
 
-- **k̂.** 12% of scored sessions fail the Pareto k̂ gate. Their plain draw-average rests on few
-  draws and is likely biased low, so the headline probably understates the HB. Resolving it means
-  rescoring those sessions from the saved draws with importance sampling (ADR 0002's fallback); no
-  refit is needed.
-- **Convergence.** Some subjects miss the R-hat/ESS gates or have divergences (counts above). PLAN.md's
-  rule is one refit with longer chains for failing subjects. The converged-only number is given
-  beside the headline. Requiring zero divergences as well leaves about two thirds of subjects,
+Caveats:
+
+- **k̂.** After importance sampling a minority of the rescored sessions still fail the gate
+  (count above; split about evenly between subjects that pass and fail the convergence gates). For those
+  the t proposal fits poorly (k̂ up to ~8); their estimates are reported as they are, not dropped.
+- **Convergence.** Some subjects miss the R-hat/ESS gates or have divergences (counts above). The one
+  refit PLAN.md allows was run (centred, target acceptance 0.95, longer chains) and was worse on
+  every gate, so it is not used (ADR 0004); a non-centred refit at higher target acceptance is the
+  untried remedy. The converged-only number is given beside the headline. Requiring zero divergences as well leaves about two thirds of subjects,
   and that subset scores lower than the headline: the subjects that diverge are not a random
   third, so the converged-only number describes a different population and is no like-for-like
   comparison with the all-subject comparators.
