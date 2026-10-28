@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1 r2 r3 r4 r5
+all: r1 r2 r3 r4 r5 r6
 
 # r1 = HB-Hattori2019 two-level vs GRU and per-subject MLE on held-out subjects
 .PHONY: r1
@@ -47,6 +47,12 @@ freeze-posteriors:
 freeze-plugin:
 	JAX_PLATFORMS=cpu $(PY) analysis/freeze_plugin.py
 
+# freeze-plugin-ctt = the same plug-in and zero-spread controls for the ctt variant (r6); never part
+# of `all`. Run on a compute node, then commit analysis/ctt_plugin.json.
+.PHONY: freeze-plugin-ctt
+freeze-plugin-ctt:
+	JAX_PLATFORMS=cpu $(PY) analysis/freeze_plugin_ctt.py
+
 # r4 = The HB ladder: from per-subject MLE to the full two-level HB, step by step
 .PHONY: r4
 r4:
@@ -56,3 +62,8 @@ r4:
 .PHONY: r5
 r5:
 	$(PY) analysis/r5_ctt_pooled.py
+
+# r6 = The HB-CTT ladder: from per-subject MLE to the full two-level HB, beside HB-Hattori
+.PHONY: r6
+r6:
+	$(PY) analysis/r6_ctt_ladder.py

@@ -5,6 +5,7 @@
 - Variant `ctt` (HB-CompareToThreshold, foraging-models v0.26.0, wrapper `hb_model`): production
   `ctt@20261028-003745` and refit of the 42 gate-failing subjects `ctt@20261028-020002` (as in
   ADR 0004; divergences 1,189 → 54, 137 of 149 pass every gate). r5: HB-CTT 0.7225.
+- r6: the HB-CTT ladder beside r4's (controls `freeze_plugin_ctt.py` → `ctt_plugin.json`).
 
 - Non-centred refit (approved by Han after the centred one failed) of the 46 gate-failing subjects,
   `hattori@20261027-223626`: divergences 304 → 45, 36 of 46 now pass every gate (139 of 149 overall).

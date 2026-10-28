@@ -7,3 +7,4 @@
 | [r3 — What the HB learns: session-to-session variability and parameters vs per-subject MLE](r3-posteriors-vs-mle.md) | TODO | — |
 | [r4 — The HB ladder: from per-subject MLE to the full two-level HB, step by step](r4-ladder.md) | TODO | — |
 | [r5 — HB-CTT two-level vs HB-Hattori, per-subject MLE and GRU on held-out subjects](r5-ctt-pooled.md) | Where does a per-subject two-level HB-CTT land? | 0.7225: best classical model (HB-Hattori 0.7213, MLE CTT 0.7170), just above GRU D≈10 (0.7219), below larger GRUs |
+| [r6 — The HB-CTT ladder: from per-subject MLE to the full two-level HB, beside HB-Hattori](r6-ctt-ladder.md) | Does HB-CTT gain over its MLE the way HB-Hattori does? | Same shape, smaller steps: plug-in −0.0012, zero-spread +0.0046, full HB +0.0020 (0.7170 → 0.7225) |
