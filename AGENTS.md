@@ -64,9 +64,9 @@ the links give detail, they do not replace the rules.
   default; print `ref(...).cite()` so the version name sits next to the number, and give one line
   of why for a non-default; older readers are in `studies/util/cross_study.py`), pass that source
   JSON (`ref(...).source`, or the helper's `*_SOURCE` path; not the helper) in
-  `build_meta(inputs=...)`, and
-  name the source in the report's `upstream` (`{study, report}` for a result, `{study,
-  wandb_group}` for raw data). The checker then flags the report when that source is corrected.
+  `build_meta(inputs=...)`, and name the source in the report's `upstream` (`{study, report}`
+  for a result, `{study, wandb_group}` for raw data). The checker then flags the report when
+  that source is corrected.
 - **Start from the scaffolder**: `make new-study`, `make new-variant`, `make new-report` (usage
   in the root `Makefile`). Their output passes `make validate` as written.
 - **Layout and provenance are schema-checked.** The rules are `schemas/` (fields, layout) and
