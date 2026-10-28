@@ -6,4 +6,4 @@
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `ctt@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Manifest `sweep_hpc_per_subject.yaml` (production recipe of `hattori`, `+model.hb_model=ctt`, IS k̂ rescue on). Needs wrapper `hb_model` (wrapper#116) and foraging-models v0.26.0.
