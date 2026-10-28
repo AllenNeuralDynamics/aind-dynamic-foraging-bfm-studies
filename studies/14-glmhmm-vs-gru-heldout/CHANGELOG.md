@@ -12,3 +12,9 @@
   (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111) and the `max_em_iters` 500
   follow-up (AllenNeuralDynamics/aind-dynamic-foraging-models#82).
 - r2 reads states only as far as study 15 (#50) shows they are recoverable.
+- HPC sweeps set `model.num_workers=10`, and the launch commands request 32 cores: restarts
+  and refits run 10 at a time (AllenNeuralDynamics/aind-dynamic-foraging-models#86), about
+  5× faster for a K = 10 cell. PLAN.md's Compute section records the measurement and the
+  `max_em_iters` 500 cap (AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#207).
+- The Beaker templates name the built GLM-HMM image,
+  `han-hou/dynamic-foraging-bfm-glmhmm-20261027`; its smoke test has not run yet.

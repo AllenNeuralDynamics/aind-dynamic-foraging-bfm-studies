@@ -26,6 +26,7 @@ command:
   - model=glmhmm
   - model.emission=reference
   - model.n_lags=5
+  - model.num_workers=10  # restarts, then refits, 10 at a time; needs --cpus-per-task=32
   - seed=0
   - wandb.entity=AIND-disRNN
   - wandb.project=mice_glmhmm

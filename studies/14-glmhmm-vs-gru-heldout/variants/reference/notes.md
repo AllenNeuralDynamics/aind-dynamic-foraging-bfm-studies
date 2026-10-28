@@ -13,12 +13,13 @@ resolves a relative `--sweep-yaml` against the dispatcher, and writes the record
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py \
       --sweep-yaml "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/reference/sweep_hpc.yaml" \
-      --mode cpu --sbatch-extra "--cpus-per-task=8 --mem=64G --time=48:00:00" \
+      --mode cpu --sbatch-extra "--cpus-per-task=32 --mem=64G --time=48:00:00" \
       --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/reference/launch_record/reference-k1-10" \
       --label reference-k1-10 --note "Study 14: reference GLM-HMM, K=1..10 at L=<from lag-scan>, held-out 3-way score vs study 02's GRU"
 
-**Or on Beaker**, which needs the GLM-HMM image built first (wrapper `beaker/glmhmm/Dockerfile`,
-AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111; see `experiment_beaker.yaml`). Same
+**Or on Beaker**, on the GLM-HMM image `han-hou/dynamic-foraging-bfm-glmhmm-20261027` (wrapper
+`beaker/glmhmm/`, AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111; run its
+`smoke.yaml` first; see `experiment_beaker.yaml`). Same
 grid, one non-preemptible single-GPU task per cell:
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
