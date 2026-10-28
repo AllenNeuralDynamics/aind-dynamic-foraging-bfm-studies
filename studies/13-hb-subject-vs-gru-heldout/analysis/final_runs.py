@@ -16,7 +16,9 @@ FINAL_RUNS = HERE / "hattori_final_runs.json"
 PRODUCTION_GROUPS = ["hattori@20261026-002131"]
 # ADR 0004: production fits for all 149, rescored (the centred refit, hattori@20261027-181415,
 # was rejected): the 103 that passed the gates, then the 46 that did not.
-FINAL_GROUPS = ["hattori@20261027-181430", "hattori@20261027-223626"]   # rescore, non-centred refit
+RESCORE_GROUP = "hattori@20261027-181430"            # production fits, rescored (103)
+REFIT_GROUP = "hattori@20261027-223626"              # non-centred refit, own draws (46)
+FINAL_GROUPS = [RESCORE_GROUP, REFIT_GROUP]
 ARTIFACT_ROOT = Path("/home/han.hou/outputs/disrnn/hb_artifacts")   # artifact_dir on HPC
 DRAWS = "heldout_two_level_draws.npz"
 
@@ -35,7 +37,10 @@ def final_rows() -> list[dict]:
 
 def draws_run(row: dict) -> str:
     """W&B run id whose directory holds this final row's posterior draws (HPC filesystem)."""
-    if (ARTIFACT_ROOT / row["wandb_run_id"] / DRAWS).exists():
-        return row["wandb_run_id"]                     # the refit: its own draws
+    if row["wandb_group"] == REFIT_GROUP:              # the refit saved its own draws
+        assert (ARTIFACT_ROOT / row["wandb_run_id"] / DRAWS).exists(), (
+            f"refit run {row['wandb_run_id']} has no {DRAWS}")
+        return row["wandb_run_id"]
+    assert row["wandb_group"] == RESCORE_GROUP, row["wandb_group"]
     production = {r["subject_id"]: r["wandb_run_id"] for r in finished(PRODUCTION_RUNS)}
     return production[row["subject_id"]]             # a rescore: production's draws
