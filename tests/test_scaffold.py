@@ -8,12 +8,15 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+import yaml
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "studies" / "util"))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 import _meta  # noqa: E402
 import check_provenance as cp  # noqa: E402
+import report_verdicts  # noqa: E402
 import scaffold  # noqa: E402
 
 
@@ -54,6 +57,43 @@ class ScaffoldTest(unittest.TestCase):
         reports = sorted(p.name for p in (self.root / "studies/12-gru-example/analysis/reports").glob("r*.md"))
         self.assertEqual(reports, ["r1-heldout-curve.md", "r2-second.md"])
         self.assertIn("r2:", (self.root / "studies/12-gru-example/Makefile").read_text())
+
+    def test_report_is_the_version_2_skeleton(self):
+        self.new_study()
+        scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Held-out rises with D"])
+        study = self.root / "studies/12-gru-example"
+        report = study / "analysis/reports/r1-curve.md"
+        fm = yaml.safe_load(report.read_text().split("---\n")[1])
+        self.assertEqual((fm["schema_version"], fm["status"]), (2, "draft"))
+        self.assertTrue(fm["draft_reason"])
+        self.assertEqual(fm["claims"][0]["pointer"], "analysis/r1_curve.json#/TODO")
+        self.assertEqual(set(fm["prose_reviewed"]["blocks"]), {"methods", "result-1"})
+        self.assertEqual(report_verdicts.headings(report.read_text().split("---\n", 2)[2]),
+                         ["# r1 — Held-out rises with D", *cp.SKELETON])
+        self.assertIn("### F1 — TODO\n\n<!-- BEGIN result-1 -->", report.read_text())
+        self.assertIn("all: verdicts\n", (study / "Makefile").read_text())
+        self.assertIn("[r1 — Held-out rises with D](r1-curve.md) | draft: ", (study / "analysis/reports/INDEX.md").read_text())
+        # the draft's claim points ahead of its producer: an advisory note, never a failure
+        notes = {f.key for f in cp.Checker(self.root).run() if f.level == "info" and f.check in cp.ADVISORY}
+        self.assertEqual(notes, {"report-claim-unresolved|studies/12-gru-example/analysis/reports/r1-curve.md|F1"})
+        self.assertEqual(self.findings(), [])
+
+    def test_report_in_an_older_study_adds_the_verdicts_target_and_keeps_hand_rows(self):
+        """A study scaffolded before version 2: hand INDEX table, no README block, no `verdicts`."""
+        self.new_study()
+        study = self.root / "studies/12-gru-example"
+        (study / "Makefile").write_text("PY ?= python\n.PHONY: all\n\nall:\n")
+        (study / "analysis/reports/INDEX.md").write_text("# reports\n\n| report | question | verdict |\n|---|---|---|\n")
+        readme = study / "README.md"
+        readme.write_text(readme.read_text().split("## Verdict")[0] + "## Verdict\n\nHand-written verdict.\n")
+        scaffold.main(["report", "--study", "12-gru-example", "--slug", "curve", "--title", "Curve"])
+        self.assertIn("verdicts:\n\t$(PY) ../../scripts/report_verdicts.py .\n", (study / "Makefile").read_text())
+        index = (study / "analysis/reports/INDEX.md").read_text()
+        self.assertTrue(index.startswith("# reports\n\n| report | question | verdict |\n|---|---|---|\n"))
+        self.assertIn("<!-- BEGIN verdicts -->", index)
+        self.assertIn("## Verdict\n\n<!-- BEGIN verdicts -->", readme.read_text())
+        self.assertIn("Hand-written verdict.\n", readme.read_text())
+        self.assertEqual(self.findings(), [])
 
     def test_reused_accession_number_is_refused(self):
         with self.assertRaises(SystemExit):
@@ -178,6 +218,13 @@ class MakeTargetTest(unittest.TestCase):
         self.assertIn("$HOME", (study / "README.md").read_text())
         self.assertIn("  - cognitive\n", (study / "README.md").read_text())
         self.assertIn('# r1 — The "curve"', (study / "analysis/reports/r1-curve.md").read_text())
+        # the study's `verdicts` target regenerates the INDEX table from the reports' claims
+        index = study / "analysis/reports/INDEX.md"
+        index.write_text(index.read_text().replace("**F1.** TODO", "**F1.** edited by hand"))
+        subprocess.run(["make", "-s", "-C", str(study), "verdicts", f"PY={sys.executable}"],
+                       check=True, capture_output=True, text=True)
+        self.assertIn('| [r1 — The "curve"](r1-curve.md) | draft: ', index.read_text())
+        self.assertNotIn("edited by hand", index.read_text())
 
 if __name__ == "__main__":
     unittest.main()

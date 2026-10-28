@@ -4,6 +4,7 @@ Each test builds a compliant study in a temp repo, breaks one thing, and asserts
 finding keys. Schemas are read from this checkout, so these tests also pin the schemas.
 """
 
+import io
 import json
 import os
 import subprocess
@@ -11,6 +12,7 @@ import sys
 import tempfile
 import textwrap
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 from unittest import mock
 
@@ -20,6 +22,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 import _meta  # noqa: E402
 import check_provenance as cp  # noqa: E402
+import report_verdicts  # noqa: E402
 
 STUDY = "studies/12-gru-example"
 GROUP = "base@20261024-101500"
@@ -79,7 +82,9 @@ def git(cwd: Path, *args: str) -> None:
     subprocess.run(["git", "-C", str(cwd), *args], check=True, capture_output=True, env=env)
 
 
-class CheckProvenanceTest(unittest.TestCase):
+class StudyRepo(unittest.TestCase):
+    """A compliant study in a temp git repo; subclasses break one thing per test."""
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
@@ -127,6 +132,8 @@ class CheckProvenanceTest(unittest.TestCase):
                                  outputs=[a / "fig.png", f"{a}/reports/r1-example.md#result-1"])
         return out
 
+
+class CheckProvenanceTest(StudyRepo):
     # -- compliant baseline ---------------------------------------------------------------------
     def test_compliant_study_has_no_findings(self):
         self.assertEqual(self.keys(), set())
@@ -474,6 +481,205 @@ class CheckProvenanceTest(unittest.TestCase):
         (self.study / "variants/base/launch_record/old.json").write_text(json.dumps({"mode": "resumable-grid"}))
         self.commit()
         self.assertEqual(self.keys(), set())
+
+
+FIT = {"delta": {"mean": 0.0123, "ci": [0.0101, 0.0146]}, "verdict": "non-inferior",
+       "frac_fail": 0.12, "a/b": {"c~d": [0.5, 0.6]}}
+
+V2_BODY = textwrap.dedent("""\
+    # r2 — The fit improves
+
+    ## Question
+
+    Does the fit improve on the baseline?
+
+    ## Answer
+
+    - **F1.** The fit improves by 0.0123, and 12% of sessions fail.
+
+    ## Methods
+
+    <!-- BEGIN methods -->
+    149 mice, seeds 0-2.
+    <!-- END methods -->
+
+    As in the study methods.
+
+    ## Results
+
+    ### F1 — The fit improves
+
+    <!-- BEGIN result-1 -->
+    ## not a section: a producer may write headings
+    | delta | 0.0123 [0.0101, 0.0146] | 0.333 |
+    <!-- END result-1 -->
+
+    ## What it means
+
+    F1 holds within its 95% CI (0.010 to 0.015); `v0.4.1` and [a link](fig_0.25.svg) are not numbers.
+
+    ## Caveats
+
+    Single seed, no error bar; v2.1 is a version.
+
+    ## Next
+
+    none
+
+    ## Provenance
+
+    `make -C studies/12-gru-example r2`
+    """)
+
+
+class ReportV2Test(StudyRepo):
+    """Version-2 report rules (schemas/README.md), on r2 beside the version-1 r1."""
+
+    REL = f"{STUDY}/analysis/reports/r2-fit.md"
+
+    def setUp(self):
+        super().setUp()
+        a = self.study / "analysis"
+        with mock.patch.object(_meta, "REPO_ROOT", self.root.resolve()), \
+                mock.patch.object(_meta, "_studies_state", return_value=(SHA, False)), \
+                mock.patch.object(_meta, "_with_util_modules", side_effect=lambda code: code):
+            meta = _meta.build_meta("analysis/produce.py", [GROUP], study_root=self.study,
+                                    code=[a / "produce.py"], inputs=[a / "grid.csv"])
+            _meta.write_artifact(a / "fit.json", {"_meta": meta, **FIT})
+        (self.study / "Makefile").write_text("all: r1 r2\nr1:\n\tpython analysis/produce.py\nr2:\n\tpython analysis/produce.py\n")
+        index = a / "reports/INDEX.md"
+        index.write_text(index.read_text() + "| [r2](r2-fit.md) | a hand row, kept |\n")
+        self.write_report()
+        report_verdicts.write(self.study)
+        self.commit()
+
+    def write_report(self, body: str = V2_BODY, status: str = "live", extra: str = "",
+                     claims: str = "  - {id: F1, text: \"The fit improves.\", pointer: \"analysis/fit.json#/delta/mean\"}\n",
+                     reviewed: dict | None = None) -> None:
+        blocks = reviewed or {k: _meta.block_digest(v) for k, v in _meta.RESULT_BLOCK.findall(body)}
+        front = (f"schema_version: 2\nid: r2\nslug: fit\nstatus: {status}\n{extra}authors: [han]\n"
+                 f"wandb_groups: [{GROUP}]\ninputs:\n  script: analysis/produce.py\n  data: analysis/fit.json\n"
+                 f"claims:\n{claims}prose_reviewed:\n  date: 2026-10-28\n  blocks:\n"
+                 + "".join(f"    {k}: {v}\n" for k, v in blocks.items())
+                 + f"reproduce: make -C {STUDY} r2\n")
+        (self.root / self.REL).write_text(f"---\n{front}---\n{body}")
+
+    def findings(self, prefix: str = "", level: str | None = None) -> set[str]:
+        return {f.key for f in cp.Checker(self.root).run()
+                if f.check.startswith(prefix) and (f.level == level if level else f.level != "info")}
+
+    def test_v2_report_round_trip_is_clean(self):
+        """Unquoted date, sourced prose numbers (to printed precision, 12% as 0.12), 95%, code,
+        links, versions and a `##` inside a block: no finding, not even a note."""
+        self.assertEqual(self.findings(), set())
+        self.assertEqual(self.findings("report-", "info"), set())
+
+    def test_v1_report_is_unaffected(self):
+        """r1 stays version 1: no skeleton, no claims, an unsourced decimal; nothing new, and the
+        verdict generator leaves its hand-written INDEX row alone."""
+        r1 = self.study / "analysis/reports/r1-example.md"
+        r1.write_text(r1.read_text() + "\n## Discussion\n\nThe gain is 0.5555.\n")
+        self.commit()
+        self.assertEqual(self.findings(), set())
+        self.assertFalse(any("r1-example" in k for k in self.findings("report-", "info")))
+        self.assertIn("[r1](r1-example.md)\n", (self.study / "analysis/reports/INDEX.md").read_text())
+
+    def test_skeleton_headings_in_order(self):
+        """A title without `rN — `, a missing section and two swapped ones (the `##` the producer
+        wrote inside result-1 does not count)."""
+        body = (V2_BODY.replace("# r2 — The fit improves", "# The fit improves")
+                .replace("## Caveats\n\nSingle seed, no error bar; v2.1 is a version.\n\n", "")
+                .replace("## Answer", "## TMP").replace("## Methods", "## Answer").replace("## TMP", "## Methods"))
+        self.write_report(body)
+        self.commit()
+        self.assertEqual(self.findings("report-skeleton"),
+                         {f"report-skeleton|{self.REL}|title", f"report-skeleton|{self.REL}|## Caveats",
+                          f"report-skeleton|{self.REL}|## Methods"})
+
+    def test_claim_pointer_must_resolve_when_live(self):
+        bad = ("  - {id: F1, text: \"Escapes resolve.\", pointer: \"analysis/fit.json#/a~1b/c~0d/1\"}\n"
+               "  - {id: F2, text: \"No such key.\", pointer: \"analysis/fit.json#/delta/median\"}\n"
+               "  - {id: F3, text: \"No such file.\", pointer: \"analysis/nope.json#/x\"}\n"
+               "  - {id: F4, text: \"Index out of range.\", pointer: \"analysis/fit.json#/delta/ci/2\"}\n")
+        self.write_report(claims=bad)
+        self.commit()
+        want = {f"report-claim-unresolved|{self.REL}|F{k}" for k in (2, 3, 4)}
+        self.assertEqual(self.findings("report-claim"), want)
+        # a draft may point ahead of its producer: the same findings, advisory
+        self.write_report(claims=bad, status="draft", extra="draft_reason: producer pending\n")
+        self.commit()
+        self.assertEqual(self.findings("report-claim"), set())
+        self.assertEqual(self.findings("report-claim", "info"), want)
+
+    def test_draft_needs_a_reason_and_claims_are_required(self):
+        self.write_report(status="draft", claims="")
+        report = self.root / self.REL
+        report.write_text(report.read_text().replace("claims:\n", "claims: []\n"))
+        self.commit()
+        keys = self.findings("report-frontmatter")
+        self.assertIn(f"report-frontmatter|{self.REL}|(top):draft_reason", keys)
+        self.assertIn(f"report-frontmatter|{self.REL}|claims:minItems", keys)
+
+    def test_changed_block_needs_a_prose_review(self):
+        body = V2_BODY.replace("| 0.333 |", "| 0.334 |")
+        self.write_report(body, reviewed={k: _meta.block_digest(v) for k, v in _meta.RESULT_BLOCK.findall(V2_BODY)})
+        self.commit()
+        found = [f for f in cp.Checker(self.root).run() if f.check == "report-prose-stale"]
+        self.assertEqual([f.key for f in found], [f"report-prose-stale|{self.REL}|result-1"])
+        new = _meta.block_digest(dict(_meta.RESULT_BLOCK.findall(body))["result-1"])
+        self.assertIn(new, found[0].message)          # the message prints the digest to record
+        self.write_report(body)                       # ... and recording it clears the warning
+        self.commit()
+        self.assertEqual(self.findings("report-prose-stale"), set())
+        # a block the review never saw is stale too
+        self.write_report(body.replace("## What it means", "<!-- BEGIN result-2 -->\nx\n<!-- END result-2 -->\n\n## What it means"),
+                          reviewed={k: _meta.block_digest(v) for k, v in _meta.RESULT_BLOCK.findall(body)})
+        self.commit()
+        self.assertEqual(self.findings("report-prose-stale"), {f"report-prose-stale|{self.REL}|result-2"})
+
+    def test_unsourced_prose_number_is_an_advisory_note(self):
+        body = V2_BODY.replace("none\n", "Seed spread ~0.0004, a 7.5% gain; the block's 0.333 is not cited.\n")
+        self.write_report(body)
+        self.commit()
+        self.assertEqual(self.findings(), set())      # advisory: never fails CI
+        self.assertEqual(self.findings("report-prose-number", "info"),
+                         {f"report-prose-number|{self.REL}|{t}" for t in ("0.0004", "7.5%", "0.333")})
+        out = io.StringIO()
+        with mock.patch.object(cp, "REPO", self.root), mock.patch.object(cp, "BASELINE", self.root / "none.json"), \
+                redirect_stdout(out):
+            self.assertEqual(cp.main([]), 0)
+        self.assertIn(f"note [report-prose-number] {self.REL}", out.getvalue())
+        self.assertIn("0.0004 (line ", out.getvalue())
+
+    def test_generated_verdicts_follow_the_claims(self):
+        index, readme = self.study / "analysis/reports/INDEX.md", self.study / "README.md"
+        self.assertIn("**F1.** The fit improves.", index.read_text())
+        self.assertIn("- **F1.** The fit improves.", readme.read_text())
+        self.assertIn("[r1](r1-example.md)\n", index.read_text())          # hand content kept
+        self.write_report(claims="  - {id: F1, text: \"The fit improves a lot.\", pointer: \"analysis/fit.json#/delta/mean\"}\n")
+        self.commit()
+        self.assertEqual(self.findings("verdict-stale"),
+                         {f"verdict-stale|{STUDY}/analysis/reports/INDEX.md|verdicts",
+                          f"verdict-stale|{STUDY}/README.md|verdicts"})
+        self.assertEqual({p.name for p in report_verdicts.write(self.study)}, {"INDEX.md", "README.md"})
+        self.commit()
+        self.assertEqual(self.findings(), set())
+        self.assertEqual(report_verdicts.write(self.study), [])           # idempotent
+        # a draft is listed in INDEX with its reason, and leaves the README verdict
+        self.write_report(status="draft", extra="draft_reason: k-hat rescue pending\n")
+        report_verdicts.write(self.study)
+        self.assertIn("| draft: k-hat rescue pending |", index.read_text())
+        self.assertIn(report_verdicts.NO_LIVE, readme.read_text())
+
+    def test_a_study_without_v2_reports_is_left_alone(self):
+        (self.root / self.REL).unlink()
+        index = self.study / "analysis/reports/INDEX.md"
+        index.write_text("[r1](r1-example.md)\n")
+        readme = self.study / "README.md"
+        readme.write_text(README)
+        self.assertEqual(report_verdicts.write(self.study), [])
+        self.assertEqual(index.read_text(), "[r1](r1-example.md)\n")
+        self.assertEqual(readme.read_text(), README)
 
 
 class BodyDigestTest(unittest.TestCase):

@@ -115,8 +115,8 @@ FIX = {
     "report-prose-number": "cite the finding by its id instead of retyping the number, or print a number the "
                            "report's JSON holds (cite that JSON in `inputs`); write a constant that is not a "
                            "result as code (`0.5`). Advisory: never fails CI",
-    "verdict-stale": "regenerate it: `make -C studies/<study> verdicts` (scripts/report_verdicts.py). "
-                     "The generated block copies the version-2 reports' claims: edit the claims, never the block",
+    "verdict-stale": "regenerate it with the command in the message. The block copies the version-2 "
+                     "reports' claims: edit the claims, never the block",
     "report-id-mismatch": "make frontmatter id/slug equal the filename rN-<slug>.md",
     "report-reproduce": "point `reproduce:` at `make -C studies/<study> rN` and add that Makefile target",
     "report-input-missing": "`inputs` holds existing study-relative paths; commands go in `upstream`",
@@ -671,7 +671,8 @@ class Checker:
             if have != inner:
                 self.add("warn", "verdict-stale", path,
                          f"the generated verdicts block is {'missing' if have is None else 'out of date'}; "
-                         f"run `make -C {self.rel(study)} verdicts`", item="verdicts")
+                         f"run `python scripts/report_verdicts.py {self.rel(study)}` "
+                         f"(or `make -C {self.rel(study)} verdicts`)", item="verdicts")
 
     def check_artifacts(self, study: Path) -> bool:
         """Check analysis JSON; return whether the study has a freeze."""
