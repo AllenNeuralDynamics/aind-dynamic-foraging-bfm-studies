@@ -12,12 +12,12 @@ The 3-way head's logits are re-expressed as two readouts (PLAN.md):
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pyarrow.parquet as pq
 
 STUDY = Path(__file__).resolve().parents[1]
 ANALYSIS = STUDY / "analysis"
@@ -25,7 +25,7 @@ CACHE = ANALYSIS / "_cache"
 EXPLORE = CACHE / "explore"
 STUDY12 = STUDY.parent / "50-gru-dynamics-embedding"
 sys.path.insert(0, str(STUDY.parent / "util"))
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, file_digest, write_artifact  # noqa: E402
 from plot_style import apply_presentation_style  # noqa: E402,F401
 
 MODEL_KEY = "C3-s0"
@@ -46,6 +46,42 @@ TASK_COLORS = {
 LEFT_COLOR, RIGHT_COLOR, MODEL_COLOR = "#D55E00", "#0072B2", "#222222"
 IGNORE_COLOR = "#7F7F7F"
 ENGAGE_COLOR = "#8E44AD"  # model P(ignore) traces
+
+
+# What this process read, for _meta v2: committed files (``inputs``) and cache files
+# (``sources`` of a freeze), by path; filled by read_json() and the cache loaders below.
+_INPUTS: dict[str, Path] = {}
+_CACHE_READS: dict[str, dict] = {}
+_TWIN_READ = False
+
+
+def _rel(path: Path) -> str:
+    """Repository-relative path, without resolving the _cache symlink out of the repository."""
+    return os.path.relpath(path, STUDY.parents[1])
+
+
+def _read_cache(path: Path) -> Path:
+    if str(path) not in _CACHE_READS:
+        _CACHE_READS[str(path)] = {"type": "file", "id": _rel(path), "sha256": file_digest(path)}
+    return path
+
+
+def read_json(path: Path | str) -> dict:
+    """Parse a committed JSON and record it as an input of whatever this process writes."""
+    path = Path(path)
+    _INPUTS[str(path)] = path
+    return json.loads(path.read_text())
+
+
+def _run_source(study: Path, key: str) -> dict:
+    manifest = json.loads((study / "analysis" / "source_runs.json").read_text())
+    run = manifest["models"][key.split("-")[0]]["runs"][key]
+    return {"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{run['run_id']}"}
+
+
+def model_sources() -> list[dict]:
+    """The source run(s) every A1-derived output is computed from: C3, plus C when its table was read."""
+    return [_run_source(STUDY, MODEL_KEY)] + ([_run_source(STUDY12, TWIN_KEY)] if _TWIN_READ else [])
 
 
 def wandb_groups() -> list[str]:
@@ -88,7 +124,9 @@ def load_trials(
     filters = [("ses_idx", "in", list(sessions))] if sessions is not None else None
     wanted = None if columns is None else list(dict.fromkeys(
         [*columns, *(["source_ses_idx"] if "session_id" in columns else [])]))
-    trials = pq.read_table(trial_table_path(key), columns=wanted, filters=filters).to_pandas()
+    import pyarrow.parquet as pq  # noqa: PLC0415 (freeze-only; CI's offline `all` has no pyarrow)
+
+    trials = pq.read_table(_read_cache(trial_table_path(key)), columns=wanted, filters=filters).to_pandas()
     if "session_id" in trials.columns and "source_ses_idx" in trials.columns:
         trials["session_id"] = trials["session_id"].fillna(trials["source_ses_idx"])
     return add_readouts(trials)
@@ -96,14 +134,18 @@ def load_trials(
 
 def load_twin(columns: list[str], sessions: list[str] | None = None) -> pd.DataFrame:
     """Study 50's C-s0 table (2-way, engaged trials only), optionally restricted to ``ses_idx``."""
+    import pyarrow.parquet as pq  # noqa: PLC0415
+
+    global _TWIN_READ
+    _TWIN_READ = True
     filters = [("ses_idx", "in", list(sessions))] if sessions is not None else None
-    return pq.read_table(twin_table_path(), columns=columns, filters=filters).to_pandas()
+    return pq.read_table(_read_cache(twin_table_path()), columns=columns, filters=filters).to_pandas()
 
 
 def unshared_sessions() -> dict[str, set[str]]:
     """``session_id``s to drop from each table so C and C3 cover the same sessions
     (``split_alignment.json``; the shared sessions hold identical engaged trials)."""
-    alignment = json.loads((ANALYSIS / "split_alignment.json").read_text())
+    alignment = read_json(ANALYSIS / "split_alignment.json")
     return {
         "C": {s for v in alignment["sessions_only_in_C"].values() for s in v},
         "C3": {s for v in alignment["sessions_only_in_C3"].values() for s in v}
@@ -136,8 +178,10 @@ def engaged_comparison_table(key: str = MODEL_KEY) -> pd.DataFrame:
     engaged["gap"] = (cum_e - cum_e.groupby(engaged["ses_idx"], sort=False).shift(1)).fillna(cum_e).astype(int)
     c = load_twin(["ses_idx", "session_id", "trial_idx", "trial", "action", "p_model1_right"])
     c = c[~c["session_id"].isin(drop["C"])]
+    import pyarrow.parquet as pq  # noqa: PLC0415
+
     for model in RL_MODELS:
-        rl = pq.read_table(STUDY12 / "analysis" / "_cache" / f"rl_trials_{model}_{TWIN_KEY}.parquet",
+        rl = pq.read_table(_read_cache(STUDY12 / "analysis" / "_cache" / f"rl_trials_{model}_{TWIN_KEY}.parquet"),
                            columns=["ses_idx", "trial_idx", "p_rl_right"]).to_pandas()
         c = c.merge(rl.rename(columns={"p_rl_right": f"p_{model}"}), on=["ses_idx", "trial_idx"],
                     how="left", validate="1:1")
@@ -155,14 +199,26 @@ def pca_path(key: str = MODEL_KEY) -> Path:
 
 def load_pca(key: str = MODEL_KEY) -> dict[str, np.ndarray]:
     """PCA written by ``b3_pca.py``: mean, components (PCs x units), eigenvalues, scores."""
-    with np.load(pca_path(key)) as data:
+    with np.load(_read_cache(pca_path(key))) as data:
         return {k: data[k] for k in data.files}
 
 
-def write_json(name: str, payload: dict, produced_by: str, extra_groups: list[str] = ()) -> Path:
+def write_json(name: str, payload: dict, produced_by: str, extra_groups: list[str] = (), *,
+               kind: str = "freeze", inputs: list[Path | str] = (), sources: list[dict] = ()) -> Path:
+    """Write ``analysis/<name>`` with a v2 ``_meta``.
+
+    Every producer behind a ``freeze-*`` target is a freeze (the default): its sources are the
+    model's source run(s) plus every cache file read through the loaders here, and ``sources``
+    adds any other external object it read. An offline producer that only reads committed JSON
+    (``read_json``) passes ``kind="producer"``.
+    """
     path = ANALYSIS / name
-    out = {"_meta": build_meta(produced_by, wandb_groups() + list(extra_groups), study_root=STUDY), **payload}
-    path.write_text(json.dumps(out, indent=2, default=_json_default) + "\n")
+    read = list(dict.fromkeys([*map(Path, inputs), *_INPUTS.values()]))
+    extra = {} if kind == "producer" else {
+        "sources": model_sources() + list(_CACHE_READS.values()) + list(sources)}
+    meta = build_meta(produced_by, wandb_groups() + list(extra_groups), study_root=STUDY, kind=kind,
+                      code=[STUDY / produced_by], inputs=read, **extra)
+    write_artifact(path, {"_meta": meta, **payload}, default=_json_default)
     return path
 
 
@@ -186,9 +242,9 @@ def subsample_rows(n_rows: int, n: int, seed: int = 0) -> np.ndarray:
 def best_params(key: str = MODEL_KEY) -> dict:
     """Saved params of the best_eval checkpoint (highest eval likelihood in checkpoints/index.json)."""
     outputs = CACHE / "models" / key / "run" / "outputs"
-    index = json.loads((outputs / "checkpoints" / "index.json").read_text())
+    index = json.loads(_read_cache(outputs / "checkpoints" / "index.json").read_text())
     best = max(index["checkpoints"], key=lambda c: c["eval_likelihood"])
-    return json.loads((outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
+    return json.loads(_read_cache(outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
 
 
 def readout_directions(key: str = MODEL_KEY) -> dict[str, np.ndarray]:

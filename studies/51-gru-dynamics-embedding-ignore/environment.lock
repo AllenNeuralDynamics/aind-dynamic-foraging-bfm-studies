@@ -1,0 +1,26 @@
+# Pinned analysis env for studies/51-gru-dynamics-embedding-ignore/ (the freeze-* targets).
+#
+# `all` (CI) runs only the report renderers, which need the Python stdlib + numpy +
+# pandas + matplotlib from the repository's requirements-dev.txt. The freezes read the cached
+# A1 tables and checkpoints and import the wrapper's post_training_analysis modules
+# (gru_trial_states and gru_counterfactual with 3-action heads, gru_step).
+#
+# _meta.build_meta() parses the wrapper pin below into _meta.wrapper_git_sha. 56ab3ee is the
+# wrapper commit that carries those modules (branch pck_2610, PR pending). The committed
+# JSON written before 2026-10-28 was produced from the same code while it was still
+# uncommitted on top of wrapper main 06c0a22; re-running a freeze stamps this pin.
+-e git+https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper.git@56ab3ee9747cf79a4c2e81a887bc5bdff25168ed#egg=aind_dynamic_foraging_bfm_wrapper
+
+# Freeze runtime as used (GPU box, 2026-10).
+python==3.12.15
+numpy==2.5.4
+pandas==2.3.3
+pyarrow==21.0.0
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+jax==0.6.1
+jaxlib==0.6.1
+dm-haiku==0.0.17
+disentangled_rnns==0.1.4
+aind-dynamic-foraging-models==0.19.0

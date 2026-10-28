@@ -13,7 +13,7 @@ inputs:
     - analysis/report_r5.py
   data:
     - analysis/f_engagement_embedding.json
-    - analysis/_cache/contexts_C3-s0.npz (from d_dynamics.py)
+    - analysis/d_dynamics.json
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r5
 ---
 

@@ -12,7 +12,7 @@ inputs:
     - analysis/report_r4.py
   data:
     - analysis/e2_ablations.json
-    - analysis/_cache/contexts_C3-s0.npz (from d_dynamics.py)
+    - analysis/d_dynamics.json
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r4
 ---
 

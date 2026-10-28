@@ -21,7 +21,9 @@ inputs:
     - analysis/i3_tdr_dynamics.json
     - analysis/i3c_value_causal.json
     - analysis/i4_distilled_model.json
-    - ../50-gru-dynamics-embedding/analysis/i3_tdr_dynamics.json
+upstream:
+  - study: 50-gru-dynamics-embedding
+    report: r6
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r6
 ---
 

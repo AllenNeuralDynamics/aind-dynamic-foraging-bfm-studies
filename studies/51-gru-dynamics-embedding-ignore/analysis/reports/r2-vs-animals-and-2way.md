@@ -20,8 +20,9 @@ inputs:
     - analysis/c4_after_ignore.json
     - analysis/c1_kernels.json
     - analysis/c1_impulse.json
-    - ../50-gru-dynamics-embedding/analysis/c1_impulse.json
-    - ../50-gru-dynamics-embedding/analysis/_cache/rl_trials_{bari,ctt,hattori}_C-s0.parquet (Study 01 RL fits replayed on C's trials)
+upstream:
+  - study: 50-gru-dynamics-embedding
+    report: r2
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r2
 ---
 

@@ -13,7 +13,9 @@ inputs:
     - analysis/report_r3.py
   data:
     - analysis/d_dynamics.json
-    - ../50-gru-dynamics-embedding/analysis/d_dynamics.json
+upstream:
+  - study: 50-gru-dynamics-embedding
+    report: r3
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r3
 ---
 

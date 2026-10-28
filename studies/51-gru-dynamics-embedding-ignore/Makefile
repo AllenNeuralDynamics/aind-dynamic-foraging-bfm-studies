@@ -1,14 +1,23 @@
+# studies/51-gru-dynamics-embedding-ignore/Makefile
+#
+# `all` regenerates every report OFFLINE from committed JSON (CI runs it): each rN runs only
+# its renderer. Study 50's numbers come from its committed JSON.
+#
+# Everything that reads analysis/_cache/ (this study's or Study 50's A1 tables, PCA, contexts,
+# checkpoints, RL replays), the GPU or the wrapper is a freeze: `make freeze-rN` reruns the
+# producers behind report rN and rewrites their committed JSON; `make freeze` reruns them all.
+# Never part of `all`. To reproduce rN from the raw sources: `make extract freeze-rN rN`
+# (with Study 50's `make extract c-rollouts` done first).
+# Freezes need the wrapper checkout (WRAPPER) and the env pinned in environment.lock.
+
 PYTHON ?= python
 WRAPPER ?= ../../../aind-dynamic-foraging-bfm-wrapper/code
 MODEL ?= C3-s0
 RUN = PYTHONPATH=$(WRAPPER) $(PYTHON)
 
-# Every report. Until the producers that read analysis/_cache/ move behind freeze-*
-# targets, this needs the cached A1 tables and does not run offline.
-.PHONY: all
 all: r1 r2 r3 r4 r5 r6 r7
 
-.PHONY: freeze-sources fetch extract split-alignment b1 b2 b3 b4 b5 b6 b7 b8 r1 c1 c2 c4 r2 d r3 i1 i2 i3 i3c i4 r6 e2 r4 f r5 g-seeds g r7
+.PHONY: all freeze-sources fetch extract split-alignment b1 b2 b3 b4 b5 b6 b7 b8 freeze-r1 r1 c2 c4 c1 freeze-r2 r2 d freeze-r3 r3 i1 i4 i2 i3 i3c freeze-r6 r6 e2 freeze-r4 r4 f freeze-r5 r5 g-seeds g freeze-r7 r7 freeze
 
 # Reads W&B over GraphQL; needs WANDB_API_KEY (or ~/.netrc). Rewrites source_runs.json.
 freeze-sources:
@@ -49,7 +58,9 @@ b8:
 	$(PYTHON) analysis/b8_engagement.py
 
 # Offline formatter over the committed B JSONs.
-r1: split-alignment b1 b2 b3 b4 b5 b6 b7 b8
+freeze-r1: split-alignment b1 b2 b3 b4 b5 b6 b7 b8
+
+r1:
 	$(PYTHON) analysis/report_r1.py
 
 # Phase C. C2/C4/C1b read the cached tables plus Study 50's C-s0 table and RL replays
@@ -63,13 +74,17 @@ c1: split-alignment
 	$(PYTHON) analysis/c1_kernels.py
 	$(RUN) analysis/c1_impulse.py
 	$(PYTHON) analysis/c1_figure.py
-r2: c1 c2 c4
+freeze-r2: c1 c2 c4
+
+r2:
 	$(PYTHON) analysis/report_r2.py
 
 # Phase D (stage A): loads the data bundle (~17 GB RAM); float64, GPU or JAX_PLATFORMS=cpu.
 d: b3
 	$(RUN) analysis/d_dynamics.py
-r3: d
+freeze-r3: d
+
+r3:
 	$(PYTHON) analysis/report_r3.py
 
 # Phase I (tables only; I1 holds ~6 GB of states for C3 and C at once).
@@ -85,19 +100,25 @@ i3: i2
 # Causal nudge along the value axis (table + params; ~2 min on CPU).
 i3c: i3
 	JAX_PLATFORMS=cpu $(RUN) analysis/i3c_value_causal.py
-r6: i1 i2 i3 i3c i4
+freeze-r6: i1 i2 i3 i3c i4
+
+r6:
 	$(PYTHON) analysis/report_r6.py
 
 # Phase E (stage A: data bundle, ~15 GB RAM; needs d's cached contexts).
 e2: d
 	$(RUN) analysis/e2_ablations.py
-r4: e2
+freeze-r4: e2
+
+r4:
 	$(PYTHON) analysis/report_r4.py
 
 # Phase F (tables + params; needs d's cached contexts; CPU is fine).
 f: d
 	JAX_PLATFORMS=cpu $(RUN) analysis/f_engagement_embedding.py
-r5: f
+freeze-r5: f
+
+r5:
 	$(PYTHON) analysis/report_r5.py
 
 # Phase G1: seeds 1–2. Extract one at a time (~42 GB peak on GPU), then the table metrics
@@ -109,5 +130,9 @@ g: split-alignment
 	$(PYTHON) analysis/g_seeds.py
 	for k in C3-s0 C3-s1 C3-s2; do $(RUN) analysis/g_dynamics_seed.py $$k; done
 	$(PYTHON) analysis/g_figure.py
-r7: g
+freeze-r7: g-seeds g
+
+r7:
 	$(PYTHON) analysis/report_r7.py
+
+freeze: freeze-sources freeze-r1 freeze-r2 freeze-r3 freeze-r4 freeze-r5 freeze-r6 freeze-r7

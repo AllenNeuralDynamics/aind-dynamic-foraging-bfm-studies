@@ -33,9 +33,9 @@ inputs:
     - analysis/b6_tracking.json
     - analysis/b7_decoders.json
     - analysis/b8_engagement.json
-    - ../50-gru-dynamics-embedding/analysis/b1_example_sessions.json
-    - ../50-gru-dynamics-embedding/analysis/b3_pca.json
-    - ../50-gru-dynamics-embedding/analysis/b7_decoders.json
+upstream:
+  - study: 50-gru-dynamics-embedding
+    report: r1
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r1
 ---
 
