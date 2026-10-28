@@ -98,10 +98,12 @@ Read off the frozen result above (2026-10-26):
   the same fits fall *below* the per-subject MLE. ADR 0002 explains why the session-marginal is the
   fair score: it predicts each trial from the session's earlier trials, as the GRU does.
 
-- **The starved plain average was not biased.** Rescoring the sessions that failed k̂ by
-  importance sampling moves the headline by less than 1e-5 (the first two rows
-  above): over all rescored sessions the two estimators differ by +3 nats in total, against
-  about a million scored trials. The k̂ failures flagged unreliable *weights*, not a biased total.
+- **Rescoring the k̂ failures changed nothing material.** Importance sampling moves the headline
+  by less than 1e-5 (the first two rows above): over all rescored sessions the two estimates differ
+  by +3 nats in total, against about a million scored trials. That is agreement between two Monte
+  Carlo estimates of the same quantity, not proof that either is unbiased (the log of an unbiased
+  likelihood estimate is not unbiased, and some sessions still fail the gate); it does show that
+  the headline does not hinge on the sessions k̂ flagged.
 
 Caveats:
 
