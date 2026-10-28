@@ -8,6 +8,8 @@
 # producers behind report rN and rewrites their committed JSON; `make freeze` reruns them all.
 # Never part of `all`. To reproduce rN from the raw sources: `make extract freeze-rN rN`.
 # Freezes need the wrapper checkout (WRAPPER) and the env pinned in environment.lock.
+# c1_impulse, d_dynamics, i3, i8, e2 and e2b run on CPU (JAX_PLATFORMS=cpu), as their committed
+# JSON was produced: on a GPU, TF32 matmuls move their numbers by ~1e-4 relative.
 
 PYTHON ?= python
 WRAPPER ?= ../../../aind-dynamic-foraging-bfm-wrapper/code
@@ -62,7 +64,7 @@ r1:
 c-rollouts:
 	$(RUN) analysis/c2_rl_rollouts.py
 c1: c-rollouts
-	$(RUN) analysis/c1_impulse.py
+	JAX_PLATFORMS=cpu $(RUN) analysis/c1_impulse.py
 	$(RUN) analysis/c1_kernels.py
 	$(RUN) analysis/c1_figure.py
 c2: c-rollouts b3
@@ -124,7 +126,7 @@ r5: r4
 
 # Phase D (stage A; ~40 min on CPU with JAX_PLATFORMS=cpu). Needs F1's groups.
 d: f1 b3
-	$(RUN) analysis/d_dynamics.py
+	JAX_PLATFORMS=cpu $(RUN) analysis/d_dynamics.py
 d1b: d
 	$(RUN) analysis/d1b_convergence.py
 d1c: d
@@ -150,7 +152,7 @@ i3b: i3 i4
 i2b: i2 i4
 	$(PYTHON) analysis/i2b_value_axis_in_pcs.py
 i3: i2
-	$(RUN) analysis/i3_tdr_dynamics.py
+	JAX_PLATFORMS=cpu $(RUN) analysis/i3_tdr_dynamics.py
 i4: i2 c-rollouts e2
 	$(PYTHON) analysis/i4_distilled_model.py
 i5: i4 c1 f3
@@ -160,7 +162,7 @@ i6: i4
 i7: i4
 	$(PYTHON) analysis/i7_second_variable.py
 i8: i4 i7 c-rollouts
-	$(RUN) analysis/i8_v_tests.py
+	JAX_PLATFORMS=cpu $(RUN) analysis/i8_v_tests.py
 i9: i4 c-rollouts
 	$(PYTHON) analysis/i9_v_kernel.py
 i9b: i9 f7
@@ -188,9 +190,9 @@ r6:
 
 # Phase E2 (stage A, CPU ok): ablations; e2b supersedes e2's single-axis reading.
 e2: i2
-	$(RUN) analysis/e2_ablations.py
+	JAX_PLATFORMS=cpu $(RUN) analysis/e2_ablations.py
 e2b: i2
-	$(RUN) analysis/e2b_conditional_ablations.py
+	JAX_PLATFORMS=cpu $(RUN) analysis/e2b_conditional_ablations.py
 
 # Phase H — the GRU's strategy vs Q-learning (r8). h4 uses the GPU if present.
 h3: c-rollouts b3
