@@ -60,7 +60,7 @@ One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
 | EM iteration, L = 5 | 8–13 s | about 3 s |
 | EM iteration, L = 10 | about 25 s (hurdle), about 47 s (reference) | about 5 s |
 | iterations to converge (1e-6 nats/trial), L = 5 | hurdle 317, reference 220 | same |
-| global fit, 10 restarts, L = 5 | about 7–8 h | about 1.4–2.6 h |
+| global fit, 10 restarts one at a time, L = 5 | about 7–8 h | about 1.4–2.6 h |
 | per-mouse refits (614 for K selection + 149 held-out) | about 1.8 h | slower on a GPU: keep on CPU |
 
 - **Workers.** The HPC sweeps set `model.num_workers=10`: the restarts, then the per-subject
@@ -70,9 +70,17 @@ One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
     another on 8 cores and 5.1× on 32 (a node nearly to itself), and refits 3.2× sooner. Ten
     restarts use about 31 GB. A 16-core run on a node shared with other jobs was no faster
     than 8 cores, so the gain depends on node load.
-  - So a K = 10, L = 5 hurdle cell is ≈ 2–4 h on 32 cores (restarts ≈ 65 min on a quiet node,
-    refits ≈ 35 min), against 9–11 h on 8 cores one fit at a time. The slowest restart sets
-    the restart phase. L = 10 and the reference emission were not timed with workers.
+  - More workers buy nothing: 20 at once on 40 cores take 26 s per restart-iteration, the same
+    throughput as 10 (12–12.35 s on 32 or 40 cores), at 51 GB instead of 33.
+- **Restarts: 20 per K > 1**, as Ashwood et al. (20 per K and fold, K ≤ 5, in
+  `zashwood/glm-hmm`); we go to K = 10, so 10 would be thin. The same count at every K, so no
+  K gets more chances at its optimum. After the grid, count how many of
+  `glmhmm/global/restart_log_joints` lie within about 1e-4 nats/trial of the best; one alone
+  means even 20 was too few.
+  - So a K = 10, L = 5 hurdle cell is ≈ 2.5–4 h on 32 cores: two rounds of restarts ≈ 2.1 h
+    on a quiet node (the slowest restart of each round sets it), refits ≈ 31 min (3.5×),
+    against 9–11 h for 10 restarts one at a time on 8 cores. L = 10 and the reference emission
+    were not timed with workers.
 - **Backend.** HPC CPU, with
   `--sbatch-extra "--cpus-per-task=32 --mem=64G --time=48:00:00"`.
   - On Beaker, the templates use one GPU on the GLM-HMM image, which carries the CUDA solver

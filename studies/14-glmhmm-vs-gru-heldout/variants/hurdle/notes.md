@@ -2,7 +2,8 @@
 
 **What.** K = 1 … 10 with the `hurdle` emission: per state, an engagement GLM on unsigned history times a side GLM on signed history (`sweep_hpc.yaml`). L comes from
 `lag-scan`; `model.n_lags=5` in the manifest is a placeholder to set before launching.
-10 restarts per K > 1, each from the K = 1 weights plus noise.
+20 restarts per K > 1, each from the K = 1 weights plus noise, as Ashwood et al. (20 per K
+in `zashwood/glm-hmm`). On HPC they run as two rounds of 10 (`model.num_workers=10`).
 
 **Why.** The held-out K curve against study 02's 3-way GRU. Hurdle maps one-to-one onto study 02's decomposition: the side GLM against LR_engaged, the engagement GLM against engage and ignore PR-AUC. K is chosen on
 `glmhmm/select/eval_likelihood` (training mice), and the full held-out curve is reported.

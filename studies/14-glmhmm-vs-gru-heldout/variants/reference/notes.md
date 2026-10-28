@@ -2,7 +2,8 @@
 
 **What.** K = 1 … 10 with the `reference` emission: per state, one multinomial GLM over every regressor with ignore as the zero logit (Faeze's and `ssm`'s parameterisation) (`sweep_hpc.yaml`). L comes from
 `lag-scan`; `model.n_lags=5` in the manifest is a placeholder to set before launching.
-10 restarts per K > 1, each from the K = 1 weights plus noise.
+20 restarts per K > 1, each from the K = 1 weights plus noise, as Ashwood et al. (20 per K
+in `zashwood/glm-hmm`). On HPC they run as two rounds of 10 (`model.num_workers=10`).
 
 **Why.** The held-out K curve against study 02's 3-way GRU. The reference parameterisation is the one prior work used. Run beside `hurdle` on the same grid, it says whether the emission's form, rather than K, moves the score. K is chosen on
 `glmhmm/select/eval_likelihood` (training mice), and the full held-out curve is reported.

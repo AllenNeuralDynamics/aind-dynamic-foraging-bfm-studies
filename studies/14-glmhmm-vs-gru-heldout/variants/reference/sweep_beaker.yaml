@@ -5,7 +5,7 @@
 # of the TRAINING mice); the held-out K curve is reported in full.
 #   data  -> dispatcher code/config/data/mice_snapshot_scaling.yaml (snapshot 20260603),
 #            ignore_policy=include as study 02's 3-way GRU, stage column retained for the split
-#   model -> dispatcher code/config/model/glmhmm.yaml (10 restarts for K > 1)
+#   model -> dispatcher code/config/model/glmhmm.yaml; 20 restarts for K > 1, set below
 # wandb.project must be in the command: the launcher sets only the group.
 
 entity: AIND-disRNN
@@ -27,6 +27,7 @@ command:
   - model=glmhmm
   - model.emission=reference
   - model.n_lags=5
+  - model.num_restarts=20  # Ashwood et al. used 20 per K (zashwood/glm-hmm); same for every K
   - seed=0
   - wandb.entity=AIND-disRNN
   - wandb.project=mice_glmhmm

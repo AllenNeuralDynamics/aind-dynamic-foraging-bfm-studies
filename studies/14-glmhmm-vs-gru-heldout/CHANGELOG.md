@@ -18,3 +18,5 @@
   `max_em_iters` 500 cap (AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#207).
 - The Beaker templates name the built GLM-HMM image,
   `han-hou/dynamic-foraging-bfm-glmhmm-20261027`; its smoke test has not run yet.
+- 20 restarts per K > 1 (was the config's 10), as Ashwood et al.; on HPC two rounds of 10
+  workers on 32 cores. 20 workers on 40 cores measured no faster.
