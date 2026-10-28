@@ -38,3 +38,8 @@ that group.
 **Status.** Done. Launched 2026-10-27 as `lag-scan@20261027-200129`, after the smoke
 `lag-scan@20261027-194921`. L = 10 maximises the selection score for both emissions, at the
 scan's upper bound (`launch_record/lag-scan/results.md`).
+
+**L = 15 check** (`sweep_hpc_l15.yaml`). The first launch peaked at its cap, L = 10, for both
+emissions, so two K = 1 cells at L = 15 test whether the selection score turns down (overfit)
+or keeps rising. The K grids were already launched at L = 10 and keep running. If L = 15 scores
+higher, that is reported, and whether to rerun the grids at a longer L is decided then.
