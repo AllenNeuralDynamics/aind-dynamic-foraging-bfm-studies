@@ -31,11 +31,14 @@ PRODUCTION = ["hattori@20261026-002131"]            # the production launch, pin
 # ADR 0004: every subject's production fit, rescored: the 103 passing the gates, then the 46 that
 # were refit (the centred refit, hattori@20261027-181415, was worse on every gate and is not used).
 FINAL = ["hattori@20261027-181430", "hattori@20261027-201810"]
-WANDB_GROUPS = PRODUCTION + FINAL
+REFIT = ["hattori@20261027-181415"]                  # the rejected centred refit, kept as evidence
+WANDB_GROUPS = PRODUCTION + FINAL + REFIT
 ARTIFACT_ROOT = Path("/home/han.hou/outputs/disrnn/hb_artifacts")   # artifact_dir on HPC
 OUT = HERE / "hattori_runs.json"
 OUT_FINAL = HERE / "hattori_final_runs.json"
+OUT_REFIT = HERE / "hattori_refit_runs.json"
 N_SUBJECTS = 149
+N_REFIT = 46
 
 SUMMARY_KEYS = [
     "heldout/eval_log_lik_sum", "heldout/eval_log_lik_sum_se",
@@ -89,8 +92,20 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _freeze(groups: list[str], out: Path, keys: list[str]) -> list[dict]:
-    """Write one row per run in ``groups``, plus its sources, to ``out``."""
+def _once_each(rows: list[dict], n: int, what: str) -> None:
+    """Exactly one finished run per subject, ``n`` subjects."""
+    subjects = [r["subject_id"] for r in rows if r["state"] == "finished"]
+    assert len(subjects) == len(set(subjects)) == n, (
+        f"{what}: {len(set(subjects))} subjects in {len(subjects)} finished runs, "
+        f"expected {n} once each")
+
+
+def _freeze(groups: list[str], out: Path, keys: list[str], check=None) -> list[dict]:
+    """Write one row per run in ``groups``, plus its sources, to ``out``.
+
+    ``check`` sees the rows before anything is written, so a refresh that fails it leaves the
+    last valid freeze in place.
+    """
     rows, sources = [], []
     for group in groups:
         for run in sorted(_runs(group), key=lambda r: r["name"]):
@@ -107,6 +122,8 @@ def _freeze(groups: list[str], out: Path, keys: list[str]) -> list[dict]:
                             "state": run["state"], "updated_at": run["updatedAt"]})
             if row["scores_sha256"]:
                 sources.append({"type": "file", "id": str(scores), "sha256": row["scores_sha256"]})
+    if check is not None:
+        check(rows)
     meta = build_meta("analysis/freeze_hattori.py", groups, study_root=HERE.parent,
                       kind="freeze", code=[__file__], sources=sources)
     write_artifact(out, {"_meta": meta, "rows": rows}, outputs=[])
@@ -117,12 +134,10 @@ def _freeze(groups: list[str], out: Path, keys: list[str]) -> list[dict]:
 def main() -> None:
     """Freeze production and the final set; the final set must cover every subject once."""
     _freeze(PRODUCTION, OUT, SUMMARY_KEYS)
-    final = [r for r in _freeze(FINAL, OUT_FINAL, SUMMARY_KEYS + FINAL_KEYS)
-             if r["state"] == "finished"]
-    subjects = [r["subject_id"] for r in final]
-    assert len(subjects) == len(set(subjects)) == N_SUBJECTS, (
-        f"final set: {len(set(subjects))} subjects in {len(subjects)} finished runs, "
-        f"expected {N_SUBJECTS} once each")
+    _freeze(FINAL, OUT_FINAL, SUMMARY_KEYS + FINAL_KEYS,
+            check=lambda rows: _once_each(rows, N_SUBJECTS, "final set"))
+    _freeze(REFIT, OUT_REFIT, SUMMARY_KEYS + FINAL_KEYS,
+            check=lambda rows: _once_each(rows, N_REFIT, "refit"))
 
 
 if __name__ == "__main__":

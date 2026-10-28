@@ -9,10 +9,12 @@ wandb_groups:
 - hattori@20261026-002131
 - hattori@20261027-181430
 - hattori@20261027-201810
+- hattori@20261027-181415
 inputs:
   script: analysis/r1_hattori_pooled.py
   data: analysis/hattori_final_runs.json
   production: analysis/hattori_runs.json
+  refit: analysis/hattori_refit_runs.json
   plugin: analysis/hattori_plugin.json
   freeze: analysis/freeze_hattori.py
   freeze_plugin: analysis/freeze_plugin.py
@@ -62,7 +64,7 @@ for those sessions and the plain value elsewhere; both estimate the same integra
 - Subjects 149; scored trials 1,013,172 (comparators: 1,013,172).
 - Convergence gates (R-hat < 1.01, bulk ESS ≥ 400, no divergences): 103 of 149 subjects pass; worst R-hat 1.173, lowest ESS 16; 304 divergences. Converged subjects only: 0.7166.
 - Pareto k̂ gate: 262 of 2138 scored sessions fail on the plain draw-average (production: 262); 262 were rescored by importance sampling, after which 44 still fail (k̂ ≥ 0.7 or unjudged).
-- Refit (ADR 0004): one centred refit of the 46 subjects failing a gate was worse on every gate (divergences 304 → 11,007) and is not used; every subject keeps its production fit (`variants/hattori/launch_record/refit/README.md`).
+- Refit (ADR 0004): one centred refit of the 46 subjects failing a gate was worse: divergences 304 → 11,007, R-hat/ESS passes 39 → 24, 1 passing every gate. It is not used; every subject keeps its production fit (`variants/hattori/launch_record/refit/README.md`).
 <!-- END result-1 -->
 
 ## What it says

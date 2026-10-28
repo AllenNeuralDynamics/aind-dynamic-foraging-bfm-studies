@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_per_subject.py",
-    "produced_at_pt": "2026-10-27T21:19:53-07:00",
-    "studies_git_sha": "562f814c89ab0d90530421a851aaba3bb4bdcbb8",
+    "produced_at_pt": "2026-10-27T21:30:35-07:00",
+    "studies_git_sha": "3bee848ada9792f8ca34ad54af1fad288256de5d",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -42,7 +42,7 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
-        "sha256": "6b3d4c6a82dcaecc27a915b87abb01e5f953cbc01d8ec808661e3cc87c45e1d7"
+        "sha256": "d54d566f43b3a2196f7c0991cb4d9344bea8cbd537d507c2144b04987ca3483a"
       },
       {
         "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
