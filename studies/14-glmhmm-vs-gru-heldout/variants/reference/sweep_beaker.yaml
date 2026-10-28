@@ -1,8 +1,8 @@
 # Beaker twin of sweep_hpc.yaml (same grid and command), for launch_beaker_resumable.py with experiment_beaker.yaml.
 # Study 14 / reference: K = 1 .. 10 with the reference emission at the history length fixed by lag-scan
-# (PLAN.md). model.n_lags=5 is a placeholder: set it from the lag-scan result before launching,
-# and say so in the launch note. K is read off glmhmm/select/eval_likelihood (per-mouse refits
-# of the TRAINING mice); the held-out K curve is reported in full.
+# (PLAN.md): L = 10, which maximised the selection score for both emissions in lag-scan.
+# K is read off glmhmm/select/eval_likelihood (per-mouse refits of the TRAINING mice); the
+# held-out K curve is reported in full.
 #   data  -> dispatcher code/config/data/mice_snapshot_scaling.yaml (snapshot 20260603),
 #            ignore_policy=include as study 02's 3-way GRU, stage column retained for the split
 #   model -> dispatcher code/config/model/glmhmm.yaml; 20 restarts for K > 1, set below
@@ -26,7 +26,7 @@ command:
   - +data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,current_stage_actual]
   - model=glmhmm
   - model.emission=reference
-  - model.n_lags=5
+  - model.n_lags=10  # fixed by lag-scan@20261027-200129 (launch_record/lag-scan/results.md)
   - model.num_restarts=20  # Ashwood et al. used 20 per K (zashwood/glm-hmm); same for every K
   - seed=0
   - wandb.entity=AIND-disRNN
