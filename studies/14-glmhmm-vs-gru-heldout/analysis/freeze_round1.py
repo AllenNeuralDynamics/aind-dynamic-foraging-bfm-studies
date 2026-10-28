@@ -58,27 +58,91 @@ def sha256(path):
     return digest.hexdigest()
 
 
+def run_identity(files):
+    """(group, emission, K, L) of a run directory, or None.
+
+    A run that ended normally has W&B's ``config.yaml``. A run whose process was killed after
+    it wrote ``fit.json`` (XLA's code allocator exhausting the kernel's memory-map limit while
+    writing posteriors) has no ``config.yaml``; its launch identity is then read from the
+    ``+meta.*`` overrides in ``wandb-metadata.json`` and its model from ``fit.json``.
+    """
+    try:
+        config = yaml.safe_load((files / "config.yaml").read_text())
+        meta = (config.get("meta") or {}).get("value") or {}
+        variant, launch_id = meta.get("variant"), meta.get("launch_id")
+    except (OSError, yaml.YAMLError):
+        try:
+            args = json.loads((files / "wandb-metadata.json").read_text()).get("args", [])
+        except (OSError, json.JSONDecodeError):
+            return None
+        kv = dict(a.lstrip("+").split("=", 1) for a in args if "=" in a)
+        variant, launch_id = kv.get("meta.variant"), kv.get("meta.launch_id")
+    group = f"{variant}@{launch_id}"
+    fit_path = files / "outputs" / "glmhmm" / "fit.json"
+    if group not in WANDB_GROUPS or not fit_path.exists():
+        return None
+    cfg = json.loads(fit_path.read_text())["config"]
+    return group, cfg["emission"], int(cfg["num_states"]), int(cfg["n_lags"])
+
+
 def find_runs():
-    """Every finished run of the pinned groups, one per (group, emission, K, L)."""
+    """Every run of the pinned groups that wrote fit.json, one per (group, emission, K, L)."""
     runs = {}
     for run_dir in sorted(RUN_ROOT.glob("run-2026102*")):
         files = run_dir / "files"
+        key = run_identity(files)
+        if key is None:
+            continue
+        fit = json.loads((files / "outputs" / "glmhmm" / "fit.json").read_text())
         try:
-            config = yaml.safe_load((files / "config.yaml").read_text())
             summary = json.loads((files / "wandb-summary.json").read_text())
-        except (OSError, yaml.YAMLError, json.JSONDecodeError):
+            ended_normally = True
+        except (OSError, json.JSONDecodeError):
+            summary, ended_normally = fit["summary"], False
+        if "glmhmm/select/eval_likelihood" not in summary:
             continue
-        meta = (config.get("meta") or {}).get("value") or {}
-        group = f"{meta.get('variant')}@{meta.get('launch_id')}"
-        if group not in WANDB_GROUPS or "glmhmm/select/eval_likelihood" not in summary:
-            continue
-        model = config["model"]["value"]
-        key = (group, model["emission"], int(model["num_states"]), int(model["n_lags"]))
         if key in runs:
             raise RuntimeError(f"two finished runs for {key}: {runs[key]['dir']} and {run_dir}")
-        runs[key] = {"dir": run_dir, "summary": summary, "model": model,
+        runs[key] = {"dir": run_dir, "summary": summary, "ended_normally": ended_normally,
+                     "model": {"emission": key[1], "num_states": key[2], "n_lags": key[3]},
                      "wandb_run_id": run_dir.name.split("-")[-1]}
     return runs
+
+
+def recompute_posteriors(fit, trials):
+    """Smoothed posteriors and Viterbi paths of every held-out trial, from fit.json.
+
+    The trainer's own computation (``GLMHMMTrainer._write_posteriors``): each subject's refit
+    parameters, ``state_posteriors`` over its sessions. Done here because runs killed while
+    writing ``heldout_trials.parquet`` kept ``fit.json`` but not the parquet. Compiled code is
+    released after each run, so this process stays under the memory-map limit.
+    """
+    import jax
+    from aind_dynamic_foraging_models.glm_hmm import GLMHMM, make_buckets, state_posteriors
+
+    cfg = fit["config"]
+    K, L = int(cfg["num_states"]), int(cfg["n_lags"])
+    model = GLMHMM(K, L, cfg["emission"], cfg["num_newton_steps"])
+    frames = []
+    for subject, sub in trials.groupby("subject_id", sort=False):
+        p = fit["subjects"][subject]
+        params, _ = model.initialize(
+            initial_probs=np.asarray(p["initial_probs"]),
+            transition_matrix=np.asarray(p["transition_matrix"]),
+            **{k: np.asarray(v) for k, v in p["emissions"].items()})
+        sessions = [g for _, g in sub.groupby("ses_idx", sort=False)]
+        buckets = make_buckets([(g["choice"].to_numpy(), g["reward"].to_numpy()) for g in sessions],
+                               L, cfg["design"], cfg["bucket_size"])
+        posts = state_posteriors(model, params, buckets)       # session index -> posteriors
+        for i, g in enumerate(sessions):
+            post = posts[i]
+            frame = {"subject_id": subject, "ses_idx": g["ses_idx"].to_numpy(),
+                     "trial": g["trial"].to_numpy(), "viterbi": np.asarray(post["viterbi"]).astype(np.int8)}
+            for k in range(K):
+                frame[f"smoothed_{k}"] = np.asarray(post["smoothed"])[:, k]
+            frames.append(pd.DataFrame(frame))
+    jax.clear_caches()
+    return pd.concat(frames, ignore_index=True)
 
 
 def load_heldout_trials():
@@ -168,15 +232,24 @@ def state_summaries(run, trials, inputs):
 
     files = run["dir"] / "files" / "outputs" / "glmhmm"
     K, L, emission = int(run["model"]["num_states"]), int(run["model"]["n_lags"]), run["model"]["emission"]
-    cols = ["subject_id", "ses_idx", "trial", "viterbi"] + [f"smoothed_{k}" for k in range(K)]
-    post = pd.read_parquet(files / "heldout_trials.parquet", columns=cols)
-    post = post.assign(subject_id=post["subject_id"].astype(str), ses_idx=post["ses_idx"].astype(str))
+    fit = json.loads((files / "fit.json").read_text())
+    post = recompute_posteriors(fit, trials)
     post = post.sort_values(["subject_id", "ses_idx", "trial"]).reset_index(drop=True)
     if not (post[["subject_id", "ses_idx", "trial"]].values == trials[["subject_id", "ses_idx", "trial"]].values).all():
         raise RuntimeError(f"{run['wandb_run_id']}: posterior rows do not match the loaded trials")
-    gamma = post[[f"smoothed_{k}" for k in range(K)]].to_numpy(np.float64)
+    smoothed = [f"smoothed_{k}" for k in range(K)]
+    check = None
+    parquet = files / "heldout_trials.parquet"
+    if parquet.exists():   # the trainer's own posteriors, where it got to write them
+        saved = pd.read_parquet(parquet, columns=["subject_id", "ses_idx", "trial", "viterbi"] + smoothed)
+        saved = saved.assign(subject_id=saved["subject_id"].astype(str), ses_idx=saved["ses_idx"].astype(str))
+        saved = saved.sort_values(["subject_id", "ses_idx", "trial"]).reset_index(drop=True)
+        check = {"max_abs_smoothed_diff": float(np.abs(saved[smoothed].to_numpy() - post[smoothed].to_numpy()).max()),
+                 "viterbi_agreement": float((saved["viterbi"].to_numpy() == post["viterbi"].to_numpy()).mean())}
+        if check["max_abs_smoothed_diff"] > 1e-3:
+            raise RuntimeError(f"{run['wandb_run_id']}: recomputed posteriors differ from the trainer's: {check}")
+    gamma = post[smoothed].to_numpy(np.float64)
     viterbi = post["viterbi"].to_numpy()
-    fit = json.loads((files / "fit.json").read_text())
     emissions = fit["global"]["emissions"]
     probs = class_probs(emission, L, emissions, inputs)           # (N, K, 3)
     weights = gamma / gamma.sum(0, keepdims=True)
@@ -229,6 +302,7 @@ def state_summaries(run, trials, inputs):
         "occupancy_by_session_decile": by_position,
         "dwell_viterbi": dwell,
         "states": states,
+        "posterior_check_against_trainer": check,
         "alignment": {"n_subjects": len(fit["subjects"]),
                       "identity_matched": identity,
                       "rms_weight_distance_median": float(np.median(distance))},
@@ -259,7 +333,8 @@ def main():
     runs = find_runs()
     print(f"{len(runs)} finished runs in {len(WANDB_GROUPS)} groups")
     raw = load_heldout_trials()
-    sample = next(r for k, r in runs.items() if k[0] in K_GRID_GROUPS)
+    sample = next(r for k, r in runs.items()
+                  if k[0] in K_GRID_GROUPS and (r["dir"] / "files" / "outputs" / "glmhmm" / "heldout_trials.parquet").exists())
     parquet = sample["dir"] / "files" / "outputs" / "glmhmm" / "heldout_trials.parquet"
     base = pd.read_parquet(parquet, columns=["subject_id", "ses_idx", "trial", "split", "choice", "stage"])
     base = base.assign(subject_id=base["subject_id"].astype(str), ses_idx=base["ses_idx"].astype(str))
@@ -294,8 +369,9 @@ def main():
     for (group, emission, K, L), run in sorted(runs.items(), key=lambda kv: kv[0]):
         files = run["dir"] / "files"
         out_files = files / "outputs" / "glmhmm"
-        paths = [files / "wandb-summary.json", out_files / "fit.json",
-                 out_files / "heldout_per_subject.csv", out_files / "heldout_trials.parquet"]
+        paths = [p for p in (files / "wandb-summary.json", files / "wandb-metadata.json",
+                             out_files / "fit.json", out_files / "heldout_per_subject.csv",
+                             out_files / "heldout_trials.parquet") if p.exists()]
         digests = {p.name: sha256(p) for p in paths}
         sources.append({"type": "wandb_run", "id": f"{PROJECT}/{run['wandb_run_id']}"})
         sources += [{"type": "file", "id": str(p), "sha256": digests[p.name]} for p in paths]
@@ -308,6 +384,7 @@ def main():
         record = {
             "group": group, "emission": emission, "num_states": K, "n_lags": L,
             "wandb_run_id": run["wandb_run_id"], "sha256": digests,
+            "ended_normally": run["ended_normally"],
             "summary": summary, "config": fit["config"], "global": fit["global"],
             "global_log_joint_trace_len": len(fit["global_log_joint_trace"]),
             "per_subject": per_subject[["subject_id", "n_eval_trials", "eval_log_lik_sum",

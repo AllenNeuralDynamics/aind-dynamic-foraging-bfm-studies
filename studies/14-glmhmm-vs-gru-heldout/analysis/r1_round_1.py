@@ -304,6 +304,42 @@ def fig_restarts(grids, path):
     plt.close(fig)
 
 
+def fig_state_map(grids, selected, path):
+    """Every state of every K, placed by its behaviour: what the states are, and how they split."""
+    fig, axes = plt.subplots(2, 2, figsize=fs.mm(150, 115), layout="constrained")
+    cmap = plt.get_cmap("viridis")
+    panels = (("p_ignore", "stay_after_no_reward", "p(ignore)", "stay after no reward (perseverance)"),
+              ("p_stay_after_reward", "p_choose_better", "stay after reward (win-stay)",
+               "p(choose the better side)"))
+    for row, e in enumerate(EMISSIONS):
+        for col, (xm, ym, xl, yl) in enumerate(panels):
+            ax = axes[row, col]
+            for K, run in sorted(grids[e].items()):
+                if "state_summary" not in run:
+                    continue
+                ss = run["state_summary"]
+                for k, st in enumerate(ss["states"]):
+                    obs = st["observed_viterbi"]
+                    x = obs["p_ignore"] if xm == "p_ignore" else obs[xm]
+                    y = obs["p_stay_after_no_reward"] if ym == "stay_after_no_reward" else obs[ym]
+                    if x is None or y is None:
+                        continue
+                    occ = ss["occupancy"]["all"][k]
+                    is_sel = K == selected.get(e)
+                    ax.scatter(x, y, s=4 + 120 * occ, color=cmap((K - 1) / 9), alpha=0.85,
+                               edgecolor="black" if is_sel else "none", linewidth=0.8, zorder=3 if is_sel else 2)
+                    if is_sel:
+                        label = state_order(run).index(k) + 1
+                        ax.annotate(str(label), (x, y), xytext=(4, 3), textcoords="offset points", fontsize=6)
+            ax.set(xlabel=xl, ylabel=yl)
+            ax.set_title(f"{e}: states of every K (ringed: selected K = {selected.get(e)})", loc="left")
+            fs.panel_label(ax, "abcd"[2 * row + col])
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(1, 10))
+    fig.colorbar(sm, ax=axes, shrink=0.5, label="K (dot size = occupancy)")
+    fs.save_figure(fig, path)
+    plt.close(fig)
+
+
 # ---------------------------------------------------------------------- report
 
 def replace_block(text, n, body):
@@ -425,6 +461,8 @@ def main() -> None:
     figs = [HERE / "fig_r1_scores.svg", HERE / "fig_r1_restarts.svg"]
     fig_scores(grids, lags, gru, figs[0])
     fig_restarts(grids, figs[1])
+    figs.append(HERE / "fig_r1_state_map.svg")
+    fig_state_map(grids, selected, figs[-1])
     for e, K in selected.items():
         run = grids[e][K]
         for name in ("weights", "states", "examples"):
