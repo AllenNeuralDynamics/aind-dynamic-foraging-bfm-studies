@@ -7,7 +7,7 @@ authors:
 - han
 wandb_groups:
 - hattori@20261027-181430
-- hattori@20261027-201810
+- hattori@20261027-223626
 inputs:
   script: analysis/r2_per_subject.py
   data: analysis/hattori_final_runs.json
@@ -47,7 +47,7 @@ larger than the gaps between models.
 | MLE Hattori | +0.0073 | +0.0083 | 99% (145/146) |
 | MLE CTT | +0.0037 | +0.0037 | 79% (115/146) |
 
-Per-subject medians: HB two-level 0.7347, GRU D≈30 0.7393, GRU D≈614 0.7407, MLE Hattori 0.7285, MLE CTT 0.7330.
+Per-subject medians: HB two-level 0.7348, GRU D≈30 0.7393, GRU D≈614 0.7407, MLE Hattori 0.7285, MLE CTT 0.7330.
 Paired over the 146 subjects every arm scored. Study 01's GRU held-out cohort differs from its per-subject MLE cohort (which HB shares) by three subjects each way, left out here: HB two-level only: 722683, 795395, 820243; GRU D≈30 only: 764791, 808057, 823164; GRU D≈614 only: 764791, 808057, 823164; MLE Hattori only: 722683, 795395, 820243; MLE CTT only: 722683, 795395, 820243.
 Shared subjects whose scored-trial count differs between HB and GRU: none.
 <!-- END result-1 -->

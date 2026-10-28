@@ -3,17 +3,17 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r4_ladder.py",
-    "produced_at_pt": "2026-10-27T22:13:05-07:00",
-    "studies_git_sha": "8a5268778d8cc20ba55c8d83746a4f1df52e4f60",
+    "produced_at_pt": "2026-10-28T00:38:36-07:00",
+    "studies_git_sha": "409661476be40d833e8b2456386a5f38a670ec49",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "hattori@20261027-181430",
-      "hattori@20261027-201810"
+      "hattori@20261027-223626"
     ],
     "source_studies_git_shas": [
-      "41ef7f9a0dc1453b3637415829e48682eca05e90",
-      "562f814c89ab0d90530421a851aaba3bb4bdcbb8"
+      "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
+      "41ef7f9a0dc1453b3637415829e48682eca05e90"
     ],
     "source_dispatcher_git_shas": [
       "a4fe331b0fde0ca21aca8922d083e273e7868bcb"
@@ -22,13 +22,14 @@
       "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43"
     ],
     "source_foraging_models_git_shas": [
-      "13f7e9c3af6e80bcaeaae65a970a410e0539077d"
+      "13f7e9c3af6e80bcaeaae65a970a410e0539077d",
+      "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
     ],
     "provenance_findings": [],
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r4_ladder.py",
-        "sha256": "8e858b2a69b0b8d87d0bd84ada5ef5ee56d5daa8344158e6fc586cc1aef2f518"
+        "sha256": "0f2b783c32f5feb2d108c1ca2546c504e3b7de0533d1ebf94a4387555b0e2e38"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -46,11 +47,11 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
-        "sha256": "d54d566f43b3a2196f7c0991cb4d9344bea8cbd537d507c2144b04987ca3483a"
+        "sha256": "b3517c332255a56ea77fc6c77a829aa329c9667b61b65a439e381d2f30cc325b"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_plugin.json",
-        "sha256": "d0c4ecb847b388c1d607fb5be3d9ef775699e8703981223cc630d82b8aaf8375"
+        "sha256": "f3444194e507d4b5f1907f90e4cfa37d391be14384f2adf790186aba65b34f56"
       },
       {
         "path": "studies/08-hb-vs-gru-heldout/analysis/ml_params/ml_hattori_heldout.csv",
@@ -72,15 +73,15 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r4_ladder.json",
-        "sha256": "9b18f6ffa838926caec72df850a3ac23768855cec07fc128885f4826c14d0522"
+        "sha256": "baa6bed06409fbbf8f6b7939969c63e408a57a636fb0c7cdc5a418c21669720a"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r4_ladder.svg",
-        "sha256": "ba6f57fb5f9e91bacb32ce4cc572ec0a51a5bea7689bcbdd628fb633919b7d69"
+        "sha256": "bd6ae67220ea5a3b08b5193336158e0dc14fd3d8768e2902832d885e5f20402a"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r4_ladder_steps.svg",
-        "sha256": "1d9a5ea756130e4a793cf936486d9d404e6cea67a1a6ef38fba447575946f62f"
+        "sha256": "ac94f2fab1415e67bbfe92d807ec6fdc29135e1daeb5b31950cbb4237b321f5b"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r4_ladder_schematic.svg",
@@ -88,7 +89,7 @@
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r4-ladder.md#result-1",
-        "sha256": "071bbb2c795e0f133eea3f7f59abb30f55e40ccfd157fe1154689da54373719c"
+        "sha256": "7cab2ba56205b0e8979082a9347f000aab9f6367e194992790102e351c8e3083"
       }
     ]
   },
@@ -96,9 +97,9 @@
   "n_trials": 1013172,
   "pooled": {
     "MLE": 0.7126671432016844,
-    "plug-in": 0.7106704312325619,
-    "zero-spread": 0.7173759107606891,
-    "full HB": 0.7212967710838346
+    "plug-in": 0.7106646481492509,
+    "zero-spread": 0.7173851473940438,
+    "full HB": 0.7212947902854704
   },
   "mle_published": 0.7127,
   "gru_by_d": {
@@ -110,21 +111,21 @@
   },
   "steps": {
     "plug-in − MLE": {
-      "pooled": -0.0019967119691225443,
-      "median": -0.001464530540203568,
+      "pooled": -0.0020024950524335505,
+      "median": -0.0014290668863673472,
       "frac_positive": 0.174496644295302,
       "n": 149
     },
     "zero-spread − plug-in": {
-      "pooled": 0.006705479528127167,
+      "pooled": 0.006720499244792899,
       "median": 0.005635062963936455,
       "frac_positive": 1.0,
       "n": 149
     },
     "full HB − zero-spread": {
-      "pooled": 0.003920860323145536,
-      "median": 0.002759684375811977,
-      "frac_positive": 0.9530201342281879,
+      "pooled": 0.00390964289142659,
+      "median": 0.0026546059968484137,
+      "frac_positive": 0.9463087248322147,
       "n": 149
     },
     "GRU D≈614 − full HB": {

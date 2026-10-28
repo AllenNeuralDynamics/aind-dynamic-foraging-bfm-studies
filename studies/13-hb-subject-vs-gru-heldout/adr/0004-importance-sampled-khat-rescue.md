@@ -1,4 +1,4 @@
-# Sessions failing Pareto k̂ are rescored by importance sampling; the centred refit was rejected
+# Sessions failing Pareto k̂ are rescored by importance sampling; failing subjects are refit non-centred
 
 ADR 0002 headlined the plain draw-average and promised importance sampling "only if real sessions
 fail the gate". In production they did: 262 of 2,138 scored sessions had k̂ ≥ 0.7 (none unjudged;
@@ -19,20 +19,22 @@ all-plain total is reported beside it (`*_plain`). Code: foraging-models'
 `importance_sampled_session_marginal`; the wrapper applies it with `importance_rescore`.
 
 **Refit.** The 46 subjects failing any gate (R-hat ≥ 1.01, bulk ESS < 400, or any divergence)
-were refit once: centred session level, target acceptance 0.95, 3000 warmup + 4 × 3000 draws
-(`hattori@20261027-181415`). It was worse on every gate: divergences rose from 304 to 11,007
-(median 3 → 170 per subject), and subjects passing R-hat and ESS fell from 39 to 24; one subject
-passed every gate. Divergences rising 36-fold under the centred form is a funnel's signature: the
-sessions are weakly constrained, so the non-centred production geometry was the right one. The
-refit is not used (record: `variants/hattori/launch_record/refit/README.md`). The untried remedy
-is a non-centred refit at higher target acceptance; PLAN.md allowed one refit, so a second is a
-new decision, not part of this one.
+were refit first with a centred session level, target acceptance 0.95, 3000 warmup + 4 × 3000 draws
+(`hattori@20261027-181415`). It was worse on every gate: divergences rose from 304 to 11,007, and
+subjects passing R-hat and ESS fell from 39 to 24. Divergences rising 36-fold under the centred
+form is a funnel's signature: the sessions are weakly constrained, so the non-centred geometry is
+the right one. That refit is rejected (`variants/hattori/launch_record/refit/README.md`).
 
-**Every subject keeps its production fit.** Its saved draws are scored again through the same
-data path (`draws_path`), which reproduces the production plain scores exactly, then the
-sessions failing k̂ are rescored (`hattori@20261027-181430` for the 103 subjects passing the
-gates, `hattori@20261027-201810` for the other 46). The headline covers all 149; the
-converged-only number beside it excludes the 46.
+PLAN.md planned one refit; Han approved a second (2026-10-28 PT): non-centred, target acceptance
+0.95, the same chain lengths (`hattori@20261027-223626`). It cleared most failures (divergences
+304 → 45, R-hat/ESS passes 39 → 45, 36 of the 46 passing every gate) and is used for those 46.
+Subjects still failing are reported, not dropped.
+
+**The other 103 keep their production fit.** Its saved draws are scored again through the same
+data path (`draws_path`, `hattori@20261027-181430`), which reproduces the production plain scores
+exactly, then the sessions failing k̂ are rescored. (`hattori@20261027-201810` rescored the 46
+from their production fits while the second refit was pending; it is superseded.) The headline
+covers all 149; the converged-only number beside it excludes subjects still failing a gate.
 
 ## Considered options
 

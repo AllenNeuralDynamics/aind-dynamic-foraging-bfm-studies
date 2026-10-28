@@ -24,7 +24,7 @@ sys.path.insert(0, str(HERE.parents[1] / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
 import figure_style as fs  # noqa: E402
 
-WANDB_GROUPS = ["hattori@20261027-181430", "hattori@20261027-201810"]   # final set (ADR 0004), via the freeze
+WANDB_GROUPS = ["hattori@20261027-181430", "hattori@20261027-223626"]   # final set (ADR 0004), via the freeze
 POSTERIORS = HERE / "hattori_posteriors.json"
 RUNS = HERE / "hattori_final_runs.json"   # production fits, k̂-rescued (ADR 0004)
 MLE_SOURCE = HERE.parents[1] / "08-hb-vs-gru-heldout" / "analysis" / "ml_params" / "ml_hattori_heldout.csv"

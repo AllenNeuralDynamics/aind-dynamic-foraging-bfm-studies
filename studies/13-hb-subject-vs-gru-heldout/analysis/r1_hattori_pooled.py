@@ -18,7 +18,7 @@ from _meta import build_meta, write_artifact  # noqa: E402
 import cross_study  # noqa: E402
 
 # The final set (ADR 0004: production fits, k̂-rescued) carries the headline; production is shown beside it.
-WANDB_GROUPS = ["hattori@20261026-002131", "hattori@20261027-181430", "hattori@20261027-201810",
+WANDB_GROUPS = ["hattori@20261026-002131", "hattori@20261027-181430", "hattori@20261027-223626",
                 "hattori@20261027-181415"]
 RUNS = HERE / "hattori_final_runs.json"
 PRODUCTION = HERE / "hattori_runs.json"
@@ -47,6 +47,8 @@ def compute() -> dict:
     refit = [r for r in json.loads(REFIT.read_text())["rows"] if r["state"] == "finished"]
     before = {r["subject_id"]: r for r in production}
     before = [before[r["subject_id"]] for r in refit]   # the same subjects, production fits
+    final_by = {r["subject_id"]: r for r in rows}
+    refit_ids = [r["subject_id"] for r in refit]
     # PLAN.md's gates: R-hat < 1.01 and bulk ESS >= 400 (the run's own flag), and no divergences.
     converged = [r for r in rows if r["hb/n_subjects_converged"] == 1 and not r["hb/divergences"]]
     headline, headline_se = _pool(rows, "heldout/eval_log_lik_sum", "heldout/eval_log_lik_sum_se")
@@ -68,6 +70,16 @@ def compute() -> dict:
                                               for r in rows),
         "n_sessions_pareto_k_fail_production": sum(r["heldout/n_sessions_pareto_k_fail"]
                                                    for r in production),
+        "refit_noncentred": {
+            "n_subjects": len(refit),
+            "divergences_production": sum(r["hb/divergences"] for r in before),
+            "divergences_refit": sum(final_by[s]["hb/divergences"] for s in refit_ids),
+            "pass_rhat_ess_production": sum(r["hb/n_subjects_converged"] == 1 for r in before),
+            "pass_rhat_ess_refit": sum(final_by[s]["hb/n_subjects_converged"] == 1
+                                       for s in refit_ids),
+            "pass_all_refit": sum(final_by[s]["hb/n_subjects_converged"] == 1
+                                  and not final_by[s]["hb/divergences"] for s in refit_ids),
+        },
         "refit": {
             "n_subjects": len(refit),
             "divergences_production": sum(r["hb/divergences"] for r in before),
@@ -107,11 +119,13 @@ def render(r: dict) -> str:
     lines += [
         "| arm | held-out likelihood (trial-weighted) |",
         "|---|---|",
-        f"| HB-Hattori2019 two-level, session-marginal (headline: k̂-failing sessions importance-sampled, "
-        f"ADR 0004) | **{r['hb_session_marginal']:.4f}** ± {r['hb_session_marginal_se']:.1e} (MC); "
+        f"| HB-Hattori2019 two-level, session-marginal (headline: non-centred refit of the gate-failing "
+        f"subjects, k̂-failing sessions importance-sampled; ADR 0004) | **{r['hb_session_marginal']:.4f}** ± {r['hb_session_marginal_se']:.1e} (MC); "
         f"{r['hb_session_marginal']:.6f} |",
-        f"| … same fits, plain draw-average on every session (= production) | "
+        f"| … same fits, plain draw-average on every session | "
         f"{r['hb_session_marginal_plain']:.6f} |",
+        f"| … production (before the refit and the k̂ rescue) | "
+        f"{r['hb_session_marginal_production']:.6f} |",
         f"| HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session "
         f"posterior median), no within-session inference | {r['hb_plugin']:.4f} |",
         f"| HB-Hattori2019 two-level, zero-spread: every posterior draw of the typical session, no "
@@ -131,12 +145,17 @@ def render(r: dict) -> str:
         f"fail on the plain draw-average (production: {r['n_sessions_pareto_k_fail_production']}); "
         f"{r['n_sessions_importance']} were rescored by importance sampling, after which "
         f"{r['n_sessions_pareto_k_fail']} still fail (k̂ ≥ 0.7 or unjudged).",
-        f"- Refit (ADR 0004): one centred refit of the {r['refit']['n_subjects']} subjects failing a "
-        f"gate was worse: divergences {r['refit']['divergences_production']:,} → "
+        f"- Refit (ADR 0004) of the {r['refit']['n_subjects']} subjects failing a gate in production. "
+        f"Centred (rejected): divergences {r['refit']['divergences_production']:,} → "
         f"{r['refit']['divergences_refit']:,}, R-hat/ESS passes "
-        f"{r['refit']['pass_rhat_ess_production']} → {r['refit']['pass_rhat_ess_refit']}, "
-        f"{r['refit']['pass_all_refit']} passing every gate. It is not used; every subject keeps its "
-        "production fit (`variants/hattori/launch_record/refit/README.md`).",
+        f"{r['refit']['pass_rhat_ess_production']} → {r['refit']['pass_rhat_ess_refit']}. "
+        f"Non-centred at target acceptance 0.95 (used): divergences "
+        f"{r['refit_noncentred']['divergences_production']:,} → "
+        f"{r['refit_noncentred']['divergences_refit']:,}, R-hat/ESS passes "
+        f"{r['refit_noncentred']['pass_rhat_ess_production']} → "
+        f"{r['refit_noncentred']['pass_rhat_ess_refit']}, "
+        f"{r['refit_noncentred']['pass_all_refit']} of {r['refit_noncentred']['n_subjects']} "
+        "passing every gate.",
     ]
     return "\n".join(lines)
 
