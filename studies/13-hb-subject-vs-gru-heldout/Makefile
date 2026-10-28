@@ -29,6 +29,12 @@ r2:
 r3:
 	$(PY) analysis/r3_posteriors_vs_mle.py
 
+# freeze-ctt = the live read for r5 (W&B GraphQL + HPC artifact files); never part of `all`.
+# Run on a compute node with WANDB_API_KEY exported, then commit analysis/ctt_runs.json.
+.PHONY: freeze-ctt
+freeze-ctt:
+	$(PY) analysis/freeze_ctt.py
+
 # freeze-posteriors = per-subject posterior summaries for r3, from each run's saved draws on the HPC
 # filesystem; never part of `all`. Run on a compute node, then commit analysis/hattori_posteriors.json.
 .PHONY: freeze-posteriors
@@ -45,3 +51,8 @@ freeze-plugin:
 .PHONY: r4
 r4:
 	$(PY) analysis/r4_ladder.py
+
+# r5 = HB-CTT two-level vs HB-Hattori, per-subject MLE and GRU on held-out subjects
+.PHONY: r5
+r5:
+	$(PY) analysis/r5_ctt_pooled.py
