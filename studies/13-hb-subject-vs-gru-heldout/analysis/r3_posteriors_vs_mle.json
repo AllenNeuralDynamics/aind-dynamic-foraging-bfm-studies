@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_posteriors_vs_mle.py",
-    "produced_at_pt": "2026-10-28T00:38:30-07:00",
-    "studies_git_sha": "409661476be40d833e8b2456386a5f38a670ec49",
+    "produced_at_pt": "2026-10-28T01:39:18-07:00",
+    "studies_git_sha": "a932cfeec5748f5481eb7517aa6bf2e10b13c70f",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -43,7 +43,7 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_posteriors.json",
-        "sha256": "76c6d9fcc8b8702ed7ce746d93131c2a0aa669232babe8310468958e729bd610"
+        "sha256": "f372757dcf00b166afeb61d5fe0e068e449951dd6326025dc9a9a045d849057b"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",

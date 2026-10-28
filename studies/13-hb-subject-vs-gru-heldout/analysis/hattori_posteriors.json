@@ -3,9 +3,9 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_posteriors.py",
-    "produced_at_pt": "2026-10-27T23:52:50-07:00",
-    "studies_git_sha": "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
-    "studies_git_dirty": true,
+    "produced_at_pt": "2026-10-28T00:54:46-07:00",
+    "studies_git_sha": "a932cfeec5748f5481eb7517aa6bf2e10b13c70f",
+    "studies_git_dirty": false,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "hattori@20261026-002131",
@@ -38,7 +38,7 @@
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/final_runs.py",
-        "sha256": "5c7fcf8eda6ba54155920376bf050d03f39d10376c0903cdceaf6adf88881b6f"
+        "sha256": "7446c735eeca4446b9c780b6e4602f4f5e77ef97f928eeb87b20d67e9428d1aa"
       }
     ],
     "inputs": [

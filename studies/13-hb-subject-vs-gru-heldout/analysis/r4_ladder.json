@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r4_ladder.py",
-    "produced_at_pt": "2026-10-28T00:38:36-07:00",
-    "studies_git_sha": "409661476be40d833e8b2456386a5f38a670ec49",
+    "produced_at_pt": "2026-10-28T01:39:23-07:00",
+    "studies_git_sha": "a932cfeec5748f5481eb7517aa6bf2e10b13c70f",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -51,7 +51,7 @@
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_plugin.json",
-        "sha256": "f3444194e507d4b5f1907f90e4cfa37d391be14384f2adf790186aba65b34f56"
+        "sha256": "45c51996e106b3b3c6202993f89d053c313368482a7150da6de4f97654acc77d"
       },
       {
         "path": "studies/08-hb-vs-gru-heldout/analysis/ml_params/ml_hattori_heldout.csv",
