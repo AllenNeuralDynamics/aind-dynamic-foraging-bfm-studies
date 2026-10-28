@@ -83,9 +83,8 @@ def main(names: list[str]) -> None:
                          "q_values": "q_rl_left" in rl.columns, "checks": checks}
         print(name, json.dumps(checks))
 
-    groups = s12.wandb_groups() + [m["group"] for k, m in baselines["models"].items() if k in results]
-    out = {"_meta": s12.build_meta("analysis/c2_rl_rollouts.py", groups, study_root=s12.STUDY), "models": results}
-    summary_path.write_text(json.dumps(out, indent=2, default=s12._json_default) + "\n")
+    s12.write_json("c2_rl_rollouts.json", {"models": results}, "analysis/c2_rl_rollouts.py",
+                   sources=s12.rl_sources(results))
 
 
 if __name__ == "__main__":

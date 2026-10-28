@@ -4,14 +4,16 @@ id: r3
 slug: dynamics
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - e4-e8-d614-source@20260906-195409
+wandb_groups: []
 inputs:
   scripts:
     - analysis/d_dynamics.py
     - analysis/report_r3.py
   data:
     - analysis/d_dynamics.json
+upstream:
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
 reproduce: make -C studies/50-gru-dynamics-embedding r3
 ---
 

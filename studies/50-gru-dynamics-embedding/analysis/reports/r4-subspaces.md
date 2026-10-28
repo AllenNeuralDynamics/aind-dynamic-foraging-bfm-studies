@@ -4,9 +4,7 @@ id: r4
 slug: subspaces
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - e4-e8-d614-source@20260906-195409
-  - rl-baseline-hattori@20260713-010255
+wandb_groups: []
 inputs:
   scripts:
     - analysis/e1_subspaces.py
@@ -17,6 +15,11 @@ inputs:
     - analysis/e1_subspaces.json
     - analysis/e2_ablations.json
     - analysis/e2b_conditional_ablations.json
+upstream:
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
+  - study: 01-gru-scaling-law
+    wandb_group: rl-baseline-hattori@20260713-010255
 reproduce: make -C studies/50-gru-dynamics-embedding r4
 ---
 

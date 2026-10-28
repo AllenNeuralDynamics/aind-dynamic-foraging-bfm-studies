@@ -121,17 +121,13 @@ def main() -> None:
     long_coefs = Parallel(n_jobs=2)(delayed(fit_rows)(x_long, y, None, soft) for y, soft in long_targets.values())
     pooled_long = {s: as_kernels(c, N_BACK_LONG) for s, c in zip(long_targets, long_coefs)}
 
-    manifest_groups = [m["group"] for m in __import__("json").loads((s12.STUDY / "analysis" / "source_runs.json").read_text())["rl_baselines"]["models"].values()]
-    out = {"_meta": s12.build_meta("analysis/c1_kernels.py", s12.wandb_groups() + manifest_groups, study_root=s12.STUDY),
-           "design": DESIGN, "terms": MODEL_MAPPER[DESIGN], "n_back": N_BACK, "C": C, "n_trials": int(len(t)),
+    out = {"design": DESIGN, "terms": MODEL_MAPPER[DESIGN], "n_back": N_BACK, "C": C, "n_trials": int(len(t)),
            "soft_labels": "model P(right) as soft targets; animal as observed choices",
            "pooled": pooled, "pooled_n_back_long": pooled_long, "n_back_long": N_BACK_LONG,
            "by_task": by_task, "per_mouse_summary": mouse_summary,
            "per_mouse_coef": {s: {m: c for m, c in coefs.items()} for s, coefs in per_mouse.items()},
            "coef_layout": "per term, trial_back N..1, then intercept"}
-    path = s12.ANALYSIS / "c1_kernels.json"
-    import json  # noqa: PLC0415
-    path.write_text(json.dumps(out, indent=1, default=s12._json_default) + "\n")
+    s12.write_json("c1_kernels.json", out, "analysis/c1_kernels.py", sources=s12.rl_sources())
     print("reward effect lag1..: animal", np.round(pooled["animal"]["reward_effect"], 3), "gru", np.round(pooled["gru"]["reward_effect"], 3))
 
 

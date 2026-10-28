@@ -4,9 +4,7 @@ id: r5
 slug: licks-model
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - h128-dscan-licks-only@20260823-093110
-  - e4-e8-d614-source@20260906-195409
+wandb_groups: []
 inputs:
   scripts:
     - analysis/a2_align_with_c.py
@@ -28,6 +26,11 @@ inputs:
     - analysis/f_embedding_licks.json
     - analysis/trial_states_L-s0.json
     - analysis/trial_states_L-s1.json
+upstream:
+  - study: 07-gru-timing-inputs
+    wandb_group: h128-dscan-licks-only@20260823-093110
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
 reproduce: make -C studies/52-gru-dynamics-timing-inputs r5
 ---
 # r5 — The licks model (L): what lick-count inputs change in the GRU

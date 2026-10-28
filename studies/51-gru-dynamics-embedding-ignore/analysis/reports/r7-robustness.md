@@ -4,9 +4,7 @@ id: r7
 slug: robustness
 status: draft  # G1 seeds
 authors: [pck, claude]
-wandb_groups:
-  - nxd-3way@20260707-075401
-  - e4-e8-d614-source@20260906-195409
+wandb_groups: []
 inputs:
   scripts:
     - analysis/extract_trial_states.py
@@ -19,6 +17,11 @@ inputs:
     - analysis/trial_states_C3-s2.json
     - analysis/g_seeds.json
     - analysis/g_dynamics.json
+upstream:
+  - study: 02-gru-scaling-law-ignore
+    wandb_group: nxd-3way@20260707-075401
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r7
 ---
 

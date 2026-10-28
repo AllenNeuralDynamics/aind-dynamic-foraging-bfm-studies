@@ -193,7 +193,7 @@ def main(key: str) -> None:
     sessions = trial_df.drop_duplicates("ses_idx")
     summary = {
         "_meta": {
-            **build_meta("analysis/extract_trial_states.py", [source["group"]], study_root=STUDY, kind="freeze",
+            **build_meta("analysis/extract_trial_states.py", [], study_root=STUDY, kind="freeze",
                          code=[__file__], inputs=[STUDY / "analysis" / "source_runs.json"],
                          sources=[{"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{run['run_id']}"}]),
             "wrapper_checkout": _wrapper_checkout(),

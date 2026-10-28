@@ -83,6 +83,14 @@ def model_sources(key: str = MODEL_KEY) -> list[dict]:
     return [{"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{run['run_id']}"}]
 
 
+def rl_sources(names=None) -> list[dict]:
+    """Study 01's per-subject RL fits (``source_runs.json["rl_baselines"]``) as W&B run sources."""
+    manifest = json.loads((STUDY / "analysis" / "source_runs.json").read_text())
+    rl = manifest["rl_baselines"]
+    return [{"type": "wandb_run", "id": f"{manifest['entity']}/{rl['project']}/{m['run_id']}"}
+            for k, m in rl["models"].items() if names is None or k in names]
+
+
 def wandb_groups() -> list[str]:
     manifest = json.loads((STUDY / "analysis" / "source_runs.json").read_text())
     return [manifest["models"][MODEL_KEY.split("-")[0]]["group"]]
@@ -133,7 +141,9 @@ def write_json(name: str, payload: dict, produced_by: str, extra_groups: list[st
     read = list(dict.fromkeys([*map(Path, inputs), *_INPUTS.values()]))
     extra = {} if kind == "producer" else {
         "sources": model_sources() + list(_CACHE_READS.values()) + list(sources)}
-    meta = build_meta(produced_by, wandb_groups() + list(extra_groups), study_root=STUDY, kind=kind,
+    # Groups name this study's own launches (_meta contract, as studies 06 and 13 do); this study
+    # launches nothing. The runs it read are its sources; reports cite their groups in `upstream`.
+    meta = build_meta(produced_by, [], study_root=STUDY, kind=kind,
                       code=[STUDY / produced_by], inputs=read, **extra)
     write_artifact(path, {"_meta": meta, **payload}, default=_json_default)
     return path

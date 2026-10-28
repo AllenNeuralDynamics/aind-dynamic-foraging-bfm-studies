@@ -4,11 +4,7 @@ id: r8
 slug: gru-vs-q-learning
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - e4-e8-d614-source@20260906-195409
-  - rl-baseline-bari@20260713-010244
-  - rl-baseline-ctt@20260713-010305
-  - rl-baseline-hattori@20260713-010255
+wandb_groups: []
 inputs:
   scripts:
     - analysis/h3_q_phase_portraits.py
@@ -21,6 +17,15 @@ inputs:
     - analysis/h4_scenarios.json
     - analysis/h1_model_ladder.json
     - analysis/h2_learning_rate.json
+upstream:
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
+  - study: 01-gru-scaling-law
+    wandb_group: rl-baseline-bari@20260713-010244
+  - study: 01-gru-scaling-law
+    wandb_group: rl-baseline-ctt@20260713-010305
+  - study: 01-gru-scaling-law
+    wandb_group: rl-baseline-hattori@20260713-010255
 reproduce: make -C studies/50-gru-dynamics-embedding r8
 ---
 

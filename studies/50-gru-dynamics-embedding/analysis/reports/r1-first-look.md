@@ -4,8 +4,7 @@ id: r1
 slug: first-look
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - e4-e8-d614-source@20260906-195409
+wandb_groups: []
 inputs:
   scripts:
     - analysis/extract_trial_states.py
@@ -28,6 +27,9 @@ inputs:
     - analysis/b5_outcome_triggered.json
     - analysis/b6_tracking.json
     - analysis/b7_decoders.json
+upstream:
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
 reproduce: make -C studies/50-gru-dynamics-embedding r1
 ---
 

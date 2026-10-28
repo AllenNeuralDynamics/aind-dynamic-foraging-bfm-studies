@@ -29,7 +29,7 @@ PARAMS = {"bari": "learn_rate", "ctt": "learn_rate"}
 def main() -> None:
     manifest = json.loads(MANIFEST.read_text())
     rl = manifest["rl_baselines"]
-    medians, sources, groups = {}, [], []
+    medians, sources = {}, []
     for name, param in PARAMS.items():
         model = rl["models"][name]
         path = ANALYSIS / "_cache" / "models" / "rl" / model["run_id"] / "baseline_rl_output.json"
@@ -39,8 +39,8 @@ def main() -> None:
                          "n_subjects": len(values)}
         sources.append({"type": "wandb_run", "id": f"{manifest['entity']}/{rl['project']}/{model['run_id']}",
                         "sha256": file_digest(path)})
-        groups.append(model["group"])
-    meta = build_meta("analysis/freeze_rl_fit_medians.py", groups, study_root=STUDY,
+    # Study 01 launched these runs: they are sources here, not this study's groups.
+    meta = build_meta("analysis/freeze_rl_fit_medians.py", [], study_root=STUDY,
                       kind="freeze", code=[__file__], inputs=[MANIFEST], sources=sources)
     write_artifact(OUT, {"_meta": meta, "medians": medians})
     print(f"Wrote {OUT}")

@@ -4,8 +4,7 @@ id: r4
 slug: subspaces
 status: draft  # E2
 authors: [pck, claude]
-wandb_groups:
-  - nxd-3way@20260707-075401
+wandb_groups: []
 inputs:
   scripts:
     - analysis/e2_ablations.py
@@ -13,6 +12,9 @@ inputs:
   data:
     - analysis/e2_ablations.json
     - analysis/d_dynamics.json
+upstream:
+  - study: 02-gru-scaling-law-ignore
+    wandb_group: nxd-3way@20260707-075401
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r4
 ---
 

@@ -216,7 +216,9 @@ def write_json(name: str, payload: dict, produced_by: str, extra_groups: list[st
     read = list(dict.fromkeys([*map(Path, inputs), *_INPUTS.values()]))
     extra = {} if kind == "producer" else {
         "sources": model_sources() + list(_CACHE_READS.values()) + list(sources)}
-    meta = build_meta(produced_by, wandb_groups() + list(extra_groups), study_root=STUDY, kind=kind,
+    # Groups name this study's own launches (_meta contract, as studies 06 and 13 do); this study
+    # launches nothing. The runs it read are its sources; reports cite their groups in `upstream`.
+    meta = build_meta(produced_by, [], study_root=STUDY, kind=kind,
                       code=[STUDY / produced_by], inputs=read, **extra)
     write_artifact(path, {"_meta": meta, **payload}, default=_json_default)
     return path

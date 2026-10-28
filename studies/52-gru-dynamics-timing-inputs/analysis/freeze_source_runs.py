@@ -194,7 +194,8 @@ def main() -> None:
     manifest.pop("_meta", None)
     sources = [{"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{run['run_id']}"}
                for model_key in WANDB_GROUPS for run in manifest["models"][model_key]["runs"].values()]
-    meta = build_meta("analysis/freeze_source_runs.py", [g[0] for g in WANDB_GROUPS.values()], study_root=STUDY,
+    # The pinned groups are the source studies' launches, not this study's.
+    meta = build_meta("analysis/freeze_source_runs.py", [], study_root=STUDY,
                       kind="freeze", code=[__file__], inputs=[STUDY07_SCALING, STUDY12_MANIFEST], sources=sources)
     write_artifact(MANIFEST, {"_meta": meta, **manifest})
     print(f"Wrote {MANIFEST}")

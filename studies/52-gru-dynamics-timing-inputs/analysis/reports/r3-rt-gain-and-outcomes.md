@@ -4,8 +4,7 @@ id: r3
 slug: rt-gain-and-outcomes
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - h128-dscan-rt-only@20260823-093058
+wandb_groups: []
 inputs:
   scripts:
     - analysis/i_rt_followups.py
@@ -14,6 +13,9 @@ inputs:
     - analysis/i_rt_followups_R-s0.json
     - analysis/i_rt_followups_R-s1.json
     - analysis/i_rt_followups_summary.json
+upstream:
+  - study: 07-gru-timing-inputs
+    wandb_group: h128-dscan-rt-only@20260823-093058
 reproduce: make -C studies/52-gru-dynamics-timing-inputs r3
 ---
 # r3 — RT as a gain, and RT × outcome (tier-3 follow-ups, two seeds)

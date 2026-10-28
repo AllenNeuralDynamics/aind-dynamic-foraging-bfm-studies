@@ -22,8 +22,9 @@ from pathlib import Path
 import pandas as pd
 
 STUDY = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(STUDY.parent / "util"))
-from _meta import build_meta  # noqa: E402
+sys.path.insert(0, str(STUDY / "analysis"))
+from _pk02 import _read_cache, write_json  # noqa: E402
+import _pk02  # noqa: E402
 
 C_TABLE = STUDY.parent / "50-gru-dynamics-embedding" / "analysis" / "_cache" / "trial_states_C-s0.parquet"
 C3_TABLE = STUDY / "analysis" / "_cache" / "trial_states_C3-s0.parquet"
@@ -32,7 +33,7 @@ IGNORE = 2
 
 
 def _load(path: Path) -> pd.DataFrame:
-    df = pd.read_parquet(path, columns=COLUMNS)
+    df = pd.read_parquet(_read_cache(path), columns=COLUMNS)
     # Extractions before the wrapper fix leave session_id empty on all-ignore sessions.
     df["session_id"] = df["session_id"].fillna(df["source_ses_idx"])
     return df
@@ -75,7 +76,6 @@ def main() -> None:
         return out
 
     summary = {
-        "_meta": build_meta("analysis/split_alignment.py", [], study_root=STUDY),
         "inputs": {
             "C": str(C_TABLE.relative_to(STUDY.parent)),
             "C3": str(C3_TABLE.relative_to(STUDY.parent)),
@@ -102,8 +102,8 @@ def main() -> None:
             s: {"subject_id": str(r.subject_id), "n_trials": int(r.n)} for s, r in all_ignore.iterrows()
         },
     }
-    out = STUDY / "analysis" / "split_alignment.json"
-    out.write_text(json.dumps(summary, indent=2) + "\n")
+    _pk02._TWIN_READ = True   # read C's table directly: C-s0 is a source too
+    write_json("split_alignment.json", summary, "analysis/split_alignment.py")
     print(json.dumps({k: summary[k] for k in ("counts", "checks_on_shared_sessions", "subjects_affected")}, indent=2))
 
 

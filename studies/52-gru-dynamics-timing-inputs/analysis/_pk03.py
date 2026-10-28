@@ -89,7 +89,9 @@ def write_json(name: str, payload: dict, produced_by: str, *, keys: list[str] = 
         manifest, model = _manifest(k)
         runs.append({"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{model['runs'][k]['run_id']}"})
     extra = {} if kind == "producer" else {"sources": runs + list(_CACHE_READS.values()) + list(sources)}
-    meta = build_meta(produced_by, wandb_groups(used), study_root=STUDY, kind=kind,
+    # Groups name this study's own launches (_meta contract, as studies 06 and 13 do); this study
+    # launches nothing. The runs it read are its sources; reports cite their groups in `upstream`.
+    meta = build_meta(produced_by, [], study_root=STUDY, kind=kind,
                       code=[STUDY / produced_by], inputs=read, **extra)
     write_artifact(path, {"_meta": meta, **payload}, default=_json_default)
     return path

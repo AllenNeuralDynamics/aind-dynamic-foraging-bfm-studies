@@ -4,9 +4,7 @@ id: r6
 slug: integration-axis
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - nxd-3way@20260707-075401
-  - e4-e8-d614-source@20260906-195409
+wandb_groups: []
 inputs:
   scripts:
     - analysis/i1_cluster_axes.py
@@ -24,6 +22,10 @@ inputs:
 upstream:
   - study: 50-gru-dynamics-embedding
     report: r6
+  - study: 02-gru-scaling-law-ignore
+    wandb_group: nxd-3way@20260707-075401
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
 reproduce: make -C studies/51-gru-dynamics-embedding-ignore r6
 ---
 

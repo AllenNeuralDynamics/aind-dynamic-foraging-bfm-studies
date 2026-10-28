@@ -4,9 +4,7 @@ id: r1
 slug: rt-model-descriptive
 status: draft
 authors: [pck, claude]
-wandb_groups:
-  - h128-dscan-rt-only@20260823-093058
-  - e4-e8-d614-source@20260906-195409
+wandb_groups: []
 inputs:
   scripts:
     - analysis/a2_align_with_c.py
@@ -18,6 +16,11 @@ inputs:
     - analysis/b3_state_rt.json
     - analysis/trial_states_R-s0.json
     - analysis/trial_states_R-s1.json
+upstream:
+  - study: 07-gru-timing-inputs
+    wandb_group: h128-dscan-rt-only@20260823-093058
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
 reproduce: make -C studies/52-gru-dynamics-timing-inputs r1
 ---
 # r1 — RT model (R-s0) vs choice/reward model (C-s0): where RT helps and how it is stored
