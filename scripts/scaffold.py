@@ -6,7 +6,8 @@
     make new-variant STUDY=12-gru-foo NAME=wider
     make new-report  STUDY=12-gru-foo SLUG=heldout-curve TITLE="Held-out vs D"
 
-The layout and field rules are schemas/ (layout.yaml, *-frontmatter.v1.schema.json); the
+The layout and field rules are schemas/ (layout.yaml, study-frontmatter.v1.schema.json,
+report-frontmatter.v2.schema.json and the version-2 report rules in schemas/README.md); the
 vocabulary is CONTEXT.md. The scaffolder only writes what those require plus TODO prompts.
 It never overwrites an existing file.
 """
@@ -22,6 +23,11 @@ from zoneinfo import ZoneInfo
 import yaml
 
 REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO / "studies" / "util"))
+sys.path.insert(0, str(REPO / "scripts"))
+import _meta  # noqa: E402
+import report_verdicts  # noqa: E402
+
 STUDIES = REPO / "studies"
 LAYOUT = yaml.safe_load((REPO / "schemas" / "layout.yaml").read_text())
 TAGS = yaml.safe_load((REPO / "schemas" / "tags.yaml").read_text())["facets"]
@@ -105,6 +111,12 @@ def parse_motivation(spec: str | None, new_number: str) -> list[dict]:
     return out
 
 
+# the study target that regenerates the INDEX table and README verdict from the reports' claims
+VERDICTS_TARGET = ("\n# verdicts = the INDEX.md table and README `## Verdict`, generated from the version-2\n"
+                   "# reports' frontmatter claims (scripts/report_verdicts.py); edit the claims, never the output\n"
+                   ".PHONY: verdicts\nverdicts:\n\t{py} ../../scripts/report_verdicts.py .\n")
+
+
 # a rule line names one or more targets before `:` (`r1 r2:`), never `:=` assignments
 MAKE_RULE = re.compile(r"^([A-Za-z0-9][\w.-]*(?:[ \t]+[A-Za-z0-9][\w.-]*)*)[ \t]*:(?!=)", re.M)
 
@@ -164,17 +176,18 @@ def new_study(a: argparse.Namespace) -> None:
           f"W&B project [`{a.project}`](https://wandb.ai/{a.entity}/{a.project}).\n\n"
           f"**Question.** {a.question}\n\n"
           "## Design\n\nTODO: the variants, what each varies, and what result would answer the question.\n\n"
-          "## Verdict\n\nTODO once reports are live; also set `status` and `verdict` in the frontmatter.\n")
+          "## Verdict\n\n" + report_verdicts.wrap(report_verdicts.readme_block(d)) + "\n\n"
+          "TODO once reports are live: also set `status` and `verdict` in the frontmatter.\n")
     files[d / "CHANGELOG.md"] = f"# Changelog — {a.name}\n\n## {TODAY}\n\n- Study created.\n"
     files[d / "Makefile"] = (
           f"# studies/{a.name}/Makefile\n#\n"
           "# `all` regenerates every report OFFLINE from committed frozen inputs (CI runs it).\n"
           "# One target per report (rN); one `freeze-*` target per freeze, never part of `all`.\n\n"
-          "PY ?= python\n.PHONY: all\n\nall:\n")
+          "PY ?= python\n.PHONY: all\n\nall: verdicts\n" + VERDICTS_TARGET.format(py="$(PY)"))
     files[d / ".gitignore"] = ("# W&B pull caches are never committed and never an input\n"
                                "analysis/*cache*\n__pycache__/\n")
     files[d / "analysis" / "reports" / "INDEX.md"] = (
-        f"# {a.name} — reports\n\n| report | question | verdict |\n|---|---|---|\n")
+        f"# {a.name} — reports\n\n" + report_verdicts.wrap(report_verdicts.index_block(d)) + "\n")
     files.update(_variant_files(d, a.variant))
     commit(files)
     print(f"  variant {a.variant}: add sweep.yaml / experiment.yaml next to notes.md before launching")
@@ -206,6 +219,57 @@ def new_variant(a: argparse.Namespace) -> None:
     print(f"  variant {a.name}: add sweep.yaml / experiment.yaml next to notes.md before launching")
 
 
+# The version-2 report skeleton (schemas/README.md, Version-2 reports). Keep decimals and
+# percentages out of it: the prose-number lint reads the hand-written parts.
+REPORT_BODY = """\
+# {rid} — {title}
+
+## Question
+
+TODO: the question in one sentence, and why it matters.
+
+## Answer
+
+- **F1.** TODO: claim F1, the same sentence. Order the findings as an argument: the headline
+  first, then what supports it, then what limits it.
+
+## Methods
+
+<!-- BEGIN methods -->
+TODO: written by the producer from the frozen inputs: mice, sessions, split, seeds, model
+versions, interval type, and what n counts.
+<!-- END methods -->
+
+As in the study methods (README), except: TODO.
+
+## Results
+
+### F1 — TODO
+
+<!-- BEGIN result-1 -->
+TODO: written by the producer, never by hand. Figure first, then table; every number with its
+n and its uncertainty.
+<!-- END result-1 -->
+
+## What it means
+
+TODO: the interpretation. Cite findings by id (F1) instead of retyping their numbers, and
+explain each specialised term where it first appears.
+
+## Caveats
+
+TODO: what this result does not show, and the other explanations not ruled out.
+
+## Next
+
+TODO: the next step, or "none".
+
+## Provenance
+
+W&B groups and inputs are in the frontmatter; reproduce with `make -C studies/{study} {rid}`.
+"""
+
+
 def new_report(a: argparse.Namespace) -> None:
     d = study_dir(a.study)
     reports = d / "analysis" / "reports"
@@ -220,20 +284,22 @@ def new_report(a: argparse.Namespace) -> None:
     targets = make_targets(d)
     n = max(nums + [int(t[1:]) for t in targets if re.fullmatch(r"r[0-9]+", t)], default=0) + 1
     rid, name = f"r{n}", f"r{n}-{a.slug}.md"
-    front = {"schema_version": 1, "id": rid, "slug": a.slug, "status": "draft",
-             "authors": [a.author], "wandb_groups": [],
-             "inputs": {"script": f"analysis/r{n}_{a.slug.replace('-', '_')}.py"},
-             "reproduce": f"make -C studies/{a.study} {rid}"}
-    producer = d / front["inputs"]["script"]
+    script = f"analysis/r{n}_{a.slug.replace('-', '_')}.py"
+    producer = d / script
     output = producer.with_suffix(".json")     # report-specific, so it cannot clobber a frozen input
     if output.exists():
         fail(f"{output.relative_to(REPO)} already exists; the new producer would overwrite it")
+    body = REPORT_BODY.format(rid=rid, title=a.title, study=a.study)
+    blocks = {k: _meta.block_digest(v) for k, v in _meta.RESULT_BLOCK.findall(body)}
+    front = {"schema_version": 2, "id": rid, "slug": a.slug, "status": "draft",
+             "draft_reason": "scaffolded: producer, claims and prose are still TODO",
+             "authors": [a.author], "wandb_groups": [], "inputs": {"script": script},
+             "claims": [{"id": "F1", "text": "TODO: the headline finding, in one sentence",
+                         "pointer": f"{output.relative_to(d).as_posix()}#/TODO"}],
+             "prose_reviewed": {"date": TODAY, "blocks": blocks},
+             "reproduce": f"make -C studies/{a.study} {rid}"}
     files = {}
-    files[reports / name] = ("---\n" + yaml.safe_dump(front, sort_keys=False) + "---\n"
-          f"# {rid} — {a.title}\n\n"
-          "**Question.** TODO: the sub-question this report answers.\n\n"
-          f"<!-- BEGIN result-1 -->\nTODO: written by the producer, never by hand.\n<!-- END result-1 -->\n\n"
-          "## What it says\n\nTODO\n")
+    files[reports / name] = "---\n" + yaml.safe_dump(front, sort_keys=False, allow_unicode=True) + "---\n" + body
     files[producer] = (
           f'"""Producer for {rid}: TODO describe what it computes from which frozen inputs."""\n'
           "import sys\nfrom pathlib import Path\n\n"
@@ -245,26 +311,31 @@ def new_report(a: argparse.Namespace) -> None:
           "WANDB_GROUPS: list[str] = []   # exact groups read, if any (via a committed freeze)\n\n\n"
           "def main() -> None:\n"
           "    inputs: list[Path] = []      # committed frozen inputs read; _meta v2 needs at least one\n"
-          "    result = {}                  # TODO compute\n"
-          f"    meta = build_meta('{front['inputs']['script']}', WANDB_GROUPS, study_root=HERE.parent,\n"
+          "    result = {}                  # TODO compute; the report's claims point at values in here.\n"
+          "    #   A verdict word is a field chosen from the numbers, never a fixed conclusion sentence.\n"
+          f"    meta = build_meta('{script}', WANDB_GROUPS, study_root=HERE.parent,\n"
           "                      code=[__file__], inputs=inputs)\n"
-          f"    # TODO: rewrite the result block in reports/{name}, then list it in outputs as\n"
-          f"    #       HERE / 'reports' / '{name}#result-1' alongside any figures.\n"
+          f"    # TODO: rewrite the methods and result-1 blocks in reports/{name} (match the marker pairs),\n"
+          f"    #       then list them in outputs as HERE / 'reports' / '{name}#methods' and '...#result-1',\n"
+          "    #       alongside any figures.\n"
           f"    write_artifact(HERE / '{output.name}', {{'_meta': meta, **result}}, outputs=[])\n\n\n"
           "if __name__ == '__main__':\n    main()\n")
     print(f"new report {a.study}/{rid}")
     commit(files)
     mk = d / "Makefile"
-    text = mk.read_text()
-    if rid not in make_targets(d):
-        mk.write_text(text.rstrip("\n") + f"\n\n# {rid} = {a.title}\n.PHONY: {rid}\n{rid}:\n"
-                      f"\t{make_var(d)} {front['inputs']['script']}\n")
+    targets = make_targets(d)
+    if rid not in targets:
+        mk.write_text(mk.read_text().rstrip("\n") + f"\n\n# {rid} = {a.title}\n.PHONY: {rid}\n{rid}:\n"
+                      f"\t{make_var(d)} {script}\n")
         print(f"  added `{rid}` to Makefile (add it to `all` once the producer runs offline)")
+    if "verdicts" not in targets:
+        mk.write_text(mk.read_text().rstrip("\n") + "\n" + VERDICTS_TARGET.format(py=make_var(d)))
+        print("  added `verdicts` to Makefile (add it to `all`)")
+    for path in report_verdicts.write(d):
+        print(f"  wrote the generated verdicts in {path.relative_to(REPO)}")
     print("  tags: add `tags: {model: [...], question: [...]}` for what this report does (schemas/tags.yaml)")
-    index = reports / "INDEX.md"
-    if index.exists() and name not in index.read_text():
-        index.write_text(index.read_text().rstrip("\n") + f"\n| [{rid} — {a.title}]({name}) | TODO | — |\n")
-        print("  linked from INDEX.md")
+    print("  claims: point each at a value in the producer's JSON; when a block changes, re-read the prose and "
+          "update `prose_reviewed` (make validate prints the digests)")
 
 
 def main(argv: list[str] | None = None) -> None:

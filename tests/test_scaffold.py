@@ -158,10 +158,10 @@ class MakeTargetTest(unittest.TestCase):
         import shutil
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        for rel in ("Makefile", "scripts/scaffold.py", "schemas/layout.yaml", "schemas/tags.yaml"):
+        for rel in ("Makefile", "scripts/scaffold.py", "scripts/report_verdicts.py", "studies/util/_meta.py",
+                    "schemas/layout.yaml", "schemas/tags.yaml"):
             (self.root / rel).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(REPO_ROOT / rel, self.root / rel)
-        (self.root / "studies").mkdir()
 
     def tearDown(self):
         self.tmp.cleanup()
