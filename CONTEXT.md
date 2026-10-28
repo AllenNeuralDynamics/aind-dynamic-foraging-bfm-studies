@@ -70,6 +70,13 @@ Another study's report or launch whose results a report uses as input or compari
 dependencies are the union of their reports' upstreams; a mere link is a citation.
 _Avoid_: depends_on, prerequisite
 
+**Reference version**:
+One named measurement that reports compare against (`gru_ceiling.v2_h128`): a source report,
+JSON and JSON Pointer, and the conditions it was measured under, but never the value, which is
+read from the source. Each comparison (`gru_ceiling`) has one default version; a report prints
+the version name next to the number. Registered in `studies/util/references.py`.
+_Avoid_: canonical value, "the GRU ceiling" without a version
+
 **Citation**:
 A link in a report or README to another study or report. It implies no use and is not a
 relationship.

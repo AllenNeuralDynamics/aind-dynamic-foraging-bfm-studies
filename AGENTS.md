@@ -59,11 +59,14 @@ the links give detail, they do not replace the rules.
   `fs.save_figure(fig, ...svg)`, which refuses text that Illustrator cannot edit. No PNG/PDF
   figures. Reports embed the paper style; a slide version (`fs.apply_slide_style()`,
   `style="slide"`) goes under `analysis/slides/`. `make validate` and CI run `scripts/check_figures.py`; studies 01–11 are exempt until redrawn (#44).
-- **Never retype another study's number.** Read it from that study's committed JSON (readers for
-  the shared references are in `studies/util/cross_study.py`), pass that source JSON (the
-  helper's `*_SOURCE` path, not the helper) in `build_meta(inputs=...)`, and
-  name the source in the report's `upstream` (`{study, report}` for a result, `{study,
-  wandb_group}` for raw data). The checker then flags the report when that source is corrected.
+- **Never retype another study's number.** Read it from that study's committed JSON (shared
+  references are named versions in `studies/util/references.py`: `ref("gru_ceiling")` is the
+  default; print `ref(...).cite()` so the version name sits next to the number, and give one line
+  of why for a non-default; older readers are in `studies/util/cross_study.py`), pass that source
+  JSON (`ref(...).source`, or the helper's `*_SOURCE` path; not the helper) in
+  `build_meta(inputs=...)`, and name the source in the report's `upstream` (`{study, report}`
+  for a result, `{study, wandb_group}` for raw data). The checker then flags the report when
+  that source is corrected.
 - **Start from the scaffolder**: `make new-study`, `make new-variant`, `make new-report` (usage
   in the root `Makefile`). Their output passes `make validate` as written.
 - **Layout and provenance are schema-checked.** The rules are `schemas/` (fields, layout) and
