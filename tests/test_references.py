@@ -6,6 +6,7 @@ registered default, and no entry may store the number it stands for.
 
 import csv
 import json
+import os
 import re
 import statistics
 import subprocess
@@ -17,12 +18,15 @@ from unittest import mock
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "studies" / "util"))
 
+import _meta  # noqa: E402
 import references  # noqa: E402
 from references import ReferenceUnresolved, ref, resolve_pointer, versions  # noqa: E402
 
 S01 = REPO_ROOT / "studies" / "01-gru-scaling-law"
 NAME = re.compile(r"^[a-z][a-z0-9_]*\.[a-z0-9_]+$")
 ENTRY_KEYS = {"study", "report", "json", "pointer", "checks", "conditions"}
+# git's discovery variables cleared, so a GIT_DIR exported for another checkout is not asked
+GIT_ENV = {k: v for k, v in os.environ.items() if k not in _meta._GIT_DISCOVERY_VARS}
 
 
 def _leaves(obj):
@@ -51,7 +55,7 @@ class TestEveryEntry(unittest.TestCase):
             with self.subTest(name=name):
                 rel = ref(name).source.relative_to(REPO_ROOT).as_posix()
                 out = subprocess.run(["git", "-C", str(REPO_ROOT), "ls-files", "--error-unmatch", rel],
-                                     capture_output=True, text=True)
+                                     capture_output=True, text=True, env=GIT_ENV)
                 self.assertEqual(out.returncode, 0, f"{rel} is not tracked")
 
     def test_names_the_report_its_readers_cite_in_upstream(self):
@@ -135,9 +139,8 @@ class TestWhatTheRegistryRecords(unittest.TestCase):
     def test_source_goes_into_build_meta_inputs(self):
         """A producer passes `ref.source` to build_meta, so check_provenance sees it read study 01
         (report-upstream-undeclared) and that its input changed (artifact-stale-input)."""
-        from _meta import build_meta
         r = ref("rl_baseline.hattori")
-        meta = build_meta("analysis/x.py", [], code=[__file__], inputs=[r.source])
+        meta = _meta.build_meta("analysis/x.py", [], code=[__file__], inputs=[r.source])
         self.assertEqual([e["path"] for e in meta["inputs"]],
                          ["studies/01-gru-scaling-law/analysis/rl_baseline.json"])
 
