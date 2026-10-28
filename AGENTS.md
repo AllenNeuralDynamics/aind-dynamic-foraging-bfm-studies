@@ -59,6 +59,13 @@ the links give detail, they do not replace the rules.
   `fs.save_figure(fig, ...svg)`, which refuses text that Illustrator cannot edit. No PNG/PDF
   figures. Reports embed the paper style; a slide version (`fs.apply_slide_style()`,
   `style="slide"`) goes under `analysis/slides/`. `make validate` and CI run `scripts/check_figures.py`; studies 01–11 are exempt until redrawn (#44).
+- **Session plots use the lab's utility, and sides have one colour.** Draw a foraging session
+  (choices, rewards, block reward probabilities) with `plot_foraging_session` from
+  `aind_dynamic_foraging_basic_analysis.plot.plot_foraging_session`, onto an axis of the paper
+  figure (`ax=`). Overlay a model's p(right) with `fitted_data`, and put model panels (for
+  example state posteriors) on axes below it. In every figure, right is `"b"` and left is
+  `"r"`, the colours that utility uses (`p_right` / `p_left`), so sides read the same in every
+  study and every lab plot.
 - **Never retype another study's number.** Read it from that study's committed JSON (readers for
   the shared references are in `studies/util/cross_study.py`), pass that source JSON (the
   helper's `*_SOURCE` path, not the helper) in `build_meta(inputs=...)`, and
