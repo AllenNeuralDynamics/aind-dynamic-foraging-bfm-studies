@@ -22,6 +22,9 @@ facets:
       cognitive/bh:
         label: Cognitive › BH
         description: Hierarchical Bayesian cognitive model (e.g. HB-Hattori2019)
+      glmhmm:
+        label: GLM-HMM
+        description: Input-driven HMM with GLM emissions over left/right/ignore (Ashwood et al. 2022)
   question:
     label: Question
     description: The kind of question the study asks, or a report answers.

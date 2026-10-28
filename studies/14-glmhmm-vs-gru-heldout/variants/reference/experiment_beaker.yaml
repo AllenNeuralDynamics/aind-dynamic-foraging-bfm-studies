@@ -1,0 +1,59 @@
+## Beaker task template for study 14's `reference` variant (GLM-HMM).
+##
+## The resumable launcher reads image / cluster / resources / refs / secret from here, keeps
+## `command[:2]` and appends the sweep's `command:`; the tail below is a placeholder. Run from
+## the studies root (relative paths would resolve against the dispatcher):
+##   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
+##     --sweep      "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/reference/sweep_beaker.yaml" \
+##     --experiment "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/reference/experiment_beaker.yaml" \
+##     --workspace  ai1/aind-dynamic-foraging-foundation-model \
+##     --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/reference/launch_record/<label>" \
+##     --label <label> --note "..."
+
+version: v2
+description: GLM-HMM global fit + per-mouse refits, study 14 reference (template; the launcher rewrites this)
+tasks:
+  - name: glmhmm-reference
+    # NEEDS THE GLM-HMM IMAGE (wrapper beaker/glmhmm/Dockerfile, wrapper#111). It carries the
+    # models [glmhmm] extra plus the CUDA solver pin that GPU linear solves need. Jobs clone the
+    # code at the REFs below but install nothing, so the main image (no [glmhmm]) fails at
+    # `import dynamax`. Build it once models#81 and wrapper#110 have merged and run its
+    # smoke.yaml, then set the name here. The launcher resolves the name to an immutable id
+    # and fails on one that does not exist.
+    image:
+      beaker: han-hou/dynamic-foraging-bfm-glmhmm-YYYYMMDD
+    command:
+      - bash
+      - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+      - "true"
+    # No checkpointing: a preempted task restarts its fit, so keep the slot (as study 13).
+    context:
+      priority: normal
+      preemptible: false
+    constraints:
+      cluster:
+        # Reaches AWS S3, which the snapshot parquet cache needs; GCP clusters cannot.
+        - ai1/octo-hub-onprem-h200
+    resources:
+      # One GPU for the fits (AIND_GLMHMM_DEVICE below). At K = 10 on this cohort the global fit
+      # runs about 3x faster than on 8 CPU cores (PLAN.md, Compute). CPU and memory stay within
+      # one GPU bundle. The probes peak under 8 GB at L <= 10.
+      gpuCount: 1
+      cpuCount: 8
+      memory: 64GiB
+    envVars:
+      - name: WANDB_API_KEY
+        secret: han-wandb-api-key
+      - name: BFM_OUTPUT_DIR
+        value: /results
+      - name: AIND_GLMHMM_DEVICE
+        value: gpu
+      # Readable values; the launcher submits the resolved full SHAs.
+      - name: WRAPPER_REF
+        value: main
+      - name: DISPATCHER_REF
+        value: main
+      - name: FORAGING_MODELS_REF
+        value: main
+    result:
+      path: /results
