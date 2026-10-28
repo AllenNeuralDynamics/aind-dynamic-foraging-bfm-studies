@@ -79,8 +79,12 @@ One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
   means even 20 was too few.
   - So a K = 10, L = 5 hurdle cell is ≈ 2.5–4 h on 32 cores: two rounds of restarts ≈ 2.1 h
     on a quiet node (the slowest restart of each round sets it), refits ≈ 31 min (3.5×),
-    against 9–11 h for 10 restarts one at a time on 8 cores. L = 10 and the reference emission
-    were not timed with workers.
+    against 9–11 h for 10 restarts one at a time on 8 cores.
+  - **At L = 10, the chosen history length** (32 cores, 10 workers; models#86's RESULTS.md):
+    10 restarts at once run 3.3× faster than one at a time for hurdle and 2.0× for
+    reference. A K = 10 cell with 20 restarts is then ≈ 8 h for hurdle (≈ 13 h if restarts
+    reach the 500 cap) and ≈ 16 h for reference (≈ 36 h at the cap), plus refits. That is
+    inside the 48 h limit, with the least margin for reference at K = 10.
 - **Backend.** HPC CPU, with
   `--sbatch-extra "--cpus-per-task=32 --mem=64G --time=48:00:00"`.
   - On Beaker, the templates use one GPU on the GLM-HMM image, which carries the CUDA solver
