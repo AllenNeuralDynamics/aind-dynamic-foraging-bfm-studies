@@ -2,7 +2,7 @@
   "schema_version": 1,
   "entity": "AIND-disRNN",
   "project": "mice_ignore_scaling",
-  "description": "Trained 3-way (L/R/ignore) GRUs analysed by Study 13: Study 02's nxd-3way D=614 / H128 cell, the 3-way twin of Study 12's model C (same config except data.ignore_policy=include and wrapper 4530d04 vs 9595dd3).",
+  "description": "Trained 3-way (L/R/ignore) GRUs analysed by Study 51: Study 02's nxd-3way D=614 / H128 cell, the 3-way twin of Study 50's model C (same config except data.ignore_policy=include and wrapper 4530d04 vs 9595dd3).",
   "checkpoint_policy": "best_eval",
   "models": {
     "C3": {
@@ -10,7 +10,7 @@
       "status": "complete",
       "group": "nxd-3way@20260707-075401",
       "source_variant": "studies/02-gru-scaling-law-ignore/variants/nxd-3way",
-      "twin_of": "studies/12-gru-dynamics-embedding/source_runs.json models.C",
+      "twin_of": "studies/50-gru-dynamics-embedding/source_runs.json models.C",
       "ignore_policy": "include",
       "output_size": 3,
       "architecture": {

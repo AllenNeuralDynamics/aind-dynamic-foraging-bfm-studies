@@ -1,0 +1,418 @@
+{
+  "_meta": {
+    "produced_by": "analysis/i3_tdr_dynamics.py",
+    "produced_at_pt": "2026-10-26T12:12:03-07:00",
+    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "nxd-3way@20260707-075401",
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "n_transitions": 1000000,
+  "seed": 4,
+  "axes": [
+    "value",
+    "choice",
+    "reward",
+    "value\u00d7choice",
+    "choice\u00d7reward",
+    "ignored",
+    "engage"
+  ],
+  "transitions": {
+    "R+ | from R lobe (stay)": {
+      "n": 160408,
+      "slope": 0.7505598375064421,
+      "intercept": 0.5341545813108479,
+      "r2": 0.956558681458828,
+      "mean_jump": {
+        "value": 0.1874,
+        "choice": -0.1383,
+        "reward": 0.79,
+        "value\u00d7choice": -0.0041,
+        "choice\u00d7reward": 0.1939,
+        "ignored": 0.0448,
+        "engage": 0.1809
+      }
+    },
+    "R+ | from L lobe (switch)": {
+      "n": 33430,
+      "slope": 0.5812789069966336,
+      "intercept": 0.06394409047315727,
+      "r2": 0.9238182941657072,
+      "mean_jump": {
+        "value": 0.376,
+        "choice": 2.5208,
+        "reward": 1.4298,
+        "value\u00d7choice": -0.047,
+        "choice\u00d7reward": 0.342,
+        "ignored": 0.1148,
+        "engage": 0.4138
+      }
+    },
+    "R+ | from post-ignore (after an ignore)": {
+      "n": 9545,
+      "slope": 0.8068411725580997,
+      "intercept": 0.5929619937822559,
+      "r2": 0.9839690668865799,
+      "mean_jump": {
+        "value": 0.3797,
+        "choice": -2.1844,
+        "reward": 1.8247,
+        "value\u00d7choice": -0.3565,
+        "choice\u00d7reward": 0.6269,
+        "ignored": -1.0436,
+        "engage": 0.3021
+      }
+    },
+    "R\u2212 | from R lobe (stay)": {
+      "n": 227822,
+      "slope": 0.7852487154904656,
+      "intercept": 0.381421936933612,
+      "r2": 0.9641084919577542,
+      "mean_jump": {
+        "value": 0.0818,
+        "choice": 0.1427,
+        "reward": -0.7224,
+        "value\u00d7choice": 0.0136,
+        "choice\u00d7reward": -0.2384,
+        "ignored": -0.0838,
+        "engage": -0.1428
+      }
+    },
+    "R\u2212 | from L lobe (switch)": {
+      "n": 19464,
+      "slope": 0.6142844261096874,
+      "intercept": -0.15336533543022357,
+      "r2": 0.9317992514243613,
+      "mean_jump": {
+        "value": -0.0607,
+        "choice": 2.9235,
+        "reward": -0.8446,
+        "value\u00d7choice": 0.1022,
+        "choice\u00d7reward": 0.1267,
+        "ignored": 0.1291,
+        "engage": -0.0558
+      }
+    },
+    "R\u2212 | from post-ignore (after an ignore)": {
+      "n": 9751,
+      "slope": 0.842026586008769,
+      "intercept": 0.4075409903991743,
+      "r2": 0.9856060208453297,
+      "mean_jump": {
+        "value": 0.1784,
+        "choice": -1.7277,
+        "reward": -0.2132,
+        "value\u00d7choice": -0.2866,
+        "choice\u00d7reward": 0.1021,
+        "ignored": -1.0914,
+        "engage": -0.1583
+      }
+    },
+    "L+ | from R lobe (switch)": {
+      "n": 34226,
+      "slope": 0.6916342301967338,
+      "intercept": -0.11456623363366382,
+      "r2": 0.8983116222145081,
+      "mean_jump": {
+        "value": -0.3421,
+        "choice": -3.1981,
+        "reward": 1.4892,
+        "value\u00d7choice": -0.2062,
+        "choice\u00d7reward": -0.2989,
+        "ignored": 0.1372,
+        "engage": 0.1794
+      }
+    },
+    "L+ | from L lobe (stay)": {
+      "n": 161455,
+      "slope": 0.7624220859683776,
+      "intercept": -0.6852663776275792,
+      "r2": 0.9504320610165478,
+      "mean_jump": {
+        "value": -0.2645,
+        "choice": -0.2475,
+        "reward": 0.7529,
+        "value\u00d7choice": 0.106,
+        "choice\u00d7reward": -0.1905,
+        "ignored": 0.0229,
+        "engage": 0.2387
+      }
+    },
+    "L+ | from post-ignore (after an ignore)": {
+      "n": 9510,
+      "slope": 0.8552341636273824,
+      "intercept": -0.29854208757124084,
+      "r2": 0.9586949822560875,
+      "mean_jump": {
+        "value": -0.3291,
+        "choice": -4.9074,
+        "reward": 2.0521,
+        "value\u00d7choice": -0.2314,
+        "choice\u00d7reward": -0.4125,
+        "ignored": -1.239,
+        "engage": 0.2323
+      }
+    },
+    "L\u2212 | from R lobe (switch)": {
+      "n": 18885,
+      "slope": 0.7050621811477006,
+      "intercept": 0.09120230442338906,
+      "r2": 0.9400434671006802,
+      "mean_jump": {
+        "value": 0.0041,
+        "choice": -2.5886,
+        "reward": -0.8814,
+        "value\u00d7choice": -0.2748,
+        "choice\u00d7reward": -0.0999,
+        "ignored": -0.1523,
+        "engage": -0.222
+      }
+    },
+    "L\u2212 | from L lobe (stay)": {
+      "n": 218752,
+      "slope": 0.7767738787260317,
+      "intercept": -0.44043839164506987,
+      "r2": 0.9531299456169735,
+      "mean_jump": {
+        "value": -0.084,
+        "choice": 0.1742,
+        "reward": -0.7524,
+        "value\u00d7choice": -0.0583,
+        "choice\u00d7reward": 0.2876,
+        "ignored": -0.037,
+        "engage": -0.1152
+      }
+    },
+    "L\u2212 | from post-ignore (after an ignore)": {
+      "n": 8965,
+      "slope": 0.8558071101914759,
+      "intercept": -0.01848972590568143,
+      "r2": 0.9569262099077888,
+      "mean_jump": {
+        "value": -0.0054,
+        "choice": -4.3633,
+        "reward": 0.0261,
+        "value\u00d7choice": -0.3184,
+        "choice\u00d7reward": -0.0328,
+        "ignored": -1.4833,
+        "engage": -0.1877
+      }
+    },
+    "ignore | from R lobe (ignore)": {
+      "n": 19613,
+      "slope": 0.7865696675405638,
+      "intercept": 0.39818752846669253,
+      "r2": 0.9673352964772488,
+      "mean_jump": {
+        "value": 0.0806,
+        "choice": 2.0392,
+        "reward": -0.3129,
+        "value\u00d7choice": 0.4638,
+        "choice\u00d7reward": -0.4028,
+        "ignored": 1.0211,
+        "engage": -0.3666
+      }
+    },
+    "ignore | from L lobe (ignore)": {
+      "n": 18537,
+      "slope": 0.6153594889342752,
+      "intercept": -0.030197367017054288,
+      "r2": 0.9461288415904915,
+      "mean_jump": {
+        "value": 0.2909,
+        "choice": 4.7168,
+        "reward": -0.5556,
+        "value\u00d7choice": 0.2067,
+        "choice\u00d7reward": -0.0599,
+        "ignored": 1.6159,
+        "engage": -0.3692
+      }
+    },
+    "ignore | from post-ignore (ignore)": {
+      "n": 49637,
+      "slope": 0.840232994257607,
+      "intercept": 0.29869389830173637,
+      "r2": 0.9869257903611295,
+      "mean_jump": {
+        "value": 0.1223,
+        "choice": 0.1257,
+        "reward": -0.0525,
+        "value\u00d7choice": 0.0465,
+        "choice\u00d7reward": -0.086,
+        "ignored": -0.0073,
+        "engage": -0.2374
+      }
+    }
+  },
+  "attractors_all_sessions_context": {
+    "R+": {
+      "tdr": [
+        [
+          2.225649813721005,
+          0.6183804370821286,
+          1.5717795727466255,
+          0.4901652777184652,
+          0.3666710711877468,
+          -0.9154115785394079,
+          -0.5797321069602435
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "R\u2212": {
+      "tdr": [
+        [
+          2.9927649610393674,
+          0.9812547837143891,
+          -0.9835520646926366,
+          1.5000318004281867,
+          -0.23833798915756768,
+          -0.25997925300061997,
+          -0.6371213934359052
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L+": {
+      "tdr": [
+        [
+          -3.088294117500938,
+          -2.0336617265769754,
+          1.5574414111849664,
+          0.8192465476273321,
+          0.30195111437407235,
+          -0.7504866362172294,
+          0.07372440149636571
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L\u2212": {
+      "tdr": [
+        [
+          -2.8498212244092715,
+          -1.2134830702330475,
+          -0.7096386803891372,
+          0.11229096946745509,
+          0.2756609283639098,
+          -0.02383516062420013,
+          -0.6647993973492378
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "ignore": {
+      "tdr": [
+        [
+          1.7956597158861283,
+          4.103872781631529,
+          -0.5701035571003097,
+          2.4154915987824364,
+          -1.1110030596955394,
+          1.8933139676712756,
+          -4.493348252795766
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    }
+  },
+  "forward_iterations": 600,
+  "n_starts": 300,
+  "readout_vs_value_by_cluster": {
+    "R+": {
+      "a": 1.1814176591728949,
+      "b": 1.6591077086226251,
+      "value_at_neutral_readout": -1.4043363037117278,
+      "r2": 0.6575573303373632,
+      "value_mean": 1.2554320627969873,
+      "n": 203484
+    },
+    "R\u2212": {
+      "a": 1.0897311757400856,
+      "b": 0.6352913023823613,
+      "value_at_neutral_readout": -0.582979836243472,
+      "r2": 0.6216880204253623,
+      "value_mean": 1.3413682066632362,
+      "n": 257470
+    },
+    "L+": {
+      "a": 1.013751911531301,
+      "b": -1.6249844861145042,
+      "value_at_neutral_readout": 1.602940983519251,
+      "r2": 0.7771933624573797,
+      "value_mean": -1.546318310600255,
+      "n": 204625
+    },
+    "L\u2212": {
+      "a": 1.0438361576076938,
+      "b": -0.5719491395101475,
+      "value_at_neutral_readout": 0.5479299939379029,
+      "r2": 0.788381855862542,
+      "value_mean": -1.4730345781424559,
+      "n": 247013
+    },
+    "ignore": {
+      "a": 1.0480510273151313,
+      "b": -0.89015871211371,
+      "value_at_neutral_readout": 0.8493467292275781,
+      "r2": 0.7582416298779163,
+      "value_mean": 0.9229484506298326,
+      "n": 87408
+    }
+  },
+  "C_study12_transitions": {
+    "R rewarded | from R lobe (stay)": {
+      "slope": 0.7935254532563268,
+      "r2": 0.9695514908715112,
+      "n": 183033
+    },
+    "R rewarded | from L lobe (switch)": {
+      "slope": 0.6623411182791884,
+      "r2": 0.9346308703391365,
+      "n": 39872
+    },
+    "R unrewarded | from R lobe (stay)": {
+      "slope": 0.797455890932143,
+      "r2": 0.9709825943114496,
+      "n": 258359
+    },
+    "R unrewarded | from L lobe (switch)": {
+      "slope": 0.6764563134144578,
+      "r2": 0.9605814188166882,
+      "n": 23537
+    },
+    "L rewarded | from R lobe (switch)": {
+      "slope": 0.7315778524141584,
+      "r2": 0.9451072887799739,
+      "n": 40475
+    },
+    "L rewarded | from L lobe (stay)": {
+      "slope": 0.786492973977349,
+      "r2": 0.9829803443732333,
+      "n": 184555
+    },
+    "L unrewarded | from R lobe (switch)": {
+      "slope": 0.7396267305610009,
+      "r2": 0.9712803170440868,
+      "n": 22437
+    },
+    "L unrewarded | from L lobe (stay)": {
+      "slope": 0.7809188411551512,
+      "r2": 0.9784376744605996,
+      "n": 247732
+    }
+  }
+}

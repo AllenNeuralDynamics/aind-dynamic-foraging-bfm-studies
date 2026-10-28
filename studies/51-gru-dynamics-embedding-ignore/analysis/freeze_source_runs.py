@@ -1,4 +1,4 @@
-"""Freeze Study 13's source GRUs (D=614, H128, 3-way head) into ``source_runs.json``.
+"""Freeze Study 51's source GRUs (D=614, H128, 3-way head) into ``source_runs.json``.
 
 Reads the pinned W&B group over GraphQL (no SDK, so it also runs off-cluster), keeps the
 D=614 / H128 cells, and records the run id plus the immutable ``gru-output-*`` artifact
@@ -26,7 +26,7 @@ import requests
 
 STUDY = Path(__file__).resolve().parents[1]
 STUDIES = STUDY.parent
-MANIFEST = STUDY / "source_runs.json"
+MANIFEST = STUDY / "analysis" / "source_runs.json"
 STUDY02_SCALING = STUDIES / "02-gru-scaling-law-ignore" / "analysis" / "scaling.json"
 
 # Pinned allowlist: model key -> (W&B group, hidden_size, subject_embedding_size).

@@ -1,8 +1,8 @@
-# Study 13 plan
+# Study 51 plan
 
 Model **C3 seed 0** first (`nxd-3way-20260707-075401-61a145ca`, H128/E4/D614, 3-way head), on
-the 614 training mice's eval sessions. Phases mirror Study 12's letters so every result has
-a 2-way counterpart (model C) to set it against. Same rules as Study 12: reuse wrapper code,
+the 614 training mice's eval sessions. Phases mirror Study 50's letters so every result has
+a 2-way counterpart (model C) to set it against. Same rules as Study 50: reuse wrapper code,
 new reusable code goes into the wrapper's `code/post_training_analysis/` with tests; split
 by curriculum where it matters.
 
@@ -10,12 +10,12 @@ by curriculum where it matters.
 
 - **Two readouts.** The head's three logits are re-expressed as
   - `logit_diff` = logit_R − logit_L = log P(R | engaged) / P(L | engaged) — the side
-    variable, directly comparable to Study 12's `logit_diff`;
+    variable, directly comparable to Study 50's `logit_diff`;
   - `engage_logit` = logsumexp(logit_L, logit_R) − logit_ignore = log P(engaged) / P(ignore)
     — the new variable.
 
   Side analyses run on engaged trials with `logit_diff`, so their numbers sit next to
-  Study 12's. Engagement analyses use `engage_logit` / `p_model1_ignore` over all trials.
+  Study 50's. Engagement analyses use `engage_logit` / `p_model1_ignore` over all trials.
 - **Time.** `trial_idx` is the GRU timestep, so ignored trials are rows (`action == 2`).
   "Next trial" means the next timestep unless stated as "next engaged trial"
   (`engaged_idx`). The wrapper's history columns (`prev_action`, `history_pattern_*`, …)
@@ -67,9 +67,9 @@ by curriculum where it matters.
 - E1/E2 add an engagement subspace and ablate it; F3 asks whether the embedding's
   engagement dimension is separate from its bias / learning-rate dimensions. *adapt*
 
-## Comparison with Study 12 (model C) → r7
+## Comparison with Study 50 (model C) → r7
 - Same-trial comparison of C and C3 on engaged eval trials: P(R | engaged) agreement,
-  PCA / CCA alignment of the hidden states, and which Study 12 findings survive.
+  PCA / CCA alignment of the hidden states, and which Study 50 findings survive.
 
 ## — stop and review —
 

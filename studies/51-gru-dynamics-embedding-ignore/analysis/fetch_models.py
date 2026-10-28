@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 STUDY = Path(__file__).resolve().parents[1]
-MANIFEST = STUDY / "source_runs.json"
+MANIFEST = STUDY / "analysis" / "source_runs.json"
 CACHE = STUDY / "analysis" / "_cache" / "models"
 
 

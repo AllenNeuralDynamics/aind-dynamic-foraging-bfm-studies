@@ -1,0 +1,161 @@
+{
+  "_meta": {
+    "produced_by": "analysis/c2_compare.py",
+    "produced_at_pt": "2026-10-23T18:01:38-07:00",
+    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "nxd-3way@20260707-075401",
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "trials": "shared engaged trials of C and C3; L/R choice scored by every model",
+  "pooled_likelihood": {
+    "all": {
+      "n": 4314340,
+      "C3": 0.7350564080170333,
+      "C": 0.733790767461574,
+      "ctt": 0.7209641494039487,
+      "bari": 0.7180025113495857,
+      "hattori": 0.7158508542930891
+    },
+    "Uncoupled Baiting": {
+      "n": 2103617,
+      "C3": 0.7430231407338693,
+      "C": 0.7421402120719577,
+      "ctt": 0.730310486917659,
+      "bari": 0.7272735404934159,
+      "hattori": 0.7254345666366668
+    },
+    "Coupled Baiting": {
+      "n": 1383117,
+      "C3": 0.6853893188529224,
+      "C": 0.6843302127366365,
+      "ctt": 0.6688264573874566,
+      "bari": 0.6665077542548344,
+      "hattori": 0.6651836501813206
+    },
+    "Uncoupled Without Baiting": {
+      "n": 675464,
+      "C3": 0.8142576115814271,
+      "C": 0.8116255955240627,
+      "ctt": 0.8022378198222561,
+      "bari": 0.7975749775388982,
+      "hattori": 0.7933851724352058
+    },
+    "Coupled Without Baiting": {
+      "n": 148807,
+      "C3": 0.7577561002847383,
+      "C": 0.7547238061098458,
+      "ctt": 0.7412658494521099,
+      "bari": 0.7402572671609255,
+      "hattori": 0.7339723095851897
+    }
+  },
+  "per_mouse": {
+    "n_mice": 611,
+    "C3_minus_C_median": 0.0009883443142878479,
+    "C3_minus_C_share_positive": 0.707037643207856,
+    "C3_minus_C_quantiles": {
+      "0.05": -0.001466922243379687,
+      "0.25": -0.00015538105534451674,
+      "0.5": 0.0009883443142878479,
+      "0.75": 0.002592375145786807,
+      "0.95": 0.00742513520842808
+    },
+    "C3_minus_best_rl_share_positive": 1.0
+  },
+  "by_gap": {
+    "0": {
+      "n_trials": 4135637,
+      "C3": 0.7419550444855115,
+      "C": 0.7424759051308786,
+      "ctt": 0.7294904525655489,
+      "bari": 0.7264587480502682,
+      "hattori": 0.7243566473807764,
+      "n_mice": 611,
+      "C3_minus_C_per_trial_mean_over_mice": -0.0005075083155503913,
+      "C3_minus_C_sem": 8.266825363238105e-05,
+      "C3_minus_C_share_mice_positive": 0.33878887070376434,
+      "C_minus_CTT_per_trial_mean_over_mice": 0.017357456463423,
+      "C_minus_CTT_sem": 0.0003404448535599937,
+      "C3_minus_C_pooled_per_trial": -0.0007017647629585141
+    },
+    "1": {
+      "n_trials": 113192,
+      "C3": 0.6140606774826265,
+      "C": 0.5971538175677437,
+      "ctt": 0.5861425734167343,
+      "bari": 0.5839587913525044,
+      "hattori": 0.5800280230177182,
+      "n_mice": 603,
+      "C3_minus_C_per_trial_mean_over_mice": 0.03292003641692932,
+      "C3_minus_C_sem": 0.0016290751670372133,
+      "C3_minus_C_share_mice_positive": 0.8507462686567164,
+      "C_minus_CTT_per_trial_mean_over_mice": 0.02027510739769514,
+      "C_minus_CTT_sem": 0.0012646131447141941,
+      "C3_minus_C_pooled_per_trial": 0.027919015452492268
+    },
+    "2": {
+      "n_trials": 28830,
+      "C3": 0.574296999814083,
+      "C": 0.5345690837108751,
+      "ctt": 0.5253250042766437,
+      "bari": 0.5244238276074062,
+      "hattori": 0.5223221291120034,
+      "n_mice": 430,
+      "C3_minus_C_per_trial_mean_over_mice": 0.07918329131816677,
+      "C3_minus_C_sem": 0.00401455032755383,
+      "C3_minus_C_share_mice_positive": 0.8534883720930233,
+      "C_minus_CTT_per_trial_mean_over_mice": 0.01690642655540875,
+      "C_minus_CTT_sem": 0.002471840387631947,
+      "C3_minus_C_pooled_per_trial": 0.07168571244387524
+    },
+    "3\u20135": {
+      "n_trials": 23981,
+      "C3": 0.5517500444515202,
+      "C": 0.4955188823452769,
+      "ctt": 0.48737241808401194,
+      "bari": 0.48655013902788846,
+      "hattori": 0.4846950401494469,
+      "n_mice": 363,
+      "C3_minus_C_per_trial_mean_over_mice": 0.10430164489725037,
+      "C3_minus_C_sem": 0.005423680448160665,
+      "C3_minus_C_share_mice_positive": 0.8732782369146006,
+      "C_minus_CTT_per_trial_mean_over_mice": 0.011934911595510115,
+      "C_minus_CTT_sem": 0.003015643745063931,
+      "C3_minus_C_pooled_per_trial": 0.10748966499799291
+    },
+    "6\u201310": {
+      "n_trials": 8999,
+      "C3": 0.5284855956872189,
+      "C": 0.4401174306386052,
+      "ctt": 0.43411225521370167,
+      "bari": 0.43355621102697534,
+      "hattori": 0.43393560609471815,
+      "n_mice": 150,
+      "C3_minus_C_per_trial_mean_over_mice": 0.18171492002506354,
+      "C3_minus_C_sem": 0.01290897433687819,
+      "C3_minus_C_share_mice_positive": 0.9133333333333333,
+      "C_minus_CTT_per_trial_mean_over_mice": 0.011175620748529864,
+      "C_minus_CTT_sem": 0.005227171105476173,
+      "C3_minus_C_pooled_per_trial": 0.1829739707340861
+    },
+    "11+": {
+      "n_trials": 3701,
+      "C3": 0.5157442522784353,
+      "C": 0.40594476455438444,
+      "ctt": 0.4080574335494054,
+      "bari": 0.4067266812583624,
+      "hattori": 0.4067309896957481,
+      "n_mice": 44,
+      "C3_minus_C_per_trial_mean_over_mice": 0.2506812765665481,
+      "C3_minus_C_sem": 0.02549964141451813,
+      "C3_minus_C_share_mice_positive": 0.9772727272727273,
+      "C_minus_CTT_per_trial_mean_over_mice": -0.0027240001975603082,
+      "C_minus_CTT_sem": 0.011434618212570044,
+      "C3_minus_C_pooled_per_trial": 0.23939390504379213
+    }
+  },
+  "min_trials_per_mouse_in_gap_bin": 20
+}

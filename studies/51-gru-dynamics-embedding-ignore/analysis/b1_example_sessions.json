@@ -1,0 +1,54 @@
+{
+  "_meta": {
+    "produced_by": "analysis/b1_example_sessions.py",
+    "produced_at_pt": "2026-10-23T16:50:24-07:00",
+    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "nxd-3way@20260707-075401",
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "sessions": {
+    "Uncoupled Baiting": {
+      "ses_idx": "726477__726477_2024-06-28_94320",
+      "subject_id": "726477",
+      "n_trials": 480,
+      "n_ignored": 1,
+      "C3_LR_engaged_likelihood": 0.7201456837457588,
+      "C3_engage_likelihood": 0.9857353088815819,
+      "C_LR_likelihood": 0.7203123317624557,
+      "C_n_trials": 479
+    },
+    "Coupled Baiting": {
+      "ses_idx": "453477__453477_2019-07-06_183438",
+      "subject_id": "453477",
+      "n_trials": 568,
+      "n_ignored": 13,
+      "C3_LR_engaged_likelihood": 0.5518191100666865,
+      "C3_engage_likelihood": 0.9273034472586925,
+      "C_LR_likelihood": 0.5550794264206341,
+      "C_n_trials": 555
+    },
+    "Uncoupled Without Baiting": {
+      "ses_idx": "707254__707254_2024-03-29_112018",
+      "subject_id": "707254",
+      "n_trials": 486,
+      "n_ignored": 3,
+      "C3_LR_engaged_likelihood": 0.8711265243362135,
+      "C3_engage_likelihood": 0.9695830440704494,
+      "C_LR_likelihood": 0.8703588193719738,
+      "C_n_trials": 483
+    },
+    "Coupled Without Baiting": {
+      "ses_idx": "779531__779531_2025-04-16_95218",
+      "subject_id": "779531",
+      "n_trials": 646,
+      "n_ignored": 77,
+      "C3_LR_engaged_likelihood": 0.8212973779378564,
+      "C3_engage_likelihood": 0.7286532050062249,
+      "C_LR_likelihood": 0.8189635600673975,
+      "C_n_trials": 569
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "_meta": {
+    "produced_by": "analysis/f_engagement_embedding.py",
+    "produced_at_pt": "2026-10-24T01:42:31-07:00",
+    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "nxd-3way@20260707-075401",
+      "e4-e8-d614-source@20260906-195409"
+    ]
+  },
+  "n_mice": 614,
+  "min_ignored_steps_per_mouse": 20,
+  "feature_summary": {
+    "ignore rate": {
+      "count": 614.0,
+      "mean": 0.0906,
+      "std": 0.0752,
+      "min": 0.0047,
+      "25%": 0.0369,
+      "50%": 0.0711,
+      "75%": 0.1189,
+      "max": 0.444
+    },
+    "mean bout length": {
+      "count": 614.0,
+      "mean": 2.1911,
+      "std": 0.6728,
+      "min": 1.0256,
+      "25%": 1.7354,
+      "50%": 2.0978,
+      "75%": 2.4765,
+      "max": 6.3222
+    },
+    "P(stay disengaged)": {
+      "count": 614.0,
+      "mean": 0.5107,
+      "std": 0.1383,
+      "min": 0.0263,
+      "25%": 0.4294,
+      "50%": 0.5286,
+      "75%": 0.6025,
+      "max": 0.8459
+    },
+    "late \u2212 early ignore rate": {
+      "count": 614.0,
+      "mean": 0.1201,
+      "std": 0.098,
+      "min": -0.0435,
+      "25%": 0.0471,
+      "50%": 0.0964,
+      "75%": 0.173,
+      "max": 0.5065
+    }
+  },
+  "decode_cv_r2": {
+    "ignore rate": {
+      "C3": 0.6798651130503701,
+      "C": 0.011434152315609292
+    },
+    "mean bout length": {
+      "C3": 0.12662290457995162,
+      "C": -0.01158807034977749
+    },
+    "P(stay disengaged)": {
+      "C3": 0.1535588036623866,
+      "C": -0.013173192182262872
+    },
+    "late \u2212 early ignore rate": {
+      "C3": 0.44528541617357353,
+      "C": -0.00932082404858181
+    }
+  },
+  "mouse_dynamics_summary": {
+    "P(ignore) after 1 ignore": {
+      "count": 614.0,
+      "mean": 0.1713,
+      "std": 0.0971,
+      "min": 0.0278,
+      "25%": 0.1027,
+      "50%": 0.15,
+      "75%": 0.2145,
+      "max": 0.5756
+    },
+    "P(ignore) after 3 ignores": {
+      "count": 614.0,
+      "mean": 0.5127,
+      "std": 0.0421,
+      "min": 0.4039,
+      "25%": 0.4854,
+      "50%": 0.5093,
+      "75%": 0.5357,
+      "max": 0.664
+    },
+    "P(ignore) at the ignore attractor": {
+      "count": 614.0,
+      "mean": 0.9766,
+      "std": 0.0022,
+      "min": 0.9681,
+      "25%": 0.9752,
+      "50%": 0.977,
+      "75%": 0.9782,
+      "max": 0.9813
+    },
+    "P(ignore) 3 choices after the attractor": {
+      "count": 614.0,
+      "mean": 0.3571,
+      "std": 0.0815,
+      "min": 0.2285,
+      "25%": 0.3074,
+      "50%": 0.3362,
+      "75%": 0.3742,
+      "max": 0.6433
+    }
+  },
+  "corr_mouse_dynamics_vs_observed": {
+    "P(ignore) after 1 ignore": {
+      "ignore rate": 0.8965867033318318,
+      "mean bout length": 0.2998487715452333,
+      "P(stay disengaged)": 0.3330239946608743,
+      "late \u2212 early ignore rate": 0.5358096791482397
+    },
+    "P(ignore) after 3 ignores": {
+      "ignore rate": 0.46830894427485054,
+      "mean bout length": 0.4191138617466527,
+      "P(stay disengaged)": 0.3933656317688925,
+      "late \u2212 early ignore rate": 0.3456652549662165
+    },
+    "P(ignore) at the ignore attractor": {
+      "ignore rate": -0.05041008126290107,
+      "mean bout length": 0.12883126677887347,
+      "P(stay disengaged)": 0.15546897358331113,
+      "late \u2212 early ignore rate": 0.17946450085266571
+    },
+    "P(ignore) 3 choices after the attractor": {
+      "ignore rate": 0.3463194437349051,
+      "mean bout length": 0.18945383122768186,
+      "P(stay disengaged)": 0.20119253146742835,
+      "late \u2212 early ignore rate": 0.2224263102278873
+    }
+  },
+  "attractor_max_residual": 0.0028174713691192232,
+  "n_iter_attractor": 300,
+  "dynamics": "mouse's mean session context; start = mouse's mean engaged state; ignore input (2, 0) repeated; recovery = unrewarded choices of the side favoured at the attractor"
+}

@@ -34,7 +34,7 @@ CACHE = STUDY / "analysis" / "_cache"
 SNAPSHOT_ROOT = "aind-scratch-data/aind-dynamic-foraging-cache/snapshots"
 SPLIT = "eval"
 LIKELIHOOD_TOLERANCE = 1e-4
-# The readout check guards row alignment, not precision (Study 12: GPU TF32 leaves ~1e-3,
+# The readout check guards row alignment, not precision (Study 50: GPU TF32 leaves ~1e-3,
 # a one-trial misalignment gives ~0.2 median).
 READOUT_TOLERANCE = 1e-2
 IGNORE = 2
@@ -107,7 +107,7 @@ def main(key: str) -> None:
     _require_memory()
     from post_training_analysis.gru_trial_states import extract_gru_trial_states  # noqa: PLC0415
 
-    manifest = json.loads((STUDY / "source_runs.json").read_text())
+    manifest = json.loads((STUDY / "analysis" / "source_runs.json").read_text())
     model_key, _ = key.split("-")
     source = manifest["models"][model_key]
     run = source["runs"][key]
