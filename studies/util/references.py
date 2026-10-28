@@ -79,8 +79,8 @@ _S01_RL = {
               "trials (not the per-subject mean or median in the same JSON)",
     "split": "each mouse fitted by MLE on its train sessions, scored on its eval sessions",
 }
-_V2_SC_ACTIVE = ("v2-sc-active: lambda-forward (session conditioning fully on at 50k steps), "
-                 "gated early stop at 70k, n_steps=150000")
+_V2_SC_ACTIVE = ("v2-sc-active recipe: lambda-forward (session conditioning fully on at 50k "
+                 "steps), gated early stop at 70k, n_steps=150000")
 
 _ENTRIES: dict[str, dict] = {
     "gru_ceiling.v1_h128": {
@@ -107,8 +107,8 @@ _ENTRIES: dict[str, dict] = {
         "pointer": "/mean_grid/3/3",                    # positional: Ns[3] x Ds[3], checked below
         "checks": {"/Ns/3": 256, "/Ds/3": 614},
         "conditions": {**_S01_GRU,
-                       "protocol": "nxd-grid: the " + _V2_SC_ACTIVE
-                                   + " recipe (W&B group nxd-grid@20260623-102649)",
+                       "protocol": _V2_SC_ACTIVE + ", run at hidden_size=256 in the N x D grid "
+                                   "(W&B group nxd-grid@20260623-102649)",
                        "model": "GRU, hidden_size=256, scalar session encoding"},
     },
     "rl_baseline.ctt": {
