@@ -1,5 +1,23 @@
 # AGENTS.md — aind-dynamic-foraging-bfm-studies
 
+## Explaining and Reporting Style
+
+Source: Karpathy's advice to ask for explanations in
+[ASD-STE100](https://www.asd-ste100.org/) (Simplified Technical English), at about 80%
+strictness.
+
+**In conversation:**
+- **Plain language, about 80% of ASD-STE100.** Short sentences, one action or idea per
+  sentence, active voice, one meaning per word, no filler. Keep exact technical terms; do
+  not force the full approved-word list.
+- **Show, do not only tell.** Explain with a diagram where one helps. For a long or
+  structured explanation, prefer an HTML page over a wall of text.
+
+**In reports:**
+- **The same plain language as in conversation.**
+- **Order of preference: figure > table > narrative.** A figure beats a table. A table
+  beats prose. Use narrative only for what a figure or table cannot carry.
+
 Scientific study definitions, launch manifests, frozen inputs, analysis, and reports for
 `dynamic-foraging-bfm`, a behavioural foundation model for rodent dynamic foraging. The
 sibling dispatcher owns the launch and runtime control plane; the wrapper owns training.
@@ -144,17 +162,3 @@ For multi-step tasks, use a brief plan:
 
 These guidelines are working when diffs contain fewer unnecessary changes, solutions are simpler, and clarifications happen before implementation.
 
-
-## Explaining and Reporting Style
-
-Applies to conversation replies and to reports. Source: Karpathy's advice to ask for
-explanations in [ASD-STE100](https://www.asd-ste100.org/) (Simplified Technical English), at
-about 80% strictness.
-
-- **Plain language, about 80% of ASD-STE100.** Short sentences (under about 20 words), one
-  action or idea per sentence, active voice, one meaning per word, no filler. Keep exact
-  technical terms; do not force the full approved-word list.
-- **Show, do not only tell.** Explain with a diagram where one helps. For a long or
-  structured explanation, prefer an HTML page over a wall of text.
-- **Order of preference in reports: figure > table > narrative.** A figure beats a table. A
-  table beats prose. Use narrative only for what a figure or table cannot carry.
