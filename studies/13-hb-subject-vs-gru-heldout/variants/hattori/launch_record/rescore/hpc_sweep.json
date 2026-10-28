@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-10-27T18:14:40-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "hattori@20261027-181430",
+  "label": "rescore",
+  "note": "Study 13 hattori rescore (ADR 0004): the 103 subjects that passed the gates keep their production fit; their saved draws are scored again through the same data path (reproducing production's plain scores exactly) and every session failing Pareto k-hat is rescored by importance sampling. Teaches whether the starved plain draw-average understated the HB headline.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "1lt79vri"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27514171"
+    }
+  ],
+  "revisions": {
+    "studies": "41ef7f9a0dc1453b3637415829e48682eca05e90",
+    "dispatcher": "a4fe331b0fde0ca21aca8922d083e273e7868bcb",
+    "wrapper": "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43",
+    "foraging_models": "13f7e9c3af6e80bcaeaae65a970a410e0539077d"
+  },
+  "manifests": [
+    "sweep_hpc_rescore.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 103,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "57d95767622925e35d2557e1806d80bbe99180b456e39dedc64de6e3d4e9b48c"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "1lt79vri",
+  "wandb_sweep_path": "AIND-disRNN/mice_data_scaling/1lt79vri",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/mice_data_scaling/sweeps/1lt79vri",
+  "slurm_array_job_id": "27514171",
+  "slurm_autostop_job_id": "27514172",
+  "n_array_tasks": 103,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "a4fe331b0fde0ca21aca8922d083e273e7868bcb",
+  "studies_git_commit": "41ef7f9a0dc1453b3637415829e48682eca05e90",
+  "studies_git_branch": "HEAD",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "a4fe331b0fde0ca21aca8922d083e273e7868bcb",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43",
+  "foraging_models_git_commit": "13f7e9c3af6e80bcaeaae65a970a410e0539077d",
+  "foraging_models_version": "0.24.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/hpc13c/aind-dynamic-foraging-bfm-studies/studies/13-hb-subject-vs-gru-heldout/variants/hattori/sweep_hpc_rescore.yaml",
+  "created_utc": "2026-10-28T01:14:40.341343+00:00"
+}

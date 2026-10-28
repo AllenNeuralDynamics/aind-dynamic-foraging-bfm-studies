@@ -1,7 +1,7 @@
 """Producer for r2: per-subject held-out likelihood, HB-Hattori2019 two-level vs GRU vs per-subject MLE.
 
 Offline. HB per subject is each run's ``heldout/eval_likelihood`` (session-marginal, trial-weighted
-within the subject) from the frozen ``hattori_runs.json``. The GRU (H128, v1; the curve r1 quotes)
+within the subject) from the frozen ``hattori_final_runs.json``. The GRU (H128, v1; the curve r1 quotes)
 and the per-subject MLE are read from study 01's committed JSON (declared as inputs and upstream;
 not via ``cross_study`` so that adding a reader there does not stale other studies' artifacts).
 The GRU per subject is the mean over its 3 seeds at each D. Comparisons are paired by subject, so
@@ -42,8 +42,8 @@ def _rl_per_subject(model):
     table = json.loads(RL_SOURCE.read_text())["models"][model]["per_subject_likelihood"]
     return {str(subject): float(value) for subject, value in table.items()}
 
-WANDB_GROUPS = ["hattori@20261026-002131"]   # read via the committed freeze
-RUNS = HERE / "hattori_runs.json"
+WANDB_GROUPS = ["hattori@20261027-181430", "hattori@20261027-201810"]   # final set (ADR 0004), via the freeze
+RUNS = HERE / "hattori_final_runs.json"   # production fits, k̂-rescued (ADR 0004)
 REPORT = HERE / "reports" / "r2-per-subject.md"
 FIG = HERE / "fig_r2_per_subject.svg"
 GRU_D = (30, 614)

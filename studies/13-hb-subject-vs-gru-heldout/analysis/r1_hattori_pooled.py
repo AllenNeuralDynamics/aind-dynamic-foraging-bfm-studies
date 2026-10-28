@@ -17,8 +17,12 @@ sys.path.insert(0, str(HERE.parents[1] / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
 import cross_study  # noqa: E402
 
-WANDB_GROUPS = ["hattori@20261026-002131"]   # read via the committed freeze
-RUNS = HERE / "hattori_runs.json"
+# The final set (ADR 0004: production fits, k̂-rescued) carries the headline; production is shown beside it.
+WANDB_GROUPS = ["hattori@20261026-002131", "hattori@20261027-181430", "hattori@20261027-201810",
+                "hattori@20261027-181415"]
+RUNS = HERE / "hattori_final_runs.json"
+PRODUCTION = HERE / "hattori_runs.json"
+REFIT = HERE / "hattori_refit_runs.json"   # the rejected centred refit (ADR 0004)
 PLUGIN = HERE / "hattori_plugin.json"   # freeze_plugin.py: one fixed parameter set per subject
 REPORT = HERE / "reports" / "r1-hattori-pooled.md"
 N_SUBJECTS = 149
@@ -39,6 +43,10 @@ def compute() -> dict:
     """Pool the frozen rows and line them up against the comparators."""
     rows = [r for r in json.loads(RUNS.read_text())["rows"] if r["state"] == "finished"]
     assert len(rows) == len({r["subject_id"] for r in rows}), "a subject was fitted twice"
+    production = [r for r in json.loads(PRODUCTION.read_text())["rows"] if r["state"] == "finished"]
+    refit = [r for r in json.loads(REFIT.read_text())["rows"] if r["state"] == "finished"]
+    before = {r["subject_id"]: r for r in production}
+    before = [before[r["subject_id"]] for r in refit]   # the same subjects, production fits
     # PLAN.md's gates: R-hat < 1.01 and bulk ESS >= 400 (the run's own flag), and no divergences.
     converged = [r for r in rows if r["hb/n_subjects_converged"] == 1 and not r["hb/divergences"]]
     headline, headline_se = _pool(rows, "heldout/eval_log_lik_sum", "heldout/eval_log_lik_sum_se")
@@ -53,6 +61,24 @@ def compute() -> dict:
         "n_trials_comparators": rl["hattori"]["n_trials"],
         "hb_session_marginal": headline,
         "hb_session_marginal_se": headline_se,
+        "hb_session_marginal_plain": _pool(rows, "heldout/eval_log_lik_sum_plain")[0],
+        "hb_session_marginal_production": _pool(production, "heldout/eval_log_lik_sum")[0],
+        "n_sessions_importance": sum(r["heldout/n_sessions_importance"] for r in rows),
+        "n_sessions_pareto_k_fail_plain": sum(r["heldout/n_sessions_pareto_k_fail_plain"]
+                                              for r in rows),
+        "n_sessions_pareto_k_fail_production": sum(r["heldout/n_sessions_pareto_k_fail"]
+                                                   for r in production),
+        "refit": {
+            "n_subjects": len(refit),
+            "divergences_production": sum(r["hb/divergences"] for r in before),
+            "divergences_refit": sum(r["hb/divergences"] for r in refit),
+            "pass_rhat_ess_production": sum(r["hb/n_subjects_converged"] == 1 for r in before),
+            "pass_rhat_ess_refit": sum(r["hb/n_subjects_converged"] == 1 for r in refit),
+            "pass_all_refit": sum(r["hb/n_subjects_converged"] == 1 and not r["hb/divergences"]
+                                  for r in refit),
+        },
+        "n_subjects_converged_production": sum(
+            1 for r in production if r["hb/n_subjects_converged"] == 1 and not r["hb/divergences"]),
         "hb_trial_marginal": _pool(rows, "heldout/eval_log_lik_sum_trial_marginal")[0],
         "hb_plugin": math.exp(sum(r["plugin_log_lik_sum"] for r in plugin.values()) / plugin_trials),
         "hb_zero_spread": math.exp(sum(r["zero_spread_log_lik_sum"] for r in plugin.values())
@@ -81,8 +107,11 @@ def render(r: dict) -> str:
     lines += [
         "| arm | held-out likelihood (trial-weighted) |",
         "|---|---|",
-        f"| HB-Hattori2019 two-level, session-marginal (headline) | **{r['hb_session_marginal']:.4f}** "
-        f"± {r['hb_session_marginal_se']:.1e} (MC) |",
+        f"| HB-Hattori2019 two-level, session-marginal (headline: k̂-failing sessions importance-sampled, "
+        f"ADR 0004) | **{r['hb_session_marginal']:.4f}** ± {r['hb_session_marginal_se']:.1e} (MC); "
+        f"{r['hb_session_marginal']:.6f} |",
+        f"| … same fits, plain draw-average on every session (= production) | "
+        f"{r['hb_session_marginal_plain']:.6f} |",
         f"| HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session "
         f"posterior median), no within-session inference | {r['hb_plugin']:.4f} |",
         f"| HB-Hattori2019 two-level, zero-spread: every posterior draw of the typical session, no "
@@ -98,8 +127,16 @@ def render(r: dict) -> str:
         f"{r['n_subjects']} subjects pass; worst R-hat {r['max_r_hat']:.3f}, lowest ESS "
         f"{r['min_ess_bulk']:.0f}; {r['divergences']} divergences. Converged subjects only: "
         + (f"{conv:.4f}." if conv else "n/a."),
-        f"- Pareto k̂ gate: {r['n_sessions_pareto_k_fail']} of {r['n_sessions']} scored sessions "
-        "fail (k̂ ≥ 0.7 or unjudged).",
+        f"- Pareto k̂ gate: {r['n_sessions_pareto_k_fail_plain']} of {r['n_sessions']} scored sessions "
+        f"fail on the plain draw-average (production: {r['n_sessions_pareto_k_fail_production']}); "
+        f"{r['n_sessions_importance']} were rescored by importance sampling, after which "
+        f"{r['n_sessions_pareto_k_fail']} still fail (k̂ ≥ 0.7 or unjudged).",
+        f"- Refit (ADR 0004): one centred refit of the {r['refit']['n_subjects']} subjects failing a "
+        f"gate was worse: divergences {r['refit']['divergences_production']:,} → "
+        f"{r['refit']['divergences_refit']:,}, R-hat/ESS passes "
+        f"{r['refit']['pass_rhat_ess_production']} → {r['refit']['pass_rhat_ess_refit']}, "
+        f"{r['refit']['pass_all_refit']} passing every gate. It is not used; every subject keeps its "
+        "production fit (`variants/hattori/launch_record/refit/README.md`).",
     ]
     return "\n".join(lines)
 
@@ -112,7 +149,7 @@ def main() -> None:
     _, tail = rest.split(end)
     REPORT.write_text(f"{head}{begin}\n{render(result)}\n{end}{tail}")
     meta = build_meta("analysis/r1_hattori_pooled.py", WANDB_GROUPS, study_root=HERE.parent,
-                      code=[__file__], inputs=[RUNS, PLUGIN, cross_study.RL_SOURCE,
+                      code=[__file__], inputs=[RUNS, PRODUCTION, REFIT, PLUGIN, cross_study.RL_SOURCE,
                                                cross_study.GRU_CURVE_SOURCE])
     write_artifact(HERE / "r1_hattori_pooled.json", {"_meta": meta, **result},
                    outputs=[HERE / "reports" / "r1-hattori-pooled.md#result-1"])

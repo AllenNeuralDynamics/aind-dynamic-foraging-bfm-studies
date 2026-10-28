@@ -36,14 +36,16 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
+sys.path.insert(0, str(HERE))
+import final_runs  # noqa: E402
 
 from aind_dynamic_foraging_models.hierarchical_bayes.model import (  # noqa: E402
     HATTORI2019_PARAMS,
     hattori2019_session_params,
 )
 
-WANDB_GROUPS = ["hattori@20261026-002131"]
-RUNS = HERE / "hattori_runs.json"
+WANDB_GROUPS = final_runs.PRODUCTION_GROUPS + final_runs.FINAL_GROUPS
+RUNS = final_runs.FINAL_RUNS          # the final set (ADR 0004); draws via final_runs.draws_run
 ARTIFACT_ROOT = Path("/home/han.hou/outputs/disrnn/hb_artifacts")
 OUT = HERE / "hattori_posteriors.json"
 MLE_SOURCE = HERE.parents[1] / "08-hb-vs-gru-heldout" / "analysis" / "ml_params" / "ml_hattori_heldout.csv"
@@ -99,17 +101,19 @@ def _samples(path: Path, beta_max: float, seed: int) -> dict:
 def main() -> None:
     """One row per finished run: its subject, draws digest, and posterior summaries."""
     rows, sources = [], []
-    finished = [r for r in json.loads(RUNS.read_text())["rows"] if r["state"] == "finished"]
+    finished = final_runs.final_rows()
     examples = _examples(finished)
     example_samples = {}
     for run in sorted(finished, key=lambda r: r["subject_id"]):
-        run_dir = ARTIFACT_ROOT / run["wandb_run_id"]
+        draws_run = final_runs.draws_run(run)
+        run_dir = ARTIFACT_ROOT / draws_run
         path = run_dir / "heldout_two_level_draws.npz"
         fit_json = run_dir / "heldout_two_level_fit.json"   # beta_max sets the temperature scale
         beta_max = json.loads(fit_json.read_text())["beta_max"]
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         fit_digest = hashlib.sha256(fit_json.read_bytes()).hexdigest()
-        rows.append({"wandb_run_id": run["wandb_run_id"], "subject_id": run["subject_id"],
+        rows.append({"wandb_run_id": run["wandb_run_id"], "draws_run_id": draws_run,
+                     "subject_id": run["subject_id"],
                      "draws_sha256": digest, "fit_json_sha256": fit_digest, "beta_max": beta_max,
                      "params": _summary(path, beta_max)})
         if run["subject_id"] in examples:
@@ -118,7 +122,8 @@ def main() -> None:
         sources += [{"type": "file", "id": str(path), "sha256": digest},
                     {"type": "file", "id": str(fit_json), "sha256": fit_digest}]
     meta = build_meta("analysis/freeze_posteriors.py", WANDB_GROUPS, study_root=HERE.parent,
-                      kind="freeze", code=[__file__], inputs=[RUNS, MLE_SOURCE], sources=sources)
+                      kind="freeze", code=[__file__, final_runs.__file__],
+                      inputs=[RUNS, final_runs.PRODUCTION_RUNS, MLE_SOURCE], sources=sources)
     write_artifact(OUT, {"_meta": meta, "quantiles": {"subject": QUANTILES, "sigma": QUANTILES,
                                                       "session_width": QUANTILES},
                          "param_order": list(HATTORI2019_PARAMS), "rows": rows,
