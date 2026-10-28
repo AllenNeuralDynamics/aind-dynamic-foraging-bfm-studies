@@ -35,4 +35,6 @@ grid, one non-preemptible single-GPU task per cell:
 `lag-scan@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join
 that group.
 
-**Status.** Not launched.
+**Status.** Done. Launched 2026-10-27 as `lag-scan@20261027-200129`, after the smoke
+`lag-scan@20261027-194921`. L = 10 maximises the selection score for both emissions, at the
+scan's upper bound (`launch_record/lag-scan/results.md`).
