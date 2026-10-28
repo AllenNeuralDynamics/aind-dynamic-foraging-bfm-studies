@@ -1,4 +1,55 @@
 {
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_source_runs.py",
+    "produced_at_pt": "2026-10-27T21:52:56-07:00",
+    "studies_git_sha": "760b8d492394e21ec256fac2bae9b40f642649a6",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [
+      "nxd-3way@20260707-075401"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): nxd-3way@20260707-075401"
+    ],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/freeze_source_runs.py",
+        "sha256": "a6191fedef5605a33267d3c0777b381453e4e5dd0cb3978d137dc05bddd53c03"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/02-gru-scaling-law-ignore/analysis/scaling.json",
+        "sha256": "4ca62e7b8664c399522cd62aa5adbadb62ce73698221dbcf66513e6987af80bb"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-70798298"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-9ce451ca"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/source_runs.json",
+        "sha256": "eaf50ee5618382bc8ed45b52ad5f5ff7899b26a26a84ec5f397983adab8b02ba"
+      }
+    ]
+  },
   "schema_version": 1,
   "entity": "AIND-disRNN",
   "project": "mice_ignore_scaling",
@@ -53,5 +104,5 @@
       }
     }
   },
-  "frozen_at_pt": "2026-10-23T13:51:41-07:00"
+  "frozen_at_pt": "2026-10-27T21:52:56-07:00"
 }

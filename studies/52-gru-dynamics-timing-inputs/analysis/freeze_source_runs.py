@@ -19,6 +19,7 @@ from __future__ import annotations
 import json
 import netrc
 import os
+import sys
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -27,6 +28,9 @@ import requests
 
 STUDY = Path(__file__).resolve().parents[1]
 STUDIES = STUDY.parent
+sys.path.insert(0, str(STUDIES / "util"))
+from _meta import build_meta, write_artifact  # noqa: E402
+
 MANIFEST = STUDY / "analysis" / "source_runs.json"
 STUDY07_SCALING = STUDIES / "07-gru-timing-inputs" / "analysis" / "timing_scaling.json"
 STUDY12_MANIFEST = STUDIES / "50-gru-dynamics-embedding" / "analysis" / "source_runs.json"
@@ -186,7 +190,13 @@ def main() -> None:
     manifest["frozen_at_pt"] = datetime.now(ZoneInfo("America/Los_Angeles")).isoformat(
         timespec="seconds"
     )
-    MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
+    # The manifest is this freeze's output, not its input: its sources are the runs it pinned.
+    manifest.pop("_meta", None)
+    sources = [{"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{run['run_id']}"}
+               for model_key in WANDB_GROUPS for run in manifest["models"][model_key]["runs"].values()]
+    meta = build_meta("analysis/freeze_source_runs.py", [g[0] for g in WANDB_GROUPS.values()], study_root=STUDY,
+                      kind="freeze", code=[__file__], inputs=[STUDY07_SCALING, STUDY12_MANIFEST], sources=sources)
+    write_artifact(MANIFEST, {"_meta": meta, **manifest})
     print(f"Wrote {MANIFEST}")
 
 
