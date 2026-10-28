@@ -121,7 +121,7 @@ def readme_block(study: Path) -> str:
         parts.append("\n".join(f"- **{i}.** {' '.join(t.split())}" for i, t in _claims(fm)))
     if not live:
         parts.append(NO_LIVE)
-    return "\n\n".join(parts) + "\n"
+    return "\n\n".join(parts) + "\n\n"
 
 
 def wrap(inner: str) -> str:
