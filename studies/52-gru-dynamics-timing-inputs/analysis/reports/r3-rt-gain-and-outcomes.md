@@ -27,6 +27,7 @@ chosen on the trial whose outcome is fed. Written 2026-10-24.*
 
 ## Summary
 
+<!-- BEGIN result-3 -->
 1. **RT's effect scales with how strongly R favours staying** (F1).
    - For each RT input v, s_v = a(v) + b(v)·s₀ fits well across states (R² ≥ 0.94), where
      s₀ is the same state's switch-logit with RT input 0. Seed values come in pairs (s0,
@@ -55,6 +56,7 @@ chosen on the trial whose outcome is fed. Written 2026-10-24.*
      RT input and the flip effect is −0.02 / −0.02 after wins and losses (seed 0), −0.02 /
      −0.04 (seed 1). The medians by decile are flat.
    - The stored RT memory (r1 item 8) does not gate learning from the next outcome.
+<!-- END result-3 -->
 
 ## By construction vs finding
 

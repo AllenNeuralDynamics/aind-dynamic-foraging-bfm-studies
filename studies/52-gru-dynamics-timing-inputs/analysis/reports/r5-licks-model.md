@@ -66,6 +66,7 @@ an independent code review (see "Corrections").*
 
 ## Summary
 
+<!-- BEGIN result-5 -->
 1. **Licks improve the fit about 10× more than RT, and the gain is real, not seed noise.**
    - Eval likelihood 0.7422 vs C's 0.7339 (+0.0084); held-out (Study 07) 0.7365–0.7367 vs
      0.7289 (+0.0077).
@@ -175,6 +176,7 @@ an independent code review (see "Corrections").*
       in either. Mice with ≥ 500 trials (all 614 qualify).
     - L's embedding is less similar to C's (alignment R² 0.79–0.82) than the RT model's was
       (0.85–0.87); L's two seeds give 0.94.
+<!-- END result-5 -->
 
 ## By construction vs finding
 

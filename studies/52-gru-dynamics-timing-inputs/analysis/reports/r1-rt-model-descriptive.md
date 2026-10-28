@@ -31,6 +31,7 @@ independent code review (see "Corrections").*
 
 ## Summary
 
+<!-- BEGIN result-1 -->
 1. **Mice switch more after a slow response, and C misses much of it.**
    - After an unrewarded trial, P(switch) rises from 0.10 to 0.23 across the previous
      trial's RT deciles; after a rewarded trial, from 0.05 to 0.14 (B0c).
@@ -104,6 +105,7 @@ independent code review (see "Corrections").*
      running average); the reviewer estimated ~5% of the lag-5 residual.
    - Behaviourally, R uses mainly the most recent RT (item 3). Most of this memory is not
      expressed in choice.
+<!-- END result-1 -->
 
 ## By construction vs finding
 

@@ -29,6 +29,7 @@ independent code review and the seed-1 repeat (see "Corrections"). Values are gi
 
 ## Summary
 
+<!-- BEGIN result-2 -->
 1. **The RT update rule** (I-RT1, left panel). Relative to an average RT:
    - **Slow RT** pushes toward switching: +0.54 to +0.63 logit at +2.5 sd (≈0.7 s), on
      both seeds and all four input clusters.
@@ -83,6 +84,7 @@ independent code review and the seed-1 repeat (see "Corrections"). Values are gi
      history to RT. Or a constant RT input may push R's state off its trained
      distribution along a large RT dimension (r1 item 7). These replays cannot tell the
      two apart.
+<!-- END result-2 -->
 
 ## Reading this together with r1 and r3
 

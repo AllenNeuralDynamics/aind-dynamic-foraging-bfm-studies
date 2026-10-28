@@ -33,6 +33,7 @@ Models: R-s0, R-s1 and C-s0. Written 2026-10-24.*
 
 ## Summary
 
+<!-- BEGIN result-4 -->
 1. **In the mice, an outcome counts less after their fastest responses. R reproduces this;
    C shows only half the drop** (B0h).
    - Measure: the reward effect on switching, logit P(switch | t−1 unrewarded) −
@@ -87,6 +88,7 @@ Models: R-s0, R-s1 and C-s0. Written 2026-10-24.*
      Its effect lives in the single-step update (r2 I-RT1, r3 F1–F2) and fades within
      about 3 trials (r2 C1-RT), long before the state approaches these attractors. This
      is a negative result, kept for completeness.
+<!-- END result-4 -->
 
 ## By construction vs finding
 
