@@ -60,20 +60,40 @@ One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
 | EM iteration, L = 5 | 8–13 s | about 3 s |
 | EM iteration, L = 10 | about 25 s (hurdle), about 47 s (reference) | about 5 s |
 | iterations to converge (1e-6 nats/trial), L = 5 | hurdle 317, reference 220 | same |
-| global fit, 10 restarts, L = 5 | about 7–8 h | about 1.4–2.6 h |
+| global fit, 10 restarts one at a time, L = 5 | about 7–8 h | about 1.4–2.6 h |
 | per-mouse refits (614 for K selection + 149 held-out) | about 1.8 h | slower on a GPU: keep on CPU |
 
-- **Backend.** Until the CUDA solver pin lands
-  (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111), run on HPC CPU with
-  `--sbatch-extra "--cpus-per-task=8 --mem=64G --time=48:00:00"`.
-  - At L = 10 a K = 10 reference cell is about 30 h on CPU, so if `lag-scan` picks L = 10,
-    wait for the GPU.
-  - On Beaker, the templates use one GPU on the GLM-HMM image, which carries the pin
-    (`beaker/glmhmm/Dockerfile`, AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111).
-    That image has to be built first.
-- **Iteration cap.** `max_em_iters` 300 stops the K = 10 hurdle fit 17 iterations short.
-  - That costs 4e-5 nats/trial of prediction, but it compares restarts below their optimum.
-  - Raise the cap to 500 before the K grids (AllenNeuralDynamics/aind-dynamic-foraging-models#82).
+- **Workers.** The HPC sweeps set `model.num_workers=10`: the restarts, then the per-subject
+  refits, run 10 at a time in threads, with identical results
+  (AllenNeuralDynamics/aind-dynamic-foraging-models#86).
+  - Measured at K = 10, hurdle, L = 5: ten restarts at once finish 3.1× sooner than one after
+    another on 8 cores and 5.1× on 32 (a node nearly to itself), and refits 3.2× sooner. Ten
+    restarts use about 31 GB. A 16-core run on a node shared with other jobs was no faster
+    than 8 cores, so the gain depends on node load.
+  - More workers buy nothing: 20 at once on 40 cores take 26 s per restart-iteration, the same
+    throughput as 10 (12–12.35 s on 32 or 40 cores), at 51 GB instead of 33.
+- **Restarts: 20 per K > 1**, as Ashwood et al. (20 per K and fold, K ≤ 5, in
+  `zashwood/glm-hmm`); we go to K = 10, so 10 would be thin. The same count at every K, so no
+  K gets more chances at its optimum. After the grid, count how many of
+  `glmhmm/global/restart_log_joints` lie within about 1e-4 nats/trial of the best; one alone
+  means even 20 was too few.
+  - So a K = 10, L = 5 hurdle cell is ≈ 2.5–4 h on 32 cores: two rounds of restarts ≈ 2.1 h
+    on a quiet node (the slowest restart of each round sets it), refits ≈ 31 min (3.5×),
+    against 9–11 h for 10 restarts one at a time on 8 cores.
+  - **At L = 10, the chosen history length** (32 cores, 10 workers; models#86's RESULTS.md):
+    10 restarts at once run 3.3× faster than one at a time for hurdle and 2.0× for
+    reference. A K = 10 cell with 20 restarts is then ≈ 8 h for hurdle (≈ 13 h if restarts
+    reach the 500 cap) and ≈ 16 h for reference (≈ 36 h at the cap), plus refits. That is
+    inside the 48 h limit, with the least margin for reference at K = 10.
+- **Backend.** HPC CPU, with
+  `--sbatch-extra "--cpus-per-task=32 --mem=64G --time=48:00:00"`.
+  - On Beaker, the templates use one GPU on the GLM-HMM image, which carries the CUDA solver
+    pin (`han-hou/dynamic-foraging-bfm-glmhmm-20261027`, built 2026-10-27; `beaker/glmhmm/`,
+    AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111). Workers are not measured on
+    a GPU, so the Beaker sweeps keep `num_workers` 1.
+- **Iteration cap.** `max_em_iters` is 500
+  (AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#207): the K = 10 hurdle fit needs
+  317 iterations, and the old cap of 300 compared restarts below their optimum.
 - **Wall-clock.** Lower K is cheaper, and cells run in parallel, so a grid's wall-clock is its
   K = 10 cell. `lag-scan` (K = 1) converges in about 2 iterations, so each of its cells is
   dominated by the refits.

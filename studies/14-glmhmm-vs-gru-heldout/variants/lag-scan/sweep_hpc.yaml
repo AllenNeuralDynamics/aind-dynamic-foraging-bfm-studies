@@ -25,6 +25,7 @@ command:
   - +data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,current_stage_actual]
   - model=glmhmm
   - model.num_states=1
+  - model.num_workers=10  # per-subject refits, 10 at a time; needs --cpus-per-task=32
   - seed=0
   - wandb.entity=AIND-disRNN
   - wandb.project=mice_glmhmm
