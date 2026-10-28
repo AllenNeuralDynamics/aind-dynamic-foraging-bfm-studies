@@ -52,6 +52,11 @@ the links give detail, they do not replace the rules.
   frozen number by an immutable digest, and inspect numeric and artifact diffs before
   claiming a result. New analysis JSON carries `_meta.studies_git_sha` and the
   `source_*_git_shas` arrays; never relabel this repository's HEAD as dispatcher provenance.
+  A new report is `schema_version: 2` (`make new-report`): the fixed skeleton, each finding a
+  frontmatter claim pointing at its JSON value, INDEX and README verdicts generated from the
+  claims (`make verdicts`), `prose_reviewed` updated after a block changes. It goes live only
+  after a claims check and the go-ahead of its lead scientist (first in `authors`); see
+  `schemas/README.md` and the `posthoc-reporting` skill.
 - **Figures are paper-style SVGs.** Draw every figure with `studies/util/figure_style.py`
   (`apply_paper_style()`, 5–7 pt Arial) at the size it is printed, sized by its content, not the
   column: ≈15 mm per bar or violin, 35–45 mm per scatter panel, + 18 mm per y axis
