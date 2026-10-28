@@ -31,8 +31,8 @@ from _meta import build_meta, write_artifact  # noqa: E402
 import cross_study  # noqa: E402
 import figure_style as fs  # noqa: E402
 
-WANDB_GROUPS = ["hattori@20261026-002131"]   # read via the committed freezes
-RUNS = HERE / "hattori_runs.json"
+WANDB_GROUPS = ["hattori@20261027-181415", "hattori@20261027-181430"]   # final set (ADR 0004), via the freeze
+RUNS = HERE / "hattori_final_runs.json"   # refit + rescore (ADR 0004)
 PLUGIN = HERE / "hattori_plugin.json"
 MLE_SOURCE = HERE.parents[1] / "08-hb-vs-gru-heldout" / "analysis" / "ml_params" / "ml_hattori_heldout.csv"
 GRU_SOURCE = HERE.parents[1] / "01-gru-scaling-law" / "analysis" / "per_subject_rows.json"
