@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_round_1.py",
-    "produced_at_pt": "2026-10-28T07:11:48-07:00",
-    "studies_git_sha": "9d27b7cf92e184fe8f8a037cbe3b5267ccdf3e6b",
+    "produced_at_pt": "2026-10-28T13:18:13-07:00",
+    "studies_git_sha": "6120908a0c29513c1b1f7f01f9aecc8d2c2cc29d",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -34,7 +34,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.py",
-        "sha256": "39c681e7476605b900795c1e5b7574acd79b314c934ff18618a97f1ae0a3b770"
+        "sha256": "be7ec84c31b10424ae487ca0e4fdbe959b2f7c4d9d3664368df06ee6b64c79d5"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -48,7 +48,7 @@
     "inputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_round1.json",
-        "sha256": "58f2b11b711e1d6f30f4956b21ccfaa6cf57690103e339a5ec08311e8f9122a9"
+        "sha256": "12bd20a4754477d630a98b054a4241e00fdeb9ef6ead3fffce65d2753fdbf4a8"
       },
       {
         "path": "studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json",
@@ -58,19 +58,23 @@
     "outputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.json",
-        "sha256": "0475c2808991b20659c5b92bee561206e2151c1e5a7048b00f74b5de994621af"
+        "sha256": "15678589672d0d47b2bf586469a38940e099de40f4c13e0a233dcc9e4ad55756"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_scores.svg",
-        "sha256": "d47abd22f5e15129d249d6fab72684059bfa72ef27038c9db0717b71fe34f54b"
+        "sha256": "bbc972a361cd570d244dbf8111797335f68a70bf9188ab98298ae2413255e10d"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_restarts.svg",
-        "sha256": "f4cebd5210bce5505dcd7c486261cfbf77978f7184404da8d73cefbaed8ecaa6"
+        "sha256": "4bd70b036f1e1a76038ad4b1ce6b4ef992821be88a1f5b67324aefa2bcc5f282"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_state_map.svg",
-        "sha256": "a5b03b012c844f7484ce301cf13b98af6d43024521dabdf7a65edd23f978abcf"
+        "sha256": "63e8db90b17a886b2781d5a4761f94ec82c3182efa3937ccd8315e2a91840c60"
+      },
+      {
+        "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_timescales.svg",
+        "sha256": "3226def3d0ec1b88c2a8b33bed9bd7c64f176e19d0cca70358cece2ea70f3fe7"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_weights_hurdle.svg",
@@ -82,7 +86,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_examples_hurdle.svg",
-        "sha256": "f10142ed5fd2500be59968463e436ceb1642e75299150c2d0408c8c100044dfb"
+        "sha256": "13b3a5fbf763f64290ce471e0f50c02c954666cec64158b576d461951414b3d6"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_weights_reference.svg",
@@ -94,11 +98,11 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_examples_reference.svg",
-        "sha256": "64d14a7c412036d183aefbdc2187cd32fa932e689955d27a4f425a102ea7e073"
+        "sha256": "0a11651334a17bc13831de8cf9e0b2518e19bc99b93ac414218647c00e9f21f8"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-1",
-        "sha256": "000032879a1a34afcf42c431b79fd5ec60f4dc0dbff050a23aa43f444eda795a"
+        "sha256": "7ef379c796f3fec5bdfe92560fdb82a5cb881d4fcf0703f8f36e994bda6b1395"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-2",
@@ -106,7 +110,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-3",
-        "sha256": "130456e548f2d144430e54deaf991b27eebf6d1444976dcbc7989ffb707a9e7b"
+        "sha256": "019cc7d02d81a6b90d9415272e1d5b1463db7d70160916727e5145198deee069"
       }
     ]
   },
@@ -163,6 +167,38 @@
         "LR_engaged": 0.7195444703102112,
         "engage": 0.8234338164329529,
         "pr_auc": 0.605106929961988
+      },
+      "7": {
+        "select": 0.6261640191078186,
+        "matched": 0.6115139126777649,
+        "zero_shot": 0.6175031065940857,
+        "LR_engaged": 0.7187657356262207,
+        "engage": 0.8233941793441772,
+        "pr_auc": 0.6057236257340366
+      },
+      "8": {
+        "select": 0.6251811981201172,
+        "matched": 0.6104491353034973,
+        "zero_shot": 0.6177990436553955,
+        "LR_engaged": 0.7183523178100586,
+        "engage": 0.8223867416381836,
+        "pr_auc": 0.6028525205343013
+      },
+      "9": {
+        "select": 0.624311625957489,
+        "matched": 0.6094656586647034,
+        "zero_shot": 0.6183210015296936,
+        "LR_engaged": 0.7178999185562134,
+        "engage": 0.8215277791023254,
+        "pr_auc": 0.5998208725237631
+      },
+      "10": {
+        "select": 0.6241138577461243,
+        "matched": 0.6095157265663147,
+        "zero_shot": 0.6185635924339294,
+        "LR_engaged": 0.7178457379341125,
+        "engage": 0.8216512203216553,
+        "pr_auc": 0.6020453695063939
       }
     },
     "reference": {
@@ -197,6 +233,30 @@
         "LR_engaged": 0.7180987596511841,
         "engage": 0.8218992352485657,
         "pr_auc": 0.6000234733224258
+      },
+      "5": {
+        "select": 0.6230844259262085,
+        "matched": 0.6084631085395813,
+        "zero_shot": 0.6160662174224854,
+        "LR_engaged": 0.7170979380607605,
+        "engage": 0.8210028409957886,
+        "pr_auc": 0.5975207818605005
+      },
+      "6": {
+        "select": 0.6208938956260681,
+        "matched": 0.6061543226242065,
+        "zero_shot": 0.6165133118629456,
+        "LR_engaged": 0.7160242199897766,
+        "engage": 0.818992555141449,
+        "pr_auc": 0.5911064706198893
+      },
+      "7": {
+        "select": 0.6194260120391846,
+        "matched": 0.6046270728111267,
+        "zero_shot": 0.617302656173706,
+        "LR_engaged": 0.7148650884628296,
+        "engage": 0.8181223273277283,
+        "pr_auc": 0.5887895503746875
       }
     }
   },
@@ -299,7 +359,7 @@
         "dwell_expected": 210.49256984280447,
         "dwell_viterbi_mean": 210.338782182264,
         "predicted": {
-          "left": 0.47242106622785435,
+          "left": 0.4724210662278544,
           "right": 0.5026697312985121,
           "ignore": 0.024909202473626192
         },
@@ -351,7 +411,7 @@
         "predicted": {
           "left": 0.36990600610983554,
           "right": 0.3821841402622424,
-          "ignore": 0.24790985362790413
+          "ignore": 0.24790985362790416
         },
         "observed": {
           "n_trials": 805669,
@@ -408,6 +468,34 @@
         "median_gap": 0.0001166548817844926,
         "max_gap": 0.0009006543146168733,
         "n_converged": 20
+      },
+      "7": {
+        "n_restarts": 20,
+        "n_at_best": 5,
+        "median_gap": 0.00044485194680206867,
+        "max_gap": 0.0009796026298476087,
+        "n_converged": 20
+      },
+      "8": {
+        "n_restarts": 20,
+        "n_at_best": 2,
+        "median_gap": 0.00040635799377678334,
+        "max_gap": 0.0014183351675381617,
+        "n_converged": 20
+      },
+      "9": {
+        "n_restarts": 20,
+        "n_at_best": 4,
+        "median_gap": 0.00030034511463176105,
+        "max_gap": 0.0015289361104402386,
+        "n_converged": 19
+      },
+      "10": {
+        "n_restarts": 20,
+        "n_at_best": 1,
+        "median_gap": 0.0006691378107523886,
+        "max_gap": 0.0038611416103675866,
+        "n_converged": 18
       }
     },
     "reference": {
@@ -437,6 +525,27 @@
         "n_at_best": 8,
         "median_gap": 0.0002020709896512166,
         "max_gap": 0.0007999939357859208,
+        "n_converged": 20
+      },
+      "5": {
+        "n_restarts": 20,
+        "n_at_best": 3,
+        "median_gap": 0.0003974131919022685,
+        "max_gap": 0.0008052498104178867,
+        "n_converged": 20
+      },
+      "6": {
+        "n_restarts": 20,
+        "n_at_best": 8,
+        "median_gap": 0.00044006687730002714,
+        "max_gap": 0.0010483358797643751,
+        "n_converged": 20
+      },
+      "7": {
+        "n_restarts": 20,
+        "n_at_best": 5,
+        "median_gap": 0.00041193188253187796,
+        "max_gap": 0.0012950911603699863,
         "n_converged": 20
       }
     }

@@ -145,21 +145,56 @@ def recompute_posteriors(fit, trials):
     return pd.concat(frames, ignore_index=True)
 
 
-def load_heldout_trials():
-    """The held-out cohort's trials, from the loader the runs used."""
+def load_cohorts():
+    """Both cohorts through the loader the runs used, as the trainer receives them.
+
+    Returns the held-out cohort's trials (for the state summaries) and, as wrapper session
+    records, the eval sessions of the training cohort and of the held-out cohort (for the
+    global-fit scores).
+    """
     wrapper, dispatcher = Path(os.environ["WRAPPER_ROOT"]), Path(os.environ["DISPATCHER_ROOT"])
     sys.path.insert(0, str(wrapper / "code"))
     from hydra import compose, initialize_config_dir
     from hydra.utils import instantiate
+    from model_trainers.glmhmm_trainer import _sessions
 
     with initialize_config_dir(config_dir=str(dispatcher / "code" / "config"), version_base=None):
         cfg = compose(config_name="config", overrides=DATA_OVERRIDES + ["model=glmhmm"])
-    loader = instantiate(cfg.data, split="heldout", multisubject=True, subject_ids=None)
-    raw = loader.load().raw
+    train = instantiate(cfg.data).load()
+    heldout = instantiate(cfg.data, split="heldout", multisubject=True, subject_ids=None).load()
+    train_eval = _sessions(train.raw, list(train.metadata["eval_session_ids"]))
+    heldout_eval = _sessions(heldout.raw, list(heldout.metadata["eval_session_ids"]))
+    raw = heldout.raw
     raw = raw.assign(subject_id=raw["subject_id"].astype(str), ses_idx=raw["ses_idx"].astype(str))
     keep = ["subject_id", "ses_idx", "trial", "animal_response", "earned_reward",
             "reward_probabilityL", "reward_probabilityR"]
-    return raw[keep].sort_values(["subject_id", "ses_idx", "trial"]).reset_index(drop=True)
+    trials = raw[keep].sort_values(["subject_id", "ses_idx", "trial"]).reset_index(drop=True)
+    return trials, train_eval, heldout_eval
+
+
+def global_fit_score(fit, records):
+    """The global fit alone (no per-subject refit) scored on ``records``, as the trainer scores.
+
+    On the training cohort's eval sessions this is how Faeze chose K: held-out sessions of the
+    same mice, scored with the pooled parameters.
+    """
+    import jax
+    from aind_dynamic_foraging_models.glm_hmm import GLMHMM, make_buckets, predictive_log_probs
+    from model_trainers.glmhmm_trainer import score_sessions
+
+    cfg, g = fit["config"], fit["global"]
+    K, L = int(cfg["num_states"]), int(cfg["n_lags"])
+    model = GLMHMM(K, L, cfg["emission"], cfg["num_newton_steps"])
+    params, _ = model.initialize(initial_probs=np.asarray(g["initial_probs"]),
+                                 transition_matrix=np.asarray(g["transition_matrix"]),
+                                 **{k: np.asarray(v) for k, v in g["emissions"].items()})
+    buckets = make_buckets([(r["choices"], r["rewards"]) for r in records], L, cfg["design"],
+                           cfg["bucket_size"])
+    lp = predictive_log_probs(model, params, buckets)
+    out = score_sessions(records, [lp[i] for i in range(len(records))])
+    jax.clear_caches()
+    return {k: out[k] for k in ("eval_likelihood", "eval_likelihood_LR_engaged",
+                                "eval_likelihood_engage", "eval_log_lik_sum", "num_eval_trials")}
 
 
 def class_probs(emission, n_lags, emissions, inputs):
@@ -194,6 +229,24 @@ def build_all_inputs(trials, n_lags):
         blocks.append(build_inputs(session["choice"].to_numpy(), session["reward"].to_numpy(),
                                    n_lags))
     return np.concatenate(blocks)
+
+
+def example_predictions(fit, trials, rows):
+    """One-step predictions of one example session under its subject's refit parameters."""
+    from aind_dynamic_foraging_models.glm_hmm import GLMHMM, make_buckets, predictive_log_probs
+
+    cfg = fit["config"]
+    K, L = int(cfg["num_states"]), int(cfg["n_lags"])
+    model = GLMHMM(K, L, cfg["emission"], cfg["num_newton_steps"])
+    p = fit["subjects"][str(trials.loc[rows[0], "subject_id"])]
+    params, _ = model.initialize(initial_probs=np.asarray(p["initial_probs"]),
+                                 transition_matrix=np.asarray(p["transition_matrix"]),
+                                 **{k: np.asarray(v) for k, v in p["emissions"].items()})
+    buckets = make_buckets([(trials.loc[rows, "choice"].to_numpy(), trials.loc[rows, "reward"].to_numpy())],
+                           L, cfg["design"], cfg["bucket_size"])
+    prob = np.exp(predictive_log_probs(model, params, buckets)[0])     # (T, 3): left, right, ignore
+    return {"p_right_given_respond": np.round(prob[:, 1] / (prob[:, 0] + prob[:, 1]), 3).tolist(),
+            "p_ignore": np.round(prob[:, 2], 3).tolist()}
 
 
 def run_lengths(states, sessions):
@@ -267,6 +320,17 @@ def state_summaries(run, trials, inputs):
 
     sessions = trials["ses_idx"].to_numpy()
     run_state, run_len = run_lengths(viterbi, sessions)
+    run_starts = np.r_[0, np.cumsum(run_len)[:-1]]
+    runs_per_session = pd.Series(sessions[run_starts]).value_counts()
+    switching = {"sessions": int(len(runs_per_session)),
+                 "share_with_a_switch": float((runs_per_session > 1).mean()),
+                 "mean_switches": float((runs_per_session - 1).mean())}
+    # How much of each state's use comes from a few mice: the share of its occupancy held by the
+    # top 10% of subjects (15 of 149), against 10% if every mouse used it equally.
+    by_subject = pd.DataFrame(gamma).groupby(trials["subject_id"].to_numpy()).sum()
+    top = max(1, int(round(0.1 * len(by_subject))))
+    concentration = [float(np.sort(by_subject[k].to_numpy())[::-1][:top].sum() / by_subject[k].sum())
+                     for k in range(K)]
     dwell = []
     for k in range(K):
         lengths = run_len[run_state == k]
@@ -301,6 +365,8 @@ def state_summaries(run, trials, inputs):
         "occupancy": occupancy,
         "occupancy_by_session_decile": by_position,
         "dwell_viterbi": dwell,
+        "switching_viterbi": switching,
+        "top10pct_subject_share": concentration,
         "states": states,
         "posterior_check_against_trainer": check,
         "alignment": {"n_subjects": len(fit["subjects"]),
@@ -332,7 +398,7 @@ def pick_examples(trials):
 def main():
     runs = find_runs()
     print(f"{len(runs)} finished runs in {len(WANDB_GROUPS)} groups")
-    raw = load_heldout_trials()
+    raw, train_eval, heldout_eval = load_cohorts()
     sample = next(r for k, r in runs.items()
                   if k[0] in K_GRID_GROUPS and (r["dir"] / "files" / "outputs" / "glmhmm" / "heldout_trials.parquet").exists())
     parquet = sample["dir"] / "files" / "outputs" / "glmhmm" / "heldout_trials.parquet"
@@ -386,12 +452,19 @@ def main():
             "wandb_run_id": run["wandb_run_id"], "sha256": digests,
             "ended_normally": run["ended_normally"],
             "summary": summary, "config": fit["config"], "global": fit["global"],
+            "global_fit_scores": {"training_mice_eval": global_fit_score(fit, train_eval),
+                                  "heldout_mice_eval": global_fit_score(fit, heldout_eval)},
             "global_log_joint_trace_len": len(fit["global_log_joint_trace"]),
             "per_subject": per_subject[["subject_id", "n_eval_trials", "eval_log_lik_sum",
                                         "eval_likelihood", "eval_likelihood_LR_engaged",
                                         "eval_likelihood_engage", "em_iters", "converged"]]
             .assign(subject_id=lambda d: d["subject_id"].astype(str)).to_dict(orient="list"),
         }
+        # The held-out global-fit score is the trainer's zero-shot score: recomputing it checks
+        # this freeze scores exactly as the runs did.
+        zero_shot = summary["heldout/zero_shot/eval_likelihood"]
+        if abs(record["global_fit_scores"]["heldout_mice_eval"]["eval_likelihood"] - zero_shot) > 1e-5:
+            raise RuntimeError(f"{run['wandb_run_id']}: recomputed zero-shot differs from the run's {zero_shot}")
         if group in K_GRID_GROUPS:
             if L not in inputs_by_lag:
                 inputs_by_lag[L] = build_all_inputs(trials, L)
@@ -403,6 +476,7 @@ def main():
                 frozen_examples[s]["runs"][run["wandb_run_id"]] = {
                     "smoothed": np.round(g, 3).tolist(),
                     "viterbi": post.loc[rows, "viterbi"].astype(int).tolist(),
+                    **example_predictions(fit, trials, rows),
                 }
             print(f"  {group} K={K}: states frozen")
         frozen_runs.append(record)

@@ -60,6 +60,11 @@ def gru_d614():
     return out
 
 
+def global_same_mice(run):
+    """The global fit alone on the training mice's eval sessions: how Faeze chose K."""
+    return run["global_fit_scores"]["training_mice_eval"]["eval_likelihood"]
+
+
 def grid(runs, emission):
     """The K-grid runs of one emission, by K."""
     return {r["num_states"]: r for r in runs
@@ -127,7 +132,7 @@ def fig_scores(grids, lags, gru, path):
     ax.set(xlabel="history length L (K = 1)", ylabel="selection score", xticks=[3, 5, 7, 10, 15])
     ax.legend(frameon=False)
     fs.panel_label(ax, "a")
-    panels = [("select", "selection score (training mice)", None, "b"),
+    panels = [("select", "training mice, unseen sessions", None, "b"),
               ("matched", "held-out 3-way likelihood", "matched", "c"),
               ("LR_engaged", "held-out L/R on engaged trials", "LR_engaged", "d"),
               ("engage", "held-out engage vs ignore", "engage", "e"),
@@ -139,7 +144,10 @@ def fig_scores(grids, lags, gru, path):
                     color=COLORS[e], ms=3, label=e)
             if name == "matched":
                 ax.plot(Ks, [grids[e][k]["summary"][SCORES["zero_shot"]] for k in Ks], "o--",
-                        color=COLORS[e], ms=2, alpha=0.6, label=f"{e}, zero-shot")
+                        color=COLORS[e], ms=2, alpha=0.6, label=f"{e}, global fit only")
+            if name == "select":
+                ax.plot(Ks, [global_same_mice(grids[e][k]) for k in Ks], "s--", color=COLORS[e],
+                        ms=2, alpha=0.6, label=f"{e}, global fit only (Faeze's choice)")
         if gru_key:
             for H, ls in ((128, ":"), (256, "-.")):
                 if H in gru:
@@ -247,38 +255,82 @@ def fig_states(run, path):
 
 
 def fig_examples(examples, run, path):
-    """Example held-out sessions: blocks, choices and rewards, and the state posterior."""
+    """Example held-out sessions, drawn with the lab's session plot, and the state posterior."""
+    from aind_dynamic_foraging_basic_analysis.plot.plot_foraging_session import plot_foraging_session
+
     order = state_order(run)
     K = run["num_states"]
     n = len(examples)
-    fig, axes = plt.subplots(2 * n, 1, figsize=fs.mm(183, 32 * n), layout="constrained",
-                             gridspec_kw={"height_ratios": [1.2, 1] * n})
+    fig = plt.figure(figsize=fs.mm(183, 52 * n), layout="constrained")
+    gs = fig.add_gridspec(2 * n, 1, height_ratios=[2.2, 0.7] * n)
+    pairs = []
     for i, (ses, ex) in enumerate(sorted(examples.items())):
-        top, bot = axes[2 * i], axes[2 * i + 1]
-        t = np.arange(len(ex["choice"]))
-        top.plot(t, ex["pR"], color=fs.OKABE_ITO["blue"], lw=0.7, label="p(reward), right")
-        top.plot(t, ex["pL"], color=fs.OKABE_ITO["vermillion"], lw=0.7, label="p(reward), left")
-        choice, reward = np.asarray(ex["choice"]), np.asarray(ex["reward"])
-        for side, y, c in ((1, 1.08, fs.OKABE_ITO["blue"]), (0, -0.08, fs.OKABE_ITO["vermillion"])):
-            m = choice == side
-            top.vlines(t[m & (reward == 1)], y - 0.05, y + 0.05, color=c, lw=0.6)
-            top.vlines(t[m & (reward == 0)], y - 0.02, y + 0.02, color=c, lw=0.4, alpha=0.6)
-        top.vlines(t[choice == 2], 0.46, 0.54, color="0.5", lw=0.5)
-        top.set(ylim=(-0.15, 1.15), xlim=(0, len(t)), ylabel="p(reward)", xticks=[])
-        top.set_title(f"mouse {ex['subject_id']}, {ex['stage']}, {len(t)} trials, "
-                      f"{100 * np.mean(choice == 2):.0f}% ignored. Lines: p(reward) right (blue), "
-                      "left (vermillion). Ticks: right (top) and left (bottom) choices, long = "
-                      "rewarded; grey = ignore", loc="left")
-        post = np.asarray(ex["runs"][run["wandb_run_id"]]["smoothed"])[:, order]
+        choice = np.asarray(ex["choice"], float)
+        choice[choice == 2] = np.nan                       # the util's code for an ignored trial
+        pred = ex["runs"][run["wandb_run_id"]]
+        holder = fig.add_subplot(gs[2 * i])        # the util replaces it with its own two axes
+        _, (ax_choice, ax_schedule) = plot_foraging_session(
+            choice, np.asarray(ex["reward"], bool), np.vstack([ex["pL"], ex["pR"]]),
+            fitted_data=np.asarray(pred["p_right_given_respond"]), ax=holder)
+        if holder.figure is not None:
+            holder.remove()
+        if i > 0:   # the util's legends once, on the first session
+            for ax in (ax_choice, ax_schedule):
+                if ax.get_legend() is not None:
+                    ax.get_legend().remove()
+        ax_choice.set_title(f"mouse {ex['subject_id']}, {ex['stage']}, {len(choice)} trials, "
+                            f"{100 * np.mean(np.isnan(choice)):.0f}% ignored; overlay: model "
+                            "p(right | respond)", loc="left", pad=14)
+        fs.panel_label(ax_choice, "abcdefgh"[i], dy_pt=14)
+        bot = fig.add_subplot(gs[2 * i + 1])
+        t = np.arange(1, len(choice) + 1)                  # the util numbers trials from 1
+        post = np.asarray(pred["smoothed"])[:, order]
         bot.stackplot(t, post.T, colors=[STATE_COLORS[j % 10] for j in range(K)], lw=0,
-                      labels=[str(j + 1) for j in range(K)])
-        bot.set(ylim=(0, 1), xlim=(0, len(t)), ylabel="p(state)")
+                      labels=[f"state {j + 1}" for j in range(K)])
+        bot.set(ylim=(0, 1), ylabel="p(state)")
         if i == 0:
-            bot.legend(frameon=False, fontsize=5, ncol=K, loc="lower right", title="state",
-                       title_fontsize=5)
-        if i == n - 1:
-            bot.set_xlabel("trial")
-        fs.panel_label(top, "abcdefgh"[i])
+            bot.legend(frameon=False, fontsize=5, ncol=K, loc="lower right")
+        pairs.append((ax_choice, bot))
+    # The util lays out its own axes, so after layout pin each posterior strip to its session's
+    # x position and range: trial t sits at the same x in both.
+    fig.canvas.draw()
+    fig.set_layout_engine("none")
+    for ax_choice, bot in pairs:
+        top_box, box = ax_choice.get_position(), bot.get_position()
+        bot.set_position([top_box.x0, box.y0, top_box.width, box.height])
+        bot.set_xlim(ax_choice.get_xlim())
+    fs.save_figure(fig, path)
+    plt.close(fig)
+
+
+def fig_timescales(grids, path):
+    """How long states last, how often sessions switch, and whether states belong to a few mice."""
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(165, 52), layout="constrained")
+    for e in EMISSIONS:
+        Ks = [K for K in sorted(grids[e]) if K > 1 and "state_summary" in grids[e][K]]
+        if not Ks:
+            continue
+        sw = [grids[e][K]["state_summary"]["switching_viterbi"]["share_with_a_switch"] for K in Ks]
+        dwell = []
+        conc = []
+        for K in Ks:
+            run = grids[e][K]
+            A = np.asarray(run["global"]["transition_matrix"])
+            occ = np.asarray(run["state_summary"]["occupancy"]["all"])
+            dwell.append(float((occ / (1 - np.diag(A))).sum()))
+            conc.append(float(max(run["state_summary"]["top10pct_subject_share"])))
+        axes[0].plot(Ks, sw, "o-", color=COLORS[e], ms=3, label=e)
+        axes[1].plot(Ks, dwell, "o-", color=COLORS[e], ms=3, label=e)
+        axes[2].plot(Ks, conc, "o-", color=COLORS[e], ms=3, label=e)
+    axes[0].set(xlabel="states K", ylabel="held-out sessions with a switch", ylim=(0, 1))
+    axes[1].set(xlabel="states K", ylabel="expected dwell (trials)")
+    axes[2].axhline(0.1, color="0.6", ls=":", lw=0.7)
+    axes[2].set(xlabel="states K", ylabel="top 10% of mice's share", ylim=(0, 1),
+                title="most mouse-specific state")
+    axes[0].legend(frameon=False)
+    for ax, letter in zip(axes, "abc"):
+        ax.set_xticks(range(2, 11))
+        fs.panel_label(ax, letter)
     fs.save_figure(fig, path)
     plt.close(fig)
 
@@ -357,23 +409,25 @@ def f4(x):
 
 def block_scores(grids, lags, gru, selected):
     """result-1: scores against K, the lag scan and the GRU."""
-    lines = ["Geometric-mean per-trial likelihoods. **selection**: training mice, per-mouse refits "
-             "scored on their eval sessions (chooses K and L). **held-out**: 149 mice, their eval "
-             "sessions; *matched* = per-mouse refit (the GRU's fine-tune protocol), *zero-shot* = "
-             "global fit only. GRU = study 02 r1's 3-way GRU at D = 614, mean of 3 seeds. Bold = "
-             "each emission's best selection score. One seed per GLM-HMM cell: no error bars.",
-             "", "| emission | K | selection | held-out matched | zero-shot | L/R engaged | engage | ignore PR-AUC |",
-             "|---|---|---|---|---|---|---|---|"]
+    lines = ["Each score is the geometric-mean probability given to the mouse's actual choice on "
+             "sessions never fitted (chance 1/3). *Refit*: training mice, after the per-mouse refit "
+             "(study 14's selection score; bold = each emission's best). *Global fit, same mice*: "
+             "training mice, global fit only (Faeze's way of choosing K). *Held-out*: 149 new mice, "
+             "with refit (matched, the GRU's protocol) and global fit only (zero-shot). GRU = study "
+             "02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error "
+             "bars.",
+             "", "| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | L/R engaged | engage | ignore PR-AUC |",
+             "|---|---|---|---|---|---|---|---|---|"]
     for e in EMISSIONS:
         for K, run in sorted(grids[e].items()):
             s = run["summary"]
             sel = f4(s[SCORES["select"]])
             if K == selected.get(e):
                 sel = f"**{sel}**"
-            lines.append(f"| {e} | {K} | {sel} | {f4(s[SCORES['matched']])} | {f4(s[SCORES['zero_shot']])} | "
+            lines.append(f"| {e} | {K} | {sel} | {f4(global_same_mice(run))} | {f4(s[SCORES['matched']])} | {f4(s[SCORES['zero_shot']])} | "
                          f"{f4(s[SCORES['LR_engaged']])} | {f4(s[SCORES['engage']])} | {f4(s[SCORES['pr_auc']])} |")
     for H, g in gru.items():
-        lines.append(f"| GRU H{H} (study 02) | — | — | {f4(g['matched'])} | — | {f4(g['LR_engaged'])} | "
+        lines.append(f"| GRU H{H} (study 02) | — | — | — | {f4(g['matched'])} | — | {f4(g['LR_engaged'])} | "
                      f"{f4(g['engage'])} | {f4(g['pr_auc'])} |")
     Ls = sorted(set(lags["hurdle"]) | set(lags["reference"]))
     lines += ["", "**Lag scan** (K = 1, selection score; L = 15 from the follow-up launch):", "",
@@ -463,6 +517,8 @@ def main() -> None:
     fig_restarts(grids, figs[1])
     figs.append(HERE / "fig_r1_state_map.svg")
     fig_state_map(grids, selected, figs[-1])
+    figs.append(HERE / "fig_r1_timescales.svg")
+    fig_timescales(grids, figs[-1])
     for e, K in selected.items():
         run = grids[e][K]
         for name in ("weights", "states", "examples"):

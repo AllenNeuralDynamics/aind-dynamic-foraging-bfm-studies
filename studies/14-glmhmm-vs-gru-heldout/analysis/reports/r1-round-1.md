@@ -24,46 +24,70 @@ tags:
 ---
 # r1 — GLM-HMM round 1: held-out score vs K, and what the states are
 
-**Question.** On the GRU's own cohort, split and metric code, how well does a GLM-HMM over
-left / right / ignore predict held-out mice as the number of states K grows? Which emission
-(hurdle or reference) does better, and how close does it get to the 3-way GRU? What do the
-states of the selected model look like?
+**Question.** We fit a GLM-HMM to the GRU's own mice, sessions and metric code. How well does it
+predict new sessions as the number of states K grows? Which of its two emissions does better?
+How close does it get to the 3-way GRU? And what do its states look like?
 
-**Method.** Snapshot 20260603, ignores included (study 02's 3-way setup).
-- **Global fit:** the 614 training mice's train (even) sessions, 4,887,818 trials. K = 1 first,
-  then 20 restarts from its weights plus noise; the best log joint is kept. EM cap 500,
-  tolerance 1e-6 nats/trial.
-- **Per-mouse refits:** MAP refits (σ = 2, α = 2) starting from the global fit.
-- **Scores:** the forward filter's one-step-ahead predictions, through the wrapper's GRU metric
-  code.
-- **Selection score:** the training mice's per-mouse refits, scored on their eval (odd) sessions.
-  It chooses L (lag scan, K = 1) and K (argmax).
-- **Held-out score:** the same refit protocol on the 149 held-out mice, reported and never used
-  to choose.
-- **History length** L = 10, from the lag scan. A follow-up launch added L = 15.
-- **Comparator:** study 02 r1's 3-way GRU at D = 614, read from its committed `frozen_runs.json`.
-- **States:** taken from the per-mouse refits' smoothed posteriors and Viterbi paths over each
-  held-out mouse's sessions. The refits start from the global states, and the alignment
-  diagnostic (result-3) checks they stay in order.
+**The model.** A GLM-HMM assumes the mouse is in one of K hidden *states* on every trial. In
+each state it chooses left, right or ignore by its own logistic regression on the last
+L = 10 trials. From one trial to the next it stays in its state or moves to another, by a
+fixed *transition matrix* A.
+- The **hurdle** emission splits each choice into two decisions. First, respond or not, from
+  unsigned history (past ignores and rewards). Then left or right, from signed history (past
+  rewarded and unrewarded choices).
+- The **reference** emission is one three-way regression on all the history, with ignore as the
+  baseline class. It is the form Faeze used.
+
+**How it is fitted.** Snapshot 20260603, ignores included (study 02's 3-way setup).
+1. **Global fit:** one model for all 614 training mice, on their even-numbered sessions
+   (4,887,818 trials). EM is run from 20 random starts and the best fit is kept.
+2. **Per-mouse refit:** each mouse's own model, started from the global fit and fitted to its
+   even sessions. A prior keeps each weight near 0 (Gaussian, SD 2) and each transition row
+   near uniform (Dirichlet, α = 2).
+
+**Three scores.** Each predicts every trial of a mouse's odd-numbered sessions (never fitted)
+from the trials before it, and averages the probability given to the mouse's actual choice
+(a geometric mean; chance is 1/3).
+- **Refit score:** training mice, after the per-mouse refit. This is study 14's selection
+  score, and it chose L (lag scan) and K.
+- **Global-fit score, same mice:** training mice, global fit only. This is how Faeze chose K.
+- **Held-out scores:** the 149 held-out mice, with refit ("matched", the GRU's protocol) and with
+  the global fit only ("zero-shot"). Reported, never used to choose.
+
+**Comparator:** study 02 r1's 3-way GRU at D = 614, read from its committed `frozen_runs.json`.
+Its raw 3-way score (≈ 0.63) is on the same scale as ours. Its headline 0.73 is `LR_engaged`,
+left vs right on the trials the mouse responded, with chance 1/2.
+
+**States.** For each held-out session, the *posterior* gives the probability of each state on
+each trial, given the whole session. The *Viterbi path* is the single most likely state
+sequence. The state figures use the per-mouse refits' posteriors. The refits start from the
+global states, and result-3 checks that they keep the same order.
 
 <!-- BEGIN result-1 -->
-Geometric-mean per-trial likelihoods. **selection**: training mice, per-mouse refits scored on their eval sessions (chooses K and L). **held-out**: 149 mice, their eval sessions; *matched* = per-mouse refit (the GRU's fine-tune protocol), *zero-shot* = global fit only. GRU = study 02 r1's 3-way GRU at D = 614, mean of 3 seeds. Bold = each emission's best selection score. One seed per GLM-HMM cell: no error bars.
+Each score is the geometric-mean probability given to the mouse's actual choice on sessions never fitted (chance 1/3). *Refit*: training mice, after the per-mouse refit (study 14's selection score; bold = each emission's best). *Global fit, same mice*: training mice, global fit only (Faeze's way of choosing K). *Held-out*: 149 new mice, with refit (matched, the GRU's protocol) and global fit only (zero-shot). GRU = study 02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error bars.
 
-| emission | K | selection | held-out matched | zero-shot | L/R engaged | engage | ignore PR-AUC |
-|---|---|---|---|---|---|---|---|
-| hurdle | 1 | 0.6227 | 0.6081 | 0.5997 | 0.7187 | 0.8188 | 0.6020 |
-| hurdle | 2 | 0.6278 | 0.6139 | 0.6086 | 0.7195 | 0.8259 | 0.6139 |
-| hurdle | 3 | **0.6289** | 0.6148 | 0.6139 | 0.7207 | 0.8258 | 0.6136 |
-| hurdle | 4 | 0.6284 | 0.6143 | 0.6153 | 0.7203 | 0.8255 | 0.6122 |
-| hurdle | 5 | 0.6278 | 0.6136 | 0.6163 | 0.7200 | 0.8250 | 0.6110 |
-| hurdle | 6 | 0.6266 | 0.6121 | 0.6167 | 0.7195 | 0.8234 | 0.6051 |
-| reference | 1 | 0.6228 | 0.6079 | 0.5996 | 0.7191 | 0.8182 | 0.5984 |
-| reference | 2 | **0.6262** | 0.6119 | 0.6088 | 0.7189 | 0.8238 | 0.6072 |
-| reference | 3 | 0.6261 | 0.6116 | 0.6138 | 0.7194 | 0.8228 | 0.6048 |
-| reference | 4 | 0.6243 | 0.6099 | 0.6151 | 0.7181 | 0.8219 | 0.6000 |
-| GRU H64 (study 02) | — | — | 0.6249 | — | 0.7282 | 0.8316 | 0.6320 |
-| GRU H128 (study 02) | — | — | 0.6273 | — | 0.7303 | 0.8326 | 0.6362 |
-| GRU H256 (study 02) | — | — | 0.6288 | — | 0.7315 | 0.8334 | 0.6389 |
+| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | L/R engaged | engage | ignore PR-AUC |
+|---|---|---|---|---|---|---|---|---|
+| hurdle | 1 | 0.6227 | 0.6143 | 0.6081 | 0.5997 | 0.7187 | 0.8188 | 0.6020 |
+| hurdle | 2 | 0.6278 | 0.6228 | 0.6139 | 0.6086 | 0.7195 | 0.8259 | 0.6139 |
+| hurdle | 3 | **0.6289** | 0.6280 | 0.6148 | 0.6139 | 0.7207 | 0.8258 | 0.6136 |
+| hurdle | 4 | 0.6284 | 0.6294 | 0.6143 | 0.6153 | 0.7203 | 0.8255 | 0.6122 |
+| hurdle | 5 | 0.6278 | 0.6305 | 0.6136 | 0.6163 | 0.7200 | 0.8250 | 0.6110 |
+| hurdle | 6 | 0.6266 | 0.6309 | 0.6121 | 0.6167 | 0.7195 | 0.8234 | 0.6051 |
+| hurdle | 7 | 0.6262 | 0.6317 | 0.6115 | 0.6175 | 0.7188 | 0.8234 | 0.6057 |
+| hurdle | 8 | 0.6252 | 0.6322 | 0.6104 | 0.6178 | 0.7184 | 0.8224 | 0.6029 |
+| hurdle | 9 | 0.6243 | 0.6325 | 0.6095 | 0.6183 | 0.7179 | 0.8215 | 0.5998 |
+| hurdle | 10 | 0.6241 | 0.6329 | 0.6095 | 0.6186 | 0.7178 | 0.8217 | 0.6020 |
+| reference | 1 | 0.6228 | 0.6143 | 0.6079 | 0.5996 | 0.7191 | 0.8182 | 0.5984 |
+| reference | 2 | **0.6262** | 0.6229 | 0.6119 | 0.6088 | 0.7189 | 0.8238 | 0.6072 |
+| reference | 3 | 0.6261 | 0.6280 | 0.6116 | 0.6138 | 0.7194 | 0.8228 | 0.6048 |
+| reference | 4 | 0.6243 | 0.6292 | 0.6099 | 0.6151 | 0.7181 | 0.8219 | 0.6000 |
+| reference | 5 | 0.6231 | 0.6303 | 0.6085 | 0.6161 | 0.7171 | 0.8210 | 0.5975 |
+| reference | 6 | 0.6209 | 0.6309 | 0.6062 | 0.6165 | 0.7160 | 0.8190 | 0.5911 |
+| reference | 7 | 0.6194 | 0.6318 | 0.6046 | 0.6173 | 0.7149 | 0.8181 | 0.5888 |
+| GRU H64 (study 02) | — | — | — | 0.6249 | — | 0.7282 | 0.8316 | 0.6320 |
+| GRU H128 (study 02) | — | — | — | 0.6273 | — | 0.7303 | 0.8326 | 0.6362 |
+| GRU H256 (study 02) | — | — | — | 0.6288 | — | 0.7315 | 0.8334 | 0.6389 |
 
 **Lag scan** (K = 1, selection score; L = 15 from the follow-up launch):
 
@@ -115,10 +139,17 @@ Geometric-mean per-trial likelihoods. **selection**: training mice, per-mouse re
 | hurdle | 4 | 2/20 | 4.5e-04 | 20/20 | 48 | 122/149 | 1.3 |
 | hurdle | 5 | 12/20 | 4.2e-05 | 20/20 | 66 | 94/149 | 1.9 |
 | hurdle | 6 | 8/20 | 1.2e-04 | 20/20 | 109 | 31/149 | 2.9 |
+| hurdle | 7 | 5/20 | 4.4e-04 | 20/20 | 180 | 42/149 | 4.1 |
+| hurdle | 8 | 2/20 | 4.1e-04 | 20/20 | 295 | 20/149 | 5.2 |
+| hurdle | 9 | 4/20 | 3.0e-04 | 19/20 | 281 | 6/149 | 7.8 |
+| hurdle | 10 | 1/20 | 6.7e-04 | 18/20 | 371 | 6/149 | 9.5 |
 | reference | 1 | 1/1 | 0.0e+00 | 1/1 | 2 | 149/149 | 0.1 |
 | reference | 2 | 20/20 | 6.6e-07 | 20/20 | 34 | 148/149 | 1.2 |
 | reference | 3 | 20/20 | 5.9e-06 | 20/20 | 27 | 132/149 | 1.4 |
 | reference | 4 | 8/20 | 2.0e-04 | 20/20 | 65 | 116/149 | 2.6 |
+| reference | 5 | 3/20 | 4.0e-04 | 20/20 | 136 | 75/149 | 4.4 |
+| reference | 6 | 8/20 | 4.4e-04 | 20/20 | 384 | 51/149 | 7.8 |
+| reference | 7 | 5/20 | 4.1e-04 | 20/20 | 126 | 27/149 | 9.4 |
 
 ![restarts](../fig_r1_restarts.svg)
 <!-- END result-3 -->
