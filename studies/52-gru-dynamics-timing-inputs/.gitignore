@@ -1,0 +1,6 @@
+# Caches are never committed and never an input (schemas/layout.yaml: cache_pattern)
+analysis/*cache*
+__pycache__/
+# PNG drafts stay local until the figures are redrawn as paper-style SVGs
+# (studies/util/figure_style.py); CI rejects PNG figures.
+*.png

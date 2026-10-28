@@ -1,0 +1,75 @@
+{
+  "_meta": {
+    "produced_by": "analysis/a2_align_with_c.py",
+    "produced_at_pt": "2026-10-26T13:59:39-07:00",
+    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "wrapper_git_sha": null,
+    "wandb_groups": []
+  },
+  "key": "L-s0",
+  "alignment": {
+    "rows": {
+      "model": 4339402,
+      "C": 4339402,
+      "shared": 4339402
+    },
+    "sessions": {
+      "model": 8903,
+      "C": 8903
+    },
+    "same_actions": true,
+    "same_rewards": true
+  },
+  "overall": {
+    "n_trials": 4339402,
+    "n_sessions": 8903,
+    "n_subjects": 614,
+    "likelihood": 0.7421974335327111,
+    "likelihood_C": 0.7338507031876187,
+    "diff": 0.008346730345092368,
+    "share_of_total_log_gain": 1.0
+  },
+  "by_rt_availability": {
+    "rt_present": {
+      "n_trials": 3259324,
+      "n_sessions": 7076,
+      "n_subjects": 506,
+      "likelihood": 0.7569620035578837,
+      "likelihood_C": 0.7476497299550214,
+      "diff": 0.009312273602862242,
+      "share_of_total_log_gain": 0.8220798189419288
+    },
+    "rt_partial": {
+      "n_trials": 48342,
+      "n_sessions": 168,
+      "n_subjects": 119,
+      "likelihood": 0.7488086465200363,
+      "likelihood_C": 0.7441927917904414,
+      "diff": 0.004615854729594915,
+      "share_of_total_log_gain": 0.006090704473629139
+    },
+    "rt_absent": {
+      "n_trials": 1031736,
+      "n_sessions": 1659,
+      "n_subjects": 111,
+      "likelihood": 0.6971308921928573,
+      "likelihood_C": 0.6914560977729886,
+      "diff": 0.005674794419868734,
+      "share_of_total_log_gain": 0.17182947658444192
+    }
+  },
+  "rt_missing": {
+    "trials": 1033401,
+    "sessions_all_missing": 1659,
+    "sessions_partial": 168,
+    "subjects_all_missing": 108,
+    "fraction_by_task": {
+      "<missing>": 0.0,
+      "Coupled Baiting": 0.6197,
+      "Coupled Without Baiting": 0.0019,
+      "Random Walk": 1.0,
+      "Uncoupled Baiting": 0.0003,
+      "Uncoupled Without Baiting": 0.2497
+    }
+  }
+}
