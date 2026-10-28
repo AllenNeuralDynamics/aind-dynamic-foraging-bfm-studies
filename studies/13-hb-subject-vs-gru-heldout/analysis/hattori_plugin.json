@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_plugin.py",
-    "produced_at_pt": "2026-10-27T21:18:32-07:00",
-    "studies_git_sha": "562f814c89ab0d90530421a851aaba3bb4bdcbb8",
+    "produced_at_pt": "2026-10-27T22:11:40-07:00",
+    "studies_git_sha": "8a5268778d8cc20ba55c8d83746a4f1df52e4f60",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -43,11 +43,11 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
-        "sha256": "6b3d4c6a82dcaecc27a915b87abb01e5f953cbc01d8ec808661e3cc87c45e1d7"
+        "sha256": "d54d566f43b3a2196f7c0991cb4d9344bea8cbd537d507c2144b04987ca3483a"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
-        "sha256": "feeed0fbf22a2cbef3e9dd1ce653294c86ce684d8b8746704ea68ec2c198df33"
+        "sha256": "f54e7bb607dceb6bd1e51b844ca8a29820dca089ce38ed3ed4b9db80d0d09544"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/variants/hattori/launch_record/production/hpc_sweep.json",
