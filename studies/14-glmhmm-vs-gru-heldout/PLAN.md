@@ -67,11 +67,12 @@ One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
   refits, run 10 at a time in threads, with identical results
   (AllenNeuralDynamics/aind-dynamic-foraging-models#86).
   - Measured at K = 10, hurdle, L = 5: ten restarts at once finish 3.1× sooner than one after
-    another on 8 cores and 5.1× on 32, and refits 3.2× sooner. Ten restarts use about 31 GB.
-    Memory bandwidth, not cores, limits the gain, so it is not 10×.
-  - So a K = 10, L = 5 hurdle cell is ≈ 2 h on 32 cores (restarts ≈ 65 min, refits ≈ 35 min),
-    against 9–11 h on 8 cores one fit at a time. L = 10 and the reference emission were not
-    timed with workers.
+    another on 8 cores and 5.1× on 32 (a node nearly to itself), and refits 3.2× sooner. Ten
+    restarts use about 31 GB. A 16-core run on a node shared with other jobs was no faster
+    than 8 cores, so the gain depends on node load.
+  - So a K = 10, L = 5 hurdle cell is ≈ 2–4 h on 32 cores (restarts ≈ 65 min on a quiet node,
+    refits ≈ 35 min), against 9–11 h on 8 cores one fit at a time. The slowest restart sets
+    the restart phase. L = 10 and the reference emission were not timed with workers.
 - **Backend.** HPC CPU, with
   `--sbatch-extra "--cpus-per-task=32 --mem=64G --time=48:00:00"`.
   - On Beaker, the templates use one GPU on the GLM-HMM image, which carries the CUDA solver
