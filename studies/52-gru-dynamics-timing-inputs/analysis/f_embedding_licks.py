@@ -26,6 +26,7 @@ from sklearn.linear_model import LinearRegression  # noqa: E402
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from f_embedding_rt import TASKS, cv_r2, decode, embedding  # noqa: E402
 from _pk03 import CACHE, STUDY12, apply_presentation_style, figure_path, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/f_embedding_licks.py"
 MODELS = {"C": STUDY12 / "analysis" / "_cache" / "models" / "C-s0", "L-s0": CACHE / "models" / "L-s0",
@@ -52,6 +53,7 @@ def mouse_features():
 
 
 def main() -> None:
+    _pk03.use_keys("C-s0", "L-s0", "L-s1")
     apply_presentation_style()
     emb = {n: embedding(r) for n, r in MODELS.items()}
     feats, mix = mouse_features()

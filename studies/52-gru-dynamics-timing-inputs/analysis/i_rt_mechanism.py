@@ -44,6 +44,7 @@ from _pk03 import (  # noqa: E402
     ANALYSIS, CACHE, MODEL_KEY, REWARDED_COLOR, UNREWARDED_COLOR, STUDY12, BASELINE_KEY,
     apply_presentation_style, figure_path, write_json,
 )
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/i_rt_mechanism.py"
 BATCH = 512
@@ -182,6 +183,7 @@ def impulse(step, obs, contexts, t, rows, h_prev):
 
 
 def main(key: str = MODEL_KEY) -> None:
+    _pk03.use_keys(key)
     apply_presentation_style()
     sfx = "" if key == MODEL_KEY else f"_{key}"
     split, step, obs, contexts = build(key)
@@ -197,7 +199,7 @@ def main(key: str = MODEL_KEY) -> None:
     cols, taus = t["col"].to_numpy(), t["tau"].to_numpy()
     present = t["rt_present"].to_numpy()
     intact = replay(step, obs, contexts)[taus, cols]
-    logged = json.loads((ANALYSIS / f"trial_states_{key}.json").read_text())["checks"]["logged_eval_likelihood"]
+    logged = _pk03.read_json(ANALYSIS / f"trial_states_{key}.json")["checks"]["logged_eval_likelihood"]
     checks = {"replay_likelihood": likelihood(intact, action), "logged_likelihood": logged,
               "rt_input_max_abs_error": rt_input_max_err}
     if abs(checks["replay_likelihood"] - logged) > LIKELIHOOD_TOLERANCE:

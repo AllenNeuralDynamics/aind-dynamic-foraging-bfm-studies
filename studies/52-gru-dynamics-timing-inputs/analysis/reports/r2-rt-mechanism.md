@@ -1,3 +1,19 @@
+---
+schema_version: 1
+id: r2
+slug: rt-mechanism
+status: draft
+authors: [pck, claude]
+wandb_groups:
+  - h128-dscan-rt-only@20260823-093058
+inputs:
+  scripts:
+    - analysis/i_rt_mechanism.py
+  data:
+    - analysis/i_rt_mechanism.json
+    - analysis/i_rt_mechanism_R-s1.json
+reproduce: make -C studies/52-gru-dynamics-timing-inputs r2
+---
 # r2 — How the RT input acts in R's dynamics (tier 3, two seeds)
 
 *Producer: `analysis/i_rt_mechanism.py [key]` (stage A, GPU; numbers in

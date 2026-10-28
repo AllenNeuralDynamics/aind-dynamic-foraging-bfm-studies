@@ -3,19 +3,19 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import pyarrow.parquet as pq
 
 STUDY = Path(__file__).resolve().parents[1]
 ANALYSIS = STUDY / "analysis"
 CACHE = ANALYSIS / "_cache"
 STUDY12 = STUDY.parent / "50-gru-dynamics-embedding"
 sys.path.insert(0, str(STUDY.parent / "util"))
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, file_digest, write_artifact  # noqa: E402
 from plot_style import apply_presentation_style  # noqa: E402,F401
 
 MODEL_KEY = "R-s0"
@@ -32,15 +32,66 @@ ANIMAL_COLOR = "#222222"
 MODEL_LABELS = {"mice": "Mice", "R": "RT model (R)", "C": "Choice/reward model (C)"}
 
 
-def wandb_groups() -> list[str]:
-    manifest = json.loads((STUDY / "analysis" / "source_runs.json").read_text())
-    return [manifest["models"][MODEL_KEY.split("-")[0]]["group"]]
+# What this process read, for _meta v2: committed files (``inputs``), the source models by key
+# (C-s0 is Study 50's baseline) and cache files read through load_paired_trials().
+_INPUTS: dict[str, Path] = {}
+_KEYS_READ: dict[str, None] = {}
+_CACHE_READS: dict[str, dict] = {}
 
 
-def write_json(name: str, payload: dict, produced_by: str) -> Path:
+def _rel(path: Path) -> str:
+    """Repository-relative path, without resolving the _cache symlink out of the repository."""
+    return os.path.relpath(path, STUDY.parents[1])
+
+
+def _read_cache(path: Path) -> Path:
+    if str(path) not in _CACHE_READS:
+        _CACHE_READS[str(path)] = {"type": "file", "id": _rel(path), "sha256": file_digest(path)}
+    return path
+
+
+def use_keys(*keys: str) -> None:
+    """Record models whose cache files a producer reads directly (not via load_paired_trials)."""
+    _KEYS_READ.update(dict.fromkeys(keys))
+
+
+def read_json(path: Path | str) -> dict:
+    """Parse a committed JSON and record it as an input of whatever this process writes."""
+    path = Path(path)
+    _INPUTS[str(path)] = path
+    return json.loads(path.read_text())
+
+
+def _manifest(key: str) -> tuple[dict, dict]:
+    study = STUDY12 if key == BASELINE_KEY else STUDY
+    manifest = json.loads((study / "analysis" / "source_runs.json").read_text())
+    return manifest, manifest["models"][key.split("-")[0]]
+
+
+def wandb_groups(keys=(MODEL_KEY,)) -> list[str]:
+    return list(dict.fromkeys(_manifest(k)[1]["group"] for k in keys))
+
+
+def write_json(name: str, payload: dict, produced_by: str, *, keys: list[str] = (), kind: str = "freeze",
+               inputs: list[Path | str] = (), sources: list[dict] = ()) -> Path:
+    """Write ``analysis/<name>`` with a v2 ``_meta``.
+
+    ``keys`` are the models whose cache files the producer read (R-s0, L-s1, C-s0, ...), on top
+    of those read through load_paired_trials(); they set the W&B groups and the source runs of
+    a freeze, the default kind. An offline producer that only reads committed JSON
+    (``read_json``) passes ``kind="producer"``.
+    """
     path = ANALYSIS / name
-    out = {"_meta": build_meta(produced_by, wandb_groups(), study_root=STUDY), **payload}
-    path.write_text(json.dumps(out, indent=2, default=_json_default) + "\n")
+    used = list(dict.fromkeys([*keys, *_KEYS_READ])) or [MODEL_KEY]
+    read = list(dict.fromkeys([*map(Path, inputs), *_INPUTS.values()]))
+    runs = []
+    for k in used:
+        manifest, model = _manifest(k)
+        runs.append({"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{model['runs'][k]['run_id']}"})
+    extra = {} if kind == "producer" else {"sources": runs + list(_CACHE_READS.values()) + list(sources)}
+    meta = build_meta(produced_by, wandb_groups(used), study_root=STUDY, kind=kind,
+                      code=[STUDY / produced_by], inputs=read, **extra)
+    write_artifact(path, {"_meta": meta, **payload}, default=_json_default)
     return path
 
 
@@ -76,11 +127,14 @@ def load_paired_trials(rt_present_only: bool = True, with_seed: bool = False, ke
     """
     cols = ["ses_idx", "trial_idx", "subject_id", "task", "action", "reward", "reaction_time",
             "p_model1_right", "logit_diff"]
+    import pyarrow.parquet as pq  # noqa: PLC0415 (freeze-only; CI's offline `all` has no pyarrow)
+
+    _KEYS_READ.update(dict.fromkeys([key, BASELINE_KEY, *([seed_key] if with_seed else [])]))
     available = set(pq.read_schema(CACHE / f"trial_states_{key}.parquet").names)
     licks = {"lick_left_count", "lick_right_count"} <= available
     cols += [c for c in ("prev_log_rt_input", "lick_left_count", "lick_right_count") if c in available]
-    r = pd.read_parquet(CACHE / f"trial_states_{key}.parquet", columns=cols)
-    c = pd.read_parquet(STUDY12 / "analysis" / "_cache" / f"trial_states_{BASELINE_KEY}.parquet",
+    r = pd.read_parquet(_read_cache(CACHE / f"trial_states_{key}.parquet"), columns=cols)
+    c = pd.read_parquet(_read_cache(STUDY12 / "analysis" / "_cache" / f"trial_states_{BASELINE_KEY}.parquet"),
                         columns=["ses_idx", "trial_idx", "p_model1_right", "logit_diff"])
     df = r.merge(c, on=["ses_idx", "trial_idx"], suffixes=("", "_C"), validate="1:1")
     if len(df) != len(r):
@@ -89,7 +143,7 @@ def load_paired_trials(rt_present_only: bool = True, with_seed: bool = False, ke
                             "reaction_time": "rt", "logit_diff": "logit", "logit_diff_C": "logit_C"})
     df["rt"] = df["rt"].clip(*RT_CLIP_S)
     if with_seed:
-        seed = pd.read_parquet(CACHE / f"trial_states_{seed_key}.parquet",
+        seed = pd.read_parquet(_read_cache(CACHE / f"trial_states_{seed_key}.parquet"),
                                columns=["ses_idx", "trial_idx", "p_model1_right"])
         df = df.merge(seed.rename(columns={"p_model1_right": "p_right_seed"}), on=["ses_idx", "trial_idx"], validate="1:1")
         if len(df) != len(r):

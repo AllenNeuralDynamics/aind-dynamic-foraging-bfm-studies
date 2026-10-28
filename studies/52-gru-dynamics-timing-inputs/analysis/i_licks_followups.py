@@ -32,12 +32,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import i_rt_mechanism as mech  # noqa: E402
 from i_licks_mechanism import N_AHEAD, N_SAMPLE, SEED, enc, side_columns, trial_index  # noqa: E402
 from _pk03 import CACHE, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/i_licks_followups.py"
 OTHER_K = np.array([0, 1, 2, 3, 4, 6, 8])
 
 
 def main(key: str) -> None:
+    _pk03.use_keys(key)
     import jax  # noqa: PLC0415
     import jax.numpy as jnp  # noqa: PLC0415
 

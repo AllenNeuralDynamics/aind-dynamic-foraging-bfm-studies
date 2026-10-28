@@ -1,3 +1,26 @@
+---
+schema_version: 1
+id: r4
+slug: behaviour-embedding-attractors
+status: draft
+authors: [pck, claude]
+wandb_groups:
+  - h128-dscan-rt-only@20260823-093058
+  - e4-e8-d614-source@20260906-195409
+inputs:
+  scripts:
+    - analysis/b0h_outcome_by_rt.py
+    - analysis/f_embedding_rt.py
+    - analysis/d_rt_fixed_points.py
+    - analysis/fig_d_rt_fixed_points.py
+  data:
+    - analysis/b0h_outcome_by_rt.json
+    - analysis/f_embedding_rt.json
+    - analysis/d_rt_fixed_points_R-s0.json
+    - analysis/d_rt_fixed_points_R-s1.json
+    - analysis/d_rt_fixed_points_summary.json
+reproduce: make -C studies/52-gru-dynamics-timing-inputs r4
+---
 # r4 — Outcomes after fast responses in behaviour, the subject embedding, and attractors
 
 *Producers:

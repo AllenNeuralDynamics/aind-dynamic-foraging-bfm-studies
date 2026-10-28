@@ -34,6 +34,7 @@ from sklearn.model_selection import KFold, cross_val_predict  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _pk03 import CACHE, RT_CLIP_S, STUDY12, apply_presentation_style, figure_path, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/f_embedding_rt.py"
 MODELS = {"C": STUDY12 / "analysis" / "_cache" / "models" / "C-s0", "R-s0": CACHE / "models" / "R-s0",
@@ -86,6 +87,7 @@ def cv_r2(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def main() -> None:
+    _pk03.use_keys("C-s0", "R-s0", "R-s1")
     apply_presentation_style()
     emb = {name: embedding(root) for name, root in MODELS.items()}
     feats, mix = mouse_features()

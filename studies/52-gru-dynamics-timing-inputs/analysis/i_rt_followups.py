@@ -30,12 +30,14 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import i_rt_mechanism as mech  # noqa: E402
 from _pk03 import CACHE, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/i_rt_followups.py"
 SWEEP = mech.SWEEP
 
 
 def main(key: str) -> None:
+    _pk03.use_keys(key)
     import jax  # noqa: PLC0415
     import jax.numpy as jnp  # noqa: PLC0415
 

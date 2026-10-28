@@ -19,8 +19,8 @@ import numpy as np
 import pandas as pd
 
 STUDY = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(STUDY.parent / "util"))
-from _meta import build_meta  # noqa: E402
+sys.path.insert(0, str(STUDY / "analysis"))
+from _pk03 import write_json  # noqa: E402
 
 C_TABLE = STUDY.parent / "50-gru-dynamics-embedding" / "analysis" / "_cache" / "trial_states_C-s0.parquet"
 KEYS = ["ses_idx", "trial_idx"]
@@ -69,7 +69,6 @@ def main(key: str) -> None:
     )
     subject_missing = missing.groupby(merged["subject_id"]).mean()
     summary = {
-        "_meta": build_meta("analysis/a2_align_with_c.py", [], study_root=STUDY),
         "key": key,
         "alignment": alignment,
         "overall": _likelihoods(merged, total_dlog),
@@ -85,8 +84,7 @@ def main(key: str) -> None:
             "fraction_by_task": missing.groupby(merged["task"].fillna("<missing>")).mean().round(4).to_dict(),
         },
     }
-    out = STUDY / "analysis" / f"a2_alignment_{key}.json"
-    out.write_text(json.dumps(summary, indent=2) + "\n")
+    write_json(f"a2_alignment_{key}.json", summary, "analysis/a2_align_with_c.py", keys=[key, "C-s0"])
     print(json.dumps({k: summary[k] for k in ("alignment", "overall", "by_rt_availability", "rt_missing")}, indent=2))
 
 

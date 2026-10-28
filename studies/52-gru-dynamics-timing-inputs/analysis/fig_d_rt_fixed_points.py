@@ -23,6 +23,7 @@ import numpy as np  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _pk03 import ANALYSIS, apply_presentation_style, figure_path, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/fig_d_rt_fixed_points.py"
 KEYS = ["R-s0", "R-s1"]
@@ -35,7 +36,7 @@ def main() -> None:
                              gridspec_kw={"wspace": 0.3})
     summary = {}
     for i, key in enumerate(KEYS):
-        d = json.loads((ANALYSIS / f"d_rt_fixed_points_{key}.json").read_text())["fixed_points"]
+        d = _pk03.read_json(ANALYSIS / f"d_rt_fixed_points_{key}.json")["fixed_points"]
         summary[key] = {}
         for name, color in INPUT_COLORS.items():
             rows = [(e["rt"], p) for e in d.values() if e["input"] == name for p in e["stable"]]
@@ -61,7 +62,7 @@ def main() -> None:
     fig.suptitle("D-RT  Attractor of each constant input as a function of RT (mean context)", y=1.0)
     fig.savefig(figure_path("fig_D_RT_fixed_points.png"), bbox_inches="tight")
     plt.close(fig)
-    write_json("d_rt_fixed_points_summary.json", summary, PRODUCER)
+    write_json("d_rt_fixed_points_summary.json", summary, PRODUCER, kind="producer")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,47 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
     "produced_by": "analysis/fig_d_rt_fixed_points.py",
-    "produced_at_pt": "2026-10-24T09:24:28-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
+    "produced_at_pt": "2026-10-27T21:20:32-07:00",
+    "studies_git_sha": "ada570ae6d0c25a125b6a3dacee0521e8a163353",
+    "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "h128-dscan-rt-only@20260823-093058"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): h128-dscan-rt-only@20260823-093058"
+    ],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/fig_d_rt_fixed_points.py",
+        "sha256": "f4bc1a5be68c873839baff8de84085baa588e4e9ce199c5f823c6402b000cc79"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/d_rt_fixed_points_R-s0.json",
+        "sha256": "50226c049962877cf17efa286b366bfc94a773d66cb29187060f5486b423292f"
+      },
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/d_rt_fixed_points_R-s1.json",
+        "sha256": "0e90f8445cbabda8777cf9431e8ef09539aa2de4e58b24f15e9e793f83979a0b"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/d_rt_fixed_points_summary.json",
+        "sha256": "8ebb00cde9a9000c68a099d4a4fd20d040a27af8857b982b016e69f0c2ba369a"
+      }
     ]
   },
   "R-s0": {

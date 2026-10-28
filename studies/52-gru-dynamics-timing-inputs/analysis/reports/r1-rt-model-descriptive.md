@@ -1,3 +1,25 @@
+---
+schema_version: 1
+id: r1
+slug: rt-model-descriptive
+status: draft
+authors: [pck, claude]
+wandb_groups:
+  - h128-dscan-rt-only@20260823-093058
+  - e4-e8-d614-source@20260906-195409
+inputs:
+  scripts:
+    - analysis/a2_align_with_c.py
+    - analysis/b0_where_rt_helps.py
+    - analysis/b3_state_rt.py
+  data:
+    - analysis/a2_alignment_R-s0.json
+    - analysis/b0_where_rt_helps.json
+    - analysis/b3_state_rt.json
+    - analysis/trial_states_R-s0.json
+    - analysis/trial_states_R-s1.json
+reproduce: make -C studies/52-gru-dynamics-timing-inputs r1
+---
 # r1 — RT model (R-s0) vs choice/reward model (C-s0): where RT helps and how it is stored
 
 *Producers: `analysis/a2_align_with_c.py`, `analysis/b0_where_rt_helps.py`,

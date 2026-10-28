@@ -27,6 +27,7 @@ import pandas as pd  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _pk03 import ANALYSIS, CACHE, REWARDED_COLOR, UNREWARDED_COLOR, apply_presentation_style, figure_path, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/fig_i_rt_followups.py"
 KEYS = ["R-s0", "R-s1"]
@@ -41,9 +42,10 @@ def _binned(x, y, n=10):
 
 
 def main() -> None:
+    _pk03.use_keys(*KEYS)
     apply_presentation_style()
     data = {k: np.load(CACHE / f"i_rt_followups_{k}.npz") for k in KEYS}
-    fits = {k: json.loads((ANALYSIS / f"i_rt_followups_{k}.json").read_text())["F1_fits_by_reward"] for k in KEYS}
+    fits = {k: _pk03.read_json(ANALYSIS / f"i_rt_followups_{k}.json")["F1_fits_by_reward"] for k in KEYS}
     summary = {}
 
     fig, axes = plt.subplots(len(KEYS), 3, figsize=(20, 5 * len(KEYS)), sharex="col", sharey="col", gridspec_kw={"wspace": 0.3})

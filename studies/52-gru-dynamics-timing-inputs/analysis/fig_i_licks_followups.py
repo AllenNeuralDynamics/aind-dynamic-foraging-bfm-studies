@@ -23,6 +23,7 @@ import pandas as pd  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _pk03 import ANALYSIS, CACHE, REWARDED_COLOR, UNREWARDED_COLOR, apply_presentation_style, figure_path, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/fig_i_licks_followups.py"
 KEYS = ["L-s0", "L-s1"]
@@ -31,12 +32,13 @@ FL1 = [("reward", "reward input only"), ("licks", "licks only"), ("both", "both 
 
 
 def main() -> None:
+    _pk03.use_keys(*KEYS)
     apply_presentation_style()
     fig, axes = plt.subplots(len(KEYS), 4, figsize=(24, 5.2 * len(KEYS)), gridspec_kw={"wspace": 0.32})
     summary = {}
     for i, key in enumerate(KEYS):
         d = np.load(CACHE / f"i_licks_followups_{key}.npz")
-        fits = json.loads((ANALYSIS / f"i_licks_followups_{key}.json").read_text())["FL3_fits_by_reward"]
+        fits = _pk03.read_json(ANALYSIS / f"i_licks_followups_{key}.json")["FL3_fits_by_reward"]
         k = d["other_k"]
         summary[key] = {"FL1": {}, "FL2": {}}
         ax = axes[i, 0]

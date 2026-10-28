@@ -1,3 +1,21 @@
+---
+schema_version: 1
+id: r3
+slug: rt-gain-and-outcomes
+status: draft
+authors: [pck, claude]
+wandb_groups:
+  - h128-dscan-rt-only@20260823-093058
+inputs:
+  scripts:
+    - analysis/i_rt_followups.py
+    - analysis/fig_i_rt_followups.py
+  data:
+    - analysis/i_rt_followups_R-s0.json
+    - analysis/i_rt_followups_R-s1.json
+    - analysis/i_rt_followups_summary.json
+reproduce: make -C studies/52-gru-dynamics-timing-inputs r3
+---
 # r3 — RT as a gain, and RT × outcome (tier-3 follow-ups, two seeds)
 
 *Producers: `analysis/i_rt_followups.py` (stage A, run per seed) and

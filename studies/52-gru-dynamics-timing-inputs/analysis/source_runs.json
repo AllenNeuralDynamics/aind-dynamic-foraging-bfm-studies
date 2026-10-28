@@ -6,7 +6,7 @@
   "checkpoint_policy": "best_eval",
   "baseline": {
     "key": "C",
-    "manifest": "studies/50-gru-dynamics-embedding/source_runs.json",
+    "manifest": "studies/50-gru-dynamics-embedding/analysis/source_runs.json",
     "note": "Study 07's own timing-OFF arm (h128-dscan-off-bigD) is a re-run of the same recipe: identical resolved_subject_ids and snapshot, within-subject eval 0.733853 vs C-s0 0.733851."
   },
   "models": {

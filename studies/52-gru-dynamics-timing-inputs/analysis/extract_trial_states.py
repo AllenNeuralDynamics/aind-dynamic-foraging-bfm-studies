@@ -37,7 +37,7 @@ import numpy as np
 
 STUDY = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(STUDY.parent / "util"))
-from _meta import build_meta  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
 
 CACHE = STUDY / "analysis" / "_cache"
 SNAPSHOT_ROOT = "aind-scratch-data/aind-dynamic-foraging-cache/snapshots"
@@ -193,7 +193,9 @@ def main(key: str) -> None:
     sessions = trial_df.drop_duplicates("ses_idx")
     summary = {
         "_meta": {
-            **build_meta("analysis/extract_trial_states.py", [source["group"]], study_root=STUDY),
+            **build_meta("analysis/extract_trial_states.py", [source["group"]], study_root=STUDY, kind="freeze",
+                         code=[__file__], inputs=[STUDY / "analysis" / "source_runs.json"],
+                         sources=[{"type": "wandb_run", "id": f"{manifest['entity']}/{manifest['project']}/{run['run_id']}"}]),
             "wrapper_checkout": _wrapper_checkout(),
         },
         "source": {"key": key, **run},
@@ -209,7 +211,7 @@ def main(key: str) -> None:
         "columns": list(trial_df.columns),
         "cache_file": str(out_parquet.relative_to(STUDY)),
     }
-    (STUDY / "analysis" / f"trial_states_{key}.json").write_text(json.dumps(summary, indent=2) + "\n")
+    write_artifact(STUDY / "analysis" / f"trial_states_{key}.json", summary)
     print(json.dumps({"checks": checks, **summary["extraction"], "response_inputs": summary["response_inputs"],
                       "lick_inputs": summary["lick_inputs"]}, indent=2))
 

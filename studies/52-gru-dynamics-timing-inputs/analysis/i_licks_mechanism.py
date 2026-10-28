@@ -43,6 +43,7 @@ from _pk03 import (  # noqa: E402
     ANALYSIS, BASELINE_KEY, CACHE, REWARDED_COLOR, STUDY12, UNREWARDED_COLOR, apply_presentation_style,
     figure_path, write_json,
 )
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/i_licks_mechanism.py"
 DEFAULT_KEY = "L-s0"
@@ -77,6 +78,7 @@ def side_columns(choice):
 
 
 def main(key: str = DEFAULT_KEY) -> None:
+    _pk03.use_keys(key)
     import jax  # noqa: PLC0415
     import jax.numpy as jnp  # noqa: PLC0415
 
@@ -94,7 +96,7 @@ def main(key: str = DEFAULT_KEY) -> None:
     action = t["action"].to_numpy()
     present = t["licks_present"].to_numpy()
     intact = mech.replay(step, obs, contexts)[taus, cols]
-    logged = json.loads((ANALYSIS / f"trial_states_{key}.json").read_text())["checks"]["logged_eval_likelihood"]
+    logged = _pk03.read_json(ANALYSIS / f"trial_states_{key}.json")["checks"]["logged_eval_likelihood"]
     checks = {"replay_likelihood": mech.likelihood(intact, action), "logged_likelihood": logged, "lick_input_max_abs_error": err}
     if abs(checks["replay_likelihood"] - logged) > LIKELIHOOD_TOLERANCE:
         raise AssertionError(f"Replay does not reproduce the logged likelihood: {checks}")

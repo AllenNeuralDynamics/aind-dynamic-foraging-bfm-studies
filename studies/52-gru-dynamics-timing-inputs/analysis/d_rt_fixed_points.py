@@ -28,6 +28,7 @@ import pyarrow.parquet as pq
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _pk03 import CACHE, write_json  # noqa: E402
+import _pk03  # noqa: E402
 
 PRODUCER = "analysis/d_rt_fixed_points.py"
 RT_VALUES = [-2.5, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 2.5]
@@ -45,6 +46,7 @@ def best_params(key: str) -> dict:
 
 
 def main(key: str, values=None) -> None:
+    _pk03.use_keys(key)
     import jax  # noqa: PLC0415
 
     jax.config.update("jax_enable_x64", True)
