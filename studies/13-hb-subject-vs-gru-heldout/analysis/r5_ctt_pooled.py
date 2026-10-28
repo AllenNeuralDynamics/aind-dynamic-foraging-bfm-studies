@@ -1,7 +1,8 @@
 """Producer for r5: pool the per-subject HB-CTT runs and compare them with HB-Hattori, the
 per-subject MLE and the GRU.
 
-Offline. Reads the frozen CTT run table (``ctt_runs.json``, ``make freeze-ctt``), this study's final
+Offline. Reads the frozen CTT run tables (``ctt_final_runs.json`` and production ``ctt_runs.json``,
+``make freeze-ctt``), this study's final
 HB-Hattori run table (``hattori_final_runs.json``) and the comparators from study 01's committed JSON
 through ``studies/util/cross_study.py``. Pooling is as in r1: ``exp(sum of log_lik_sum / sum of
 trials)`` over subjects, Monte Carlo errors in quadrature across runs.
@@ -20,9 +21,10 @@ from _meta import build_meta, write_artifact  # noqa: E402
 import cross_study  # noqa: E402
 import figure_style as fs  # noqa: E402
 
-WANDB_GROUPS = ["ctt@20261028-003745",                                  # via ctt_runs.json
+WANDB_GROUPS = ["ctt@20261028-003745", "ctt@20261028-020002",          # via the ctt freezes
                 "hattori@20261027-181430", "hattori@20261027-223626"]   # via hattori_final_runs.json
-RUNS = HERE / "ctt_runs.json"
+RUNS = HERE / "ctt_final_runs.json"          # refit for the gate-failing subjects, production else
+PRODUCTION = HERE / "ctt_runs.json"
 HATTORI = HERE / "hattori_final_runs.json"
 REPORT = HERE / "reports" / "r5-ctt-pooled.md"
 FIG = HERE / "fig_r5_ctt.svg"
@@ -51,7 +53,7 @@ def _per_subject(rows):
 
 def compute() -> dict:
     """Pool the CTT rows and line them up against HB-Hattori and the comparators."""
-    ctt, hattori = _finished(RUNS), _finished(HATTORI)
+    ctt, hattori, production = _finished(RUNS), _finished(HATTORI), _finished(PRODUCTION)
     assert {r["subject_id"] for r in ctt} == {r["subject_id"] for r in hattori}, "subject sets differ"
     by_subject = {r["subject_id"]: r["heldout/num_eval_trials"] for r in hattori}
     assert all(r["heldout/num_eval_trials"] == by_subject[r["subject_id"]] for r in ctt), \
@@ -72,6 +74,11 @@ def compute() -> dict:
         "hb_ctt": headline,
         "hb_ctt_se": headline_se,
         "hb_ctt_plain": _pool(ctt, "heldout/eval_log_lik_sum_plain")[0],
+        "hb_ctt_production": _pool(production, "heldout/eval_log_lik_sum")[0],
+        "n_subjects_converged_production": sum(
+            1 for r in production if r["hb/n_subjects_converged"] == 1 and not r["hb/divergences"]),
+        "divergences_production": sum(r["hb/divergences"] or 0 for r in production),
+        "n_subjects_refit": sum(1 for r in ctt if r["wandb_group"] == "ctt@20261028-020002"),
         "hb_ctt_trial_marginal": _pool(ctt, "heldout/eval_log_lik_sum_trial_marginal")[0],
         "hb_ctt_converged_only": _pool(converged, "heldout/eval_log_lik_sum")[0] if converged else None,
         "n_subjects_converged": len(converged),
@@ -145,6 +152,7 @@ def render(r: dict) -> str:
         "|---|---|",
         f"| HB-CTT two-level, session-marginal (headline) | **{r['hb_ctt']:.4f}** ± "
         f"{r['hb_ctt_se']:.1e} (MC) |",
+        f"| … production, before the refit | {r['hb_ctt_production']:.4f} |",
         f"| HB-Hattori2019 two-level (r1) | {r['hb_hattori']:.4f} |",
         f"| per-subject MLE CTT (study 01 r8) | {r['mle_ctt']:.4f} |",
         f"| per-subject MLE Hattori (study 01 r8) | {r['mle_hattori']:.4f} |",
@@ -160,6 +168,9 @@ def render(r: dict) -> str:
         f"{r['n_subjects_converged']} of {r['n_subjects']} pass; worst R-hat {r['max_r_hat']:.3f}, "
         f"lowest ESS {r['min_ess_bulk']:.0f}; {r['divergences']} divergences. Converged only: "
         + (f"{conv:.4f}." if conv else "n/a."),
+        f"- Refit: the {r['n_subjects_refit']} subjects failing a gate in production were refit as in "
+        f"hattori (ADR 0004). Production: {r['n_subjects_converged_production']} of "
+        f"{r['n_subjects']} passing every gate, {r['divergences_production']:,} divergences.",
         f"- Pareto k̂: {r['n_sessions_importance']} of {r['n_sessions']} sessions failed on the plain "
         f"draw-average and were importance-sampled; {r['n_sessions_pareto_k_fail']} still fail. "
         f"All-plain {r['hb_ctt_plain']:.6f}; headline {r['hb_ctt']:.6f}.",
@@ -179,7 +190,7 @@ def main() -> None:
     REPORT.write_text(f"{head}{begin}\n{render(result)}\n{end}{tail}")
     result["per_subject"] = {k: v for k, v in result["per_subject"].items() if not k.startswith("_")}
     meta = build_meta("analysis/r5_ctt_pooled.py", WANDB_GROUPS, study_root=HERE.parent,
-                      code=[__file__], inputs=[RUNS, HATTORI, cross_study.RL_SOURCE,
+                      code=[__file__], inputs=[RUNS, PRODUCTION, HATTORI, cross_study.RL_SOURCE,
                                                cross_study.GRU_CURVE_SOURCE])
     write_artifact(HERE / "r5_ctt_pooled.json", {"_meta": meta, **result},
                    outputs=[FIG, HERE / "reports" / "r5-ctt-pooled.md#result-1"])

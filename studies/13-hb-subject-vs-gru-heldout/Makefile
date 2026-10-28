@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1 r2 r3 r4
+all: r1 r2 r3 r4 r5
 
 # r1 = HB-Hattori2019 two-level vs GRU and per-subject MLE on held-out subjects
 .PHONY: r1
@@ -30,7 +30,7 @@ r3:
 	$(PY) analysis/r3_posteriors_vs_mle.py
 
 # freeze-ctt = the live read for r5 (W&B GraphQL + HPC artifact files); never part of `all`.
-# Run on a compute node with WANDB_API_KEY exported, then commit analysis/ctt_runs.json.
+# Run on a compute node with WANDB_API_KEY exported, then commit analysis/ctt_*runs.json.
 .PHONY: freeze-ctt
 freeze-ctt:
 	$(PY) analysis/freeze_ctt.py

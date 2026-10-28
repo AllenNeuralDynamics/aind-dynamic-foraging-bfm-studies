@@ -3,18 +3,20 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r5_ctt_pooled.py",
-    "produced_at_pt": "2026-10-28T01:59:05-07:00",
-    "studies_git_sha": "554b4c3fcdadaead8cc1ae58f8bb9da7f4609dc8",
+    "produced_at_pt": "2026-10-28T04:36:53-07:00",
+    "studies_git_sha": "440d9c873b3c18d9e19313dcf4459f21911dc6ac",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "ctt@20261028-003745",
+      "ctt@20261028-020002",
       "hattori@20261027-181430",
       "hattori@20261027-223626"
     ],
     "source_studies_git_shas": [
       "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
       "41ef7f9a0dc1453b3637415829e48682eca05e90",
+      "440d9c873b3c18d9e19313dcf4459f21911dc6ac",
       "c92a5669b7e065e74c16beb4cc62d353cc104e44"
     ],
     "source_dispatcher_git_shas": [
@@ -30,12 +32,12 @@
       "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
     ],
     "provenance_findings": [
-      "no foraging_models SHA in the launch record(s) of W&B group(s): ctt@20261028-003745"
+      "no foraging_models SHA in the launch record(s) of W&B group(s): ctt@20261028-003745, ctt@20261028-020002"
     ],
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.py",
-        "sha256": "ab2ba7d6faae99a72814da278929288da48675b4b0d7e776e8404c33ba9040c1"
+        "sha256": "5b85327f8a4e14fa603d54c237650a90ce143cf5c3af94414823f74e23d90293"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -52,8 +54,12 @@
     ],
     "inputs": [
       {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_final_runs.json",
+        "sha256": "41a9f25de3640b571099b2ad1d9d7d895f1fa80f9f6675c04f42a5ce4ec5db76"
+      },
+      {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_runs.json",
-        "sha256": "1c7e5e27777ab86ab73c9c97cd36b6b7f169accdc2acf2cd6613716a74c7b78e"
+        "sha256": "e07a7ab83d07d23f6559367ef21febbc1bb865cac03d81e532b974bfc8f285e3"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
@@ -71,15 +77,15 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
-        "sha256": "5509224b91a12960a0fd91faeeb07ff3b9d698f11f0d487b16a9bcd4283aa635"
+        "sha256": "791619d1188f587e6000d2c52aadfdfdf259a24b4b6596f7bdf978787e96e15f"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r5_ctt.svg",
-        "sha256": "713b10bdebd3ebe52963beda80c064b9ecc9b5202abb71e6f1eaf32f0f467d09"
+        "sha256": "bee0ee8b86b9d14efca021e62893a1a87fbbaf35b3ddac42b2cdc5407c06f21e"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r5-ctt-pooled.md#result-1",
-        "sha256": "8d1149315e9ca08c87556c85c4d240c3fa2e620e73d96c3a27c0058dcc0f4f1b"
+        "sha256": "0a1ea2b07ad0c7692a789901b71abd335baecba50f8841e52065adb58922cd91"
       }
     ]
   },
@@ -87,15 +93,19 @@
   "n_subjects_expected": 149,
   "n_trials": 1013172,
   "n_trials_comparators": 1013172,
-  "hb_ctt": 0.7224666762351333,
-  "hb_ctt_se": 1.04263014224428e-06,
-  "hb_ctt_plain": 0.7224659932041045,
-  "hb_ctt_trial_marginal": 0.712800660931551,
-  "hb_ctt_converged_only": 0.7259592782061766,
-  "n_subjects_converged": 107,
-  "divergences": 1189,
-  "max_r_hat": 1.1153817270040118,
-  "min_ess_bulk": 23.297271698073725,
+  "hb_ctt": 0.722464781663543,
+  "hb_ctt_se": 9.897002940627067e-07,
+  "hb_ctt_plain": 0.7224656422200618,
+  "hb_ctt_production": 0.7224666762351333,
+  "n_subjects_converged_production": 107,
+  "divergences_production": 1189,
+  "n_subjects_refit": 42,
+  "hb_ctt_trial_marginal": 0.7128047218819711,
+  "hb_ctt_converged_only": 0.7254743997674856,
+  "n_subjects_converged": 137,
+  "divergences": 54,
+  "max_r_hat": 1.0178171076956242,
+  "min_ess_bulk": 375.77102828848547,
   "n_sessions": 2138,
   "n_sessions_importance": 107,
   "n_sessions_pareto_k_fail": 13,
@@ -112,7 +122,7 @@
   "per_subject": {
     "hb_ctt_minus_hb_hattori_median": 0.001440430266085646,
     "hb_ctt_beats_hb_hattori": 100,
-    "hb_ctt_minus_mle_ctt_median": 0.004296095623856355,
+    "hb_ctt_minus_mle_ctt_median": 0.0043071637851386235,
     "hb_ctt_beats_mle_ctt": 145
   }
 }
