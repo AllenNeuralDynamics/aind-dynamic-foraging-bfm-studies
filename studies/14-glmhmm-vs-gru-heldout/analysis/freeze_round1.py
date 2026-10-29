@@ -109,13 +109,25 @@ def find_runs():
     return runs
 
 
-def recompute_posteriors(fit, trials):
+def params_of(model, p):
+    """Model parameters from a fit.json parameter block (global or one subject's)."""
+    params, _ = model.initialize(
+        initial_probs=np.asarray(p["initial_probs"]),
+        transition_matrix=np.asarray(p["transition_matrix"]),
+        **{k: np.asarray(v) for k, v in p["emissions"].items()})
+    return params
+
+
+def recompute_posteriors(fit, trials, source="global"):
     """Smoothed posteriors and Viterbi paths of every held-out trial, from fit.json.
 
-    The trainer's own computation (``GLMHMMTrainer._write_posteriors``): each subject's refit
-    parameters, ``state_posteriors`` over its sessions. Done here because runs killed while
-    writing ``heldout_trials.parquet`` kept ``fit.json`` but not the parquet. Compiled code is
-    released after each run, so this process stays under the memory-map limit.
+    ``source="global"``: the global fit's parameters for every subject, so a state label means
+    the same thing in every mouse. The state summaries use these: per-subject refits reorder or
+    repurpose states as K grows (at K = 10 the refit keeps the global order for 1-6 of 149
+    mice), so pooling refit labels across mice would mix different states.
+    ``source="refit"``: each subject's refit parameters, the trainer's own computation
+    (``GLMHMMTrainer._write_posteriors``), used to check this function against its parquet.
+    Compiled code is released after each call, so this process stays under the memory-map limit.
     """
     import jax
     from aind_dynamic_foraging_models.glm_hmm import GLMHMM, make_buckets, state_posteriors
@@ -125,11 +137,7 @@ def recompute_posteriors(fit, trials):
     model = GLMHMM(K, L, cfg["emission"], cfg["num_newton_steps"])
     frames = []
     for subject, sub in trials.groupby("subject_id", sort=False):
-        p = fit["subjects"][subject]
-        params, _ = model.initialize(
-            initial_probs=np.asarray(p["initial_probs"]),
-            transition_matrix=np.asarray(p["transition_matrix"]),
-            **{k: np.asarray(v) for k, v in p["emissions"].items()})
+        params = params_of(model, fit["global"] if source == "global" else fit["subjects"][subject])
         sessions = [g for _, g in sub.groupby("ses_idx", sort=False)]
         buckets = make_buckets([(g["choice"].to_numpy(), g["reward"].to_numpy()) for g in sessions],
                                L, cfg["design"], cfg["bucket_size"])
@@ -232,16 +240,13 @@ def build_all_inputs(trials, n_lags):
 
 
 def example_predictions(fit, trials, rows):
-    """One-step predictions of one example session under its subject's refit parameters."""
+    """One-step predictions of one example session under the global fit."""
     from aind_dynamic_foraging_models.glm_hmm import GLMHMM, make_buckets, predictive_log_probs
 
     cfg = fit["config"]
     K, L = int(cfg["num_states"]), int(cfg["n_lags"])
     model = GLMHMM(K, L, cfg["emission"], cfg["num_newton_steps"])
-    p = fit["subjects"][str(trials.loc[rows[0], "subject_id"])]
-    params, _ = model.initialize(initial_probs=np.asarray(p["initial_probs"]),
-                                 transition_matrix=np.asarray(p["transition_matrix"]),
-                                 **{k: np.asarray(v) for k, v in p["emissions"].items()})
+    params = params_of(model, fit["global"])     # the same states as the summaries
     buckets = make_buckets([(trials.loc[rows, "choice"].to_numpy(), trials.loc[rows, "reward"].to_numpy())],
                            L, cfg["design"], cfg["bucket_size"])
     prob = np.exp(predictive_log_probs(model, params, buckets)[0])     # (T, 3): left, right, ignore
@@ -293,12 +298,14 @@ def state_summaries(run, trials, inputs):
     smoothed = [f"smoothed_{k}" for k in range(K)]
     check = None
     parquet = files / "heldout_trials.parquet"
-    if parquet.exists():   # the trainer's own posteriors, where it got to write them
+    if parquet.exists() and K <= 3:   # check the machinery against the trainer's refit posteriors
+        refit = recompute_posteriors(fit, trials, source="refit")
+        refit = refit.sort_values(["subject_id", "ses_idx", "trial"]).reset_index(drop=True)
         saved = pd.read_parquet(parquet, columns=["subject_id", "ses_idx", "trial", "viterbi"] + smoothed)
         saved = saved.assign(subject_id=saved["subject_id"].astype(str), ses_idx=saved["ses_idx"].astype(str))
         saved = saved.sort_values(["subject_id", "ses_idx", "trial"]).reset_index(drop=True)
-        check = {"max_abs_smoothed_diff": float(np.abs(saved[smoothed].to_numpy() - post[smoothed].to_numpy()).max()),
-                 "viterbi_agreement": float((saved["viterbi"].to_numpy() == post["viterbi"].to_numpy()).mean())}
+        check = {"max_abs_smoothed_diff": float(np.abs(saved[smoothed].to_numpy() - refit[smoothed].to_numpy()).max()),
+                 "viterbi_agreement": float((saved["viterbi"].to_numpy() == refit["viterbi"].to_numpy()).mean())}
         if check["max_abs_smoothed_diff"] > 1e-3:
             raise RuntimeError(f"{run['wandb_run_id']}: recomputed posteriors differ from the trainer's: {check}")
     gamma = post[smoothed].to_numpy(np.float64)
@@ -368,6 +375,7 @@ def state_summaries(run, trials, inputs):
         "switching_viterbi": switching,
         "top10pct_subject_share": concentration,
         "states": states,
+        "posterior_source": "global",
         "posterior_check_against_trainer": check,
         "alignment": {"n_subjects": len(fit["subjects"]),
                       "identity_matched": identity,

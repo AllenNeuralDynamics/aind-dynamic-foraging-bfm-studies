@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_round_1.py",
-    "produced_at_pt": "2026-10-28T20:52:06-07:00",
-    "studies_git_sha": "4aad821377901ef055e29b386bb4248bd570c98f",
+    "produced_at_pt": "2026-10-28T21:31:13-07:00",
+    "studies_git_sha": "1ab58dd145bcfe95b5bc0146254fe1c1ba8ebf6d",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -34,7 +34,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.py",
-        "sha256": "570b56ef3e770309ff05c5feaec0e3117844941d543b0653ef486bd14113f80c"
+        "sha256": "9dae95b897b3c88b116b060855521d7e6ecf8a22044d073968fb1ea828dccb91"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -48,7 +48,7 @@
     "inputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_round1.json",
-        "sha256": "894df65f413f180b4274ae3b3ec73d94b00aafd6c7b4c77d65b1ddc9c1a0250c"
+        "sha256": "219e172a154e18689d22145746e31cfe043a7df2ebf8536053ff1543a1f06ebc"
       },
       {
         "path": "studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json",
@@ -58,7 +58,7 @@
     "outputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.json",
-        "sha256": "9a6691f833acfa9d822f0c4ff8ec5f9c379ba0b59da9bb4d8785d3bf85732779"
+        "sha256": "5f78218bfd5fc1e14d6016e88ff41d251710900f05f3691d472845bc20e9069e"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_scores.svg",
@@ -70,23 +70,23 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_state_map.svg",
-        "sha256": "8b6c2668b52950d7796d8f186be76207b4378a8dcd9ba91f8936de5c37c5d72c"
+        "sha256": "dbc617e8ad66fb38cc5ff53c87016053bafc1c79e90c49337fb82d2fa9e415a4"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_timescales.svg",
-        "sha256": "aab728369c92f79981019275382ea5e5f8aa70483614c850fb54715d8996f84c"
+        "sha256": "3af92beb899951dea1c6ede2db50af8d211c908beb2f3d09f0c7ea79df13bb25"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_weights_hurdle.svg",
-        "sha256": "7c2b6ac3f76fea1f296362c297f73c8408bc3ca526bd417421ddda52059065d4"
+        "sha256": "799506e2636489f950ee093b4454aa098f6d39ceff7122a89d77d22bd4a6b31c"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_states_hurdle.svg",
-        "sha256": "c118f3287f2488b34506700fa6d2231b12d3737e4c6cc2b888d5489ca963ac6b"
+        "sha256": "e2179c9143a53504323e593369935fb27ceb1e1e3a681a9541a88551b7b7d487"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_examples_hurdle.svg",
-        "sha256": "13b3a5fbf763f64290ce471e0f50c02c954666cec64158b576d461951414b3d6"
+        "sha256": "d9077f1f0ee5d5d32e57192aa1d4b0cc013a48fe0bcf53d292be3b7668d930ce"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_weights_reference.svg",
@@ -94,11 +94,11 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_states_reference.svg",
-        "sha256": "de8f65d10d7f9fa51734c464ef16dc5f4d5a7dd410def6d6b6830c3ff057093e"
+        "sha256": "ff59820c41c40052cf0f317eab8bd6678e7105dac2e616837065a3a204d7edf3"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_examples_reference.svg",
-        "sha256": "0a11651334a17bc13831de8cf9e0b2518e19bc99b93ac414218647c00e9f21f8"
+        "sha256": "d60d4b03b7279dc4555b05c690b2e163046e4a8445369436fb82e9074bc8ac14"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-1",
@@ -106,11 +106,11 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-2",
-        "sha256": "7e31f7bcbab5b14f443bd100b793b1a64e1b203cc80e4fef892aa012fe043392"
+        "sha256": "cbd958b68622db32072f7b9df303265e823e19c7610379568b74eb327cdf95df"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-3",
-        "sha256": "efde470fecb345ded7d32d67b11947ac9fee8ab2d135f35ac041164ea5255dc7"
+        "sha256": "34bb9349389b47a0474bb7063c58ef5d22252fde7afc157b49b9be27be091a28"
       }
     ]
   },
@@ -328,124 +328,124 @@
       {
         "state": 1,
         "fitted_index": 1,
-        "occupancy": 0.49987479779165417,
-        "occupancy_mature": 0.5656649906052655,
-        "occupancy_non_mature": 0.466699173611987,
-        "occupancy_stage_unknown": 0.41278262902675655,
+        "occupancy": 0.4703205830511049,
+        "occupancy_mature": 0.5504653281093623,
+        "occupancy_non_mature": 0.4446448926292939,
+        "occupancy_stage_unknown": 0.3537215002196198,
         "dwell_expected": 331.2417331242515,
-        "dwell_viterbi_mean": 313.79218665219753,
+        "dwell_viterbi_mean": 385.43725420092954,
         "predicted": {
-          "left": 0.4778658522338476,
-          "right": 0.4959169237949633,
-          "ignore": 0.02621722397118847
+          "left": 0.48183731918056877,
+          "right": 0.494251164131801,
+          "ignore": 0.0239115166876085
         },
         "observed": {
-          "n_trials": 1156638,
-          "p_ignore": 0.030343115131960086,
-          "p_right_given_respond": 0.5114931050286123,
-          "p_stay_after_reward": 0.9564635755745156,
-          "p_stay_after_no_reward": 0.8916831004885252,
-          "p_choose_better": 0.5708348122307794
+          "n_trials": 1078068,
+          "p_ignore": 0.024568951123676852,
+          "p_right_given_respond": 0.5069918532191053,
+          "p_stay_after_reward": 0.9606033793507809,
+          "p_stay_after_no_reward": 0.8961969074527919,
+          "p_choose_better": 0.5693955244460488
         },
-        "sessions_using": 0.6988753729630479
+        "sessions_using": 0.623364700481983
       },
       {
         "state": 2,
         "fitted_index": 0,
-        "occupancy": 0.2645414328030575,
-        "occupancy_mature": 0.22112403366531264,
-        "occupancy_non_mature": 0.3566115377104158,
-        "occupancy_stage_unknown": 0.2719998753040577,
+        "occupancy": 0.3066212645552114,
+        "occupancy_mature": 0.2651469876655886,
+        "occupancy_non_mature": 0.42339346289051477,
+        "occupancy_stage_unknown": 0.29320307020901576,
         "dwell_expected": 472.3957855752817,
-        "dwell_viterbi_mean": 180.29568603954465,
+        "dwell_viterbi_mean": 248.60085227272728,
         "predicted": {
-          "left": 0.3468986732997948,
-          "right": 0.354341773044546,
-          "ignore": 0.29875955365566625
+          "left": 0.35517967528394706,
+          "right": 0.36074124822417414,
+          "ignore": 0.2840790764918734
         },
         "observed": {
-          "n_trials": 601827,
-          "p_ignore": 0.308724932580293,
-          "p_right_given_respond": 0.5029397059813282,
-          "p_stay_after_reward": 0.92521428065453,
-          "p_stay_after_no_reward": 0.8464610605724429,
-          "p_choose_better": 0.5903614129620499
+          "n_trials": 700060,
+          "p_ignore": 0.28333857097963033,
+          "p_right_given_respond": 0.5014091918374506,
+          "p_stay_after_reward": 0.9319555608648907,
+          "p_stay_after_no_reward": 0.8564459197046078,
+          "p_choose_better": 0.5920274487881387
         },
-        "sessions_using": 0.5529033738811109
+        "sessions_using": 0.5735597888455359
       },
       {
         "state": 3,
         "fitted_index": 2,
-        "occupancy": 0.23558376940530493,
-        "occupancy_mature": 0.21321097572944014,
-        "occupancy_non_mature": 0.1766892886775917,
-        "occupancy_stage_unknown": 0.31521749566915064,
+        "occupancy": 0.2230581523936748,
+        "occupancy_mature": 0.18438768422503324,
+        "occupancy_non_mature": 0.13196164448020065,
+        "occupancy_stage_unknown": 0.3530754295713581,
         "dwell_expected": 210.49256984280447,
-        "dwell_viterbi_mean": 210.338782182264,
+        "dwell_viterbi_mean": 327.1883674818242,
         "predicted": {
-          "left": 0.47242106622785435,
-          "right": 0.5026697312985121,
-          "ignore": 0.024909202473626192
+          "left": 0.4682013793174352,
+          "right": 0.5125414059331568,
+          "ignore": 0.019257214749385434
         },
         "observed": {
-          "n_trials": 514699,
-          "p_ignore": 0.028572039191838372,
-          "p_right_given_respond": 0.5172832419653876,
-          "p_stay_after_reward": 0.8136227578703098,
-          "p_stay_after_no_reward": 0.706031315232343,
-          "p_choose_better": 0.5732658645098865
+          "n_trials": 495036,
+          "p_ignore": 0.021735792952431776,
+          "p_right_given_respond": 0.5303442664926612,
+          "p_stay_after_reward": 0.7966807926324013,
+          "p_stay_after_no_reward": 0.6924949930296961,
+          "p_choose_better": 0.5711661173494808
         },
-        "sessions_using": 0.38719302272205647
+        "sessions_using": 0.32568280927243515
       }
     ],
     "reference": [
       {
         "state": 1,
         "fitted_index": 0,
-        "occupancy": 0.6413519260866822,
-        "occupancy_mature": 0.6986518899826673,
-        "occupancy_non_mature": 0.522397260287431,
-        "occupancy_stage_unknown": 0.6296879679906324,
+        "occupancy": 0.6376197434743094,
+        "occupancy_mature": 0.6855634505171124,
+        "occupancy_non_mature": 0.5051732397619149,
+        "occupancy_stage_unknown": 0.6513202349784851,
         "dwell_expected": 508.7056268312186,
-        "dwell_viterbi_mean": 360.2983059170145,
+        "dwell_viterbi_mean": 414.49843794376596,
         "predicted": {
-          "left": 0.47945806304714766,
-          "right": 0.49967906374474497,
-          "ignore": 0.020862873208079103
+          "left": 0.47770197833833616,
+          "right": 0.5040663872089722,
+          "ignore": 0.018231634452702247
         },
         "observed": {
-          "n_trials": 1467495,
-          "p_ignore": 0.02397486873890542,
-          "p_right_given_respond": 0.5119513066985405,
-          "p_stay_after_reward": 0.9090423643896631,
-          "p_stay_after_no_reward": 0.8294606999426276,
-          "p_choose_better": 0.570500548446369
+          "n_trials": 1459449,
+          "p_ignore": 0.01877763457304782,
+          "p_right_given_respond": 0.5155749404347911,
+          "p_stay_after_reward": 0.9066338253752522,
+          "p_stay_after_no_reward": 0.8264237083064178,
+          "p_choose_better": 0.5704283614067224
         },
-        "sessions_using": 0.8205187055313289
+        "sessions_using": 0.7913702088593069
       },
       {
         "state": 2,
         "fitted_index": 1,
-        "occupancy": 0.35864807391330145,
-        "occupancy_mature": 0.3013481100173484,
-        "occupancy_non_mature": 0.4776027397125674,
-        "occupancy_stage_unknown": 0.3703120320093334,
+        "occupancy": 0.3623802565257055,
+        "occupancy_mature": 0.3144365494829019,
+        "occupancy_non_mature": 0.4948267602380905,
+        "occupancy_stage_unknown": 0.3486797650215476,
         "dwell_expected": 598.0525034008564,
-        "dwell_viterbi_mean": 225.48810523369718,
+        "dwell_viterbi_mean": 276.39775815217394,
         "predicted": {
-          "left": 0.36990600610983554,
-          "right": 0.3821841402622424,
-          "ignore": 0.24790985362790413
+          "left": 0.37311096114692993,
+          "right": 0.37516591561926105,
+          "ignore": 0.2517231232337978
         },
         "observed": {
-          "n_trials": 805669,
-          "p_ignore": 0.24875972638887678,
-          "p_right_given_respond": 0.509312665323973,
-          "p_stay_after_reward": 0.929804850839264,
-          "p_stay_after_no_reward": 0.8556902620258114,
-          "p_choose_better": 0.5870906466360378
+          "n_trials": 813715,
+          "p_ignore": 0.255858623719607,
+          "p_right_given_respond": 0.5007439898665442,
+          "p_stay_after_reward": 0.9356715725949034,
+          "p_stay_after_no_reward": 0.865361361911192,
+          "p_choose_better": 0.587221263168188
         },
-        "sessions_using": 0.6371356437915997
+        "sessions_using": 0.6112003672251549
       }
     ]
   },

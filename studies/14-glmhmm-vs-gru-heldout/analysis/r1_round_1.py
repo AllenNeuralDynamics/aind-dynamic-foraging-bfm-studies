@@ -448,8 +448,8 @@ def block_states(grids, selected, tables):
             continue
         rid = grids[e][K]["wandb_run_id"]
         lines += [f"**{e}, K = {K}** (run [{rid}](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/{rid})). "
-                  "States ordered by occupancy: the mean smoothed posterior over the held-out mice's "
-                  "trials (both splits). Dwell: expected 1/(1 − A_kk) from the global transitions, "
+                  "States ordered by occupancy: the mean smoothed posterior, under the global fit, over "
+                  "the held-out mice's trials (both splits). Dwell: expected 1/(1 − A_kk) from the global transitions, "
                   "and the mean Viterbi run. *Predicted*: the global model's p(left, right, ignore), "
                   "averaged over the state's posterior weight. *Observed*: rates on the trials "
                   "Viterbi assigns to the state.", "",
@@ -477,8 +477,9 @@ def block_states(grids, selected, tables):
 def block_diagnostics(grids):
     """result-3: restarts, convergence and subject alignment."""
     lines = [f"*Restarts at best*: final log joint within {TOL:g} nats/trial of the best restart. "
-             "*Aligned subjects*: per-mouse refits whose states match the global states, by weight "
-             "distance, in the same order.", "",
+             "*Aligned subjects*: held-out mice whose refit states still match the global states, by "
+             "weight distance, in the same order. As K grows the refits reorder or repurpose states, "
+             "which is why the state summaries use the global fit.", "",
              "| emission | K | restarts at best | median gap (nats/trial) | restarts converged | EM iters (best) | aligned subjects | run time (h) |",
              "|---|---|---|---|---|---|---|---|"]
     for e in EMISSIONS:

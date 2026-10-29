@@ -60,8 +60,9 @@ left vs right on the trials the mouse responded, with chance 1/2.
 
 **States.** For each held-out session, the *posterior* gives the probability of each state on
 each trial, given the whole session. The *Viterbi path* is the single most likely state
-sequence. The state figures use the per-mouse refits' posteriors. The refits start from the
-global states, and result-3 checks that they keep the same order.
+sequence. The state figures use posteriors under the **global fit**, so a state label means the
+same thing in every mouse. Per-mouse refits do not keep the global states in order as K grows
+(result-3), so pooling their labels across mice would mix different states.
 
 <!-- BEGIN result-1 -->
 Each score is the geometric-mean probability given to the mouse's actual choice on sessions never fitted (chance 1/3). *Refit*: training mice, after the per-mouse refit (study 14's selection score; bold = each emission's best). *Global fit, same mice*: training mice, global fit only (Faeze's way of choosing K). *Held-out*: 149 new mice, with refit (matched, the GRU's protocol) and global fit only (zero-shot). GRU = study 02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error bars.
@@ -103,13 +104,13 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
 <!-- END result-1 -->
 
 <!-- BEGIN result-2 -->
-**hurdle, K = 3** (run [u4j7ukti](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/u4j7ukti)). States ordered by occupancy: the mean smoothed posterior over the held-out mice's trials (both splits). Dwell: expected 1/(1 − A_kk) from the global transitions, and the mean Viterbi run. *Predicted*: the global model's p(left, right, ignore), averaged over the state's posterior weight. *Observed*: rates on the trials Viterbi assigns to the state.
+**hurdle, K = 3** (run [u4j7ukti](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/u4j7ukti)). States ordered by occupancy: the mean smoothed posterior, under the global fit, over the held-out mice's trials (both splits). Dwell: expected 1/(1 − A_kk) from the global transitions, and the mean Viterbi run. *Predicted*: the global model's p(left, right, ignore), averaged over the state's posterior weight. *Observed*: rates on the trials Viterbi assigns to the state.
 
 | state | occupancy | mature / non-mature / n.a. | dwell exp. / obs. | predicted L / R / I | obs. p(ignore) | obs. p(R \| resp) | stay after rew. / no rew. | p(better side) | sessions using ≥10% |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.500 | 0.57 / 0.47 / 0.41 | 331 / 314 | 0.48 / 0.50 / 0.03 | 0.03 | 0.51 | 0.96 / 0.89 | 0.57 | 0.70 |
-| 2 | 0.265 | 0.22 / 0.36 / 0.27 | 472 / 180 | 0.35 / 0.35 / 0.30 | 0.31 | 0.50 | 0.93 / 0.85 | 0.59 | 0.55 |
-| 3 | 0.236 | 0.21 / 0.18 / 0.32 | 210 / 210 | 0.47 / 0.50 / 0.02 | 0.03 | 0.52 | 0.81 / 0.71 | 0.57 | 0.39 |
+| 1 | 0.470 | 0.55 / 0.44 / 0.35 | 331 / 385 | 0.48 / 0.49 / 0.02 | 0.02 | 0.51 | 0.96 / 0.90 | 0.57 | 0.62 |
+| 2 | 0.307 | 0.27 / 0.42 / 0.29 | 472 / 249 | 0.36 / 0.36 / 0.28 | 0.28 | 0.50 | 0.93 / 0.86 | 0.59 | 0.57 |
+| 3 | 0.223 | 0.18 / 0.13 / 0.35 | 210 / 327 | 0.47 / 0.51 / 0.02 | 0.02 | 0.53 | 0.80 / 0.69 | 0.57 | 0.33 |
 
 ![hurdle weights](../fig_r1_weights_hurdle.svg)
 
@@ -117,12 +118,12 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
 
 ![hurdle example sessions](../fig_r1_examples_hurdle.svg)
 
-**reference, K = 2** (run [74wl3w23](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/74wl3w23)). States ordered by occupancy: the mean smoothed posterior over the held-out mice's trials (both splits). Dwell: expected 1/(1 − A_kk) from the global transitions, and the mean Viterbi run. *Predicted*: the global model's p(left, right, ignore), averaged over the state's posterior weight. *Observed*: rates on the trials Viterbi assigns to the state.
+**reference, K = 2** (run [74wl3w23](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/74wl3w23)). States ordered by occupancy: the mean smoothed posterior, under the global fit, over the held-out mice's trials (both splits). Dwell: expected 1/(1 − A_kk) from the global transitions, and the mean Viterbi run. *Predicted*: the global model's p(left, right, ignore), averaged over the state's posterior weight. *Observed*: rates on the trials Viterbi assigns to the state.
 
 | state | occupancy | mature / non-mature / n.a. | dwell exp. / obs. | predicted L / R / I | obs. p(ignore) | obs. p(R \| resp) | stay after rew. / no rew. | p(better side) | sessions using ≥10% |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.641 | 0.70 / 0.52 / 0.63 | 509 / 360 | 0.48 / 0.50 / 0.02 | 0.02 | 0.51 | 0.91 / 0.83 | 0.57 | 0.82 |
-| 2 | 0.359 | 0.30 / 0.48 / 0.37 | 598 / 225 | 0.37 / 0.38 / 0.25 | 0.25 | 0.51 | 0.93 / 0.86 | 0.59 | 0.64 |
+| 1 | 0.638 | 0.69 / 0.51 / 0.65 | 509 / 414 | 0.48 / 0.50 / 0.02 | 0.02 | 0.52 | 0.91 / 0.83 | 0.57 | 0.79 |
+| 2 | 0.362 | 0.31 / 0.49 / 0.35 | 598 / 276 | 0.37 / 0.38 / 0.25 | 0.26 | 0.50 | 0.94 / 0.87 | 0.59 | 0.61 |
 
 ![reference weights](../fig_r1_weights_reference.svg)
 
@@ -132,7 +133,7 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
 <!-- END result-2 -->
 
 <!-- BEGIN result-3 -->
-*Restarts at best*: final log joint within 0.0001 nats/trial of the best restart. *Aligned subjects*: per-mouse refits whose states match the global states, by weight distance, in the same order.
+*Restarts at best*: final log joint within 0.0001 nats/trial of the best restart. *Aligned subjects*: held-out mice whose refit states still match the global states, by weight distance, in the same order. As K grows the refits reorder or repurpose states, which is why the state summaries use the global fit.
 
 | emission | K | restarts at best | median gap (nats/trial) | restarts converged | EM iters (best) | aligned subjects | run time (h) |
 |---|---|---|---|---|---|---|---|
@@ -177,27 +178,36 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
      0.028 at K = 10 (hurdle). From K = 4, a refitted new mouse scores below the unrefitted
      global fit. So the refit rule likely picks too few states.
 4. **The K = 3 states have a clear reading.**
-   - *Engaged and sticky* (50% of trials): ignores 3% and repeats an unrewarded choice 89% of
+   - *Engaged and sticky* (47% of trials): ignores 2.5% and repeats an unrewarded choice 90% of
      the time.
-   - *Disengaged* (26%): ignores 31%. It grows from 12% of trials early in a session to 57% at
-     the end, and is more common before the final training stage.
-   - *Engaged and flexible* (24%): ignores 3%, but repeats an unrewarded choice only 71% of the
+   - *Disengaged* (31%): ignores 28%. It grows from 15% of trials early in a session to 61% at
+     the end, and is more common before the final training stage (42% vs 27% of trials).
+   - *Engaged and flexible* (22%): ignores 2%, but repeats an unrewarded choice only 69% of the
      time.
 
    All three choose the better side about equally often (57–59%). They differ in strategy, not
-   in accuracy.
-5. **States are long at small K and shorter at large K.** At K = 3 a state lasts about 340
-   trials, close to a session. As K grows, the states split along two axes: how often the mouse
-   ignores, and how strongly it perseveres. They also get shorter. At K = 10, 89% of sessions
-   switch state, and the average stay is about 220 trials.
-6. **Left- and right-biased states are within-session epochs.** They appear at K ≥ 8. They last
-   about 60 trials, occur in about a quarter of sessions, and are spread across mice (the top
-   10% of mice hold about 40% of their use, near the other states). So they are not simply
-   mouse identities.
+   in accuracy. These summaries use the global fit's posteriors, so each state means the same
+   thing in every mouse.
+5. **States last about a session, at every K.** Under the global fit a state's Viterbi stay
+   averages 250–400 trials at K = 3. As K grows, the states split along two axes, how often the
+   mouse ignores and how strongly it perseveres, but they stay long. Even at K = 10 only 71% of
+   held-out sessions switch state at all, about once per session on average.
+6. **Side-biased states appear at K ≥ 8, and span whole sessions.** At K = 8 and 10 there are
+   left-biased (side bias −0.56, −0.61) and right-biased (+0.22 to +0.33) states. Their stays
+   average 310–350 trials, and each is used in 14–23% of sessions. So the global model describes
+   side bias as a property of whole sessions, not as episodes within one. Within-session bias
+   swings, visible by eye, are not what these states capture. Shorter states would have to be
+   forced (next step 2), or the swings may be a drifting bias rather than discrete states.
+
 7. **The history length is about right.** L = 10 scored best in the lag scan. At L = 15 the
    hurdle score rises by only 0.0004 and the reference score falls by 0.0005.
 8. **Fits at large K are harder.** From K = 4, few of the 20 restarts reach the best fit (1 of
    20 at hurdle K = 10). The large-K global fits may sit below their optimum.
+9. **Per-mouse refits reorder the states at large K.** The share of held-out mice whose refit
+   keeps the global states in order falls from 141/149 at K = 3 to 6/149 at K = 10 (hurdle;
+   reference 132 → 1). The refits repurpose states to fit each mouse's own sessions, which
+   agrees with the overfitting in finding 3. It is also why every state summary here uses the
+   global fit.
 
 **Engineering.** The K ≥ 5 runs were killed at the end by the kernel's memory-map limit
 (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#119). Their scores and parameters were
