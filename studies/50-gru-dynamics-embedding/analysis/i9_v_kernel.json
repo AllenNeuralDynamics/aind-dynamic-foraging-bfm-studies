@@ -1,20 +1,51 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i9_v_kernel.py",
-    "produced_at_pt": "2026-10-26T17:01:29-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T17:49:45-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i9_v_kernel.py",
+        "sha256": "c4fcfd5e6151c1a3be6825956bd69056862102aea34fd88c521233099271f6b2"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i9_v_kernel.json",
+        "sha256": "459d600ccc2c51d3a58829804d5d4828afa8b6cfb4479562d2eacfbb48a544ea"
+      }
     ]
   },
   "K": 10,
   "n_trials": 600000,
   "split": "80/20 by session",
-  "encoding": "c_k = \u00b11 (R = +1), r_k \u2208 {0, 1}",
+  "encoding": "c_k = ±1 (R = +1), r_k ∈ {0, 1}",
   "fits": {
     "GRU v": {
       "free": {
@@ -115,7 +146,7 @@
         ]
       }
     },
-    "Hattori \u0394Q": {
+    "Hattori ΔQ": {
       "free": {
         "heldout_r2": 0.9425151816055518,
         "n_params": 21,
@@ -214,7 +245,7 @@
         ]
       }
     },
-    "Bari \u0394Q": {
+    "Bari ΔQ": {
       "free": {
         "heldout_r2": 0.9153153087506948,
         "n_params": 21,

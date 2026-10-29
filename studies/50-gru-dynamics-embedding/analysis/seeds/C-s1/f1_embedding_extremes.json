@@ -1,11 +1,65 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/f1_embedding_extremes.py",
-    "produced_at_pt": "2026-10-27T02:25:43-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T05:26:03-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f1_embedding_extremes.py",
+        "sha256": "3ddf463da080a3abe2b5d2ef4a8d04459ae19301050598d7aabb2b899d496bf3"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f1_embedding_extremes.json",
+        "sha256": "73f9571f851276f276a4755e57a7c7c6d6796745a0ba068cc23fcc210f2dfd3d"
+      }
     ]
   },
   "frac": 0.1,

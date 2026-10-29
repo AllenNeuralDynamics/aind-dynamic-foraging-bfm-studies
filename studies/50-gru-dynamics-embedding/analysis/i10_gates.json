@@ -1,11 +1,60 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i10_gates.py",
-    "produced_at_pt": "2026-10-26T17:15:12-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T21:32:22-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i10_gates.py",
+        "sha256": "d59ef91a6d9e0be957c157198e3bcb7315e09c21e2edcdc471c775adc2a54981"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s0.npz",
+        "sha256": "8debcb40b3dec029c0ed8050eff204b5d5ddbea011161c0c3ee9fe1e569c6ce6"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i10_gates.json",
+        "sha256": "80a7e6349ca4684dc451e63277b6eef2acb60d6d7f45cd280e7a2001eb99defa"
+      }
     ]
   },
   "groups": {
@@ -332,5 +381,5 @@
   ],
   "n_per_group": 20000,
   "seed": 18,
-  "decomposition": "e^T J e = e^T[(1\u2212z)\u2299e] + e^T[(a\u2212h)\u2299(\u2202z e)] + e^T[z\u2299(\u2202a e)], exact JVPs, float64"
+  "decomposition": "e^T J e = e^T[(1−z)⊙e] + e^T[(a−h)⊙(∂z e)] + e^T[z⊙(∂a e)], exact JVPs, float64"
 }

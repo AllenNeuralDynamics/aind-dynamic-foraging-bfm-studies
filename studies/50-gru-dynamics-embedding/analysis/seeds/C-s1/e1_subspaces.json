@@ -1,29 +1,75 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/e1_subspaces.py",
-    "produced_at_pt": "2026-10-27T03:09:38-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T05:56:49-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/e1_subspaces.py",
+        "sha256": "fc15d102b71e81e0d284c883dc2c055cc05bd545009096f16d777ea1293ab329"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/e1_subspaces.json",
+        "sha256": "e0092e1c9463d5aa97eddbfcae0e30555d7b546baf4d0cd6e67e701362d66227"
+      }
     ]
   },
   "axes": [
-    "readout (R \u2212 L)",
-    "input: choice (R \u2212 L)",
-    "input: reward (+ \u2212 \u2212)",
-    "input: choice \u00d7 reward",
+    "readout (R − L)",
+    "input: choice (R − L)",
+    "input: reward (+ − −)",
+    "input: choice × reward",
     "var: choice 1 back",
     "var: reward 1 back",
-    "var: choice\u00d7reward 1 back",
+    "var: choice×reward 1 back",
     "var: reward 2 back",
     "var: reward 3 back",
     "var: choice 3 back",
-    "var: P(rew|R) \u2212 P(rew|L)",
-    "var: hattori Q_R \u2212 Q_L",
+    "var: P(rew|R) − P(rew|L)",
+    "var: hattori Q_R − Q_L",
     "var: hattori Q_R + Q_L",
     "var: trial position",
     "PC1",
@@ -476,18 +522,18 @@
     ]
   ],
   "variance_share": {
-    "readout (R \u2212 L)": 0.10468435874367565,
-    "input: choice (R \u2212 L)": 0.33935691694370557,
-    "input: reward (+ \u2212 \u2212)": 0.1638909838166959,
-    "input: choice \u00d7 reward": 0.17096101839405325,
+    "readout (R − L)": 0.10468435874367565,
+    "input: choice (R − L)": 0.33935691694370557,
+    "input: reward (+ − −)": 0.1638909838166959,
+    "input: choice × reward": 0.17096101839405325,
     "var: choice 1 back": 0.41860417995915317,
     "var: reward 1 back": 0.17232999014155392,
-    "var: choice\u00d7reward 1 back": 0.4009158775660921,
+    "var: choice×reward 1 back": 0.4009158775660921,
     "var: reward 2 back": 0.1420791825524013,
     "var: reward 3 back": 0.13444071725083895,
     "var: choice 3 back": 0.4177089467413566,
-    "var: P(rew|R) \u2212 P(rew|L)": 0.19695341388496435,
-    "var: hattori Q_R \u2212 Q_L": 0.42265132985239057,
+    "var: P(rew|R) − P(rew|L)": 0.19695341388496435,
+    "var: hattori Q_R − Q_L": 0.42265132985239057,
     "var: hattori Q_R + Q_L": 0.17406883453451943,
     "var: trial position": 0.059052873379116314,
     "PC1": 0.4241520223042681,
@@ -500,18 +546,18 @@
   "readout_variance_share": 0.10468435874367565,
   "readout_null_variance_share": 0.8953156412563243,
   "cosine_with_readout": {
-    "readout (R \u2212 L)": 0.9999999999999998,
-    "input: choice (R \u2212 L)": 0.3516311375793305,
-    "input: reward (+ \u2212 \u2212)": -0.0019059013479996642,
-    "input: choice \u00d7 reward": 0.5803898800582007,
+    "readout (R − L)": 0.9999999999999998,
+    "input: choice (R − L)": 0.3516311375793305,
+    "input: reward (+ − −)": -0.0019059013479996642,
+    "input: choice × reward": 0.5803898800582007,
     "var: choice 1 back": 0.46698925706558225,
     "var: reward 1 back": -0.008811894979542375,
-    "var: choice\u00d7reward 1 back": 0.5442818006706296,
+    "var: choice×reward 1 back": 0.5442818006706296,
     "var: reward 2 back": -0.011150339224247113,
     "var: reward 3 back": -0.018034690601672683,
     "var: choice 3 back": 0.45184400738168184,
-    "var: P(rew|R) \u2212 P(rew|L)": 0.5630537903400519,
-    "var: hattori Q_R \u2212 Q_L": 0.49457658493997125,
+    "var: P(rew|R) − P(rew|L)": 0.5630537903400519,
+    "var: hattori Q_R − Q_L": 0.49457658493997125,
     "var: hattori Q_R + Q_L": -0.005685926197021764,
     "var: trial position": 0.00013050934895853975,
     "PC1": 0.4799818302910425,
@@ -522,18 +568,18 @@
     "PC6": 0.034828372377221396
   },
   "readout_cos2": {
-    "readout (R \u2212 L)": 0.9999999999999996,
-    "input: choice (R \u2212 L)": 0.12364445691533406,
-    "input: reward (+ \u2212 \u2212)": 3.632459948306937e-06,
-    "input: choice \u00d7 reward": 0.3368524128739726,
+    "readout (R − L)": 0.9999999999999996,
+    "input: choice (R − L)": 0.12364445691533406,
+    "input: reward (+ − −)": 3.632459948306937e-06,
+    "input: choice × reward": 0.3368524128739726,
     "var: choice 1 back": 0.21807896621466447,
     "var: reward 1 back": 7.764949313048411e-05,
-    "var: choice\u00d7reward 1 back": 0.29624267854126296,
+    "var: choice×reward 1 back": 0.29624267854126296,
     "var: reward 2 back": 0.0001243300648157837,
     "var: reward 3 back": 0.000325250065098061,
     "var: choice 3 back": 0.20416300700673737,
-    "var: P(rew|R) \u2212 P(rew|L)": 0.31702957081629907,
-    "var: hattori Q_R \u2212 Q_L": 0.2446059983708846,
+    "var: P(rew|R) − P(rew|L)": 0.31702957081629907,
+    "var: hattori Q_R − Q_L": 0.2446059983708846,
     "var: hattori Q_R + Q_L": 3.232975671797839e-05,
     "var: trial position": 1.70326901655819e-08,
     "PC1": 0.23038255740953914,

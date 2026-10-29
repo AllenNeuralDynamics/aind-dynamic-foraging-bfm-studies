@@ -202,9 +202,9 @@ Reference likelihoods: GRU 0.7339, Hattori 0.7159, Bari 0.7181, CTT 0.7210.
 | R0 Q-learning | 0.7169 | -32% | 14% | 0.33414 | a_rew 0.501, a_unrew 0.0597, forget 0.799, beta 3.24 |
 | R1 + one-trial choice kernel | 0.7212 | +1% | 54% | 0.32835 | w_ck 0.793 |
 | R2 + choice trace | 0.7240 | +23% | 88% | 0.32426 | lam_T 0.722, w_T 1.2 |
-| R3 + outcome-scaled trace | 0.7247 | +29% | 94% | 0.32334 | lam_T 0.961, w_T 0.295, kappa_unrew 5.06 |
+| R3 + outcome-scaled trace | 0.7247 | +29% | 94% | 0.32334 | lam_T 0.961, w_T 0.297, kappa_unrew 5.07 |
 | R4 + reset on switch | 0.7250 | +31% | 97% | 0.32297 | rho 0.966 |
-| R5 + outcome-split last-choice kernel | 0.7251 | +32% | 97% | 0.32283 | w_ck 0.339, w_ck_unrew 0.455 |
+| R5 + outcome-split last-choice kernel | 0.7251 | +32% | 97% | 0.32283 | w_ck 0.339, w_ck_unrew 0.457 |
 
 C4e signature error (mean |model − animals|):
 

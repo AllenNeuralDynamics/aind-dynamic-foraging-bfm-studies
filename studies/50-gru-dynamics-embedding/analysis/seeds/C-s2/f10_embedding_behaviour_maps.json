@@ -1,11 +1,55 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/f10_embedding_behaviour_maps.py",
-    "produced_at_pt": "2026-10-27T07:33:56-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T13:12:03-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f10_embedding_behaviour_maps.py",
+        "sha256": "12f83241ab259f6b735f13a921252cd838204f18f1a8eab68ffed2d66eb8a650"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-464e627f"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/checkpoints/index.json",
+        "sha256": "857073fa535edd31f4ac43e43e0a53158fa13a5a68e0cb7d6f2f778f02f0ec6c"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "2d3068536eb3e515d29f366db0d2d8bbb7b416cb23c773b0e820dbd064cccaa0"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/f10_embedding_behaviour_maps.json",
+        "sha256": "3c282a817bef6e92634e0e2a7aeb311bd7ec18ff0457351e5edfcc4236d94bae"
+      }
     ]
   },
   "n_mice": 614,
@@ -2168,8 +2212,8 @@
     ],
     "axes": [
       "axis 1: switch rate",
-      "axis 2: learning rate \u22a5 switch rate",
-      "axis 3: bias \u22a5 both",
+      "axis 2: learning rate ⊥ switch rate",
+      "axis 3: bias ⊥ both",
       "axis 4: remainder"
     ],
     "directions_in_basis": {
@@ -2195,20 +2239,20 @@
     "prototype_axis_correlation": {
       "switch rate": {
         "axis 1: switch rate": 0.8569301251326661,
-        "axis 2: learning rate \u22a5 switch rate": -1.553405142402259e-16,
-        "axis 3: bias \u22a5 both": 1.012218834726634e-15,
+        "axis 2: learning rate ⊥ switch rate": -1.553405142402259e-16,
+        "axis 3: bias ⊥ both": 1.012218834726634e-15,
         "axis 4: remainder": -1.3629877378497244e-15
       },
       "learning rate (CTT)": {
         "axis 1: switch rate": -0.5129512363453865,
-        "axis 2: learning rate \u22a5 switch rate": 0.6358422610413941,
-        "axis 3: bias \u22a5 both": -7.215817435675014e-16,
+        "axis 2: learning rate ⊥ switch rate": 0.6358422610413941,
+        "axis 3: bias ⊥ both": -7.215817435675014e-16,
         "axis 4: remainder": 1.5784600640539087e-15
       },
       "bias": {
         "axis 1: switch rate": 0.07619018952377926,
-        "axis 2: learning rate \u22a5 switch rate": 0.2784666687585635,
-        "axis 3: bias \u22a5 both": 0.7337159811199244,
+        "axis 2: learning rate ⊥ switch rate": 0.2784666687585635,
+        "axis 3: bias ⊥ both": 0.7337159811199244,
         "axis 4: remainder": 5.562192606666155e-16
       }
     }

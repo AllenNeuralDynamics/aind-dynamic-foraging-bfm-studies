@@ -1,14 +1,60 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/f5_embedding_atlas.py",
-    "produced_at_pt": "2026-10-27T05:47:59-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T07:44:12-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f5_embedding_atlas.py",
+        "sha256": "21b3182629dd6e01f5481d81c4e569af3a4edf15caf93712bf86df5c526d57c9"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f5_embedding_atlas.json",
+        "sha256": "28c6502086036c863c254e196156a43928e563619dd6327bbba59c9f7b14dd86"
+      }
     ]
   },
   "n_mice": 614,
@@ -211,7 +257,7 @@
         -0.7109442497535584
       ]
     },
-    "gru reward effect (sum 1\u20135)": {
+    "gru reward effect (sum 1–5)": {
       "rank_r2": 0.7806858899570709,
       "null_95": 0.0009115301863423847,
       "p_shuffle": 0.004975124378109453,
@@ -295,7 +341,7 @@
         -0.7849964432309019
       ]
     },
-    "animal reward effect (sum 1\u20135)": {
+    "animal reward effect (sum 1–5)": {
       "rank_r2": 0.5699343849803644,
       "null_95": -0.001053661215126693,
       "p_shuffle": 0.004975124378109453,
@@ -379,7 +425,7 @@
         0.7333279636832198
       ]
     },
-    "v retention (e_v\u1d40Je_v)": {
+    "v retention (e_vᵀJe_v)": {
       "rank_r2": 0.8266804163898155,
       "null_95": -0.0008926886428573989,
       "p_shuffle": 0.004975124378109453,
@@ -391,7 +437,7 @@
         0.9374012653370417
       ]
     },
-    "I5 \u03bb stay": {
+    "I5 λ stay": {
       "rank_r2": 0.518218394022542,
       "null_95": 0.001287806729490275,
       "p_shuffle": 0.004975124378109453,
@@ -638,21 +684,21 @@
       "hattori softmax_inverse_temperature",
       "gru bias",
       "gru reward gain (1 back)",
-      "gru reward effect (sum 1\u20135)",
+      "gru reward effect (sum 1–5)",
       "gru reward decay (2/1 back)",
       "gru persistence (1 back)",
       "gru rewarded choice (1 back)",
       "gru unrewarded choice (1 back)",
       "animal bias",
       "animal reward gain (1 back)",
-      "animal reward effect (sum 1\u20135)",
+      "animal reward effect (sum 1–5)",
       "animal persistence (1 back)",
       "animal rewarded choice (1 back)",
       "animal unrewarded choice (1 back)",
       "attractor asymmetry",
       "attractor depth",
-      "v retention (e_v\u1d40Je_v)",
-      "I5 \u03bb stay",
+      "v retention (e_vᵀJe_v)",
+      "I5 λ stay",
       "I5 switch target",
       "gru likelihood",
       "gru advantage over CTT",
@@ -2203,7 +2249,7 @@
       "2": 0.5215460784457306,
       "3": 0.02145793499105929
     },
-    "gru reward effect (sum 1\u20135)": {
+    "gru reward effect (sum 1–5)": {
       "0": -0.7441261738366224,
       "1": -0.23767563079077292,
       "2": 0.4644669122483373,
@@ -2245,7 +2291,7 @@
       "2": 0.44237902566813614,
       "3": 0.03446952117017597
     },
-    "animal reward effect (sum 1\u20135)": {
+    "animal reward effect (sum 1–5)": {
       "0": -0.6105327864231346,
       "1": -0.21025481247580463,
       "2": 0.43292008339736837,
@@ -2281,13 +2327,13 @@
       "2": -0.14073846355629097,
       "3": -0.225893672373073
     },
-    "v retention (e_v\u1d40Je_v)": {
+    "v retention (e_vᵀJe_v)": {
       "0": -0.062005894115617625,
       "1": 0.36550455809620513,
       "2": -0.866443575552653,
       "3": -0.2153354317895247
     },
-    "I5 \u03bb stay": {
+    "I5 λ stay": {
       "0": 0.08395489740508832,
       "1": 0.5127887585925611,
       "2": -0.5180323674792774,
@@ -2586,7 +2632,7 @@
     "animal behaviour": [
       "animal bias",
       "animal reward gain (1 back)",
-      "animal reward effect (sum 1\u20135)",
+      "animal reward effect (sum 1–5)",
       "animal reward decay (2/1 back)",
       "animal persistence (1 back)",
       "animal rewarded choice (1 back)",

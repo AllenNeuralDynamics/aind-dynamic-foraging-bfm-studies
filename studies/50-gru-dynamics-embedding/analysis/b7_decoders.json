@@ -1,11 +1,50 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/b7_decoders.py",
-    "produced_at_pt": "2026-10-15T18:13:38-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T13:37:32-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/b7_decoders.py",
+        "sha256": "57aec30a0b9b40701f705f6b2026eb45ac96ebae525a2e268c072018bd0ba090"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s0.npz",
+        "sha256": "8debcb40b3dec029c0ed8050eff204b5d5ddbea011161c0c3ee9fe1e569c6ce6"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/b7_decoders.json",
+        "sha256": "2adb68e2986882a689d403e629087365abbddef22e6db4608e0a7f334ca2a0ad"
+      }
     ]
   },
   "n_trials": 400000,
@@ -13,7 +52,7 @@
   "ridge_alpha": 1.0,
   "cv": "5-fold GroupKFold by session",
   "states": "centred by the B3 PCA mean, raw units",
-  "location": "activation pattern \u03a3w (Haufe et al. 2014); per-PC share of decoded-signal variance",
+  "location": "activation pattern Σw (Haufe et al. 2014); per-PC share of decoded-signal variance",
   "decoders": [
     {
       "variable": "choice 1 back",
@@ -58,7 +97,7 @@
       "signal_share_top4_pcs": 0.8039439316656893
     },
     {
-      "variable": "choice\u00d7reward 1 back",
+      "variable": "choice×reward 1 back",
       "cv_r2": 0.9661907374404258,
       "unique_cv_r2": null,
       "n": 399171,
@@ -86,7 +125,7 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back"
+        "choice×reward 1 back"
       ],
       "signal_share_by_pc": [
         0.7889,
@@ -111,7 +150,7 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back"
+        "choice×reward 1 back"
       ],
       "signal_share_by_pc": [
         0.0002,
@@ -129,14 +168,14 @@
       "signal_share_top4_pcs": 0.19775676596243086
     },
     {
-      "variable": "choice\u00d7reward 2 back",
+      "variable": "choice×reward 2 back",
       "cv_r2": 0.9532683968240601,
       "unique_cv_r2": 0.9292242720382797,
       "n": 398340,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back"
+        "choice×reward 1 back"
       ],
       "signal_share_by_pc": [
         0.4075,
@@ -161,10 +200,10 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back"
+        "choice×reward 2 back"
       ],
       "signal_share_by_pc": [
         0.7219,
@@ -189,10 +228,10 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back"
+        "choice×reward 2 back"
       ],
       "signal_share_by_pc": [
         0.0,
@@ -210,17 +249,17 @@
       "signal_share_top4_pcs": 0.10741871220499602
     },
     {
-      "variable": "choice\u00d7reward 3 back",
+      "variable": "choice×reward 3 back",
       "cv_r2": 0.8233093333325745,
       "unique_cv_r2": 0.7025380711571522,
       "n": 397530,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back"
+        "choice×reward 2 back"
       ],
       "signal_share_by_pc": [
         0.4393,
@@ -245,13 +284,13 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back"
+        "choice×reward 3 back"
       ],
       "signal_share_by_pc": [
         0.6947,
@@ -276,13 +315,13 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back"
+        "choice×reward 3 back"
       ],
       "signal_share_by_pc": [
         0.0002,
@@ -300,20 +339,20 @@
       "signal_share_top4_pcs": 0.10442719416264694
     },
     {
-      "variable": "choice\u00d7reward 4 back",
+      "variable": "choice×reward 4 back",
       "cv_r2": 0.6765593482411061,
       "unique_cv_r2": 0.4009071868135985,
       "n": 396683,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back"
+        "choice×reward 3 back"
       ],
       "signal_share_by_pc": [
         0.4756,
@@ -338,16 +377,16 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "choice 4 back",
         "reward 4 back",
-        "choice\u00d7reward 4 back"
+        "choice×reward 4 back"
       ],
       "signal_share_by_pc": [
         0.6311,
@@ -372,16 +411,16 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "choice 4 back",
         "reward 4 back",
-        "choice\u00d7reward 4 back"
+        "choice×reward 4 back"
       ],
       "signal_share_by_pc": [
         0.0001,
@@ -399,23 +438,23 @@
       "signal_share_top4_pcs": 0.10401029914041039
     },
     {
-      "variable": "choice\u00d7reward 5 back",
+      "variable": "choice×reward 5 back",
       "cv_r2": 0.5829208571185176,
       "unique_cv_r2": 0.24177176036030645,
       "n": 395914,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "choice 4 back",
         "reward 4 back",
-        "choice\u00d7reward 4 back"
+        "choice×reward 4 back"
       ],
       "signal_share_by_pc": [
         0.5173,
@@ -433,7 +472,7 @@
       "signal_share_top4_pcs": 0.5239490454485897
     },
     {
-      "variable": "P(rew|R) \u2212 P(rew|L)",
+      "variable": "P(rew|R) − P(rew|L)",
       "cv_r2": 0.42645407093497667,
       "unique_cv_r2": null,
       "n": 400000,
@@ -475,7 +514,7 @@
       "signal_share_top4_pcs": 0.4256317047363656
     },
     {
-      "variable": "trials since left chosen (\u226420)",
+      "variable": "trials since left chosen (≤20)",
       "cv_r2": 0.9063976545917078,
       "unique_cv_r2": null,
       "n": 391823,
@@ -496,7 +535,7 @@
       "signal_share_top4_pcs": 0.728276337230487
     },
     {
-      "variable": "trials since right chosen (\u226420)",
+      "variable": "trials since right chosen (≤20)",
       "cv_r2": 0.9249610020305785,
       "unique_cv_r2": null,
       "n": 392115,
@@ -541,23 +580,23 @@
   "variables": [
     "choice 1 back",
     "reward 1 back",
-    "choice\u00d7reward 1 back",
+    "choice×reward 1 back",
     "choice 2 back",
     "reward 2 back",
-    "choice\u00d7reward 2 back",
+    "choice×reward 2 back",
     "choice 3 back",
     "reward 3 back",
-    "choice\u00d7reward 3 back",
+    "choice×reward 3 back",
     "choice 4 back",
     "reward 4 back",
-    "choice\u00d7reward 4 back",
+    "choice×reward 4 back",
     "choice 5 back",
     "reward 5 back",
-    "choice\u00d7reward 5 back",
-    "P(rew|R) \u2212 P(rew|L)",
+    "choice×reward 5 back",
+    "P(rew|R) − P(rew|L)",
     "P(rew|R) + P(rew|L)",
-    "trials since left chosen (\u226420)",
-    "trials since right chosen (\u226420)",
+    "trials since left chosen (≤20)",
+    "trials since right chosen (≤20)",
     "model logit(right) (check)"
   ],
   "pattern_cosine_similarity": [

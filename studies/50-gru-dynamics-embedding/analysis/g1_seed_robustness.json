@@ -1,11 +1,287 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
     "produced_by": "analysis/g1_seed_robustness.py",
-    "produced_at_pt": "2026-10-27T08:12:25-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T22:07:07-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/g1_seed_robustness.py",
+        "sha256": "7b81bbb279322bb0e2ce54ab9556d4ef9485e79c00165ec88822e0130619a16a"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/trial_states_C-s0.json",
+        "sha256": "f21a64ddc53d5895137f33561898b09eb184a3ef81e83250f9395a689ddc680f"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c2_compare.json",
+        "sha256": "932bbbb0f64bd2b4f1e3d50cce189bb1dd38f8e4fe866c33f9e66631c81ae355"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c1_kernels.json",
+        "sha256": "c823263e0d87339a104368fccac6b9690e842bfe894a4bf3aabffd08426d4b61"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c4_behaviour.json",
+        "sha256": "24ef66350aa078139e0833527144e044d55eb624c781b3a9cfb3f59e8646cd1a"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c4e_signatures.json",
+        "sha256": "f5956153ad88c9c721d952fe9b4a47c66ae55d8d70917086ca829e81d5ac5f09"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/b3_pca.json",
+        "sha256": "f5f6d76e5c413a59b1423f03303711ba33a288e8abb11f086ced539e9be2ed52"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/e1_subspaces.json",
+        "sha256": "bf0099dcd6cc0cbfb5cc345e2fd0c4312985e37ac7d1236cbc6a179036936444"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/d_dynamics.json",
+        "sha256": "7bcfe6150b100fdec398193eaf2ccffc19678b7fc5a47732c09bda405dc812fe"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i3_tdr_dynamics.json",
+        "sha256": "27b15b7d29a5e84d583e015a1c8ada7c231e1145b008d96430c77d62d0937dd4"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i4_distilled_model.json",
+        "sha256": "dc6d3b4e1029bf47528fac8795f823ea85143de99452b6a63c9ec450fd4d669c"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i8_v_tests.json",
+        "sha256": "c35a1deda2c41b6a903926d1c3dc166d538ffd36687b2b8f055c0b3c9b55e22e"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i9_v_kernel.json",
+        "sha256": "9b76d635eada02400123b1e69276ac0e538bd08f893f15f3893ccdd8a4d3ea68"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i9d_v_kernel_long.json",
+        "sha256": "df2db78bf71f45fcc5d0800105941d5805a8b5124ed9884353c2190d004711e0"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i10_gates.json",
+        "sha256": "ae662219779626e479c118be19f162ba84d4cfa9c95a4a26035d062a03521b8c"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/e2b_conditional_ablations.json",
+        "sha256": "657a3ea33c064eeead53edc144c4c03aa82da45f75dae11951e794bf8aba7865"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/h2_learning_rate.json",
+        "sha256": "1609679d832285b00e5de6d89ab19c19f040d158b3199da0eab79b67bbb4957d"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/h3_q_phase_portraits.json",
+        "sha256": "46f7e1d43a728a226ae312b6f7748820e47e1157283c3eb99eb30443361e7b84"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f2_mouse_dynamics.json",
+        "sha256": "5bcc3c2842890efdc5dcf4f316774bcbf692a5a98b12ec7309d1edf37a09565d"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f5_embedding_atlas.json",
+        "sha256": "88c999cac40d96f685ced81a6f606be5ea0e47e2818b8f31bf82f41ec540a7e8"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f6_embedding_types.json",
+        "sha256": "b9c3080808fd63ffa7fbd6b669696e7c1c1cd8ba9763b9bbe55ee4b3a2315ece"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f10_embedding_behaviour_maps.json",
+        "sha256": "6712ec0141d4617cf9298d2b240399fdf0c09f820be5ce8d01a86a1d849aa580"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/trial_states_C-s1.json",
+        "sha256": "d9614d198faca0014eb6ad6e6e916cb8eb0b3d7456810167a7fa058c5cd5b873"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/c2_compare.json",
+        "sha256": "b84b08a7cae524b3882aa21cb2eaf23b649285db9edd16bafeadf58f9ead221b"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/c1_kernels.json",
+        "sha256": "07d159db7a59ec543638b6696992483458176e027e7f48d1bda531a6c68359bb"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/c4_behaviour.json",
+        "sha256": "675d05038cb4e245130457c2633b579efa66bb004b0479bf9208911454b8b905"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/c4e_signatures.json",
+        "sha256": "f0141a2c375ac7114bd7a130ad9d93bf6521bac6e999c378ba245648ff255fbc"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/b3_pca.json",
+        "sha256": "1f30650c4e756b8e55d7518a46c8f8d98e7d830c985529161bf4dc77d0fa13fa"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/e1_subspaces.json",
+        "sha256": "51b360d90036f439018d5c329145215e3a022da339fe58241f58bc98b1d27ee4"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/d_dynamics.json",
+        "sha256": "69790bb3fd1272510f6471d136132fdf13f14f8233eb21530c5b5200daa23a99"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i3_tdr_dynamics.json",
+        "sha256": "3d1c5aa3e43ba4ad2cd5df8a3a8dcb94caa80b9512a3d1953f53427bf1b868db"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i4_distilled_model.json",
+        "sha256": "0ba7de794b7c153f932ea68cd82e847574dd23ae6ee7e284cee9087a1c22f06f"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i8_v_tests.json",
+        "sha256": "d4159dea3c0fba50228942935668ae3330a3fa2f5747495f1a98f8213f4da3f6"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i9_v_kernel.json",
+        "sha256": "dcc24cfa43c4165d42db35e09f95d18c5217e9575ca1811b07ad44c99259e3bf"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i9d_v_kernel_long.json",
+        "sha256": "6bc17ba9fae3bff6c9228002106cfe9ab5bae214e5185deb2eb479db450b4381"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i10_gates.json",
+        "sha256": "a769198d9aa9b09e497b0a551457fff762ff91edef4b040f1d886e7db98698ac"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/e2b_conditional_ablations.json",
+        "sha256": "d40c51a85b8de7f4535b731faf6934c9ad46591cff631f0fa36d91e52e2969a2"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/h2_learning_rate.json",
+        "sha256": "4d16d7b236da884855549cd492a8d1a924d16d697d912931a5096e5cc3b35e0a"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/h3_q_phase_portraits.json",
+        "sha256": "b7516a2536cc1812489093325fd5179061eee432a4e0f4b26c3e85b39fa7f752"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f2_mouse_dynamics.json",
+        "sha256": "9bb291c1adcf10dc14c580f3ccdc1acc3c7329dd9842bb7586bd78f281a5bc83"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f5_embedding_atlas.json",
+        "sha256": "5c46f434e3e6c4b5e9c05f900a5c90a4a8ae98984da7f7749c6ae413361403dc"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f6_embedding_types.json",
+        "sha256": "08ba3686d7ecd94e7f22d1b87ea701040ac33cc0f9e946c739269ea266cb315e"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f10_embedding_behaviour_maps.json",
+        "sha256": "76878933aba12b38c7570ebd91b2ac0aae3a839194d02d4cae63b4a079674e21"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/trial_states_C-s2.json",
+        "sha256": "151793be28cf590501b324e0f53838a7a849e418087fd1b14745aea9347cb846"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/c2_compare.json",
+        "sha256": "b936384811dcdafcc1f3a67d417444e9cd55810929195a5c015325f086132a17"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/c1_kernels.json",
+        "sha256": "b1b940829db40fb4fcfb6f3c3db1f49aa67429b9bb91043f767c3c33771c4dbf"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/c4_behaviour.json",
+        "sha256": "7c7761b51a8812daa26198d6ed96010e983c78ff347e79572110c1e13551dd79"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/c4e_signatures.json",
+        "sha256": "18b95ed17222d0c579ce86594042ca367f0c852ad936b1a613b67bcae84af4da"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/b3_pca.json",
+        "sha256": "14bc5c98426f3e0bae0b8db01c3f91cb6d604543f13dbbda8393ebb973e0c623"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/e1_subspaces.json",
+        "sha256": "4c7a794e68e522a90dc8560fb0774445b9cd1f382e32a6a4bb25e9b3ba8101e2"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/d_dynamics.json",
+        "sha256": "e49517ae59312feb44723a3618a5b573f63d2ef672858a74146bbf7e9d49a1c1"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/i3_tdr_dynamics.json",
+        "sha256": "649e94d0450986ef9fa5613e2d9c3a0c5379bbf940c9947327e85ef9c5c7490a"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/i4_distilled_model.json",
+        "sha256": "99b5c34be2f4d2b97f87879bc8681f77f73564cc04f688c99475d9ca6cfd15e4"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/i8_v_tests.json",
+        "sha256": "0f61a5cbe868ed0f9b8a9c4258c721c67602d4220ebe93670295ff2bba2e2aaf"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/i9_v_kernel.json",
+        "sha256": "9b2e001024507133ba1275942cf62f7c4739cdab64ad22775eb27d0e94d320d7"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/i9d_v_kernel_long.json",
+        "sha256": "b7af9983126ce3a00ad6282765f0da552580a32134c67d21db1d14f2c8c104a9"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/i10_gates.json",
+        "sha256": "f1be26810ad71f79a3ad843ed45d467480eea45355797fcde7cfd0030b7e5f3b"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/e2b_conditional_ablations.json",
+        "sha256": "b8ef1ab657a4c510dd99f84a8e8417e808207164164e5ff971a20394210c6e5e"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/h2_learning_rate.json",
+        "sha256": "bc28b4fd506b34bfb718ad700120b683024992c914fb1db05bf8c1dea2a6ec47"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/h3_q_phase_portraits.json",
+        "sha256": "bd3ea00607aba3016ab3ece650349feeaf633bd80881c9b19c7a6d6260794acb"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/f2_mouse_dynamics.json",
+        "sha256": "8d07ec912d01cf6e838804911fd35573a38b9de944af73259a14169e78369b8a"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/f5_embedding_atlas.json",
+        "sha256": "284733fa134b2c0fad9c1cd7ad6d12eddbbdd56a0efb583228e17d41e9b4a416"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/f6_embedding_types.json",
+        "sha256": "32a2526986eff48cf8de8805826b135022870e0e076bf43412052c85197d58f2"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/f10_embedding_behaviour_maps.json",
+        "sha256": "76065b57744a6f6bba9163e3974140b7cb53372b5c0955057631d628fd5bbd12"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/g1_seed_robustness.json",
+        "sha256": "bac0b92f78aeb1163cd39f7d1472f8032649fbf23caa543745a15f3412fcff02"
+      }
     ]
   },
   "seeds": [
@@ -15,19 +291,19 @@
   ],
   "claims": [
     {
-      "claim": "GRU beats every RL model, in \u2265 99% of mice",
+      "claim": "GRU beats every RL model, in ≥ 99% of mice",
       "C-s0": true,
       "C-s1": true,
       "C-s2": true
     },
     {
-      "claim": "GRU's choice kernels match the animals' (< 0.03) and \u2265 3\u00d7 better than any RL model",
+      "claim": "GRU's choice kernels match the animals' (< 0.03) and ≥ 3× better than any RL model",
       "C-s0": true,
       "C-s1": true,
       "C-s2": true
     },
     {
-      "claim": "GRU calibrated over 3-trial histories (< 0.5 pp; every RL model \u2265 3\u00d7 worse)",
+      "claim": "GRU calibrated over 3-trial histories (< 0.5 pp; every RL model ≥ 3× worse)",
       "C-s0": true,
       "C-s1": true,
       "C-s2": true
@@ -39,13 +315,13 @@
       "C-s2": true
     },
     {
-      "claim": "Attractors on the chosen side; one per input for \u2265 3 of 4 inputs",
+      "claim": "Attractors on the chosen side; one per input for ≥ 3 of 4 inputs",
       "C-s0": true,
       "C-s1": true,
       "C-s2": true
     },
     {
-      "claim": "Rewarded attractors deeper than unrewarded (every context \u00d7 side)",
+      "claim": "Rewarded attractors deeper than unrewarded (every context × side)",
       "C-s0": true,
       "C-s1": false,
       "C-s2": true
@@ -57,7 +333,7 @@
       "C-s2": true
     },
     {
-      "claim": "v carried through every jump (slopes 0.6\u20130.85, R\u00b2 > 0.9)",
+      "claim": "v carried through every jump (slopes 0.6–0.85, R² > 0.9)",
       "C-s0": true,
       "C-s1": false,
       "C-s2": true
@@ -69,7 +345,7 @@
       "C-s2": true
     },
     {
-      "claim": "v closes on itself (v-only R\u00b2 > 0.9 in every transition group)",
+      "claim": "v closes on itself (v-only R² > 0.9 in every transition group)",
       "C-s0": true,
       "C-s1": false,
       "C-s2": true
@@ -87,7 +363,7 @@
       "C-s2": true
     },
     {
-      "claim": "Non-saturating learning rate (reward effect 0.8\u20131.2 logit; switch/stay 0.9\u20131.1)",
+      "claim": "Non-saturating learning rate (reward effect 0.8–1.2 logit; switch/stay 0.9–1.1)",
       "C-s0": true,
       "C-s1": true,
       "C-s2": true
@@ -99,7 +375,7 @@
       "C-s2": true
     },
     {
-      "claim": "Embedding decodes bias, reward gain and learning rate (rank R\u00b2 > 0.5)",
+      "claim": "Embedding decodes bias, reward gain and learning rate (rank R² > 0.5)",
       "C-s0": true,
       "C-s1": true,
       "C-s2": true
@@ -133,10 +409,10 @@
       "likelihood hattori": 0.7159216381741544,
       "frac mice GRU > hattori": 1.0,
       "median per-mouse gain vs CTT": 0.011719437868223548,
-      "kernel max |gru \u2212 animal|": 0.010905027389526367,
-      "kernel max |ctt \u2212 animal|": 0.07492077350616455,
-      "kernel max |bari \u2212 animal|": 0.20182132720947266,
-      "kernel max |hattori \u2212 animal|": 0.1968456506729126,
+      "kernel max |gru − animal|": 0.010905027389526367,
+      "kernel max |ctt − animal|": 0.07492077350616455,
+      "kernel max |bari − animal|": 0.20182132720947266,
+      "kernel max |hattori − animal|": 0.1968456506729126,
       "3-trial history calibration error pp (gru)": 0.18334399260728557,
       "3-trial history calibration error pp (hattori)": 2.241213020480357,
       "3-trial history calibration error pp (bari)": 2.127030478917253,
@@ -165,20 +441,20 @@
       "fixed points (L unrewarded)": 1,
       "attractor on chosen side (L unrewarded)": 1.0,
       "main attractor logit (L unrewarded)": -3.045045731794646,
-      "reward depth R (|rew| \u2212 |unrew| logit)": 1.2945437523386967,
-      "reward depth L (|rew| \u2212 |unrew| logit)": 1.9334148256823305,
-      "reward depth > 0, share of context \u00d7 side": 1.0,
+      "reward depth R (|rew| − |unrew| logit)": 1.2945437523386967,
+      "reward depth L (|rew| − |unrew| logit)": 1.9334148256823305,
+      "reward depth > 0, share of context × side": 1.0,
       "v carry slope min": 0.6623411182791884,
       "v carry slope max": 0.797455890932143,
-      "v carry R\u00b2 min": 0.9346308703391365,
-      "v carry R\u00b2 max": 0.9829803443732333,
+      "v carry R² min": 0.9346308703391365,
+      "v carry R² max": 0.9829803443732333,
       "1-variable model corr(v)": 0.9847316914581533,
       "1-variable model likelihood (per mouse)": 0.7179662321111057,
-      "v closure R\u00b2 (v only), min over groups": 0.93316859943393,
+      "v closure R² (v only), min over groups": 0.93316859943393,
       "v perturbation retained at k=1": 0.6910039782524109,
-      "v kernel held-out R\u00b2 (free)": 0.9529295851619015,
+      "v kernel held-out R² (free)": 0.9529295851619015,
       "three traces best BIC share (mice)": 0.9950657894736842,
-      "share mice \u03bb_unr > \u03bb_rew (two outcomes)": 1.0,
+      "share mice λ_unr > λ_rew (two outcomes)": 1.0,
       "three traces median A_rew": 0.2915576688154951,
       "three traces median lambda_rew": 0.7189381364937903,
       "three traces median A_unr": 0.04489917928620352,
@@ -186,16 +462,16 @@
       "three traces median A_c": 0.3482064498284565,
       "three traces median lambda_c": 0.6509976507249737,
       "v axis participation ratio (units)": 31.845958382807126,
-      "v retention e\u1d40Je (median over groups)": 0.677235239615469,
-      "ablation \u0394 value axis": -0.027501404285430908,
-      "ablation \u0394 reward axis": -0.08123308420181274,
-      "ablation \u0394 choice axis": -0.001997232437133789,
-      "ablation \u0394 readout direction": -0.019289731979370117,
-      "ablation \u0394 random 1-d (mean)": -0.013359051942825318,
-      "ablation \u0394 random 1-d (worst)": -0.020609498023986816,
+      "v retention eᵀJe (median over groups)": 0.677235239615469,
+      "ablation Δ value axis": -0.027501404285430908,
+      "ablation Δ reward axis": -0.08123308420181274,
+      "ablation Δ choice axis": -0.001997232437133789,
+      "ablation Δ readout direction": -0.019289731979370117,
+      "ablation Δ random 1-d (mean)": -0.013359051942825318,
+      "ablation Δ random 1-d (worst)": -0.020609498023986816,
       "reward effect on logit (GRU)": 1.0054870995945624,
       "reward effect switch / stay (GRU)": 1.0179887073990543,
-      "Q decoding R\u00b2 (min of Q_L, Q_R)": 0.9392600755969488,
+      "Q decoding R² (min of Q_L, Q_R)": 0.9392600755969488,
       "Q_chosen update a (R rewarded)": 0.43404942866054225,
       "Q_chosen update b (R rewarded)": -0.43353824683887965,
       "Q_chosen update a (R unrewarded)": 0.050745543217341225,
@@ -203,24 +479,24 @@
       "mice with all four attractors": 1.0,
       "mice bistable for any input": 79.0,
       "per-mouse reward depth (median)": 1.0727,
-      "per-mouse slowest \u03c4 (median, trials)": 355.379,
-      "embedding decodes attractor depth (rank R\u00b2)": 0.8476423664002978,
-      "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": 0.7971184908176884,
+      "per-mouse slowest τ (median, trials)": 355.379,
+      "embedding decodes attractor depth (rank R²)": 0.8476423664002978,
+      "embedding decodes v retention (e_vᵀJe_v) (rank R²)": 0.7971184908176884,
       "embedding PC1 variance share": 0.5759529709913123,
       "embedding PC2 variance share": 0.22026038287648994,
       "embedding PC3 variance share": 0.14028149695155268,
       "embedding PC4 variance share": 0.06350514918064497,
-      "embedding decodes gru bias (rank R\u00b2)": 0.7816223700093001,
-      "embedding decodes gru reward gain (1 back) (rank R\u00b2)": 0.7795047702897498,
-      "embedding decodes ctt learn_rate (rank R\u00b2)": 0.673298881273416,
-      "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": 0.46949143056968856,
+      "embedding decodes gru bias (rank R²)": 0.7816223700093001,
+      "embedding decodes gru reward gain (1 back) (rank R²)": 0.7795047702897498,
+      "embedding decodes ctt learn_rate (rank R²)": 0.673298881273416,
+      "embedding decodes hattori softmax_inverse_temperature (rank R²)": 0.46949143056968856,
       "mixture best k (BIC)": 2,
-      "mixture BIC gain \u2212 heavy-tail null 95%": 0.18912495185732325,
+      "mixture BIC gain − heavy-tail null 95%": 0.18912495185732325,
       "mixture k=2 separation (Mahalanobis)": 0.9716031543921361,
-      "Mantel \u03c1 embedding vs animal behaviour": 0.48985354731431074,
-      "embedding explains animal determinism (R\u00b2)": 0.7437488321729542,
-      "embedding explains animal switch rate (R\u00b2)": 0.7217401111983026,
-      "embedding explains animal bias (R\u00b2)": 0.6546280837936881,
+      "Mantel ρ embedding vs animal behaviour": 0.48985354731431074,
+      "embedding explains animal determinism (R²)": 0.7437488321729542,
+      "embedding explains animal switch rate (R²)": 0.7217401111983026,
+      "embedding explains animal bias (R²)": 0.6546280837936881,
       "cos(determinism, ctt learn_rate) in embedding": 0.6065126247617715,
       "cos(determinism, bias) in embedding": -0.1122813112328936,
       "cos(ctt learn_rate, bias) in embedding": 0.18454829632503258,
@@ -235,10 +511,10 @@
       "likelihood hattori": 0.7159216381741544,
       "frac mice GRU > hattori": 1.0,
       "median per-mouse gain vs CTT": 0.01172373670374588,
-      "kernel max |gru \u2212 animal|": 0.01576089859008789,
-      "kernel max |ctt \u2212 animal|": 0.07492077350616455,
-      "kernel max |bari \u2212 animal|": 0.20182132720947266,
-      "kernel max |hattori \u2212 animal|": 0.1968456506729126,
+      "kernel max |gru − animal|": 0.01576089859008789,
+      "kernel max |ctt − animal|": 0.07492077350616455,
+      "kernel max |bari − animal|": 0.20182132720947266,
+      "kernel max |hattori − animal|": 0.1968456506729126,
       "3-trial history calibration error pp (gru)": 0.23723245185573066,
       "3-trial history calibration error pp (hattori)": 2.241213020480357,
       "3-trial history calibration error pp (bari)": 2.127030478917253,
@@ -267,20 +543,20 @@
       "fixed points (L unrewarded)": 1,
       "attractor on chosen side (L unrewarded)": 1.0,
       "main attractor logit (L unrewarded)": -3.180771424562196,
-      "reward depth R (|rew| \u2212 |unrew| logit)": 0.01510299016942973,
-      "reward depth L (|rew| \u2212 |unrew| logit)": 0.6082128790833901,
-      "reward depth > 0, share of context \u00d7 side": 0.8,
+      "reward depth R (|rew| − |unrew| logit)": 0.01510299016942973,
+      "reward depth L (|rew| − |unrew| logit)": 0.6082128790833901,
+      "reward depth > 0, share of context × side": 0.8,
       "v carry slope min": 0.6049911282911422,
       "v carry slope max": 0.7925635590052762,
-      "v carry R\u00b2 min": 0.8490430765293436,
-      "v carry R\u00b2 max": 0.9641425793414058,
+      "v carry R² min": 0.8490430765293436,
+      "v carry R² max": 0.9641425793414058,
       "1-variable model corr(v)": 0.979243109953901,
       "1-variable model likelihood (per mouse)": 0.7185472935421475,
-      "v closure R\u00b2 (v only), min over groups": 0.8435165130880187,
+      "v closure R² (v only), min over groups": 0.8435165130880187,
       "v perturbation retained at k=1": 0.6725606918334961,
-      "v kernel held-out R\u00b2 (free)": 0.9385932287796857,
+      "v kernel held-out R² (free)": 0.9385932287796857,
       "three traces best BIC share (mice)": 0.9983552631578947,
-      "share mice \u03bb_unr > \u03bb_rew (two outcomes)": 0.9983552631578947,
+      "share mice λ_unr > λ_rew (two outcomes)": 0.9983552631578947,
       "three traces median A_rew": 0.3126581376725065,
       "three traces median lambda_rew": 0.741697920283612,
       "three traces median A_unr": 0.045887417815307335,
@@ -288,16 +564,16 @@
       "three traces median A_c": 0.34359000515902105,
       "three traces median lambda_c": 0.5061952634938013,
       "v axis participation ratio (units)": 44.90298242448764,
-      "v retention e\u1d40Je (median over groups)": 0.6608912777117615,
-      "ablation \u0394 value axis": -0.026211261749267578,
-      "ablation \u0394 reward axis": -0.08453363180160522,
-      "ablation \u0394 choice axis": -0.003574967384338379,
-      "ablation \u0394 readout direction": -0.018818020820617676,
-      "ablation \u0394 random 1-d (mean)": -0.016856998205184937,
-      "ablation \u0394 random 1-d (worst)": -0.04029971361160278,
+      "v retention eᵀJe (median over groups)": 0.6608912777117615,
+      "ablation Δ value axis": -0.026211261749267578,
+      "ablation Δ reward axis": -0.08453363180160522,
+      "ablation Δ choice axis": -0.003574967384338379,
+      "ablation Δ readout direction": -0.018818020820617676,
+      "ablation Δ random 1-d (mean)": -0.016856998205184937,
+      "ablation Δ random 1-d (worst)": -0.04029971361160278,
       "reward effect on logit (GRU)": 1.027565803864561,
       "reward effect switch / stay (GRU)": 1.0076417776819886,
-      "Q decoding R\u00b2 (min of Q_L, Q_R)": 0.9422440565261136,
+      "Q decoding R² (min of Q_L, Q_R)": 0.9422440565261136,
       "Q_chosen update a (R rewarded)": 0.3869201944021112,
       "Q_chosen update b (R rewarded)": -0.37190020510861727,
       "Q_chosen update a (R unrewarded)": 0.04481158632266314,
@@ -305,24 +581,24 @@
       "mice with all four attractors": 1.0,
       "mice bistable for any input": 0.0,
       "per-mouse reward depth (median)": 0.3581,
-      "per-mouse slowest \u03c4 (median, trials)": 1669.5017,
-      "embedding decodes attractor depth (rank R\u00b2)": 0.889000761760386,
-      "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": 0.8252160638502093,
+      "per-mouse slowest τ (median, trials)": 1669.5017,
+      "embedding decodes attractor depth (rank R²)": 0.889000761760386,
+      "embedding decodes v retention (e_vᵀJe_v) (rank R²)": 0.8252160638502093,
       "embedding PC1 variance share": 0.523989887993752,
       "embedding PC2 variance share": 0.2313999495901516,
       "embedding PC3 variance share": 0.22230580180205092,
       "embedding PC4 variance share": 0.02230436061404546,
-      "embedding decodes gru bias (rank R\u00b2)": 0.7740103083312206,
-      "embedding decodes gru reward gain (1 back) (rank R\u00b2)": 0.7561851511366816,
-      "embedding decodes ctt learn_rate (rank R\u00b2)": 0.6754742761958372,
-      "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": 0.479106764140275,
+      "embedding decodes gru bias (rank R²)": 0.7740103083312206,
+      "embedding decodes gru reward gain (1 back) (rank R²)": 0.7561851511366816,
+      "embedding decodes ctt learn_rate (rank R²)": 0.6754742761958372,
+      "embedding decodes hattori softmax_inverse_temperature (rank R²)": 0.479106764140275,
       "mixture best k (BIC)": 2,
-      "mixture BIC gain \u2212 heavy-tail null 95%": 2.0743448910210702,
+      "mixture BIC gain − heavy-tail null 95%": 2.0743448910210702,
       "mixture k=2 separation (Mahalanobis)": 0.9594998119665508,
-      "Mantel \u03c1 embedding vs animal behaviour": 0.47063618584808037,
-      "embedding explains animal determinism (R\u00b2)": 0.7664941800608042,
-      "embedding explains animal switch rate (R\u00b2)": 0.7440720019094633,
-      "embedding explains animal bias (R\u00b2)": 0.6444358373502944,
+      "Mantel ρ embedding vs animal behaviour": 0.47063618584808037,
+      "embedding explains animal determinism (R²)": 0.7664941800608042,
+      "embedding explains animal switch rate (R²)": 0.7440720019094633,
+      "embedding explains animal bias (R²)": 0.6444358373502944,
       "cos(determinism, ctt learn_rate) in embedding": 0.5964025422978502,
       "cos(determinism, bias) in embedding": -0.08536644981935436,
       "cos(ctt learn_rate, bias) in embedding": 0.23115628952738798,
@@ -337,10 +613,10 @@
       "likelihood hattori": 0.7159216381741544,
       "frac mice GRU > hattori": 1.0,
       "median per-mouse gain vs CTT": 0.011653195725030152,
-      "kernel max |gru \u2212 animal|": 0.014841079711914062,
-      "kernel max |ctt \u2212 animal|": 0.07492077350616455,
-      "kernel max |bari \u2212 animal|": 0.20182132720947266,
-      "kernel max |hattori \u2212 animal|": 0.1968456506729126,
+      "kernel max |gru − animal|": 0.014841079711914062,
+      "kernel max |ctt − animal|": 0.07492077350616455,
+      "kernel max |bari − animal|": 0.20182132720947266,
+      "kernel max |hattori − animal|": 0.1968456506729126,
       "3-trial history calibration error pp (gru)": 0.19689724842716938,
       "3-trial history calibration error pp (hattori)": 2.241213020480357,
       "3-trial history calibration error pp (bari)": 2.127030478917253,
@@ -369,20 +645,20 @@
       "fixed points (L unrewarded)": 1,
       "attractor on chosen side (L unrewarded)": 1.0,
       "main attractor logit (L unrewarded)": -3.085722732946947,
-      "reward depth R (|rew| \u2212 |unrew| logit)": 1.0185440590364738,
-      "reward depth L (|rew| \u2212 |unrew| logit)": 0.8441380897049005,
-      "reward depth > 0, share of context \u00d7 side": 1.0,
+      "reward depth R (|rew| − |unrew| logit)": 1.0185440590364738,
+      "reward depth L (|rew| − |unrew| logit)": 0.8441380897049005,
+      "reward depth > 0, share of context × side": 1.0,
       "v carry slope min": 0.6918219114884594,
       "v carry slope max": 0.7850871881373199,
-      "v carry R\u00b2 min": 0.9555592910333137,
-      "v carry R\u00b2 max": 0.9820026773186076,
+      "v carry R² min": 0.9555592910333137,
+      "v carry R² max": 0.9820026773186076,
       "1-variable model corr(v)": 0.9886355621886735,
       "1-variable model likelihood (per mouse)": 0.7175397634005873,
-      "v closure R\u00b2 (v only), min over groups": 0.9552590400008115,
+      "v closure R² (v only), min over groups": 0.9552590400008115,
       "v perturbation retained at k=1": 0.7062115669250488,
-      "v kernel held-out R\u00b2 (free)": 0.9653153523773166,
+      "v kernel held-out R² (free)": 0.9653153523773166,
       "three traces best BIC share (mice)": 0.9917763157894737,
-      "share mice \u03bb_unr > \u03bb_rew (two outcomes)": 1.0,
+      "share mice λ_unr > λ_rew (two outcomes)": 1.0,
       "three traces median A_rew": 0.22003224729973203,
       "three traces median lambda_rew": 0.7846317736165358,
       "three traces median A_unr": 0.05066622655587957,
@@ -390,16 +666,16 @@
       "three traces median A_c": 0.4759356897982777,
       "three traces median lambda_c": 0.6131347481876535,
       "v axis participation ratio (units)": 39.48787687353465,
-      "v retention e\u1d40Je (median over groups)": 0.720609876847125,
-      "ablation \u0394 value axis": -0.03217458724975586,
-      "ablation \u0394 reward axis": -0.08944064378738403,
-      "ablation \u0394 choice axis": -0.003161311149597168,
-      "ablation \u0394 readout direction": -0.017706692218780518,
-      "ablation \u0394 random 1-d (mean)": -0.013693177700042724,
-      "ablation \u0394 random 1-d (worst)": -0.02324855327606201,
+      "v retention eᵀJe (median over groups)": 0.720609876847125,
+      "ablation Δ value axis": -0.03217458724975586,
+      "ablation Δ reward axis": -0.08944064378738403,
+      "ablation Δ choice axis": -0.003161311149597168,
+      "ablation Δ readout direction": -0.017706692218780518,
+      "ablation Δ random 1-d (mean)": -0.013693177700042724,
+      "ablation Δ random 1-d (worst)": -0.02324855327606201,
       "reward effect on logit (GRU)": 1.011796164341364,
       "reward effect switch / stay (GRU)": 1.002061910256839,
-      "Q decoding R\u00b2 (min of Q_L, Q_R)": 0.9416917174717316,
+      "Q decoding R² (min of Q_L, Q_R)": 0.9416917174717316,
       "Q_chosen update a (R rewarded)": 0.4290038563301528,
       "Q_chosen update b (R rewarded)": -0.42094709980330447,
       "Q_chosen update a (R unrewarded)": 0.03817336582922213,
@@ -407,24 +683,24 @@
       "mice with all four attractors": 1.0,
       "mice bistable for any input": 9.0,
       "per-mouse reward depth (median)": 0.9757,
-      "per-mouse slowest \u03c4 (median, trials)": 1634.6782,
-      "embedding decodes attractor depth (rank R\u00b2)": 0.8799741475988659,
-      "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": 0.7084221449874337,
+      "per-mouse slowest τ (median, trials)": 1634.6782,
+      "embedding decodes attractor depth (rank R²)": 0.8799741475988659,
+      "embedding decodes v retention (e_vᵀJe_v) (rank R²)": 0.7084221449874337,
       "embedding PC1 variance share": 0.4176658613748007,
       "embedding PC2 variance share": 0.35282147729580915,
       "embedding PC3 variance share": 0.1939401587778574,
       "embedding PC4 variance share": 0.03557250255153278,
-      "embedding decodes gru bias (rank R\u00b2)": 0.7681923806924897,
-      "embedding decodes gru reward gain (1 back) (rank R\u00b2)": 0.7802351321005194,
-      "embedding decodes ctt learn_rate (rank R\u00b2)": 0.659886992560092,
-      "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": 0.47819727177243254,
+      "embedding decodes gru bias (rank R²)": 0.7681923806924897,
+      "embedding decodes gru reward gain (1 back) (rank R²)": 0.7802351321005194,
+      "embedding decodes ctt learn_rate (rank R²)": 0.659886992560092,
+      "embedding decodes hattori softmax_inverse_temperature (rank R²)": 0.47819727177243254,
       "mixture best k (BIC)": 2,
-      "mixture BIC gain \u2212 heavy-tail null 95%": -13.823818708240495,
+      "mixture BIC gain − heavy-tail null 95%": -13.823818708240495,
       "mixture k=2 separation (Mahalanobis)": 1.202279490452711,
-      "Mantel \u03c1 embedding vs animal behaviour": 0.48685344265147845,
-      "embedding explains animal determinism (R\u00b2)": 0.7475065563373418,
-      "embedding explains animal switch rate (R\u00b2)": 0.7343292393598875,
-      "embedding explains animal bias (R\u00b2)": 0.6216877715399345,
+      "Mantel ρ embedding vs animal behaviour": 0.48685344265147845,
+      "embedding explains animal determinism (R²)": 0.7475065563373418,
+      "embedding explains animal switch rate (R²)": 0.7343292393598875,
+      "embedding explains animal bias (R²)": 0.6216877715399345,
       "cos(determinism, ctt learn_rate) in embedding": 0.6052173223840198,
       "cos(determinism, bias) in embedding": -0.13638596754673885,
       "cos(ctt learn_rate, bias) in embedding": 0.2142047695115508,
@@ -504,7 +780,7 @@
       "range": 7.05409787157274e-05,
       "rel_range": 0.006029767020245796
     },
-    "kernel max |gru \u2212 animal|": {
+    "kernel max |gru − animal|": {
       "values": [
         0.010905027389526367,
         0.01576089859008789,
@@ -513,7 +789,7 @@
       "range": 0.0048558712005615234,
       "rel_range": 0.35096758629008634
     },
-    "kernel max |ctt \u2212 animal|": {
+    "kernel max |ctt − animal|": {
       "values": [
         0.07492077350616455,
         0.07492077350616455,
@@ -522,7 +798,7 @@
       "range": 0.0,
       "rel_range": 0.0
     },
-    "kernel max |bari \u2212 animal|": {
+    "kernel max |bari − animal|": {
       "values": [
         0.20182132720947266,
         0.20182132720947266,
@@ -531,7 +807,7 @@
       "range": 0.0,
       "rel_range": 0.0
     },
-    "kernel max |hattori \u2212 animal|": {
+    "kernel max |hattori − animal|": {
       "values": [
         0.1968456506729126,
         0.1968456506729126,
@@ -792,7 +1068,7 @@
       "range": 0.13572569276754987,
       "rel_range": 0.04372822144813834
     },
-    "reward depth R (|rew| \u2212 |unrew| logit)": {
+    "reward depth R (|rew| − |unrew| logit)": {
       "values": [
         1.2945437523386967,
         0.01510299016942973,
@@ -801,7 +1077,7 @@
       "range": 1.279440762169267,
       "rel_range": 1.6486287481083286
     },
-    "reward depth L (|rew| \u2212 |unrew| logit)": {
+    "reward depth L (|rew| − |unrew| logit)": {
       "values": [
         1.9334148256823305,
         0.6082128790833901,
@@ -810,7 +1086,7 @@
       "range": 1.3252019465989404,
       "rel_range": 1.1742117089993296
     },
-    "reward depth > 0, share of context \u00d7 side": {
+    "reward depth > 0, share of context × side": {
       "values": [
         1.0,
         0.8,
@@ -837,7 +1113,7 @@
       "range": 0.01236870279482305,
       "rel_range": 0.015622923109906069
     },
-    "v carry R\u00b2 min": {
+    "v carry R² min": {
       "values": [
         0.9346308703391365,
         0.8490430765293436,
@@ -846,7 +1122,7 @@
       "range": 0.10651621450397009,
       "rel_range": 0.11665623762534331
     },
-    "v carry R\u00b2 max": {
+    "v carry R² max": {
       "values": [
         0.9829803443732333,
         0.9641425793414058,
@@ -873,7 +1149,7 @@
       "range": 0.0010075301415601867,
       "rel_range": 0.0014032106076671024
     },
-    "v closure R\u00b2 (v only), min over groups": {
+    "v closure R² (v only), min over groups": {
       "values": [
         0.93316859943393,
         0.8435165130880187,
@@ -891,7 +1167,7 @@
       "range": 0.033650875091552734,
       "rel_range": 0.048774656636529856
     },
-    "v kernel held-out R\u00b2 (free)": {
+    "v kernel held-out R² (free)": {
       "values": [
         0.9529295851619015,
         0.9385932287796857,
@@ -909,7 +1185,7 @@
       "range": 0.006578947368421018,
       "rel_range": 0.00661157024793385
     },
-    "share mice \u03bb_unr > \u03bb_rew (two outcomes)": {
+    "share mice λ_unr > λ_rew (two outcomes)": {
       "values": [
         1.0,
         0.9983552631578947,
@@ -981,7 +1257,7 @@
       "range": 13.057024041680513,
       "rel_range": 0.33699367297373894
     },
-    "v retention e\u1d40Je (median over groups)": {
+    "v retention eᵀJe (median over groups)": {
       "values": [
         0.677235239615469,
         0.6608912777117615,
@@ -990,7 +1266,7 @@
       "range": 0.05971859913536348,
       "rel_range": 0.08702221319497286
     },
-    "ablation \u0394 value axis": {
+    "ablation Δ value axis": {
       "values": [
         -0.027501404285430908,
         -0.026211261749267578,
@@ -999,7 +1275,7 @@
       "range": 0.005963325500488281,
       "rel_range": 0.2082960604434994
     },
-    "ablation \u0394 reward axis": {
+    "ablation Δ reward axis": {
       "values": [
         -0.08123308420181274,
         -0.08453363180160522,
@@ -1008,7 +1284,7 @@
       "range": 0.008207559585571289,
       "rel_range": 0.09648106848053878
     },
-    "ablation \u0394 choice axis": {
+    "ablation Δ choice axis": {
       "values": [
         -0.001997232437133789,
         -0.003574967384338379,
@@ -1017,7 +1293,7 @@
       "range": 0.0015777349472045898,
       "rel_range": 0.5419589964783926
     },
-    "ablation \u0394 readout direction": {
+    "ablation Δ readout direction": {
       "values": [
         -0.019289731979370117,
         -0.018818020820617676,
@@ -1026,7 +1302,7 @@
       "range": 0.0015830397605895996,
       "rel_range": 0.08508763780006856
     },
-    "ablation \u0394 random 1-d (mean)": {
+    "ablation Δ random 1-d (mean)": {
       "values": [
         -0.013359051942825318,
         -0.016856998205184937,
@@ -1035,7 +1311,7 @@
       "range": 0.0034979462623596184,
       "rel_range": 0.2389893719696593
     },
-    "ablation \u0394 random 1-d (worst)": {
+    "ablation Δ random 1-d (worst)": {
       "values": [
         -0.020609498023986816,
         -0.04029971361160278,
@@ -1062,7 +1338,7 @@
       "range": 0.015926797142215232,
       "rel_range": 0.01578112476030232
     },
-    "Q decoding R\u00b2 (min of Q_L, Q_R)": {
+    "Q decoding R² (min of Q_L, Q_R)": {
       "values": [
         0.9392600755969488,
         0.9422440565261136,
@@ -1134,7 +1410,7 @@
       "range": 0.7146,
       "rel_range": 0.8908373156035735
     },
-    "per-mouse slowest \u03c4 (median, trials)": {
+    "per-mouse slowest τ (median, trials)": {
       "values": [
         355.379,
         1669.5017,
@@ -1143,7 +1419,7 @@
       "range": 1314.1227,
       "rel_range": 1.077279586892289
     },
-    "embedding decodes attractor depth (rank R\u00b2)": {
+    "embedding decodes attractor depth (rank R²)": {
       "values": [
         0.8476423664002978,
         0.889000761760386,
@@ -1152,7 +1428,7 @@
       "range": 0.04135839536008823,
       "rel_range": 0.04741816360753341
     },
-    "embedding decodes v retention (e_v\u1d40Je_v) (rank R\u00b2)": {
+    "embedding decodes v retention (e_vᵀJe_v) (rank R²)": {
       "values": [
         0.7971184908176884,
         0.8252160638502093,
@@ -1197,7 +1473,7 @@
       "range": 0.041200788566599506,
       "rel_range": 1.0182922766780476
     },
-    "embedding decodes gru bias (rank R\u00b2)": {
+    "embedding decodes gru bias (rank R²)": {
       "values": [
         0.7816223700093001,
         0.7740103083312206,
@@ -1206,7 +1482,7 @@
       "range": 0.013429989316810387,
       "rel_range": 0.017337780137028302
     },
-    "embedding decodes gru reward gain (1 back) (rank R\u00b2)": {
+    "embedding decodes gru reward gain (1 back) (rank R²)": {
       "values": [
         0.7795047702897498,
         0.7561851511366816,
@@ -1215,7 +1491,7 @@
       "range": 0.024049980963837814,
       "rel_range": 0.031153833230326434
     },
-    "embedding decodes ctt learn_rate (rank R\u00b2)": {
+    "embedding decodes ctt learn_rate (rank R²)": {
       "values": [
         0.673298881273416,
         0.6754742761958372,
@@ -1224,7 +1500,7 @@
       "range": 0.015587283635745242,
       "rel_range": 0.023280120784271326
     },
-    "embedding decodes hattori softmax_inverse_temperature (rank R\u00b2)": {
+    "embedding decodes hattori softmax_inverse_temperature (rank R²)": {
       "values": [
         0.46949143056968856,
         0.479106764140275,
@@ -1242,7 +1518,7 @@
       "range": 0.0,
       "rel_range": 0.0
     },
-    "mixture BIC gain \u2212 heavy-tail null 95%": {
+    "mixture BIC gain − heavy-tail null 95%": {
       "values": [
         0.18912495185732325,
         2.0743448910210702,
@@ -1260,7 +1536,7 @@
       "range": 0.24277967848616022,
       "rel_range": 0.23244498413374515
     },
-    "Mantel \u03c1 embedding vs animal behaviour": {
+    "Mantel ρ embedding vs animal behaviour": {
       "values": [
         0.48985354731431074,
         0.47063618584808037,
@@ -1269,7 +1545,7 @@
       "range": 0.019217361466230376,
       "rel_range": 0.0398330439954382
     },
-    "embedding explains animal determinism (R\u00b2)": {
+    "embedding explains animal determinism (R²)": {
       "values": [
         0.7437488321729542,
         0.7664941800608042,
@@ -1278,7 +1554,7 @@
       "range": 0.022745347887849987,
       "rel_range": 0.03022303474815219
     },
-    "embedding explains animal switch rate (R\u00b2)": {
+    "embedding explains animal switch rate (R²)": {
       "values": [
         0.7217401111983026,
         0.7440720019094633,
@@ -1287,7 +1563,7 @@
       "range": 0.022331890711160707,
       "rel_range": 0.03045062175588879
     },
-    "embedding explains animal bias (R\u00b2)": {
+    "embedding explains animal bias (R²)": {
       "values": [
         0.6546280837936881,
         0.6444358373502944,

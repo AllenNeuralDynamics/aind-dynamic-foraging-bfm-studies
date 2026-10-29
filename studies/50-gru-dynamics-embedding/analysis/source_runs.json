@@ -1,4 +1,63 @@
 {
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_source_runs.py",
+    "produced_at_pt": "2026-10-28T13:12:30-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/freeze_source_runs.py",
+        "sha256": "c278d65445baa19664540fa8d955446af44022c46575eb79153b7915a95b2ca0"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/01-gru-scaling-law/analysis/nxd_scaling.json",
+        "sha256": "7cffcbe7a62b624fd1bc8899f0b30dbffee4e7dfb11aa32d505d0d890da6e24a"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-464e627f"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-78e14bfc"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-0554750e"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/nxd-grid-20260623-102649-6eb7c553"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/source_runs.json",
+        "sha256": "974f6c54a99df815ae7d43ddd5c2148db7b303569a61038d1ecf72ba4aa18168"
+      }
+    ]
+  },
   "schema_version": 1,
   "entity": "AIND-disRNN",
   "project": "mice_data_scaling",
@@ -87,7 +146,7 @@
       }
     }
   },
-  "frozen_at_pt": "2026-10-15T15:52:45-07:00",
+  "frozen_at_pt": "2026-10-28T13:12:30-07:00",
   "rl_baselines": {
     "description": "Study 01's per-subject classical-RL fits of the same 614 training mice (DE per mouse on its train sessions; same snapshot, eval_every_n=2 split, seeds). Used by Study 50 phase C. Groups are the run's actual W&B group (Study 01's rl_baseline.py hardcodes different launch suffixes).",
     "project": "mice_data_scaling",

@@ -1,11 +1,40 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/b3_pca.py",
-    "produced_at_pt": "2026-10-27T01:39:46-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T04:51:28-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/b3_pca.py",
+        "sha256": "21c9e0e5f0b3519a9cba3cf1e321bbbb6716f19bf05153180d2432e5eda61cfc"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/b3_pca.json",
+        "sha256": "b0d4fff09b6f8bf38d39e4a0fb9bd4bb2205e8f5f04e2d5cb6a6d0a0e48854d1"
+      }
     ]
   },
   "n_trials": 4339402,

@@ -1,17 +1,61 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i5_mouse_dynamics.py",
-    "produced_at_pt": "2026-10-27T03:12:35-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T05:57:22-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i5_mouse_dynamics.py",
+        "sha256": "2124f676460f8ae3886869db7052d14ddc32cd29ba19104ccae2451f5176a8ea"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i5_mouse_dynamics.json",
+        "sha256": "3f596dddf1f648306118f9bfa9868563b0bb4fd1e6b0c4c04c9195e74098e1b7"
+      }
     ]
   },
   "n_mice": 614,
   "dynamics_features": [
-    "\u03bb stay",
-    "\u03bb switch",
+    "λ stay",
+    "λ switch",
     "reward push",
     "choice push",
     "target asymmetry",
@@ -27,8 +71,8 @@
   ],
   "spearman": {
     "bias": {
-      "\u03bb stay": 0.09391115487106963,
-      "\u03bb switch": 0.06247444053528089,
+      "λ stay": 0.09391115487106963,
+      "λ switch": 0.06247444053528089,
       "reward push": -0.26037607614785757,
       "choice push": -0.01511025837657668,
       "target asymmetry": 0.8140059314414742,
@@ -37,8 +81,8 @@
       "readout offset": 0.6386338166297318
     },
     "reward gain (1 back)": {
-      "\u03bb stay": -0.5962750350545521,
-      "\u03bb switch": -0.7079300833794884,
+      "λ stay": -0.5962750350545521,
+      "λ switch": -0.7079300833794884,
       "reward push": 0.6795136648275475,
       "choice push": 0.12782356171357306,
       "target asymmetry": 0.3181776531912117,
@@ -47,8 +91,8 @@
       "readout offset": -0.4019350605268571
     },
     "persistence (1 back)": {
-      "\u03bb stay": -0.4456896217659511,
-      "\u03bb switch": -0.63240654868706,
+      "λ stay": -0.4456896217659511,
+      "λ switch": -0.63240654868706,
       "reward push": 0.6420685212001145,
       "choice push": 0.3456146978854254,
       "target asymmetry": 0.3206236372984323,
@@ -57,8 +101,8 @@
       "readout offset": -0.3572004363496298
     },
     "reward decay (2/1 back)": {
-      "\u03bb stay": -0.4015955507579158,
-      "\u03bb switch": -0.4882169134195358,
+      "λ stay": -0.4015955507579158,
+      "λ switch": -0.4882169134195358,
       "reward push": 0.5081117769427559,
       "choice push": 0.1576038407269418,
       "target asymmetry": 0.13419166386614742,
@@ -68,7 +112,7 @@
     }
   },
   "embedding_decoding": {
-    "\u03bb stay": {
+    "λ stay": {
       "rank_r2": 0.5181476278889855,
       "null_95": 0.0007765799544296798,
       "p_shuffle": 0.004975124378109453,
@@ -80,7 +124,7 @@
         0.974306881586631
       ]
     },
-    "\u03bb switch": {
+    "λ switch": {
       "rank_r2": 0.4880307666876784,
       "null_95": 0.0010567364694607589,
       "p_shuffle": 0.004975124378109453,
@@ -166,12 +210,12 @@
     }
   },
   "per_mouse_summary": {
-    "\u03bb stay": [
+    "λ stay": [
       0.7085,
       0.742,
       0.7785
     ],
-    "\u03bb switch": [
+    "λ switch": [
       0.59,
       0.6313,
       0.6828

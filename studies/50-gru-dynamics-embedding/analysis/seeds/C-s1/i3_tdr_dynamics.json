@@ -1,11 +1,60 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i3_tdr_dynamics.py",
-    "produced_at_pt": "2026-10-27T02:42:56-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T05:38:16-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i3_tdr_dynamics.py",
+        "sha256": "cabc38b524cc732eae87cde173ecce90d67344621592c54d13307c75f17c9b66"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i3_tdr_dynamics.json",
+        "sha256": "83c0f971c80412da9f6468cc4fdcf326ef0b6b7d2f8394ea759a91931f9276f0"
+      }
     ]
   },
   "n_transitions": 1000000,
@@ -14,8 +63,8 @@
     "value",
     "choice",
     "reward",
-    "value\u00d7choice",
-    "choice\u00d7reward"
+    "value×choice",
+    "choice×reward"
   ],
   "transitions": {
     "R rewarded | from R lobe (stay)": {
@@ -27,8 +76,8 @@
         "value": 0.1801,
         "choice": 0.2096,
         "reward": 0.8322,
-        "value\u00d7choice": 0.1369,
-        "choice\u00d7reward": 0.1774
+        "value×choice": 0.1369,
+        "choice×reward": 0.1774
       }
     },
     "R rewarded | from L lobe (switch)": {
@@ -40,8 +89,8 @@
         "value": 0.4869,
         "choice": 2.5897,
         "reward": 1.6045,
-        "value\u00d7choice": -0.0167,
-        "choice\u00d7reward": 0.416
+        "value×choice": -0.0167,
+        "choice×reward": 0.416
       }
     },
     "R unrewarded | from R lobe (stay)": {
@@ -53,8 +102,8 @@
         "value": 0.0936,
         "choice": -0.1408,
         "reward": -0.7611,
-        "value\u00d7choice": -0.0817,
-        "choice\u00d7reward": -0.244
+        "value×choice": -0.0817,
+        "choice×reward": -0.244
       }
     },
     "R unrewarded | from L lobe (switch)": {
@@ -66,8 +115,8 @@
         "value": 0.2483,
         "choice": 2.1189,
         "reward": -0.8226,
-        "value\u00d7choice": -0.1667,
-        "choice\u00d7reward": 0.1787
+        "value×choice": -0.1667,
+        "choice×reward": 0.1787
       }
     },
     "L rewarded | from R lobe (switch)": {
@@ -79,8 +128,8 @@
         "value": -0.6355,
         "choice": -2.1433,
         "reward": 1.6532,
-        "value\u00d7choice": 0.0582,
-        "choice\u00d7reward": -0.4037
+        "value×choice": 0.0582,
+        "choice×reward": -0.4037
       }
     },
     "L rewarded | from L lobe (stay)": {
@@ -92,8 +141,8 @@
         "value": -0.3134,
         "choice": 0.0816,
         "reward": 0.8805,
-        "value\u00d7choice": 0.158,
-        "choice\u00d7reward": -0.1609
+        "value×choice": 0.158,
+        "choice×reward": -0.1609
       }
     },
     "L unrewarded | from R lobe (switch)": {
@@ -105,8 +154,8 @@
         "value": -0.1139,
         "choice": -2.4223,
         "reward": -0.9897,
-        "value\u00d7choice": -0.0787,
-        "choice\u00d7reward": -0.2445
+        "value×choice": -0.0787,
+        "choice×reward": -0.2445
       }
     },
     "L unrewarded | from L lobe (stay)": {
@@ -118,8 +167,8 @@
         "value": 0.0226,
         "choice": -0.101,
         "reward": -0.8426,
-        "value\u00d7choice": -0.1313,
-        "choice\u00d7reward": 0.2418
+        "value×choice": -0.1313,
+        "choice×reward": 0.2418
       }
     }
   },

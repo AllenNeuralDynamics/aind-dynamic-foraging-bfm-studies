@@ -1,14 +1,50 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i8_v_tests.py",
-    "produced_at_pt": "2026-10-27T03:31:59-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T06:11:03-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i8_v_tests.py",
+        "sha256": "068dbc813b06d8f1737df2f1eb0d5c477c1958f6cd743600470e9c3c460fabe5"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i8_v_tests.json",
+        "sha256": "7ee136b733887f641253f180faa0a0b97df161f6ae4b1f017fcecf5d55a7d356"
+      }
     ]
   },
   "closure_heldout_r2": {
@@ -154,7 +190,7 @@
   },
   "flip_kernels": {
     "GRU": {
-      "a\u00b7v": {
+      "a·v": {
         "reward effect": [
           0.2908557116859127,
           0.3106424898894038,
@@ -304,7 +340,7 @@
       }
     },
     "hattori": {
-      "\u03b2\u00b7\u0394Q": {
+      "β·ΔQ": {
         "reward effect": [
           0.6819125747374456,
           0.45700462672110487,
@@ -380,7 +416,7 @@
       }
     },
     "bari": {
-      "\u03b2\u00b7\u0394Q": {
+      "β·ΔQ": {
         "reward effect": [
           0.7580270442618602,
           0.5567289228903609,
@@ -622,8 +658,8 @@
   "seed": 8,
   "readout_a_v": 1.174629298842611,
   "conventions": {
-    "reward effect": "c\u00b7(x|rewarded \u2212 x|unrewarded) at trial t+k",
-    "choice effect": "x|chose R \u2212 x|chose L, outcome kept as observed",
+    "reward effect": "c·(x|rewarded − x|unrewarded) at trial t+k",
+    "choice effect": "x|chose R − x|chose L, outcome kept as observed",
     "units": "log-odds of right; GRU v scaled by I7's v-only readout slope"
   }
 }

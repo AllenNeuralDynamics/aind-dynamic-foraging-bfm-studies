@@ -1,19 +1,65 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/f3_embedding_features.py",
-    "produced_at_pt": "2026-10-27T02:25:37-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T05:25:54-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f3_embedding_features.py",
+        "sha256": "c76f7abae653f8d61c2cbcc01c57acf2487d6fb31cec25cf3b29f2a8c2839a0d"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f3_embedding_features.json",
+        "sha256": "d3f84c5acee6ac175e6ecfbef6018472039117fa3caaacf4271b8a91343bd720"
+      }
     ]
   },
   "n_mice": 614,
   "embedding": "4-d subject embedding table, raw coordinates (best_eval)",
-  "method": "5-fold CV (shuffled, seed 0) linear regression across mice; rank R\u00b2; 200-permutation shuffle null",
+  "method": "5-fold CV (shuffled, seed 0) linear regression across mice; rank R²; 200-permutation shuffle null",
   "kernel_source": "c1_kernels.json per_mouse_coef (Su2022, 10 back; GRU soft labels)",
   "decoding": {
     "gru bias": {
@@ -44,7 +90,7 @@
       "task_mix_only_rank_r2": 0.14744615688242846,
       "embedding_beyond_task_mix_r2": 0.582470598693021
     },
-    "gru reward effect (sum 1\u20135)": {
+    "gru reward effect (sum 1–5)": {
       "rank_r2": 0.7806858899570709,
       "null_95": 0.000739576169926124,
       "p_shuffle": 0.004975124378109453,
@@ -142,7 +188,7 @@
       "task_mix_only_rank_r2": 0.08202552515449646,
       "embedding_beyond_task_mix_r2": 0.3661951959269757
     },
-    "animal reward effect (sum 1\u20135)": {
+    "animal reward effect (sum 1–5)": {
       "rank_r2": 0.5699343849803644,
       "null_95": -0.00033652643291358695,
       "p_shuffle": 0.004975124378109453,
@@ -726,7 +772,7 @@
   "gru_vs_animal_spearman": {
     "bias": 0.9539620294949436,
     "reward gain (1 back)": 0.7755328752016473,
-    "reward effect (sum 1\u20135)": 0.8353527442475088,
+    "reward effect (sum 1–5)": 0.8353527442475088,
     "reward decay (2/1 back)": 0.3045379799581116,
     "persistence (1 back)": 0.96513837589237,
     "rewarded choice (1 back)": 0.9591629728541231,

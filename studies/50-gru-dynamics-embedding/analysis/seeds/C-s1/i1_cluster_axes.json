@@ -1,14 +1,60 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i1_cluster_axes.py",
-    "produced_at_pt": "2026-10-27T02:40:51-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T05:36:40-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i1_cluster_axes.py",
+        "sha256": "393eaea7230a2148620daa5a5e3df56b2e05e50e65dde32ec56bb12d5f455886"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i1_cluster_axes.json",
+        "sha256": "3ec60fbb7a2f5d9226105b40480714341e247e7857e826565a44fbf6d163dec3"
+      }
     ]
   },
   "clusters": [
@@ -19,8 +65,8 @@
   ],
   "values": [
     "logit(right)",
-    "Hattori \u0394Q",
-    "P(rew|R) \u2212 P(rew|L)"
+    "Hattori ΔQ",
+    "P(rew|R) − P(rew|L)"
   ],
   "n": [
     965709,
@@ -100,7 +146,7 @@
           0.2239384251753437
         ]
       },
-      "Hattori \u0394Q": {
+      "Hattori ΔQ": {
         "cosine_across_clusters": [
           [
             0.9999999999999998,
@@ -170,7 +216,7 @@
           0.14202042294811754
         ]
       },
-      "P(rew|R) \u2212 P(rew|L)": {
+      "P(rew|R) − P(rew|L)": {
         "cosine_across_clusters": [
           [
             1.0,
@@ -242,13 +288,13 @@
       }
     },
     "logit_axis_vs_external_value_axes_per_cluster": {
-      "logit(right) vs Hattori \u0394Q": [
+      "logit(right) vs Hattori ΔQ": [
         0.9626432319173577,
         0.948698367678451,
         0.9685734593202595,
         0.9602510504471464
       ],
-      "logit(right) vs P(rew|R) \u2212 P(rew|L)": [
+      "logit(right) vs P(rew|R) − P(rew|L)": [
         0.3051718456972454,
         0.23435488504081375,
         0.3532792658901095,
@@ -328,7 +374,7 @@
           0.23145725514656315
         ]
       },
-      "Hattori \u0394Q": {
+      "Hattori ΔQ": {
         "cosine_across_clusters": [
           [
             0.9999999999999997,
@@ -398,7 +444,7 @@
           0.15625367066669718
         ]
       },
-      "P(rew|R) \u2212 P(rew|L)": {
+      "P(rew|R) − P(rew|L)": {
         "cosine_across_clusters": [
           [
             1.0000000000000002,
@@ -470,13 +516,13 @@
       }
     },
     "logit_axis_vs_external_value_axes_per_cluster": {
-      "logit(right) vs Hattori \u0394Q": [
+      "logit(right) vs Hattori ΔQ": [
         0.9416667116217227,
         0.9416248734460856,
         0.951590629857763,
         0.9604161894635292
       ],
-      "logit(right) vs P(rew|R) \u2212 P(rew|L)": [
+      "logit(right) vs P(rew|R) − P(rew|L)": [
         0.2541184323354837,
         0.3245062799780449,
         0.28552232164999003,

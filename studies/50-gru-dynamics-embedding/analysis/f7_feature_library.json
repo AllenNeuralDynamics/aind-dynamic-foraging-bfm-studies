@@ -1,11 +1,60 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/f7_feature_library.py",
-    "produced_at_pt": "2026-10-26T13:53:24-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-28T17:10:30-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f7_feature_library.py",
+        "sha256": "0dde1f1737001bbf6d85ef3982a21ebbe1bae639f3986e08ac8ce6d459ebe380"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f7_feature_library.json",
+        "sha256": "8bc11fe9d2f5c058e26fa1016f7686ce6f2fbf4d39956ffeba538e095a01599e"
+      }
     ]
   },
   "features": [
@@ -284,10 +333,10 @@
   },
   "named_axes": {
     "names": [
-      "+determinism / +lose-stay / \u2212switch rate",
-      "+bias / +matching bias / \u2212reward memory span",
+      "+determinism / +lose-stay / −switch rate",
+      "+bias / +matching bias / −reward memory span",
       "+choice memory span / +poorer-side rate / +return after failed switch",
-      "+reward memory span / \u2212stickiness ratio / \u2212return after failed switch"
+      "+reward memory span / −stickiness ratio / −return after failed switch"
     ],
     "loadings": {
       "determinism": [
@@ -376,7 +425,7 @@
       0.036921979718787495
     ],
     "spearman_with_animal_features": {
-      "+determinism / +lose-stay / \u2212switch rate": {
+      "+determinism / +lose-stay / −switch rate": {
         "determinism": 0.8811327516115894,
         "stickiness ratio": 0.12584269925041128,
         "win-stay": 0.8196189732462905,
@@ -391,7 +440,7 @@
         "return after failed switch": -0.30093302666346994,
         "stay through losses": 0.4929480256863138
       },
-      "+bias / +matching bias / \u2212reward memory span": {
+      "+bias / +matching bias / −reward memory span": {
         "determinism": -0.06416275836005222,
         "stickiness ratio": -0.017359244908293093,
         "win-stay": -0.05875548672275854,
@@ -421,7 +470,7 @@
         "return after failed switch": 0.3344819440829964,
         "stay through losses": 0.10092515246225613
       },
-      "+reward memory span / \u2212stickiness ratio / \u2212return after failed switch": {
+      "+reward memory span / −stickiness ratio / −return after failed switch": {
         "determinism": 0.04868844327979708,
         "stickiness ratio": -0.06317958493388463,
         "win-stay": 0.05797086610594332,
@@ -437,8 +486,8 @@
         "stay through losses": 0.0034215646667791716
       }
     },
-    "method": "GRU features (z) regressed on the whitened embedding; varimax rotation of the 13 \u00d7 4 loadings"
+    "method": "GRU features (z) regressed on the whitened embedding; varimax rotation of the 13 × 4 loadings"
   },
-  "reliability": "odd vs even sessions within each mouse; Spearman across mice, Spearman\u2013Brown corrected",
-  "definitions": "F7: a behavioural feature library, how much of it the embedding carries, and named embedding axes.\n\n    python analysis/f7_feature_library.py\n\n1. Features, per mouse and per source \u2014 the animal's choices, and the GRU's predicted\n   P(right) on the same trials (soft labels; model-free features use expected values):\n     determinism      mean |history-driven logit| of the mouse's Su2022 fit (intercept excluded):\n                      the overall scale of history dependence, kept as its own feature\n     stickiness ratio UnrC(1) / RewC(1): how much of the tendency to repeat survives no reward\n     win-stay, lose-stay   P(stay | previous rewarded / unrewarded)\n     reward memory span    \u03a3 lags 2\u20135 / lag 1 of the reward effect (RewC \u2212 UnrC)\n     choice memory span    \u03a3 lags 2\u20135 / lag 1 of persistence ((RewC + UnrC) / 2)\n     bias             Su2022 intercept (rightward)\n     matching sensitivity / bias   Baum fit log(C_R/C_L) = s\u00b7log(I_R/I_L) + b over blocks of\n                      constant reward probabilities (incomes are the animal's)\n     poorer-side rate P(choosing the poorer side) \u2265 10 trials after a probability change, |\u0394P| \u2265 0.3\n     switch rate      P(switch)\n     return after failed switch    P(back to the old side | t\u22121 switched and was unrewarded)\n     stay through losses           P(stay | \u2265 2 losses in a row on a side just switched to)\n   "
+  "reliability": "odd vs even sessions within each mouse; Spearman across mice, Spearman–Brown corrected",
+  "definitions": "F7: a behavioural feature library, how much of it the embedding carries, and named embedding axes.\n\n    python analysis/f7_feature_library.py\n\n1. Features, per mouse and per source — the animal's choices, and the GRU's predicted\n   P(right) on the same trials (soft labels; model-free features use expected values):\n     determinism      mean |history-driven logit| of the mouse's Su2022 fit (intercept excluded):\n                      the overall scale of history dependence, kept as its own feature\n     stickiness ratio UnrC(1) / RewC(1): how much of the tendency to repeat survives no reward\n     win-stay, lose-stay   P(stay | previous rewarded / unrewarded)\n     reward memory span    Σ lags 2–5 / lag 1 of the reward effect (RewC − UnrC)\n     choice memory span    Σ lags 2–5 / lag 1 of persistence ((RewC + UnrC) / 2)\n     bias             Su2022 intercept (rightward)\n     matching sensitivity / bias   Baum fit log(C_R/C_L) = s·log(I_R/I_L) + b over blocks of\n                      constant reward probabilities (incomes are the animal's)\n     poorer-side rate P(choosing the poorer side) ≥ 10 trials after a probability change, |ΔP| ≥ 0.3\n     switch rate      P(switch)\n     return after failed switch    P(back to the old side | t−1 switched and was unrewarded)\n     stay through losses           P(stay | ≥ 2 losses in a row on a side just switched to)\n   "
 }

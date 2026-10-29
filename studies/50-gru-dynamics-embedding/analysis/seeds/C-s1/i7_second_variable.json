@@ -1,14 +1,60 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i7_second_variable.py",
-    "produced_at_pt": "2026-10-27T03:18:49-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T06:01:24-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i7_second_variable.py",
+        "sha256": "df8988e4128da79631e0f5144c42723ea650ba9c028fa59883a27aaf7292b37c"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i7_second_variable.json",
+        "sha256": "44c33a396ea1de25941ee7d338e2d564fad8305bb96ea7340a3baf74b269ae50"
+      }
     ]
   },
   "gru_likelihood": 0.7337670473414482,
@@ -18,8 +64,8 @@
     "readout residual",
     "choice",
     "reward",
-    "value\u00d7choice",
-    "choice\u00d7reward",
+    "value×choice",
+    "choice×reward",
     "PC5"
   ],
   "candidates": {
@@ -33,11 +79,11 @@
     "+ reward axis": [
       "reward"
     ],
-    "+ value\u00d7choice axis": [
-      "value\u00d7choice"
+    "+ value×choice axis": [
+      "value×choice"
     ],
-    "+ choice\u00d7reward axis": [
-      "choice\u00d7reward"
+    "+ choice×reward axis": [
+      "choice×reward"
     ],
     "+ PC5 (time)": [
       "PC5"
@@ -843,7 +889,7 @@
       ],
       "gap_closed_per_mouse": 0.11818068859243362
     },
-    "+ value\u00d7choice axis": {
+    "+ value×choice axis": {
       "teacher_forced": 0.7224454835358112,
       "teacher_forced_r2": 0.9569403685317222,
       "teacher_forced_per_mouse": 0.7266134562979024,
@@ -1057,7 +1103,7 @@
       ],
       "gap_closed_per_mouse": 0.06340238241417034
     },
-    "+ choice\u00d7reward axis": {
+    "+ choice×reward axis": {
       "teacher_forced": 0.730822659604217,
       "teacher_forced_r2": 0.9892091309971418,
       "teacher_forced_per_mouse": 0.7317645031775334,
@@ -1799,7 +1845,7 @@
       "gap_closed_per_mouse": 0.14821278192860912
     }
   },
-  "best_interpretable": "+ choice\u00d7reward axis",
+  "best_interpretable": "+ choice×reward axis",
   "min_per_group": 50,
   "readout_residual_axis": {
     "variance_share": 0.01394938125322071,
@@ -1815,54 +1861,54 @@
       "value": -0.0,
       "choice": 0.127,
       "reward": 0.024,
-      "value\u00d7choice": -0.003,
-      "choice\u00d7reward": 0.553
+      "value×choice": -0.003,
+      "choice×reward": 0.553
     },
     "history_lags": [
       2,
       10
     ],
-    "v: within-cluster R\u00b2 from lags 2\u201310": 0.8060465602412135,
+    "v: within-cluster R² from lags 2–10": 0.8060465602412135,
     "v: history weights": {
       "choice-2": 0.418,
-      "choice\u00d7reward-2": 0.249,
+      "choice×reward-2": 0.249,
       "choice-3": 0.249,
-      "choice\u00d7reward-3": 0.154,
+      "choice×reward-3": 0.154,
       "choice-4": 0.161,
-      "choice\u00d7reward-4": 0.097,
+      "choice×reward-4": 0.097,
       "choice-5": 0.116,
-      "choice\u00d7reward-5": 0.053,
+      "choice×reward-5": 0.053,
       "choice-6": 0.096,
-      "choice\u00d7reward-6": 0.018,
+      "choice×reward-6": 0.018,
       "choice-7": 0.087,
-      "choice\u00d7reward-7": -0.009,
+      "choice×reward-7": -0.009,
       "choice-8": 0.087,
-      "choice\u00d7reward-8": -0.031,
+      "choice×reward-8": -0.031,
       "choice-9": 0.099,
-      "choice\u00d7reward-9": -0.053,
+      "choice×reward-9": -0.053,
       "choice-10": 0.156,
-      "choice\u00d7reward-10": -0.099
+      "choice×reward-10": -0.099
     },
-    "readout residual: within-cluster R\u00b2 from lags 2\u201310": 0.47756566227203956,
+    "readout residual: within-cluster R² from lags 2–10": 0.47756566227203956,
     "readout residual: history weights": {
       "choice-2": -0.112,
-      "choice\u00d7reward-2": 0.099,
+      "choice×reward-2": 0.099,
       "choice-3": -0.074,
-      "choice\u00d7reward-3": 0.044,
+      "choice×reward-3": 0.044,
       "choice-4": -0.044,
-      "choice\u00d7reward-4": 0.02,
+      "choice×reward-4": 0.02,
       "choice-5": -0.033,
-      "choice\u00d7reward-5": 0.016,
+      "choice×reward-5": 0.016,
       "choice-6": -0.026,
-      "choice\u00d7reward-6": 0.013,
+      "choice×reward-6": 0.013,
       "choice-7": -0.023,
-      "choice\u00d7reward-7": 0.01,
+      "choice×reward-7": 0.01,
       "choice-8": -0.022,
-      "choice\u00d7reward-8": 0.007,
+      "choice×reward-8": 0.007,
       "choice-9": -0.028,
-      "choice\u00d7reward-9": 0.007,
+      "choice×reward-9": 0.007,
       "choice-10": -0.053,
-      "choice\u00d7reward-10": 0.018
+      "choice×reward-10": 0.018
     }
   }
 }

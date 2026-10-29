@@ -1,21 +1,57 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/c3_decoders.py",
-    "produced_at_pt": "2026-10-15T19:40:27-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "e4-e8-d614-source@20260906-195409",
-      "rl-baseline-bari@20260713-010244",
-      "rl-baseline-ctt@20260713-010305",
-      "rl-baseline-hattori@20260713-010255"
+    "produced_at_pt": "2026-10-28T13:55:57-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c3_decoders.py",
+        "sha256": "3eddba9b5963095ed4a72e1c549c62dfe0bb314663974a069eead37ddbda564c"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s0.npz",
+        "sha256": "8debcb40b3dec029c0ed8050eff204b5d5ddbea011161c0c3ee9fe1e569c6ce6"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c3_decoders.json",
+        "sha256": "0b61ec23278fd14c1950bb3ed79c6389189fd4afc1ae2f57b40f192b2ea4b4ca"
+      }
     ]
   },
   "n_trials": 400000,
   "subsample_seed": 1,
   "ridge_alpha": 1.0,
   "cv": "5-fold GroupKFold by session",
-  "location": "activation pattern \u03a3w; per-PC share of decoded-signal variance",
+  "location": "activation pattern Σw; per-PC share of decoded-signal variance",
   "decoders": [
     {
       "variable": "bari logit(right)",
@@ -69,7 +105,7 @@
       "signal_share_rest": 0.14011282601727215
     },
     {
-      "variable": "bari Q_R \u2212 Q_L",
+      "variable": "bari Q_R − Q_L",
       "cv_r2": 0.9475700991219047,
       "signal_share_by_pc": [
         0.7432,
@@ -171,7 +207,7 @@
       "signal_share_rest": 0.07517096392331928
     },
     {
-      "variable": "hattori Q_R \u2212 Q_L",
+      "variable": "hattori Q_R − Q_L",
       "cv_r2": 0.9670101621084097,
       "signal_share_by_pc": [
         0.9091,
