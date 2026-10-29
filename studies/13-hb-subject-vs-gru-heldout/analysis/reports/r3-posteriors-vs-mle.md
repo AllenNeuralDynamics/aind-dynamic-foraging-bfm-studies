@@ -7,7 +7,7 @@ authors:
 - han
 wandb_groups:
 - hattori@20261027-181430
-- hattori@20261027-201810
+- hattori@20261027-223626
 inputs:
   script: analysis/r3_posteriors_vs_mle.py
   posteriors: analysis/hattori_posteriors.json
@@ -47,11 +47,11 @@ study 01 r8 exactly). Both were fitted on the same even-indexed context sessions
 
 | parameter | Spearman HB vs MLE | median HB | median MLE | median between-session width (10–90% session) |
 |---|---|---|---|---|
-| learning rate, rewarded | 0.88 | 0.58 | 0.526 | 0.335 |
-| learning rate, unrewarded | 0.93 | 0.111 | 0.0662 | 0.173 |
+| learning rate, rewarded | 0.88 | 0.58 | 0.526 | 0.332 |
+| learning rate, unrewarded | 0.93 | 0.112 | 0.0662 | 0.174 |
 | forget rate, unchosen | 0.89 | 0.764 | 0.798 | 0.293 |
 | inverse temperature | 0.93 | 3.45 | 3.27 | 1.63 |
-| left bias | 0.97 | -0.036 | -0.037 | 0.996 |
+| left bias | 0.97 | -0.0377 | -0.037 | 0.999 |
 
 ![between-session spread](../fig_r3_session_spread.svg)
 
@@ -65,8 +65,8 @@ study 01 r8 exactly). Both were fitted on the same even-indexed context sessions
 
 *HB posterior for the subjects with the smallest, median and largest gain over the MLE: the typical session (outline) vs across sessions (filled), against the single MLE value.*
 
-- HB − MLE Hattori per subject: median +0.0074; Spearman with the subject's between-session spread +0.49 (n=149).
-- HB − GRU D≈614 per subject: median -0.0061; Spearman with the same spread -0.11 (n=146, subjects in both cohorts).
+- HB − MLE Hattori per subject: median +0.0074; Spearman with the subject's between-session spread +0.50 (n=149).
+- HB − GRU D≈614 per subject: median -0.0061; Spearman with the same spread -0.10 (n=146, subjects in both cohorts).
 <!-- END result-1 -->
 
 ## What it says

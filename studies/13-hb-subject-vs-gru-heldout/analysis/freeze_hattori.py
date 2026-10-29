@@ -30,7 +30,9 @@ ENTITY, PROJECT = "AIND-disRNN", "mice_data_scaling"
 PRODUCTION = ["hattori@20261026-002131"]            # the production launch, pinned
 # ADR 0004: every subject's production fit, rescored: the 103 passing the gates, then the 46 that
 # were refit (the centred refit, hattori@20261027-181415, was worse on every gate and is not used).
-FINAL = ["hattori@20261027-181430", "hattori@20261027-201810"]
+# The 103 subjects passing the gates keep their production fit, rescored (181430); the 46 failing
+# take the non-centred refit Han approved after the centred one failed (223626).
+FINAL = ["hattori@20261027-181430", "hattori@20261027-223626"]
 REFIT = ["hattori@20261027-181415"]                  # the rejected centred refit, kept as evidence
 WANDB_GROUPS = PRODUCTION + FINAL + REFIT
 ARTIFACT_ROOT = Path("/home/han.hou/outputs/disrnn/hb_artifacts")   # artifact_dir on HPC

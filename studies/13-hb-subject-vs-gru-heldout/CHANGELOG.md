@@ -1,5 +1,12 @@
 # Changelog — 13-hb-subject-vs-gru-heldout
 
+## 2026-10-28
+
+- Non-centred refit (approved by Han after the centred one failed) of the 46 gate-failing subjects,
+  `hattori@20261027-223626`: divergences 304 → 45, 36 of 46 now pass every gate (139 of 149 overall).
+  The final set is those 46 plus the 103 rescored production fits; the headline is 0.721295
+  (production 0.721295). r2–r4 read the new final set.
+
 ## 2026-10-27
 
 - k̂ rescue and refit (ADR 0004). Every subject's production draws were rescored

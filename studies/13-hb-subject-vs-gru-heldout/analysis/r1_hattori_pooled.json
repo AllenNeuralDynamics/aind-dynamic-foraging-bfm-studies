@@ -3,20 +3,20 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_hattori_pooled.py",
-    "produced_at_pt": "2026-10-27T22:12:46-07:00",
-    "studies_git_sha": "8a5268778d8cc20ba55c8d83746a4f1df52e4f60",
+    "produced_at_pt": "2026-10-28T01:39:05-07:00",
+    "studies_git_sha": "a932cfeec5748f5481eb7517aa6bf2e10b13c70f",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "hattori@20261026-002131",
       "hattori@20261027-181430",
-      "hattori@20261027-201810",
+      "hattori@20261027-223626",
       "hattori@20261027-181415"
     ],
     "source_studies_git_shas": [
       "32bcf415c5f18d16a07dda5fb4dee914feabd177",
-      "41ef7f9a0dc1453b3637415829e48682eca05e90",
-      "562f814c89ab0d90530421a851aaba3bb4bdcbb8"
+      "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
+      "41ef7f9a0dc1453b3637415829e48682eca05e90"
     ],
     "source_dispatcher_git_shas": [
       "5936f5d0b94b1fb5ec9d95058067716f261e5555",
@@ -28,13 +28,14 @@
     ],
     "source_foraging_models_git_shas": [
       "13f7e9c3af6e80bcaeaae65a970a410e0539077d",
+      "cf38f45d38eddaade38434bd9dbecfa4a98f7388",
       "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2"
     ],
     "provenance_findings": [],
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.py",
-        "sha256": "325bfd7bab9d13d76d7a3b48326400feff037c3ca682f07d66d32fdf8087e0b2"
+        "sha256": "fed31abc45a07575c425bde40fa761390e220af134cdfd6092660ba9c3b247d0"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -44,19 +45,19 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
-        "sha256": "d54d566f43b3a2196f7c0991cb4d9344bea8cbd537d507c2144b04987ca3483a"
+        "sha256": "b3517c332255a56ea77fc6c77a829aa329c9667b61b65a439e381d2f30cc325b"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
-        "sha256": "f54e7bb607dceb6bd1e51b844ca8a29820dca089ce38ed3ed4b9db80d0d09544"
+        "sha256": "2dd1ff368798db97cfcaf12178d2b72d78e1e8f04eb939cf7aa6a30389a7d6ef"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_refit_runs.json",
-        "sha256": "cb7f9803b39585bb4a830e68345b9121663c0149e53c381d52fe221f319feb87"
+        "sha256": "6f5be50d3a8192352fcbac72519a2819e593bad11b7dd555f1b97bcb1cc82ee9"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_plugin.json",
-        "sha256": "d0c4ecb847b388c1d607fb5be3d9ef775699e8703981223cc630d82b8aaf8375"
+        "sha256": "45c51996e106b3b3c6202993f89d053c313368482a7150da6de4f97654acc77d"
       },
       {
         "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
@@ -70,11 +71,11 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r1_hattori_pooled.json",
-        "sha256": "ce1562df68492fbbc1ad86ef9d04a2e8659113e977e490f6fda247054c508b84"
+        "sha256": "eba22fa8bc1c2875a6b456cd9441d437cfdad5432322908dd29565d3c710e057"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r1-hattori-pooled.md#result-1",
-        "sha256": "e8bd860c0afe7907ff4854b7b0638127bc7a3d5b09c53c87016a6d28f7cf9165"
+        "sha256": "afb2b446bcb5ce68af531b5ee743ae8a036064184ccd781b979d02b9b437091b"
       }
     ]
   },
@@ -82,13 +83,21 @@
   "n_subjects_expected": 149,
   "n_trials": 1013172,
   "n_trials_comparators": 1013172,
-  "hb_session_marginal": 0.7212967710838346,
-  "hb_session_marginal_se": 2.0139833179503164e-06,
-  "hb_session_marginal_plain": 0.7212945969317852,
+  "hb_session_marginal": 0.7212947902854704,
+  "hb_session_marginal_se": 1.993406141212622e-06,
+  "hb_session_marginal_plain": 0.7212964558295296,
   "hb_session_marginal_production": 0.7212945969317852,
-  "n_sessions_importance": 262,
-  "n_sessions_pareto_k_fail_plain": 262,
+  "n_sessions_importance": 256,
+  "n_sessions_pareto_k_fail_plain": 256,
   "n_sessions_pareto_k_fail_production": 262,
+  "refit_noncentred": {
+    "n_subjects": 46,
+    "divergences_production": 304,
+    "divergences_refit": 45,
+    "pass_rhat_ess_production": 39,
+    "pass_rhat_ess_refit": 45,
+    "pass_all_refit": 36
+  },
   "refit": {
     "n_subjects": 46,
     "divergences_production": 304,
@@ -98,16 +107,16 @@
     "pass_all_refit": 1
   },
   "n_subjects_converged_production": 103,
-  "hb_trial_marginal": 0.7090194990537151,
-  "hb_plugin": 0.7106704312325619,
-  "hb_zero_spread": 0.7173759107606891,
-  "hb_session_marginal_converged_only": 0.7166218444109982,
-  "n_subjects_converged": 103,
+  "hb_trial_marginal": 0.7090168186494761,
+  "hb_plugin": 0.7106646481492509,
+  "hb_zero_spread": 0.7173851473940438,
+  "hb_session_marginal_converged_only": 0.7194106435976437,
+  "n_subjects_converged": 139,
   "n_sessions": 2138,
-  "n_sessions_pareto_k_fail": 44,
-  "divergences": 304,
-  "max_r_hat": 1.1728981662562876,
-  "min_ess_bulk": 15.886845345407105,
+  "n_sessions_pareto_k_fail": 37,
+  "divergences": 45,
+  "max_r_hat": 1.2098793509897603,
+  "min_ess_bulk": 13.087226178372422,
   "mle_hattori": 0.7127,
   "mle_ctt": 0.717,
   "gru_by_d": {

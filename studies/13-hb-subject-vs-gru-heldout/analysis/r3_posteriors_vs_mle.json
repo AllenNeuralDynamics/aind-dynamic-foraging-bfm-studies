@@ -3,17 +3,17 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_posteriors_vs_mle.py",
-    "produced_at_pt": "2026-10-27T22:13:01-07:00",
-    "studies_git_sha": "8a5268778d8cc20ba55c8d83746a4f1df52e4f60",
+    "produced_at_pt": "2026-10-28T01:39:18-07:00",
+    "studies_git_sha": "a932cfeec5748f5481eb7517aa6bf2e10b13c70f",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "hattori@20261027-181430",
-      "hattori@20261027-201810"
+      "hattori@20261027-223626"
     ],
     "source_studies_git_shas": [
-      "41ef7f9a0dc1453b3637415829e48682eca05e90",
-      "562f814c89ab0d90530421a851aaba3bb4bdcbb8"
+      "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
+      "41ef7f9a0dc1453b3637415829e48682eca05e90"
     ],
     "source_dispatcher_git_shas": [
       "a4fe331b0fde0ca21aca8922d083e273e7868bcb"
@@ -22,13 +22,14 @@
       "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43"
     ],
     "source_foraging_models_git_shas": [
-      "13f7e9c3af6e80bcaeaae65a970a410e0539077d"
+      "13f7e9c3af6e80bcaeaae65a970a410e0539077d",
+      "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
     ],
     "provenance_findings": [],
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r3_posteriors_vs_mle.py",
-        "sha256": "afcf6092ca4b6d0a1f04a1fe2951140c9ea47f5965aa511f0cf21012d2d4abde"
+        "sha256": "09add75843132a2c1fe7142cee45db6a5b6237508f0f35e46d200466cf204997"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -42,11 +43,11 @@
     "inputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_posteriors.json",
-        "sha256": "7c70aba7b5e72adda054d18175497b76f806ac6da78a386d8a5b6b9e68d93c79"
+        "sha256": "f372757dcf00b166afeb61d5fe0e068e449951dd6326025dc9a9a045d849057b"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
-        "sha256": "d54d566f43b3a2196f7c0991cb4d9344bea8cbd537d507c2144b04987ca3483a"
+        "sha256": "b3517c332255a56ea77fc6c77a829aa329c9667b61b65a439e381d2f30cc325b"
       },
       {
         "path": "studies/08-hb-vs-gru-heldout/analysis/ml_params/ml_hattori_heldout.csv",
@@ -60,69 +61,69 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r3_posteriors_vs_mle.json",
-        "sha256": "9ea40443cfec6a0632e204011f4dd6d4bd6f3f445c6ea516e87a7f2ab516955e"
+        "sha256": "c8fc1a50bd74d2e8ce89156be89bc4447d058b699c7b8bbb6175c0f5b6fc31fd"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_params_vs_mle.svg",
-        "sha256": "2bd22c81662512c95747d6e8cf244255fe1cc3348b7eab1f8c6d79b968e29f16"
+        "sha256": "1be16b123212efb03193f4fe17238955f55a82b29080e1cc810f76e909468991"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_session_spread.svg",
-        "sha256": "93f7f00ce2717a0373fb34b7f73e58868ddd2fa1f7f15b2bcbee3e090e5ff8db"
+        "sha256": "af0d27f4eb5cc1c4d5f8580c388bf815ab6a8b5d79d9e938ea6cf1eaa3972a05"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_gain_vs_spread.svg",
-        "sha256": "b14ba3d7dd6fb12f30b504b7386d37fb18cbba9f5ace303e8fed3de654c41dca"
+        "sha256": "d363010c5fab0283937512c7b437373ad56bbba730005c2347ea95f27372c1b1"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r3_example_subjects.svg",
-        "sha256": "91fd084ecad5ba103fcc26e1962179f8ba1ab4351cf955b383e1fd9f81cbbf1c"
+        "sha256": "380b571d4e7ac79d73fea10b4a1f6826c19de8b36f9648521d114dcbfd33788a"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r3-posteriors-vs-mle.md#result-1",
-        "sha256": "c4e309439c33c45ca1216a93132ead5c92c83162751ff76e0ed452ad2aa8947b"
+        "sha256": "b6cc8f6618bff9e7f4f5ec5811d4175b5af2400352fb0a79b8cae464dca2e62f"
       }
     ]
   },
   "n_subjects": 149,
   "agreement": {
     "learn_rate_rew": {
-      "spearman": 0.8754906584436787,
+      "spearman": 0.8759332486849265,
       "median_hb": 0.5804931819438934,
       "median_mle": 0.5255566894426373
     },
     "learn_rate_unrew": {
-      "spearman": 0.9300373585303973,
-      "median_hb": 0.11111553013324738,
+      "spearman": 0.9286468859693857,
+      "median_hb": 0.1117270365357399,
       "median_mle": 0.06619117916924104
     },
     "forget_rate_unchosen": {
-      "spearman": 0.8940087663362447,
-      "median_hb": 0.7640575170516968,
+      "spearman": 0.8934935941519756,
+      "median_hb": 0.7637727856636047,
       "median_mle": 0.7977335349563813
     },
     "softmax_inverse_temperature": {
-      "spearman": 0.9343732994739706,
-      "median_hb": 3.446520209312439,
+      "spearman": 0.934649011427535,
+      "median_hb": 3.4531984329223633,
       "median_mle": 3.266603894962657
     },
     "bias_l": {
-      "spearman": 0.9714202793397425,
-      "median_hb": -0.03602815419435501,
+      "spearman": 0.9712969345184111,
+      "median_hb": -0.03765076398849487,
       "median_mle": -0.0370379560575838
     }
   },
   "spread": {
     "learn_rate_rew": {
-      "median_session_10_90_width": 0.33472195267677307,
-      "median_sigma": 0.3616715669631958
+      "median_session_10_90_width": 0.3319821208715439,
+      "median_sigma": 0.3662726879119873
     },
     "learn_rate_unrew": {
-      "median_session_10_90_width": 0.17341306805610657,
+      "median_session_10_90_width": 0.17366176843643188,
       "median_sigma": 0.37623730301856995
     },
     "forget_rate_unchosen": {
-      "median_session_10_90_width": 0.29323631525039673,
+      "median_session_10_90_width": 0.2928641438484192,
       "median_sigma": 0.39088915288448334
     },
     "softmax_inverse_temperature": {
@@ -130,16 +131,16 @@
       "median_sigma": 0.17904667556285858
     },
     "bias_l": {
-      "median_session_10_90_width": 0.9961963891983032,
-      "median_sigma": 0.3886680603027344
+      "median_session_10_90_width": 0.999151200056076,
+      "median_sigma": 0.3898209035396576
     }
   },
   "gain_vs_mle": {
-    "spearman_with_mean_sigma": 0.49420642118628694,
-    "median": 0.007397238525301053
+    "spearman_with_mean_sigma": 0.49549065844367857,
+    "median": 0.007399463727734368
   },
   "gap_to_gru_d614": {
-    "spearman_with_mean_sigma": -0.10784417687717505,
+    "spearman_with_mean_sigma": -0.10346755612967908,
     "median": -0.006125699235133397,
     "n": 146
   }

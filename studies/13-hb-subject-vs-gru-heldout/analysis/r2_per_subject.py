@@ -42,7 +42,7 @@ def _rl_per_subject(model):
     table = json.loads(RL_SOURCE.read_text())["models"][model]["per_subject_likelihood"]
     return {str(subject): float(value) for subject, value in table.items()}
 
-WANDB_GROUPS = ["hattori@20261027-181430", "hattori@20261027-201810"]   # final set (ADR 0004), via the freeze
+WANDB_GROUPS = ["hattori@20261027-181430", "hattori@20261027-223626"]   # final set (ADR 0004), via the freeze
 RUNS = HERE / "hattori_final_runs.json"   # production fits, k̂-rescued (ADR 0004)
 REPORT = HERE / "reports" / "r2-per-subject.md"
 FIG = HERE / "fig_r2_per_subject.svg"
