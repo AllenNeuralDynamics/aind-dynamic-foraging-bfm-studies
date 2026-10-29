@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-29
+
+- `make all` runs offline (CI): only the report renderers. Every producer that reads the
+  cache, the GPU, W&B or the wrapper is behind `freeze-rN` (`make freeze` for all);
+  `environment.lock` pins wrapper `56ab3ee`.
+- Every analysis JSON carries `_meta` v2, re-frozen on the cached A1 tables and re-extracted
+  from the cached checkpoints (A1 parquets byte-identical). c1_impulse, d_dynamics, i3, i8, e2 and
+  e2b are pinned to CPU, as first produced. Against the previous JSON every number agrees
+  within 1e-9 except the GPU fits h1/i9e (3rd decimal; r8 `w_T` 0.295 -> 0.297, `kappa_unrew`
+  5.06 -> 5.07, `w_ck_unrew` 0.455 -> 0.457) and two C-s2 seed JSONs (<= 2e-4). No claim
+  changes. r6's RL medians come from the new frozen `rl_fit_medians.json`.
+- Reports cite the source studies' W&B groups as `upstream {study, wandb_group}`;
+  `wandb_groups` names this study's own launches, which there are none of.
+
 ## 2026-10-28
 
 - Migrated from the dispatcher's `studies/pk-01-gru-dynamics-embedding/` (never committed there).

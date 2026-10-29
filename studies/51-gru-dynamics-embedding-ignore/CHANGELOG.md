@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-29
+
+- `make all` runs offline (CI): only the report renderers. Every producer that reads the
+  cache, the GPU, W&B or the wrapper is behind `freeze-rN` (`make freeze` for all);
+  `environment.lock` pins wrapper `56ab3ee`.
+- Every analysis JSON carries `_meta` v2, re-frozen on the cached A1 tables and re-extracted
+  from the cached checkpoints (C3-s0 on CPU, C3-s1/s2 on GPU, as first extracted); every freeze
+  ran on CPU (now exported in the Makefile). C3-s0's re-extraction
+  fills session_id/task on 4 all-ignore eval sessions (wrapper fix), which moves per-task
+  counts in b8 by <= 1e-3; otherwise numbers agree to a median 1e-9. Only r2/r4's replay
+  diagnostics change. Study 50's results are cited as `upstream {study, report}`.
+- Reports cite the source studies' W&B groups as `upstream {study, wandb_group}`;
+  `wandb_groups` names this study's own launches, which there are none of.
+
 ## 2026-10-28
 
 - Migrated from the dispatcher's `studies/pk-02-gru-dynamics-embedding-ignore/` (never committed there, except its first three commits, replayed here from dispatcher branch

@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-29
+
+- `make all` runs offline (CI): only the report renderers. Every producer that reads the
+  cache, the GPU, W&B or the wrapper is behind `freeze-rN` (`make freeze` for all);
+  `environment.lock` pins wrapper `56ab3ee`.
+- Every analysis JSON carries `_meta` v2, re-frozen on the cached A1 tables and re-extracted
+  from the cached checkpoints (A1 parquets byte-identical; numbers within 1e-9). The five
+  reports gained frontmatter and a result block around their Summary; lick-model JSON now
+  names the L runs, not the RT model's.
+- Reports cite the source studies' W&B groups as `upstream {study, wandb_group}`;
+  `wandb_groups` names this study's own launches, which there are none of.
+
 ## 2026-10-28
 
 - Migrated from the dispatcher's `studies/pk-03-gru-dynamics-timing-inputs/` (never committed there).
