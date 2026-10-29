@@ -291,7 +291,10 @@ def state_summaries(run, trials, inputs):
     files = run["dir"] / "files" / "outputs" / "glmhmm"
     K, L, emission = int(run["model"]["num_states"]), int(run["model"]["n_lags"]), run["model"]["emission"]
     fit = json.loads((files / "fit.json").read_text())
-    post = recompute_posteriors(fit, trials)
+    # Every subject is filtered with the global fit's parameters, so state k means the same
+    # state in every mouse and the summaries below pool no unaligned labels. The refit
+    # posteriors are used only for the machinery check (their labels are not aligned).
+    post = recompute_posteriors(fit, trials, source="global")
     post = post.sort_values(["subject_id", "ses_idx", "trial"]).reset_index(drop=True)
     if not (post[["subject_id", "ses_idx", "trial"]].values == trials[["subject_id", "ses_idx", "trial"]].values).all():
         raise RuntimeError(f"{run['wandb_run_id']}: posterior rows do not match the loaded trials")
@@ -332,9 +335,10 @@ def state_summaries(run, trials, inputs):
     switching = {"sessions": int(len(runs_per_session)),
                  "share_with_a_switch": float((runs_per_session > 1).mean()),
                  "mean_switches": float((runs_per_session - 1).mean())}
-    # How much of each state's use comes from a few mice: the share of its occupancy held by the
-    # top 10% of subjects (15 of 149), against 10% if every mouse used it equally.
-    by_subject = pd.DataFrame(gamma).groupby(trials["subject_id"].to_numpy()).sum()
+    # How much of each state's use comes from a few mice: each mouse's mean occupancy (so a mouse
+    # with more trials does not count for more), and the share of their sum held by the top 10%
+    # of subjects (15 of 149), against 10% if every mouse used the state equally.
+    by_subject = pd.DataFrame(gamma).groupby(trials["subject_id"].to_numpy()).mean()
     top = max(1, int(round(0.1 * len(by_subject))))
     concentration = [float(np.sort(by_subject[k].to_numpy())[::-1][:top].sum() / by_subject[k].sum())
                      for k in range(K)]

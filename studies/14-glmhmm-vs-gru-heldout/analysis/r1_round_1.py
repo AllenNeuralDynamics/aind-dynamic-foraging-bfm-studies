@@ -175,16 +175,25 @@ def fig_weights(run, path):
             biases = {"side": side[-1], "engage": eng[-1]}
             titles = ("side kernel, p(right | respond)", "engagement kernel, p(respond)", "biases")
         else:
-            W = np.asarray(em["weights"][k])          # (2, 4L+1): left, right
-            c = W[1] - W[0]                            # side contrast; common mode not identified
-            fam = {"RewC": c[:L], "UnrC": c[L:2 * L], "Ignored": c[2 * L:3 * L], "Rewarded": c[3 * L:4 * L]}
-            biases = {"contrast": c[-1]}
-            titles = ("side contrast R − L, signed lags", "side contrast R − L, unsigned lags", "bias")
+            # (2, 4L+1): left, right logits against ignore = 0. The contrast R − L sets the side;
+            # the common part (L + R) / 2 sets responding against ignoring.
+            W = np.asarray(em["weights"][k])
+            c, m = W[1] - W[0], (W[0] + W[1]) / 2
+            fam = {"RewC": c[:L], "UnrC": c[L:2 * L], "Ignored": m[2 * L:3 * L], "Rewarded": m[3 * L:4 * L]}
+            cross = {"RewC": m[:L], "UnrC": m[L:2 * L], "Ignored": c[2 * L:3 * L], "Rewarded": c[3 * L:4 * L]}
+            biases = {"R − L": c[-1], "(L+R)/2": m[-1]}
+            titles = ("side contrast R − L (dashed: common part)", "common part (L+R)/2 (dashed: contrast)",
+                      "biases")
         a0, a1, a2 = axes[row]
         a0.plot(lags, fam["RewC"], "o-", ms=2, color=fs.OKABE_ITO["green"], label="RewC")
         a0.plot(lags, fam["UnrC"], "o-", ms=2, color=fs.OKABE_ITO["vermillion"], label="UnrC")
         a1.plot(lags, fam["Ignored"], "o-", ms=2, color="0.4", label="Ignored")
         a1.plot(lags, fam["Rewarded"], "o-", ms=2, color=fs.OKABE_ITO["blue"], label="Rewarded")
+        if e != "hurdle":   # the reference emission's other component on the same regressors
+            a0.plot(lags, cross["RewC"], "--", lw=0.7, color=fs.OKABE_ITO["green"])
+            a0.plot(lags, cross["UnrC"], "--", lw=0.7, color=fs.OKABE_ITO["vermillion"])
+            a1.plot(lags, cross["Ignored"], "--", lw=0.7, color="0.4")
+            a1.plot(lags, cross["Rewarded"], "--", lw=0.7, color=fs.OKABE_ITO["blue"])
         for a in (a0, a1):
             a.axhline(0, color="0.7", lw=0.5)
         a2.bar(range(len(biases)), list(biases.values()), color=STATE_COLORS[row % 10], width=0.6)
@@ -325,7 +334,7 @@ def fig_timescales(grids, path):
     axes[0].set(xlabel="states K", ylabel="held-out sessions with a switch", ylim=(0, 1))
     axes[1].set(xlabel="states K", ylabel="expected dwell (trials)")
     axes[2].axhline(0.1, color="0.6", ls=":", lw=0.7)
-    axes[2].set(xlabel="states K", ylabel="top 10% of mice's share", ylim=(0, 1),
+    axes[2].set(xlabel="states K", ylabel="top 10% of mice's share\nof per-mouse mean occupancy", ylim=(0, 1),
                 title="most mouse-specific state")
     axes[0].legend(frameon=False)
     for ax, letter in zip(axes, "abc"):
