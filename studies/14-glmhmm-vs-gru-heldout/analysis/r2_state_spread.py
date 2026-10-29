@@ -116,6 +116,20 @@ def scores(X, state, subject, K, rng, plane, n_trials):
             "kmeans_ari": float(adjusted_rand_score(state, kmeans))}
 
 
+def side_only(X, state, K):
+    """Silhouette and k-means ARI on the hurdle side weights alone (left vs right, signed lags).
+
+    A check on PLAN.md's identifiability caveat: in a state that almost never ignores, the
+    engagement weights are barely constrained, so clusters seen only through them would not
+    be strategy.
+    """
+    if K == 1:
+        return {"silhouette": None, "kmeans_ari": None}
+    kmeans = KMeans(n_clusters=K, n_init=10, random_state=SEED).fit_predict(X)
+    return {"silhouette": float(silhouette_score(X, state)),
+            "kmeans_ari": float(adjusted_rand_score(state, kmeans))}
+
+
 def pca_axes(X, n=4):
     """Mean and first ``n`` principal axes of ``X``, and their share of the variance."""
     mean = X.mean(0)
@@ -233,6 +247,14 @@ def block_scores(result, frozen):
                     f"{fmt(r['silhouette_big_cells'])} | {r['eta2_state']:.2f} | "
                     f"{fmt(r['eta2_state_null_mean'])} | {r['eta2_subject']:.2f} | "
                     f"{fmt(r['kmeans_ari'])} |")
+    lines += ["", "**Check: hurdle, side weights only** (the 21 left-vs-right weights, which every "
+              "state constrains; engagement weights left out).", "",
+              "| K | held-out silhouette | held-out k-means ARI | training silhouette | training k-means ARI |",
+              "|---|---|---|---|---|"]
+    for K in range(2, 11):
+        h, t = (next(x for x in result["hurdle"][c] if x["K"] == K)["side_only"] for c in COHORTS)
+        lines.append(f"| {K} | {fmt(h['silhouette'])} | {fmt(h['kmeans_ari'])} | "
+                     f"{fmt(t['silhouette'])} | {fmt(t['kmeans_ari'])} |")
     lines += ["", "![cluster scores](../fig_r2_scores.svg)"]
     return "\n".join(lines)
 
@@ -471,6 +493,9 @@ def main() -> None:
             row["n_dropped"] = int(((cohort_of[all_cells] == cohort)
                                     & (np.asarray(run["cells"]["n_trials"]) < MIN_TRIALS)).sum()
                                    + run["n_cells_not_frozen"][cohort])
+            if emission == "hurdle":
+                side = [i for i, name in enumerate(run["feature_names"]) if name.startswith("side:")]
+                row["side_only"] = side_only(run["W"][m][:, side], run["state"][m], K)
             result[emission][cohort].append(row)
         print(f"{emission} K={K}: " + ", ".join(
             f"{c} sil {fmt(result[emission][c][-1]['silhouette'])}" for c in COHORTS))

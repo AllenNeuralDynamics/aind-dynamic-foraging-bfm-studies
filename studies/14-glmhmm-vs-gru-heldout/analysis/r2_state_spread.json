@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_state_spread.py",
-    "produced_at_pt": "2026-10-29T01:33:21-07:00",
-    "studies_git_sha": "db9a10decaf2d29dd126f13201fe01f1371d3852",
+    "produced_at_pt": "2026-10-29T01:43:43-07:00",
+    "studies_git_sha": "d9d9a902910fd97cb7e24a39cd175ee45f431bb1",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -27,7 +27,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r2_state_spread.py",
-        "sha256": "daf3198483e0158fb3130ea08e89f8bde555f2e586569651036ae83d03d64733"
+        "sha256": "9c5b668e58919e0e11734bae40c654d59418a1bcf4085438e328134d0ce2ba35"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -55,7 +55,7 @@
     "outputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r2_state_spread.json",
-        "sha256": "471a2f0276b3afe110ee3f30286542ad69f166f303c3f519d22257660ebb76fb"
+        "sha256": "db1c83bb043b686a3bd14bd8a691f804ec6430e5b8f9bb6d06c5b22eed903816"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r2_scores.svg",
@@ -71,11 +71,11 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/interactive/r2_state_spread.html",
-        "sha256": "54b5597abb84361f0ea31edde3ac6bcda6bf54f05bf3488f7d3dc0a49e19ee4b"
+        "sha256": "0dc4ae21c2c94e10a462d89190defe128e978605d214f0f872e745d1ff2cbf78"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r2-state-spread.md#result-1",
-        "sha256": "5aa6d69dd596b5e692cd24eed358cf8ca2e0bc16368b81cdffd17331ab9fa04c"
+        "sha256": "9fb02ce47ae579cdfd01109fbd65613c3a0daf21e301b9f9185d8fa97c321d37"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r2-state-spread.md#result-2",
@@ -102,7 +102,11 @@
           "eta2_state": 0.0,
           "eta2_state_null_mean": null,
           "kmeans_ari": null,
-          "n_dropped": 0
+          "n_dropped": 0,
+          "side_only": {
+            "silhouette": null,
+            "kmeans_ari": null
+          }
         },
         {
           "K": 2,
@@ -121,7 +125,11 @@
           "eta2_state": 0.2605863160334979,
           "eta2_state_null_mean": 0.003672185218416764,
           "kmeans_ari": 0.9865318379739295,
-          "n_dropped": 1
+          "n_dropped": 1,
+          "side_only": {
+            "silhouette": 0.04188722823857174,
+            "kmeans_ari": -0.0029892091907230043
+          }
         },
         {
           "K": 3,
@@ -140,7 +148,11 @@
           "eta2_state": 0.21737751894276325,
           "eta2_state_null_mean": 0.00536496511060372,
           "kmeans_ari": 0.8724565887841796,
-          "n_dropped": 22
+          "n_dropped": 22,
+          "side_only": {
+            "silhouette": 0.12119903918942876,
+            "kmeans_ari": 0.4614859812061346
+          }
         },
         {
           "K": 4,
@@ -159,7 +171,11 @@
           "eta2_state": 0.23885779073265334,
           "eta2_state_null_mean": 0.00581767080482537,
           "kmeans_ari": 0.9053322428471818,
-          "n_dropped": 25
+          "n_dropped": 25,
+          "side_only": {
+            "silhouette": 0.036446192843470004,
+            "kmeans_ari": 0.4197387796900137
+          }
         },
         {
           "K": 5,
@@ -178,7 +194,11 @@
           "eta2_state": 0.2198175628215782,
           "eta2_state_null_mean": 0.006453264163893813,
           "kmeans_ari": 0.6522982838959701,
-          "n_dropped": 69
+          "n_dropped": 69,
+          "side_only": {
+            "silhouette": 0.038553606646996974,
+            "kmeans_ari": 0.34306039994401644
+          }
         },
         {
           "K": 6,
@@ -197,7 +217,11 @@
           "eta2_state": 0.2729047939461547,
           "eta2_state_null_mean": 0.010286640064012415,
           "kmeans_ari": 0.5783191993197192,
-          "n_dropped": 178
+          "n_dropped": 178,
+          "side_only": {
+            "silhouette": 0.028498854597719857,
+            "kmeans_ari": 0.37103427806421413
+          }
         },
         {
           "K": 7,
@@ -216,7 +240,11 @@
           "eta2_state": 0.24238677869165218,
           "eta2_state_null_mean": 0.0087518186330411,
           "kmeans_ari": 0.5771617359964121,
-          "n_dropped": 198
+          "n_dropped": 198,
+          "side_only": {
+            "silhouette": -0.015586100795436913,
+            "kmeans_ari": 0.3527934745689147
+          }
         },
         {
           "K": 8,
@@ -235,7 +263,11 @@
           "eta2_state": 0.23011867324322052,
           "eta2_state_null_mean": 0.009558149565931732,
           "kmeans_ari": 0.5247231110159152,
-          "n_dropped": 305
+          "n_dropped": 305,
+          "side_only": {
+            "silhouette": -0.014866986622685582,
+            "kmeans_ari": 0.27097909722874514
+          }
         },
         {
           "K": 9,
@@ -254,7 +286,11 @@
           "eta2_state": 0.2618415085650681,
           "eta2_state_null_mean": 0.010135486975347541,
           "kmeans_ari": 0.5169611644875515,
-          "n_dropped": 349
+          "n_dropped": 349,
+          "side_only": {
+            "silhouette": -0.059648267907577705,
+            "kmeans_ari": 0.2559167073708664
+          }
         },
         {
           "K": 10,
@@ -273,7 +309,11 @@
           "eta2_state": 0.225894737911191,
           "eta2_state_null_mean": 0.011424164714512368,
           "kmeans_ari": 0.46664004911077966,
-          "n_dropped": 506
+          "n_dropped": 506,
+          "side_only": {
+            "silhouette": -0.004832352424594996,
+            "kmeans_ari": 0.37009614409658204
+          }
         }
       ],
       "training": [
@@ -291,7 +331,11 @@
           "eta2_state": 0.0,
           "eta2_state_null_mean": null,
           "kmeans_ari": null,
-          "n_dropped": 0
+          "n_dropped": 0,
+          "side_only": {
+            "silhouette": null,
+            "kmeans_ari": null
+          }
         },
         {
           "K": 2,
@@ -310,7 +354,11 @@
           "eta2_state": 0.2573835413438049,
           "eta2_state_null_mean": 0.0009691938502012113,
           "kmeans_ari": 0.9258915346911093,
-          "n_dropped": 9
+          "n_dropped": 9,
+          "side_only": {
+            "silhouette": 0.04106399509856436,
+            "kmeans_ari": -0.0006259258433022268
+          }
         },
         {
           "K": 3,
@@ -329,7 +377,11 @@
           "eta2_state": 0.2132306551546764,
           "eta2_state_null_mean": 0.0018972880451804774,
           "kmeans_ari": 0.8920045670779714,
-          "n_dropped": 98
+          "n_dropped": 98,
+          "side_only": {
+            "silhouette": 0.13315736308096923,
+            "kmeans_ari": 0.4449411040299403
+          }
         },
         {
           "K": 4,
@@ -348,7 +400,11 @@
           "eta2_state": 0.23921388372620117,
           "eta2_state_null_mean": 0.0018686171989489547,
           "kmeans_ari": 0.8409178868157615,
-          "n_dropped": 161
+          "n_dropped": 161,
+          "side_only": {
+            "silhouette": 0.044985659215259315,
+            "kmeans_ari": 0.36147495339441005
+          }
         },
         {
           "K": 5,
@@ -367,7 +423,11 @@
           "eta2_state": 0.2086197644989705,
           "eta2_state_null_mean": 0.0023535395186772504,
           "kmeans_ari": 0.665548316698345,
-          "n_dropped": 297
+          "n_dropped": 297,
+          "side_only": {
+            "silhouette": 0.04498617112924282,
+            "kmeans_ari": 0.3819494705814167
+          }
         },
         {
           "K": 6,
@@ -386,7 +446,11 @@
           "eta2_state": 0.2647621180333728,
           "eta2_state_null_mean": 0.004757816760438943,
           "kmeans_ari": 0.6377753919000301,
-          "n_dropped": 759
+          "n_dropped": 759,
+          "side_only": {
+            "silhouette": 0.03750812112551467,
+            "kmeans_ari": 0.39986019003087925
+          }
         },
         {
           "K": 7,
@@ -405,7 +469,11 @@
           "eta2_state": 0.23991066556293628,
           "eta2_state_null_mean": 0.003919638210170036,
           "kmeans_ari": 0.6035991737422864,
-          "n_dropped": 877
+          "n_dropped": 877,
+          "side_only": {
+            "silhouette": -0.00451458174112182,
+            "kmeans_ari": 0.38487098773431094
+          }
         },
         {
           "K": 8,
@@ -424,7 +492,11 @@
           "eta2_state": 0.2260685840102954,
           "eta2_state_null_mean": 0.0036436805888911948,
           "kmeans_ari": 0.5121416769076255,
-          "n_dropped": 1309
+          "n_dropped": 1309,
+          "side_only": {
+            "silhouette": 0.0020145622650251027,
+            "kmeans_ari": 0.36689289223954163
+          }
         },
         {
           "K": 9,
@@ -443,7 +515,11 @@
           "eta2_state": 0.24315010062559306,
           "eta2_state_null_mean": 0.004367751207628552,
           "kmeans_ari": 0.4843643436089951,
-          "n_dropped": 1458
+          "n_dropped": 1458,
+          "side_only": {
+            "silhouette": -0.052571390378785866,
+            "kmeans_ari": 0.3198265758187226
+          }
         },
         {
           "K": 10,
@@ -462,7 +538,11 @@
           "eta2_state": 0.22038112489207984,
           "eta2_state_null_mean": 0.004140622868033335,
           "kmeans_ari": 0.47389329209379183,
-          "n_dropped": 2129
+          "n_dropped": 2129,
+          "side_only": {
+            "silhouette": 0.009071073256613016,
+            "kmeans_ari": 0.38796838288250646
+          }
         }
       ]
     },

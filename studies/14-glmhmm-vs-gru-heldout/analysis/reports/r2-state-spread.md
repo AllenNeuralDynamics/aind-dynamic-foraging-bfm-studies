@@ -98,6 +98,20 @@ One dot = one {subject, state} GLM, fitted to the subject's trials on that state
 | reference | 10 | heldout | 1057 (433) | -0.03 | -0.03 (-0.06–-0.02) | 0.01 | -0.02 | 0.19 | 0.01 | 0.15 | 0.35 |
 | reference | 10 | training | 4367 (1773) | -0.03 | -0.02 (-0.03–-0.01) | 0.00 | -0.03 | 0.18 | 0.00 | 0.15 | 0.33 |
 
+**Check: hurdle, side weights only** (the 21 left-vs-right weights, which every state constrains; engagement weights left out).
+
+| K | held-out silhouette | held-out k-means ARI | training silhouette | training k-means ARI |
+|---|---|---|---|---|
+| 2 | 0.04 | -0.00 | 0.04 | -0.00 |
+| 3 | 0.12 | 0.46 | 0.13 | 0.44 |
+| 4 | 0.04 | 0.42 | 0.04 | 0.36 |
+| 5 | 0.04 | 0.34 | 0.04 | 0.38 |
+| 6 | 0.03 | 0.37 | 0.04 | 0.40 |
+| 7 | -0.02 | 0.35 | -0.00 | 0.38 |
+| 8 | -0.01 | 0.27 | 0.00 | 0.37 |
+| 9 | -0.06 | 0.26 | -0.05 | 0.32 |
+| 10 | -0.00 | 0.37 | 0.01 | 0.39 |
+
 ![cluster scores](../fig_r2_scores.svg)
 <!-- END result-1 -->
 
