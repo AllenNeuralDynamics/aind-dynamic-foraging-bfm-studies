@@ -5,7 +5,8 @@ state} under each K-grid run's global fit; see ``freeze_r2.py``) and writes
 ``r2_state_spread.json``, the figures ``fig_r2_*.svg`` and the result blocks of
 ``reports/r2-state-spread.md``:
 - result-1: cluster scores against K, per emission and cohort;
-- result-2: every {subject, state} in weight space, one panel per K.
+- result-2: every {subject, state} in weight space, one panel per K;
+and ``interactive/r2_state_spread.html``, the same data to explore (any K, cohort and axes).
 
 Every distance is Euclidean in the raw weight space (logit units, bias included).
 """
@@ -34,8 +35,11 @@ COHORT_LABEL = {"heldout": "held-out mice", "training": "training mice"}
 COHORT_COLOR = {"heldout": fs.OKABE_ITO["blue"], "training": fs.OKABE_ITO["vermillion"]}
 STATE_COLORS = ["#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00", "#F0E442",
                 "#000000", "#999999", "#882255"]
+INTERACTIVE = HERE / "interactive" / "r2_state_spread.html"
+PLOTLY = "https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.34.0/plotly.min.js"
 MIN_TRIALS = 200        # a {subject, state} cell with fewer Viterbi trials is dropped
 N_SHUFFLES = 100        # within-subject label shuffles for the silhouette null
+BIG_CELL = 1000         # check: the silhouette on cells with at least this many trials
 SEED = 0
 
 
@@ -80,14 +84,18 @@ def eta_squared(X, labels):
     return float(between / total)
 
 
-def scores(X, state, subject, K, rng):
-    """Cluster scores of one cohort at one K."""
+def scores(X, state, subject, K, rng, plane, n_trials):
+    """Cluster scores of one cohort at one K.
+
+    ``plane``: the same cells on PC1-2 of the training cells (the plotted plane), for the
+    silhouette there. ``n_trials``: each cell's trials, for the large-cell check.
+    """
     out = {"n_cells": int(len(X)), "n_subjects": int(len(np.unique(subject))),
            "eta2_subject": eta_squared(X, subject)}
     if K == 1 or len(np.unique(state)) < 2:
         return {**out, "silhouette": None, "silhouette_null_mean": None,
-                "silhouette_null_95": None, "eta2_state": 0.0, "eta2_state_null_mean": None,
-                "kmeans_ari": None}
+                "silhouette_null_95": None, "silhouette_pc12": None, "silhouette_big_cells": None,
+                "eta2_state": 0.0, "eta2_state_null_mean": None, "kmeans_ari": None}
     D = pairwise_distances(X)
     null_sil, null_eta = [], []
     for _ in range(N_SHUFFLES):
@@ -95,7 +103,11 @@ def scores(X, state, subject, K, rng):
         null_sil.append(silhouette_score(D, shuffled, metric="precomputed"))
         null_eta.append(eta_squared(X, shuffled))
     kmeans = KMeans(n_clusters=K, n_init=10, random_state=SEED).fit_predict(X)
+    big = n_trials >= BIG_CELL
     return {**out,
+            "silhouette_pc12": float(silhouette_score(plane, state)),
+            "silhouette_big_cells": (float(silhouette_score(X[big], state[big]))
+                                     if len(np.unique(state[big])) > 1 else None),
             "silhouette": float(silhouette_score(D, state, metric="precomputed")),
             "silhouette_null_mean": float(np.mean(null_sil)),
             "silhouette_null_95": [float(q) for q in np.percentile(null_sil, [2.5, 97.5])],
@@ -104,13 +116,13 @@ def scores(X, state, subject, K, rng):
             "kmeans_ari": float(adjusted_rand_score(state, kmeans))}
 
 
-def pca_axes(X):
-    """Mean and first two principal axes of ``X``, and their share of the variance."""
+def pca_axes(X, n=4):
+    """Mean and first ``n`` principal axes of ``X``, and their share of the variance."""
     mean = X.mean(0)
     _, s, vt = np.linalg.svd(X - mean, full_matrices=False)
     # Fix each axis's sign so regenerating gives the same picture.
     vt = vt * np.sign(vt[np.arange(len(vt)), np.abs(vt).argmax(1)])[:, None]
-    return mean, vt[:2], (s[:2] ** 2 / (s ** 2).sum()).tolist()
+    return mean, vt[:n], (s[:n] ** 2 / (s ** 2).sum()).tolist()
 
 
 def fig_scores(result):
@@ -126,6 +138,7 @@ def fig_scores(result):
             ax = axes[row, 0]
             ax.plot(Ks, [r["silhouette"] for r in sel], "o-", color=color, ms=2,
                     label=COHORT_LABEL[cohort])
+            ax.plot(Ks, [r["silhouette_pc12"] for r in sel], "o--", color=color, ms=2, mfc="white")
             ax.fill_between(Ks, [r["silhouette_null_95"][0] for r in sel],
                             [r["silhouette_null_95"][1] for r in sel], color=color, alpha=0.2, lw=0)
             ax = axes[row, 1]     # from K = 2: at K = 1 η² is 0 by state and 1 by subject
@@ -139,6 +152,8 @@ def fig_scores(result):
         axes[row, 1].set_ylim(0, 1)
         axes[row, 2].set_ylim(0, 1)
         axes[row, 0].axhline(0, color="0.6", lw=0.5)
+    axes[0, 0].plot([], [], "k-", label="all weights")
+    axes[0, 0].plot([], [], "k--", mfc="white", label="PC1–2 plane")
     axes[0, 0].legend(loc="upper right")
     axes[0, 1].plot([], [], "k-", label="by state")
     axes[0, 1].plot([], [], "k--", mfc="white", label="by subject")
@@ -195,12 +210,16 @@ def block_scores(result, frozen):
         "raw weight space. *Silhouette*: how much closer a dot is to its own state's dots than to "
         "the nearest other state's (1 = tight separate clusters, 0 = overlapping). *Null*: the "
         f"same with state labels shuffled among each mouse's own dots ({N_SHUFFLES} shuffles; "
-        "95% range). *η²*: share of the weight variance between states, or between subjects. "
+        "95% range). *Silhouette, PC1–2*: the same on the plane of result-2's scatter (the first two "
+        "principal components of the training cells). *Cells ≥ "
+        f"{BIG_CELL} trials*: the all-weights silhouette on large cells only, a check on estimation "
+        "noise. *η²*: share of the weight variance between states, or between subjects. "
         "*ARI*: agreement of k-means with K clusters with the state labels (0 = chance, 1 = "
         "identical). One global fit per K, so no error bars across fits.",
         "",
-        "| emission | K | cohort | cells (dropped) | silhouette | null (95%) | η² state | η² state, null | η² subject | k-means ARI |",
-        "|---|---|---|---|---|---|---|---|---|---|",
+        "| emission | K | cohort | cells (dropped) | silhouette | null (95%) | silhouette, PC1–2 | silhouette, cells ≥ "
+        f"{BIG_CELL} trials | η² state | η² state, null | η² subject | k-means ARI |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     for emission in EMISSIONS:
         for K in range(1, 11):
@@ -210,7 +229,8 @@ def block_scores(result, frozen):
                         f"{r['silhouette_null_95'][1]:.2f})" if r["silhouette_null_95"] else "—")
                 lines.append(
                     f"| {emission} | {K} | {cohort} | {r['n_cells']} ({r['n_dropped']}) | "
-                    f"{fmt(r['silhouette'])} | {null} | {r['eta2_state']:.2f} | "
+                    f"{fmt(r['silhouette'])} | {null} | {fmt(r['silhouette_pc12'])} | "
+                    f"{fmt(r['silhouette_big_cells'])} | {r['eta2_state']:.2f} | "
                     f"{fmt(r['eta2_state_null_mean'])} | {r['eta2_subject']:.2f} | "
                     f"{fmt(r['kmeans_ari'])} |")
     lines += ["", "![cluster scores](../fig_r2_scores.svg)"]
@@ -232,6 +252,198 @@ def block_scatter(pcs):
     return "\n".join(lines)
 
 
+def named_features(emission, names, W):
+    """A few readable weights per dot, as (label, column) pairs.
+
+    hurdle: lag-1 and bias weights of the side and engagement GLMs. reference: the same, as the
+    right-minus-left contrast (side) and the mean of the left and right logits against ignore
+    (engagement).
+    """
+    col = {n: i for i, n in enumerate(names)}
+    if emission == "hurdle":
+        picks = [("side bias", "side:bias"), ("side RewC₁", "side:RewC_1"),
+                 ("side UnrC₁", "side:UnrC_1"), ("engage bias", "engage:bias"),
+                 ("engage Ignored₁", "engage:Ignored_1"), ("engage Rewarded₁", "engage:Rewarded_1")]
+        return [(label, W[:, col[name]]) for label, name in picks]
+    out = []
+    for label, name in [("R−L bias", "bias"), ("R−L RewC₁", "RewC_1"), ("R−L UnrC₁", "UnrC_1")]:
+        out.append((label, W[:, col[f"right:{name}"]] - W[:, col[f"left:{name}"]]))
+    for label, name in [("mean(L,R) bias", "bias"), ("mean(L,R) Ignored₁", "Ignored_1"),
+                        ("mean(L,R) Rewarded₁", "Rewarded_1")]:
+        out.append((label, (W[:, col[f"right:{name}"]] + W[:, col[f"left:{name}"]]) / 2))
+    return out
+
+
+def interactive_data(frozen, runs, pcs, result):
+    """Everything the interactive page draws, rounded to 3 decimals."""
+    def r3(a):
+        return np.round(np.asarray(a, float), 3).tolist()
+
+    data = {"subjects": [s["subject_id"] for s in frozen["subjects"]],
+            "stateColors": STATE_COLORS, "minTrials": MIN_TRIALS, "emissions": {}}
+    for emission in EMISSIONS:
+        by_k = {}
+        for run in sorted((r for r in runs if r["emission"] == emission), key=lambda r: r["num_states"]):
+            K = run["num_states"]
+            mean, axes_pc, share = pcs[emission][K]
+            feats = named_features(emission, run["feature_names"], run["W"])
+            gfeats = named_features(emission, run["feature_names"], run["G"])
+            P, PG = (run["W"] - mean) @ axes_pc.T, (run["G"] - mean) @ axes_pc.T
+            by_k[str(K)] = {
+                "run": run["wandb_run_id"],
+                "pcShare": r3(share),
+                "cohort": [int(c == "heldout") for c in run["cohort"]],
+                "state": run["state"].tolist(), "subject": run["subject"].tolist(),
+                "n": run["n_trials"].tolist(),
+                "cols": [r3(P[:, i]) for i in range(P.shape[1])] + [r3(f) for _, f in feats],
+                "global": [r3(PG[:, i]) for i in range(PG.shape[1])] + [r3(f) for _, f in gfeats],
+            }
+        names = run["feature_names"]
+        data["emissions"][emission] = {
+            "features": [label for label, _ in named_features(emission, names, np.zeros((1, len(names))))],
+            "K": by_k,
+            "scores": {c: [{k: v for k, v in row.items() if k != "wandb_run_id"} for row in result[emission][c]]
+                       for c in COHORTS},
+        }
+    return data
+
+
+def write_interactive(data):
+    """The interactive page: weight-space explorer and cluster scores vs K."""
+    html = INTERACTIVE_TEMPLATE.replace("__PLOTLY__", PLOTLY).replace(
+        "__DATA__", json.dumps(data, separators=(",", ":"), ensure_ascii=False))
+    INTERACTIVE.parent.mkdir(exist_ok=True)
+    INTERACTIVE.write_text(html)
+    return INTERACTIVE
+
+
+INTERACTIVE_TEMPLATE = r"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>State spread explorer</title>
+<script src="__PLOTLY__"></script>
+<style>
+:root { --bg:#ffffff; --fg:#1d1d1f; --muted:#6e6e73; --line:#d2d2d7; --panel:#f5f5f7; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#141416; --fg:#f2f2f4; --muted:#a1a1a6; --line:#3a3a3c; --panel:#1f1f22; } }
+:root[data-theme="dark"] { --bg:#141416; --fg:#f2f2f4; --muted:#a1a1a6; --line:#3a3a3c; --panel:#1f1f22; }
+body { background:var(--bg); color:var(--fg); margin:0; font:14px/1.45 -apple-system,"Segoe UI",Arial,sans-serif; }
+main { max-width:1100px; margin:0 auto; padding:16px; }
+h1 { font-size:20px; margin:4px 0 2px; } h2 { font-size:16px; margin:22px 0 4px; }
+p { margin:4px 0 10px; color:var(--muted); max-width:820px; }
+.controls { display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; padding:10px 12px;
+  background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+label { font-size:13px; color:var(--muted); } select { font-size:13px; margin-left:4px; }
+#scatter { height:560px; } #scores { height:300px; }
+.note { font-size:12px; }
+</style></head>
+<body><main>
+<h1>How each GLM-HMM state spreads across subjects</h1>
+<p>Study 14 r2. One dot = one {subject, state} GLM, fitted to the subject's trials on that
+state's Viterbi path under the global fit (prior SD 2). Cells with fewer than
+<span id="minTrials"></span> trials are left out. Stars are the global fit's own states.
+Colours match only within one K. Click a legend entry to hide a state.</p>
+<div class="controls">
+ <label>Emission<select id="emission"></select></label>
+ <label>K<select id="K"></select></label>
+ <label>Mice<select id="cohort"><option value="1">held-out</option><option value="0">training</option><option value="both">both</option></select></label>
+ <label>x<select id="x"></select></label>
+ <label>y<select id="y"></select></label>
+</div>
+<div id="scatter"></div>
+<p class="note" id="runNote"></p>
+<h2>Cluster scores against K</h2>
+<p>x axis: the number of states K. Silhouette: 1 = tight separate clusters, 0 = overlap; solid = all weights, dashed = the PC1–2
+plane; the band is the null with state labels shuffled among each mouse's own dots (95% range). η²: share of the weight variance between
+states (solid) or subjects (dashed); dotted = by state after the shuffle. ARI: k-means with K
+clusters against the states.</p>
+<div id="scores"></div>
+</main>
+<script>
+const D = __DATA__;
+const $ = id => document.getElementById(id);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const COH = {heldout: "#0072B2", training: "#D55E00"};
+$("minTrials").textContent = D.minTrials;
+for (const e of Object.keys(D.emissions)) $("emission").add(new Option(e, e));
+for (let k = 1; k <= 10; k++) $("K").add(new Option(k, k));
+$("K").value = 3;
+
+function axisLabels(e, k) {
+  const c = D.emissions[e].K[k];
+  return c.pcShare.map((s, i) => `PC${i + 1} (${Math.round(100 * s)}%)`).concat(D.emissions[e].features);
+}
+function fillAxes() {
+  const e = $("emission").value, k = $("K").value, labels = axisLabels(e, k);
+  const xi = $("x").selectedIndex, yi = $("y").selectedIndex;
+  for (const id of ["x", "y"]) { const s = $(id); s.innerHTML = ""; labels.forEach((l, i) => s.add(new Option(l, i))); }
+  $("x").selectedIndex = xi >= 0 ? xi : 0; $("y").selectedIndex = yi >= 0 ? yi : 1;
+}
+function layoutBase(extra) {
+  return Object.assign({paper_bgcolor: css("--bg"), plot_bgcolor: css("--bg"),
+    font: {color: css("--fg"), size: 12}, margin: {l: 56, r: 10, t: 10, b: 46}}, extra);
+}
+function drawScatter() {
+  const e = $("emission").value, k = $("K").value, c = D.emissions[e].K[k];
+  const xi = +$("x").value, yi = +$("y").value, which = $("cohort").value, labels = axisLabels(e, k);
+  const traces = [];
+  for (let s = 0; s < +k; s++) {
+    const idx = c.state.map((v, i) => i).filter(i => c.state[i] === s &&
+      (which === "both" || c.cohort[i] === +which));
+    traces.push({type: "scattergl", mode: "markers", name: `state ${s + 1} (${idx.length})`,
+      x: idx.map(i => c.cols[xi][i]), y: idx.map(i => c.cols[yi][i]),
+      marker: {color: D.stateColors[s], size: 5, opacity: 0.55,
+               symbol: idx.map(i => c.cohort[i] ? "circle" : "diamond")},
+      text: idx.map(i => `subject ${D.subjects[c.subject[i]]} · ${c.cohort[i] ? "held-out" : "training"}<br>state ${s + 1} · ${c.n[i]} trials`),
+      hovertemplate: "%{text}<extra></extra>"});
+  }
+  traces.push({type: "scatter", mode: "markers", name: "global fit",
+    x: c.global[xi], y: c.global[yi],
+    marker: {symbol: "star", size: 15, color: D.stateColors.slice(0, +k), line: {color: css("--fg"), width: 1}},
+    text: c.global[xi].map((_, s) => `global state ${s + 1}`), hovertemplate: "%{text}<extra></extra>"});
+  const xs = c.cols[xi], ys = c.cols[yi];
+  const range = a => { const v = [...a].sort((p, q) => p - q), lo = v[Math.floor(0.005 * (v.length - 1))],
+    hi = v[Math.ceil(0.995 * (v.length - 1))], pad = 0.06 * (hi - lo || 1); return [lo - pad, hi + pad]; };
+  Plotly.react("scatter", traces, layoutBase({
+    xaxis: {title: labels[xi], range: range(xs), zeroline: false, gridcolor: css("--line")},
+    yaxis: {title: labels[yi], range: range(ys), zeroline: false, gridcolor: css("--line")},
+    legend: {orientation: "v", x: 1.01, y: 0.92}, hovermode: "closest"}), {responsive: true});
+  $("runNote").textContent = `W&B run ${c.run} (mice_glmhmm). Axis ranges cover 99% of the dots; double-click to reset zoom. ` +
+    (which === "both" ? "Circles: held-out mice; diamonds: training mice." : "");
+}
+function drawScores() {
+  const e = $("emission").value, S = D.emissions[e].scores, traces = [];
+  for (const [coh, rows0] of Object.entries(S)) {
+    const rows = rows0.filter(r => r.silhouette !== null), K = rows.map(r => r.K), col = COH[coh];
+    const name = coh === "heldout" ? "held-out" : "training";
+    traces.push({x: K.concat([...K].reverse()), y: rows.map(r => r.silhouette_null_95[1]).concat(rows.map(r => r.silhouette_null_95[0]).reverse()),
+      fill: "toself", fillcolor: col + "33", mode: "lines", line: {width: 0}, hoverinfo: "skip", showlegend: false, xaxis: "x", yaxis: "y"});
+    traces.push({x: K, y: rows.map(r => r.silhouette), name, legendgroup: coh, line: {color: col}, xaxis: "x", yaxis: "y"});
+    traces.push({x: K, y: rows.map(r => r.silhouette_pc12), name: name + " · PC1–2", legendgroup: coh, showlegend: false, line: {color: col, dash: "dash"}, xaxis: "x", yaxis: "y"});
+    traces.push({x: K, y: rows.map(r => r.eta2_state), name: name + " · state", legendgroup: coh, showlegend: false, line: {color: col}, xaxis: "x2", yaxis: "y2"});
+    traces.push({x: K, y: rows.map(r => r.eta2_subject), name: name + " · subject", legendgroup: coh, showlegend: false, line: {color: col, dash: "dash"}, xaxis: "x2", yaxis: "y2"});
+    traces.push({x: K, y: rows.map(r => r.eta2_state_null_mean), name: name + " · state, shuffled", legendgroup: coh, showlegend: false, line: {color: col, dash: "dot", width: 1}, xaxis: "x2", yaxis: "y2"});
+    traces.push({x: K, y: rows.map(r => r.kmeans_ari), name: name + " · ARI", legendgroup: coh, showlegend: false, line: {color: col}, xaxis: "x3", yaxis: "y3"});
+  }
+  traces.forEach(t => { t.type = "scatter"; if (!t.fill) { t.mode = "lines+markers"; t.marker = {size: 5}; } });
+  const ax = (dom, title, range) => Object.assign({title: {text: title}, gridcolor: css("--line"), zeroline: false},
+    dom ? {domain: dom} : {}, range ? {range} : {});
+  Plotly.react("scores", traces, layoutBase({
+    legend: {orientation: "h", y: 1.14},
+    xaxis: Object.assign(ax([0, 0.28], "K"), {anchor: "y"}), xaxis2: Object.assign(ax([0.36, 0.64], "K"), {anchor: "y2"}),
+    xaxis3: Object.assign(ax([0.72, 1], "K"), {anchor: "y3"}),
+    yaxis: ax(null, "silhouette"), yaxis2: Object.assign(ax(null, "η²", [0, 1]), {anchor: "x2"}),
+    yaxis3: Object.assign(ax(null, "k-means ARI", [0, 1]), {anchor: "x3"}), margin: {l: 56, r: 10, t: 30, b: 50}}),
+    {responsive: true});
+}
+$("emission").onchange = () => { fillAxes(); drawScatter(); drawScores(); };
+$("K").onchange = () => { fillAxes(); drawScatter(); };
+for (const id of ["cohort", "x", "y"]) $(id).onchange = drawScatter;
+fillAxes(); drawScatter(); drawScores();
+</script></body></html>
+"""
+
+
 def replace_block(text, n, body):
     """Replace the content between the result-n markers."""
     pattern = re.compile(rf"(<!-- BEGIN result-{n} -->\n).*?(\n<!-- END result-{n} -->)", re.S)
@@ -250,8 +462,11 @@ def main() -> None:
         pcs[emission][K] = pca_axes(run["W"][run["cohort"] == "training"])
         for cohort in COHORTS:
             m = run["cohort"] == cohort
+            mean, axes_pc, _ = pcs[emission][K]
+            plane = (run["W"][m] - mean) @ axes_pc[:2].T
             row = {"K": K, "wandb_run_id": run["wandb_run_id"],
-                   **scores(run["W"][m], run["state"][m], run["subject"][m], K, rng)}
+                   **scores(run["W"][m], run["state"][m], run["subject"][m], K, rng, plane,
+                            run["n_trials"][m])}
             all_cells = np.asarray(run["cells"]["subject"])
             row["n_dropped"] = int(((cohort_of[all_cells] == cohort)
                                     & (np.asarray(run["cells"]["n_trials"]) < MIN_TRIALS)).sum()
@@ -265,6 +480,7 @@ def main() -> None:
     for emission in EMISSIONS:
         figs.append(fs.save_figure(fig_scatter(runs, emission, pcs), HERE / f"fig_r2_scatter_{emission}.svg"))
     plt.close("all")
+    page = write_interactive(interactive_data(frozen, runs, pcs, result))
 
     text = REPORT.read_text()
     text = replace_block(text, 1, block_scores(result, frozen))
@@ -276,7 +492,7 @@ def main() -> None:
     meta = build_meta("analysis/r2_state_spread.py", WANDB_GROUPS, study_root=HERE.parent,
                       code=[__file__], inputs=[FROZEN, *WEIGHTS.values()])
     write_artifact(HERE / "r2_state_spread.json", {"_meta": meta, **out},
-                   outputs=figs + [f"{REPORT}#result-{n}" for n in (1, 2)])
+                   outputs=figs + [page] + [f"{REPORT}#result-{n}" for n in (1, 2)])
 
 
 if __name__ == "__main__":
