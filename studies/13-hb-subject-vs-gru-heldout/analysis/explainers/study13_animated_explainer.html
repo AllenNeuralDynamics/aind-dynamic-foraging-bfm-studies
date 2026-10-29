@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study 13 in seven scenes: a two-level HB for each held-out mouse</title>
+<style>
+  :root { --bg: #14171f; --ink: #e8e6e3; --dim: #8a8f98; --blue: #58c4dd; --yellow: #ffd866;
+          --red: #fc6255; --green: #83c167; --purple: #9a72ac; --grey: #5a5f6a; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+               font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 22px 16px 40px; }
+  h1 { font-size: 24px; font-weight: 600; margin: 0 0 4px; }
+  .sub { color: var(--dim); font-size: 14px; margin-bottom: 14px; }
+  .bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 10px 0; }
+  .bar button { background: #222734; color: var(--ink); border: 1px solid #343a48; border-radius: 16px;
+                padding: 6px 13px; font-size: 13px; cursor: pointer; }
+  .bar button.on { background: var(--blue); color: #10131a; border-color: var(--blue); }
+  canvas { display: block; width: 100%; height: auto; border-radius: 10px; background: var(--bg);
+           border: 1px solid #262b36; }
+  .caption { font-family: Charter, Georgia, serif; font-size: 18px; line-height: 1.6; min-height: 120px;
+             margin: 14px 4px 0; }
+  .caption b { color: var(--yellow); font-weight: 600; }
+  .caption i.t { font-style: normal; color: var(--blue); }
+  .foot { color: var(--dim); font-size: 12.5px; margin-top: 18px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Study 13 in seven scenes</h1>
+  <div class="sub">A two-level hierarchical Bayesian (HB) model, fitted to each held-out mouse on its own, then
+    compared with the per-mouse MLE and the GRU. Scenes 1–6 use toy data; scene 7 shows the study's results.</div>
+  <div class="bar" id="scenes"></div>
+  <canvas id="c" width="960" height="460"></canvas>
+  <div class="bar">
+    <button id="play">▶ Play</button><button id="replay">↺ Replay scene</button>
+    <button id="prev">← Prev</button><button id="next">Next →</button>
+  </div>
+  <div class="caption" id="cap"></div>
+  <div class="foot">Toy model in scenes 2–6: one session-level parameter θ; on each trial the mouse chooses
+    "right" with probability σ(θ) = 1/(1+e<sup>−θ</sup>). The real study uses 5 parameters (Hattori2019) or 4 (CTT)
+    and full foraging dynamics. Scene 7's numbers are study 13's r4 and r6 (2026-10-28).
+    Static companion with the algebra: <code>hb_sampling_explainer.html</code>.</div>
+</main>
+<script>
+"use strict";
+const C = document.getElementById("c"), X = C.getContext("2d");
+const W = C.width, H = C.height;
+const COL = { bg: "#14171f", ink: "#e8e6e3", dim: "#8a8f98", blue: "#58c4dd", yellow: "#ffd866",
+              red: "#fc6255", green: "#83c167", purple: "#9a72ac", grey: "#5a5f6a" };
+
+// ---------- small math helpers ----------
+let seed = 7;
+function rnd() { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
+function randn() { let u = 0, v = 0; while (u === 0) u = rnd(); v = rnd();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+const sig = x => 1 / (1 + Math.exp(-x));
+const ease = t => t < 0 ? 0 : t > 1 ? 1 : t * t * (3 - 2 * t);
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp01 = t => Math.max(0, Math.min(1, t));
+function seg(t, a, b) { return ease((t - a) / (b - a)); }   // eased progress of t within [a, b]
+
+// ---------- drawing helpers ----------
+function clear() { X.fillStyle = COL.bg; X.fillRect(0, 0, W, H); }
+function text(s, x, y, o = {}) {
+  X.save(); X.globalAlpha = o.a ?? 1; X.fillStyle = o.c || COL.ink;
+  X.font = `${o.w || 400} ${o.size || 16}px -apple-system, Segoe UI, Helvetica, Arial, sans-serif`;
+  X.textAlign = o.align || "left"; X.textBaseline = o.base || "alphabetic"; X.fillText(s, x, y); X.restore();
+}
+function line(x1, y1, x2, y2, c, w = 1.5, a = 1, dash) {
+  X.save(); X.globalAlpha = a; X.strokeStyle = c; X.lineWidth = w; if (dash) X.setLineDash(dash);
+  X.beginPath(); X.moveTo(x1, y1); X.lineTo(x2, y2); X.stroke(); X.restore();
+}
+function dot(x, y, r, c, a = 1) { X.save(); X.globalAlpha = a; X.fillStyle = c; X.beginPath();
+  X.arc(x, y, Math.max(0, r), 0, 2 * Math.PI); X.fill(); X.restore(); }
+function curve(fn, x0, x1, map, c, w = 2, a = 1, fill) {
+  X.save(); X.globalAlpha = a; X.strokeStyle = c; X.lineWidth = w; X.beginPath();
+  for (let i = 0; i <= 200; i++) { const v = lerp(x0, x1, i / 200), p = map(v, fn(v));
+    i ? X.lineTo(p[0], p[1]) : X.moveTo(p[0], p[1]); }
+  if (fill) { const e = map(x1, 0), s = map(x0, 0); X.lineTo(e[0], e[1]); X.lineTo(s[0], s[1]);
+    X.closePath(); X.fillStyle = fill; X.globalAlpha = (a) * 0.18; X.fill(); X.globalAlpha = a; }
+  X.stroke(); X.restore();
+}
+const normal = (x, m, s) => Math.exp(-0.5 * ((x - m) / s) ** 2) / (s * Math.sqrt(2 * Math.PI));
+
+// ---------- toy world ----------
+// One mouse: typical session θ̄ = 0.6, session-to-session spread 0.7. 10 sessions, 40 trials each.
+function makeWorld() {
+  seed = 11;
+  const mu = 0.6, sd = 0.7, sessions = [];
+  for (let s = 0; s < 10; s++) {
+    const th = mu + sd * randn(), ch = [];
+    for (let t = 0; t < 40; t++) ch.push(rnd() < sig(th) ? 1 : 0);
+    sessions.push({ th, ch });
+  }
+  // A toy posterior over (μ, σ) for the subject: centred near the truth, with uncertainty.
+  const post = [];
+  for (let d = 0; d < 300; d++) post.push({ mu: mu + 0.22 * randn(), sd: Math.abs(0.7 + 0.18 * randn()) + 0.05 });
+  return { mu, sd, sessions, post };
+}
+const WORLD = makeWorld();
+const HELD = WORLD.sessions[3];     // the odd-indexed eval session we score in scenes 4–5
+
+// ---------- scenes ----------
+const SCENES = [
+  { name: "1 · Data", dur: 9, cap: () =>
+    "Each held-out mouse has many sessions of trials. We <b>condition</b> on the even-indexed sessions " +
+    "(<i class=t>context</i>) and <b>score</b> the odd-indexed ones (<i class=t>held-out</i>): the same split " +
+    "the per-mouse MLE and the GRU fine-tune use. No other mouse is involved: no population level.", draw: sceneData },
+  { name: "2 · Model", dur: 10, cap: () =>
+    "Two levels. The mouse has a <b>typical session</b> μ and a <b>spread</b> σ. Every session draws its own " +
+    "parameter θ from N(μ, σ), and that θ drives the choices in that session. The fixed weak prior " +
+    "on μ and σ is the same for every mouse.", draw: sceneModel },
+  { name: "3 · Fit", dur: 10, cap: () =>
+    "MCMC (NUTS, 4 chains) samples the posterior over (μ, σ) given the context sessions. Each dot is one " +
+    "<b>posterior draw</b>: a plausible typical session and spread. Chains must agree (R-hat < 1.01), give " +
+    "enough independent draws (ESS ≥ 400), and not <b>diverge</b>.", draw: sceneFit },
+  { name: "4 · Score", dur: 14, cap: () =>
+    "To score a held-out session, draw many fresh θ's (each from a posterior draw's N(μ, σ)) and run the " +
+    "whole session with each. The score is the <b>average whole-session likelihood</b>. Equivalently: each " +
+    "draw's weight is its likelihood of the trials so far, so draws that fit this session <b>grow</b> as " +
+    "trials arrive. The GRU also predicts each trial from the session's earlier trials.", draw: sceneScore },
+  { name: "5 · k̂ rescue", dur: 13, cap: () =>
+    "On long sessions a handful of draws carry all the weight: the average is <b>starved</b> (Pareto k̂ ≥ 0.7). " +
+    "Fix: sample θ from a <b>proposal</b> centred on this session's best fit (yellow), mixed with the " +
+    "posterior itself, and reweight by prior ÷ proposal. Same quantity, far more draws in play. " +
+    "In study 13 it changed the headline by < 1e-5.", draw: sceneRescue },
+  { name: "6 · Refit", dur: 12, cap: () =>
+    "Some mice diverged: the sampler couldn't follow the posterior's shape. When σ is small the allowed θ's " +
+    "squeeze into a narrow <b>funnel</b>. Sampling θ directly (centred) made divergences 36× worse; keeping " +
+    "the standardised form and taking smaller steps (target acceptance 0.95) cut them from 304 to 45 for Hattori.",
+    draw: sceneRefit },
+  { name: "7 · Ladders", dur: 14, cap: () =>
+    "Where the gain over the per-mouse MLE comes from, rung by rung, on the same 149 mice and ~1M trials. " +
+    "<b>Plug-in</b> (one HB parameter set) is no better than the MLE. <b>Zero-spread</b> (all posterior " +
+    "draws, reweighted within the session) is the big step. <b>Full HB</b> adds session spread. " +
+    "Both foragers end below the larger GRUs.", draw: sceneLadder },
+];
+
+// Scene 1: sessions as rows of dots; even rows tinted context, odd rows held-out.
+function sceneData(t) {
+  clear();
+  text("One held-out mouse", 40, 42, { size: 20, w: 600 });
+  const x0 = 170, dx = 17, y0 = 80, dy = 36;
+  WORLD.sessions.forEach((s, i) => {
+    const a = seg(t, 0.3 * i, 0.3 * i + 0.8);
+    if (a <= 0) return;
+    const y = y0 + i * dy, split = seg(t, 4.5, 6.0);
+    const held = i % 2 === 1;
+    const c = split > 0 ? (held ? COL.yellow : COL.blue) : COL.grey;
+    text(`session ${i + 1}`, 40, y + 5, { c: COL.dim, size: 13, a });
+    s.ch.forEach((v, k) => { if (k * 0.03 < (t - 0.3 * i)) dot(x0 + k * dx, y, 4.2, v ? c : COL.bg, a);
+      X.save(); X.globalAlpha = a * 0.6; X.strokeStyle = c; X.lineWidth = 1; X.beginPath();
+      X.arc(x0 + k * dx, y, 4.2, 0, 7); X.stroke(); X.restore(); });
+    if (split > 0) text(held ? "held-out → score" : "context → fit", x0 + 40 * dx + 12, y + 5,
+      { c, size: 13, a: split });
+  });
+  text("● right   ○ left", 40, H - 18, { c: COL.dim, size: 12 });
+}
+
+// Scene 2: subject-level bell curve; sessions' θ drop out of it.
+function sceneModel(t) {
+  clear();
+  const ax = v => 120 + (v + 2) * 150, base = 330;
+  const map = (v, y) => [ax(v), base - y * 300];
+  line(ax(-2), base, ax(3.6), base, COL.dim, 1);
+  text("session parameter θ", ax(3.6), base + 24, { c: COL.dim, size: 13, align: "right" });
+  const g = seg(t, 0, 2);
+  curve(v => normal(v, WORLD.mu, WORLD.sd) * g, -2, 3.6, map, COL.blue, 2.5, 1, COL.blue);
+  if (g > 0.5) {
+    line(ax(WORLD.mu), base, ax(WORLD.mu), base - 190, COL.blue, 1.2, g, [4, 4]);
+    text("μ  (typical session)", ax(WORLD.mu) + 6, base - 196, { c: COL.blue, size: 15, a: g });
+    const yS = base - 150;
+    line(ax(WORLD.mu), yS, ax(WORLD.mu + WORLD.sd), yS, COL.purple, 2, seg(t, 2, 3));
+    text("σ  (spread)", ax(WORLD.mu + WORLD.sd) + 8, yS + 5, { c: COL.purple, size: 15, a: seg(t, 2, 3) });
+  }
+  WORLD.sessions.forEach((s, i) => {
+    const p = seg(t, 3 + 0.45 * i, 3.9 + 0.45 * i); if (p <= 0) return;
+    const x = ax(s.th), y = lerp(base - 260, base + 50 + (i % 2) * 22, p);
+    dot(x, y, 6, i % 2 ? COL.yellow : COL.blue, 0.95);
+    if (p >= 1) text(`θ${i + 1}`, x, y + 20, { c: COL.dim, size: 11, align: "center" });
+  });
+  text("θ_session ~ N(μ, σ)", 40, 42, { size: 20, w: 600 });
+  text("mouse level", W - 40, 60, { c: COL.blue, size: 14, align: "right" });
+  text("session level", W - 40, base + 70, { c: COL.ink, size: 14, align: "right" });
+}
+
+// Scene 3: posterior draws appear as a cloud in the (μ, σ) plane; marginal of μ grows on top.
+function sceneFit(t) {
+  clear();
+  const ax = v => 160 + (v + 0.4) * 330, ay = v => 400 - (v - 0.1) * 230;
+  line(ax(-0.4), ay(0.1), ax(1.8), ay(0.1), COL.dim, 1); line(ax(-0.4), ay(0.1), ax(-0.4), ay(1.6), COL.dim, 1);
+  text("μ (typical session)", ax(1.8), ay(0.1) + 26, { c: COL.dim, size: 13, align: "right" });
+  text("σ (spread)", ax(-0.4) - 10, ay(1.6) - 8, { c: COL.dim, size: 13 });
+  const n = Math.floor(WORLD.post.length * seg(t, 0.5, 7));
+  for (let i = 0; i < n; i++) { const d = WORLD.post[i];
+    dot(ax(d.mu), ay(d.sd), 3, [COL.blue, COL.green, COL.purple, COL.yellow][i % 4], 0.75); }
+  if (t > 7.2) {
+    const a = seg(t, 7.2, 8.5);
+    dot(ax(WORLD.mu), ay(WORLD.sd), 7, COL.red, a);
+    text("truth (toy)", ax(WORLD.mu) + 12, ay(WORLD.sd) - 10, { c: COL.red, size: 14, a });
+  }
+  text("Posterior draws of (μ, σ)", 40, 42, { size: 20, w: 600 });
+  text(`${n} draws · 4 chains (colours)`, W - 40, 42, { c: COL.dim, size: 14, align: "right" });
+}
+
+// Scenes 4–5 share a particle view of one held-out session.
+function particles(useProposal) {
+  seed = useProposal ? 99 : 42;
+  const P = [];
+  for (let k = 0; k < 120; k++) {
+    if (!useProposal || k >= 96) {        // posterior predictive draws (all of them in scene 4; 20% in 5)
+      const d = WORLD.post[Math.floor(rnd() * WORLD.post.length)];
+      P.push({ th: d.mu + d.sd * randn(), prop: false });
+    } else {                              // proposal centred on this session's best fit
+      P.push({ th: HELD.th + 0.35 * randn(), prop: true });
+    }
+  }
+  return P;
+}
+const P_PLAIN = particles(false), P_IS = particles(true);
+function logLik(th, n) { let s = 0; for (let k = 0; k < n; k++) s += HELD.ch[k] ? Math.log(sig(th)) : Math.log(1 - sig(th)); return s; }
+
+function particleView(t, P, opt) {
+  clear();
+  const ax = v => 120 + (v + 2.4) * 150, base = 300;
+  line(ax(-2.4), base, ax(3.6), base, COL.dim, 1);
+  text("session parameter θ", ax(3.6), base + 26, { c: COL.dim, size: 13, align: "right" });
+  const nSeen = Math.min(40, Math.floor(Math.max(0, t - 1.5) * opt.speed));
+  // trials strip
+  HELD.ch.forEach((v, k) => { const c = k < nSeen ? COL.yellow : COL.grey;
+    dot(120 + k * 18, 372, 4, v ? c : COL.bg, 1);
+    X.save(); X.strokeStyle = c; X.lineWidth = 1; X.beginPath(); X.arc(120 + k * 18, 372, 4, 0, 7); X.stroke(); X.restore(); });
+  text(`held-out session: trials seen ${nSeen}/40`, 120, 400, { c: COL.dim, size: 13 });
+  // weights
+  const lw = P.map(p => logLik(p.th, nSeen) + (opt.reweight ? opt.reweight(p) : 0));
+  const top = Math.max(...lw), w = lw.map(v => Math.exp(v - top)), sw = w.reduce((a, b) => a + b, 0);
+  const ess = sw * sw / w.reduce((a, b) => a + b * b, 0);
+  P.forEach((p, i) => { const r = 2 + 14 * Math.sqrt(w[i]);
+    dot(ax(p.th), base - 30 - (i % 12) * 17, r, p.prop ? COL.yellow : COL.blue, 0.25 + 0.7 * w[i]); });
+  line(ax(HELD.th), base, ax(HELD.th), 70, COL.red, 1.5, 0.9, [5, 5]);
+  text("this session's true θ (toy)", ax(HELD.th) + 6, 78, { c: COL.red, size: 13 });
+  // ESS gauge
+  const gx = W - 250, gy = 110;
+  text("effective draws in play", gx, gy - 12, { c: COL.dim, size: 13 });
+  X.fillStyle = "#262b36"; X.fillRect(gx, gy, 200, 12);
+  X.fillStyle = ess / P.length < 0.1 ? COL.red : COL.green; X.fillRect(gx, gy, 200 * ess / P.length, 12);
+  text(`${ess.toFixed(1)} of ${P.length}`, gx + 205, gy + 11, { size: 13 });
+  return { nSeen, ess };
+}
+
+function sceneScore(t) {
+  particleView(t, P_PLAIN, { speed: 4 });
+  text("Each dot: one fresh θ. Size: its likelihood of the trials so far.", 40, 42, { size: 18, w: 600 });
+  if (t > 12) text("score = mean over dots of P(whole session | θ)", 40, 440 - 0, { c: COL.yellow, size: 15,
+    a: seg(t, 12, 13) });
+}
+
+function sceneRescue(t) {
+  const phase2 = t > 6;
+  if (!phase2) {
+    const r = particleView(Math.min(t * 2.2, 12), P_PLAIN, { speed: 4 });
+    text("Plain draws: a few dots dominate", 40, 42, { size: 18, w: 600, c: COL.red });
+    if (r.nSeen >= 40) text("starved: k̂ ≥ 0.7", W - 250, 150, { c: COL.red, size: 16, w: 600 });
+  } else {
+    // Proposal draws are denser near the session; weight = prior/proposal corrects the over-sampling.
+    const reweight = p => {
+      const prior = WORLD.post.slice(0, 60).reduce((a, d) => a + normal(p.th, d.mu, d.sd), 0) / 60;
+      const q = 0.8 * normal(p.th, HELD.th, 0.35) + 0.2 * prior;
+      return Math.log(prior / q);
+    };
+    particleView(2.5 + (t - 6) * 2.2, P_IS, { speed: 4, reweight });
+    text("Importance sampling: most draws start near this session", 40, 42, { size: 18, w: 600, c: COL.yellow });
+    text("weight = likelihood × prior ÷ proposal", 40, 66, { c: COL.dim, size: 14 });
+  }
+}
+
+// Scene 6: Neal's funnel; a trajectory that diverges (centred) vs one that stays (non-centred).
+function sceneRefit(t) {
+  clear();
+  const cx = 300, ax = v => cx + v * 70, ay = v => 400 - (v + 3) * 55;
+  text("The funnel: log σ (up) against θ (across)", 40, 42, { size: 18, w: 600 });
+  for (let ls = -3; ls <= 2.5; ls += 0.05) {
+    const s = Math.exp(ls), y = ay(ls);
+    line(ax(-2 * s), y, ax(2 * s), y, COL.blue, 1, 0.07);
+  }
+  text("log σ", ax(0) - 30, ay(2.6), { c: COL.dim, size: 13 });
+  text("narrow neck: small σ", ax(0) + 22, ay(-2.7), { c: COL.dim, size: 13 });
+  // centred sampler: big step overshoots into the neck -> divergence
+  const a = seg(t, 1, 5);
+  const path = [[0.4, 1.2], [1.1, 0.2], [0.6, -0.9], [-0.2, -1.8], [0.9, -2.6]];
+  for (let i = 0; i < path.length - 1; i++) { const p = clamp01(a * (path.length - 1) - i);
+    if (p <= 0) continue;
+    const [x1, y1] = path[i], [x2, y2] = path[i + 1];
+    line(ax(x1), ay(y1), ax(lerp(x1, x2, p)), ay(lerp(y1, y2, p)), COL.red, 2.5); }
+  if (a >= 1) { dot(ax(0.9), ay(-2.6), 9, COL.red); text("✗ diverges", ax(0.9) + 14, ay(-2.6) + 5, { c: COL.red, size: 15, w: 600 }); }
+  text("centred, θ sampled directly:", ax(-3.6), ay(2.3), { c: COL.red, size: 14 });
+  text("big steps fall out of the neck", ax(-3.6), ay(2.3) + 18, { c: COL.red, size: 14 });
+  // non-centred: a standard-normal box, uniform geometry
+  const b = seg(t, 5.5, 9), bx = v => 700 + v * 55, by = v => 250 - v * 55;
+  X.save(); X.globalAlpha = seg(t, 5, 6); X.strokeStyle = COL.green; X.lineWidth = 1;
+  X.strokeRect(bx(-2.2), by(2.2), 4.4 * 55, 4.4 * 55); X.restore();
+  for (let r = 0.5; r <= 2; r += 0.5) { X.save(); X.globalAlpha = 0.15 * seg(t, 5, 6); X.strokeStyle = COL.green;
+    X.beginPath(); X.arc(bx(0), by(0), r * 55, 0, 7); X.stroke(); X.restore(); }
+  const g = [[-1.2, 0.9], [-0.3, 1.4], [0.6, 0.7], [1.1, -0.4], [0.2, -1.2], [-0.8, -0.6], [-0.1, 0.1]];
+  for (let i = 0; i < g.length - 1; i++) { const p = clamp01(b * (g.length - 1) - i); if (p <= 0) continue;
+    line(bx(g[i][0]), by(g[i][1]), bx(lerp(g[i][0], g[i + 1][0], p)), by(lerp(g[i][1], g[i + 1][1], p)), COL.green, 2.5); }
+  if (t > 5) { text("non-centred: z = (θ − μ)/σ", bx(-2.2), by(2.2) - 26, { c: COL.green, size: 14, a: seg(t, 5, 6) });
+    text("round, same scale everywhere", bx(-2.2), by(2.2) - 8, { c: COL.green, size: 14, a: seg(t, 5, 6) }); }
+  if (t > 9.5) text("+ smaller steps (target acceptance 0.95)  →  divergences 304 → 45", 40, H - 22,
+    { c: COL.yellow, size: 16, a: seg(t, 9.5, 10.5) });
+}
+
+// Scene 7: the real ladders.
+const LADDER = {
+  rungs: ["per-mouse MLE", "plug-in", "zero-spread", "full HB"],
+  hattori: [0.7127, 0.7107, 0.7174, 0.7213], ctt: [0.7170, 0.7159, 0.7204, 0.7225],
+  gru: [["D≈10", 0.7219], ["D≈30", 0.7250], ["D≈100", 0.7262], ["D≈300", 0.7267], ["D≈614", 0.7268]],
+};
+function sceneLadder(t) {
+  clear();
+  const lo = 0.708, hi = 0.728, y = v => 400 - (v - lo) / (hi - lo) * 320, x = i => 170 + i * 190;
+  text("The ladder (149 held-out mice, real results)", 40, 42, { size: 20, w: 600 });
+  for (let v = 0.710; v <= 0.7281; v += 0.005) { line(110, y(v), W - 120, y(v), COL.grey, 1, 0.25);
+    text(v.toFixed(3), 100, y(v) + 4, { c: COL.dim, size: 12, align: "right" }); }
+  LADDER.rungs.forEach((r, i) => text(r, x(i), 432, { c: COL.dim, size: 14, align: "center" }));
+  const g = seg(t, 0.5, 2);
+  LADDER.gru.forEach(([d, v], k) => { line(110, y(v), W - 120, y(v), COL.purple, 1.2, g * (0.35 + 0.15 * k), [6, 5]);
+    if (k === 0 || k === 4) text(`GRU ${d}`, W - 112, y(v) + 4, { c: COL.purple, size: 12, a: g }); });
+  const series = [["HB-Hattori", LADDER.hattori, COL.blue, 2.5], ["HB-CTT", LADDER.ctt, COL.yellow, 7.5]];
+  series.forEach(([name, vals, c, start]) => {
+    const p = seg(t, start, start + 4) * 3;
+    for (let i = 0; i < 4; i++) {
+      const a = clamp01(p - i + 1); if (a <= 0) continue;
+      dot(x(i), y(vals[i]), 7, c, a);
+      text(vals[i].toFixed(4), x(i) + 12, y(vals[i]) + (name === "HB-CTT" ? -10 : 18), { c, size: 13, a });
+      if (i > 0) { const s = clamp01(p - i + 1);
+        line(x(i - 1), y(vals[i - 1]), lerp(x(i - 1), x(i), s), lerp(y(vals[i - 1]), y(vals[i]), s), c, 2.5); }
+    }
+    if (p >= 3) text(name, x(3) + 70, y(vals[3]) + 5, { c, size: 15, w: 600 });
+  });
+}
+
+// ---------- player ----------
+let cur = 0, t0 = performance.now(), playing = true, tPaused = 0;
+const bar = document.getElementById("scenes");
+SCENES.forEach((s, i) => { const b = document.createElement("button"); b.textContent = s.name;
+  b.onclick = () => go(i); bar.appendChild(b); });
+function go(i) { cur = (i + SCENES.length) % SCENES.length; t0 = performance.now(); tPaused = 0; playing = true;
+  document.getElementById("play").textContent = "❚❚ Pause";
+  [...bar.children].forEach((b, k) => b.classList.toggle("on", k === cur));
+  document.getElementById("cap").innerHTML = SCENES[cur].cap(); }
+document.getElementById("next").onclick = () => go(cur + 1);
+document.getElementById("prev").onclick = () => go(cur - 1);
+document.getElementById("replay").onclick = () => go(cur);
+document.getElementById("play").onclick = () => {
+  if (playing) { tPaused = (performance.now() - t0) / 1000; playing = false;
+    document.getElementById("play").textContent = "▶ Play"; }
+  else { t0 = performance.now() - tPaused * 1000; playing = true;
+    document.getElementById("play").textContent = "❚❚ Pause"; } };
+function frame(now) {
+  const t = playing ? (now - t0) / 1000 : tPaused;
+  SCENES[cur].draw(Math.min(t, SCENES[cur].dur));
+  // progress line
+  X.fillStyle = COL.blue; X.fillRect(0, H - 3, W * Math.min(1, t / SCENES[cur].dur), 3);
+  requestAnimationFrame(frame);
+}
+go(0); requestAnimationFrame(frame);
+</script>
+</body>
+</html>
