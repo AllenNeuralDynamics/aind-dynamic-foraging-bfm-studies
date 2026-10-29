@@ -480,6 +480,13 @@ def block_states(grids, selected, tables):
         lines += ["", f"![{e} weights](../fig_r1_weights_{e}.svg)", "",
                   f"![{e} states](../fig_r1_states_{e}.svg)", "",
                   f"![{e} example sessions](../fig_r1_examples_{e}.svg)", ""]
+    lines += ["**Across K.** Every state of every K = 2–10 fit, placed by its behaviour under the "
+              "global fit, shows what the states are and how they split as K grows:", "",
+              "![state map](../fig_r1_state_map.svg)", "",
+              "How long states last, how often a held-out session switches state, and how much of "
+              "the most mouse-specific state's use the top 10% of mice hold (each mouse's mean "
+              "occupancy; dotted line: 10%, equal use):", "",
+              "![timescales](../fig_r1_timescales.svg)", ""]
     return "\n".join(lines)
 
 

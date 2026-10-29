@@ -44,6 +44,10 @@ DATA_OVERRIDES = [
     "+data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,"
     "current_stage_actual,reward_probabilityL,reward_probabilityR]",
 ]
+# The snapshot mice_snapshot_scaling pins, and its manifest's sha256 as every study 14 launch
+# record holds it (data.manifest_sha256). The freeze refuses a snapshot whose manifest differs.
+SNAPSHOT = "20260603"
+SNAPSHOT_MANIFEST_SHA256 = "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
 MATURE = {"STAGE_FINAL", "GRADUATED"}
 N_EXAMPLES, EXAMPLE_LENGTH = 4, (400, 700)
 SUMMARY_PREFIXES = ("glmhmm/", "heldout/")
@@ -151,6 +155,24 @@ def recompute_posteriors(fit, trials, source="global"):
             frames.append(pd.DataFrame(frame))
     jax.clear_caches()
     return pd.concat(frames, ignore_index=True)
+
+
+def snapshot_source():
+    """The snapshot's manifest as a freeze source, checked against the launch records' digest.
+
+    Read through the dispatcher's own ``launch_inputs.fetch_manifest``, the function that wrote
+    ``data.manifest_sha256`` into the launch records.
+    """
+    sys.path.insert(0, str(Path(os.environ["DISPATCHER_ROOT"]) / "code"))
+    from launch_inputs import SNAPSHOT_HTTPS, fetch_manifest
+
+    digest, manifest = fetch_manifest(SNAPSHOT)
+    if digest != SNAPSHOT_MANIFEST_SHA256:
+        raise RuntimeError(f"snapshot {SNAPSHOT} manifest sha256 is {digest}, the runs read "
+                           f"{SNAPSHOT_MANIFEST_SHA256}")
+    source = {"type": "url", "sha256": digest,
+              "id": f"{SNAPSHOT_HTTPS}/snapshots/{SNAPSHOT}/snapshot_manifest.json"}
+    return source, manifest.get("latest_build_id")
 
 
 def load_cohorts():
@@ -443,7 +465,8 @@ def main():
         for s, rows in example_rows.items()
     }
 
-    inputs_by_lag, frozen_runs, sources = {}, [], []
+    snapshot, build_id = snapshot_source()
+    inputs_by_lag, frozen_runs, sources = {}, [], [snapshot]
     for (group, emission, K, L), run in sorted(runs.items(), key=lambda kv: kv[0]):
         files = run["dir"] / "files"
         out_files = files / "outputs" / "glmhmm"
@@ -497,7 +520,8 @@ def main():
                       kind="freeze", code=[__file__], sources=sources)
     write_artifact(OUT, {
         "_meta": meta,
-        "data": {"config": "mice_snapshot_scaling", "snapshot": "20260603", "ignore_policy": "include",
+        "data": {"config": "mice_snapshot_scaling", "snapshot": SNAPSHOT,
+                 "manifest_sha256": snapshot["sha256"], "build_id": build_id, "ignore_policy": "include",
                  "split": "heldout", "n_heldout_trials": int(len(trials)),
                  "n_heldout_subjects": int(trials["subject_id"].nunique()),
                  "n_heldout_sessions": int(trials["ses_idx"].nunique())},

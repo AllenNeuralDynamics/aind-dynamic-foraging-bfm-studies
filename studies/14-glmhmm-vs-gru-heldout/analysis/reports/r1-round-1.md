@@ -224,10 +224,13 @@ match the trainer's to 4e-6 where both exist. The fix is wrapper#120.
    per-mouse prior centred on the global weights instead of zero. Sweep its SD (0.25, 0.5, 1, 2)
    and keep a zero-centred arm for comparison. Reuse the saved global fits, so only the refits
    rerun. Choose K, SD and centre together by the refit score, and report the whole surface.
-   As the SD goes to 0, this score approaches Faeze's, which never drops (the refit still
-   re-estimates the transitions). So a later peak at small
-   SD is partly the prior, not proof of more states. Code: models#89, wrapper#121,
-   dispatcher#213.
+   As the SD goes to 0, the emission weights are pinned to the global fit's, but each mouse's
+   transitions are still refitted. So the score need not reach Faeze's, nor share its curve,
+   which never drops; recovering it would need the transitions held fixed too. Read a later
+   peak at small SD as partly the prior's doing, not proof of more states. Code (merged):
+   AllenNeuralDynamics/aind-dynamic-foraging-models#89 (v0.27.0),
+   AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#121,
+   AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#213.
 2. **Probe short states directly.** Fix the transition matrix so a state lasts D trials
    (D = 20, 50, 100, 200, free) and compare scores and states. Also try a per-session or
    per-mouse side bias inside the global fit, so states no longer need to carry it, and
