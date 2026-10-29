@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/g1_seed_robustness.py",
-    "produced_at_pt": "2026-10-28T22:07:07-07:00",
-    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "produced_at_pt": "2026-10-29T06:52:58-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
     "studies_git_dirty": true,
     "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
     "wandb_groups": [],
@@ -26,7 +26,7 @@
     "inputs": [
       {
         "path": "studies/50-gru-dynamics-embedding/analysis/trial_states_C-s0.json",
-        "sha256": "f21a64ddc53d5895137f33561898b09eb184a3ef81e83250f9395a689ddc680f"
+        "sha256": "09a9017ed48e740a42b468d7338fb5a2c5b25d287fcd8efb47f6fc64d11767ab"
       },
       {
         "path": "studies/50-gru-dynamics-embedding/analysis/c2_compare.json",
@@ -110,7 +110,7 @@
       },
       {
         "path": "studies/50-gru-dynamics-embedding/analysis/trial_states_C-s1.json",
-        "sha256": "d9614d198faca0014eb6ad6e6e916cb8eb0b3d7456810167a7fa058c5cd5b873"
+        "sha256": "b9e582cd3a1010a579693c3b74881694e22233ec6b14a7577e2f071b458ba780"
       },
       {
         "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/c2_compare.json",
@@ -194,7 +194,7 @@
       },
       {
         "path": "studies/50-gru-dynamics-embedding/analysis/trial_states_C-s2.json",
-        "sha256": "151793be28cf590501b324e0f53838a7a849e418087fd1b14745aea9347cb846"
+        "sha256": "516a168f2a787a2fc3e97b1ac12c0770bfa0aaecbb2628ded688d69c2a091895"
       },
       {
         "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/c2_compare.json",
