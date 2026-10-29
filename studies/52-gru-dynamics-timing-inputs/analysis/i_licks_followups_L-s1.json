@@ -1,11 +1,40 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i_licks_followups.py",
-    "produced_at_pt": "2026-10-26T15:36:06-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "h128-dscan-rt-only@20260823-093058"
+    "produced_at_pt": "2026-10-29T06:50:52-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_licks_followups.py",
+        "sha256": "dacd6dbe685153f777ee36d4a28b701d2149a3063db24ae148cb926574e6fd02"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-61c16e62"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_licks_followups_L-s1.json",
+        "sha256": "603a2c8516786fa5af894fd544ba444a209541e77d56891e14ba2ea609a9cfb6"
+      }
     ]
   },
   "key": "L-s1",

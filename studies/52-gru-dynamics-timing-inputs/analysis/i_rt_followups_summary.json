@@ -1,16 +1,58 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/fig_i_rt_followups.py",
-    "produced_at_pt": "2026-10-26T12:08:13-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "h128-dscan-rt-only@20260823-093058"
+    "produced_at_pt": "2026-10-29T05:35:19-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/fig_i_rt_followups.py",
+        "sha256": "505fcb47031911baa657838b4f135baa9cc607a77ca8bec179d73562f302700b"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_rt_followups_R-s0.json",
+        "sha256": "c9234bb2b4b84633fa5d09ae91766cd30d3de2e8914c99a01297366c325bdaa3"
+      },
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_rt_followups_R-s1.json",
+        "sha256": "ffbabc8e5064435ce3590ce35eeebd95b9ba1aca65caf9114609e42366e8be25"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-79c32692"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-3cbcda71"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_rt_followups_summary.json",
+        "sha256": "d745fcd9951182014004d86a29c5e535aa93f49622d0b35731814aadd0d48378"
+      }
     ]
   },
   "R-s0": {
     "F1": {
-      "t\u22121 rewarded | v=+2.0": {
+      "t−1 rewarded | v=+2.0": {
         "s0_bin_median": [
           -5.436722755432129,
           -4.68922233581543,
@@ -36,7 +78,7 @@
           0.15439200401306152
         ]
       },
-      "t\u22121 rewarded | v=-1.5": {
+      "t−1 rewarded | v=-1.5": {
         "s0_bin_median": [
           -5.436722755432129,
           -4.68922233581543,
@@ -62,7 +104,7 @@
           0.020399272441864014
         ]
       },
-      "t\u22121 unrewarded | v=+2.0": {
+      "t−1 unrewarded | v=+2.0": {
         "s0_bin_median": [
           -3.9772722721099854,
           -3.258028984069824,
@@ -88,7 +130,7 @@
           0.25234702229499817
         ]
       },
-      "t\u22121 unrewarded | v=-1.5": {
+      "t−1 unrewarded | v=-1.5": {
         "s0_bin_median": [
           -3.9772722721099854,
           -3.258028984069824,
@@ -116,7 +158,7 @@
       }
     },
     "F2": {
-      "t\u22121 rewarded": {
+      "t−1 rewarded": {
         "v": [
           -2.5,
           -2.25,
@@ -164,7 +206,7 @@
           1.1146893501281738
         ]
       },
-      "t\u22121 unrewarded": {
+      "t−1 unrewarded": {
         "v": [
           -2.5,
           -2.25,
@@ -214,7 +256,7 @@
       }
     },
     "F3": {
-      "t\u22121 rewarded": {
+      "t−1 rewarded": {
         "prev_rt_bin_median": [
           -1.1882483959197998,
           -0.8654617071151733,
@@ -241,7 +283,7 @@
         ],
         "spearman": -0.018721826961320836
       },
-      "t\u22121 unrewarded": {
+      "t−1 unrewarded": {
         "prev_rt_bin_median": [
           -1.1503123044967651,
           -0.8276115655899048,
@@ -272,7 +314,7 @@
   },
   "R-s1": {
     "F1": {
-      "t\u22121 rewarded | v=+2.0": {
+      "t−1 rewarded | v=+2.0": {
         "s0_bin_median": [
           -5.370297431945801,
           -4.679865837097168,
@@ -298,7 +340,7 @@
           0.19668802618980408
         ]
       },
-      "t\u22121 rewarded | v=-1.5": {
+      "t−1 rewarded | v=-1.5": {
         "s0_bin_median": [
           -5.370297431945801,
           -4.679865837097168,
@@ -324,7 +366,7 @@
           0.040134549140930176
         ]
       },
-      "t\u22121 unrewarded | v=+2.0": {
+      "t−1 unrewarded | v=+2.0": {
         "s0_bin_median": [
           -3.970649242401123,
           -3.2521860599517822,
@@ -350,7 +392,7 @@
           0.2350885570049286
         ]
       },
-      "t\u22121 unrewarded | v=-1.5": {
+      "t−1 unrewarded | v=-1.5": {
         "s0_bin_median": [
           -3.970649242401123,
           -3.2521860599517822,
@@ -378,7 +420,7 @@
       }
     },
     "F2": {
-      "t\u22121 rewarded": {
+      "t−1 rewarded": {
         "v": [
           -2.5,
           -2.25,
@@ -426,7 +468,7 @@
           1.1092199087142944
         ]
       },
-      "t\u22121 unrewarded": {
+      "t−1 unrewarded": {
         "v": [
           -2.5,
           -2.25,
@@ -476,7 +518,7 @@
       }
     },
     "F3": {
-      "t\u22121 rewarded": {
+      "t−1 rewarded": {
         "prev_rt_bin_median": [
           -1.1882483959197998,
           -0.8654617071151733,
@@ -503,7 +545,7 @@
         ],
         "spearman": -0.015346997597433203
       },
-      "t\u22121 unrewarded": {
+      "t−1 unrewarded": {
         "prev_rt_bin_median": [
           -1.1503123044967651,
           -0.8276115655899048,

@@ -1,11 +1,45 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i_rt_mechanism.py",
-    "produced_at_pt": "2026-10-26T12:34:17-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "h128-dscan-rt-only@20260823-093058"
+    "produced_at_pt": "2026-10-29T09:18:55-07:00",
+    "studies_git_sha": "036b8078837dfb89f4a5993315f3602b2deed125",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_rt_mechanism.py",
+        "sha256": "46fea2333c94a05ce5f926929323c4bfddef58df0643dd17feb65f020e1e1b41"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/trial_states_R-s0.json",
+        "sha256": "b31155f290b44f3ef1d017568232ba3a6eb5918d32461c1d00157ab88377fb53"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-79c32692"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_rt_mechanism.json",
+        "sha256": "dd523407b4d20f6dcb51d636fd48f356a160e51a7ecadf962e48ff08de682e1e"
+      }
     ]
   },
   "key": "R-s0",
@@ -643,7 +677,7 @@
         0.00014579514630081795
       ]
     },
-    "RT \u22121 sd | pulsed trial rewarded": {
+    "RT −1 sd | pulsed trial rewarded": {
       "mean": [
         -0.08987064343787311,
         -0.03010376290967921,
@@ -727,7 +761,7 @@
         0.000137665853760023
       ]
     },
-    "RT \u22121 sd | pulsed trial unrewarded": {
+    "RT −1 sd | pulsed trial unrewarded": {
       "mean": [
         -0.21310863439885744,
         -0.05943110776786881,

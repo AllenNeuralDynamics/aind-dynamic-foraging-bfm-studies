@@ -1,17 +1,47 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/extract_trial_states.py",
-    "produced_at_pt": "2026-10-23T17:21:50-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "h128-dscan-rt-only@20260823-093058"
+    "produced_at_pt": "2026-10-29T07:26:15-07:00",
+    "studies_git_sha": "036b8078837dfb89f4a5993315f3602b2deed125",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/extract_trial_states.py",
+        "sha256": "195a68f5de68f2473d340cec7efd019d7763ba63a0db497adbc6ab3b7591faf4"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/source_runs.json",
+        "sha256": "7fdbd1f16a387d993f6eeebab34c3a40a0d6f5b118207af5ac63dc5cf9f97557"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-79c32692"
+      }
     ],
     "wrapper_checkout": {
       "path": "/workspace/aind-dynamic-foraging-bfm-wrapper",
-      "head": "06c0a22c66b7d0ef40181d2c8eadc06e36d77644",
-      "dirty": true
-    }
+      "head": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+      "dirty": false
+    },
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/trial_states_R-s0.json",
+        "sha256": "c580b7fd21f562448b7e7bb1c97a15465eb5254d7c62a4432e7504e2dae764d7"
+      }
+    ]
   },
   "source": {
     "key": "R-s0",
@@ -65,6 +95,7 @@
     "log_reaction_time_sd": 0.9800807546898979,
     "n_first_trial_rows": 8903
   },
+  "lick_inputs": null,
   "sessions_by_task": {
     "Uncoupled Baiting": 4733,
     "Coupled Baiting": 2446,

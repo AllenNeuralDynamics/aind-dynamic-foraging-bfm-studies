@@ -1,11 +1,63 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/b0_where_rt_helps.py",
-    "produced_at_pt": "2026-10-26T12:23:48-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "h128-dscan-rt-only@20260823-093058"
+    "produced_at_pt": "2026-10-29T05:01:11-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/b0_where_rt_helps.py",
+        "sha256": "47082f4a8ccd85ac932d07be32faf85458304622708670a4b26294e17059d4bd"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-79c32692"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-3cbcda71"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/trial_states_R-s0.parquet",
+        "sha256": "e44b0985998d531364faa0ed6976085a41b5257c18e3c2952e889167e76fe903"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/trial_states_R-s1.parquet",
+        "sha256": "5e8f4e0eb52ce7c4905c6bbca5bc36d4a317ce5eb748c212c177bacb773b70ab"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/b0_where_rt_helps.json",
+        "sha256": "bbdaef811e80557f519e783e591baffdaec0575e1242e6e60c55f3a91e2b6b00"
+      }
     ]
   },
   "trials": {
@@ -355,7 +407,7 @@
     ]
   },
   "B0b_disagreement": {
-    "R \u2212 C": {
+    "R − C": {
       "mean": 0.0016438263238733198,
       "sd": 0.08384213478007281,
       "fraction_positive": 0.5530692867600766,
@@ -364,7 +416,7 @@
       "net": 5357.762589232084,
       "mean_abs": 0.03751466738667471
     },
-    "R seed 0 \u2212 R seed 1": {
+    "R seed 0 − R seed 1": {
       "mean": -5.3092049476366945e-05,
       "sd": 0.057080247084826494,
       "fraction_positive": 0.5145999599917038,
@@ -6103,7 +6155,7 @@
             -0.18175472591570804
           ]
         },
-        "RT\u00d7reward 1 back": {
+        "RT×reward 1 back": {
           "coef": 0.05981123255974292,
           "ci": [
             0.040883076247103085,
@@ -6184,7 +6236,7 @@
             -0.19145319945328065
           ]
         },
-        "RT\u00d7reward 1 back": {
+        "RT×reward 1 back": {
           "coef": 0.0353615157216514,
           "ci": [
             0.021946042486533344,
@@ -6265,7 +6317,7 @@
             -0.18962642115561373
           ]
         },
-        "RT\u00d7reward 1 back": {
+        "RT×reward 1 back": {
           "coef": 0.040884132216704526,
           "ci": [
             0.02900484374195117,
@@ -6346,7 +6398,7 @@
             -0.21224586564729175
           ]
         },
-        "RT\u00d7reward 1 back": {
+        "RT×reward 1 back": {
           "coef": 0.10804554698412253,
           "ci": [
             0.094553154203804,
