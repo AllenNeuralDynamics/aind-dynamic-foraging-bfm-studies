@@ -39,7 +39,14 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
 sys.path.insert(0, str(HERE))
 from _meta import build_meta, write_artifact  # noqa: E402
-from freeze_round1 import DATA_OVERRIDES, PROJECT, find_runs, sha256  # noqa: E402
+from freeze_round1 import (  # noqa: E402
+    DATA_OVERRIDES,
+    PROJECT,
+    SNAPSHOT,
+    find_runs,
+    sha256,
+    snapshot_source,
+)
 
 WANDB_GROUPS = ["hurdle@20261027-212905", "reference@20261027-213006"]
 OUT = HERE / "frozen_r2.json"
@@ -217,7 +224,8 @@ def write_outputs(out_dir, subjects, frozen, arrays, runs):
             # the float32 parts stay on /allen.
             np.savez_compressed(path, **{k: w.astype(np.float16) for k, w in by_k.items()})
             weight_files.append(path)
-    sources = []
+    snapshot, build_id = snapshot_source()     # refuses a snapshot other than the runs read
+    sources = [snapshot]
     for run in runs.values():
         fit_path = run["dir"] / "files" / "outputs" / "glmhmm" / "fit.json"
         sources += [{"type": "wandb_run", "id": f"{PROJECT}/{run['wandb_run_id']}"},
@@ -226,7 +234,8 @@ def write_outputs(out_dir, subjects, frozen, arrays, runs):
                       code=[__file__, HERE / "freeze_round1.py"], sources=sources)
     write_artifact(out_dir / OUT.name, {
         "_meta": meta,
-        "data": {"config": "mice_snapshot_scaling", "snapshot": "20260603", "ignore_policy": "include",
+        "data": {"config": "mice_snapshot_scaling", "snapshot": SNAPSHOT,
+                 "manifest_sha256": snapshot["sha256"], "build_id": build_id, "ignore_policy": "include",
                  "sessions": "every session (train and eval) of each mouse",
                  "posteriors": "Viterbi under each run's global fit",
                  "prior_sigma": PRIOR_SIGMA, "newton_steps": NEWTON_STEPS,

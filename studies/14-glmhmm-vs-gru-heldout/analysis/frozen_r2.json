@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_r2.py",
-    "produced_at_pt": "2026-10-29T01:00:22-07:00",
-    "studies_git_sha": "8aa3d5e1fb41a19f4016131af208e7496d76d545",
+    "produced_at_pt": "2026-10-29T01:30:29-07:00",
+    "studies_git_sha": "db9a10decaf2d29dd126f13201fe01f1371d3852",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -27,15 +27,20 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/freeze_r2.py",
-        "sha256": "5be9af7a76e23b0218883dc0ddbf17f449e91d597d5b0cf10914644344c3c8a6"
+        "sha256": "597ddc53af00dfa948cc23571a5929ab74d4f9bfb12390fc735a64b472a0ef4c"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/freeze_round1.py",
-        "sha256": "44835886786db7d77a7dc38a2ffaeb9bd8f81f91f71de02165ba02ac24b52e9a"
+        "sha256": "6489a237ca536433eadc2b1ae899f53804070709b0a365ce50be96627ac93647"
       }
     ],
     "inputs": [],
     "sources": [
+      {
+        "type": "url",
+        "sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+        "id": "https://aind-scratch-data.s3.amazonaws.com/aind-dynamic-foraging-cache/snapshots/20260603/snapshot_manifest.json"
+      },
       {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_glmhmm/bax62c47"
@@ -220,7 +225,7 @@
     "outputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_r2.json",
-        "sha256": "73c6603c699eb3d395b46808dd700eda1f09d45240bd1524f713c802cd808cbd"
+        "sha256": "f399e1937118b47648a3fd09418ef86b8fbeccc98d97f0281d1e056d6a7eab57"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_r2_weights_hurdle.npz",
@@ -235,6 +240,8 @@
   "data": {
     "config": "mice_snapshot_scaling",
     "snapshot": "20260603",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
     "ignore_policy": "include",
     "sessions": "every session (train and eval) of each mouse",
     "posteriors": "Viterbi under each run's global fit",

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_state_spread.py",
-    "produced_at_pt": "2026-10-29T01:27:35-07:00",
-    "studies_git_sha": "8aa3d5e1fb41a19f4016131af208e7496d76d545",
+    "produced_at_pt": "2026-10-29T01:33:21-07:00",
+    "studies_git_sha": "db9a10decaf2d29dd126f13201fe01f1371d3852",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -41,7 +41,7 @@
     "inputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_r2.json",
-        "sha256": "522d90eb35facd4389d4327c7afd05b5d8396aef79f71da2063ed52f363103fa"
+        "sha256": "3a1ad65c34434cb18decf7cd2c3cd9ae2b9ffb07611398f590611a6c6d617fb1"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_r2_weights_hurdle.npz",
