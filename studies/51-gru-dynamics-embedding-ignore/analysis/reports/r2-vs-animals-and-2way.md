@@ -156,7 +156,7 @@ Lag-1 weights at gap 0: animal 1.85 / 0.91; C3 1.85 / 0.90; C 1.80 / 0.87; ctt 1
 
 ### C1a Counterfactual edits (one trial's input; later inputs as observed)
 
-Replay check: side median |err| 4.8e-07, engage 5.5e-07. Ignored trials enter as (choice 2, reward 0): checked on 419,536 rows.
+Replay check: side median |err| 0.0e+00, engage 7.9e-08. Ignored trials enter as (choice 2, reward 0): checked on 419,536 rows.
 
 | effect (mean over 20,000 edits) | k = 1 | 2 | 3 | 5 | 10 |
 |---|---:|---:|---:|---:|---:|

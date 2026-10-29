@@ -1,24 +1,71 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i4_distilled_model.py",
-    "produced_at_pt": "2026-10-24T01:37:19-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401",
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-29T04:25:49-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i4_distilled_model.py",
+        "sha256": "f0bd188e2b3d86d47f5e00968ebc88ba19680084ab87ee4fc814f69e1d7119fc"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/split_alignment.json",
+        "sha256": "098a2bf5025dc3959003759fb8990b3edd85c78cf1dfdf7939a6db06214b0aa5"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i4_distilled_model.json",
+        "sha256": "7cdc611b13b7647ff1ca20d28338db406121f380a3fc426bbeda1bc93bd07153"
+      }
     ]
   },
   "groups": [
-    "L\u2212 (stay)",
-    "L\u2212 (switch)",
-    "L\u2212 (first)",
+    "L− (stay)",
+    "L− (switch)",
+    "L− (first)",
     "L+ (stay)",
     "L+ (switch)",
     "L+ (first)",
-    "R\u2212 (stay)",
-    "R\u2212 (switch)",
-    "R\u2212 (first)",
+    "R− (stay)",
+    "R− (switch)",
+    "R− (first)",
     "R+ (stay)",
     "R+ (switch)",
     "R+ (first)",
@@ -61,7 +108,7 @@
       "C (GRU)": 0.5345690828248885,
       "C distilled v": 0.5203611700573224
     },
-    "3\u20135": {
+    "3–5": {
       "n": 23981,
       "C3 (GRU)": 0.5517500441861072,
       "distilled 2-var (v, e)": 0.531940219679078,
@@ -90,7 +137,7 @@
     "corr_e": 0.8523906888163081
   },
   "params_2var": {
-    "L\u2212 (stay)": {
+    "L− (stay)": {
       "A": [
         [
           0.8017,
@@ -111,7 +158,7 @@
         1.333
       ]
     },
-    "L\u2212 (switch)": {
+    "L− (switch)": {
       "A": [
         [
           0.3078,
@@ -132,7 +179,7 @@
         8.113
       ]
     },
-    "L\u2212 (first)": {
+    "L− (first)": {
       "A": [
         [
           0.0,
@@ -216,7 +263,7 @@
         3.414
       ]
     },
-    "R\u2212 (stay)": {
+    "R− (stay)": {
       "A": [
         [
           0.8069,
@@ -237,7 +284,7 @@
         1.357
       ]
     },
-    "R\u2212 (switch)": {
+    "R− (switch)": {
       "A": [
         [
           0.3731,
@@ -258,7 +305,7 @@
         4.316
       ]
     },
-    "R\u2212 (first)": {
+    "R− (first)": {
       "A": [
         [
           0.0,

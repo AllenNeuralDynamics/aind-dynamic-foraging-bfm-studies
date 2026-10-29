@@ -1,12 +1,74 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/c4_after_ignore.py",
-    "produced_at_pt": "2026-10-23T18:04:14-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401",
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-29T04:00:15-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/c4_after_ignore.py",
+        "sha256": "e956b594cd146872b3f66c45ef65119e470ff0802158aa5188bc1f7ff4ecbb6c"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/split_alignment.json",
+        "sha256": "098a2bf5025dc3959003759fb8990b3edd85c78cf1dfdf7939a6db06214b0aa5"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_bari_C-s0.parquet",
+        "sha256": "87f8ea0fb464b6c310a78955a39f653c0ab23a38ed347c8f43afe491acb18dbc"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_ctt_C-s0.parquet",
+        "sha256": "6bc6a04f3f6ef07dd373dba6ebe3f2e917042bd3a78e33dcbec18038f4cf84f0"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_hattori_C-s0.parquet",
+        "sha256": "e9f55f13cc3a5768bda7c469ac1c06eda43606f102a1e28650ca5bb340114bb8"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/c4_after_ignore.json",
+        "sha256": "f0fbe0d40ffc6a3f3f86ef22f36a58e1dc04a6853689044c953e7b46bc3c24d6"
+      }
     ]
   },
   "trials": "shared engaged trials with a previous engaged trial in the session",
@@ -46,7 +108,7 @@
         "confidence_C": 0.38196132287852774,
         "confidence_ctt": 0.37912210093645793
       },
-      "3\u20135": {
+      "3–5": {
         "n": 6563,
         "animal": 0.7117172024988573,
         "animal_sem_over_mice": 0.011308484857029897,
@@ -57,7 +119,7 @@
         "confidence_C": 0.3747347401573784,
         "confidence_ctt": 0.37307001453216815
       },
-      "6\u201310": {
+      "6–10": {
         "n": 2443,
         "animal": 0.648792468276709,
         "animal_sem_over_mice": 0.026918147921702367,
@@ -114,7 +176,7 @@
         "confidence_C": 0.31530386093183443,
         "confidence_ctt": 0.3124668093743479
       },
-      "3\u20135": {
+      "3–5": {
         "n": 17217,
         "animal": 0.6533077771969565,
         "animal_sem_over_mice": 0.006163629493797344,
@@ -125,7 +187,7 @@
         "confidence_C": 0.3039770939939754,
         "confidence_ctt": 0.30201541411717675
       },
-      "6\u201310": {
+      "6–10": {
         "n": 6408,
         "animal": 0.6000312109862672,
         "animal_sem_over_mice": 0.013255999354735839,
@@ -182,7 +244,7 @@
         "confidence_C": 0.33408703129755307,
         "confidence_ctt": 0.3312493681550737
       },
-      "3\u20135": {
+      "3–5": {
         "n": 23780,
         "animal": 0.6694280908326324,
         "animal_sem_over_mice": 0.004986790175132659,
@@ -193,7 +255,7 @@
         "confidence_C": 0.32350537119205836,
         "confidence_ctt": 0.3216256471921805
       },
-      "6\u201310": {
+      "6–10": {
         "n": 8851,
         "animal": 0.6134900011298159,
         "animal_sem_over_mice": 0.009431138614658214,

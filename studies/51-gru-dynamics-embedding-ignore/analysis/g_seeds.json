@@ -1,12 +1,114 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/g_seeds.py",
-    "produced_at_pt": "2026-10-24T10:31:24-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401",
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-29T04:34:14-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/g_seeds.py",
+        "sha256": "beb1e37aa09cb97037fb43370b1b82330c11b123f0373cbed84d9bde08614745"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/split_alignment.json",
+        "sha256": "098a2bf5025dc3959003759fb8990b3edd85c78cf1dfdf7939a6db06214b0aa5"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_bari_C-s0.parquet",
+        "sha256": "87f8ea0fb464b6c310a78955a39f653c0ab23a38ed347c8f43afe491acb18dbc"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_ctt_C-s0.parquet",
+        "sha256": "6bc6a04f3f6ef07dd373dba6ebe3f2e917042bd3a78e33dcbec18038f4cf84f0"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_hattori_C-s0.parquet",
+        "sha256": "e9f55f13cc3a5768bda7c469ac1c06eda43606f102a1e28650ca5bb340114bb8"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/index.json",
+        "sha256": "5491e793ad7eb84f29851fee930930325c1cb7fd2268c3a968a454050011ce96"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "e14ef88f14bd11a4023ff5df4d08a879239bacc20f8302aca8ea616f1cddd118"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s1.parquet",
+        "sha256": "890b25be3d95c3b2f206f237621fb11d13f4e024258e2c0968a8707b4d89bd61"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s1/run/outputs/checkpoints/index.json",
+        "sha256": "120d9a3931c2c1ba640785a594060bdaf7c7971f94e6ba1e208f9427524ae2f6"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "b3e4cec58675fc504bb57f44fb7327b02b0148f9ff7e51a2406db688c7e4827a"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s2.parquet",
+        "sha256": "3d18f8d1a5a228ca5100783d0d1b449deb97fb8a7e6852ffd9f77a7d0b8c48ad"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s2/run/outputs/checkpoints/index.json",
+        "sha256": "2cf334b9b87d32ed7c169042fc96b8be214dc2af6c9bba4fa169602a1043e88b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s2/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "4fa123e95850e8e84aef4f09b7e37ad4e5c884723e663995d90f20656a7f1a7c"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/g_seeds.json",
+        "sha256": "6f4b6ae520ff6bcbe7ba149b87fcd0cb826ab32dabfd260d60728ed15b6163c4"
+      }
     ]
   },
   "seeds": [
@@ -40,7 +142,7 @@
           "C": 0.5345690837108751,
           "C3_minus_C_per_trial": 0.07168571244387524
         },
-        "3\u20135": {
+        "3–5": {
           "n": 23981,
           "C3": 0.5517500444515202,
           "C": 0.4955188823452769,
@@ -69,7 +171,7 @@
           "C3": 0.7155414504280616,
           "C": 0.8276664345196594
         },
-        "3\u20135": {
+        "3–5": {
           "animal": 0.6694280908326324,
           "C3": 0.6694323418016573,
           "C": 0.8165361371693071
@@ -94,7 +196,7 @@
           "RewC": 0.4901311055895468,
           "UnrC": 0.4115029502856403
         },
-        "3\u20135": {
+        "3–5": {
           "RewC": 0.40237124519777856,
           "UnrC": 0.34528815769930904
         },
@@ -136,7 +238,7 @@
           "C": 0.5345690837108751,
           "C3_minus_C_per_trial": 0.07263091495802206
         },
-        "3\u20135": {
+        "3–5": {
           "n": 23981,
           "C3": 0.5519573389846651,
           "C": 0.4955188823452769,
@@ -165,7 +267,7 @@
           "C3": 0.7111252289587031,
           "C": 0.8276664345196594
         },
-        "3\u20135": {
+        "3–5": {
           "animal": 0.6694280908326324,
           "C3": 0.6753020558343664,
           "C": 0.8165361371693071
@@ -190,7 +292,7 @@
           "RewC": 0.47210560422862075,
           "UnrC": 0.3856766743334467
         },
-        "3\u20135": {
+        "3–5": {
           "RewC": 0.412474784172092,
           "UnrC": 0.3581593733461997
         },
@@ -232,7 +334,7 @@
           "C": 0.5345690837108751,
           "C3_minus_C_per_trial": 0.06975234710282023
         },
-        "3\u20135": {
+        "3–5": {
           "n": 23981,
           "C3": 0.5502587431368591,
           "C": 0.4955188823452769,
@@ -261,7 +363,7 @@
           "C3": 0.7102493665024517,
           "C": 0.8276664345196594
         },
-        "3\u20135": {
+        "3–5": {
           "animal": 0.6694280908326324,
           "C3": 0.6745665348575364,
           "C": 0.8165361371693071
@@ -286,7 +388,7 @@
           "RewC": 0.48659993513040184,
           "UnrC": 0.389579644160013
         },
-        "3\u20135": {
+        "3–5": {
           "RewC": 0.414172043983879,
           "UnrC": 0.3551298406277126
         },

@@ -1,11 +1,50 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/b7_decoders.py",
-    "produced_at_pt": "2026-10-23T17:46:02-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401"
+    "produced_at_pt": "2026-10-29T03:43:44-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/b7_decoders.py",
+        "sha256": "016b89a60f3a53c02783d3600d270862c619766c001e18e9a83f47e59a2ae9c9"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/pca_C3-s0.npz",
+        "sha256": "1cfa347c0d3b890fb7b7c8938c3aa94d125001f2a44588cec3a0673c277cfcfe"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/b7_decoders.json",
+        "sha256": "bdd206baef20ea67e1a9b8297c76c687a3e7d33c6b99a1fbe5e3d1fef10fff70"
+      }
     ]
   },
   "n_timesteps": 400000,
@@ -13,8 +52,8 @@
   "ridge_alpha": 1.0,
   "cv": "5-fold GroupKFold by session",
   "states": "centred by the B3 PCA mean, raw units",
-  "encoding": "choice +1 R / \u22121 L / 0 ignored; reward 0 when ignored; steps include ignored trials",
-  "location": "activation pattern \u03a3w (Haufe et al. 2014); per-PC share of decoded-signal variance",
+  "encoding": "choice +1 R / −1 L / 0 ignored; reward 0 when ignored; steps include ignored trials",
+  "location": "activation pattern Σw (Haufe et al. 2014); per-PC share of decoded-signal variance",
   "decoders": [
     {
       "variable": "choice 1 back",
@@ -59,7 +98,7 @@
       "signal_share_top4_pcs": 0.7099654715260071
     },
     {
-      "variable": "choice\u00d7reward 1 back",
+      "variable": "choice×reward 1 back",
       "cv_r2": 0.9748435377744356,
       "unique_cv_r2": null,
       "n": 399272,
@@ -108,7 +147,7 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back"
       ],
       "signal_share_by_pc": [
@@ -134,7 +173,7 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back"
       ],
       "signal_share_by_pc": [
@@ -153,14 +192,14 @@
       "signal_share_top4_pcs": 0.26442113707871434
     },
     {
-      "variable": "choice\u00d7reward 2 back",
+      "variable": "choice×reward 2 back",
       "cv_r2": 0.9275292584611303,
       "unique_cv_r2": 0.8915444007808537,
       "n": 398526,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back"
       ],
       "signal_share_by_pc": [
@@ -186,7 +225,7 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back"
       ],
       "signal_share_by_pc": [
@@ -212,11 +251,11 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back"
       ],
       "signal_share_by_pc": [
@@ -242,11 +281,11 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back"
       ],
       "signal_share_by_pc": [
@@ -265,18 +304,18 @@
       "signal_share_top4_pcs": 0.1983364282529039
     },
     {
-      "variable": "choice\u00d7reward 3 back",
+      "variable": "choice×reward 3 back",
       "cv_r2": 0.7395948357235953,
       "unique_cv_r2": 0.5793558029876456,
       "n": 397787,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back"
       ],
       "signal_share_by_pc": [
@@ -302,11 +341,11 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back"
       ],
       "signal_share_by_pc": [
@@ -332,15 +371,15 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back"
       ],
       "signal_share_by_pc": [
@@ -366,15 +405,15 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back"
       ],
       "signal_share_by_pc": [
@@ -393,22 +432,22 @@
       "signal_share_top4_pcs": 0.22282982826567252
     },
     {
-      "variable": "choice\u00d7reward 4 back",
+      "variable": "choice×reward 4 back",
       "cv_r2": 0.5958307749860436,
       "unique_cv_r2": 0.3016283783443905,
       "n": 397017,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back"
       ],
       "signal_share_by_pc": [
@@ -434,15 +473,15 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back"
       ],
       "signal_share_by_pc": [
@@ -468,19 +507,19 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back",
         "choice 4 back",
         "reward 4 back",
-        "choice\u00d7reward 4 back",
+        "choice×reward 4 back",
         "ignored 4 back"
       ],
       "signal_share_by_pc": [
@@ -506,19 +545,19 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back",
         "choice 4 back",
         "reward 4 back",
-        "choice\u00d7reward 4 back",
+        "choice×reward 4 back",
         "ignored 4 back"
       ],
       "signal_share_by_pc": [
@@ -537,26 +576,26 @@
       "signal_share_top4_pcs": 0.26808915663647515
     },
     {
-      "variable": "choice\u00d7reward 5 back",
+      "variable": "choice×reward 5 back",
       "cv_r2": 0.5221633533660203,
       "unique_cv_r2": 0.16995387393125694,
       "n": 396261,
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back",
         "choice 4 back",
         "reward 4 back",
-        "choice\u00d7reward 4 back",
+        "choice×reward 4 back",
         "ignored 4 back"
       ],
       "signal_share_by_pc": [
@@ -582,19 +621,19 @@
       "controlled_for": [
         "choice 1 back",
         "reward 1 back",
-        "choice\u00d7reward 1 back",
+        "choice×reward 1 back",
         "ignored 1 back",
         "choice 2 back",
         "reward 2 back",
-        "choice\u00d7reward 2 back",
+        "choice×reward 2 back",
         "ignored 2 back",
         "choice 3 back",
         "reward 3 back",
-        "choice\u00d7reward 3 back",
+        "choice×reward 3 back",
         "ignored 3 back",
         "choice 4 back",
         "reward 4 back",
-        "choice\u00d7reward 4 back",
+        "choice×reward 4 back",
         "ignored 4 back"
       ],
       "signal_share_by_pc": [
@@ -613,7 +652,7 @@
       "signal_share_top4_pcs": 0.49209894369773605
     },
     {
-      "variable": "P(rew|R) \u2212 P(rew|L)",
+      "variable": "P(rew|R) − P(rew|L)",
       "cv_r2": 0.3973965366336747,
       "unique_cv_r2": null,
       "n": 400000,
@@ -655,7 +694,7 @@
       "signal_share_top4_pcs": 0.5107170300877376
     },
     {
-      "variable": "trials since left chosen (\u226420)",
+      "variable": "trials since left chosen (≤20)",
       "cv_r2": 0.8848437190117604,
       "unique_cv_r2": null,
       "n": 391664,
@@ -676,7 +715,7 @@
       "signal_share_top4_pcs": 0.6813804199537228
     },
     {
-      "variable": "trials since right chosen (\u226420)",
+      "variable": "trials since right chosen (≤20)",
       "cv_r2": 0.8755844576295012,
       "unique_cv_r2": null,
       "n": 391747,
@@ -697,7 +736,7 @@
       "signal_share_top4_pcs": 0.7645129371799856
     },
     {
-      "variable": "trials since last ignore (\u226420)",
+      "variable": "trials since last ignore (≤20)",
       "cv_r2": 0.8478616923363552,
       "unique_cv_r2": null,
       "n": 277815,
@@ -805,29 +844,29 @@
   "variables": [
     "choice 1 back",
     "reward 1 back",
-    "choice\u00d7reward 1 back",
+    "choice×reward 1 back",
     "ignored 1 back",
     "choice 2 back",
     "reward 2 back",
-    "choice\u00d7reward 2 back",
+    "choice×reward 2 back",
     "ignored 2 back",
     "choice 3 back",
     "reward 3 back",
-    "choice\u00d7reward 3 back",
+    "choice×reward 3 back",
     "ignored 3 back",
     "choice 4 back",
     "reward 4 back",
-    "choice\u00d7reward 4 back",
+    "choice×reward 4 back",
     "ignored 4 back",
     "choice 5 back",
     "reward 5 back",
-    "choice\u00d7reward 5 back",
+    "choice×reward 5 back",
     "ignored 5 back",
-    "P(rew|R) \u2212 P(rew|L)",
+    "P(rew|R) − P(rew|L)",
     "P(rew|R) + P(rew|L)",
-    "trials since left chosen (\u226420)",
-    "trials since right chosen (\u226420)",
-    "trials since last ignore (\u226420)",
+    "trials since left chosen (≤20)",
+    "trials since right chosen (≤20)",
+    "trials since last ignore (≤20)",
     "ignore rate, last 10 steps",
     "trial position",
     "model logit(R | engaged) (check)",

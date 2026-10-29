@@ -14,6 +14,9 @@ PYTHON ?= python
 WRAPPER ?= ../../../aind-dynamic-foraging-bfm-wrapper/code
 MODEL ?= C3-s0
 RUN = PYTHONPATH=$(WRAPPER) $(PYTHON)
+# Every committed JSON was produced on CPU (no GPU was visible when the study started); the
+# JAX steps reproduce it there to 1e-9. Override with JAX_PLATFORMS=cuda at your own risk.
+export JAX_PLATFORMS ?= cpu
 
 all: r1 r2 r3 r4 r5 r6 r7
 

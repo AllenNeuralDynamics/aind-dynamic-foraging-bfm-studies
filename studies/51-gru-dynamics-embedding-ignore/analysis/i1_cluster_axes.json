@@ -1,12 +1,69 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/i1_cluster_axes.py",
-    "produced_at_pt": "2026-10-24T01:34:29-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401",
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-29T04:20:54-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i1_cluster_axes.py",
+        "sha256": "a1b616cb68408fee3171fc9f45e26d44493ebfa0434ecb57a306b40273505773"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/split_alignment.json",
+        "sha256": "098a2bf5025dc3959003759fb8990b3edd85c78cf1dfdf7939a6db06214b0aa5"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/index.json",
+        "sha256": "5491e793ad7eb84f29851fee930930325c1cb7fd2268c3a968a454050011ce96"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "e14ef88f14bd11a4023ff5df4d08a879239bacc20f8302aca8ea616f1cddd118"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i1_cluster_axes.json",
+        "sha256": "5e550e22e0b83944a5ebc6adbe7ce1c409298120f1bfe634a4230ec5f5389f00"
+      }
     ]
   },
   "n_sample_each": 600000,
@@ -15,9 +72,9 @@
     "side": {
       "clusters": [
         "L+",
-        "L\u2212",
+        "L−",
         "R+",
-        "R\u2212",
+        "R−",
         "ignore"
       ],
       "cosine": [
@@ -63,7 +120,7 @@
           "readout_std": 1.446287819104767,
           "readout_mean": -3.1906981603797817
         },
-        "L\u2212": {
+        "L−": {
           "n": 147208,
           "readout_std": 1.1735556497847237,
           "readout_mean": -2.1086543046657877
@@ -73,7 +130,7 @@
           "readout_std": 1.4077100571307524,
           "readout_mean": 3.144605311555581
         },
-        "R\u2212": {
+        "R−": {
           "n": 153227,
           "readout_std": 1.1448882279770014,
           "readout_mean": 2.0956628715420424
@@ -88,9 +145,9 @@
     "engage": {
       "clusters": [
         "L+",
-        "L\u2212",
+        "L−",
         "R+",
-        "R\u2212",
+        "R−",
         "ignore"
       ],
       "cosine": [
@@ -136,7 +193,7 @@
           "readout_std": 1.6968480182651906,
           "readout_mean": 5.006692914275342
         },
-        "L\u2212": {
+        "L−": {
           "n": 147208,
           "readout_std": 1.6727864661987863,
           "readout_mean": 4.060106017350909
@@ -146,7 +203,7 @@
           "readout_std": 1.7222357375177377,
           "readout_mean": 4.995677867081588
         },
-        "R\u2212": {
+        "R−": {
           "n": 153227,
           "readout_std": 1.687067860489126,
           "readout_mean": 4.0138193075116275
@@ -163,9 +220,9 @@
     "side": {
       "clusters": [
         "L+",
-        "L\u2212",
+        "L−",
         "R+",
-        "R\u2212"
+        "R−"
       ],
       "cosine": [
         [
@@ -199,7 +256,7 @@
           "readout_std": 1.442472890596744,
           "readout_mean": -3.1080997184726886
         },
-        "L\u2212": {
+        "L−": {
           "n": 161519,
           "readout_std": 1.148406867905055,
           "readout_mean": -2.04029737045519
@@ -209,7 +266,7 @@
           "readout_std": 1.4344989879687131,
           "readout_mean": 3.0987477799563155
         },
-        "R\u2212": {
+        "R−": {
           "n": 168819,
           "readout_std": 1.1540436828551521,
           "readout_mean": 2.0710944300541274
@@ -220,16 +277,16 @@
   "cosine_cluster_axis_with_readout_direction_C3": {
     "side": {
       "L+": 0.33528883950761806,
-      "L\u2212": 0.33310042841385656,
+      "L−": 0.33310042841385656,
       "R+": 0.3942202189601156,
-      "R\u2212": 0.39268785518787014,
+      "R−": 0.39268785518787014,
       "ignore": 0.36989592188555864
     },
     "engage": {
       "L+": 0.5978453409813177,
-      "L\u2212": 0.6150417750278522,
+      "L−": 0.6150417750278522,
       "R+": 0.6164756611094089,
-      "R\u2212": 0.6062773685575601,
+      "R−": 0.6062773685575601,
       "ignore": 0.3807370013596909
     }
   }

@@ -1,17 +1,47 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/extract_trial_states.py",
-    "produced_at_pt": "2026-10-24T10:20:03-07:00",
-    "dispatcher_git_sha": "6e15efe627da0030e8c983d7e42eceba48a551e6",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401"
+    "produced_at_pt": "2026-10-29T00:56:04-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/extract_trial_states.py",
+        "sha256": "c5d221be5fc3da05099b26c8aad051f7e368e75ebbe00b42f273028e251e4056"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/source_runs.json",
+        "sha256": "976f6b7796ae1e52bb2285b14566bd41fde5acbe2fc9d95dd42944c116ba5d0b"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-9ce451ca"
+      }
     ],
     "wrapper_checkout": {
       "path": "/workspace/aind-dynamic-foraging-bfm-wrapper",
-      "head": "06c0a22c66b7d0ef40181d2c8eadc06e36d77644",
-      "dirty": true
-    }
+      "head": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+      "dirty": false
+    },
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/trial_states_C3-s2.json",
+        "sha256": "a322202b855b440bcd4d9b1390608e54a8e5dbb20b7e0732bf5b8be23b1613a3"
+      }
+    ]
   },
   "source": {
     "key": "C3-s2",

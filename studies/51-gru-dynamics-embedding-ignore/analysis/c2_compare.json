@@ -1,12 +1,74 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/c2_compare.py",
-    "produced_at_pt": "2026-10-23T18:01:38-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401",
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-29T03:58:18-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/c2_compare.py",
+        "sha256": "694ab140a3e412975ab71ff2392fe3f330b905b471f877c3866f6470bc8cd37d"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/split_alignment.json",
+        "sha256": "098a2bf5025dc3959003759fb8990b3edd85c78cf1dfdf7939a6db06214b0aa5"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_bari_C-s0.parquet",
+        "sha256": "87f8ea0fb464b6c310a78955a39f653c0ab23a38ed347c8f43afe491acb18dbc"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_ctt_C-s0.parquet",
+        "sha256": "6bc6a04f3f6ef07dd373dba6ebe3f2e917042bd3a78e33dcbec18038f4cf84f0"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_hattori_C-s0.parquet",
+        "sha256": "e9f55f13cc3a5768bda7c469ac1c06eda43606f102a1e28650ca5bb340114bb8"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/c2_compare.json",
+        "sha256": "863b4f1c0763fa8fff41e8dd8e6a9d7b9d048393c107127274177bd18326ad0c"
+      }
     ]
   },
   "trials": "shared engaged trials of C and C3; L/R choice scored by every model",
@@ -111,7 +173,7 @@
       "C_minus_CTT_sem": 0.002471840387631947,
       "C3_minus_C_pooled_per_trial": 0.07168571244387524
     },
-    "3\u20135": {
+    "3–5": {
       "n_trials": 23981,
       "C3": 0.5517500444515202,
       "C": 0.4955188823452769,
@@ -126,7 +188,7 @@
       "C_minus_CTT_sem": 0.003015643745063931,
       "C3_minus_C_pooled_per_trial": 0.10748966499799291
     },
-    "6\u201310": {
+    "6–10": {
       "n_trials": 8999,
       "C3": 0.5284855956872189,
       "C": 0.4401174306386052,

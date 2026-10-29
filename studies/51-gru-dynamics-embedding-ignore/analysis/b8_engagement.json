@@ -1,11 +1,45 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/b8_engagement.py",
-    "produced_at_pt": "2026-10-23T16:53:10-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401"
+    "produced_at_pt": "2026-10-29T03:43:59-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/b8_engagement.py",
+        "sha256": "f72531fbf32e4a1e8f4b44632dbf35b516d90467771986f1acd67a2cf742a60e"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/b8_engagement.json",
+        "sha256": "5c26a30ae69ec6bd8f3016d78661b254b001bf3887ba9df41ae54e8431d75d38"
+      }
     ]
   },
   "n_timesteps": 4761751,
@@ -190,73 +224,73 @@
   "stay_disengaged_by_k_by_task": {
     "Uncoupled Baiting": {
       "0": {
-        "n": 2111716,
+        "n": 2111719,
         "observed": 0.03127,
         "predicted": 0.03123
       },
       "1": {
-        "n": 65746,
-        "observed": 0.34303,
-        "predicted": 0.34061
+        "n": 65748,
+        "observed": 0.34305,
+        "predicted": 0.34062
       },
       "2": {
-        "n": 22393,
-        "observed": 0.54624,
-        "predicted": 0.55348
+        "n": 22395,
+        "observed": 0.54628,
+        "predicted": 0.5535
       },
       "3": {
-        "n": 12143,
-        "observed": 0.65495,
-        "predicted": 0.62546
+        "n": 12145,
+        "observed": 0.655,
+        "predicted": 0.62548
       },
       "4": {
-        "n": 7865,
-        "observed": 0.71558,
-        "predicted": 0.7054
+        "n": 7866,
+        "observed": 0.71561,
+        "predicted": 0.70541
       },
       "5": {
-        "n": 5569,
-        "observed": 0.754,
-        "predicted": 0.74811
+        "n": 5570,
+        "observed": 0.75404,
+        "predicted": 0.74813
       },
       "6": {
-        "n": 4144,
-        "observed": 0.78571,
-        "predicted": 0.77582
+        "n": 4145,
+        "observed": 0.78577,
+        "predicted": 0.77583
       },
       "7": {
-        "n": 3211,
-        "observed": 0.81003,
-        "predicted": 0.79598
+        "n": 3212,
+        "observed": 0.81009,
+        "predicted": 0.796
       },
       "8": {
-        "n": 2555,
-        "observed": 0.818,
-        "predicted": 0.81118
+        "n": 2556,
+        "observed": 0.81808,
+        "predicted": 0.8112
       },
       "9": {
-        "n": 2052,
-        "observed": 0.83967,
-        "predicted": 0.82404
+        "n": 2053,
+        "observed": 0.83975,
+        "predicted": 0.82405
       },
       "10": {
-        "n": 1679,
-        "observed": 0.81775,
+        "n": 1680,
+        "observed": 0.81786,
         "predicted": 0.83494
       },
       "11": {
-        "n": 1344,
-        "observed": 0.85863,
-        "predicted": 0.84397
+        "n": 1345,
+        "observed": 0.85874,
+        "predicted": 0.84398
       },
       "12": {
-        "n": 1120,
-        "observed": 0.86339,
-        "predicted": 0.85194
+        "n": 1121,
+        "observed": 0.86351,
+        "predicted": 0.85195
       },
       "13": {
-        "n": 947,
-        "observed": 0.88173,
+        "n": 948,
+        "observed": 0.88186,
         "predicted": 0.85998
       },
       "14": {
@@ -272,8 +306,8 @@
     },
     "Coupled Baiting": {
       "0": {
-        "n": 1386778,
-        "observed": 0.0507,
+        "n": 1386779,
+        "observed": 0.05071,
         "predicted": 0.05121
       },
       "1": {

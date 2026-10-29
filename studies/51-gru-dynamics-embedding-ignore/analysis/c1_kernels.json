@@ -1,12 +1,74 @@
 {
   "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
     "produced_by": "analysis/c1_kernels.py",
-    "produced_at_pt": "2026-10-23T18:08:11-07:00",
-    "dispatcher_git_sha": "513eae2e881ed4471b4c4740878e470b875ccf70",
-    "wrapper_git_sha": null,
-    "wandb_groups": [
-      "nxd-3way@20260707-075401",
-      "e4-e8-d614-source@20260906-195409"
+    "produced_at_pt": "2026-10-29T03:46:51-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/c1_kernels.py",
+        "sha256": "086878e0eca5865776865276873d63d75c465e37ae842a32055d6879cbaa3ba0"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/split_alignment.json",
+        "sha256": "098a2bf5025dc3959003759fb8990b3edd85c78cf1dfdf7939a6db06214b0aa5"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_bari_C-s0.parquet",
+        "sha256": "87f8ea0fb464b6c310a78955a39f653c0ab23a38ed347c8f43afe491acb18dbc"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_ctt_C-s0.parquet",
+        "sha256": "6bc6a04f3f6ef07dd373dba6ebe3f2e917042bd3a78e33dcbec18038f4cf84f0"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/rl_trials_hattori_C-s0.parquet",
+        "sha256": "e9f55f13cc3a5768bda7c469ac1c06eda43606f102a1e28650ca5bb340114bb8"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/c1_kernels.json",
+        "sha256": "e098e25caea8933d8f5fca0715d62beb34ed21688fb8df1989daf32e680227d8"
+      }
     ]
   },
   "design": "Su2022",
@@ -26,7 +88,7 @@
       ],
       "n": 4052473
     },
-    "\u22651": {
+    "≥1": {
       "range": [
         1,
         10000
@@ -47,7 +109,7 @@
       ],
       "n": 28049
     },
-    "3\u20135": {
+    "3–5": {
       "range": [
         3,
         5
@@ -269,7 +331,7 @@
         ]
       }
     },
-    "\u22651": {
+    "≥1": {
       "animal": {
         "RewC": [
           0.9859585165977478,
@@ -887,7 +949,7 @@
         ]
       }
     },
-    "3\u20135": {
+    "3–5": {
       "animal": {
         "RewC": [
           0.7088197469711304,
@@ -1306,7 +1368,7 @@
         "RewC": 1.0,
         "UnrC": 1.0
       },
-      "\u22651": {
+      "≥1": {
         "RewC": 0.5338048338890076,
         "UnrC": 0.48444169759750366
       },
@@ -1318,7 +1380,7 @@
         "RewC": 0.4483877420425415,
         "UnrC": 0.3594934940338135
       },
-      "3\u20135": {
+      "3–5": {
         "RewC": 0.3837599754333496,
         "UnrC": 0.33245596289634705
       },
@@ -1332,7 +1394,7 @@
         "RewC": 1.0,
         "UnrC": 1.0
       },
-      "\u22651": {
+      "≥1": {
         "RewC": 0.5415628552436829,
         "UnrC": 0.47784504294395447
       },
@@ -1344,7 +1406,7 @@
         "RewC": 0.49013030529022217,
         "UnrC": 0.4115104079246521
       },
-      "3\u20135": {
+      "3–5": {
         "RewC": 0.4023706018924713,
         "UnrC": 0.3452945351600647
       },
@@ -1358,7 +1420,7 @@
         "RewC": 1.0,
         "UnrC": 1.0
       },
-      "\u22651": {
+      "≥1": {
         "RewC": 0.9715550541877747,
         "UnrC": 0.9963639974594116
       },
@@ -1370,7 +1432,7 @@
         "RewC": 0.9558659195899963,
         "UnrC": 0.9911305904388428
       },
-      "3\u20135": {
+      "3–5": {
         "RewC": 0.9535006284713745,
         "UnrC": 0.9893525838851929
       },
@@ -1384,7 +1446,7 @@
         "RewC": 1.0,
         "UnrC": 1.0
       },
-      "\u22651": {
+      "≥1": {
         "RewC": 1.0043569803237915,
         "UnrC": 1.0013831853866577
       },
@@ -1396,7 +1458,7 @@
         "RewC": 0.9970147609710693,
         "UnrC": 0.9940764904022217
       },
-      "3\u20135": {
+      "3–5": {
         "RewC": 0.9969093203544617,
         "UnrC": 0.9924996495246887
       },
