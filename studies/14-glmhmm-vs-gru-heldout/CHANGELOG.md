@@ -22,6 +22,10 @@
 
 ## 2026-10-28
 
+- r1 review fixes: each state's mouse concentration (top 10% of mice's share) now uses each
+  mouse's mean occupancy, so mice with more trials no longer count for more; the reference
+  weight figure shows both the R − L contrast and the common part (L + R)/2. The freeze was
+  rerun; only `top10pct_subject_share` changed.
 - K grids finished: `hurdle@20261027-212905` and `reference@20261027-213006`, all 20 cells.
   Hurdle K = 5-10 were killed after scoring by the kernel's memory-map limit
   (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#119). Their scores are in W&B and
