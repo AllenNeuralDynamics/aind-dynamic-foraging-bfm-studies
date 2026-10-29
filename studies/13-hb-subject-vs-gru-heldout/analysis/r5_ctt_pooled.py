@@ -115,13 +115,16 @@ def figure(r: dict) -> None:
         ax.annotate(fs.num(v, ".4f"), xy=(i, v), xytext=(0, 5), textcoords="offset points",
                     ha="center", fontsize=5)
     gru = r["gru_by_d"]
-    for k, (d, v) in enumerate(gru.items()):
+    items = list(gru.items())
+    for k, (_, v) in enumerate(items):
         ax.axhline(v, color=fs.OKABE_ITO["blue"], lw=0.5, ls=(0, (3, 2)),
-                   alpha=0.3 + 0.7 * k / max(len(gru) - 1, 1))
-        ax.annotate(f"GRU D≈{d}", xy=(len(arms) - 0.5, v), xytext=(2, 0), textcoords="offset points",
-                    color=fs.OKABE_ITO["blue"], va="center", fontsize=5)
+                   alpha=0.3 + 0.7 * k / max(len(items) - 1, 1), zorder=0)
+    # One label for the whole curve (as r4): the top lines sit too close to label one by one.
+    ax.annotate(f"GRU, D≈{items[0][0]} (lowest line) to D≈{items[-1][0]}",
+                xy=(0, items[-1][1]), xycoords=("axes fraction", "data"), xytext=(2, 1.5),
+                textcoords="offset points", color=fs.OKABE_ITO["blue"], va="bottom", fontsize=5)
     ax.set_xticks(range(len(arms)), [a[0] for a in arms])
-    ax.set_xlim(-0.5, len(arms) + 0.6)
+    ax.set_xlim(-0.5, len(arms) - 0.5)
     ax.set_ylabel("held-out likelihood (trial-weighted)")
     fs.panel_label(ax, "a")
     fs.violins(bx, [r["per_subject"]["_vs_mle"], r["per_subject"]["_vs_hattori"]],
