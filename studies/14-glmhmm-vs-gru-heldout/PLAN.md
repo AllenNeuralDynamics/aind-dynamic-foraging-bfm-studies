@@ -86,9 +86,10 @@ One W&B run per (K, emission, L) cell. Measured 2026-10-27 on this study's data:
    `data.subject_ratio`), recorded under `launch_record/smoke/`.
 3. `lag-scan` launch → fix L (best `glmhmm/select/eval_likelihood` at K = 1).
 4. `hurdle` and `reference` K grids at that L.
-5. Reports: r1 held-out score vs K for both emissions against study 02; r2 what the states
-   are (aligned weights, A, dwell times, occupancy by stage).
-   In r2, report each state's p(ignore) and p(right | respond), not raw logits: an engagement or common-mode weight of a state that never ignores is bounded, not identified.
+5. Reports: r1 held-out score vs K for both emissions against study 02, and what the states
+   are (aligned weights, A, dwell times, occupancy by stage); r2 how each state spreads
+   across subjects (one GLM per {subject, state}, cluster scores vs K; #70).
+   In state reports, report each state's p(ignore) and p(right | respond), not raw logits: an engagement or common-mode weight of a state that never ignores is bounded, not identified.
    Read states only as far as study 15 (#50) shows such states are recoverable. Study 15
    simulates from known GLM-HMMs on the foraging gym's uncoupled-baiting task, including a
    factorial of 8 designed strategies.

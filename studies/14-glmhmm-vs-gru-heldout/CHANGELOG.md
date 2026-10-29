@@ -37,3 +37,10 @@
 - Correction before review: per-mouse refits reorder states as K grows, so state summaries now
   use posteriors under the global fit. The side-biased states at K >= 8 span whole sessions,
   not short epochs.
+- r2 (draft, #70): how each state spreads across subjects. `freeze_r2.py` fits one GLM per
+  {subject, state} on the state's Viterbi trials under each K-grid run's global fit (prior
+  SD 2), for the held-out and training mice, as a 20-task SLURM array plus a merge.
+  `r2_state_spread.py` plots every {subject, state} in weight space and scores the clusters
+  against K (silhouette against a within-mouse label-shuffle null, η² by state and by subject,
+  k-means ARI). The weights are committed as float16 `.npz`, one per emission, to stay under
+  the 10 MiB file cap; the float32 parts stay on `/allen`. Q-learning parameters are deferred.
