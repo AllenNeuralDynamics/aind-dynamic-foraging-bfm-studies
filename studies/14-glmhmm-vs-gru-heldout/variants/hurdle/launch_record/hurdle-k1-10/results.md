@@ -25,6 +25,6 @@
 | 9 | [8r9ltf6k](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/8r9ltf6k) | crashed after scoring | 7.8 | 0.62431 |
 | 10 | [3gknqru4](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/3gknqru4) | crashed after scoring | 9.5 | 0.62411 |
 
-**Result.** The refit selection score peaks at K = 3. Scores under the other protocols, the GRU comparison and the states are in r1 (`analysis/reports/r1-round-1.md`).
+**Result.** The refit selection score peaks at K = 3. Scores under the other protocols, the GRU comparison and the states are in r1 (`analysis/reports/r1-round-1.md`, added by #69; planned until it merges).
 
 **Feeds.** r1.
