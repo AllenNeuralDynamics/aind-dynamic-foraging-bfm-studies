@@ -18,3 +18,14 @@ r1:
 # checkouts the runs used. Writes analysis/frozen_round1.json; never part of `all`.
 freeze-round1:
 	$(PY) analysis/freeze_round1.py
+
+# r2 = How each state spreads across subjects
+.PHONY: r2
+r2:
+	$(PY) analysis/r2_state_spread.py
+
+.PHONY: freeze-r2
+# Node-only (reads /allen and the snapshot), same WRAPPER_ROOT / DISPATCHER_ROOT as
+# freeze-round1. Writes analysis/frozen_r2.json and analysis/frozen_r2_weights_*.npz.
+freeze-r2:
+	$(PY) analysis/freeze_r2.py
