@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_round_1.py",
-    "produced_at_pt": "2026-10-28T13:18:13-07:00",
-    "studies_git_sha": "6120908a0c29513c1b1f7f01f9aecc8d2c2cc29d",
+    "produced_at_pt": "2026-10-28T17:44:12-07:00",
+    "studies_git_sha": "2014a389ba071ba665aaaa37a9cdeb5dd51215fc",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -34,7 +34,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.py",
-        "sha256": "be7ec84c31b10424ae487ca0e4fdbe959b2f7c4d9d3664368df06ee6b64c79d5"
+        "sha256": "570b56ef3e770309ff05c5feaec0e3117844941d543b0653ef486bd14113f80c"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -48,7 +48,7 @@
     "inputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_round1.json",
-        "sha256": "12bd20a4754477d630a98b054a4241e00fdeb9ef6ead3fffce65d2753fdbf4a8"
+        "sha256": "6e298fe5bf63e3d8f56d0d24f460094d410a0a8e40b37e412172c24aa4f9e5ab"
       },
       {
         "path": "studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json",
@@ -58,23 +58,23 @@
     "outputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.json",
-        "sha256": "15678589672d0d47b2bf586469a38940e099de40f4c13e0a233dcc9e4ad55756"
+        "sha256": "6a80dd24e49e00aa14b73158fde8231f67202ff1866eaa555190af1037a98a8e"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_scores.svg",
-        "sha256": "bbc972a361cd570d244dbf8111797335f68a70bf9188ab98298ae2413255e10d"
+        "sha256": "3f892ed7eaef43c3af47af7b223be759e65899ca544d778a394c79418701058a"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_restarts.svg",
-        "sha256": "4bd70b036f1e1a76038ad4b1ce6b4ef992821be88a1f5b67324aefa2bcc5f282"
+        "sha256": "dd50a071570d8624cbd7013b1992d3f7ec55b4f1ac9026307931922c620d1ffe"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_state_map.svg",
-        "sha256": "63e8db90b17a886b2781d5a4761f94ec82c3182efa3937ccd8315e2a91840c60"
+        "sha256": "d16bf3e59c63dc02cf92691d73709d0dba4b38b266b9a67351b5c2e6afcba297"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_timescales.svg",
-        "sha256": "3226def3d0ec1b88c2a8b33bed9bd7c64f176e19d0cca70358cece2ea70f3fe7"
+        "sha256": "f76a002ab03c9bfcb466418a237f82f54f7d9732a5d2c12eeeb125057a1e5fb3"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_weights_hurdle.svg",
@@ -102,7 +102,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-1",
-        "sha256": "7ef379c796f3fec5bdfe92560fdb82a5cb881d4fcf0703f8f36e994bda6b1395"
+        "sha256": "ae146df7e456e78916509cd9d5638c1da140ab49404028c8d4961ee5d2eee6be"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-2",
@@ -110,7 +110,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-3",
-        "sha256": "019cc7d02d81a6b90d9415272e1d5b1463db7d70160916727e5145198deee069"
+        "sha256": "e0bde6f0ff5af7ed7f35255a1d7345494e427891509840065e8cd990d56cb07b"
       }
     ]
   },
@@ -257,6 +257,22 @@
         "LR_engaged": 0.7148650884628296,
         "engage": 0.8181223273277283,
         "pr_auc": 0.5887895503746875
+      },
+      "8": {
+        "select": 0.6181567907333374,
+        "matched": 0.6028879880905151,
+        "zero_shot": 0.6181066632270813,
+        "LR_engaged": 0.7139895558357239,
+        "engage": 0.8166700601577759,
+        "pr_auc": 0.5835774535368107
+      },
+      "9": {
+        "select": 0.6169583201408386,
+        "matched": 0.601445198059082,
+        "zero_shot": 0.618621826171875,
+        "LR_engaged": 0.7124573588371277,
+        "engage": 0.8162940740585327,
+        "pr_auc": 0.5818533991731806
       }
     }
   },
@@ -359,7 +375,7 @@
         "dwell_expected": 210.49256984280447,
         "dwell_viterbi_mean": 210.338782182264,
         "predicted": {
-          "left": 0.4724210662278544,
+          "left": 0.47242106622785435,
           "right": 0.5026697312985121,
           "ignore": 0.024909202473626192
         },
@@ -411,7 +427,7 @@
         "predicted": {
           "left": 0.36990600610983554,
           "right": 0.3821841402622424,
-          "ignore": 0.24790985362790416
+          "ignore": 0.24790985362790413
         },
         "observed": {
           "n_trials": 805669,
@@ -546,6 +562,20 @@
         "n_at_best": 5,
         "median_gap": 0.00041193188253187796,
         "max_gap": 0.0012950911603699863,
+        "n_converged": 20
+      },
+      "8": {
+        "n_restarts": 20,
+        "n_at_best": 6,
+        "median_gap": 0.00040356308759051244,
+        "max_gap": 0.0010588452475746777,
+        "n_converged": 20
+      },
+      "9": {
+        "n_restarts": 20,
+        "n_at_best": 4,
+        "median_gap": 0.00036871235150714044,
+        "max_gap": 0.001282192039818864,
         "n_converged": 20
       }
     }

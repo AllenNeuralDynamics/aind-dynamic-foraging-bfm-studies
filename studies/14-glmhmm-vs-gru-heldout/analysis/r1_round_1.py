@@ -416,7 +416,7 @@ def block_scores(grids, lags, gru, selected):
              "with refit (matched, the GRU's protocol) and global fit only (zero-shot). GRU = study "
              "02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error "
              "bars.",
-             "", "| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | L/R engaged | engage | ignore PR-AUC |",
+             "", "| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | held-out refit: L/R engaged | engage | ignore PR-AUC |",
              "|---|---|---|---|---|---|---|---|---|"]
     for e in EMISSIONS:
         for K, run in sorted(grids[e].items()):

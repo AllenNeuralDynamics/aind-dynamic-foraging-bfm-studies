@@ -66,7 +66,7 @@ global states, and result-3 checks that they keep the same order.
 <!-- BEGIN result-1 -->
 Each score is the geometric-mean probability given to the mouse's actual choice on sessions never fitted (chance 1/3). *Refit*: training mice, after the per-mouse refit (study 14's selection score; bold = each emission's best). *Global fit, same mice*: training mice, global fit only (Faeze's way of choosing K). *Held-out*: 149 new mice, with refit (matched, the GRU's protocol) and global fit only (zero-shot). GRU = study 02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error bars.
 
-| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | L/R engaged | engage | ignore PR-AUC |
+| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | held-out refit: L/R engaged | engage | ignore PR-AUC |
 |---|---|---|---|---|---|---|---|---|
 | hurdle | 1 | 0.6227 | 0.6143 | 0.6081 | 0.5997 | 0.7187 | 0.8188 | 0.6020 |
 | hurdle | 2 | 0.6278 | 0.6228 | 0.6139 | 0.6086 | 0.7195 | 0.8259 | 0.6139 |
@@ -85,6 +85,8 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
 | reference | 5 | 0.6231 | 0.6303 | 0.6085 | 0.6161 | 0.7171 | 0.8210 | 0.5975 |
 | reference | 6 | 0.6209 | 0.6309 | 0.6062 | 0.6165 | 0.7160 | 0.8190 | 0.5911 |
 | reference | 7 | 0.6194 | 0.6318 | 0.6046 | 0.6173 | 0.7149 | 0.8181 | 0.5888 |
+| reference | 8 | 0.6182 | 0.6325 | 0.6029 | 0.6181 | 0.7140 | 0.8167 | 0.5836 |
+| reference | 9 | 0.6170 | 0.6331 | 0.6014 | 0.6186 | 0.7125 | 0.8163 | 0.5819 |
 | GRU H64 (study 02) | — | — | — | 0.6249 | — | 0.7282 | 0.8316 | 0.6320 |
 | GRU H128 (study 02) | — | — | — | 0.6273 | — | 0.7303 | 0.8326 | 0.6362 |
 | GRU H256 (study 02) | — | — | — | 0.6288 | — | 0.7315 | 0.8334 | 0.6389 |
@@ -150,14 +152,74 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
 | reference | 5 | 3/20 | 4.0e-04 | 20/20 | 136 | 75/149 | 4.4 |
 | reference | 6 | 8/20 | 4.4e-04 | 20/20 | 384 | 51/149 | 7.8 |
 | reference | 7 | 5/20 | 4.1e-04 | 20/20 | 126 | 27/149 | 9.4 |
+| reference | 8 | 6/20 | 4.0e-04 | 20/20 | 355 | 18/149 | 12.9 |
+| reference | 9 | 4/20 | 3.7e-04 | 20/20 | 270 | 6/149 | 16.9 |
 
 ![restarts](../fig_r1_restarts.svg)
 <!-- END result-3 -->
 
 ## What it says
 
-TODO once every run is in.
+Reference K = 10 was still running when this report was frozen; every other cell is in.
+
+1. **The GLM-HMM does not reach the GRU.** The best model, hurdle K = 3, scores 0.6148 on
+   held-out mice. The 3-way GRU scores 0.6273 (H128) and 0.6288 (H256) on the same trials. The
+   gap shows on every part: left vs right on engaged trials (0.7207 vs 0.7303), engage vs
+   ignore (0.8258 vs 0.8326) and ignore detection (PR-AUC 0.614 vs 0.636).
+2. **Hurdle beats reference.** It scores higher at every K ≥ 2, with half the weights per state.
+   It is better for 127 of 149 held-out mice (hurdle K = 3 against reference K = 2).
+3. **The best K depends on how K is scored.**
+   - With the per-mouse refit (study 14's rule), the score peaks at K = 3 for hurdle and K = 2
+     for reference, then falls.
+   - With the global fit alone (Faeze's rule), it rises at every K up to 10, on the training
+     mice and on new mice.
+   - The refit overfits: its gap between fitted and unseen sessions grows from 0.005 at K = 3 to
+     0.028 at K = 10 (hurdle). From K = 4, a refitted new mouse scores below the unrefitted
+     global fit. So the refit rule likely picks too few states.
+4. **The K = 3 states have a clear reading.**
+   - *Engaged and sticky* (50% of trials): ignores 3% and repeats an unrewarded choice 89% of
+     the time.
+   - *Disengaged* (26%): ignores 31%. It grows from 12% of trials early in a session to 57% at
+     the end, and is more common before the final training stage.
+   - *Engaged and flexible* (24%): ignores 3%, but repeats an unrewarded choice only 71% of the
+     time.
+
+   All three choose the better side about equally often (57–59%). They differ in strategy, not
+   in accuracy.
+5. **States are long at small K and shorter at large K.** At K = 3 a state lasts about 340
+   trials, close to a session. As K grows, the states split along two axes: how often the mouse
+   ignores, and how strongly it perseveres. They also get shorter. At K = 10, 89% of sessions
+   switch state, and the average stay is about 220 trials.
+6. **Left- and right-biased states are within-session epochs.** They appear at K ≥ 8. They last
+   about 60 trials, occur in about a quarter of sessions, and are spread across mice (the top
+   10% of mice hold about 40% of their use, near the other states). So they are not simply
+   mouse identities.
+7. **The history length is about right.** L = 10 scored best in the lag scan. At L = 15 the
+   hurdle score rises by only 0.0004 and the reference score falls by 0.0005.
+8. **Fits at large K are harder.** From K = 4, few of the 20 restarts reach the best fit (1 of
+   20 at hurdle K = 10). The large-K global fits may sit below their optimum.
+
+**Engineering.** The K ≥ 5 runs were killed at the end by the kernel's memory-map limit
+(AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#119). Their scores and parameters were
+saved first. This freeze recomputes their posteriors from `fit.json`, and the recomputed values
+match the trainer's to 4e-6 where both exist. The fix is wrapper#120.
 
 ## Next steps
 
-TODO once every run is in.
+1. **Refit with a prior centred on the global fit (round 2).** Rescore K = 1–10 with the
+   per-mouse prior centred on the global weights instead of zero. Sweep its SD (0.25, 0.5, 1, 2)
+   and keep a zero-centred arm for comparison. Reuse the saved global fits, so only the refits
+   rerun. Choose K, SD and centre together by the refit score, and report the whole surface.
+   As the SD goes to 0, this score becomes Faeze's, which never drops. So a later peak at small
+   SD is partly the prior, not proof of more states. Code: models#89, wrapper#121,
+   dispatcher#213.
+2. **Probe short states directly.** Fix the transition matrix so a state lasts D trials
+   (D = 20, 50, 100, 200, free) and compare scores and states. Also try a per-session or
+   per-mouse side bias inside the global fit, so states no longer need to carry it, and
+   input-driven transitions (models#84).
+3. **Test K selection under known heterogeneity (study 15).** Simulate a 3-state truth with a
+   growing spread of per-mouse weights. Then see which scoring rule recovers K = 3.
+4. **More restarts at K ≥ 4.** Run 40–60 starts, or seed each K from the K − 1 states, so the
+   large-K fits reach their optimum.
+5. **Faeze cross-check.** Fit her data scope (mature sessions only, reference emission, L = 7)
+   and score it her way, to confirm that her K curve and states come out the same.

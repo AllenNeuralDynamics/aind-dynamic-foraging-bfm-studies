@@ -1,7 +1,7 @@
 # Analysis environment for studies/14-glmhmm-vs-gru-heldout/ (per the posthoc-reporting contract).
 # Not a full `pip freeze`: it pins what freeze_round1.py and the r1 producer import, in the env
 # they ran in (/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu, on an HPC
-# compute node), 2026-10-27 PT.
+# compute node), 2026-10-28 PT.
 #   Python 3.12.13
 numpy==2.4.6
 pandas==2.3.3
@@ -15,7 +15,9 @@ hydra-core==1.3.2
 omegaconf==2.3.0
 aind-dynamic-foraging-database==0.2.2
 duckdb==1.5.4
-aind-dynamic-foraging-models==0.25.0  # installed from git at cf38f45d38eddaade38434bd9dbecfa4a98f7388 (direct_url.json)
+aind-dynamic-foraging-models==0.26.0  # installed from git at 0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112 (direct_url.json);
+#   its glm_hmm is identical to 0.25.0's (cf38f45), which the K-grid runs used
+aind-dynamic-foraging-basic-analysis==0.3.34  # plot_foraging_session for the example sessions
 jax==0.6.1
 jaxlib==0.6.1
 dynamax==1.0.3
