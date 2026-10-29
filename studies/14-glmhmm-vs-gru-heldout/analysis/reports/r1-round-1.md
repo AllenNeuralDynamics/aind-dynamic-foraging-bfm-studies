@@ -87,6 +87,7 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
 | reference | 7 | 0.6194 | 0.6318 | 0.6046 | 0.6173 | 0.7149 | 0.8181 | 0.5888 |
 | reference | 8 | 0.6182 | 0.6325 | 0.6029 | 0.6181 | 0.7140 | 0.8167 | 0.5836 |
 | reference | 9 | 0.6170 | 0.6331 | 0.6014 | 0.6186 | 0.7125 | 0.8163 | 0.5819 |
+| reference | 10 | 0.6159 | 0.6335 | 0.6006 | 0.6190 | 0.7120 | 0.8156 | 0.5808 |
 | GRU H64 (study 02) | — | — | — | 0.6249 | — | 0.7282 | 0.8316 | 0.6320 |
 | GRU H128 (study 02) | — | — | — | 0.6273 | — | 0.7303 | 0.8326 | 0.6362 |
 | GRU H256 (study 02) | — | — | — | 0.6288 | — | 0.7315 | 0.8334 | 0.6389 |
@@ -154,13 +155,12 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
 | reference | 7 | 5/20 | 4.1e-04 | 20/20 | 126 | 27/149 | 9.4 |
 | reference | 8 | 6/20 | 4.0e-04 | 20/20 | 355 | 18/149 | 12.9 |
 | reference | 9 | 4/20 | 3.7e-04 | 20/20 | 270 | 6/149 | 16.9 |
+| reference | 10 | 6/20 | 1.6e-04 | 20/20 | 294 | 1/149 | 22.7 |
 
 ![restarts](../fig_r1_restarts.svg)
 <!-- END result-3 -->
 
 ## What it says
-
-Reference K = 10 was still running when this report was frozen; every other cell is in.
 
 1. **The GLM-HMM does not reach the GRU.** The best model, hurdle K = 3, scores 0.6148 on
    held-out mice. The 3-way GRU scores 0.6273 (H128) and 0.6288 (H256) on the same trials. The
