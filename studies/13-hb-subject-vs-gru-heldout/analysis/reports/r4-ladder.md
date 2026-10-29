@@ -6,10 +6,11 @@ status: draft
 authors:
 - han
 wandb_groups:
-- hattori@20261026-002131
+- hattori@20261027-181430
+- hattori@20261027-223626
 inputs:
   script: analysis/r4_ladder.py
-  runs: analysis/hattori_runs.json
+  runs: analysis/hattori_final_runs.json
   plugin: analysis/hattori_plugin.json
   figures:
   - analysis/fig_r4_ladder.svg
@@ -70,9 +71,9 @@ MLE pooled from study 08's per-subject table: 0.7127 (study 01 r8 publishes 0.71
 
 | step, per subject | median | subjects with a gain |
 |---|---|---|
-| plug-in − MLE | -0.0015 | 17% (26/149) |
+| plug-in − MLE | -0.0014 | 17% (26/149) |
 | zero-spread − plug-in | +0.0056 | 100% (149/149) |
-| full HB − zero-spread | +0.0028 | 95% (142/149) |
+| full HB − zero-spread | +0.0027 | 95% (141/149) |
 | GRU D≈614 − full HB | +0.0061 | 97% (141/146) |
 
 ![schematic](../fig_r4_ladder_schematic.svg)

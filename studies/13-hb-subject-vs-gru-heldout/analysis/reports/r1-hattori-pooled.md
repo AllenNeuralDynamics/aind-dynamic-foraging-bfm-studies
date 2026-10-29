@@ -2,14 +2,19 @@
 schema_version: 1
 id: r1
 slug: hattori-pooled
-status: draft
+status: live
 authors:
 - han
 wandb_groups:
 - hattori@20261026-002131
+- hattori@20261027-181430
+- hattori@20261027-223626
+- hattori@20261027-181415
 inputs:
   script: analysis/r1_hattori_pooled.py
-  data: analysis/hattori_runs.json
+  data: analysis/hattori_final_runs.json
+  production: analysis/hattori_runs.json
+  refit: analysis/hattori_refit_runs.json
   plugin: analysis/hattori_plugin.json
   freeze: analysis/freeze_hattori.py
   freeze_plugin: analysis/freeze_plugin.py
@@ -37,10 +42,22 @@ draws × 24 fresh session draws (ADR 0002). Pooled = exp(Σ log-likelihood / Σ 
 subjects; Monte Carlo errors add in quadrature across runs. Comparators are read from study 01:
 r8 for the per-subject MLE and r1 for the GRU H128 curve.
 
+**Refit and k̂ rescue (ADR 0004).** The 46 subjects failing a convergence gate in production were
+refit once more, non-centred at target acceptance 0.95 with 3000 warmup + 4 × 3000 draws
+(`hattori@20261027-223626`; a centred refit before it was worse on every gate and is not used).
+The other 103 keep their production fit, scored again through the same data path
+(`hattori@20261027-181430`; the plain scores reproduce production exactly). In both, each session
+failing Pareto k̂ on the plain draw-average was rescored by
+importance sampling against the exact predictive mixture: a t proposal at the session's mode,
+mixed defensively with the mixture, 24,000 draws. The headline uses the importance-sampled value
+for those sessions and the plain value elsewhere; both estimate the same integral.
+
 <!-- BEGIN result-1 -->
 | arm | held-out likelihood (trial-weighted) |
 |---|---|
-| HB-Hattori2019 two-level, session-marginal (headline) | **0.7213** ± 1.7e-06 (MC) |
+| HB-Hattori2019 two-level, session-marginal (headline: non-centred refit of the gate-failing subjects, k̂-failing sessions importance-sampled; ADR 0004) | **0.7213** ± 2.0e-06 (MC); 0.721295 |
+| … same fits, plain draw-average on every session | 0.721296 |
+| … production (before the refit and the k̂ rescue) | 0.721295 |
 | HB-Hattori2019 two-level, plug-in: one fixed parameter set per subject (typical-session posterior median), no within-session inference | 0.7107 |
 | HB-Hattori2019 two-level, zero-spread: every posterior draw of the typical session, no between-session spread, session-marginal | 0.7174 |
 | HB-Hattori2019 two-level, trial-marginal | 0.7090 |
@@ -49,8 +66,9 @@ r8 for the per-subject MLE and r1 for the GRU H128 curve.
 | GRU H128 (study 01 r1) | D≈10 0.7219, D≈30 0.7250, D≈100 0.7262, D≈300 0.7267, D≈614 0.7268 |
 
 - Subjects 149; scored trials 1,013,172 (comparators: 1,013,172).
-- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400, no divergences): 103 of 149 subjects pass; worst R-hat 1.173, lowest ESS 16; 304 divergences. Converged subjects only: 0.7166.
-- Pareto k̂ gate: 262 of 2138 scored sessions fail (k̂ ≥ 0.7 or unjudged).
+- Convergence gates (R-hat < 1.01, bulk ESS ≥ 400, no divergences): 139 of 149 subjects pass; worst R-hat 1.210, lowest ESS 13; 45 divergences. Converged subjects only: 0.7194.
+- Pareto k̂ gate: 256 of 2138 scored sessions fail on the plain draw-average (production: 262); 256 were rescored by importance sampling, after which 37 still fail (k̂ ≥ 0.7 or unjudged).
+- Refit (ADR 0004) of the 46 subjects failing a gate in production. Centred (rejected): divergences 304 → 11,007, R-hat/ESS passes 39 → 24. Non-centred at target acceptance 0.95 (used): divergences 304 → 45, R-hat/ESS passes 39 → 45, 36 of 46 passing every gate.
 <!-- END result-1 -->
 
 ## What it says
@@ -84,18 +102,25 @@ Read off the frozen result above (2026-10-26):
   the same fits fall *below* the per-subject MLE. ADR 0002 explains why the session-marginal is the
   fair score: it predicts each trial from the session's earlier trials, as the GRU does.
 
-Why this stays `draft`:
+- **Neither the refit nor the k̂ rescue moves the headline.** The three HB rows at the top agree to
+  within 2e-6 (production, the same fits scored plainly, and the headline), against about a
+  million scored trials. That is agreement between two Monte
+  Carlo estimates of the same quantity, not proof that either is unbiased (the log of an unbiased
+  likelihood estimate is not unbiased, and some sessions still fail the gate); it does show that
+  the headline hinges neither on the sessions k̂ flagged nor on the subjects that failed to converge.
+- **With the refit most subjects converge, and the converged-only number moves toward the
+  headline.** The converged-only subset now covers most subjects (count above), so it is nearly the
+  same population as the headline and the comparators.
 
-- **k̂.** 12% of scored sessions fail the Pareto k̂ gate. Their plain draw-average rests on few
-  draws and is likely biased low, so the headline probably understates the HB. Resolving it means
-  rescoring those sessions from the saved draws with importance sampling (ADR 0002's fallback); no
-  refit is needed.
-- **Convergence.** Some subjects miss the R-hat/ESS gates or have divergences (counts above). PLAN.md's
-  rule is one refit with longer chains for failing subjects. The converged-only number is given
-  beside the headline. Requiring zero divergences as well leaves about two thirds of subjects,
-  and that subset scores lower than the headline: the subjects that diverge are not a random
-  third, so the converged-only number describes a different population and is no like-for-like
-  comparison with the all-subject comparators.
+Caveats:
+
+- **k̂.** After importance sampling a minority of the rescored sessions still fail the gate
+  (count above; split about evenly between subjects that pass and fail the convergence gates). For those
+  the t proposal fits poorly (k̂ up to ~8); their estimates are reported as they are, not dropped.
+- **Convergence.** After the refit a few subjects still miss a gate (counts above; the worst R-hat
+  and lowest ESS are one subject). They stay in the headline, as the comparators score every
+  subject; the converged-only number beside it excludes them. Two refits were run where PLAN.md
+  planned one: the centred one failed, and Han approved the non-centred one (ADR 0004).
 - **Uncertainty.** The MC error covers only the scoring average, not posterior or seed variation.
   There is one seed per subject, so no run-to-run variance is measured.
 - **Rescue.** 16 subjects ran out of memory at 64G during scoring and were rerun at 200G as a
