@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_round1.py",
-    "produced_at_pt": "2026-10-28T22:29:38-07:00",
-    "studies_git_sha": "6abd916c9309348016019f42c48ced7c5cb76998",
+    "produced_at_pt": "2026-10-28T23:21:43-07:00",
+    "studies_git_sha": "b517ede2a1b01d5ab6b8409f009e729ce74ed624",
     "studies_git_dirty": false,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -34,11 +34,16 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/freeze_round1.py",
-        "sha256": "44835886786db7d77a7dc38a2ffaeb9bd8f81f91f71de02165ba02ac24b52e9a"
+        "sha256": "6489a237ca536433eadc2b1ae899f53804070709b0a365ce50be96627ac93647"
       }
     ],
     "inputs": [],
     "sources": [
+      {
+        "type": "url",
+        "sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+        "id": "https://aind-scratch-data.s3.amazonaws.com/aind-dynamic-foraging-cache/snapshots/20260603/snapshot_manifest.json"
+      },
       {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_glmhmm/tqxqq6ek"
@@ -853,13 +858,15 @@
     "outputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_round1.json",
-        "sha256": "068780e6b2bda5295f6435d5b806e26d6af80dd327d0bcadbe03eb6b5b9d361f"
+        "sha256": "b27140d2b221ae7320efca585a2651bcbc629ca363e463810366611131d61141"
       }
     ]
   },
   "data": {
     "config": "mice_snapshot_scaling",
     "snapshot": "20260603",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
     "ignore_policy": "include",
     "split": "heldout",
     "n_heldout_trials": 2273164,

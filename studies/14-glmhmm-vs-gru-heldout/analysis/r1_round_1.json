@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_round_1.py",
-    "produced_at_pt": "2026-10-28T22:33:12-07:00",
-    "studies_git_sha": "6abd916c9309348016019f42c48ced7c5cb76998",
+    "produced_at_pt": "2026-10-28T23:23:38-07:00",
+    "studies_git_sha": "b517ede2a1b01d5ab6b8409f009e729ce74ed624",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -34,7 +34,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.py",
-        "sha256": "f33ab1480a69102848e273f2024d5d30e94f739c49542ccbd8459da8ef84d0d1"
+        "sha256": "ee3a9daf92b63d66eeac37006f5d45ab1635c9d8831baf5618a8deb02a7501aa"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -48,7 +48,7 @@
     "inputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_round1.json",
-        "sha256": "c22b50b76b43a18e494d7a28bde143ee6d4585ea7e09c88783d1dbcdb3a8e361"
+        "sha256": "afde1e5c5405260e05518098ba03347a4fc1fd675fac2f946778ea62e30ead71"
       },
       {
         "path": "studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json",
@@ -106,7 +106,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-2",
-        "sha256": "cbd958b68622db32072f7b9df303265e823e19c7610379568b74eb327cdf95df"
+        "sha256": "f7ca6cf873c23a4550bc7c794453ccb33c2ba311b7e6e0096bba1248eef3cadf"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-3",
