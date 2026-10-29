@@ -1,0 +1,38 @@
+# Study 14 / hurdle: K = 1 .. 10 with the hurdle emission at the history length fixed by lag-scan
+# (PLAN.md): L = 10, which maximised the selection score for both emissions in lag-scan.
+# K is read off glmhmm/select/eval_likelihood (per-mouse refits of the TRAINING mice); the
+# held-out K curve is reported in full.
+#   data  -> dispatcher code/config/data/mice_snapshot_scaling.yaml (snapshot 20260603),
+#            ignore_policy=include as study 02's 3-way GRU, stage column retained for the split
+#   model -> dispatcher code/config/model/glmhmm.yaml; 20 restarts for K > 1, set below
+# wandb.project must be in the command: the launcher sets only the group.
+
+entity: AIND-disRNN
+project: mice_glmhmm
+name: hurdle
+
+method: grid
+metric:
+  name: glmhmm/select/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - data.ignore_policy=include
+  - +data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,current_stage_actual]
+  - model=glmhmm
+  - model.emission=hurdle
+  - model.n_lags=10  # fixed by lag-scan@20261027-200129 (launch_record/lag-scan/results.md)
+  - model.num_restarts=20  # Ashwood et al. used 20 per K (zashwood/glm-hmm); same for every K
+  - model.num_workers=10  # restarts, then refits, 10 at a time; needs --cpus-per-task=32
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_glmhmm
+  - ${args_no_hyphens}
+
+parameters:
+  model.num_states:
+    values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

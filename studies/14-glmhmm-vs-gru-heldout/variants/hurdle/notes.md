@@ -32,4 +32,9 @@ grid, one non-preemptible single-GPU task per cell:
 `hurdle@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that
 group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-10-27 21:29–21:30 PT as `hurdle@20261027-212905`: K = 1–10 at L = 10, 20
+restarts, 10 workers on 32 cores and 96 GB, HPC CPU. Settled 2026-10-28 07:02 PT: all 10 tasks
+completed, and K = 5–10 were killed after scoring by the memory-map limit
+(AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#119), so their scores are intact but their
+per-trial posteriors were not written. The refit selection score peaks at K = 3. Results:
+[`launch_record/hurdle-k1-10/results.md`](launch_record/hurdle-k1-10/results.md).
