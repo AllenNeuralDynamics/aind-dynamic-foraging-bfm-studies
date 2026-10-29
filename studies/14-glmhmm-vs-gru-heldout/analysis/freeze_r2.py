@@ -12,7 +12,7 @@ and the 614 training mice, every session of each):
    convergence.
 
 Writes ``frozen_r2.json`` (_meta, runs, subjects, cell tables) and one weight file per
-emission, ``frozen_r2_weights_<emission>.npz`` (float32), both read by ``r2_state_spread.py``.
+emission, ``frozen_r2_weights_<emission>.npz`` (float16), both read by ``r2_state_spread.py``.
 Cells with fewer than ``MIN_FROZEN_TRIALS`` trials are not frozen; the producer applies its own,
 higher threshold.
 
@@ -46,7 +46,7 @@ OUT = HERE / "frozen_r2.json"
 MIN_FROZEN_TRIALS = 50
 PRIOR_SIGMA = 2.0                # the per-mouse refit's weight prior (SUBJECT_PRIOR)
 NEWTON_STEPS = 30                # per fit; a second fit from the result checks convergence
-SUBJECTS_PER_CHUNK = 64          # posteriors are computed for this many mice at a time
+SUBJECTS_PER_CHUNK = 32          # mice per posterior pass; compiled code is released after each
 
 
 def load_cohorts():
@@ -142,9 +142,24 @@ def fit_cells(model, params, props, records, paths, n_lags, design):
     return w, n_trials, n_engaged, n_sessions, delta
 
 
+def release_compiled(where):
+    """Drop JAX's compiled code so its memory maps return to the kernel (wrapper#119/#120).
+
+    XLA's CPU JIT maps memory for every compiled executable and never unmaps it; one cohort's
+    worth of bucket and M-step shapes reaches vm.max_map_count (65,530 on the HPC).
+    """
+    import jax
+
+    jax.clear_caches()
+    try:
+        with open("/proc/self/maps") as maps:
+            print(f"    released compiled code after {where} ({sum(1 for _ in maps)} maps)", flush=True)
+    except OSError:
+        pass
+
+
 def freeze_run(run, cohorts, subject_index):
     """Every {subject, state} fit of one run, both cohorts."""
-    import jax
     from aind_dynamic_foraging_models.glm_hmm import GLMHMM
 
     files = run["dir"] / "files" / "outputs" / "glmhmm"
@@ -179,7 +194,7 @@ def freeze_run(run, cohorts, subject_index):
                     cells["n_sessions"].append(int(n_ses[k]))
                     weights.append(w[k])
                     deltas.append(delta)
-        jax.clear_caches()      # keeps this process under the memory-map limit (wrapper#119)
+            release_compiled(f"{cohort} {start + len(chunk)}/{len(names)}")
     record = {
         "group": run["group"], "emission": emission, "num_states": K, "n_lags": L,
         "wandb_run_id": run["wandb_run_id"], "fit_json_sha256": sha256(files / "fit.json"),
@@ -198,7 +213,9 @@ def write_outputs(out_dir, subjects, frozen, arrays, runs):
     for emission, by_k in arrays.items():
         if by_k:
             path = out_dir / f"frozen_r2_weights_{emission}.npz"
-            np.savez_compressed(path, **by_k)
+            # float16 (about 3 significant digits) keeps each file under the repo's 10 MiB cap;
+            # the float32 parts stay on /allen.
+            np.savez_compressed(path, **{k: w.astype(np.float16) for k, w in by_k.items()})
             weight_files.append(path)
     sources = []
     for run in runs.values():
