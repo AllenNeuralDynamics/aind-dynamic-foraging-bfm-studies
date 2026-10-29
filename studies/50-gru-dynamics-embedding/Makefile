@@ -54,7 +54,7 @@ b6:
 b7: b3
 	$(RUN) analysis/b7_decoders.py
 
-freeze-r1: b1 b2 b3 b3c-history b4 b5 b6 b7
+freeze-r1: b1 b2 b3 b3a-10 b3c-history b3h b4 b5 b6 b7
 
 # Offline formatter over the committed B JSONs.
 r1:
@@ -137,7 +137,7 @@ d1f: d1d b3h
 	$(RUN) analysis/d1f_fixed_points_flow.py
 d1e: d1d f2 f9
 	$(RUN) analysis/d1e_flow_own_context.py   # GPU
-freeze-r3: d
+freeze-r3: d d1b d1c d1d d1e d1f
 
 r3:
 	$(PYTHON) analysis/report_r3.py
@@ -183,7 +183,7 @@ i11d: i11 i3b
 freeze-rl-medians: c-rollouts
 	$(PYTHON) analysis/freeze_rl_fit_medians.py
 
-freeze-r6: i1 i2 i3 i4 i5 i6 i7 i8 i9 i9b i9c i9d i9e i10 i11 freeze-rl-medians
+freeze-r6: i1 i2 i2b i3 i3b i4 i5 i6 i7 i8 i9 i9b i9c i9d i9e i10 i11 i11d freeze-rl-medians
 
 r6:
 	$(PYTHON) analysis/report_r6.py
