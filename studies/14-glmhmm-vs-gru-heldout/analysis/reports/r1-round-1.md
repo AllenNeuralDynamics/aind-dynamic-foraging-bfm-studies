@@ -176,7 +176,11 @@ Each score is the geometric-mean probability given to the mouse's actual choice 
      mice and on new mice.
    - The refit overfits: its gap between fitted and unseen sessions grows from 0.005 at K = 3 to
      0.028 at K = 10 (hurdle). From K = 4, a refitted new mouse scores below the unrefitted
-     global fit. So the refit rule likely picks too few states.
+     global fit.
+   - Two readings fit this. The refit rule may pick too few states, because it penalizes
+     extra states through per-mouse overfitting. Or the global fit's extra states mostly
+     describe differences between sessions (finding 6), which the refit absorbs per mouse.
+     Round 2 (next step 1) tests between them.
 4. **The K = 3 states have a clear reading.**
    - *Engaged and sticky* (47% of trials): ignores 2.5% and repeats an unrewarded choice 90% of
      the time.
@@ -220,7 +224,8 @@ match the trainer's to 4e-6 where both exist. The fix is wrapper#120.
    per-mouse prior centred on the global weights instead of zero. Sweep its SD (0.25, 0.5, 1, 2)
    and keep a zero-centred arm for comparison. Reuse the saved global fits, so only the refits
    rerun. Choose K, SD and centre together by the refit score, and report the whole surface.
-   As the SD goes to 0, this score becomes Faeze's, which never drops. So a later peak at small
+   As the SD goes to 0, this score approaches Faeze's, which never drops (the refit still
+   re-estimates the transitions). So a later peak at small
    SD is partly the prior, not proof of more states. Code: models#89, wrapper#121,
    dispatcher#213.
 2. **Probe short states directly.** Fix the transition matrix so a state lasts D trials

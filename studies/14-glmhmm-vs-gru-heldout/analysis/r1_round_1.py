@@ -279,8 +279,8 @@ def fig_examples(examples, run, path):
                 if ax.get_legend() is not None:
                     ax.get_legend().remove()
         ax_choice.set_title(f"mouse {ex['subject_id']}, {ex['stage']}, {len(choice)} trials, "
-                            f"{100 * np.mean(np.isnan(choice)):.0f}% ignored; overlay: model "
-                            "p(right | respond)", loc="left", pad=14)
+                            f"{100 * np.mean(np.isnan(choice)):.0f}% ignored; overlay: the global "
+                            "fit's p(right | respond)", loc="left", pad=14)
         fs.panel_label(ax_choice, "abcdefgh"[i], dy_pt=14)
         bot = fig.add_subplot(gs[2 * i + 1])
         t = np.arange(1, len(choice) + 1)                  # the util numbers trials from 1

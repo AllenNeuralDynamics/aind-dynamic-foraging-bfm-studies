@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_round_1.py",
-    "produced_at_pt": "2026-10-28T21:31:13-07:00",
-    "studies_git_sha": "1ab58dd145bcfe95b5bc0146254fe1c1ba8ebf6d",
+    "produced_at_pt": "2026-10-28T21:36:18-07:00",
+    "studies_git_sha": "016765ee7d88f63cd3d60df64c2fa6c4a3eeaaa5",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -34,7 +34,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r1_round_1.py",
-        "sha256": "9dae95b897b3c88b116b060855521d7e6ecf8a22044d073968fb1ea828dccb91"
+        "sha256": "7d55170fefb31310cfc46ea564b3d12cdda1608e25f3eb2036bc18fb30e52ae1"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -86,7 +86,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_examples_hurdle.svg",
-        "sha256": "d9077f1f0ee5d5d32e57192aa1d4b0cc013a48fe0bcf53d292be3b7668d930ce"
+        "sha256": "e5cdf5638c8cf8037daf1f859daed68b6d8d386e6a4a3aad523767d615c5f002"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_weights_reference.svg",
@@ -98,7 +98,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r1_examples_reference.svg",
-        "sha256": "d60d4b03b7279dc4555b05c690b2e163046e4a8445369436fb82e9074bc8ac14"
+        "sha256": "bf4a4b1d6155d69d859c0eaf2ee9e3b95eb6a8bc66ac13101476a760c37ec2a6"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r1-round-1.md#result-1",
