@@ -371,6 +371,8 @@ Colours match only within one K. Click a legend entry to hide a state.</p>
  <label>Mice<select id="cohort"><option value="1">held-out</option><option value="0">training</option><option value="both">both</option></select></label>
  <label>x<select id="x"></select></label>
  <label>y<select id="y"></select></label>
+ <label><input type="checkbox" id="threeD"> 3D</label>
+ <label id="zLabel" hidden>z<select id="z"></select></label>
 </div>
 <div id="scatter"></div>
 <p class="note" id="runNote"></p>
@@ -397,9 +399,10 @@ function axisLabels(e, k) {
 }
 function fillAxes() {
   const e = $("emission").value, k = $("K").value, labels = axisLabels(e, k);
-  const xi = $("x").selectedIndex, yi = $("y").selectedIndex;
-  for (const id of ["x", "y"]) { const s = $(id); s.innerHTML = ""; labels.forEach((l, i) => s.add(new Option(l, i))); }
+  const xi = $("x").selectedIndex, yi = $("y").selectedIndex, zi = $("z").selectedIndex;
+  for (const id of ["x", "y", "z"]) { const s = $(id); s.innerHTML = ""; labels.forEach((l, i) => s.add(new Option(l, i))); }
   $("x").selectedIndex = xi >= 0 ? xi : 0; $("y").selectedIndex = yi >= 0 ? yi : 1;
+  $("z").selectedIndex = zi >= 0 ? zi : 2;
 }
 function layoutBase(extra) {
   return Object.assign({paper_bgcolor: css("--bg"), plot_bgcolor: css("--bg"),
@@ -407,31 +410,40 @@ function layoutBase(extra) {
 }
 function drawScatter() {
   const e = $("emission").value, k = $("K").value, c = D.emissions[e].K[k];
-  const xi = +$("x").value, yi = +$("y").value, which = $("cohort").value, labels = axisLabels(e, k);
+  const xi = +$("x").value, yi = +$("y").value, zi = +$("z").value, which = $("cohort").value;
+  const labels = axisLabels(e, k), three = $("threeD").checked;
+  $("zLabel").hidden = !three;
   const traces = [];
   for (let s = 0; s < +k; s++) {
     const idx = c.state.map((v, i) => i).filter(i => c.state[i] === s &&
       (which === "both" || c.cohort[i] === +which));
-    traces.push({type: "scattergl", mode: "markers", name: `state ${s + 1} (${idx.length})`,
+    traces.push({type: three ? "scatter3d" : "scattergl", mode: "markers", name: `state ${s + 1} (${idx.length})`,
       x: idx.map(i => c.cols[xi][i]), y: idx.map(i => c.cols[yi][i]),
-      marker: {color: D.stateColors[s], size: 5, opacity: 0.55,
+      z: three ? idx.map(i => c.cols[zi][i]) : undefined,
+      marker: {color: D.stateColors[s], size: three ? 2.5 : 5, opacity: 0.55,
                symbol: idx.map(i => c.cohort[i] ? "circle" : "diamond")},
       text: idx.map(i => `subject ${D.subjects[c.subject[i]]} · ${c.cohort[i] ? "held-out" : "training"}<br>state ${s + 1} · ${c.n[i]} trials`),
       hovertemplate: "%{text}<extra></extra>"});
   }
-  traces.push({type: "scatter", mode: "markers", name: "global fit",
-    x: c.global[xi], y: c.global[yi],
-    marker: {symbol: "star", size: 15, color: D.stateColors.slice(0, +k), line: {color: css("--fg"), width: 1}},
+  traces.push({type: three ? "scatter3d" : "scatter", mode: "markers", name: "global fit",
+    x: c.global[xi], y: c.global[yi], z: three ? c.global[zi] : undefined,
+    marker: {symbol: three ? "diamond" : "star", size: three ? 7 : 15, color: D.stateColors.slice(0, +k),
+             line: {color: css("--fg"), width: 1}},
     text: c.global[xi].map((_, s) => `global state ${s + 1}`), hovertemplate: "%{text}<extra></extra>"});
   const xs = c.cols[xi], ys = c.cols[yi];
   const range = a => { const v = [...a].sort((p, q) => p - q), lo = v[Math.floor(0.005 * (v.length - 1))],
     hi = v[Math.ceil(0.995 * (v.length - 1))], pad = 0.06 * (hi - lo || 1); return [lo - pad, hi + pad]; };
-  Plotly.react("scatter", traces, layoutBase({
-    xaxis: {title: labels[xi], range: range(xs), zeroline: false, gridcolor: css("--line")},
-    yaxis: {title: labels[yi], range: range(ys), zeroline: false, gridcolor: css("--line")},
-    legend: {orientation: "v", x: 1.01, y: 0.92}, hovermode: "closest"}), {responsive: true});
-  $("runNote").textContent = `W&B run ${c.run} (mice_glmhmm). Axis ranges cover 99% of the dots; double-click to reset zoom. ` +
-    (which === "both" ? "Circles: held-out mice; diamonds: training mice." : "");
+  const axis = (label, values) => ({title: {text: label}, range: range(values), zeroline: false,
+    gridcolor: css("--line"), backgroundcolor: css("--bg"), color: css("--fg")});
+  const layout = three
+    ? {scene: {xaxis: axis(labels[xi], xs), yaxis: axis(labels[yi], ys), zaxis: axis(labels[zi], c.cols[zi]),
+               aspectmode: "cube"}, legend: {orientation: "v", x: 1.01, y: 0.92}}
+    : {xaxis: axis(labels[xi], xs), yaxis: axis(labels[yi], ys),
+       legend: {orientation: "v", x: 1.01, y: 0.92}, hovermode: "closest"};
+  Plotly.react("scatter", traces, layoutBase(layout), {responsive: true});
+  $("runNote").textContent = `W&B run ${c.run} (mice_glmhmm). Axis ranges cover 99% of the dots; ` +
+    (three ? "drag to rotate, scroll to zoom; global states are outlined diamonds. " : "double-click to reset zoom. ") +
+    (which === "both" ? "Held-out mice: circles; training mice: diamonds." : "");
 }
 function drawScores() {
   const e = $("emission").value, S = D.emissions[e].scores, traces = [];
@@ -460,7 +472,7 @@ function drawScores() {
 }
 $("emission").onchange = () => { fillAxes(); drawScatter(); drawScores(); };
 $("K").onchange = () => { fillAxes(); drawScatter(); };
-for (const id of ["cohort", "x", "y"]) $(id).onchange = drawScatter;
+for (const id of ["cohort", "x", "y", "z", "threeD"]) $(id).onchange = drawScatter;
 fillAxes(); drawScatter(); drawScores();
 </script></body></html>
 """

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_state_spread.py",
-    "produced_at_pt": "2026-10-29T01:43:43-07:00",
-    "studies_git_sha": "d9d9a902910fd97cb7e24a39cd175ee45f431bb1",
+    "produced_at_pt": "2026-10-29T01:57:04-07:00",
+    "studies_git_sha": "49d050821aaf3c92d3740b0361883eed2b3c178b",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -27,7 +27,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r2_state_spread.py",
-        "sha256": "9c5b668e58919e0e11734bae40c654d59418a1bcf4085438e328134d0ce2ba35"
+        "sha256": "d57039916e7710d5d54594f6fa34c593974a497b860b2dd3d8976a1776bdd263"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -71,7 +71,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/interactive/r2_state_spread.html",
-        "sha256": "0dc4ae21c2c94e10a462d89190defe128e978605d214f0f872e745d1ff2cbf78"
+        "sha256": "442426b30300f48b4fceeac1a17388c3f5611030516954c20b41c1aef69baa7b"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r2-state-spread.md#result-1",
