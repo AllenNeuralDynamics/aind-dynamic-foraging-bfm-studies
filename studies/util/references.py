@@ -35,6 +35,7 @@ regenerated. A new measurement gets a new name; an existing entry is never repoi
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -195,21 +196,30 @@ class Reference:
         return f"{format(self.value, fmt)} ({self.name})"
 
 
+# RFC 6901: '~' only as ~0 or ~1; an array index is ASCII 0 or a number without a leading zero
+# (the same index rule as scripts/check_provenance.py's claim pointers, studies#66).
+_BAD_ESCAPE = re.compile(r"~(?![01])")
+_ARRAY_INDEX = re.compile(r"0|[1-9][0-9]*")
+
+
 def resolve_pointer(doc: Any, pointer: str) -> Any:
-    """Resolve an RFC 6901 JSON Pointer; raise ``ReferenceUnresolved`` if any token is missing."""
+    """Resolve an RFC 6901 JSON Pointer; raise ``ReferenceUnresolved`` if it is malformed or any
+    token is missing."""
     if pointer == "":
         return doc
     if not pointer.startswith("/"):
         raise ReferenceUnresolved(f"JSON Pointer {pointer!r} must be empty or start with '/'")
     node = doc
     for raw in pointer[1:].split("/"):
+        if _BAD_ESCAPE.search(raw):
+            raise ReferenceUnresolved(f"{pointer!r}: {raw!r} has a '~' not written as ~0 or ~1")
         token = raw.replace("~1", "/").replace("~0", "~")
         if isinstance(node, dict):
             if token not in node:
                 raise ReferenceUnresolved(f"{pointer!r}: no key {token!r}")
             node = node[token]
         elif isinstance(node, list):
-            if not (token == "0" or (token.isdigit() and not token.startswith("0"))):
+            if not _ARRAY_INDEX.fullmatch(token):
                 raise ReferenceUnresolved(f"{pointer!r}: {token!r} is not an array index")
             if int(token) >= len(node):
                 raise ReferenceUnresolved(f"{pointer!r}: index {token} out of range ({len(node)})")
