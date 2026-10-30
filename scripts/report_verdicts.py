@@ -91,7 +91,8 @@ def _title(name: str, fm: dict, body: str) -> str:
 
 
 def _claims(fm: dict) -> list[tuple[str, str]]:
-    return [(str(c.get("id")), str(c.get("text"))) for c in fm.get("claims") or [] if isinstance(c, dict)]
+    claims = fm.get("claims") if isinstance(fm.get("claims"), list) else []   # else: a schema error
+    return [(str(c.get("id")), str(c.get("text"))) for c in claims if isinstance(c, dict)]
 
 
 def _status(fm: dict) -> str:
