@@ -3,10 +3,10 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/fig_i_rt_followups.py",
-    "produced_at_pt": "2026-10-29T05:35:19-07:00",
-    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "produced_at_pt": "2026-10-29T18:05:26-07:00",
+    "studies_git_sha": "5fbc37e2e44f3802692ce823c14c01bbfe2d1cfd",
     "studies_git_dirty": true,
-    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
     "wandb_groups": [],
     "source_studies_git_shas": [],
     "source_dispatcher_git_shas": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/52-gru-dynamics-timing-inputs/analysis/fig_i_rt_followups.py",
-        "sha256": "505fcb47031911baa657838b4f135baa9cc607a77ca8bec179d73562f302700b"
+        "sha256": "858b79b31d71a3e5a9455768a1874df06b54bd29f8a215c96aaa7ad8119a18df"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -26,11 +26,11 @@
     "inputs": [
       {
         "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_rt_followups_R-s0.json",
-        "sha256": "c9234bb2b4b84633fa5d09ae91766cd30d3de2e8914c99a01297366c325bdaa3"
+        "sha256": "ef4d0896e227f0b3ec9ff86e44dc1fa7ca2c7c2169c4360cadad3f576886535c"
       },
       {
         "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_rt_followups_R-s1.json",
-        "sha256": "ffbabc8e5064435ce3590ce35eeebd95b9ba1aca65caf9114609e42366e8be25"
+        "sha256": "4ae237fb3f19d9a9e88874cdf9119fb9b6d154ba0f6d41b89f9c0cc8b6366830"
       }
     ],
     "sources": [
@@ -41,6 +41,16 @@
       {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-3cbcda71"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/i_rt_followups_R-s0.npz",
+        "sha256": "fc88073f2e809390099c0eaca5947b4b86f19c89e9dcee8eb6856fddd9146d08"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/i_rt_followups_R-s1.npz",
+        "sha256": "efb73212940633ec5749bc697880cf80526571f200eab731be9b26db29495c1b"
       }
     ],
     "outputs": [

@@ -3,10 +3,10 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/i_licks_mechanism.py",
-    "produced_at_pt": "2026-10-29T09:48:50-07:00",
-    "studies_git_sha": "036b8078837dfb89f4a5993315f3602b2deed125",
+    "produced_at_pt": "2026-10-29T17:48:26-07:00",
+    "studies_git_sha": "5fbc37e2e44f3802692ce823c14c01bbfe2d1cfd",
     "studies_git_dirty": true,
-    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
     "wandb_groups": [],
     "source_studies_git_shas": [],
     "source_dispatcher_git_shas": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_licks_mechanism.py",
-        "sha256": "474d821645a635f837e5e6849ba727b16fd8d55f30ff71b83ef436a5645d71de"
+        "sha256": "09cf44fa5f1422f9b604750e435f31290a615d30061f3f3f9465dcb691557998"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -33,6 +33,31 @@
       {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-61c16e62"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s1/run/outputs/checkpoints/index.json",
+        "sha256": "b84ad9cbc1f8dc4e996b6d0a9259daf94724972826470b0e427a4cb86290171d"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "a01793038c5c2fbb2230ea3975125d254fbb4ebce5db48ac9519b3ad70fae885"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/contexts_L-s1.npz",
+        "sha256": "27750674ee00576cc1de36005d3d83107552888b207c714953bd4128ce01a62d"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/trial_states_L-s1.parquet",
+        "sha256": "55f03d179f187787243c8d060658b4ba4a45444450685fd092e496faae2c492e"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
       }
     ],
     "outputs": [
