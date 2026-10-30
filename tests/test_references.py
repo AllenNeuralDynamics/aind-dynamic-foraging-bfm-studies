@@ -207,6 +207,23 @@ class TestResolvePointer(unittest.TestCase):
             with self.subTest(pointer=pointer), self.assertRaises(ReferenceUnresolved):
                 resolve_pointer(self.DOC, pointer)
 
+    def test_tilde_only_as_escape(self):
+        # the keys exist, but RFC 6901 spells them ~0n / ~1; an unescaped or unknown ~ is malformed
+        doc = {"m~n": 7, "~2": 8, "x~": 9}
+        for pointer in ("/m~n", "/~2", "/x~"):
+            with self.subTest(pointer=pointer), self.assertRaises(ReferenceUnresolved):
+                resolve_pointer(doc, pointer)
+        self.assertEqual(resolve_pointer(doc, "/m~0n"), 7)
+        self.assertEqual(resolve_pointer({"~1": 3}, "/~01"), 3)   # ~01 decodes to ~1, not /
+
+    def test_array_index_is_ascii(self):
+        doc = [10, 20, 30]
+        # Arabic-Indic 1, superscript 2 and fullwidth 1 pass str.isdigit(); none is an RFC 6901 index
+        for token in ("\u0661", "\u00b2", "\uff11", "+1", " 1", "1.0"):
+            with self.subTest(token=token), self.assertRaises(ReferenceUnresolved):
+                resolve_pointer(doc, "/" + token)
+        self.assertEqual(resolve_pointer(doc, "/2"), 30)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
