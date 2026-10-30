@@ -1,0 +1,115 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/b3_state_space.py",
+    "produced_at_pt": "2026-10-28T04:57:22-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/b3_state_space.py",
+        "sha256": "bf1bbd7284df24e3c7efb94eec99bb1f16632412bb8021595badcae018cd7cef"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/b3_state_space.json",
+        "sha256": "c450abba7805d79a42ee521ba42b8fd79a7421e9afe8ea24cfb038b3015f4050"
+      }
+    ]
+  },
+  "n_scatter_trials": 150000,
+  "scatter_seed": 0,
+  "n_plot_pcs": 4,
+  "continuous_colourings": [
+    "p_model1_right",
+    "p_model1_right_minus_left",
+    "choice_confidence",
+    "p_model1_switch",
+    "recent_reward_rate_5",
+    "recent_reward_rate_10",
+    "trial_position",
+    "trials_since_reward_cap",
+    "p_reward_right_minus_left",
+    "trials_since_left_chosen_cap",
+    "trials_since_right_chosen_cap"
+  ],
+  "conditions": [
+    "prev_action_x_outcome",
+    "history_pattern_1",
+    "history_pattern_2"
+  ],
+  "example_sessions": {
+    "Uncoupled Baiting": "726477__726477_2024-06-28_94320",
+    "Coupled Baiting": "453477__453477_2019-07-06_183438",
+    "Uncoupled Without Baiting": "707254__707254_2024-03-29_112018",
+    "Coupled Without Baiting": "779531__779531_2025-04-16_95218"
+  },
+  "trajectory_snippets": {
+    "Uncoupled Baiting": {
+      "ses_idx": "726477__726477_2024-06-28_94320",
+      "first_trial": 5,
+      "n": 60
+    },
+    "Coupled Baiting": {
+      "ses_idx": "453477__453477_2019-07-06_183438",
+      "first_trial": 1,
+      "n": 60
+    },
+    "Uncoupled Without Baiting": {
+      "ses_idx": "707254__707254_2024-03-29_112018",
+      "first_trial": 35,
+      "n": 60
+    },
+    "Coupled Without Baiting": {
+      "ses_idx": "779531__779531_2025-04-16_95218",
+      "first_trial": 34,
+      "n": 60
+    }
+  },
+  "embedding_spread_mice": [
+    "745861",
+    "751769",
+    "775510",
+    "820238",
+    "774664",
+    "781575",
+    "844782",
+    "780284",
+    "770802"
+  ],
+  "promoted": {
+    "B3b_p_model1_right.png": "fig_B3b_state_space_p_right.png",
+    "B3f_mice_PC1_PC2.png": "fig_B3f_mice_over_embedding.png",
+    "B3_pc56_trial_position.png": "fig_B3_pc56_trial_position.png"
+  }
+}

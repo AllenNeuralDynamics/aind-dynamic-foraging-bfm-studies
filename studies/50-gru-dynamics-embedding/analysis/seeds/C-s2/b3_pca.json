@@ -1,0 +1,97 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/b3_pca.py",
+    "produced_at_pt": "2026-10-29T16:30:39-07:00",
+    "studies_git_sha": "b0385d8747376867c166c07f2876fdc2c7b1561d",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/b3_pca.py",
+        "sha256": "249a3cd4ec08f6867e3280ba4bcfaa198c66b08f6f19da2e611e8d7e41767e43"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-464e627f"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s2.parquet",
+        "sha256": "dd77e9e41a54cbaa7cee30a54050a0da2ed4128dd75b0f0028de0639ec1570c7"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/b3_pca.json",
+        "sha256": "7125ec511f6a4dc96d329e751546313edfb0e0703af5d63d7da53328adf0400b"
+      }
+    ]
+  },
+  "n_trials": 4339402,
+  "fit": "all trials of the split; float64 covariance; eigh; PC sign = largest |loading| positive",
+  "variance_explained_ratio": [
+    0.489769,
+    0.1565,
+    0.066573,
+    0.062095,
+    0.050134,
+    0.029784,
+    0.02407,
+    0.019785,
+    0.016838,
+    0.011512,
+    0.009851,
+    0.006807,
+    0.005743,
+    0.005389,
+    0.004253,
+    0.003603,
+    0.003182,
+    0.002841,
+    0.002052,
+    0.001842
+  ],
+  "cumulative_variance_explained": [
+    0.489769,
+    0.646269,
+    0.712842,
+    0.774937,
+    0.825071,
+    0.854855,
+    0.878926,
+    0.898711,
+    0.915549,
+    0.927061,
+    0.936912,
+    0.943719,
+    0.949463,
+    0.954852,
+    0.959105,
+    0.962707,
+    0.965889,
+    0.96873,
+    0.970782,
+    0.972624
+  ],
+  "participation_ratio": 3.6007,
+  "n_pcs_for_variance": {
+    "90%": 9,
+    "95%": 14,
+    "99%": 38
+  }
+}

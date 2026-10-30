@@ -1,0 +1,169 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/i2_tdr.py",
+    "produced_at_pt": "2026-10-28T05:37:30-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i2_tdr.py",
+        "sha256": "c1a5f51a5b68890626d8fad4a014185a6640337d1758d9108f24e498e71c72ba"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i2_tdr.json",
+        "sha256": "0ba97b8f4cec8efc9d64137c7e5db0b43754e33b228e27cecb83407ac3a84576"
+      }
+    ]
+  },
+  "n_trials": 1000000,
+  "seed": 3,
+  "terms": [
+    "value",
+    "choice",
+    "reward",
+    "value×choice",
+    "choice×reward"
+  ],
+  "value": "model logit(right), standardised",
+  "nuisances": [
+    "context e0..e3",
+    "trial_position"
+  ],
+  "raw_axis_cosines": [
+    [
+      1.0000000000000004,
+      -0.1981348206509741,
+      -0.06878287240960176,
+      -0.029721072231891566,
+      -0.6630066622372472
+    ],
+    [
+      -0.1981348206509741,
+      0.9999999999999996,
+      0.16595253387914194,
+      0.11066393309229162,
+      0.3018460895814409
+    ],
+    [
+      -0.06878287240960176,
+      0.16595253387914194,
+      1.0,
+      0.35929242659214355,
+      -0.03149586616857264
+    ],
+    [
+      -0.029721072231891566,
+      0.11066393309229162,
+      0.35929242659214355,
+      0.9999999999999998,
+      -0.06707553569602256
+    ],
+    [
+      -0.6630066622372472,
+      0.3018460895814409,
+      -0.03149586616857264,
+      -0.06707553569602256,
+      1.0000000000000002
+    ]
+  ],
+  "raw_axis_cosine_with_readout": [
+    0.5318318720137212,
+    -1.6832350017426112e-06,
+    -1.6419762362565593e-05,
+    3.863694592223799e-06,
+    -1.8419598426869244e-05
+  ],
+  "raw_axis_norm": [
+    1.9344449250075473,
+    1.2585147674653356,
+    1.1011573200387705,
+    1.4282292448364968,
+    0.4743693779737587
+  ],
+  "lobe_axes_cosine": 0.29452615509438235,
+  "lobe_axes_cosine_with_readout": {
+    "R lobe (β_v + β_vc)": 0.4340645082894837,
+    "L lobe (β_v − β_vc)": 0.42190111189144913
+  },
+  "variance_share_tdr_subspace": 0.7440097332033776,
+  "variance_share_top_pcs_same_dim": 0.8211936123822076,
+  "task_plus_nuisance_r2": 0.7366664583349685,
+  "cluster_centroids": {
+    "R rewarded": [
+      1.423349660531632,
+      1.5330180309175765,
+      1.2461829506507676,
+      0.23887495416423385,
+      0.336737881500532
+    ],
+    "R unrewarded": [
+      1.499092139396806,
+      0.9671029300991936,
+      -0.9965411874307855,
+      -0.2072974614753138,
+      -0.3348421794146956
+    ],
+    "L rewarded": [
+      -1.627991609574977,
+      -1.0989112060741244,
+      1.348316028798861,
+      0.32376244799474757,
+      -0.34125136235898557
+    ],
+    "L unrewarded": [
+      -1.3743099120953315,
+      -1.3314018003817798,
+      -1.1011514788798646,
+      -0.26307907004466763,
+      0.35075954420415734
+    ]
+  },
+  "cluster_value_sd": {
+    "R rewarded": 1.0796484851863437,
+    "R unrewarded": 0.8693710037157277,
+    "L rewarded": 1.126614895172575,
+    "L unrewarded": 0.8516389752800653
+  }
+}

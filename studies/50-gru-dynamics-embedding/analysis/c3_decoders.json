@@ -1,0 +1,250 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/c3_decoders.py",
+    "produced_at_pt": "2026-10-28T13:55:57-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c3_decoders.py",
+        "sha256": "3eddba9b5963095ed4a72e1c549c62dfe0bb314663974a069eead37ddbda564c"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s0.npz",
+        "sha256": "8debcb40b3dec029c0ed8050eff204b5d5ddbea011161c0c3ee9fe1e569c6ce6"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c3_decoders.json",
+        "sha256": "0b61ec23278fd14c1950bb3ed79c6389189fd4afc1ae2f57b40f192b2ea4b4ca"
+      }
+    ]
+  },
+  "n_trials": 400000,
+  "subsample_seed": 1,
+  "ridge_alpha": 1.0,
+  "cv": "5-fold GroupKFold by session",
+  "location": "activation pattern Σw; per-PC share of decoded-signal variance",
+  "decoders": [
+    {
+      "variable": "bari logit(right)",
+      "cv_r2": 0.9673409629077292,
+      "signal_share_by_pc": [
+        0.8825,
+        0.0038,
+        0.0142,
+        0.0203,
+        0.0004,
+        0.0,
+        0.0002,
+        0.0123,
+        0.0242,
+        0.0042
+      ],
+      "signal_share_rest": 0.03770241447150806
+    },
+    {
+      "variable": "bari Q_L",
+      "cv_r2": 0.9263195689368672,
+      "signal_share_by_pc": [
+        0.5397,
+        0.2029,
+        0.001,
+        0.0338,
+        0.0041,
+        0.001,
+        0.01,
+        0.0504,
+        0.004,
+        0.0383
+      ],
+      "signal_share_rest": 0.11480365881372796
+    },
+    {
+      "variable": "bari Q_R",
+      "cv_r2": 0.9264888327521749,
+      "signal_share_by_pc": [
+        0.5631,
+        0.1201,
+        0.0297,
+        0.0047,
+        0.0053,
+        0.0327,
+        0.0048,
+        0.0225,
+        0.0767,
+        0.0003
+      ],
+      "signal_share_rest": 0.14011282601727215
+    },
+    {
+      "variable": "bari Q_R − Q_L",
+      "cv_r2": 0.9475700991219047,
+      "signal_share_by_pc": [
+        0.7432,
+        0.0038,
+        0.0139,
+        0.0215,
+        0.0,
+        0.0075,
+        0.0003,
+        0.0473,
+        0.0388,
+        0.0153
+      ],
+      "signal_share_rest": 0.10824994072070852
+    },
+    {
+      "variable": "bari Q_R + Q_L",
+      "cv_r2": 0.8704072282595039,
+      "signal_share_by_pc": [
+        0.0001,
+        0.6156,
+        0.0191,
+        0.0132,
+        0.018,
+        0.0432,
+        0.0279,
+        0.0056,
+        0.0438,
+        0.0313
+      ],
+      "signal_share_rest": 0.1822779259956553
+    },
+    {
+      "variable": "ctt logit(right)",
+      "cv_r2": 0.9757008889702502,
+      "signal_share_by_pc": [
+        0.9093,
+        0.0037,
+        0.0143,
+        0.0208,
+        0.0006,
+        0.0,
+        0.0002,
+        0.0089,
+        0.0182,
+        0.0032
+      ],
+      "signal_share_rest": 0.020482379242404387
+    },
+    {
+      "variable": "hattori logit(right)",
+      "cv_r2": 0.9677454260500455,
+      "signal_share_by_pc": [
+        0.9122,
+        0.0036,
+        0.0123,
+        0.0184,
+        0.0006,
+        0.0002,
+        0.0,
+        0.0082,
+        0.013,
+        0.0017
+      ],
+      "signal_share_rest": 0.029748226510266894
+    },
+    {
+      "variable": "hattori Q_L",
+      "cv_r2": 0.9447213278369627,
+      "signal_share_by_pc": [
+        0.7962,
+        0.0794,
+        0.0073,
+        0.0286,
+        0.0,
+        0.0024,
+        0.0135,
+        0.0095,
+        0.0013,
+        0.0
+      ],
+      "signal_share_rest": 0.06167585260351003
+    },
+    {
+      "variable": "hattori Q_R",
+      "cv_r2": 0.9382621616140628,
+      "signal_share_by_pc": [
+        0.8274,
+        0.0296,
+        0.0144,
+        0.0143,
+        0.0035,
+        0.0106,
+        0.0079,
+        0.0,
+        0.0145,
+        0.0025
+      ],
+      "signal_share_rest": 0.07517096392331928
+    },
+    {
+      "variable": "hattori Q_R − Q_L",
+      "cv_r2": 0.9670101621084097,
+      "signal_share_by_pc": [
+        0.9091,
+        0.0034,
+        0.0118,
+        0.0234,
+        0.0012,
+        0.0008,
+        0.0002,
+        0.0024,
+        0.0069,
+        0.0009
+      ],
+      "signal_share_rest": 0.039912147566248064
+    },
+    {
+      "variable": "hattori Q_R + Q_L",
+      "cv_r2": 0.7716189862530292,
+      "signal_share_by_pc": [
+        0.0004,
+        0.4812,
+        0.0028,
+        0.0059,
+        0.0064,
+        0.0541,
+        0.0982,
+        0.0247,
+        0.0164,
+        0.0044
+      ],
+      "signal_share_rest": 0.3056324104076899
+    }
+  ],
+  "gru_logit_from_rl_cv_r2": {
+    "all RL variables": 0.9428913014452315,
+    "bari": 0.9215815677198819,
+    "ctt": 0.9407347162885036,
+    "hattori": 0.9256370940332409
+  }
+}

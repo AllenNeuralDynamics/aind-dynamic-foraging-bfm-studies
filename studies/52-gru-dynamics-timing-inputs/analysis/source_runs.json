@@ -1,0 +1,195 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_source_runs.py",
+    "produced_at_pt": "2026-10-29T06:53:05-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/freeze_source_runs.py",
+        "sha256": "05dfa5ae06efb5c92f86ff527243ceaa48d617a222f53617b61c3fe0590ba542"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/07-gru-timing-inputs/analysis/timing_scaling.json",
+        "sha256": "b5805c573387ca3c9077b507633e9f46dc3dff958b9fda066b29134ab70c8ef3"
+      },
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/source_runs.json",
+        "sha256": "f67a6799993adabd2d0d15b5604d3f45681dacafa450f4ddf9ef5d7e3b0b1889"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-79c32692"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-3cbcda71"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-1d8da14f"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-70ec9561"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-61c16e62"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-78d6d65e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/source_runs.json",
+        "sha256": "adf1215bce5aecdd6a4def30184c1683b8616cec1f56f2501f6d955961dcc4c5"
+      }
+    ]
+  },
+  "schema_version": 1,
+  "entity": "AIND-disRNN",
+  "project": "mice_rt_lick_scaling",
+  "description": "Trained GRUs with previous-trial response inputs analysed by Study 52: Study 07's D=614 / H128 cells. Same 614 mice, snapshot, splits and architecture as Study 50's model C, which serves as the no-added-inputs baseline.",
+  "checkpoint_policy": "best_eval",
+  "baseline": {
+    "key": "C",
+    "manifest": "studies/50-gru-dynamics-embedding/analysis/source_runs.json",
+    "note": "Study 07's own timing-OFF arm (h128-dscan-off-bigD) is a re-run of the same recipe: identical resolved_subject_ids and snapshot, within-subject eval 0.733853 vs C-s0 0.733851."
+  },
+  "models": {
+    "R": {
+      "role": "primary (first): reaction time only",
+      "status": "complete",
+      "group": "h128-dscan-rt-only@20260823-093058",
+      "source_variant": "studies/07-gru-timing-inputs/variants/h128-dscan-rt-only",
+      "inputs": [
+        "prev choice",
+        "prev reward",
+        "prev log RT"
+      ],
+      "timing_features": {
+        "enabled": true,
+        "shuffle": false,
+        "reaction_time": true,
+        "lick_counts": false
+      },
+      "architecture": {
+        "model": "gru",
+        "hidden_size": 128,
+        "subject_embedding_size": 4,
+        "session_encoding_type": "scalar"
+      },
+      "runs": {
+        "R-s0": {
+          "seed": 0,
+          "run_id": "h128-dscan-rt-only-20260823-093058-79c32692",
+          "artifact_name": "gru-output-h128-dscan-rt-only-20260823-093058-79c32692",
+          "artifact_id": "QXJ0aWZhY3Q6MzM5NTgyNDAwNQ==",
+          "artifact_digest": "65cdce7022efb612906cdbb1e560af81",
+          "source_wrapper_commit": "78b8d11857653d83b9e8bd4191e8f0fced0c2a3c",
+          "heldout_likelihood": 0.7297265529632568,
+          "within_subject_eval_likelihood": 0.7347187399864197,
+          "checkpoint_step": 90000
+        },
+        "R-s1": {
+          "seed": 1,
+          "run_id": "h128-dscan-rt-only-20260823-093058-3cbcda71",
+          "artifact_name": "gru-output-h128-dscan-rt-only-20260823-093058-3cbcda71",
+          "artifact_id": "QXJ0aWZhY3Q6MzM5NTc5OTMwMA==",
+          "artifact_digest": "8b1b173218c3a6e8944488fb3fe3a4b6",
+          "source_wrapper_commit": "78b8d11857653d83b9e8bd4191e8f0fced0c2a3c",
+          "heldout_likelihood": 0.7297412753105164,
+          "within_subject_eval_likelihood": 0.7347381711006165,
+          "checkpoint_step": 90000
+        },
+        "R-s2": {
+          "seed": 2,
+          "run_id": "h128-dscan-rt-only-20260823-093058-1d8da14f",
+          "artifact_name": "gru-output-h128-dscan-rt-only-20260823-093058-1d8da14f",
+          "artifact_id": "QXJ0aWZhY3Q6MzM5NTg0NTkyOA==",
+          "artifact_digest": "931cc13a20a65d94e3b5389fa0685346",
+          "source_wrapper_commit": "78b8d11857653d83b9e8bd4191e8f0fced0c2a3c",
+          "heldout_likelihood": 0.7297912836074829,
+          "within_subject_eval_likelihood": 0.7347826361656189,
+          "checkpoint_step": 90000
+        }
+      }
+    },
+    "L": {
+      "role": "second: lick counts only",
+      "status": "complete",
+      "group": "h128-dscan-licks-only@20260823-093110",
+      "source_variant": "studies/07-gru-timing-inputs/variants/h128-dscan-licks-only",
+      "inputs": [
+        "prev choice",
+        "prev reward",
+        "prev n_lick_left",
+        "prev n_lick_right"
+      ],
+      "timing_features": {
+        "enabled": true,
+        "shuffle": false,
+        "reaction_time": false,
+        "lick_counts": true
+      },
+      "architecture": {
+        "model": "gru",
+        "hidden_size": 128,
+        "subject_embedding_size": 4,
+        "session_encoding_type": "scalar"
+      },
+      "runs": {
+        "L-s0": {
+          "seed": 0,
+          "run_id": "h128-dscan-licks-only-20260823-093110-70ec9561",
+          "artifact_name": "gru-output-h128-dscan-licks-only-20260823-093110-70ec9561",
+          "artifact_id": "QXJ0aWZhY3Q6MzQwMjU4MTgwOA==",
+          "artifact_digest": "c024212258a57026f868cb5bb30071f5",
+          "source_wrapper_commit": "78b8d11857653d83b9e8bd4191e8f0fced0c2a3c",
+          "heldout_likelihood": 0.736685037612915,
+          "within_subject_eval_likelihood": 0.7421973943710327,
+          "checkpoint_step": 90000
+        },
+        "L-s1": {
+          "seed": 1,
+          "run_id": "h128-dscan-licks-only-20260823-093110-61c16e62",
+          "artifact_name": "gru-output-h128-dscan-licks-only-20260823-093110-61c16e62",
+          "artifact_id": "QXJ0aWZhY3Q6MzQwMjA0NTAwOA==",
+          "artifact_digest": "d588545ba1c35f9ce9b610e26ea6dbf3",
+          "source_wrapper_commit": "78b8d11857653d83b9e8bd4191e8f0fced0c2a3c",
+          "heldout_likelihood": 0.7365180850028992,
+          "within_subject_eval_likelihood": 0.7420641779899597,
+          "checkpoint_step": 90000
+        },
+        "L-s2": {
+          "seed": 2,
+          "run_id": "h128-dscan-licks-only-20260823-093110-78d6d65e",
+          "artifact_name": "gru-output-h128-dscan-licks-only-20260823-093110-78d6d65e",
+          "artifact_id": "QXJ0aWZhY3Q6MzQwMTg4NzI3NA==",
+          "artifact_digest": "9d03766b678fc2ec86ea4aa864058009",
+          "source_wrapper_commit": "78b8d11857653d83b9e8bd4191e8f0fced0c2a3c",
+          "heldout_likelihood": 0.7367258071899414,
+          "within_subject_eval_likelihood": 0.7421925067901611,
+          "checkpoint_step": 90000
+        }
+      }
+    }
+  },
+  "frozen_at_pt": "2026-10-29T06:53:05-07:00"
+}

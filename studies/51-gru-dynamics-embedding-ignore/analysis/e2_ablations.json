@@ -1,0 +1,269 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/e2_ablations.py",
+    "produced_at_pt": "2026-10-29T04:17:00-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/e2_ablations.py",
+        "sha256": "d0bab004980bda5c4d0f2fac48d3dde8d6f6f57cce6c40eabc324a95153dcee9"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/pca_C3-s0.npz",
+        "sha256": "1cfa347c0d3b890fb7b7c8938c3aa94d125001f2a44588cec3a0673c277cfcfe"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/index.json",
+        "sha256": "5491e793ad7eb84f29851fee930930325c1cb7fd2268c3a968a454050011ce96"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "e14ef88f14bd11a4023ff5df4d08a879239bacc20f8302aca8ea616f1cddd118"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/e2_ablations.json",
+        "sha256": "5bbbf43ae04bce23b0c9826ad3b21ff74456b73a55f50333b9117e0e01325401"
+      }
+    ]
+  },
+  "n_sessions": 1500,
+  "seed": 0,
+  "n_random": 5,
+  "replacement": "component along the subspace set to that of the all-trials mean state, every step",
+  "parity_median_abs_err": 4.023313522338867e-07,
+  "results": {
+    "intact": {
+      "LR_engaged": 0.7390734240630431,
+      "engage": 0.8484408641008296,
+      "three_way": 0.6441538921604821,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "side | full": {
+      "LR_engaged": 0.5000111098689509,
+      "engage": 0.7997802998681888,
+      "three_way": 0.4253306200016392,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "side | memory": {
+      "LR_engaged": 0.6216114386951753,
+      "engage": 0.8066034518468619,
+      "three_way": 0.5230532735651364,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "engage | full": {
+      "LR_engaged": 0.7294676234316585,
+      "engage": 0.7096224811810644,
+      "three_way": 0.5323769497579024,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "engage | memory": {
+      "LR_engaged": 0.7295534620941251,
+      "engage": 0.7479636650508044,
+      "three_way": 0.5612016446336817,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "side + engage | full": {
+      "LR_engaged": 0.5000111092992943,
+      "engage": 0.7173353224868249,
+      "three_way": 0.38148561198118885,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "side + engage | memory": {
+      "LR_engaged": 0.6176929831530372,
+      "engage": 0.7524592729039667,
+      "three_way": 0.48513969184039013,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 1 | full": {
+      "LR_engaged": 0.7329625151428103,
+      "engage": 0.8474454875409996,
+      "three_way": 0.6385497689135788,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 1 | memory": {
+      "LR_engaged": 0.7330245542041637,
+      "engage": 0.8474643665949598,
+      "three_way": 0.6386132353567661,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 2 | full": {
+      "LR_engaged": 0.7378165966045007,
+      "engage": 0.8472253075344621,
+      "three_way": 0.6422343971312033,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 2 | memory": {
+      "LR_engaged": 0.7378230826868373,
+      "engage": 0.8472451885243762,
+      "three_way": 0.642254611543984,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 3 | full": {
+      "LR_engaged": 0.7316058888507234,
+      "engage": 0.843547816482249,
+      "three_way": 0.6345409903915332,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 3 | memory": {
+      "LR_engaged": 0.7316080146686996,
+      "engage": 0.8435507838533668,
+      "three_way": 0.6345449023097772,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 4 | full": {
+      "LR_engaged": 0.7251916504994873,
+      "engage": 0.8423487373026233,
+      "three_way": 0.6285758556957922,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 4 | memory": {
+      "LR_engaged": 0.7253733841622828,
+      "engage": 0.8425152343592076,
+      "three_way": 0.6288436354050385,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 5 | full": {
+      "LR_engaged": 0.7201232888726872,
+      "engage": 0.844850468786459,
+      "three_way": 0.6264272163257222,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    },
+    "random 5 | memory": {
+      "LR_engaged": 0.720029107141378,
+      "engage": 0.8447514654495193,
+      "three_way": 0.6262791770807223,
+      "n_engaged": 724420,
+      "n_steps": 795150
+    }
+  },
+  "cost_vs_intact": {
+    "side | full": {
+      "LR_engaged": 0.23906231419409218,
+      "engage": 0.04866056423264087,
+      "three_way": 0.21882327215884295
+    },
+    "side | memory": {
+      "LR_engaged": 0.11746198536786778,
+      "engage": 0.041837412253967754,
+      "three_way": 0.12110061859534571
+    },
+    "engage | full": {
+      "LR_engaged": 0.009605800631384609,
+      "engage": 0.13881838291976523,
+      "three_way": 0.11177694240257974
+    },
+    "engage | memory": {
+      "LR_engaged": 0.009519961968918023,
+      "engage": 0.10047719905002528,
+      "three_way": 0.08295224752680042
+    },
+    "side + engage | full": {
+      "LR_engaged": 0.23906231476374884,
+      "engage": 0.13110554161400478,
+      "three_way": 0.2626682801792933
+    },
+    "side + engage | memory": {
+      "LR_engaged": 0.12138044091000588,
+      "engage": 0.09598159119686289,
+      "three_way": 0.159014200320092
+    },
+    "random 1 | full": {
+      "LR_engaged": 0.006110908920232805,
+      "engage": 0.0009953765598300635,
+      "three_way": 0.005604123246903292
+    },
+    "random 1 | memory": {
+      "LR_engaged": 0.006048869858879424,
+      "engage": 0.0009764975058698111,
+      "three_way": 0.005540656803716071
+    },
+    "random 2 | full": {
+      "LR_engaged": 0.0012568274585423866,
+      "engage": 0.001215556566367515,
+      "three_way": 0.001919495029278795
+    },
+    "random 2 | memory": {
+      "LR_engaged": 0.0012503413762058324,
+      "engage": 0.0011956755764533922,
+      "three_way": 0.0018992806164981335
+    },
+    "random 3 | full": {
+      "LR_engaged": 0.007467535212319687,
+      "engage": 0.00489304761858067,
+      "three_way": 0.009612901768948912
+    },
+    "random 3 | memory": {
+      "LR_engaged": 0.007465409394343481,
+      "engage": 0.004890080247462847,
+      "three_way": 0.009608989850704908
+    },
+    "random 4 | full": {
+      "LR_engaged": 0.0138817735635558,
+      "engage": 0.006092126798206365,
+      "three_way": 0.015578036464689915
+    },
+    "random 4 | memory": {
+      "LR_engaged": 0.013700039900760297,
+      "engage": 0.005925629741622029,
+      "three_way": 0.015310256755443619
+    },
+    "random 5 | full": {
+      "LR_engaged": 0.018950135190355932,
+      "engage": 0.0035903953143706646,
+      "three_way": 0.017726675834759953
+    },
+    "random 5 | memory": {
+      "LR_engaged": 0.019044316921665083,
+      "engage": 0.0036893986513103494,
+      "three_way": 0.017874715079759795
+    }
+  },
+  "cosine_side_engage": 0.09905722221695712
+}

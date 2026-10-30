@@ -1,0 +1,152 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/d1e_flow_own_context.py",
+    "produced_at_pt": "2026-10-29T03:14:32-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/d1e_flow_own_context.py",
+        "sha256": "e202d1ba5a4386faff8491a264741a24da091ffb719af8ed5c7d51cc87810173"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s0.npz",
+        "sha256": "8debcb40b3dec029c0ed8050eff204b5d5ddbea011161c0c3ee9fe1e569c6ce6"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/d1e_flow_own_context.json",
+        "sha256": "ac37473474d8fa5cf8277521854e5d000ce09936dcb8dab22bf88b30a10e2758"
+      }
+    ]
+  },
+  "attractor_check_vs_F2": {
+    "R rewarded": {
+      "median_abs_logit_diff_vs_F2": 0.0481912739655137,
+      "share_within_0.05": 0.5162866449511401
+    },
+    "R unrewarded": {
+      "median_abs_logit_diff_vs_F2": 0.009817143604855083,
+      "share_within_0.05": 0.9820846905537459
+    },
+    "L rewarded": {
+      "median_abs_logit_diff_vs_F2": 0.0721625550601932,
+      "share_within_0.05": 0.40522875816993464
+    },
+    "L unrewarded": {
+      "median_abs_logit_diff_vs_F2": 0.004046804199579146,
+      "share_within_0.05": 0.998371335504886
+    }
+  },
+  "attractor_spread": {
+    "R rewarded": {
+      "pc1_10_90": [
+        -3.39,
+        -2.936
+      ],
+      "pc2_10_90": [
+        -1.966,
+        -1.204
+      ],
+      "logit_10_50_90": [
+        3.636,
+        4.435,
+        5.335
+      ]
+    },
+    "R unrewarded": {
+      "pc1_10_90": [
+        -2.937,
+        -2.66
+      ],
+      "pc2_10_90": [
+        0.696,
+        1.294
+      ],
+      "logit_10_50_90": [
+        2.586,
+        3.07,
+        3.543
+      ]
+    },
+    "L rewarded": {
+      "pc1_10_90": [
+        2.333,
+        2.628
+      ],
+      "pc2_10_90": [
+        -2.43,
+        -1.429
+      ],
+      "logit_10_50_90": [
+        -4.183,
+        -3.806,
+        -3.278
+      ]
+    },
+    "L unrewarded": {
+      "pc1_10_90": [
+        2.508,
+        2.824
+      ],
+      "pc2_10_90": [
+        0.445,
+        1.195
+      ],
+      "logit_10_50_90": [
+        -3.437,
+        -3.066,
+        -2.742
+      ]
+    }
+  },
+  "prototypes": {
+    "determinism / stickiness | low": "455526",
+    "determinism / stickiness | high": "802252",
+    "side bias | low": "473361",
+    "side bias | high": "770777",
+    "slow learning / long choice memory | low": "791096",
+    "slow learning / long choice memory | high": "632105"
+  },
+  "n_sample": 20000,
+  "n_per_mouse": 8,
+  "n_iter": 800,
+  "seed": 19
+}

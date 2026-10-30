@@ -1,0 +1,127 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/d1f_fixed_points_flow.py",
+    "produced_at_pt": "2026-10-29T03:14:50-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/d1f_fixed_points_flow.py",
+        "sha256": "cae9351b68075a433c6d16121efb74e7e9530d6f799737e6f3c04ba6bfc65a69"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s0.npz",
+        "sha256": "8debcb40b3dec029c0ed8050eff204b5d5ddbea011161c0c3ee9fe1e569c6ce6"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/d1f_fixed_points_flow.json",
+        "sha256": "dbcde2d8ac789c47ab77ab5d8f3dc8af9ea0f6ee1dd0b802662962c911e072b4"
+      }
+    ]
+  },
+  "n_starts": 300,
+  "n_iter": 600,
+  "context": "all sessions",
+  "fixed_points": {
+    "R rewarded": [
+      {
+        "pc12": [
+          -3.1588,
+          -1.5381
+        ],
+        "stable": true,
+        "logit_right": 4.343873082839509,
+        "n_starts_reaching": 300
+      }
+    ],
+    "R unrewarded": [
+      {
+        "pc12": [
+          -2.7895,
+          1.0161
+        ],
+        "stable": true,
+        "logit_right": 3.0493293305008122,
+        "n_starts_reaching": 300
+      }
+    ],
+    "L rewarded": [
+      {
+        "pc12": [
+          2.6771,
+          -4.3601
+        ],
+        "stable": true,
+        "logit_right": -4.978460557476977,
+        "n_starts_reaching": 0
+      },
+      {
+        "pc12": [
+          2.71,
+          -4.0976
+        ],
+        "stable": false,
+        "logit_right": -4.947897027959329,
+        "n_starts_reaching": 0
+      },
+      {
+        "pc12": [
+          2.5675,
+          -2.0984
+        ],
+        "stable": true,
+        "logit_right": -4.037434635155488,
+        "n_starts_reaching": 300
+      }
+    ],
+    "L unrewarded": [
+      {
+        "pc12": [
+          2.6623,
+          0.8311
+        ],
+        "stable": true,
+        "logit_right": -3.045045731794646,
+        "n_starts_reaching": 300
+      }
+    ]
+  }
+}

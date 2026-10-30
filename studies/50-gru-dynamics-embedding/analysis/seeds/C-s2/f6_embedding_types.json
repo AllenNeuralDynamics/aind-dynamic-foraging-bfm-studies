@@ -1,0 +1,168 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/f6_embedding_types.py",
+    "produced_at_pt": "2026-10-28T13:08:19-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f6_embedding_types.py",
+        "sha256": "98c339dc24a58ff00d90744762b9ea78fd136b696fc77efc618668279de056f8"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-464e627f"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/checkpoints/index.json",
+        "sha256": "857073fa535edd31f4ac43e43e0a53158fa13a5a68e0cb7d6f2f778f02f0ec6c"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "2d3068536eb3e515d29f366db0d2d8bbb7b416cb23c773b0e820dbd064cccaa0"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s2/f6_embedding_types.json",
+        "sha256": "44b69908c11d7aa379b5759195fd76311784ab89c3f8336a8fa4859297ce98c2"
+      }
+    ]
+  },
+  "n_mice": 614,
+  "ks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "mixtures": {
+    "embedding": {
+      "bic": [
+        -11050.821213458925,
+        -11121.732075075499,
+        -11086.173815103584,
+        -11043.677082584036,
+        -10975.74580075667,
+        -10904.36071668767,
+        -10858.451465288137,
+        -10801.198171863622
+      ],
+      "best_k": 2,
+      "gain_best_vs_1": 70.91086161657404,
+      "null_gain_95": 0.0,
+      "t_df": 8.132522483805172,
+      "t_null_gain_median": 18.361808476922306,
+      "t_null_gain_95": 84.73468032481453,
+      "k2_weights": [
+        0.6575502531379122,
+        0.3424497468620878
+      ],
+      "k2_mean_separation_mahalanobis": 1.202279490452711,
+      "k2_cov_scale_ratio": 1.5035240445596951,
+      "skew": [
+        -0.21948026247810629,
+        0.9974051575618831,
+        0.19205042054230753,
+        0.530913718169451
+      ],
+      "excess_kurtosis": [
+        0.6772358404326146,
+        2.6738882171669625,
+        1.090772243375243,
+        2.743647906910856
+      ],
+      "mean_excess_kurtosis_whitened": 1.4518977267548414
+    },
+    "animal behaviour": {
+      "bic": [
+        -6322.620624731137,
+        -7178.744430643232,
+        -7138.035376960512,
+        -7049.009943510362,
+        -6890.627831515949,
+        -6700.345027297822,
+        -6515.2399126403525,
+        -6338.045062207716
+      ],
+      "best_k": 2,
+      "gain_best_vs_1": 856.1238059120951,
+      "null_gain_95": 0.0,
+      "t_df": 4.242335107609578,
+      "t_null_gain_median": 279.6597092036759,
+      "t_null_gain_95": 632.3963271813695,
+      "k2_weights": [
+        0.9654289095007337,
+        0.034571090499266384
+      ],
+      "k2_mean_separation_mahalanobis": 2.6589420061515896,
+      "k2_cov_scale_ratio": 1.48006995645611,
+      "skew": [
+        0.13520888158364353,
+        0.18528234937822752,
+        0.2561563022249864,
+        12.86143551498496,
+        -0.30824308863156225,
+        -0.22945201599567414,
+        -0.18523258670844325
+      ],
+      "excess_kurtosis": [
+        1.867361012741208,
+        0.6442775642392586,
+        -0.12969406343621914,
+        240.47642784060216,
+        -0.24466827299951133,
+        -0.2874261276818064,
+        -0.0946344000466719
+      ],
+      "mean_excess_kurtosis_whitened": 24.759103454652962
+    }
+  },
+  "n_null": 100,
+  "mantel": {
+    "animal behaviour": {
+      "rho": 0.48685344265147845,
+      "null_95": 0.029516784258455327,
+      "p": 0.000999000999000999
+    },
+    "GRU behaviour": {
+      "rho": 0.561919153929046,
+      "null_95": 0.028848465873313443,
+      "p": 0.000999000999000999
+    },
+    "RL parameters": {
+      "rho": 0.5802922710229221,
+      "null_95": 0.03506563583278244,
+      "p": 0.000999000999000999
+    }
+  },
+  "n_perm": 1000,
+  "embedding_distance": "Mahalanobis"
+}

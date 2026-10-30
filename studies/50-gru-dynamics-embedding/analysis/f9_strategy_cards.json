@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/f9_strategy_cards.py",
+    "produced_at_pt": "2026-10-28T17:20:28-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f9_strategy_cards.py",
+        "sha256": "e4405cdbe336f6d289ebfaa675eab81ed22ba79344bb1f5424a4460cb1ebff31"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f9_strategy_cards.json",
+        "sha256": "d77e7f925032fb6ad8275c6f95d0fb3e8f689e06dcbb5bf5e30485cbc84f017c"
+      }
+    ]
+  },
+  "axis_names": [
+    "determinism / stickiness",
+    "side bias",
+    "slow learning / long choice memory",
+    "dynamics-only (v retention ↓)"
+  ],
+  "prototypes": {
+    "determinism / stickiness | low": "455526",
+    "determinism / stickiness | high": "802252",
+    "side bias | low": "473361",
+    "side bias | high": "770777",
+    "slow learning / long choice memory | low": "791096",
+    "slow learning / long choice memory | high": "632105",
+    "dynamics-only (v retention ↓) | low": "790724",
+    "dynamics-only (v retention ↓) | high": "823972"
+  },
+  "cards": [
+    "455526",
+    "802252",
+    "473361",
+    "770777",
+    "791096",
+    "632105",
+    "457495",
+    "818909",
+    "634704",
+    "808582",
+    "786237",
+    "632104"
+  ],
+  "profiles_csv": "analysis/f9_mouse_strategy_profiles.csv",
+  "n_mice": 614
+}

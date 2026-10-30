@@ -1,0 +1,466 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/i3_tdr_dynamics.py",
+    "produced_at_pt": "2026-10-29T04:23:28-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i3_tdr_dynamics.py",
+        "sha256": "c46acee0ffb6ed5c7b912b9e88a51b3cc83eb7dcd511f58d0ebb723bfd5a2dd1"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/pca_C3-s0.npz",
+        "sha256": "1cfa347c0d3b890fb7b7c8938c3aa94d125001f2a44588cec3a0673c277cfcfe"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/index.json",
+        "sha256": "5491e793ad7eb84f29851fee930930325c1cb7fd2268c3a968a454050011ce96"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "e14ef88f14bd11a4023ff5df4d08a879239bacc20f8302aca8ea616f1cddd118"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i3_tdr_dynamics.json",
+        "sha256": "82d1e201d5ba67382db4e4ecfdbc8d2371e89ae9195f0e5073d2e77227c63c12"
+      }
+    ]
+  },
+  "n_transitions": 1000000,
+  "seed": 4,
+  "axes": [
+    "value",
+    "choice",
+    "reward",
+    "value×choice",
+    "choice×reward",
+    "ignored",
+    "engage"
+  ],
+  "transitions": {
+    "R+ | from R lobe (stay)": {
+      "n": 160408,
+      "slope": 0.7505598375232105,
+      "intercept": 0.5341545812995956,
+      "r2": 0.9565586814604633,
+      "mean_jump": {
+        "value": 0.1874,
+        "choice": -0.1383,
+        "reward": 0.79,
+        "value×choice": -0.0041,
+        "choice×reward": 0.1939,
+        "ignored": 0.0448,
+        "engage": 0.1809
+      }
+    },
+    "R+ | from L lobe (switch)": {
+      "n": 33430,
+      "slope": 0.5812789069883519,
+      "intercept": 0.06394409044077203,
+      "r2": 0.9238182941450693,
+      "mean_jump": {
+        "value": 0.376,
+        "choice": 2.5208,
+        "reward": 1.4298,
+        "value×choice": -0.047,
+        "choice×reward": 0.342,
+        "ignored": 0.1148,
+        "engage": 0.4138
+      }
+    },
+    "R+ | from post-ignore (after an ignore)": {
+      "n": 9545,
+      "slope": 0.806841172566469,
+      "intercept": 0.5929619937725902,
+      "r2": 0.9839690668877885,
+      "mean_jump": {
+        "value": 0.3797,
+        "choice": -2.1844,
+        "reward": 1.8247,
+        "value×choice": -0.3565,
+        "choice×reward": 0.6269,
+        "ignored": -1.0436,
+        "engage": 0.3021
+      }
+    },
+    "R− | from R lobe (stay)": {
+      "n": 227822,
+      "slope": 0.7852487154999958,
+      "intercept": 0.3814219369105965,
+      "r2": 0.9641084919613164,
+      "mean_jump": {
+        "value": 0.0818,
+        "choice": 0.1427,
+        "reward": -0.7224,
+        "value×choice": 0.0136,
+        "choice×reward": -0.2384,
+        "ignored": -0.0838,
+        "engage": -0.1428
+      }
+    },
+    "R− | from L lobe (switch)": {
+      "n": 19464,
+      "slope": 0.6142844261003277,
+      "intercept": -0.153365335471982,
+      "r2": 0.931799251413275,
+      "mean_jump": {
+        "value": -0.0607,
+        "choice": 2.9235,
+        "reward": -0.8446,
+        "value×choice": 0.1022,
+        "choice×reward": 0.1267,
+        "ignored": 0.1291,
+        "engage": -0.0558
+      }
+    },
+    "R− | from post-ignore (after an ignore)": {
+      "n": 9751,
+      "slope": 0.8420265860138972,
+      "intercept": 0.4075409903731944,
+      "r2": 0.9856060208473004,
+      "mean_jump": {
+        "value": 0.1784,
+        "choice": -1.7277,
+        "reward": -0.2132,
+        "value×choice": -0.2866,
+        "choice×reward": 0.1021,
+        "ignored": -1.0914,
+        "engage": -0.1583
+      }
+    },
+    "L+ | from R lobe (switch)": {
+      "n": 34226,
+      "slope": 0.6916342301964713,
+      "intercept": -0.11456623361509133,
+      "r2": 0.8983116222338929,
+      "mean_jump": {
+        "value": -0.3421,
+        "choice": -3.1981,
+        "reward": 1.4892,
+        "value×choice": -0.2062,
+        "choice×reward": -0.2989,
+        "ignored": 0.1372,
+        "engage": 0.1794
+      }
+    },
+    "L+ | from L lobe (stay)": {
+      "n": 161455,
+      "slope": 0.7624220859543248,
+      "intercept": -0.6852663776372531,
+      "r2": 0.9504320610137462,
+      "mean_jump": {
+        "value": -0.2645,
+        "choice": -0.2475,
+        "reward": 0.7529,
+        "value×choice": 0.106,
+        "choice×reward": -0.1905,
+        "ignored": 0.0229,
+        "engage": 0.2387
+      }
+    },
+    "L+ | from post-ignore (after an ignore)": {
+      "n": 9510,
+      "slope": 0.8552341636220966,
+      "intercept": -0.29854208755375294,
+      "r2": 0.9586949822613282,
+      "mean_jump": {
+        "value": -0.3291,
+        "choice": -4.9074,
+        "reward": 2.0521,
+        "value×choice": -0.2314,
+        "choice×reward": -0.4125,
+        "ignored": -1.239,
+        "engage": 0.2323
+      }
+    },
+    "L− | from R lobe (switch)": {
+      "n": 18885,
+      "slope": 0.7050621811452311,
+      "intercept": 0.09120230439411013,
+      "r2": 0.9400434671136191,
+      "mean_jump": {
+        "value": 0.0041,
+        "choice": -2.5886,
+        "reward": -0.8814,
+        "value×choice": -0.2748,
+        "choice×reward": -0.0999,
+        "ignored": -0.1523,
+        "engage": -0.222
+      }
+    },
+    "L− | from L lobe (stay)": {
+      "n": 218752,
+      "slope": 0.7767738787094517,
+      "intercept": -0.440438391681331,
+      "r2": 0.9531299456122321,
+      "mean_jump": {
+        "value": -0.084,
+        "choice": 0.1742,
+        "reward": -0.7524,
+        "value×choice": -0.0583,
+        "choice×reward": 0.2876,
+        "ignored": -0.037,
+        "engage": -0.1152
+      }
+    },
+    "L− | from post-ignore (after an ignore)": {
+      "n": 8965,
+      "slope": 0.8558071101802627,
+      "intercept": -0.018489725922969238,
+      "r2": 0.956926209913863,
+      "mean_jump": {
+        "value": -0.0054,
+        "choice": -4.3633,
+        "reward": 0.0261,
+        "value×choice": -0.3184,
+        "choice×reward": -0.0328,
+        "ignored": -1.4833,
+        "engage": -0.1877
+      }
+    },
+    "ignore | from R lobe (ignore)": {
+      "n": 19613,
+      "slope": 0.7865696675456046,
+      "intercept": 0.3981875284685352,
+      "r2": 0.9673352964785891,
+      "mean_jump": {
+        "value": 0.0806,
+        "choice": 2.0392,
+        "reward": -0.3129,
+        "value×choice": 0.4638,
+        "choice×reward": -0.4028,
+        "ignored": 1.0211,
+        "engage": -0.3666
+      }
+    },
+    "ignore | from L lobe (ignore)": {
+      "n": 18537,
+      "slope": 0.6153594889275087,
+      "intercept": -0.030197367003485166,
+      "r2": 0.9461288415866582,
+      "mean_jump": {
+        "value": 0.2909,
+        "choice": 4.7168,
+        "reward": -0.5556,
+        "value×choice": 0.2067,
+        "choice×reward": -0.0599,
+        "ignored": 1.6159,
+        "engage": -0.3692
+      }
+    },
+    "ignore | from post-ignore (ignore)": {
+      "n": 49637,
+      "slope": 0.84023299426084,
+      "intercept": 0.2986938983004001,
+      "r2": 0.9869257903617012,
+      "mean_jump": {
+        "value": 0.1223,
+        "choice": 0.1257,
+        "reward": -0.0525,
+        "value×choice": 0.0465,
+        "choice×reward": -0.086,
+        "ignored": -0.0073,
+        "engage": -0.2374
+      }
+    }
+  },
+  "attractors_all_sessions_context": {
+    "R+": {
+      "tdr": [
+        [
+          2.2256498136572356,
+          0.618380437108497,
+          1.5717795728576536,
+          0.4901652775871857,
+          0.36667107128659193,
+          -0.9154115787824105,
+          -0.579732107078124
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "R−": {
+      "tdr": [
+        [
+          2.99276496106581,
+          0.981254783684306,
+          -0.9835520648000408,
+          1.5000318004306237,
+          -0.23833798903402917,
+          -0.2599792530951035,
+          -0.6371213933663116
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L+": {
+      "tdr": [
+        [
+          -3.088294117545292,
+          -2.0336617265457586,
+          1.5574414112790176,
+          0.8192465474813029,
+          0.3019511143807937,
+          -0.7504866362966348,
+          0.07372440157891719
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L−": {
+      "tdr": [
+        [
+          -2.8498212243364027,
+          -1.2134830702789907,
+          -0.7096386804208467,
+          0.11229096947069708,
+          0.2756609283997457,
+          -0.023835160501793524,
+          -0.664799397052918
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "ignore": {
+      "tdr": [
+        [
+          1.7956597160116528,
+          4.103872781571866,
+          -0.5701035572297342,
+          2.4154915990074906,
+          -1.1110030595541158,
+          1.8933139673670532,
+          -4.4933482528109785
+        ]
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    }
+  },
+  "forward_iterations": 600,
+  "n_starts": 300,
+  "readout_vs_value_by_cluster": {
+    "R+": {
+      "a": 1.1814176591887802,
+      "b": 1.6591077085961705,
+      "value_at_neutral_readout": -1.404336303670453,
+      "r2": 0.6575573304067814,
+      "value_mean": 1.2554320628024997,
+      "n": 203484
+    },
+    "R−": {
+      "a": 1.0897311757513797,
+      "b": 0.63529130238474,
+      "value_at_neutral_readout": -0.5829798362396127,
+      "r2": 0.6216880204797222,
+      "value_mean": 1.3413682066471486,
+      "n": 257470
+    },
+    "L+": {
+      "a": 1.013751911543675,
+      "b": -1.6249844861203464,
+      "value_at_neutral_readout": 1.602940983505448,
+      "r2": 0.7771933624316363,
+      "value_mean": -1.5463183105756155,
+      "n": 204625
+    },
+    "L−": {
+      "a": 1.0438361576386865,
+      "b": -0.5719491394502859,
+      "value_at_neutral_readout": 0.5479299938642865,
+      "r2": 0.7883818558375494,
+      "value_mean": -1.4730345781560668,
+      "n": 247013
+    },
+    "ignore": {
+      "a": 1.048051027320758,
+      "b": -0.8901587121307762,
+      "value_at_neutral_readout": 0.8493467292393021,
+      "r2": 0.758241629876372,
+      "value_mean": 0.9229484506411612,
+      "n": 87408
+    }
+  },
+  "C_study12_transitions": {
+    "R rewarded | from R lobe (stay)": {
+      "slope": 0.7935254532563268,
+      "r2": 0.9695514908715112,
+      "n": 183033
+    },
+    "R rewarded | from L lobe (switch)": {
+      "slope": 0.6623411182791884,
+      "r2": 0.9346308703391365,
+      "n": 39872
+    },
+    "R unrewarded | from R lobe (stay)": {
+      "slope": 0.797455890932143,
+      "r2": 0.9709825943114496,
+      "n": 258359
+    },
+    "R unrewarded | from L lobe (switch)": {
+      "slope": 0.6764563134144578,
+      "r2": 0.9605814188166882,
+      "n": 23537
+    },
+    "L rewarded | from R lobe (switch)": {
+      "slope": 0.7315778524141584,
+      "r2": 0.9451072887799739,
+      "n": 40475
+    },
+    "L rewarded | from L lobe (stay)": {
+      "slope": 0.786492973977349,
+      "r2": 0.9829803443732333,
+      "n": 184555
+    },
+    "L unrewarded | from R lobe (switch)": {
+      "slope": 0.7396267305610009,
+      "r2": 0.9712803170440868,
+      "n": 22437
+    },
+    "L unrewarded | from L lobe (stay)": {
+      "slope": 0.7809188411551512,
+      "r2": 0.9784376744605996,
+      "n": 247732
+    }
+  }
+}

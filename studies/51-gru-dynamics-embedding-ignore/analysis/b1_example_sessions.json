@@ -1,0 +1,96 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/b1_example_sessions.py",
+    "produced_at_pt": "2026-10-29T03:15:39-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/b1_example_sessions.py",
+        "sha256": "cbaea356821d6191039678d7344781afb74c3f57a421c7a53ad351eb9d03791f"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/b1_example_sessions.json",
+        "sha256": "88195497f815de8aa3b436824baa11cf3052cfdc8205f946acf648cb573d24a1"
+      }
+    ]
+  },
+  "sessions": {
+    "Uncoupled Baiting": {
+      "ses_idx": "726477__726477_2024-06-28_94320",
+      "subject_id": "726477",
+      "n_trials": 480,
+      "n_ignored": 1,
+      "C3_LR_engaged_likelihood": 0.7201456837457588,
+      "C3_engage_likelihood": 0.9857353088815819,
+      "C_LR_likelihood": 0.7203123317624557,
+      "C_n_trials": 479
+    },
+    "Coupled Baiting": {
+      "ses_idx": "453477__453477_2019-07-06_183438",
+      "subject_id": "453477",
+      "n_trials": 568,
+      "n_ignored": 13,
+      "C3_LR_engaged_likelihood": 0.5518191100666865,
+      "C3_engage_likelihood": 0.9273034472586925,
+      "C_LR_likelihood": 0.5550794264206341,
+      "C_n_trials": 555
+    },
+    "Uncoupled Without Baiting": {
+      "ses_idx": "707254__707254_2024-03-29_112018",
+      "subject_id": "707254",
+      "n_trials": 486,
+      "n_ignored": 3,
+      "C3_LR_engaged_likelihood": 0.8711265243362135,
+      "C3_engage_likelihood": 0.9695830440704494,
+      "C_LR_likelihood": 0.8703588193719738,
+      "C_n_trials": 483
+    },
+    "Coupled Without Baiting": {
+      "ses_idx": "779531__779531_2025-04-16_95218",
+      "subject_id": "779531",
+      "n_trials": 646,
+      "n_ignored": 77,
+      "C3_LR_engaged_likelihood": 0.8212973779378564,
+      "C3_engage_likelihood": 0.7286532050062249,
+      "C_LR_likelihood": 0.8189635600673975,
+      "C_n_trials": 569
+    }
+  }
+}

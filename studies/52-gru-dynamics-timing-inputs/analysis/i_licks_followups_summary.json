@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/fig_i_licks_followups.py",
+    "produced_at_pt": "2026-10-29T18:22:08-07:00",
+    "studies_git_sha": "5fbc37e2e44f3802692ce823c14c01bbfe2d1cfd",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/fig_i_licks_followups.py",
+        "sha256": "7e6b9c3bca86b53060ce5d2d5a81f740d33ef0c510d5ffbf90003343a133ef3b"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_licks_followups_L-s0.json",
+        "sha256": "cd16be5651c093e130e19c6e2025d748e5d69ba5fe0ee9b718756528b21a1d8f"
+      },
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_licks_followups_L-s1.json",
+        "sha256": "13e95c2e31d3159b70bd2ccb1fbe7a3ef44db07af8b876b6e8da76bd592d0321"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-70ec9561"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-61c16e62"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/i_licks_followups_L-s0.npz",
+        "sha256": "090540b1152d16a0e851e0670bebbc8501d0dc7d54d1609194f2fe26ef79cd93"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/i_licks_followups_L-s1.npz",
+        "sha256": "04c9b90b34e577505bc1a8381d9f1736fa178b3d784922519d5d403ed5214bf4"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/i_licks_followups_summary.json",
+        "sha256": "98124423bf999c0d05619da1b24ebeef911f371b3426527597c2c074f3baddd9"
+      }
+    ]
+  },
+  "L-s0": {
+    "FL1": {
+      "fed trial rewarded": {
+        "reward": 0.4997575283050537,
+        "licks": 0.38281941413879395,
+        "both": 1.0155861377716064
+      },
+      "fed trial unrewarded": {
+        "reward": -0.6995000839233398,
+        "licks": -0.4712638854980469,
+        "both": -1.0597565174102783
+      }
+    },
+    "FL2": {
+      "fed trial rewarded": [
+        1.0155861377716064,
+        1.181291103363037,
+        1.331268072128296,
+        1.4521484375,
+        1.5284775495529175,
+        1.5674227476119995,
+        1.5149329900741577
+      ],
+      "fed trial unrewarded": [
+        -1.0597565174102783,
+        -1.2198206186294556,
+        -1.357017993927002,
+        -1.4614026546478271,
+        -1.5280635356903076,
+        -1.5537848472595215,
+        -1.48372220993042
+      ]
+    }
+  },
+  "L-s1": {
+    "FL1": {
+      "fed trial rewarded": {
+        "reward": 0.530327558517456,
+        "licks": 0.43753576278686523,
+        "both": 0.9813700914382935
+      },
+      "fed trial unrewarded": {
+        "reward": -0.6163234710693359,
+        "licks": -0.4214130640029907,
+        "both": -1.0412065982818604
+      }
+    },
+    "FL2": {
+      "fed trial rewarded": [
+        0.9813700914382935,
+        1.2226660251617432,
+        1.4192585945129395,
+        1.5485339164733887,
+        1.6058835983276367,
+        1.5672754049301147,
+        1.4475524425506592
+      ],
+      "fed trial unrewarded": [
+        -1.0412065982818604,
+        -1.271573781967163,
+        -1.4573805332183838,
+        -1.5839097499847412,
+        -1.6446516513824463,
+        -1.6275317668914795,
+        -1.5167245864868164
+      ]
+    }
+  }
+}

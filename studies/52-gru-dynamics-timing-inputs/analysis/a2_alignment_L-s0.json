@@ -1,0 +1,120 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/a2_align_with_c.py",
+    "produced_at_pt": "2026-10-29T16:32:37-07:00",
+    "studies_git_sha": "b0385d8747376867c166c07f2876fdc2c7b1561d",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/a2_align_with_c.py",
+        "sha256": "2f0f78517546b2365fa6e6f02569729eee092f7c95518c4a408814237c606f21"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-70ec9561"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/trial_states_L-s0.parquet",
+        "sha256": "d32e2e957d487bcf541ee62210a6aa38035bfbfbb562454a3e32ac710c14ec68"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/a2_alignment_L-s0.json",
+        "sha256": "89bf470bf400e74a3a9e092f2aa6911a2a1ed4fe1f679c0b8052ce96841cdd59"
+      }
+    ]
+  },
+  "key": "L-s0",
+  "alignment": {
+    "rows": {
+      "model": 4339402,
+      "C": 4339402,
+      "shared": 4339402
+    },
+    "sessions": {
+      "model": 8903,
+      "C": 8903
+    },
+    "same_actions": true,
+    "same_rewards": true
+  },
+  "overall": {
+    "n_trials": 4339402,
+    "n_sessions": 8903,
+    "n_subjects": 614,
+    "likelihood": 0.7421974335327111,
+    "likelihood_C": 0.7338507031876187,
+    "diff": 0.008346730345092368,
+    "share_of_total_log_gain": 1.0
+  },
+  "by_rt_availability": {
+    "rt_present": {
+      "n_trials": 3259324,
+      "n_sessions": 7076,
+      "n_subjects": 506,
+      "likelihood": 0.7569620035578837,
+      "likelihood_C": 0.7476497299550214,
+      "diff": 0.009312273602862242,
+      "share_of_total_log_gain": 0.8220798189419288
+    },
+    "rt_partial": {
+      "n_trials": 48342,
+      "n_sessions": 168,
+      "n_subjects": 119,
+      "likelihood": 0.7488086465200363,
+      "likelihood_C": 0.7441927917904414,
+      "diff": 0.004615854729594915,
+      "share_of_total_log_gain": 0.006090704473629139
+    },
+    "rt_absent": {
+      "n_trials": 1031736,
+      "n_sessions": 1659,
+      "n_subjects": 111,
+      "likelihood": 0.6971308921928573,
+      "likelihood_C": 0.6914560977729886,
+      "diff": 0.005674794419868734,
+      "share_of_total_log_gain": 0.17182947658444192
+    }
+  },
+  "rt_missing": {
+    "trials": 1033401,
+    "sessions_all_missing": 1659,
+    "sessions_partial": 168,
+    "subjects_all_missing": 108,
+    "fraction_by_task": {
+      "<missing>": 0.0,
+      "Coupled Baiting": 0.6197,
+      "Coupled Without Baiting": 0.0019,
+      "Random Walk": 1.0,
+      "Uncoupled Baiting": 0.0003,
+      "Uncoupled Without Baiting": 0.2497
+    }
+  }
+}
