@@ -128,8 +128,8 @@ tables, claims and JSON keys. The words after the comma say how values were comb
   trials counts more;
 - **per-subject mean** or **per-subject median**: one value per subject, then the mean or the
   median over subjects;
-- **subject-balanced**: one mean log value per subject, then the mean over subjects, then back
-  to a probability.
+- **subject-balanced**: every subject counts the same, whatever its number of trials; each
+  entry gives its own calculation.
 
 If a value also averages seeds, add `seed mean` and n: "held-out likelihood, trial-pooled, seed
 mean (n = 3 seeds)". JSON keys use the same words in snake_case
@@ -324,9 +324,10 @@ _Code_: `studies/01-gru-scaling-law/analysis/pswitch_history_patterns.py`
 
 <a id="metric-bottleneck-openness"></a>**Bottleneck openness**:
 For one family of disRNN bottleneck channels, the sum over its channels of `clip(1 − σ, 0, 1)`,
-where σ is the channel's learned noise scale. 0 means every channel is closed and passes no
-information; the number of channels means every channel is fully open. Lower is sparser. It has
-no unit (it is not in nats).
+where σ is the channel's learned noise scale (1 = unit noise, 0 = no noise). 0 means every
+channel has unit noise; the number of channels means no channel has noise. Lower is sparser. It
+is a sparsity index based on noise only: a channel with openness 0 still adds its input to the
+noise, so it can still pass information. It has no unit (it is not in nats).
 _Avoid_: total openness, Σ(1−σ), interaction openness, open channels
 _Code_: `studies/03-disrnn-beta-scan/analysis/backfill_sparsity_metrics.py`
 
@@ -375,13 +376,16 @@ _Avoid_: embedding displacement, mean embedding distance (say which)
 _Code_: `studies/09-gru-cross-species-transfer/analysis/freeze_generalization_drivers.py`
 
 <a id="metric-task-design-distance"></a>**Task-design distance** (study 09):
-How far a cohort's task is from the AIND task. Four kinds appear: task-structure distance (the
-share of four categorical design features that differ from the nearest AIND task), full-design
-distance (the same over seven features), empirical schedule distance (between z-scored
-reward-schedule statistics) and LLM task distance (from a language model's pairwise similarity
-judgements). Each is 0 for an identical task.
+How far a cohort's task is from a reference task, by four measures with different references
+and scales; never treat them as one. Task-structure
+and full-design distance are the share of four or seven categorical design features that differ
+from the nearest AIND task (0 = all match). Empirical schedule distance is the distance from the
+Grossman mouse cohort over z-scored reward-schedule statistics (0 = same statistics as Grossman).
+LLM task distance is 1 minus the share of pairwise comparisons that a language model judged
+closer to AIND (0 = closest of the candidates, not identical).
 _Avoid_: task distance (say which)
-_Code_: `studies/09-gru-cross-species-transfer/analysis/freeze_task_design_features.py`
+_Code_: `studies/09-gru-cross-species-transfer/analysis/freeze_task_design_features.py`,
+`studies/09-gru-cross-species-transfer/analysis/report_llm_task_similarity.py`
 
 <a id="metric-effective-rank"></a>**Effective rank** (study 01):
 The number of dimensions an embedding really uses: `exp(entropy of the shares of variance along
@@ -452,9 +456,10 @@ over draws.
 Two ways to score an HB on a held-out session whose own parameters are unknown, defined in
 [study 13's glossary](studies/13-hb-subject-vs-gru-heldout/CONTEXT.md). Session-marginal
 (study 13) averages the likelihood of the whole session over parameter draws, which predicts
-each trial from the session's earlier trials as a particle filter does; trial-marginal (study
-08) averages each trial's choice probability over the draws, so it cannot learn within a
-session. Watch: the two can rank models differently.
+each trial from the session's earlier trials as a particle filter does. Trial-marginal (study
+08) averages each trial's choice probability over the draws with fixed weights: the forager
+still learns from earlier choices and rewards, but the score cannot learn within a session which
+parameter draws fit. Watch: the two can rank models differently.
 
 <a id="method-heldout-subject-scoring"></a>**Held-out-subject scoring**:
 How a model is scored on a subject it never trained on. A GRU or disRNN keeps its trained
@@ -466,8 +471,8 @@ half, the first K sessions), so state the split.
 <a id="method-disrnn-bottleneck"></a>**disRNN information bottleneck**:
 In a disRNN, each latent variable and each input to its update and choice networks passes
 through a channel that adds learned noise. A penalty weighted by β (and by a multiplier on the
-update network's latent inputs) rewards noise, so the channels the model does not need close and
-the model becomes sparse and easier to read. Watch: a larger β gives a sparser model and usually
+update network's latent inputs) pushes each channel toward unit noise and a small signal, so the
+channels the model does not need close and the model becomes sparse and easier to read. Watch: a larger β gives a sparser model and usually
 a lower held-out likelihood; compare [openness](#metric-bottleneck-openness) only at the same β
 and multiplier.
 
