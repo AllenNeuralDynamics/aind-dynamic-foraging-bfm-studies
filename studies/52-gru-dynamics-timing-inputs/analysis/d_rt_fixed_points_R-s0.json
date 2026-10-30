@@ -3,10 +3,10 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/d_rt_fixed_points.py",
-    "produced_at_pt": "2026-10-29T05:40:16-07:00",
-    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "produced_at_pt": "2026-10-29T16:39:31-07:00",
+    "studies_git_sha": "b0385d8747376867c166c07f2876fdc2c7b1561d",
     "studies_git_dirty": true,
-    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
     "wandb_groups": [],
     "source_studies_git_shas": [],
     "source_dispatcher_git_shas": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/52-gru-dynamics-timing-inputs/analysis/d_rt_fixed_points.py",
-        "sha256": "a95d0dc5a5a9718543dd7f804adb0321be7d82a9c764d59b90e609413e4c356c"
+        "sha256": "3934fb093f6fa4771fbab09e6c2828405e34a1955400676a1c466d29e4001f31"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -28,6 +28,26 @@
       {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-79c32692"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s0/run/outputs/checkpoints/index.json",
+        "sha256": "be242829a8b3b2a7d2c5d42ed89413d66a90b081b992e7241c235b5e5d78ff55"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "38b058e5d4fce47ad30829225db9ced347417b14b55e663865e04c5985163591"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/contexts_R-s0.npz",
+        "sha256": "d0bb2d280f89d7abd950ec78845b6653eafee28ec20b42e9b1e171b328cffa7e"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/trial_states_R-s0.parquet",
+        "sha256": "e44b0985998d531364faa0ed6976085a41b5257c18e3c2952e889167e76fe903"
       }
     ],
     "outputs": [

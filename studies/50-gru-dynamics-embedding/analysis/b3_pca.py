@@ -30,7 +30,7 @@ N_SHOWN = 20
 
 
 def _batches():
-    parquet = pq.ParquetFile(s12.trial_table_path())
+    parquet = pq.ParquetFile(s12._read_cache(s12.trial_table_path()))
     for batch in parquet.iter_batches(batch_size=BATCH, columns=s12.STATE_COLUMNS):
         yield np.column_stack([batch.column(c).to_numpy() for c in s12.STATE_COLUMNS]).astype(np.float64)
 

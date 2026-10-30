@@ -211,7 +211,7 @@ r8:
 # Phase G — robustness (r7). G1/G3 seed checks: fetch + extract C-s1, C-s2, rerun the core
 # producers per seed into analysis/seeds/<key>/ (S12_MODEL_KEY; GPU), then compare.
 g-seeds:
-	for k in C-s1 C-s2; do $(MAKE) extract MODEL=$$k && analysis/g_run_seed.sh $$k; done
+	for k in C-s1 C-s2; do $(MAKE) extract MODEL=$$k && analysis/g_run_seed.sh $$k || exit 1; done
 g1:
 	$(PYTHON) analysis/g1_seed_robustness.py
 g3:

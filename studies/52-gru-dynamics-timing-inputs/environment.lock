@@ -5,11 +5,12 @@
 # A1 tables and checkpoints and import the wrapper's post_training_analysis modules
 # (gru_trial_states with RESPONSE_COLUMNS, gru_step, gru_counterfactual).
 #
-# _meta.build_meta() parses the wrapper pin below into _meta.wrapper_git_sha. 56ab3ee is the
+# _meta.build_meta() parses the wrapper pin below into _meta.wrapper_git_sha. 81fba2b is the
 # wrapper commit that carries those modules (branch pck_2610, PR pending). The committed
 # JSON written before 2026-10-28 was produced from the same code while it was still
-# uncommitted on top of wrapper main 06c0a22; re-running a freeze stamps this pin.
--e git+https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper.git@56ab3ee9747cf79a4c2e81a887bc5bdff25168ed#egg=aind_dynamic_foraging_bfm_wrapper
+# uncommitted on top of wrapper main 06c0a22; JSON written 2026-10-28/29 carries 56ab3ee (the
+# same modules before the review fixes on #122, which change no path these studies use).
+-e git+https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper.git@81fba2b27cff62c24c8b1352977677200a898807#egg=aind_dynamic_foraging_bfm_wrapper
 
 # Freeze runtime as used (GPU box, 2026-10).
 python==3.12.15

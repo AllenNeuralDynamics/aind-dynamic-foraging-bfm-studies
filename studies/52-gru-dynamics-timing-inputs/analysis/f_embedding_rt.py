@@ -47,10 +47,10 @@ TASKS = ["Uncoupled Baiting", "Coupled Baiting", "Uncoupled Without Baiting", "C
 
 def embedding(root: Path) -> pd.DataFrame:
     outputs = root / "run" / "outputs"
-    index_map = json.loads((outputs / "subject_index_map.json").read_text())["subject_id_to_index"]
-    index = json.loads((outputs / "checkpoints" / "index.json").read_text())
+    index_map = json.loads(_pk03._read_cache(outputs / "subject_index_map.json").read_text())["subject_id_to_index"]
+    index = json.loads(_pk03._read_cache(outputs / "checkpoints" / "index.json").read_text())
     best = max(index["checkpoints"], key=lambda c: c["eval_likelihood"])
-    params = json.loads((outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
+    params = json.loads(_pk03._read_cache(outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
     table = np.asarray(params["multisubject_gru"]["subject_embeddings"])
     subjects = sorted(index_map, key=index_map.get)
     return pd.DataFrame(table[[index_map[s] for s in subjects]], index=pd.Index(subjects, name="subject_id"),
@@ -58,7 +58,7 @@ def embedding(root: Path) -> pd.DataFrame:
 
 
 def mouse_features() -> tuple[pd.DataFrame, pd.DataFrame]:
-    t = pd.read_parquet(CACHE / "trial_states_R-s0.parquet", columns=["subject_id", "ses_idx", "task", "reaction_time"])
+    t = pd.read_parquet(_pk03._read_cache(CACHE / "trial_states_R-s0.parquet"), columns=["subject_id", "ses_idx", "task", "reaction_time"])
     present = t["reaction_time"].notna().groupby(t["ses_idx"]).transform("all")
     log_rt = np.log(t.loc[present, "reaction_time"].clip(*RT_CLIP_S))
     g = log_rt.groupby(t.loc[present, "subject_id"])

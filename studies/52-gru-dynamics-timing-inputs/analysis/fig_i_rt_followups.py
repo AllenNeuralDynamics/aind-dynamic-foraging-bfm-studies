@@ -44,7 +44,7 @@ def _binned(x, y, n=10):
 def main() -> None:
     _pk03.use_keys(*KEYS)
     apply_presentation_style()
-    data = {k: np.load(CACHE / f"i_rt_followups_{k}.npz") for k in KEYS}
+    data = {k: np.load(_pk03._read_cache(CACHE / f"i_rt_followups_{k}.npz")) for k in KEYS}
     fits = {k: _pk03.read_json(ANALYSIS / f"i_rt_followups_{k}.json")["F1_fits_by_reward"] for k in KEYS}
     summary = {}
 

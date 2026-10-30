@@ -37,7 +37,7 @@ def main() -> None:
     fig, axes = plt.subplots(len(KEYS), 4, figsize=(24, 5.2 * len(KEYS)), gridspec_kw={"wspace": 0.32})
     summary = {}
     for i, key in enumerate(KEYS):
-        d = np.load(CACHE / f"i_licks_followups_{key}.npz")
+        d = np.load(_pk03._read_cache(CACHE / f"i_licks_followups_{key}.npz"))
         fits = _pk03.read_json(ANALYSIS / f"i_licks_followups_{key}.json")["FL3_fits_by_reward"]
         k = d["other_k"]
         summary[key] = {"FL1": {}, "FL2": {}}

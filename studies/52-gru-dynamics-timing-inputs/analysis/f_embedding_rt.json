@@ -3,10 +3,10 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/f_embedding_rt.py",
-    "produced_at_pt": "2026-10-29T05:36:34-07:00",
-    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "produced_at_pt": "2026-10-29T16:46:06-07:00",
+    "studies_git_sha": "b0385d8747376867c166c07f2876fdc2c7b1561d",
     "studies_git_dirty": true,
-    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
     "wandb_groups": [],
     "source_studies_git_shas": [],
     "source_dispatcher_git_shas": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/52-gru-dynamics-timing-inputs/analysis/f_embedding_rt.py",
-        "sha256": "0b323aeccab526a345ab8e62dd71895061e741d398426c378520414014448e4c"
+        "sha256": "11396e7b9071212390b4887d30e345c2242aee6fe806847629a5302b24a31240"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -36,6 +36,56 @@
       {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-rt-only-20260823-093058-3cbcda71"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s0/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s0/run/outputs/checkpoints/index.json",
+        "sha256": "be242829a8b3b2a7d2c5d42ed89413d66a90b081b992e7241c235b5e5d78ff55"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "38b058e5d4fce47ad30829225db9ced347417b14b55e663865e04c5985163591"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s1/run/outputs/checkpoints/index.json",
+        "sha256": "0187ec943ca399a3fdb8dd15ad595e143b4f07165c2294171e0fde674b2cdf0d"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/R-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "c277dbbfc312649b691c1c292efa438fac3dce7c8a0b3f978fe9fc01c0eed0f7"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/trial_states_R-s0.parquet",
+        "sha256": "e44b0985998d531364faa0ed6976085a41b5257c18e3c2952e889167e76fe903"
       }
     ],
     "outputs": [

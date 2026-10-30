@@ -20,7 +20,7 @@ import pandas as pd
 
 STUDY = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(STUDY / "analysis"))
-from _pk03 import write_json  # noqa: E402
+from _pk03 import _read_cache, write_json  # noqa: E402
 
 C_TABLE = STUDY.parent / "50-gru-dynamics-embedding" / "analysis" / "_cache" / "trial_states_C-s0.parquet"
 KEYS = ["ses_idx", "trial_idx"]
@@ -46,8 +46,8 @@ def _likelihoods(df: pd.DataFrame, total_dlog: float) -> dict:
 
 def main(key: str) -> None:
     table = STUDY / "analysis" / "_cache" / f"trial_states_{key}.parquet"
-    model = pd.read_parquet(table, columns=[*KEYS, "subject_id", "action", "reward", "reaction_time", "task", *PROBS])
-    base = pd.read_parquet(C_TABLE, columns=[*KEYS, "action", "reward", *PROBS])
+    model = pd.read_parquet(_read_cache(table), columns=[*KEYS, "subject_id", "action", "reward", "reaction_time", "task", *PROBS])
+    base = pd.read_parquet(_read_cache(C_TABLE), columns=[*KEYS, "action", "reward", *PROBS])
     merged = model.merge(base, on=KEYS, how="outer", suffixes=("", "_C"), indicator=True, validate="1:1")
     alignment = {
         "rows": {"model": len(model), "C": len(base), "shared": int((merged["_merge"] == "both").sum())},

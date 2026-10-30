@@ -34,7 +34,7 @@ MODELS = {"C": STUDY12 / "analysis" / "_cache" / "models" / "C-s0", "L-s0": CACH
 
 
 def mouse_features():
-    t = pd.read_parquet(CACHE / "trial_states_L-s0.parquet",
+    t = pd.read_parquet(_pk03._read_cache(CACHE / "trial_states_L-s0.parquet"),
                         columns=["subject_id", "ses_idx", "task", "action", "reward", "lick_left_count", "lick_right_count"])
     t = t[(t["lick_left_count"] + t["lick_right_count"]).groupby(t["ses_idx"]).transform("sum") > 0]
     right = t["action"] == 1

@@ -69,6 +69,7 @@ def build(key: str = MODEL_KEY, n_obs: int = 3):
 
     jax.config.update("jax_default_matmul_precision", "highest")
     split = load_gru_split(CACHE / "models" / key / "run")
+    _pk03.register_checkpoint(CACHE / "models" / key / "run")
     subject_idx, session_idx, obs = split_inputs(split.xs, session_conditioning=split.run.session_conditioning_enabled)
     if obs.shape[-1] != n_obs:
         raise AssertionError(f"Expected {n_obs} observation columns, got {obs.shape[-1]}")
@@ -78,16 +79,17 @@ def build(key: str = MODEL_KEY, n_obs: int = 3):
     else:
         contexts = subject_context(split.make_network, split.params, subject_idx[0], session_idx[0])
         np.savez(cache, contexts=contexts, session_ids=np.array(split.session_ids))
+    _pk03._read_cache(cache)
     return split, GruStep.from_params(split.params), obs.astype(np.float32), contexts.astype(np.float32)
 
 
 def trial_index(split, key: str = MODEL_KEY):
     cols = ["ses_idx", "trial_idx", "subject_id", "action", "reward", "reaction_time", "prev_log_rt_input"]
-    t = pd.read_parquet(CACHE / f"trial_states_{key}.parquet", columns=cols)
+    t = pd.read_parquet(_pk03._read_cache(CACHE / f"trial_states_{key}.parquet"), columns=cols)
     t["col"] = t["ses_idx"].map({s: i for i, s in enumerate(split.session_ids)}).to_numpy()
     t["tau"] = t["trial_idx"].to_numpy() - 1
     t["rt_present"] = t["reaction_time"].notna().groupby(t["ses_idx"]).transform("all")
-    c = pd.read_parquet(STUDY12 / "analysis" / "_cache" / f"trial_states_{BASELINE_KEY}.parquet",
+    c = pd.read_parquet(_pk03._read_cache(STUDY12 / "analysis" / "_cache" / f"trial_states_{BASELINE_KEY}.parquet"),
                         columns=["ses_idx", "trial_idx", "p_model1_right"])
     t = t.merge(c.rename(columns={"p_model1_right": "p_right_C"}), on=["ses_idx", "trial_idx"], validate="1:1")
     return t

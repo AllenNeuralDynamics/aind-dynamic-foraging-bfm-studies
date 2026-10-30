@@ -40,9 +40,9 @@ HIDDEN = 128
 
 def best_params(key: str) -> dict:
     outputs = CACHE / "models" / key / "run" / "outputs"
-    index = json.loads((outputs / "checkpoints" / "index.json").read_text())
+    index = json.loads(_pk03._read_cache(outputs / "checkpoints" / "index.json").read_text())
     best = max(index["checkpoints"], key=lambda c: c["eval_likelihood"])
-    return json.loads((outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
+    return json.loads(_pk03._read_cache(outputs / "checkpoints" / f"step_{best['step']}" / "params.json").read_text())
 
 
 def main(key: str, values=None) -> None:
@@ -56,11 +56,11 @@ def main(key: str, values=None) -> None:
 
     step = GruStep.from_params({k: {n: np.asarray(a, dtype=np.float64) for n, a in v.items()}
                                 for k, v in best_params(key).items() if isinstance(v, dict)})
-    c = jnp.asarray(np.load(CACHE / f"contexts_{key}.npz")["contexts"].mean(axis=0), dtype=jnp.float64)
-    sessions = pd.read_parquet(CACHE / f"trial_states_{key}.parquet", columns=["ses_idx"])["ses_idx"].unique()
+    c = jnp.asarray(np.load(_pk03._read_cache(CACHE / f"contexts_{key}.npz"))["contexts"].mean(axis=0), dtype=jnp.float64)
+    sessions = pd.read_parquet(_pk03._read_cache(CACHE / f"trial_states_{key}.parquet"), columns=["ses_idx"])["ses_idx"].unique()
     rng = np.random.default_rng(SEED)
     pick = rng.choice(sessions, 60, replace=False).tolist()
-    states = pq.read_table(CACHE / f"trial_states_{key}.parquet", columns=[f"rnn_state_{i}" for i in range(HIDDEN)],
+    states = pq.read_table(_pk03._read_cache(CACHE / f"trial_states_{key}.parquet"), columns=[f"rnn_state_{i}" for i in range(HIDDEN)],
                            filters=[("ses_idx", "in", pick)]).to_pandas().to_numpy(dtype=np.float64)
     starts = states[rng.choice(len(states), N_STARTS, replace=False)]
     out = {}

@@ -18,8 +18,15 @@ if [ ${#STEPS[@]} -eq 0 ]; then
          h2_learning_rate h3_q_phase_portraits h4_scenarios
          f2_mouse_dynamics f5_embedding_atlas f6_embedding_types f7_feature_library f10_embedding_behaviour_maps)
 fi
+failed=()
 for s in "${STEPS[@]}"; do
   t0=$(date +%s)
-  if python3 "analysis/$s.py" > "$LOGS/$s.log" 2>&1; then status=ok; else status=FAIL; fi
+  if python3 "analysis/$s.py" > "$LOGS/$s.log" 2>&1; then status=ok; else status=FAIL; failed+=("$s"); fi
   echo "$(date +%H:%M:%S) $KEY $s $status $(( $(date +%s) - t0 ))s" | tee -a "$LOGS/_status.txt"
 done
+# Keep going past a failed step so the others still refresh, but report it: a caller must not
+# mistake a partial refresh for a complete one.
+if [ ${#failed[@]} -gt 0 ]; then
+  echo "$KEY: ${#failed[@]} step(s) failed: ${failed[*]}" >&2
+  exit 1
+fi

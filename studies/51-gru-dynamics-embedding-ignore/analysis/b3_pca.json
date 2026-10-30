@@ -3,10 +3,10 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/b3_pca.py",
-    "produced_at_pt": "2026-10-29T03:18:18-07:00",
-    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "produced_at_pt": "2026-10-29T16:31:41-07:00",
+    "studies_git_sha": "b0385d8747376867c166c07f2876fdc2c7b1561d",
     "studies_git_dirty": true,
-    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
     "wandb_groups": [],
     "source_studies_git_shas": [],
     "source_dispatcher_git_shas": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/51-gru-dynamics-embedding-ignore/analysis/b3_pca.py",
-        "sha256": "e0721cf9437a9810034a544427c2cd73bf987424718237a7ffffed3f82295be5"
+        "sha256": "125d41d407fed0df1a8a3ecd48c491303c93fb34ee1a48947c0a2b78b21154b6"
       },
       {
         "path": "studies/util/plot_style.py",
@@ -28,6 +28,11 @@
       {
         "type": "wandb_run",
         "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
       }
     ],
     "outputs": [

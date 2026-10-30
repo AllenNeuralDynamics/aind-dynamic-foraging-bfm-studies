@@ -55,6 +55,14 @@ def use_keys(*keys: str) -> None:
     _KEYS_READ.update(dict.fromkeys(keys))
 
 
+def register_checkpoint(run_dir: Path) -> None:
+    """Record the checkpoint files a best_eval load reads: the index and the best step's params."""
+    index_path = run_dir / "outputs" / "checkpoints" / "index.json"
+    index = json.loads(_read_cache(index_path).read_text())
+    best = max(index["checkpoints"], key=lambda c: c["eval_likelihood"])
+    _read_cache(run_dir / "outputs" / "checkpoints" / f"step_{best['step']}" / "params.json")
+
+
 def read_json(path: Path | str) -> dict:
     """Parse a committed JSON and record it as an input of whatever this process writes."""
     path = Path(path)

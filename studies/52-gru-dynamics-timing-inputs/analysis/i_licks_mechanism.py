@@ -62,11 +62,11 @@ def enc(count):
 def trial_index(split, key):
     cols = ["ses_idx", "trial_idx", "subject_id", "action", "reward", "lick_left_count", "lick_right_count",
             "prev_lick_left_input", "prev_lick_right_input"]
-    t = pd.read_parquet(CACHE / f"trial_states_{key}.parquet", columns=cols)
+    t = pd.read_parquet(_pk03._read_cache(CACHE / f"trial_states_{key}.parquet"), columns=cols)
     t["col"] = t["ses_idx"].map({s: i for i, s in enumerate(split.session_ids)}).to_numpy()
     t["tau"] = t["trial_idx"].to_numpy() - 1
     t["licks_present"] = (t["lick_left_count"] + t["lick_right_count"]).groupby(t["ses_idx"]).transform("sum") > 0
-    c = pd.read_parquet(STUDY12 / "analysis" / "_cache" / f"trial_states_{BASELINE_KEY}.parquet",
+    c = pd.read_parquet(_pk03._read_cache(STUDY12 / "analysis" / "_cache" / f"trial_states_{BASELINE_KEY}.parquet"),
                         columns=["ses_idx", "trial_idx", "p_model1_right"])
     return t.merge(c.rename(columns={"p_model1_right": "p_right_C"}), on=["ses_idx", "trial_idx"], validate="1:1")
 
