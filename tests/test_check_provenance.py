@@ -484,7 +484,7 @@ class CheckProvenanceTest(StudyRepo):
 
 
 FIT = {"delta": {"mean": 0.0123, "ci": [0.0101, 0.0146]}, "verdict": "non-inferior",
-       "frac_fail": 0.12, "a/b": {"c~d": [0.5, 0.6]}}
+       "frac_fail": 0.12, "a/b": {"c~d": [0.5, 0.6]}, "paired_diff": -0.0163, "ci_text": "[−0.0172, −0.0154]"}
 
 V2_BODY = textwrap.dedent("""\
     # r2 — The fit improves
@@ -601,9 +601,13 @@ class ReportV2Test(StudyRepo):
                "  - {id: F2, text: \"No such key.\", pointer: \"analysis/fit.json#/delta/median\"}\n"
                "  - {id: F3, text: \"No such file.\", pointer: \"analysis/nope.json#/x\"}\n"
                "  - {id: F4, text: \"Index out of range.\", pointer: \"analysis/fit.json#/delta/ci/2\"}\n")
+        bad += ("  - {id: F5, text: \"A bare tilde is no escape, even for a key spelled so.\", "
+                "pointer: \"analysis/fit.json#/a~1b/c~d/0\"}\n"
+                "  - {id: F6, text: \"A trailing tilde neither.\", pointer: \"analysis/fit.json#/delta~\"}\n"
+                "  - {id: F7, text: \"An index has no leading zero.\", pointer: \"analysis/fit.json#/delta/ci/01\"}\n")
         self.write_report(claims=bad)
         self.commit()
-        want = {f"report-claim-unresolved|{self.REL}|F{k}" for k in (2, 3, 4)}
+        want = {f"report-claim-unresolved|{self.REL}|F{k}" for k in (2, 3, 4, 5, 6, 7)}
         self.assertEqual(self.findings("report-claim"), want)
         # a draft may point ahead of its producer: the same findings, advisory
         self.write_report(claims=bad, status="draft", extra="draft_reason: producer pending\n")
@@ -650,6 +654,40 @@ class ReportV2Test(StudyRepo):
             self.assertEqual(cp.main([]), 0)
         self.assertIn(f"note [report-prose-number] {self.REL}", out.getvalue())
         self.assertIn("0.0004 (line ", out.getvalue())
+
+    def test_prose_number_keeps_its_sign(self):
+        """A reversed sign is not sourced; a range's hyphen is not a minus."""
+        body = V2_BODY.replace("none\n", "Paired difference −0.0163, CI −0.0172 to -0.0154; the range "
+                                         "0.0101-0.0146 holds; a gain of 0.0163 is reversed.\n")
+        self.write_report(body)
+        self.commit()
+        self.assertEqual(self.findings("report-prose-number", "info"), {f"report-prose-number|{self.REL}|0.0163"})
+
+    def test_claim_pointer_to_a_cross_study_artifact_needs_upstream(self):
+        """A claim cites its JSON like `inputs` does, so the upstream check reaches the report."""
+        other = "05-disrnn-other"
+        src = self.root / "studies" / other / "analysis/curve.json"
+        src.parent.mkdir(parents=True, exist_ok=True)
+        src.write_text('{"614": 0.7268}')
+        a = self.study / "analysis"
+        with mock.patch.object(_meta, "REPO_ROOT", self.root.resolve()), \
+                mock.patch.object(_meta, "_studies_state", return_value=(SHA, False)), \
+                mock.patch.object(_meta, "_with_util_modules", side_effect=lambda code: code):
+            meta = _meta.build_meta("analysis/produce.py", [GROUP], study_root=self.study,
+                                    code=[a / "produce.py"], inputs=[a / "grid.csv", src])
+            _meta.write_artifact(a / "cross.json", {"_meta": meta, "gap": 0.0018})
+        self.write_report(claims="  - {id: F1, text: \"The gap is small.\", pointer: \"analysis/cross.json#/gap\"}\n")
+        report_verdicts.write(self.study)
+        self.commit()
+        self.assertEqual(self.findings("report-upstream-"), {f"report-upstream-undeclared|{self.REL}|{other}"})
+
+    def test_non_list_claims_is_a_schema_error_not_a_crash(self):
+        self.write_report(claims="")
+        report = self.root / self.REL
+        report.write_text(report.read_text().replace("claims:\n", "claims: 1\n"))
+        self.commit()
+        report_verdicts.write(self.study)
+        self.assertIn(f"report-frontmatter|{self.REL}|claims:type", self.findings("report-frontmatter"))
 
     def test_generated_verdicts_follow_the_claims(self):
         index, readme = self.study / "analysis/reports/INDEX.md", self.study / "README.md"

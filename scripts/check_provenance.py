@@ -61,8 +61,9 @@ SKELETON = ["## Question", "## Answer", "## Methods", "## Results", "## What it 
             "## Caveats", "## Next", "## Provenance"]
 # A number in hand-written prose: a decimal, scientific notation or a percentage. Integers are
 # left alone (years, D=614, n=149, r1, F2, seed counts): too many are not results.
-PROSE_NUMBER = re.compile(r"(?<![\w.@/\\])(\d*\.\d+(?:[eE][-+−]?\d+)?|\d+[eE][-+−]?\d+|\d+(?:\.\d+)?%)(?![\w%]|\.\d)")
-JSON_NUMBER = re.compile(r"\d*\.?\d+(?:[eE][-+]?\d+)?")
+# The sign is part of the number (`−0.016`), unless it follows a digit (`0.01-0.02` is a range).
+PROSE_NUMBER = re.compile(r"(?<![\w.@/\\])([-−+]?(?:\d*\.\d+(?:[eE][-+−]?\d+)?|\d+[eE][-+−]?\d+|\d+(?:\.\d+)?%))(?![\w%]|\.\d)")
+JSON_NUMBER = re.compile(r"-?\d*\.?\d+(?:[eE][-+]?\d+)?")
 # Prose numbers that are conventions, not results. Write any other constant as code (`0.5`).
 PROSE_CONSTANTS = {"95%"}
 # Hand-written text the prose-number lint ignores besides blocks, comments and fenced code.
@@ -578,6 +579,8 @@ class Checker:
         if pointer and not pointer.startswith("/"):
             return False
         for token in pointer.split("/")[1:]:
+            if re.search(r"~(?![01])", token):           # `~` escapes only `~0` and `~1`
+                return False
             token = token.replace("~1", "/").replace("~0", "~")
             if isinstance(doc, dict) and token in doc:
                 doc = doc[token]
@@ -617,7 +620,7 @@ class Checker:
         offset = p.read_text(errors="replace").count("\n") - body.count("\n")
         for n in PROSE_NUMBER.finditer(prose):
             token = n.group(1)
-            if token in PROSE_CONSTANTS or self._sourced(token, values):
+            if token.lstrip("-−+") in PROSE_CONSTANTS or self._sourced(token, values):
                 continue
             line = offset + prose.count("\n", 0, n.start()) + 1
             self.add("info", "report-prose-number", p,
@@ -626,7 +629,7 @@ class Checker:
 
     def json_numbers(self, path: Path) -> list[float]:
         """Every number in a JSON file outside `_meta` (values, numeric keys, numbers inside
-        strings), as sorted absolute values; [] when the file is missing or unreadable."""
+        strings), signed and sorted; [] when the file is missing or unreadable."""
         if path not in self._json_numbers:
             try:
                 doc = json.loads(path.read_text())
@@ -639,9 +642,9 @@ class Checker:
                 if isinstance(x, bool) or x is None:
                     continue
                 if isinstance(x, (int, float)):
-                    out.append(abs(float(x)))
+                    out.append(float(x))
                 elif isinstance(x, str):
-                    out += [abs(float(s)) for s in JSON_NUMBER.findall(x)]
+                    out += [float(s) for s in JSON_NUMBER.findall(x.replace("−", "-"))]
                 elif isinstance(x, dict):
                     stack += [*x.keys(), *x.values()]
                 elif isinstance(x, list):
@@ -651,8 +654,9 @@ class Checker:
 
     @staticmethod
     def _sourced(token: str, values: list[float]) -> bool:
-        """Whether a printed number is one of `values` rounded to its printed precision; a
-        percentage may also be a fraction (12% ~ 0.12)."""
+        """Whether a printed number is one of `values` rounded to its printed precision, sign
+        included (an unsigned number is a non-negative value); a percentage may also be a
+        fraction (12% ~ 0.12)."""
         number = token.rstrip("%").replace("−", "-")
         mantissa, _, exponent = number.lower().partition("e")
         decimals = len(mantissa.split(".")[1]) if "." in mantissa else 0
@@ -732,19 +736,24 @@ class Checker:
     def check_upstream_declared(self, p: Path, meta: dict) -> None:
         """A report written from another study's files names that study in `upstream`, so a
         correction there can reach it (report-upstream-stale). "Written from" is a result block
-        this artifact wrote, or the artifact listed in the report's `inputs`."""
+        this artifact wrote, or the artifact cited in the report's `inputs` or, for a version-2
+        report, in a claim pointer."""
         own = self.rel(p).split("/")[1]
         read = {path.split("/")[1] for e in meta.get("inputs") or []
                 if re.match(r"^studies/\d{2}-[^/]+/", path := str(e.get("path", ""))) and path.split("/")[1] != own}
         written = {str(e.get("path", "")).split("#", 1)[0] for e in meta.get("outputs") or []
                    if "#" in str(e.get("path", ""))}
-        # ... and the reports that cite this artifact in `inputs`, whose prose may use its numbers
+        # ... and the reports that cite this artifact, whose prose may use its numbers
         study, art = self.rel(p).split("/", 2)[1], self.rel(p).split("/", 2)[2]
         for key, path in self.report_paths.items():
             fm = self.reports[key]
-            if key.startswith(f"{study}/") and isinstance(fm.get("inputs"), dict) and any(
-                    isinstance(i, str) and posixpath.normpath(i) == art
-                    for v in fm["inputs"].values() for i in (v if isinstance(v, list) else [v])):
+            if not key.startswith(f"{study}/"):
+                continue
+            inputs = fm.get("inputs") if isinstance(fm.get("inputs"), dict) else {}
+            cited = [i for v in inputs.values() for i in (v if isinstance(v, list) else [v])]
+            claims = fm.get("claims") if fm.get("schema_version") == 2 and isinstance(fm.get("claims"), list) else []
+            cited += [c["pointer"].split("#", 1)[0] for c in claims if isinstance(c, dict) and isinstance(c.get("pointer"), str)]
+            if any(isinstance(i, str) and posixpath.normpath(i) == art for i in cited):
                 written.add(self.rel(path))
         for report in sorted(written):
             if not (self.root / report).exists():

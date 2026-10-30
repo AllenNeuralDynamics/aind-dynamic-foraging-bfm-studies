@@ -69,8 +69,8 @@ blocks, HTML comments, fenced and inline code, link targets and URLs. Its decima
 (`0.7213`, `5.3e-5`) and percentages (`12%`) are matched against every number in the JSON
 files the report cites in `inputs` or in a claim pointer: values, numeric keys and numbers
 inside strings, `_meta` excluded. A printed number matches if a value rounds to it at its
-printed precision (`0.721` matches 0.72128); a percentage may also be a fraction (`12%`
-matches 0.12). Integers are not checked: most are counts, sizes, years or ids. Expect a note
+printed precision, sign included (`0.721` matches 0.72128; an unsigned `0.016` does not match
+−0.016, so write the sign); a percentage may also be a fraction (`12%` matches 0.12). Integers are not checked: most are counts, sizes, years or ids. Expect a note
 on a derived number, such as a difference the JSON does not store: store it, or cite the
 finding by id. A constant that is not a result is written as code (`0.5`); `95%` is allowed
 as it stands (`PROSE_CONSTANTS` in the checker).
