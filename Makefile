@@ -17,6 +17,8 @@ validate:
 #                    (MODEL, QUESTION_TYPE: comma-separated tags from schemas/tags.yaml)
 #   make new-variant STUDY=12-gru-foo NAME=wider
 #   make new-report  STUDY=12-gru-foo SLUG=heldout-curve TITLE="Held-out vs D" [AUTHOR=han]
+#                    (a version-2 report, schemas/README.md; `make -C studies/<study> verdicts`
+#                    regenerates the INDEX table and README verdict from the claims)
 # arg = the variable's raw value (no make expansion of `$`), single-quoted for the shell, so
 # quotes, `$` and other shell characters in QUESTION or TITLE arrive intact.
 arg = '$(subst ','\'',$(value $(1)))'
