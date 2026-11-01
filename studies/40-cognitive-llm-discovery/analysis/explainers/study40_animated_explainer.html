@@ -557,7 +557,7 @@ const MICE = (() => { seed = 51; const pool = [];
 const GATES = () => [
   ["0", "data parity", `${N_TEST} mice, ${REFS ? REFS.n_test_sessions.toLocaleString("en-US") : "—"} sessions, ` +
     `${REFS ? REFS.n_test_trials.toLocaleString("en-US") : "—"} trials`],
-  ["1", "parity: 1a dynamics, 1b fitter, 1c session level", "the 19 literature models match their committed fits"],
+  ["1", "parity: 1a dynamics, 1b fitter, 1c session level", "1a–1b: all 19 literature models · 1c: CTT and Hattori"],
   ["2", "timing", "a full evaluation in about 3 minutes; cohort sizes fixed here"],
   ["3", "engine smoke", "ShinkaEvolve + Claude end to end, about $7"],
   ["4", "recovery", "find a known program in simulated mice, ≤ $20"],
@@ -721,8 +721,8 @@ const TEXT = [
   `programs); the rest are not used in round 1. The ${N_TEST} test mice sit in a locked box, scored once at the ` +
   `end. Five gates light in order: 0 data parity (${N_TEST} mice, ` +
   `${REFS ? fmtN(REFS.n_test_sessions) : "—"} sessions, ${REFS ? fmtN(REFS.n_test_trials) : "—"} trials); ` +
-  `1 parity in three parts, 1a dynamics, 1b fitter and 1c session level (the 19 literature models match their ` +
-  `committed fits); 2 timing (a full evaluation in about 3 minutes; cohort sizes are fixed here); 3 engine smoke ` +
+  `1 parity in three parts, 1a dynamics, 1b fitter and 1c session level (1a and 1b: all 19 literature models ` +
+  `match their committed fits; 1c: CTT and Hattori at the session level match study 13's hierarchical fits); 2 timing (a full evaluation in about 3 minutes; cohort sizes are fixed here); 3 engine smoke ` +
   `(about $7); 4 recovery of a known program from simulated mice (at most $20). Then the search: 5 islands, ` +
   `about $450.`,
   `An illustration, not a result, in four panels. 1: a fit-versus-complexity plot with a dotted line for the best ` +
