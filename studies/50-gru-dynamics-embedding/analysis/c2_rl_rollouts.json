@@ -1,0 +1,135 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/c2_rl_rollouts.py",
+    "produced_at_pt": "2026-10-28T13:40:30-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c2_rl_rollouts.py",
+        "sha256": "6e963c3ee0c4303ad71b6991e7bdfd91db86407b23d25998f8936ca36b678645"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/bg3nzqz9"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/lmg1i9yd"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/unhmbrk4"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/c2_rl_rollouts.json",
+        "sha256": "09090390996811441a5d2e465af84d073443d0c042532a027a24f704d1016f12"
+      }
+    ]
+  },
+  "models": {
+    "bari": {
+      "run_id": "bg3nzqz9",
+      "group": "rl-baseline-bari@20260713-010244",
+      "agent_class": "ForagerQLearning",
+      "agent_kwargs": {
+        "number_of_learning_rate": 1,
+        "number_of_forget_rate": 1,
+        "choice_kernel": "one_step",
+        "action_selection": "softmax"
+      },
+      "parameter_columns": [
+        "learn_rate",
+        "forget_rate_unchosen",
+        "choice_kernel_relative_weight",
+        "biasL",
+        "softmax_inverse_temperature",
+        "choice_kernel_step_size"
+      ],
+      "q_values": true,
+      "checks": {
+        "pooled_eval_likelihood": 0.7180880511365625,
+        "logged_pooled_eval_likelihood": 0.7180880511365625,
+        "pooled_abs_diff": 0.0,
+        "max_subject_abs_diff": 4.440892098500626e-16,
+        "n_subjects": 614
+      }
+    },
+    "ctt": {
+      "run_id": "lmg1i9yd",
+      "group": "rl-baseline-ctt@20260713-010305",
+      "agent_class": "ForagerCompareThreshold",
+      "agent_kwargs": {
+        "choice_kernel": "none"
+      },
+      "parameter_columns": [
+        "learn_rate",
+        "threshold",
+        "softmax_inverse_temperature",
+        "biasL"
+      ],
+      "q_values": false,
+      "checks": {
+        "pooled_eval_likelihood": 0.72104067239849,
+        "logged_pooled_eval_likelihood": 0.72104067239849,
+        "pooled_abs_diff": 0.0,
+        "max_subject_abs_diff": 1.1102230246251565e-16,
+        "n_subjects": 614
+      }
+    },
+    "hattori": {
+      "run_id": "unhmbrk4",
+      "group": "rl-baseline-hattori@20260713-010255",
+      "agent_class": "ForagerQLearning",
+      "agent_kwargs": {
+        "number_of_learning_rate": 2,
+        "number_of_forget_rate": 1,
+        "choice_kernel": "none",
+        "action_selection": "softmax"
+      },
+      "parameter_columns": [
+        "learn_rate_rew",
+        "learn_rate_unrew",
+        "forget_rate_unchosen",
+        "biasL",
+        "softmax_inverse_temperature"
+      ],
+      "q_values": true,
+      "checks": {
+        "pooled_eval_likelihood": 0.7159216381741544,
+        "logged_pooled_eval_likelihood": 0.7159216381741544,
+        "pooled_abs_diff": 0.0,
+        "max_subject_abs_diff": 2.220446049250313e-16,
+        "n_subjects": 614,
+        "q_policy_max_abs_diff": 2.220446049250313e-16
+      }
+    }
+  }
+}

@@ -1,0 +1,344 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/f2_mouse_dynamics.py",
+    "produced_at_pt": "2026-10-28T07:32:47-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f2_mouse_dynamics.py",
+        "sha256": "ff902b57ac3626ac1d61fe5ab877ff34015e25123657b4bbe8d810a3ea5ce508"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/f2_mouse_dynamics.json",
+        "sha256": "0e61884b2ae8a94b394f604a82484aee2f952793ecd0a1ffc21202a213bbe6fb"
+      }
+    ]
+  },
+  "n_mice": 614,
+  "n_starts": 96,
+  "n_forward": 500,
+  "n_newton": 30,
+  "tol": 1e-12,
+  "dedup": 0.001,
+  "precision": "float64",
+  "converged_fraction_by_input": {
+    "L+": 1.0,
+    "L−": 0.9987127371273713,
+    "R+": 1.0,
+    "R−": 1.0
+  },
+  "mean_context_attractor_logits": {
+    "R+": [
+      3.65
+    ],
+    "R−": [
+      3.63
+    ],
+    "L+": [
+      -3.79
+    ],
+    "L−": [
+      -3.18
+    ]
+  },
+  "d2_reference_logits": {
+    "R rewarded": [
+      3.65
+    ],
+    "R unrewarded": [
+      3.63
+    ],
+    "L rewarded": [
+      -3.79
+    ],
+    "L unrewarded": [
+      -3.18
+    ]
+  },
+  "n_bistable_mice_by_input": {
+    "R+": 0,
+    "R−": 0,
+    "L+": 0,
+    "L−": 0
+  },
+  "n_mice_with_all_four_attractors": 614,
+  "mice_without_a_converged_attractor": {
+    "R+": [],
+    "R−": [],
+    "L+": [],
+    "L−": []
+  },
+  "feature_summary": {
+    "attractor depth": [
+      3.3546,
+      3.5578,
+      3.7759
+    ],
+    "attractor asymmetry": [
+      -0.1346,
+      0.0735,
+      0.2955
+    ],
+    "reward depth (rew − unrew)": [
+      0.1982,
+      0.3581,
+      0.5349
+    ],
+    "bistable (any input)": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "slowest τ (trials)": [
+      1541.0912,
+      1669.5017,
+      1752.9154
+    ],
+    "slow-mode readout overlap": [
+      0.1545,
+      0.1749,
+      0.2122
+    ],
+    "v retention (e_vᵀJe_v)": [
+      0.6631,
+      0.6691,
+      0.6756
+    ],
+    "attractor logit R+": [
+      3.3308,
+      3.6665,
+      4.0762
+    ],
+    "attractor logit R−": [
+      3.1392,
+      3.5851,
+      4.0895
+    ],
+    "attractor logit L+": [
+      -4.0237,
+      -3.7926,
+      -3.6059
+    ],
+    "attractor logit L−": [
+      -3.4316,
+      -3.1482,
+      -2.9031
+    ]
+  },
+  "spearman_vs_f3": {
+    "bias": {
+      "attractor depth": 0.18815059583342353,
+      "attractor asymmetry": 0.5862666250725295,
+      "reward depth (rew − unrew)": -0.4701490999478864,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": 0.109123203968568,
+      "slow-mode readout overlap": 0.0033723133645617693,
+      "v retention (e_vᵀJe_v)": 0.04610544217466661
+    },
+    "reward gain (1 back)": {
+      "attractor depth": 0.143261017510622,
+      "attractor asymmetry": 0.16542728838928691,
+      "reward depth (rew − unrew)": 0.482204418422332,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": -0.09966109936829877,
+      "slow-mode readout overlap": -0.4217472622197143,
+      "v retention (e_vᵀJe_v)": -0.5471805953240811
+    },
+    "persistence (1 back)": {
+      "attractor depth": 0.3353638772025982,
+      "attractor asymmetry": 0.25611030101618354,
+      "reward depth (rew − unrew)": 0.3843901972451185,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": 0.03787426137249507,
+      "slow-mode readout overlap": -0.5311598193376709,
+      "v retention (e_vᵀJe_v)": -0.4060353576951076
+    },
+    "reward decay (2/1 back)": {
+      "attractor depth": 0.13109760957698532,
+      "attractor asymmetry": 0.026153838776406584,
+      "reward depth (rew − unrew)": 0.4603511663228498,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": -0.12906288382936332,
+      "slow-mode readout overlap": -0.2787143730856728,
+      "v retention (e_vᵀJe_v)": -0.3956598064421059
+    }
+  },
+  "spearman_vs_i5": {
+    "λ stay": {
+      "attractor depth": 0.3961716890896133,
+      "attractor asymmetry": 0.17215294114140137,
+      "reward depth (rew − unrew)": -0.579130698948694,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": 0.47872642622680567,
+      "slow-mode readout overlap": -0.08993465512658326,
+      "v retention (e_vᵀJe_v)": 0.6755030533976185
+    },
+    "λ switch": {
+      "attractor depth": 0.027291708555654434,
+      "attractor asymmetry": -0.04494165540648346,
+      "reward depth (rew − unrew)": -0.4683007167109145,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": 0.21877476159209644,
+      "slow-mode readout overlap": 0.22993705953057114,
+      "v retention (e_vᵀJe_v)": 0.5329587458801915
+    },
+    "reward push": {
+      "attractor depth": 0.12932722347080958,
+      "attractor asymmetry": 0.04707342605093347,
+      "reward depth (rew − unrew)": 0.39959141147596416,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": -0.02040612346226868,
+      "slow-mode readout overlap": -0.38903866608794313,
+      "v retention (e_vᵀJe_v)": -0.3402251552684345
+    },
+    "choice push": {
+      "attractor depth": 0.7560081344446243,
+      "attractor asymmetry": 0.4227089214369781,
+      "reward depth (rew − unrew)": -0.2839909531455523,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": 0.5858232250032434,
+      "slow-mode readout overlap": -0.6343620278878581,
+      "v retention (e_vᵀJe_v)": 0.4356851517354385
+    },
+    "target asymmetry": {
+      "attractor depth": 0.15736941361209184,
+      "attractor asymmetry": 0.5023352377728336,
+      "reward depth (rew − unrew)": -0.1410270650044046,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": -0.02310410894173292,
+      "slow-mode readout overlap": -0.12282143038125123,
+      "v retention (e_vᵀJe_v)": -0.25958834505317707
+    },
+    "switch target": {
+      "attractor depth": 0.20596468253204034,
+      "attractor asymmetry": 0.22724441358264172,
+      "reward depth (rew − unrew)": 0.3904717918508999,
+      "bistable (any input)": NaN,
+      "slowest τ (trials)": -0.022671804121775333,
+      "slow-mode readout overlap": -0.43323825694151513,
+      "v retention (e_vᵀJe_v)": -0.4138940271705816
+    }
+  },
+  "embedding_decoding": {
+    "attractor depth": {
+      "rank_r2": 0.889000761760386,
+      "null_95": -0.0002468177148245107,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.12773036084900524,
+        0.23836656649420668,
+        -0.6237759474165127,
+        0.7333279636832198
+      ]
+    },
+    "attractor asymmetry": {
+      "rank_r2": 0.9054285202868002,
+      "null_95": -8.523772368396102e-05,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.7263687527950579,
+        0.03381726561605808,
+        -0.5149111096179863,
+        0.4539949082326579
+      ]
+    },
+    "reward depth (rew − unrew)": {
+      "rank_r2": 0.7332085545869782,
+      "null_95": 0.0010520382343348661,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        0.4909858202866534,
+        0.13716914257754054,
+        0.5042821709342217,
+        -0.6970057694738638
+      ]
+    },
+    "slowest τ (trials)": {
+      "rank_r2": 0.7826336157142229,
+      "null_95": 0.0012303371066871276,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.5858053038388668,
+        0.1331068101977953,
+        -0.23645905285027274,
+        0.7636765279870614
+      ]
+    },
+    "slow-mode readout overlap": {
+      "rank_r2": 0.6568129917301435,
+      "null_95": 0.0004023255167716511,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        0.565804831481991,
+        -0.5109030365929564,
+        0.3433483585725609,
+        -0.5485935513084894
+      ]
+    },
+    "v retention (e_vᵀJe_v)": {
+      "rank_r2": 0.8252160638502093,
+      "null_95": -0.0012089263667228894,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.3445837994929957,
+        -0.05038266127649312,
+        -0.0015685388683348593,
+        0.937401265337042
+      ]
+    }
+  }
+}

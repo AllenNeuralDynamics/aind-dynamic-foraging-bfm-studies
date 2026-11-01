@@ -1,0 +1,232 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/h3_q_phase_portraits.py",
+    "produced_at_pt": "2026-10-28T07:20:56-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/h3_q_phase_portraits.py",
+        "sha256": "977fe3a7feb4e54fef0cd533e9d59d3fa5daa29a4b81e0f07b2a37c3fce69044"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/h3_q_phase_portraits.json",
+        "sha256": "7385e3dfa741c3f7415b416facf8f909c34b8c2e6d59f9149d81b4b7f3a78dac"
+      }
+    ]
+  },
+  "decoding_heldout_r2": {
+    "Q_L": 0.9424426579646867,
+    "Q_R": 0.9422440565261136
+  },
+  "decoder_target": "Hattori (L2F1) per-mouse Q",
+  "update_regressions": {
+    "R rewarded": {
+      "gru": {
+        "chosen": {
+          "a": 0.3869201944021112,
+          "b_Qchosen": -0.37190020510861727,
+          "c_Qunchosen": 0.08295141823893935,
+          "r2": 0.8747694409233663
+        },
+        "unchosen": {
+          "a": -0.007930024709338781,
+          "b_Qchosen": 0.011518700800990683,
+          "c_Qunchosen": -0.7088868602246554,
+          "r2": 0.9395332480844298
+        }
+      },
+      "hattori": {
+        "chosen": {
+          "a": 0.41289915424103835,
+          "b_Qchosen": -0.4048026796805636,
+          "c_Qunchosen": 0.07495567837646114,
+          "r2": 0.8443844176579723
+        },
+        "unchosen": {
+          "a": 0.001561763626240265,
+          "b_Qchosen": -0.000658981879141915,
+          "c_Qunchosen": -0.7515278788748075,
+          "r2": 0.9605905276539919
+        }
+      },
+      "bari": {
+        "chosen": {
+          "a": 0.13545427455843698,
+          "b_Qchosen": -0.09542709220474711,
+          "c_Qunchosen": 0.15070086209136258,
+          "r2": 0.23936397480912242
+        },
+        "unchosen": {
+          "a": 0.000303993766077358,
+          "b_Qchosen": 0.0005191483122144597,
+          "c_Qunchosen": -0.5853102963892207,
+          "r2": 0.9417340186662236
+        }
+      }
+    },
+    "R unrewarded": {
+      "gru": {
+        "chosen": {
+          "a": 0.04481158632266314,
+          "b_Qchosen": -0.12625909506685268,
+          "c_Qunchosen": 0.049158509397827024,
+          "r2": 0.5219883430899281
+        },
+        "unchosen": {
+          "a": -0.02183961833084207,
+          "b_Qchosen": 0.024169423119671563,
+          "c_Qunchosen": -0.5956149035486104,
+          "r2": 0.8917662209007672
+        }
+      },
+      "hattori": {
+        "chosen": {
+          "a": -0.007488057408500831,
+          "b_Qchosen": -0.0445232752730633,
+          "c_Qunchosen": 0.018071331561247052,
+          "r2": 0.19173611973547622
+        },
+        "unchosen": {
+          "a": 0.0017020221947156551,
+          "b_Qchosen": -0.000709219047355325,
+          "c_Qunchosen": -0.7263799922908404,
+          "r2": 0.9463012638538516
+        }
+      },
+      "bari": {
+        "chosen": {
+          "a": 0.012085478382526521,
+          "b_Qchosen": -0.2467123359069659,
+          "c_Qunchosen": -0.04449335653232586,
+          "r2": 0.7904658699647253
+        },
+        "unchosen": {
+          "a": 0.00010718894374755929,
+          "b_Qchosen": 0.0007336525502472657,
+          "c_Qunchosen": -0.561311013231491,
+          "r2": 0.9345656704158941
+        }
+      }
+    },
+    "L rewarded": {
+      "gru": {
+        "chosen": {
+          "a": 0.4152171442082719,
+          "b_Qchosen": -0.40473133977845194,
+          "c_Qunchosen": 0.025901937054890335,
+          "r2": 0.8960472904705147
+        },
+        "unchosen": {
+          "a": -0.005320756230890222,
+          "b_Qchosen": 0.009624331851199291,
+          "c_Qunchosen": -0.7149284725913058,
+          "r2": 0.913220040359894
+        }
+      },
+      "hattori": {
+        "chosen": {
+          "a": 0.40836315768276243,
+          "b_Qchosen": -0.3994360553008502,
+          "c_Qunchosen": 0.07996444205096889,
+          "r2": 0.8412857095654466
+        },
+        "unchosen": {
+          "a": 0.0013434546036996075,
+          "b_Qchosen": -0.0005262364833147071,
+          "c_Qunchosen": -0.7483920318047091,
+          "r2": 0.959269908648893
+        }
+      },
+      "bari": {
+        "chosen": {
+          "a": 0.134435634710526,
+          "b_Qchosen": -0.09379435129105149,
+          "c_Qunchosen": 0.15192884579585492,
+          "r2": 0.23962577942772612
+        },
+        "unchosen": {
+          "a": 0.0003772196872125171,
+          "b_Qchosen": 0.00033546394957324754,
+          "c_Qunchosen": -0.5852099975433791,
+          "r2": 0.9414753186552034
+        }
+      }
+    },
+    "L unrewarded": {
+      "gru": {
+        "chosen": {
+          "a": 0.04083446968634713,
+          "b_Qchosen": -0.12434814015613144,
+          "c_Qunchosen": 0.03006479368185668,
+          "r2": 0.46059185418635273
+        },
+        "unchosen": {
+          "a": -0.020299104323052094,
+          "b_Qchosen": 0.019325419335231887,
+          "c_Qunchosen": -0.5962020045580919,
+          "r2": 0.852642892694397
+        }
+      },
+      "hattori": {
+        "chosen": {
+          "a": -0.007729375003844396,
+          "b_Qchosen": -0.046318695244809346,
+          "c_Qunchosen": 0.018360270467321912,
+          "r2": 0.19372983994050075
+        },
+        "unchosen": {
+          "a": 0.0017519676571099243,
+          "b_Qchosen": -0.0009481095495064776,
+          "c_Qunchosen": -0.7281140630339185,
+          "r2": 0.9477184984787905
+        }
+      },
+      "bari": {
+        "chosen": {
+          "a": 0.012830126007759294,
+          "b_Qchosen": -0.2482391322818031,
+          "c_Qunchosen": -0.04691932012785871,
+          "r2": 0.7872338438938777
+        },
+        "unchosen": {
+          "a": 2.480221253026304e-06,
+          "b_Qchosen": 0.0008812921731042589,
+          "c_Qunchosen": -0.5623425517281463,
+          "r2": 0.9336638887065817
+        }
+      }
+    }
+  },
+  "n_bins": 14,
+  "min_per_bin": 100,
+  "n_fit": 1000000,
+  "seed": 10
+}

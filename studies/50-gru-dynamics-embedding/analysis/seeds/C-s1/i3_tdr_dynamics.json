@@ -1,0 +1,247 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/i3_tdr_dynamics.py",
+    "produced_at_pt": "2026-10-28T05:38:16-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i3_tdr_dynamics.py",
+        "sha256": "cabc38b524cc732eae87cde173ecce90d67344621592c54d13307c75f17c9b66"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s1.parquet",
+        "sha256": "28b5bb062b942f9844e61c8936c6056c3937b6123125b581cfb5227794a2efa1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i3_tdr_dynamics.json",
+        "sha256": "83c0f971c80412da9f6468cc4fdcf326ef0b6b7d2f8394ea759a91931f9276f0"
+      }
+    ]
+  },
+  "n_transitions": 1000000,
+  "seed": 4,
+  "axes": [
+    "value",
+    "choice",
+    "reward",
+    "value×choice",
+    "choice×reward"
+  ],
+  "transitions": {
+    "R rewarded | from R lobe (stay)": {
+      "n": 183033,
+      "slope": 0.7848627774539614,
+      "intercept": 0.5288263532757226,
+      "r2": 0.9558091317541766,
+      "mean_jump": {
+        "value": 0.1801,
+        "choice": 0.2096,
+        "reward": 0.8322,
+        "value×choice": 0.1369,
+        "choice×reward": 0.1774
+      }
+    },
+    "R rewarded | from L lobe (switch)": {
+      "n": 39872,
+      "slope": 0.6049911282911422,
+      "intercept": 0.1814123369911824,
+      "r2": 0.8490430765293436,
+      "mean_jump": {
+        "value": 0.4869,
+        "choice": 2.5897,
+        "reward": 1.6045,
+        "value×choice": -0.0167,
+        "choice×reward": 0.416
+      }
+    },
+    "R unrewarded | from R lobe (stay)": {
+      "n": 258359,
+      "slope": 0.7925635590052762,
+      "intercept": 0.4165824714193666,
+      "r2": 0.94621002017661,
+      "mean_jump": {
+        "value": 0.0936,
+        "choice": -0.1408,
+        "reward": -0.7611,
+        "value×choice": -0.0817,
+        "choice×reward": -0.244
+      }
+    },
+    "R unrewarded | from L lobe (switch)": {
+      "n": 23537,
+      "slope": 0.6108572891070801,
+      "intercept": 0.10565990441576636,
+      "r2": 0.8993538659821081,
+      "mean_jump": {
+        "value": 0.2483,
+        "choice": 2.1189,
+        "reward": -0.8226,
+        "value×choice": -0.1667,
+        "choice×reward": 0.1787
+      }
+    },
+    "L rewarded | from R lobe (switch)": {
+      "n": 40475,
+      "slope": 0.6364741437919917,
+      "intercept": -0.3336892502225988,
+      "r2": 0.8851658541236221,
+      "mean_jump": {
+        "value": -0.6355,
+        "choice": -2.1433,
+        "reward": 1.6532,
+        "value×choice": 0.0582,
+        "choice×reward": -0.4037
+      }
+    },
+    "L rewarded | from L lobe (stay)": {
+      "n": 184555,
+      "slope": 0.762652688093933,
+      "intercept": -0.721870324385556,
+      "r2": 0.9631433478153318,
+      "mean_jump": {
+        "value": -0.3134,
+        "choice": 0.0816,
+        "reward": 0.8805,
+        "value×choice": 0.158,
+        "choice×reward": -0.1609
+      }
+    },
+    "L unrewarded | from R lobe (switch)": {
+      "n": 22437,
+      "slope": 0.6636789950871523,
+      "intercept": 0.003117269285899976,
+      "r2": 0.9318881856550001,
+      "mean_jump": {
+        "value": -0.1139,
+        "choice": -2.4223,
+        "reward": -0.9897,
+        "value×choice": -0.0787,
+        "choice×reward": -0.2445
+      }
+    },
+    "L unrewarded | from L lobe (stay)": {
+      "n": 247732,
+      "slope": 0.7698365071073673,
+      "intercept": -0.3328046278541292,
+      "r2": 0.9641425793414058,
+      "mean_jump": {
+        "value": 0.0226,
+        "choice": -0.101,
+        "reward": -0.8426,
+        "value×choice": -0.1313,
+        "choice×reward": 0.2418
+      }
+    }
+  },
+  "attractors_all_sessions_context": {
+    "R rewarded": {
+      "tdr": [
+        [
+          2.152966429118461,
+          1.1103666850877771,
+          1.694433589864679,
+          -0.09001326325341423,
+          -0.04746009524770547
+        ]
+      ],
+      "logit_right": [
+        3.6469571961638545
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "R unrewarded": {
+      "tdr": [
+        [
+          2.887166469632216,
+          0.42814188859681535,
+          -0.6998327701712012,
+          0.2849841989587747,
+          -0.3006062690561425
+        ]
+      ],
+      "logit_right": [
+        3.631854205994353
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L rewarded": {
+      "tdr": [
+        [
+          -2.892117904099433,
+          -0.5051533835826157,
+          1.1380932680689326,
+          -0.40677924895422346,
+          0.24232797589069893
+        ]
+      ],
+      "logit_right": [
+        -3.788984303645474
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    },
+    "L unrewarded": {
+      "tdr": [
+        [
+          -2.6745395322158854,
+          -0.9990411719851774,
+          -1.1403919773290192,
+          -0.5570631088876352,
+          1.0723490417865045
+        ]
+      ],
+      "logit_right": [
+        -3.18077142456222
+      ],
+      "n_fixed_points": 1,
+      "n_stable": 1,
+      "frac_starts_converged": 1.0
+    }
+  },
+  "forward_iterations": 600,
+  "n_starts": 300
+}

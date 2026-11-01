@@ -1,0 +1,419 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/i4_distilled_model.py",
+    "produced_at_pt": "2026-10-29T04:25:49-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i4_distilled_model.py",
+        "sha256": "f0bd188e2b3d86d47f5e00968ebc88ba19680084ab87ee4fc814f69e1d7119fc"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/split_alignment.json",
+        "sha256": "098a2bf5025dc3959003759fb8990b3edd85c78cf1dfdf7939a6db06214b0aa5"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/i4_distilled_model.json",
+        "sha256": "7cdc611b13b7647ff1ca20d28338db406121f380a3fc426bbeda1bc93bd07153"
+      }
+    ]
+  },
+  "groups": [
+    "L− (stay)",
+    "L− (switch)",
+    "L− (first)",
+    "L+ (stay)",
+    "L+ (switch)",
+    "L+ (first)",
+    "R− (stay)",
+    "R− (switch)",
+    "R− (first)",
+    "R+ (stay)",
+    "R+ (switch)",
+    "R+ (first)",
+    "ignore"
+  ],
+  "trials": "shared sessions; L/R scored on the same engaged trials for every variant",
+  "lr_likelihood": {
+    "C3 (GRU)": 0.7350564080195268,
+    "distilled 2-var (v, e)": 0.7175842037096998,
+    "distilled v, with ignore rule": 0.7137122903097888,
+    "distilled v, ignores skipped": 0.7117128283917731,
+    "C (GRU)": 0.7337907674659567,
+    "C distilled v": 0.7117088519887077
+  },
+  "lr_likelihood_by_gap": {
+    "0": {
+      "n": 4135637,
+      "C3 (GRU)": 0.7419550444905856,
+      "distilled 2-var (v, e)": 0.7246243995794794,
+      "distilled v, with ignore rule": 0.7206898113180965,
+      "distilled v, ignores skipped": 0.720117980035551,
+      "C (GRU)": 0.7424759051440736,
+      "C distilled v": 0.720082721912215
+    },
+    "1": {
+      "n": 113192,
+      "C3 (GRU)": 0.614060677454895,
+      "distilled 2-var (v, e)": 0.5942950974737848,
+      "distilled v, with ignore rule": 0.5916487238244355,
+      "distilled v, ignores skipped": 0.5777065208052498,
+      "C (GRU)": 0.5971538172270303,
+      "C distilled v": 0.5780696495789222
+    },
+    "2": {
+      "n": 28830,
+      "C3 (GRU)": 0.5742969998175315,
+      "distilled 2-var (v, e)": 0.5546960893378621,
+      "distilled v, with ignore rule": 0.5521872128776585,
+      "distilled v, ignores skipped": 0.5197217650605556,
+      "C (GRU)": 0.5345690828248885,
+      "C distilled v": 0.5203611700573224
+    },
+    "3–5": {
+      "n": 23981,
+      "C3 (GRU)": 0.5517500441861072,
+      "distilled 2-var (v, e)": 0.531940219679078,
+      "distilled v, with ignore rule": 0.5282701489179322,
+      "distilled v, ignores skipped": 0.4817896695836394,
+      "C (GRU)": 0.49551888148423734,
+      "C distilled v": 0.4825301964931442
+    },
+    "6+": {
+      "n": 12700,
+      "C3 (GRU)": 0.5247403892790965,
+      "distilled 2-var (v, e)": 0.506001391912492,
+      "distilled v, with ignore rule": 0.5050740304788932,
+      "distilled v, ignores skipped": 0.4258791428442715,
+      "C (GRU)": 0.42987219126058285,
+      "C distilled v": 0.4270538521205332
+    }
+  },
+  "engage_likelihood_all_steps": {
+    "C3 (GRU)": 0.850281075727408,
+    "distilled 2-var (v, e)": 0.8359617711748136,
+    "constant base rate": 0.741086613967026
+  },
+  "simulated_vs_gru_C3": {
+    "corr_v": 0.958128133971483,
+    "corr_e": 0.8523906888163081
+  },
+  "params_2var": {
+    "L− (stay)": {
+      "A": [
+        [
+          0.8017,
+          0.04
+        ],
+        [
+          0.0946,
+          0.9381
+        ]
+      ],
+      "c": [
+        -0.4246,
+        0.2595
+      ],
+      "n": 1065671,
+      "fixed_point": [
+        -1.872,
+        1.333
+      ]
+    },
+    "L− (switch)": {
+      "A": [
+        [
+          0.3078,
+          0.0926
+        ],
+        [
+          -0.2252,
+          0.9493
+        ]
+      ],
+      "c": [
+        -0.9523,
+        0.3461
+      ],
+      "n": 97119,
+      "fixed_point": [
+        -0.291,
+        8.113
+      ]
+    },
+    "L− (first)": {
+      "A": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "c": [
+        -0.8643,
+        2.7072
+      ],
+      "n": 2223,
+      "fixed_point": [
+        -0.864,
+        2.707
+      ]
+    },
+    "L+ (stay)": {
+      "A": [
+        [
+          0.8088,
+          0.0677
+        ],
+        [
+          0.105,
+          0.9179
+        ]
+      ],
+      "c": [
+        -1.4638,
+        1.1254
+      ],
+      "n": 790894,
+      "fixed_point": [
+        -5.125,
+        7.148
+      ]
+    },
+    "L+ (switch)": {
+      "A": [
+        [
+          0.132,
+          0.1514
+        ],
+        [
+          -0.2524,
+          0.8731
+        ]
+      ],
+      "c": [
+        -1.9797,
+        1.3822
+      ],
+      "n": 176097,
+      "fixed_point": [
+        -0.284,
+        11.453
+      ]
+    },
+    "L+ (first)": {
+      "A": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "c": [
+        -1.6589,
+        3.4138
+      ],
+      "n": 2311,
+      "fixed_point": [
+        -1.659,
+        3.414
+      ]
+    },
+    "R− (stay)": {
+      "A": [
+        [
+          0.8069,
+          -0.0458
+        ],
+        [
+          -0.0811,
+          0.9295
+        ]
+      ],
+      "c": [
+        0.4604,
+        0.263
+      ],
+      "n": 1110811,
+      "fixed_point": [
+        2.063,
+        1.357
+      ]
+    },
+    "R− (switch)": {
+      "A": [
+        [
+          0.3731,
+          -0.0702
+        ],
+        [
+          0.2258,
+          0.8364
+        ]
+      ],
+      "c": [
+        0.9233,
+        0.4825
+      ],
+      "n": 101790,
+      "fixed_point": [
+        0.989,
+        4.316
+      ]
+    },
+    "R− (first)": {
+      "A": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "c": [
+        0.8609,
+        1.6637
+      ],
+      "n": 2126,
+      "fixed_point": [
+        0.861,
+        1.664
+      ]
+    },
+    "R+ (stay)": {
+      "A": [
+        [
+          0.8291,
+          -0.077
+        ],
+        [
+          -0.135,
+          0.9303
+        ]
+      ],
+      "c": [
+        1.4163,
+        1.1818
+      ],
+      "n": 786165,
+      "fixed_point": [
+        5.109,
+        7.054
+      ]
+    },
+    "R+ (switch)": {
+      "A": [
+        [
+          0.178,
+          -0.0906
+        ],
+        [
+          0.1936,
+          0.8075
+        ]
+      ],
+      "c": [
+        1.8301,
+        1.3829
+      ],
+      "n": 171567,
+      "fixed_point": [
+        1.292,
+        8.482
+      ]
+    },
+    "R+ (first)": {
+      "A": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "c": [
+        1.8023,
+        2.7779
+      ],
+      "n": 2184,
+      "fixed_point": [
+        1.802,
+        2.778
+      ]
+    },
+    "ignore": {
+      "A": [
+        [
+          0.71,
+          0.0076
+        ],
+        [
+          0.0014,
+          0.6708
+        ]
+      ],
+      "c": [
+        0.0214,
+        -0.5452
+      ],
+      "n": 416729,
+      "fixed_point": [
+        0.03,
+        -1.656
+      ]
+    }
+  },
+  "ignore_rule_1var": {
+    "lambda": 0.70987435252633,
+    "c": 0.02364245834809931
+  },
+  "min_per_group": 50
+}
