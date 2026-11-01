@@ -1,0 +1,145 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r6_ctt_ladder.py",
+    "produced_at_pt": "2026-10-28T08:43:41-07:00",
+    "studies_git_sha": "d08217bd5c2e5524b78e58b550748f8063f77ee5",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "ctt@20261028-003745",
+      "ctt@20261028-020002"
+    ],
+    "source_studies_git_shas": [
+      "440d9c873b3c18d9e19313dcf4459f21911dc6ac",
+      "c92a5669b7e065e74c16beb4cc62d353cc104e44"
+    ],
+    "source_dispatcher_git_shas": [
+      "b393a211541cff84ee7ce456d57b2269f639b3cf"
+    ],
+    "source_wrapper_git_shas": [
+      "1bf8e302ee85f71ab9ba5ec1f31076aa72e5e254"
+    ],
+    "source_foraging_models_git_shas": [
+      "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r6_ctt_ladder.py",
+        "sha256": "e7ba8162c8eae7bf5fbbeb8345073a6dad994de10a9291d253f32c6e82dc7383"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r4_ladder.py",
+        "sha256": "0f2b783c32f5feb2d108c1ca2546c504e3b7de0533d1ebf94a4387555b0e2e38"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_final_runs.json",
+        "sha256": "41a9f25de3640b571099b2ad1d9d7d895f1fa80f9f6675c04f42a5ce4ec5db76"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_plugin.json",
+        "sha256": "f12a5709b9c312f18d3fc5ebf069db729398fec6e0c432b7299499353798bf52"
+      },
+      {
+        "path": "studies/08-hb-vs-gru-heldout/analysis/ml_params/ml_ctt_heldout.csv",
+        "sha256": "71243235830e52d0d5c458951bb7d28a2d60c8782148cd1cf01e60fc0b7d1424"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r4_ladder.json",
+        "sha256": "070b815d7956c72030e81bb453591ff6eab1abb314ca3d957bd8bee2c5e655a7"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
+        "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
+        "sha256": "f3cba9eb9c351c48434653c882a11e8afd8f6de9fe383f96af1e5e6e38191baa"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/report_data.json",
+        "sha256": "6b17fb3b7728c926161945f9e30d49d6c771466746ad6958c154b73371daf7f1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r6_ctt_ladder.json",
+        "sha256": "d2ef4e2f6d8934061d527d8e6d810cf6ebf202106281a95f6b2d6b31c7b4f3c8"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r6_ctt_ladder.svg",
+        "sha256": "7bb96bf7e746d35be96bd28db6c698c407365f656b3d5e3c7779e79d1f072c9f"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r6_ctt_ladder_steps.svg",
+        "sha256": "1867b9b6bebca8b9ea227684ac4c3a345385768818126d5ead4c6bfb91385b49"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r6_both_ladders.svg",
+        "sha256": "7e00e8e7fec35c45222253659a825357709fa0d4b75ff5afbdf5a3c18fa8b89b"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r6-ctt-ladder.md#result-1",
+        "sha256": "bc913f0db0d0095b0dbd506a75e4ad7da0b0a77f02a698cb80750d11c96383db"
+      }
+    ]
+  },
+  "n_subjects": 149,
+  "n_trials": 1013172,
+  "pooled": {
+    "MLE": 0.7170386313758604,
+    "plug-in": 0.715866426453308,
+    "zero-spread": 0.7204280228560033,
+    "full HB": 0.722464781663543
+  },
+  "mle_published": 0.717,
+  "gru_by_d": {
+    "10": 0.7219,
+    "30": 0.725,
+    "100": 0.7262,
+    "300": 0.7267,
+    "614": 0.7268
+  },
+  "steps": {
+    "plug-in − MLE": {
+      "pooled": -0.0011722049225524334,
+      "median": -0.0006414084371469952,
+      "frac_positive": 0.2348993288590604,
+      "n": 149
+    },
+    "zero-spread − plug-in": {
+      "pooled": 0.004561596402695267,
+      "median": 0.003628326479167776,
+      "frac_positive": 0.9932885906040269,
+      "n": 149
+    },
+    "full HB − zero-spread": {
+      "pooled": 0.002036758807539729,
+      "median": 0.0013247248202621353,
+      "frac_positive": 0.8859060402684564,
+      "n": 149
+    },
+    "GRU D≈614 − full HB": {
+      "pooled": null,
+      "median": 0.00459827321056383,
+      "frac_positive": 0.9657534246575342,
+      "n": 146
+    }
+  }
+}

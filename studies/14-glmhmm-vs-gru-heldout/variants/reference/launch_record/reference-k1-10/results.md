@@ -25,6 +25,6 @@
 | 9 | [ku3c1uvb](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/ku3c1uvb) | finished | 16.9 | 0.61696 |
 | 10 | [v8zjymez](https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/v8zjymez) | finished | 22.7 | 0.61585 |
 
-**Result.** The refit selection score peaks at K = 2. Scores under the other protocols, the GRU comparison and the states are in r1 (`analysis/reports/r1-round-1.md`).
+**Result.** The refit selection score peaks at K = 2. Scores under the other protocols, the GRU comparison and the states are in r1 (`analysis/reports/r1-round-1.md`, added by #69; planned until it merges).
 
 **Feeds.** r1.

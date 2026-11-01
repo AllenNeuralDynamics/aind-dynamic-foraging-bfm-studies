@@ -1,0 +1,190 @@
+# HB-CTT production (variant ctt): the hattori production recipe with the compare-to-threshold forager
+# (foraging-models get_model("ctt"): learn_rate, threshold, softmax_inverse_temperature, bias_l;
+# one learning rate, no choice kernel, reset to threshold, as the per-subject MLE CTT baseline).
+# 2000 warmup, 4 x 1500 draws (6,000 posterior draws), 24 session draws per posterior draw; sessions
+# failing Pareto k-hat are rescored by importance sampling from the start (hattori ADR 0004).
+# One held-out subject per array task; the same 149 subjects as hattori (study 01's rl_baseline.json).
+# model=hb_hattori is the dispatcher's HB trainer config (HBTrainer); +model.hb_model=ctt picks the forager.
+# wandb.project must be in the command: the launcher sets only the group.
+
+entity: AIND-disRNN
+project: mice_data_scaling
+name: hb-ctt-heldout-two-level-per-subject
+
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=hb_hattori
+  - model.estimator=heldout_two_level
+  - model.num_warmup=2000
+  - model.num_samples=1500
+  - model.num_chains=4
+  - +model.session_draws_per_posterior_draw=24
+  - +model.hb_model=ctt
+  - +model.importance_rescore=true
+  - +model.importance_draws=24000
+  - data.subject_ratio=0.016
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_data_scaling
+  - ${args_no_hyphens}
+
+parameters:
+  data.test_subject_ids:
+    values:
+      - "[452275]"
+      - "[453476]"
+      - "[453478]"
+      - "[455525]"
+      - "[472184]"
+      - "[494693]"
+      - "[616134]"
+      - "[627042]"
+      - "[637701]"
+      - "[639875]"
+      - "[641494]"
+      - "[643773]"
+      - "[648586]"
+      - "[651475]"
+      - "[651554]"
+      - "[652743]"
+      - "[655100]"
+      - "[656489]"
+      - "[659778]"
+      - "[663373]"
+      - "[668551]"
+      - "[671245]"
+      - "[673396]"
+      - "[682342]"
+      - "[684039]"
+      - "[697929]"
+      - "[697930]"
+      - "[699982]"
+      - "[700708]"
+      - "[708299]"
+      - "[710414]"
+      - "[711039]"
+      - "[711041]"
+      - "[711254]"
+      - "[711281]"
+      - "[712031]"
+      - "[713379]"
+      - "[713862]"
+      - "[716324]"
+      - "[721403]"
+      - "[722683]"
+      - "[722989]"
+      - "[726649]"
+      - "[727456]"
+      - "[736198]"
+      - "[736199]"
+      - "[744779]"
+      - "[745505]"
+      - "[746346]"
+      - "[747886]"
+      - "[749472]"
+      - "[751153]"
+      - "[751765]"
+      - "[751920]"
+      - "[753122]"
+      - "[754372]"
+      - "[756567]"
+      - "[757214]"
+      - "[761406]"
+      - "[762611]"
+      - "[763704]"
+      - "[764693]"
+      - "[765232]"
+      - "[765365]"
+      - "[765373]"
+      - "[765861]"
+      - "[766556]"
+      - "[766998]"
+      - "[767462]"
+      - "[767463]"
+      - "[769359]"
+      - "[770803]"
+      - "[774826]"
+      - "[775741]"
+      - "[775745]"
+      - "[776259]"
+      - "[777027]"
+      - "[777098]"
+      - "[777271]"
+      - "[778103]"
+      - "[778336]"
+      - "[780618]"
+      - "[780621]"
+      - "[781162]"
+      - "[781369]"
+      - "[781896]"
+      - "[781897]"
+      - "[782394]"
+      - "[784956]"
+      - "[785951]"
+      - "[786234]"
+      - "[787625]"
+      - "[788732]"
+      - "[788733]"
+      - "[790584]"
+      - "[790726]"
+      - "[790768]"
+      - "[791174]"
+      - "[793397]"
+      - "[795395]"
+      - "[797673]"
+      - "[798520]"
+      - "[798664]"
+      - "[800175]"
+      - "[801996]"
+      - "[802292]"
+      - "[802953]"
+      - "[805496]"
+      - "[807885]"
+      - "[808584]"
+      - "[809488]"
+      - "[810756]"
+      - "[810758]"
+      - "[812305]"
+      - "[812307]"
+      - "[813165]"
+      - "[813167]"
+      - "[813171]"
+      - "[813992]"
+      - "[814147]"
+      - "[814196]"
+      - "[815334]"
+      - "[818020]"
+      - "[818585]"
+      - "[818908]"
+      - "[819169]"
+      - "[820243]"
+      - "[821576]"
+      - "[823161]"
+      - "[823163]"
+      - "[823166]"
+      - "[826160]"
+      - "[829048]"
+      - "[829489]"
+      - "[829569]"
+      - "[832634]"
+      - "[835178]"
+      - "[835444]"
+      - "[836656]"
+      - "[836657]"
+      - "[837689]"
+      - "[838101]"
+      - "[838332]"
+      - "[839483]"
+      - "[841356]"
+      - "[841363]"
+      - "[841599]"
+      - "[845710]"
+      - "[850597]"

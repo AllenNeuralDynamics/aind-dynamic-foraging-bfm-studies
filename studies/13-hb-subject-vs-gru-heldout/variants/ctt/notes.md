@@ -6,4 +6,4 @@
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `ctt@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Done: production `ctt@20261028-003745` (149 subjects) and refit `ctt@20261028-020002` (42 subjects failing a gate, non-centred at target acceptance 0.95). Result: r5.
