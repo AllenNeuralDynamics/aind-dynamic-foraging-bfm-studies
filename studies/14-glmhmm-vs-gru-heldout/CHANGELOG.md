@@ -12,3 +12,10 @@
   (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111) and the `max_em_iters` 500
   follow-up (AllenNeuralDynamics/aind-dynamic-foraging-models#82).
 - r2 reads states only as far as study 15 (#50) shows they are recoverable.
+
+## 2026-10-27 (evening)
+
+- `lag-scan` launched and done: smoke `lag-scan@20261027-194921`, then all 8 cells as
+  `lag-scan@20261027-200129`, from main SHAs on HPC CPU. L = 10 maximises the selection score
+  for both emissions, at the scan's upper bound; gains shrink from 0.005 (L 3 → 5) to under
+  0.001 (L 7 → 10). Results in `variants/lag-scan/launch_record/lag-scan/results.md`.

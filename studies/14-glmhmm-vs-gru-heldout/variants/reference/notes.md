@@ -32,4 +32,7 @@ grid, one non-preemptible single-GPU task per cell:
 `reference@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that
 group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-10-27 21:29–21:30 PT as `reference@20261027-213006`: K = 1–10 at L = 10, 20
+restarts, 10 workers on 32 cores and 96 GB, HPC CPU. Completed 2026-10-28 20:18 PT: all 10 runs
+finished normally. The refit selection score peaks at K = 2. Results:
+[`launch_record/reference-k1-10/results.md`](launch_record/reference-k1-10/results.md).
