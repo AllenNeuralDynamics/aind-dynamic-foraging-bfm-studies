@@ -1,0 +1,65 @@
+# Study 12 / per-subject-de: every literature model fit per subject on all 763 cohort
+# subjects (614 training pool + 149 held-out), one W&B run per model.
+#   data  -> dispatcher code/config/data/mice_snapshot_scaling.yaml (snapshot 20260603;
+#            min_sessions 10, heldout_every_n 5, eval_every_n 2, ignore_policy exclude,
+#            mature_only false, subject_ratio 1.0 per curriculum): study 01 r8's cohort
+#   model -> dispatcher code/config/model/baseline_rl_lit_<name>.yaml (dispatcher PR #214),
+#            each exactly one ForagerCollection.FORAGER_PRESETS entry or Costa variant
+# Fit: differential evolution on even sessions, seed 0; score: odd sessions.
+# One array task per model, each on one 112-core cpu node. Launch: notes.md.
+# wandb.entity/project must be in the command: the launcher sets only the group.
+
+entity: NeuralDynamics
+project: aind-dynamic-foraging-model
+name: per-subject-de
+
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - seed=0
+  # Fit BOTH cohorts in one run: the training pool, then the held-out refit
+  # (the baseline_rl_lit configs default to heldout_refit.enabled=false).
+  - model.heldout_refit.enabled=true
+  - model.heldout_refit.skip_train_fit=false
+  # Parallelize over subjects, not inside differential evolution.
+  - model.multisubject_subject_workers=112
+  - +model.DE_kwargs.workers=1
+  # No example-session plots; metrics come from the per-subject tables.
+  - data.heldout_example_sessions_per_subject=0
+  - data.train_example_sessions_per_subject=0
+  - data.eval_example_sessions_per_subject=0
+  - data.example_max_subjects=0
+  - wandb.entity=NeuralDynamics
+  - wandb.project=aind-dynamic-foraging-model
+  - "wandb.tags=[hpc,cpu,mice,baseline_rl,literature_model,12-cognitive-literature-leaderboard]"
+  - ${args_no_hyphens}
+
+parameters:
+  model:
+    values:
+      - baseline_rl_lit_hattori2019
+      - baseline_rl_lit_bari2019
+      - baseline_rl_lit_compare_to_threshold
+      - baseline_rl_lit_rescorla_wagner
+      - baseline_rl_lit_win_stay_lose_shift
+      - baseline_rl_lit_actor_critic
+      - baseline_rl_lit_chen_rlck
+      - baseline_rl_lit_zid_history_kernel2
+      - baseline_rl_lit_grossman_meta_learning
+      - baseline_rl_lit_lebedeva_pr
+      - baseline_rl_lit_beron_rflr
+      - baseline_rl_lit_miller_rhg
+      - baseline_rl_lit_eckstein_rl
+      - baseline_rl_lit_eckstein_bi
+      - baseline_rl_lit_feedback_dependent_rl
+      - baseline_rl_lit_feedback_dependent_rl_bias
+      - baseline_rl_lit_feedback_dependent_rl_bias_ck1
+      - baseline_rl_lit_alsio_dual_rate_sticky_rl
+      - baseline_rl_lit_lopez_double_trace
