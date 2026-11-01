@@ -38,7 +38,7 @@ later study draws has a score.
 
 | | |
 |---|---|
-| Fit | one parameter set per subject, differential evolution on even sessions, seed 0 |
+| Fit | one parameter set per subject, differential evolution on even sessions; DE is not seeded (the run's seed 0 sets only the agent's own RNG), so each fit is one DE run, as in study 01 r8 |
 | Score | odd sessions; pooled trial-weighted exp(Σ log p / Σ n), p clipped to [1e-10, 1 − 1e-10] |
 | Data | `mice_snapshot_scaling`, snapshot 20260603, min_sessions 10, heldout_every_n 5, eval_every_n 2, ignore_policy exclude, mature_only false |
 | Models | the 17 `ForagerCollection.FORAGER_PRESETS`, `ForagerFeedbackDependentRLBias` and `ForagerFeedbackDependentRLBiasCK1`, and the free LossCounting model (20), with package-default bounds and initial states, as study 09. Win-Stay-Lose-Shift is fit but not ranked (a strawman with no lapse term) |

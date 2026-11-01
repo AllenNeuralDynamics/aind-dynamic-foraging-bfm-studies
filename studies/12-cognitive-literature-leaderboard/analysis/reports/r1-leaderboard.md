@@ -113,5 +113,10 @@ Per-subject held-out likelihood of the re-fit against study 01 r8's fit of the s
   slightly better training optimum (log-likelihood −1886.09 vs −1886.51) with the threshold at its
   −1 bound, a difference of 2.3e-4 in held-out likelihood. The pooled values are identical at 4
   decimals.
+- **Each fit is one differential-evolution run.** The fitter seeds DE only through `DE_kwargs`,
+  which these runs (like study 01 r8) leave unseeded. Well-conditioned models land on the same
+  optimum every time (Hattori2019 and Bari2019 above), but a model with several optima can land
+  elsewhere on a refit: MEvolve found this for ActorCritic and Miller-RHG, and the CompareToThreshold
+  subject above is the same effect at a bound.
 - **The three-subject pool swap between the GRU's split and ours does not matter.** Scores on
   the GRU's own 149-subject list differ from those on the 146 shared subjects by at most 0.0008.
