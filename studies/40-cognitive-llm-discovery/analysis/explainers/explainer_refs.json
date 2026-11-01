@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/explainers/build_explainer.py",
-    "produced_at_pt": "2026-11-01T01:21:36-08:00",
-    "studies_git_sha": "98440a2b2ab63743af2523992d0109e025f7e260",
+    "produced_at_pt": "2026-11-01T01:27:39-08:00",
+    "studies_git_sha": "f084e8e2b5c389b16f4a49a1b08043ff17aa0d58",
     "studies_git_dirty": false,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -48,7 +48,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/explainers/study40_animated_explainer.html",
-        "sha256": "5da96d80d0c76816602afd99773722d4916d95ef6c0824ffe407deff63a3f8b4"
+        "sha256": "5c87ac379fbd165cbc29a0b44e2908e59e592273630a041782ab6c3511e35023"
       }
     ]
   },
