@@ -71,6 +71,9 @@ for those sessions and the plain value elsewhere; both estimate the same integra
 - Refit (ADR 0004) of the 46 subjects failing a gate in production. Centred (rejected): divergences 304 → 11,007, R-hat/ESS passes 39 → 24. Non-centred at target acceptance 0.95 (used): divergences 304 → 45, R-hat/ESS passes 39 → 45, 36 of 46 passing every gate.
 <!-- END result-1 -->
 
+New to the method? A seven-scene [animated explainer](../explainers/study13_animated_explainer.html) walks through the data split, the two-level model, the
+fit, the scoring, the k̂ rescue, the refit and both ladders (toy data except the ladders).
+
 ## What it says
 
 Read off the frozen result above (2026-10-26):
