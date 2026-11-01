@@ -8,7 +8,8 @@ while keeping the score above a fit floor, reported beside the parameter and lat
 There are three floors, as in DataDIVER: the simplified program keeps 90%, 75% or 50% of the gain from
 the best published model to the best discovered program, each floor a separate run; together they
 trace a fit-versus-complexity curve. Both ends of the gain are validation scores computed by MEvolve's
-evaluator at the session level, so they are fitted and scored the same way (decided with Han, 2026-10-31 and 2026-11-01).
+evaluator at the session level, so they are fitted and scored the same way; the published models'
+session-level scores come from study 12, which computes them with the same evaluator (decided with Han, 2026-10-31 and 2026-11-01).
 
 The lab's published models use 4 to 7 parameters. CogFunSearch's best rat program used 18, carried
 latent variables it never read and parameters that fit to zero. At the session level every parameter

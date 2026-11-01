@@ -53,8 +53,12 @@ A session's training stage collapsed to final (final or graduated), earlier, or 
 score is split by stage group and task variant.
 
 **Both-regime test**:
-Scoring an elite with one parameter set per subject and again with the session level, to flag a
-mechanism that only absorbs drift between sessions.
+Scoring an elite with and without one of its mechanisms, once with one parameter set per subject and
+once at the session level.
+
+**Flagged mechanism**:
+A program edit whose gain appears with one parameter set per subject but vanishes at the session level,
+a sign that it absorbs drift between sessions rather than describing computation within a session.
 
 **Fit floor**:
 The validation score a simplified program must keep, as a fraction of the distance from the best

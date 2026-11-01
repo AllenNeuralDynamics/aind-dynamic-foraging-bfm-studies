@@ -30,4 +30,6 @@ subject's typical values raised it again for 95% of them.
 
 - The headline compares against HB-CTT, the comparator fitted the same way.
 - Each elite also gets the both-regime test, to flag mechanisms that only absorb drift between
-  sessions.
+  sessions. A flagged mechanism is reported and ablated in the interpretation report (removed, the
+  program refitted at the session level); no program is excluded automatically, since the signal is
+  not yet calibrated.

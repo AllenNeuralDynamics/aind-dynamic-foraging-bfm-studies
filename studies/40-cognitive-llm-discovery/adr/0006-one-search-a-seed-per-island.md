@@ -9,8 +9,9 @@ migration lets mechanisms from different models combine (decided with Han, 2026-
 
 **Seeds.** The seed library is the 17 published models of `aind-dynamic-foraging-models`, each
 rewritten as a program and checked against its original; nothing else enters the prompt pool. There
-are five islands: a near-empty template; the three published models with the best per-subject
-scores on the validation subjects (from study 12, which fits all 17 on every cohort subject); and
+are five islands: a near-empty template; the three published models with the best scores on the
+validation subjects (from study 12, which fits all 17 on every cohort subject: its session-level scores
+if they exist when the pilot starts, otherwise its per-subject ones); and
 Eckstein's Bayesian-inference model as the library's model with discrete states, or the fourth-ranked
 model if Eckstein's is already in the top three. That spreads the $450 at roughly $90 per island
 (decided with Han, 2026-11-01).
