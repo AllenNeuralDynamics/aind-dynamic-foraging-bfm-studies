@@ -24,6 +24,9 @@ command:
   - run_hpc
   - data=mice_snapshot_scaling
   - seed=0
+  # One Hydra run dir per array task: the default (job_id 0) is shared, so concurrent runs
+  # overwrite each other's .hydra/ and inputs.yaml copies (smoke-2). Output paths only.
+  - job_id='${oc.env:SLURM_JOB_ID,0}'
   # Fit BOTH cohorts in one run: the training pool, then the held-out refit
   # (the baseline_rl_lit configs default to heldout_refit.enabled=false).
   - model.heldout_refit.enabled=true

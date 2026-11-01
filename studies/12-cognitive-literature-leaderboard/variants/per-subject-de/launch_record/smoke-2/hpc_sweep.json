@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-11-01T00:55:09-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "per-subject-de@20261101-005459",
+  "label": "smoke-2",
+  "note": "Study 12 smoke, second try after the launcher fix (dispatcher 6450af3): Hattori2019 and Beron-RFLR on a small training cohort plus the 149 held-out subjects, to check that runs land in NeuralDynamics/aind-dynamic-foraging-model and that both per-subject tables carry fitted parameters before the 19-model launch. Numbers are not results.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "2tpt1enh"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27565003"
+    }
+  ],
+  "revisions": {
+    "studies": "d61d80dd3b0f49919959b72430b7d3076175d33f",
+    "dispatcher": "6450af3c1505abf7806af4e46a62a48df56c75ac",
+    "wrapper": "331d373c128682c2d8f766e344f9ba05f228d5cf"
+  },
+  "manifests": [
+    "sweep_hpc_smoke.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 2,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e86b63bf5f63a0f94fe8a4e2e14ecef0ddd320fb3ec8a30ccb22cc6ea930dd41"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "2tpt1enh",
+  "wandb_sweep_path": "NeuralDynamics/aind-dynamic-foraging-model/2tpt1enh",
+  "sweep_url": "https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/2tpt1enh",
+  "slurm_array_job_id": "27565003",
+  "slurm_autostop_job_id": "27565004",
+  "n_array_tasks": 2,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "6450af3c1505abf7806af4e46a62a48df56c75ac",
+  "studies_git_commit": "d61d80dd3b0f49919959b72430b7d3076175d33f",
+  "studies_git_branch": "study/12-cognitive-literature-leaderboard",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "6450af3c1505abf7806af4e46a62a48df56c75ac",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [
+    "foraging-models: version 0.26.0 in the runtime env was not installed from git, so no commit is recorded"
+  ],
+  "wrapper_git_commit": "331d373c128682c2d8f766e344f9ba05f228d5cf",
+  "foraging_models_git_commit": null,
+  "foraging_models_version": "0.26.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/studies-12/studies/12-cognitive-literature-leaderboard/variants/per-subject-de/sweep_hpc_smoke.yaml",
+  "created_utc": "2026-11-01T07:55:09.813927+00:00"
+}
