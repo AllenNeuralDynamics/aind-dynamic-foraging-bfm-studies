@@ -131,6 +131,9 @@ def main() -> None:
     args = parser.parse_args()
     groups = [args.group] if args.group else WANDB_GROUPS
     test = bool(args.group)
+    if test and args.out_dir.resolve() == HERE.resolve():
+        parser.error("--group skips the completeness checks; pass --out-dir to a scratch "
+                     "directory so the committed freeze is never overwritten")
 
     rows, runs, sources = [], [], []
     for group in groups:
