@@ -1,0 +1,145 @@
+{
+ "description": "Study 14 round-1 global fits (hurdle@20261027-212905, reference@20261027-213006), copied unchanged from each run's outputs/glmhmm/fit.json for reuse via model.global_fit_dir. Each sha256 equals the one frozen in analysis/frozen_round1.json.",
+ "files": [
+  {
+   "file": "hurdle_K1_L10.json",
+   "sha256": "9b5bb3c013727a536980231c6927c8dce8ffa15e224efef405bd0953372d1057",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/tqxqq6ek",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213057-tqxqq6ek/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K2_L10.json",
+   "sha256": "6d589606bf24a8bd9d35090ca140468215781f3c28f8f40dff1f25e9cfbebd8c",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/bax62c47",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213057-bax62c47/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K3_L10.json",
+   "sha256": "5493e089e602a5c7242db2c1569be0f3217b9bcfaac3f2ca95e32b0a23c74d53",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/u4j7ukti",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213114-u4j7ukti/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K4_L10.json",
+   "sha256": "b2621ff394e229ff6fb43e443896350d5b055389f1343df1cb6347d71c8332ab",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/8crhqlqk",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213114-8crhqlqk/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K5_L10.json",
+   "sha256": "580c5cfc8b4ba5aa5b53b1cf3cb872d7a9955cc85f5cf26b3edf0fab79bb1163",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/gpqv6sub",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213124-gpqv6sub/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K6_L10.json",
+   "sha256": "b4f2e5c6f191abbda1c1e864f6d7429b67258c7101970f633ccff99232c715e3",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/nxvyn933",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213127-nxvyn933/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K7_L10.json",
+   "sha256": "05c79b456938d9431bb405229d3d693dbe6ace917c443c2bc476147d2930b4b2",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/qqgkv2yu",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213133-qqgkv2yu/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K8_L10.json",
+   "sha256": "4c65e60d5b455125212c0b8a53efd5bd73a20e81c43638dbc98ee75ca624708d",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/xdpnnxs9",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213133-xdpnnxs9/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K9_L10.json",
+   "sha256": "d1eaab55e14f3e7210bb29e488e007b3a5fb794dc036ced1d0d259861f8fb4f2",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/8r9ltf6k",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213156-8r9ltf6k/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "hurdle_K10_L10.json",
+   "sha256": "3c875ca9f16ac839e750a99c5e22f77726e6a01087b82076ebf33f8884739d5d",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/3gknqru4",
+   "wandb_group": "hurdle@20261027-212905",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213157-3gknqru4/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K1_L10.json",
+   "sha256": "000e9f4b4f42e3111e756c4183dd481bb2723a2792201642c7c5af5b1b7f4d4e",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/ku5cosnd",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213134-ku5cosnd/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K2_L10.json",
+   "sha256": "07f8a2022fb6fff141e466195cd0caec59cca240ecd1a587ce32d3a14814df4c",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/74wl3w23",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213144-74wl3w23/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K3_L10.json",
+   "sha256": "b976c2271851339a84be5e93a8c17843098f2f2563a2dbbe5613944bf71c3bbf",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/fhys1r3s",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213144-fhys1r3s/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K4_L10.json",
+   "sha256": "0073d8a22f16441be7beb664d67315489879a01504b3cfd718ce747bdbb72aa2",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/g934dzpw",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213158-g934dzpw/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K5_L10.json",
+   "sha256": "f92df764c5fa457a65eba466ab27bc053e5b33289f0ea7969b90aa372b0de026",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/imhowo92",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213159-imhowo92/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K6_L10.json",
+   "sha256": "2af398b7467ed45a0d752bf082cb0e86d34c0f1739ddb468ffb0217fed2853c2",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/0omy97mc",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213157-0omy97mc/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K7_L10.json",
+   "sha256": "e2126cc0f45f894fc432f662d41613c030e9b890957355ef269776276301a123",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/vf1y44zx",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213200-vf1y44zx/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K8_L10.json",
+   "sha256": "b613b51dc945b92b6a3ccf214bed09fbf9900052753de97548d3d2aa5bf47411",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/bxtozep8",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213204-bxtozep8/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K9_L10.json",
+   "sha256": "7387bc0d73117a291d8d82b70b8c46d34ca0d3ce6b18362d9a5ee86bd39ca5db",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/ku3c1uvb",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213205-ku3c1uvb/files/outputs/glmhmm/fit.json"
+  },
+  {
+   "file": "reference_K10_L10.json",
+   "sha256": "9eb40abbe8da059f685aeca780a289a42e7e7f89c8edb2bb25a98fa35b84d8eb",
+   "wandb_run": "AIND-disRNN/mice_glmhmm/v8zjymez",
+   "wandb_group": "reference@20261027-213006",
+   "source_path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261027_213233-v8zjymez/files/outputs/glmhmm/fit.json"
+  }
+ ]
+}

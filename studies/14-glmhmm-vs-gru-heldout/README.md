@@ -78,6 +78,7 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
 | `lag-scan` | K = 1, history length L ∈ {3, 5, 7, 10}, both emissions | which L the K grid uses |
 | `hurdle` | K = 1 … 10, hurdle emission, chosen L | held-out score vs K; states |
 | `reference` | K = 1 … 10, reference emission, chosen L | the same, for Faeze's 3-class `ssm` parameterisation (ignore as the zero-logit class) |
+| `refit-prior` | refit prior centred on the global fit, σ ∈ {0.25, 0.5, 1, 2}, K = 1 … 10, both emissions; reuses round 1's global fits | whether a centred refit stops scoring below the global fit alone, and where K peaks then |
 
 ## Verdict
 
