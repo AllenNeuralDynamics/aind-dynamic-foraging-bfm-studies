@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-10-27T20:01:39-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "lag-scan@20261027-200129",
+  "label": "lag-scan",
+  "note": "Study 14 lag-scan: K=1 GLM-HMM over L in {3,5,7,10} x {hurdle, reference} on the full training pool, to fix the history length L for the K grids, chosen on glmhmm/select/eval_likelihood (training-mouse refits; held-out keys reported, never used to choose). From main (studies bdbdc53, wrapper a4b018b, dispatcher 90f9b6c, models 0.24.0 at 13f7e9c in the shared CPU env, unchanged); smoke lag-scan@20261027-194921 passed. K=1 has no restarts, so the parallel-restart PRs do not apply here.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "oc3seen8"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27516851"
+    }
+  ],
+  "revisions": {
+    "studies": "bdbdc536d2ec606bfad3cdd1f54a7664eafa61df",
+    "dispatcher": "90f9b6cfc2817a0f28b497f48666c769ffb36604",
+    "wrapper": "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43",
+    "foraging_models": "13f7e9c3af6e80bcaeaae65a970a410e0539077d"
+  },
+  "manifests": [
+    "sweep_hpc.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 12,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "57d95767622925e35d2557e1806d80bbe99180b456e39dedc64de6e3d4e9b48c"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "oc3seen8",
+  "wandb_sweep_path": "AIND-disRNN/mice_glmhmm/oc3seen8",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/mice_glmhmm/sweeps/oc3seen8",
+  "slurm_array_job_id": "27516851",
+  "slurm_autostop_job_id": "27516852",
+  "n_array_tasks": 12,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "90f9b6cfc2817a0f28b497f48666c769ffb36604",
+  "studies_git_commit": "bdbdc536d2ec606bfad3cdd1f54a7664eafa61df",
+  "studies_git_branch": "HEAD",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "90f9b6cfc2817a0f28b497f48666c769ffb36604",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43",
+  "foraging_models_git_commit": "13f7e9c3af6e80bcaeaae65a970a410e0539077d",
+  "foraging_models_version": "0.24.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/14-hpc/aind-dynamic-foraging-bfm-studies/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/sweep_hpc.yaml",
+  "created_utc": "2026-10-28T03:01:39.458223+00:00"
+}

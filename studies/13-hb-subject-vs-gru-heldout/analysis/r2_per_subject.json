@@ -3,30 +3,33 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_per_subject.py",
-    "produced_at_pt": "2026-10-26T21:45:26-07:00",
-    "studies_git_sha": "dabeea8b91bb692a70c7ce8d8663dff78bf4902c",
+    "produced_at_pt": "2026-10-28T01:39:11-07:00",
+    "studies_git_sha": "a932cfeec5748f5481eb7517aa6bf2e10b13c70f",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
-      "hattori@20261026-002131"
+      "hattori@20261027-181430",
+      "hattori@20261027-223626"
     ],
     "source_studies_git_shas": [
-      "32bcf415c5f18d16a07dda5fb4dee914feabd177"
+      "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
+      "41ef7f9a0dc1453b3637415829e48682eca05e90"
     ],
     "source_dispatcher_git_shas": [
-      "5936f5d0b94b1fb5ec9d95058067716f261e5555"
+      "a4fe331b0fde0ca21aca8922d083e273e7868bcb"
     ],
     "source_wrapper_git_shas": [
-      "04878a6cdb081b0156b96ac1e61dde5de58d492e"
+      "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43"
     ],
     "source_foraging_models_git_shas": [
-      "ef1d31a291e41a756d49b46ee15b3e0c3fa373b2"
+      "13f7e9c3af6e80bcaeaae65a970a410e0539077d",
+      "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
     ],
     "provenance_findings": [],
     "code": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r2_per_subject.py",
-        "sha256": "e890cd2c252136b690c9c4d202142bf1b557564d279d92f1657074f68649c191"
+        "sha256": "7b941913414d01ead7a55719417b91c6c73fa9743ae7bf54cf35f2be3fab09b9"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -39,8 +42,8 @@
     ],
     "inputs": [
       {
-        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_runs.json",
-        "sha256": "47361e29ee51c91658f6adf8b9385863bbb846f86ae57297c46f2276f6fac9da"
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/hattori_final_runs.json",
+        "sha256": "b3517c332255a56ea77fc6c77a829aa329c9667b61b65a439e381d2f30cc325b"
       },
       {
         "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
@@ -54,15 +57,15 @@
     "outputs": [
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r2_per_subject.json",
-        "sha256": "7052648209a1d11b0320ccde66b9f6013b509afb92bc5382e3da137d333bacc9"
+        "sha256": "6b77fa412cc411a069ae0ea9b0557c4e8063d0e3d8646bb1fe5440b97ab8356d"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/fig_r2_per_subject.svg",
-        "sha256": "998eef1de4c90d8767d16f24d6dcf033c7ff1bdbfa10eaf836d9a496af59cb49"
+        "sha256": "5399b7cb9ca48ec2c4e124de4777bcb0e92d3f1d6e7e7bab36aec4a411469358"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/reports/r2-per-subject.md#result-1",
-        "sha256": "95945a078a33a1cb3c70b2725a4788f3cd95a637c2953e11edf688ef96e83a22"
+        "sha256": "ad6d3d88c4693483f58d46440069686a961b78c4dd2c81aa4f02291bcf8303e8"
       }
     ]
   },
@@ -96,7 +99,7 @@
   },
   "subjects_trial_count_differs_from_gru": [],
   "per_arm_median": {
-    "HB two-level": 0.734737417606758,
+    "HB two-level": 0.7347527799201132,
     "GRU D≈30": 0.7393048190124966,
     "GRU D≈614": 0.7406768090823538,
     "MLE Hattori": 0.7284707209900985,
@@ -104,26 +107,26 @@
   },
   "hb_minus": {
     "GRU D≈30": {
-      "median": -0.004534947600310035,
-      "mean": -0.004450985578535249,
+      "median": -0.004537161061467343,
+      "mean": -0.0044503896707893875,
       "frac_hb_higher": 0.06164383561643835,
       "n": 146
     },
     "GRU D≈614": {
-      "median": -0.006128501213929216,
-      "mean": -0.006142695794989259,
+      "median": -0.006125699235133397,
+      "mean": -0.0061420998872433975,
       "frac_hb_higher": 0.03424657534246575,
       "n": 146
     },
     "MLE Hattori": {
-      "median": 0.0073270723103526225,
-      "mean": 0.008341477052414097,
+      "median": 0.007326710556606109,
+      "mean": 0.00834207296015996,
       "frac_hb_higher": 0.9931506849315068,
       "n": 146
     },
     "MLE CTT": {
-      "median": 0.0036304712479542367,
-      "mean": 0.0036855615226567937,
+      "median": 0.003655696239339312,
+      "mean": 0.003686157430402656,
       "frac_hb_higher": 0.7876712328767124,
       "n": 146
     }

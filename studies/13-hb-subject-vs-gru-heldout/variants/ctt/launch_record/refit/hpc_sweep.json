@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-10-28T02:00:16-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "ctt@20261028-020002",
+  "label": "refit",
+  "note": "Study 13 ctt refit: the 42 subjects failing a convergence gate in ctt@20261028-003745 (1,189 divergences), refit as the hattori variant's approved refit (non-centred, target acceptance 0.95, 3000 warmup + 4x3000 draws) with the k-hat rescue. Keeps the two variants on the same protocol.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "uz1815te"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27519736"
+    }
+  ],
+  "revisions": {
+    "studies": "440d9c873b3c18d9e19313dcf4459f21911dc6ac",
+    "dispatcher": "b393a211541cff84ee7ce456d57b2269f639b3cf",
+    "wrapper": "1bf8e302ee85f71ab9ba5ec1f31076aa72e5e254"
+  },
+  "manifests": [
+    "sweep_hpc_refit.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 42,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e86b63bf5f63a0f94fe8a4e2e14ecef0ddd320fb3ec8a30ccb22cc6ea930dd41"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "uz1815te",
+  "wandb_sweep_path": "AIND-disRNN/mice_data_scaling/uz1815te",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/mice_data_scaling/sweeps/uz1815te",
+  "slurm_array_job_id": "27519736",
+  "slurm_autostop_job_id": "27519737",
+  "n_array_tasks": 42,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "b393a211541cff84ee7ce456d57b2269f639b3cf",
+  "studies_git_commit": "440d9c873b3c18d9e19313dcf4459f21911dc6ac",
+  "studies_git_branch": "HEAD",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "b393a211541cff84ee7ce456d57b2269f639b3cf",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [
+    "foraging-models: version 0.26.0 in the runtime env was not installed from git, so no commit is recorded"
+  ],
+  "wrapper_git_commit": "1bf8e302ee85f71ab9ba5ec1f31076aa72e5e254",
+  "foraging_models_git_commit": null,
+  "foraging_models_version": "0.26.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/hpc13d/aind-dynamic-foraging-bfm-studies/studies/13-hb-subject-vs-gru-heldout/variants/ctt/sweep_hpc_refit.yaml",
+  "created_utc": "2026-10-28T09:00:16.419224+00:00"
+}
