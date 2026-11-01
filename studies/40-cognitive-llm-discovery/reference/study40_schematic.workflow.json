@@ -120,8 +120,8 @@
       "lane": "data",
       "col": 1,
       "type": "database",
-      "label": "Three tiers",
-      "sublabel": "G ~48 · V ~48 · T 149",
+      "label": "Four cohorts",
+      "sublabel": "G · V · S · T",
       "width": 128
     },
     {
@@ -130,7 +130,7 @@
       "col": 0,
       "type": "backend",
       "label": "Seed library",
-      "sublabel": "17 published models",
+      "sublabel": "19 literature models",
       "width": 128
     },
     {
@@ -139,7 +139,7 @@
       "col": 1,
       "type": "backend",
       "label": "Evaluator",
-      "sublabel": "fits + scores G and V",
+      "sublabel": "fits + scores G, V, S",
       "width": 128
     },
     {
@@ -157,7 +157,7 @@
       "col": 3,
       "type": "cloud",
       "label": "Stage 1 search",
-      "sublabel": "max V likelihood, ≤ $500",
+      "sublabel": "5 islands, about $450",
       "width": 128
     },
     {
@@ -166,7 +166,7 @@
       "col": 4,
       "type": "cloud",
       "label": "Stage 2 simplify",
-      "sublabel": "min effort, fit floor",
+      "sublabel": "three fit floors",
       "width": 128
     },
     {
@@ -175,7 +175,7 @@
       "col": 4,
       "type": "backend",
       "label": "Finalize on T",
-      "sublabel": "top-3, touched once",
+      "sublabel": "4 chosen on S",
       "width": 128
     },
     {
@@ -293,17 +293,17 @@
       "dot": "amber",
       "title": "Headline",
       "items": [
-        "Gap closed = (program − HB-CTT) / (GRU − HB-CTT), on the 149 test mice",
-        "Plus generative match in closed loop with the task"
+        "Gap closed = (program − HB-CTT) / (GRU − HB-CTT), on the test mice shared with the GRU",
+        "For four pre-registered programs, each gated by replay and rollout fingerprints"
       ]
     },
     {
       "dot": "slate",
       "title": "Parking lot (later rounds)",
       "items": [
-        "Final-stage variant; a latent variable across sessions; HMM seed",
-        "Dynamic parameters; distillation to the GRU",
-        "Pareto archive, tree search; graduation into -models"
+        "A from-scratch search; three choices with a GLM-HMM-style seed",
+        "Parameters that drift within a session; latent variables across sessions",
+        "Pareto archive, tree search; programs ported into -models"
       ]
     }
   ]
