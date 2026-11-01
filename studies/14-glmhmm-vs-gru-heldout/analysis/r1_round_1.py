@@ -155,7 +155,7 @@ def fig_scores(grids, lags, gru, path):
                 if H in gru:
                     ax.axhline(gru[H][gru_key], color="0.3", ls=ls, lw=0.8, label=f"GRU H{H}")
         ax.set(xlabel="states K", ylabel=label, xticks=range(1, 11))
-        if name in ("select", "matched", "LR_engaged"):
+        if name in ("select", "matched"):     # panel d uses panel c's styles; a legend there sits on the GRU lines
             ax.legend(frameon=False, fontsize=5)
         fs.panel_label(ax, letter)
     fs.save_figure(fig, path)
