@@ -16,8 +16,14 @@ Behaviour is checked two ways, and never added to the score (decided with Han, 2
   simulator, and its switch curve by reward and run length (study 01's headline statistic) is compared
   with the subjects'.
 
-Both gate pre-registration: a candidate whose replay or rollout fingerprints are worse than the best
-literature model's is skipped for the next candidate (ADR 0007).
+Both gate pre-registration, by a rule fixed before any search (the **fingerprint gate**). On the
+selection subjects, a candidate gets two numbers: its replay gap, the mean of the three replay
+statistics' trial-weighted gaps, and its rollout gap, the trial-weighted gap of the rollout switch
+curve. The reference is the literature model with the best session-level validation score, the same
+one the simplification floors start from (ADR 0005), computed the same way on the same subjects. A
+candidate whose replay gap or rollout gap exceeds the reference's is skipped for the next candidate
+(ADR 0007). Aggregates are compared rather than single bins, so noise in one sparse bin cannot reject
+a program.
 
 ## Considered options
 

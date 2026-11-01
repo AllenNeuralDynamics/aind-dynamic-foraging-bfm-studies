@@ -60,6 +60,10 @@ once at the session level.
 A program edit whose gain appears with one parameter set per subject but vanishes at the session level,
 a sign that it absorbs drift between sessions rather than describing computation within a session.
 
+**Fingerprint gate**:
+The rule that skips a pre-registration candidate whose replay gap or rollout gap on the selection
+subjects exceeds that of the best literature model.
+
 **Fit floor**:
 The validation score a simplified program must keep, as a fraction of the distance from the best
 literature model to the best discovered program, both scored at the session level.
