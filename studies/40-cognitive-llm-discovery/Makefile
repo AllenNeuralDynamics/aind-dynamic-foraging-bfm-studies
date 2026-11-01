@@ -4,6 +4,10 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all
+.PHONY: all explainer
 
 all:
+
+# The explainer's reference numbers, read from committed JSON (not part of `all`).
+explainer:
+	$(PY) analysis/explainers/build_explainer.py
