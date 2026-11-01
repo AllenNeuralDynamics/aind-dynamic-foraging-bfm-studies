@@ -1,0 +1,94 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_intervention",
+    "produced_at_pt": "2026-11-01T07:12:14-08:00",
+    "studies_git_sha": "d52274e202fdfe58ba166f5adece511b619fb892",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "per-subject-de@20261101-012148"
+    ],
+    "source_studies_git_shas": [
+      "fab284da138461ef71c7a0d9f42fc4496f31afca"
+    ],
+    "source_dispatcher_git_shas": [
+      "6450af3c1505abf7806af4e46a62a48df56c75ac"
+    ],
+    "source_wrapper_git_shas": [
+      "331d373c128682c2d8f766e344f9ba05f228d5cf"
+    ],
+    "source_foraging_models_git_shas": [
+      "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
+    ],
+    "provenance_findings": []
+  },
+  "kind": "resubmit",
+  "platform": "hpc",
+  "wandb_group": "per-subject-de@20261101-012148",
+  "label": "resubmit-hattori",
+  "note": "Resubmit of Hattori2019 alone into the production group with --mem=500G after an out-of-memory kill. Same code, data and fit protocol; only the memory request and the one-model list differ.",
+  "revisions": {
+    "studies": "fab284da138461ef71c7a0d9f42fc4496f31afca",
+    "dispatcher": "6450af3c1505abf7806af4e46a62a48df56c75ac",
+    "wrapper": "331d373c128682c2d8f766e344f9ba05f228d5cf"
+  },
+  "manifests": [
+    "launch_record/resubmit-hattori/sweep_submitted.yaml"
+  ],
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "r2a15ad9"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27565201"
+    }
+  ],
+  "supersedes": [
+    "7m5furdr"
+  ],
+  "trigger": {
+    "symptom": "Array task 27565016_7 (Hattori2019, W&B run 7m5furdr) ended OUT_OF_MEMORY after 3 h 10 min, having fit all 614 training subjects and 2 of the 149 held-out subjects.",
+    "cause": "The 112-worker held-out pass exceeded the 400G job memory limit; the parent process holds the training-pass results and forks a second pool. Lebedeva-PR and Zid-HistoryKernel2 peaked close to the same limit (sacct MaxRSS) and survived.",
+    "evidence": {
+      "sacct": "27565016_7.batch OUT_OF_MEMORY, Elapsed 03:10:05, MaxRSS 1778850576K (forked workers' shared pages counted per process); completed tasks 1.49-1.76e9 K",
+      "log": "run-20261101_012234-7m5furdr/files/output.log: last line 03:30:31 PST, 616 subjects completed"
+    }
+  },
+  "tasks": [
+    {
+      "orig_task": "27565016_7",
+      "new_task": "27565201_0",
+      "orig_wandb_run": "7m5furdr",
+      "new_wandb_run": "TBD"
+    }
+  ],
+  "deviations": {
+    "fresh_run_ids": true,
+    "sbatch_mem": "500G (was 400G)",
+    "parameters.model.values": [
+      "baseline_rl_lit_hattori2019"
+    ],
+    "name": "per-subject-de-20261101-012148-resubmit-hattori (W&B sweep display name)"
+  },
+  "cost": {
+    "progress_discarded": "614 training-subject fits of run 7m5furdr (about 3 h on one 112-CPU node)"
+  },
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e86b63bf5f63a0f94fe8a4e2e14ecef0ddd320fb3ec8a30ccb22cc6ea930dd41"
+  }
+}
