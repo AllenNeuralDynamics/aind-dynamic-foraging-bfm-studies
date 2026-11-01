@@ -4,7 +4,7 @@ id: 12-cognitive-literature-leaderboard
 question: How well do the models in the literature, each fit per subject on our subjects,
   predict held-out sessions, and how do they rank against the hierarchical cognitive
   baselines and the GRU?
-status: planned
+status: active
 wandb:
   entity: NeuralDynamics
   project: aind-dynamic-foraging-model
@@ -46,7 +46,7 @@ later study draws has a score.
 
 | variant | what it varies |
 |---|---|
-| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over the 19 literature models, one run per model |
+| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over the 19 literature models, one run per model; production group [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce), running |
 
 The answer is the leaderboard of literature models on the 149 test subjects (and on the 146 also
 on the GRU's held-out list), with HB-CTT and HB-Hattori (study 13) and the GRU (study 01) as
