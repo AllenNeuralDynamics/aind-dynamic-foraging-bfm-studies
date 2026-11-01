@@ -23,7 +23,8 @@ K = 1–10 and both emissions: 2 × 10 × 4 × 4 = 320 cells (`sweep_hpc.yaml`).
   `MANIFEST.json`); each equals the digest frozen in `analysis/frozen_round1.json`.
 - **Everything else is round 1's:** snapshot 20260603, `ignore_policy=include`, L = 10, transition
   prior α = 2, the same split and scoring. The zero-centred σ = 2 arm is round 1 itself and is
-  not rerun; the report reads it from `analysis/frozen_round1.json`.
+  not rerun; the report reads it from `analysis/frozen_round1.json`, which studies#69 adds
+  (a prerequisite of the round-2 report, not of the launch).
 - Needs `aind-dynamic-foraging-models` with `Prior.mean` (#89, v0.27.0) and
   `Prior.transition_concentration` (#93) in the runtime env.
 
@@ -77,11 +78,13 @@ where does its K curve peak then?
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py \
       --sweep-yaml "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/refit-prior/sweep_hpc.yaml" \
       --wrapper-root <detached wrapper worktree at the launch SHA> \
-      --mode cpu --sbatch-extra "--cpus-per-task=32 --mem=32G --time=04:00:00" \
+      --mode cpu --sbatch-extra "--cpus-per-task=32 --mem=32G --time=04:00:00 --array=0-319%30" \
       --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/refit-prior/launch_record/refit-prior-r2" \
       --label refit-prior-r2 --note "<why this run exists and what it should teach us>"
 
-Array concurrency is set at launch from the partition's free capacity.
+One array task per cell (320 tasks, so the launcher sets AGENT_COUNT = 1), at most 30 at once;
+the 4-hour limit then covers one cell, the slowest of which took 48 min. Lower or raise the `%30`
+cap from the partition's free capacity at launch.
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group
 `refit-prior@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join
