@@ -1,5 +1,7 @@
 # Study 14 / refit-prior (round 2): per-mouse refits with the weight prior centred on the global
-# fit, at four prior SDs, for K = 1 .. 10 and both emissions (notes.md).
+# fit at four prior SDs, crossed with a transition prior that is off (round 1's uniform
+# Dirichlet) or centred on the global transition matrix at three strengths, for K = 1 .. 10 and
+# both emissions (notes.md). transition_strength_subject = null is round 1's transition prior.
 # No global fit runs: each cell loads round 1's global fit for its (emission, K) from
 # global_fit_dir (a read-only copy of hurdle@20261027-212905 and reference@20261027-213006,
 # listed with sha256s in MANIFEST.json there and in this variant's global_fits_manifest.json).
@@ -45,3 +47,8 @@ parameters:
     values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   model.prior_sigma_subject:
     values: [0.25, 0.5, 1.0, 2.0]
+  # Pseudo-transitions per row (a mouse has ~8,000 trials). "null" is a string on purpose: the
+  # W&B agent writes a YAML null as `=None`, which Hydra reads as the string "None", while
+  # `=null` reaches the trainer as None (round 1's transition prior).
+  model.transition_strength_subject:
+    values: ["null", 10.0, 100.0, 1000.0]
