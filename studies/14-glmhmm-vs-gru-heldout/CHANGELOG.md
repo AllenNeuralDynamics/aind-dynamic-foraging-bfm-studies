@@ -1,11 +1,5 @@
 # Changelog — 14-glmhmm-vs-gru-heldout
 
-## 2026-11-01
-
-- Variant `refit-prior` (round 2, #48): per-mouse refits with the weight prior centred on the
-  global fit, σ ∈ {0.25, 0.5, 1, 2}, K = 1–10, both emissions, reusing round 1's global fits
-  (manifest in the variant). Selection rule and checks are stated in its notes before launch.
-
 ## 2026-10-27
 
 - Study created (#48): README design, PLAN.md, and variants `lag-scan`, `hurdle` and
@@ -59,3 +53,10 @@
   a dashed line in `fig_r1_scores` panel d. The value was already in `frozen_round1.json`; no
   existing number changed. It rises to K = 10 (hurdle 0.7111 → 0.7224), while the refit score
   peaks at K = 3 (0.7207). The atlas leaderboard draws both.
+- Variant `refit-prior` (round 2, #48): per-mouse refits with the weight prior centred on the
+  global fit (σ ∈ {0.25, 0.5, 1, 2}) crossed with a transition prior that is off or centred on
+  the global transition matrix (c ∈ {10, 100, 1000}), K = 1–10, both emissions, reusing round 1's
+  global fits (manifest in the variant). Selection rule and checks are stated in its notes
+  before launch. Launched as `refit-prior@20261101-130226`.
+- r2 (draft): `freeze_round2.py` and `r2_refit_prior.py`, the round-2 report: selection over
+  the 320 refit-prior cells plus round 1's refit, held-out scores against no refit and the GRU.

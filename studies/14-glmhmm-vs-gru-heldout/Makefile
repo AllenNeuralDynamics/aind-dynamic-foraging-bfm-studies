@@ -18,3 +18,14 @@ r1:
 # checkouts the runs used. Writes analysis/frozen_round1.json; never part of `all`.
 freeze-round1:
 	$(PY) analysis/freeze_round1.py
+
+# r2 = Round 2: per-mouse refits pooled toward the global fit
+.PHONY: r2
+r2:
+	$(PY) analysis/r2_refit_prior.py
+
+.PHONY: freeze-round2
+# Node-only (reads /allen): the refit-prior runs' fit.json and per-subject scores. Writes
+# analysis/frozen_round2.json; never part of `all`.
+freeze-round2:
+	$(PY) analysis/freeze_round2.py
