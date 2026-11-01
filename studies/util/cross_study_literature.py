@@ -23,6 +23,7 @@ _S13 = REPO / "studies" / "13-hb-subject-vs-gru-heldout" / "analysis"
 GRU_PER_SUBJECT_SOURCE = _S01 / "per_subject_rows.json"   # study 01 r2: per-held-out-subject GRU
 HB_CTT_SOURCE = _S13 / "r5_ctt_pooled.json"    # study 13 r5: HB-CTT (and HB-Hattori) pooled
 LITERATURE_SOURCE = _S12 / "per_subject_fits.csv"   # study 12 freeze: literature models per subject
+LEADERBOARD_SOURCE = _S12 / "r1_leaderboard.json"   # study 12 r1: which literature models it ranks
 GRU_SPLIT_SOURCE = (REPO / "studies" / "10-gru-reservoir-ablation" / "reference"
                     / "study01-v2-exact-split.json")   # study 01's GRU training pool / test list
 
@@ -86,3 +87,16 @@ def gru_split() -> dict[str, list[str]]:
     split = json.loads(GRU_SPLIT_SOURCE.read_text())
     return {"train": [str(s) for s in split["source_subject_ids"]],
             "test": [str(s) for s in split["test_subject_ids"]]}
+
+
+def literature_ranking() -> dict[str, list]:
+    """Study 12 r1: the literature models it ranks, best first, and those it fits but does not rank.
+
+    ``{"ranked": [model, ...], "not_ranked": [{"literature_model", "reason"}, ...]}``, ordered by
+    pooled held-out likelihood on the 149 held-out subjects. Use it to choose models (for example
+    study 40's seed library) instead of filtering ``literature_per_subject`` by name.
+    """
+    board = json.loads(LEADERBOARD_SOURCE.read_text())
+    return {"ranked": [row["literature_model"] for row in board["rows"]],
+            "not_ranked": [{"literature_model": r["literature_model"], "reason": r["reason"]}
+                           for r in board["not_ranked"]]}
