@@ -32,7 +32,8 @@ sys.path.insert(0, str(HERE.parents[1] / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
 
 ENTITY, PROJECT = "NeuralDynamics", "aind-dynamic-foraging-model"
-WANDB_GROUPS = ["per-subject-de@20261101-012148"]   # the production launch, pinned
+WANDB_GROUPS = ["per-subject-de@20261101-012148",   # production (19 models; Hattori resubmitted)
+                "per-subject-de@20261101-071303"]   # LossCounting, second launch
 RUN_ROOT = Path("/allen/aind/scratch/han.hou/outputs/disrnn/wandb")   # BFM_OUTPUT_DIR/wandb on HPC
 TABLES = {"train": "outputs/subject_fit_metrics.csv",
           "heldout": "outputs/heldout_test/subject_fit_metrics.csv"}

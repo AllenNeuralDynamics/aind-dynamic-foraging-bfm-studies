@@ -16,6 +16,8 @@ reproduce study 01 r8's per-subject values.
 | [smoke-1](launch_record/smoke-1/results.md) | `per-subject-de@20261101-004845` | failed in Hydra composition (launcher bug, fixed in dispatcher 6450af3) |
 | [smoke-2](launch_record/smoke-2/) | `per-subject-de@20261101-005459` | 2 models, 10 training + 149 held-out subjects; whole path works |
 | [production](launch_record/production/) | [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce) | 19 models x 763 subjects, SLURM array 27565016 (10 at a time, one 112-CPU node each), submitted 2026-11-01 01:22 PT |
+| [resubmit-hattori](launch_record/resubmit-hattori/resubmit_hattori.json) | same group | Hattori2019 alone, `--mem=500G`, after its task hit the 400G limit (OUT_OF_MEMORY); W&B sweep r2a15ad9, SLURM 27565201, 2026-11-01 07:11 PST |
+| [loss-counting](launch_record/loss-counting/) | [`per-subject-de@20261101-071303`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/m7olpz1o) | the free LossCounting model ([`sweep_hpc_loss_counting.yaml`](sweep_hpc_loss_counting.yaml)), same env as production; SLURM 27565202, 2026-11-01 07:13 PST |
 
 Launch from detached worktrees at studies `fab284d`, dispatcher `6450af3`, wrapper `331d373`;
 foraging-models is the env's PyPI 0.26.0 = `0c95b4b` (byte-checked; recorded by a backfill

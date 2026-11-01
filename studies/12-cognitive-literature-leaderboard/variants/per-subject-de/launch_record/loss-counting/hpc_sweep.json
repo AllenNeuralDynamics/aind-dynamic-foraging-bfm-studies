@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-11-01T07:13:12-08:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "per-subject-de@20261101-071303",
+  "label": "loss-counting",
+  "note": "Study 12, second launch of per-subject-de: the free LossCounting model (ForagerLossCounting, win_stay_lose_switch false; threshold mean, spread and biasL fit), which no FORAGER_PRESETS entry covers. Same protocol, data and env as production per-subject-de@20261101-012148 (PyPI foraging-models 0.26.0 = 0c95b4b, byte-checked; a backfill records it), so all 20 literature models run identical code. Han's request, 2026-11-01.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "m7olpz1o"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27565202"
+    }
+  ],
+  "revisions": {
+    "studies": "3d526412c5e7e81778cb019ed212d9c6e4fa4386",
+    "dispatcher": "7e3d67adf62af2bd467fcdbf0b0dd2077e5c6942",
+    "wrapper": "331d373c128682c2d8f766e344f9ba05f228d5cf"
+  },
+  "manifests": [
+    "sweep_hpc_loss_counting.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 1,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e86b63bf5f63a0f94fe8a4e2e14ecef0ddd320fb3ec8a30ccb22cc6ea930dd41"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "m7olpz1o",
+  "wandb_sweep_path": "NeuralDynamics/aind-dynamic-foraging-model/m7olpz1o",
+  "sweep_url": "https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/m7olpz1o",
+  "slurm_array_job_id": "27565202",
+  "slurm_autostop_job_id": "27565203",
+  "n_array_tasks": 1,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "7e3d67adf62af2bd467fcdbf0b0dd2077e5c6942",
+  "studies_git_commit": "3d526412c5e7e81778cb019ed212d9c6e4fa4386",
+  "studies_git_branch": "study/12-cognitive-literature-leaderboard",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "7e3d67adf62af2bd467fcdbf0b0dd2077e5c6942",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [
+    "foraging-models: version 0.26.0 in the runtime env was not installed from git, so no commit is recorded"
+  ],
+  "wrapper_git_commit": "331d373c128682c2d8f766e344f9ba05f228d5cf",
+  "foraging_models_git_commit": null,
+  "foraging_models_version": "0.26.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/studies-12/studies/12-cognitive-literature-leaderboard/variants/per-subject-de/sweep_hpc_loss_counting.yaml",
+  "created_utc": "2026-11-01T15:13:12.284774+00:00"
+}
