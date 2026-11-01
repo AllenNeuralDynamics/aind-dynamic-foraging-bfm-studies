@@ -11,7 +11,10 @@ migration lets mechanisms from different models combine (decided with Han, 2026-
 checked against its original; nothing else enters the prompt pool. Study 12 fits 20 models and ranks
 19: Win-Stay-Lose-Shift is fitted but not ranked, because its preset fixes the threshold and, with no
 lapse term, scores near zero, so it is neither a seed nor an inspiration (updated 2026-11-01, when
-study 12 added the free LossCounting model). There
+study 12 added the free LossCounting model). Which models are eligible comes from study 12 r1
+(`cross_study_literature.literature_ranking()`, its ranked and not-ranked lists); their order for
+seeding is recomputed on study 40's validation subjects from `literature_per_subject`, never taken
+from study 12's ranking, so scores on the test subjects cannot influence the search. There
 are five islands: a near-empty template; the three literature models with the best scores on the
 validation subjects (from study 12, which fits them on every cohort subject: its session-level scores
 if they exist when the pilot starts, otherwise its per-subject ones); and
