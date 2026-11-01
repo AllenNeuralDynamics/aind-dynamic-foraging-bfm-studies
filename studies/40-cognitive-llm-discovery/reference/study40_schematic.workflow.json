@@ -1,0 +1,310 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Study 40: LLM-driven discovery of cognitive programs",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "Report"
+        },
+        "backend": {
+          "label": "Our code"
+        },
+        "security": {
+          "label": "Decision or gate"
+        },
+        "database": {
+          "label": "Data"
+        },
+        "cloud": {
+          "label": "LLM search"
+        }
+      }
+    },
+    "output": "study40_schematic.html"
+  },
+  "lanes": [
+    {
+      "id": "han",
+      "label": "Han decides",
+      "variant": "exception"
+    },
+    {
+      "id": "data",
+      "label": "Data and splits"
+    },
+    {
+      "id": "eval",
+      "label": "Evaluate, gate, finalize (MEvolve)"
+    },
+    {
+      "id": "search",
+      "label": "Search (ShinkaEvolve + Claude)"
+    }
+  ],
+  "mainPath": [
+    "freeze",
+    "tiers",
+    "evaluator",
+    "gates",
+    "stage1",
+    "stage2",
+    "finalize",
+    "reports"
+  ],
+  "nodes": [
+    {
+      "id": "d_story",
+      "lane": "han",
+      "col": 0,
+      "type": "security",
+      "label": "Storyline",
+      "sublabel": "explainer + schematic",
+      "tag": "decision",
+      "width": 128
+    },
+    {
+      "id": "d_adr",
+      "lane": "han",
+      "col": 1,
+      "type": "security",
+      "label": "ADRs + new repo",
+      "sublabel": "split, tolerances",
+      "tag": "decision",
+      "width": 128
+    },
+    {
+      "id": "d_level",
+      "lane": "han",
+      "col": 2,
+      "type": "security",
+      "label": "Session level?",
+      "sublabel": "or per-mouse fit",
+      "tag": "decision",
+      "width": 128
+    },
+    {
+      "id": "d_pilot",
+      "lane": "han",
+      "col": 3,
+      "type": "security",
+      "label": "Go for pilot",
+      "sublabel": "after the smoke run",
+      "tag": "decision",
+      "width": 128
+    },
+    {
+      "id": "d_next",
+      "lane": "han",
+      "col": 5,
+      "type": "security",
+      "label": "Larger run?",
+      "sublabel": "or next idea",
+      "tag": "decision",
+      "width": 128
+    },
+    {
+      "id": "freeze",
+      "lane": "data",
+      "col": 0,
+      "type": "database",
+      "label": "Data freeze",
+      "sublabel": "snapshot 20260603",
+      "width": 128
+    },
+    {
+      "id": "tiers",
+      "lane": "data",
+      "col": 1,
+      "type": "database",
+      "label": "Three tiers",
+      "sublabel": "G ~48 · V ~48 · T 149",
+      "width": 128
+    },
+    {
+      "id": "seeds",
+      "lane": "eval",
+      "col": 0,
+      "type": "backend",
+      "label": "Seed library",
+      "sublabel": "17 published models",
+      "width": 128
+    },
+    {
+      "id": "evaluator",
+      "lane": "eval",
+      "col": 1,
+      "type": "backend",
+      "label": "Evaluator",
+      "sublabel": "fits + scores G and V",
+      "width": 128
+    },
+    {
+      "id": "gates",
+      "lane": "eval",
+      "col": 2,
+      "type": "security",
+      "label": "Gates 0–4",
+      "sublabel": "parity · smoke · recovery",
+      "width": 128
+    },
+    {
+      "id": "stage1",
+      "lane": "search",
+      "col": 3,
+      "type": "cloud",
+      "label": "Stage 1 search",
+      "sublabel": "max V likelihood, ≤ $500",
+      "width": 128
+    },
+    {
+      "id": "stage2",
+      "lane": "search",
+      "col": 4,
+      "type": "cloud",
+      "label": "Stage 2 simplify",
+      "sublabel": "min effort, fit floor",
+      "width": 128
+    },
+    {
+      "id": "finalize",
+      "lane": "eval",
+      "col": 4,
+      "type": "backend",
+      "label": "Finalize on T",
+      "sublabel": "top-3, touched once",
+      "width": 128
+    },
+    {
+      "id": "reports",
+      "lane": "eval",
+      "col": 5,
+      "type": "frontend",
+      "label": "Reports r1–r4",
+      "sublabel": "parity → gap closed",
+      "width": 128
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-story",
+      "from": "d_story",
+      "to": "freeze",
+      "variant": "dashed",
+      "role": "branch",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e-adr",
+      "from": "d_adr",
+      "to": "tiers",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "e-freeze",
+      "from": "freeze",
+      "to": "tiers",
+      "variant": "default",
+      "fromSide": "right",
+      "toSide": "left",
+      "route": "straight"
+    },
+    {
+      "id": "e-tiers",
+      "from": "tiers",
+      "to": "evaluator",
+      "variant": "emphasis",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "e-seeds",
+      "from": "seeds",
+      "to": "evaluator",
+      "variant": "default",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "e-gates",
+      "from": "evaluator",
+      "to": "gates",
+      "variant": "default",
+      "fromSide": "right",
+      "toSide": "left",
+      "route": "straight"
+    },
+    {
+      "id": "e-level",
+      "from": "gates",
+      "to": "d_level",
+      "label": "gate 1c",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "e-pass",
+      "from": "gates",
+      "to": "stage1",
+      "label": "pass",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-pilot",
+      "from": "d_pilot",
+      "to": "stage1",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "e-elites",
+      "from": "stage1",
+      "to": "stage2",
+      "label": "elites",
+      "variant": "default"
+    },
+    {
+      "id": "e-final",
+      "from": "stage2",
+      "to": "finalize",
+      "variant": "default"
+    },
+    {
+      "id": "e-reports",
+      "from": "finalize",
+      "to": "reports",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-next",
+      "from": "reports",
+      "to": "d_next",
+      "variant": "dashed",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Headline",
+      "items": [
+        "Gap closed = (program − HB-CTT) / (GRU − HB-CTT), on the 149 test mice",
+        "Plus generative match in closed loop with the task"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Parking lot (later rounds)",
+      "items": [
+        "Final-stage variant; a latent variable across sessions; HMM seed",
+        "Dynamic parameters; distillation to the GRU",
+        "Pareto archive, tree search; graduation into -models"
+      ]
+    }
+  ]
+}
