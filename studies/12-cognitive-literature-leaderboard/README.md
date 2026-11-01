@@ -41,12 +41,12 @@ later study draws has a score.
 | Fit | one parameter set per subject, differential evolution on even sessions, seed 0 |
 | Score | odd sessions; pooled trial-weighted exp(Σ log p / Σ n), p clipped to [1e-10, 1 − 1e-10] |
 | Data | `mice_snapshot_scaling`, snapshot 20260603, min_sessions 10, heldout_every_n 5, eval_every_n 2, ignore_policy exclude, mature_only false |
-| Models | the 17 `ForagerCollection.FORAGER_PRESETS` plus `ForagerFeedbackDependentRLBias` and `ForagerFeedbackDependentRLBiasCK1` (19), with package-default bounds and initial states, as study 09 |
+| Models | the 17 `ForagerCollection.FORAGER_PRESETS`, `ForagerFeedbackDependentRLBias` and `ForagerFeedbackDependentRLBiasCK1`, and the free LossCounting model (20), with package-default bounds and initial states, as study 09. Win-Stay-Lose-Shift is fit but not ranked (a strawman with no lapse term) |
 | Check | the re-fit Hattori2019, Bari2019 and CompareToThreshold reproduce study 01 r8's per-subject values |
 
 | variant | what it varies |
 |---|---|
-| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over the 19 literature models, one run per model; production group [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce), running |
+| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over 19 literature models, one run per model, plus a second launch for LossCounting; production group [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce), running |
 
 The answer is the leaderboard of literature models on the 149 test subjects (and on the 146 also
 on the GRU's held-out list), with HB-CTT and HB-Hattori (study 13) and the GRU (study 01) as

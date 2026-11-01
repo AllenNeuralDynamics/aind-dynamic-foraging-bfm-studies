@@ -39,6 +39,9 @@ GRU_D = 614
 R8 = {"Hattori2019": "hattori", "Bari2019": "bari", "CompareToThreshold": "ctt"}
 TOL = 1e-4   # per-subject |Δ likelihood| that counts as reproducing study 01 r8
 CHANCE = 0.5   # below this a model predicts worse than a coin flip; drawn off scale
+# Fitted and frozen but not ranked: a strawman with no lapse term, so its deterministic policy
+# scores every wrong call at the probability clip (Han, 2026-11-01).
+NOT_RANKED = {"Win-Stay-Lose-Shift": "strawman: deterministic policy, no lapse term"}
 
 
 def _pooled(scores: dict[str, tuple[float, int]], subjects) -> float:
@@ -83,6 +86,8 @@ def compute() -> dict:
                      "frac_gru_higher": sum(d < 0 for d in deltas) / len(deltas),
                      "_deltas": deltas})
     rows.sort(key=lambda r: -r["pooled_heldout"])
+    not_ranked = [r for r in rows if r["literature_model"] in NOT_RANKED]
+    rows = [r for r in rows if r["literature_model"] not in NOT_RANKED]
 
     repro = {}
     r8 = json.loads(cs.RL_SOURCE.read_text())["models"]
@@ -105,7 +110,10 @@ def compute() -> dict:
                           "gru_d614_own_list": cs.gru_h128_curve()[GRU_D],
                           "gru_d614_shared": gru_pooled(shared),
                           "gru_d614_gru_list": gru_pooled(gru_list)},
-            "tolerance": TOL, "rows": rows, "reproduction": repro}
+            "tolerance": TOL, "rows": rows, "reproduction": repro,
+            "not_ranked": [{"literature_model": r["literature_model"],
+                            "reason": NOT_RANKED[r["literature_model"]],
+                            "pooled_heldout": r["pooled_heldout"]} for r in not_ranked]}
 
 
 def figure(r: dict) -> None:
@@ -185,6 +193,9 @@ def render(r: dict) -> str:
         f"from HB-CTT and {fs.num(best['pooled_shared'] - ref['gru_d614_shared'], '+.4f')} from the "
         f"GRU on the shared subjects.",
     ]
+    for nr in r["not_ranked"]:
+        lines += ["", f"Fitted but not ranked: {nr['literature_model']} ({nr['reason']}); pooled "
+                      f"held-out likelihood {nr['pooled_heldout']:.4f}. Its fits are in the freeze."]
     return "\n".join(lines)
 
 

@@ -29,10 +29,11 @@ tags:
 held-out sessions, and how far is the best one from the hierarchical cognitive baselines
 (HB-CTT, HB-Hattori) and from the GRU?
 
-**Method.** Each of the 19 literature models ([CONTEXT.md](../../CONTEXT.md)) gets one parameter
+**Method.** Each of the 20 literature models ([CONTEXT.md](../../CONTEXT.md)) gets one parameter
 set per subject, fit by differential evolution on the subject's even sessions and scored on its
 odd sessions (study 01 r8's protocol). A score pools over subjects: exp(Σ log p / Σ n). The
-leaderboard uses the 149 held-out subjects, the cohort that HB-CTT and HB-Hattori (study 13) were
+leaderboard ranks 19 of them (Win-Stay-Lose-Shift is a strawman: fit, but not ranked) on the 149
+held-out subjects, the cohort that HB-CTT and HB-Hattori (study 13) were
 scored on. The GRU's held-out list differs by 3 subjects each way (study 13 r2), so the paired
 comparison with the GRU uses the 146 subjects on both lists.
 

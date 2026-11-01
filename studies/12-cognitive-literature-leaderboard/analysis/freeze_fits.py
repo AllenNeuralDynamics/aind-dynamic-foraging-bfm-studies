@@ -61,6 +61,7 @@ CONFIGS = {
     "baseline_rl_lit_feedback_dependent_rl_bias_ck1": ("FeedbackDependent-RL+Bias+CK1", "ForagerFeedbackDependentRLBiasCK1"),
     "baseline_rl_lit_alsio_dual_rate_sticky_rl": ("Alsio-DualRateSticky-RL", "ForagerAlsioRL"),
     "baseline_rl_lit_lopez_double_trace": ("Lopez-DoubleTrace", "ForagerLopezDoubleTrace"),
+    "baseline_rl_lit_loss_counting": ("LossCounting", "ForagerLossCounting"),   # second launch
 }
 # Study 01's GRU split (training pool / test list). Its 763 subjects are ours, but 3 sit in the
 # other pool each way (study 13 r2); per-subject fits do not depend on the pool, so the freeze
