@@ -752,6 +752,8 @@ const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2
 function frame(now) {
   let t = playing ? (now - t0) / 1000 : tPaused;
   if (playing && t > SCENES[cur].dur + 1.5 && cur < SCENES.length - 1) { go(cur + 1); t = 0; }
+  else if (playing && t >= SCENES[cur].dur && cur === SCENES.length - 1) {    // the end: one click replays
+    playing = false; tPaused = t = SCENES[cur].dur; playBtn.textContent = "▶ Play"; }
   const tt = Math.min(t, SCENES[cur].dur);
   SCENES[cur].draw(tt);
   X.fillStyle = COL.blue; X.fillRect(0, H - 3, W * tt / SCENES[cur].dur, 3);
@@ -765,7 +767,7 @@ document.getElementById("foot").innerHTML =
   "scene 6) are read from committed results by <code>build_explainer.py</code>: " +
   (REFS ? REFS.sources.map(s => `<code>${s.file}</code>${s.produced_at_pt ? ` (${s.produced_at_pt.slice(0, 10)})` : ""}`).join(", ")
         : "not filled yet") +
-  ". GRU = GRU v2, H128, trained on all 614 pool mice; MLE CTT = per-mouse CompareToThreshold; HB-CTT = study 13's " +
+  ". GRU = GRU v2, H128, trained on all " + N_TRAIN + " pool mice; MLE CTT = per-mouse CompareToThreshold; HB-CTT = study 13's " +
   "two-level CompareToThreshold. Companion: <code>study40_schematic.html</code>.";
 go(FROZEN ? Number(HASH.s) - 1 : 0);
 if (FROZEN) { playing = false; tPaused = Number(HASH.t ?? 0); }
