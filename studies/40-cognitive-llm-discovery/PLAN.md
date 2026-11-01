@@ -26,7 +26,7 @@ test subjects, its complexity, and its replay and rollout fingerprints beside th
 | cohorts | generation and validation (48 each, resized at gate 2), about 100 selection subjects, test = 149 held-out subjects with the headline on the 146 shared ones; one fit direction; stratified draws that exclude the GRU's three extra test subjects | ADR 0003 |
 | parity | gates 1a, 1b, 1c with fixed tolerances | ADR 0004 |
 | interpretable | at most 8 parameters and 6 latent variables, static checks, Halstead effort, floors at 90%, 75% and 50% of the gain over the best literature model | ADR 0005 |
-| search | one search, 5 islands (template, top 3 literature models, Eckstein's Bayesian-inference model or the 4th), seed library = study 12's 19 literature models | ADR 0006 |
+| search | one search, 5 islands (template, top 3 literature models, Eckstein's Bayesian-inference model or the 4th), seed library = the literature models study 12 ranks | ADR 0006 |
 | pre-registration | best program plus one per floor, each the best of 5 validation candidates on the selection subjects, scored once on test | ADR 0007 |
 | engine | ShinkaEvolve, pinned, with a compatibility shim | MEvolve ADR 0001 |
 | repos | tool in MEvolve, science here | MEvolve ADR 0002 |
@@ -87,7 +87,7 @@ each); evaluator cost a few hundred to a thousand core-hours per search.
 |---|---|---|
 | 1 | MEvolve: data freeze and split lists (gate 0) | — |
 | 2 | MEvolve: evaluator, per-subject and session-level fits, session marginal, session facts, split diagnostics, replay fingerprints (gates 1b, 1c, 2) | study 12 regime 1 fitted parameters |
-| 3 | MEvolve: the 19 literature models as programs with parity tests (gate 1a) | study 12 configs (dispatcher PR 214) |
+| 3 | MEvolve: the ranked literature models (19 as of 2026-11-01, including LossCounting; not Win-Stay-Lose-Shift) as programs with parity tests (gate 1a) | study 12 configs (dispatcher PR 214) |
 | 4 | MEvolve: Shinka integration, shim, seed placement on islands, launch wrapper (gate 3) | — |
 | 5 | studies: `write_initial()` for MEvolve launches; recovery runs (gate 4); 100-proposal smoke launch | — |
 | 6 | the `seeded-islands` search | study 12 scores for the seed choice |

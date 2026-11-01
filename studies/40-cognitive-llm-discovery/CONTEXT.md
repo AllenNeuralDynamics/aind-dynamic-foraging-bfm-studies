@@ -38,7 +38,7 @@ for every model.
 
 **Literature model**:
 A cognitive model from the literature, as implemented in `aind-dynamic-foraging-models` and fitted by
-study 12, which defines the term; the 19 literature models form the seed library.
+study 12, which defines the term; the ones study 12 ranks form the seed library.
 _Avoid_: published model, author model, hand-crafted model, baseline model
 
 ### Results

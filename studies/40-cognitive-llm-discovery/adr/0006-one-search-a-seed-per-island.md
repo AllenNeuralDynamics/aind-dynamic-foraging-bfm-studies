@@ -7,11 +7,13 @@ interpretable model, not for a comparison of starting points, and CogFunSearch a
 seeding from strong models from the literature helps. Islands let each seed's lineage develop before
 migration lets mechanisms from different models combine (decided with Han, 2026-11-01).
 
-**Seeds.** The seed library is study 12's 19 literature models (the 17 presets of
-`aind-dynamic-foraging-models` plus two FeedbackDependent-RL variants), each rewritten as a program and
-checked against its original; nothing else enters the prompt pool. There
+**Seeds.** The seed library is the literature models study 12 ranks, each rewritten as a program and
+checked against its original; nothing else enters the prompt pool. Study 12 fits 20 models and ranks
+19: Win-Stay-Lose-Shift is fitted but not ranked, because its preset fixes the threshold and, with no
+lapse term, scores near zero, so it is neither a seed nor an inspiration (updated 2026-11-01, when
+study 12 added the free LossCounting model). There
 are five islands: a near-empty template; the three literature models with the best scores on the
-validation subjects (from study 12, which fits all 19 on every cohort subject: its session-level scores
+validation subjects (from study 12, which fits them on every cohort subject: its session-level scores
 if they exist when the pilot starts, otherwise its per-subject ones); and
 Eckstein's Bayesian-inference model as the library's model with discrete states, or the fourth-ranked
 model if Eckstein's is already in the top three. That spreads the $450 at roughly $90 per island
