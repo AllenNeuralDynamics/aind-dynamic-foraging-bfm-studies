@@ -90,4 +90,8 @@ cap from the partition's free capacity at launch.
 `refit-prior@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join
 that group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-01 13:02 PT as `refit-prior@20261101-130226` (W&B sweep
+[`6mzqt91f`](https://wandb.ai/AIND-disRNN/mice_glmhmm/sweeps/6mzqt91f), SLURM array 27565930):
+320 cells, 30 at a time, HPC CPU, 32 cores and 32 GB each. Runtime: studies `cb21327`, wrapper
+`f9ea875`, dispatcher `ea2d6de`, foraging models `2ce1f70` (v0.28.0, installed from git in the
+shared CPU env). Running.
