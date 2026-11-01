@@ -15,7 +15,10 @@ the test set only measures (decided with Han, 2026-10-31).
 - **Test subjects** are the 149 held-out subjects of the per-subject MLE and HB baselines. The GRU's
   held-out list differs by three subjects each way, so the headline is pooled over the 146 shared test
   subjects for every model, re-pooled from committed per-subject values; the published 149-subject
-  numbers are reported beside it.
+  numbers are reported beside it. The three subjects on the GRU's held-out list that sit in the
+  training pool (`cross_study.gru_split`) are kept out of the generation, validation and selection
+  cohorts, so the final programs can also be scored on the GRU's own 149 test subjects (decided
+  2026-11-01).
 
 ## Considered options
 

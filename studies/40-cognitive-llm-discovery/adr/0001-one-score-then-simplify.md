@@ -17,7 +17,7 @@ Behaviour is checked two ways, and never added to the score (decided with Han, 2
   with the subjects'.
 
 Both gate pre-registration: a candidate whose replay or rollout fingerprints are worse than the best
-published model's is skipped for the next candidate (ADR 0007).
+literature model's is skipped for the next candidate (ADR 0007).
 
 ## Considered options
 

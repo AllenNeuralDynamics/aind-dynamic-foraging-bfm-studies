@@ -36,10 +36,10 @@ for every model.
 
 ### Models
 
-**Published model**:
-A cognitive model from the literature, as implemented in `aind-dynamic-foraging-models`; study 12
-fits all 17 of them per subject.
-_Avoid_: hand-crafted model, baseline model
+**Literature model**:
+A cognitive model from the literature, as implemented in `aind-dynamic-foraging-models` and fitted by
+study 12, which defines the term; the 19 literature models form the seed library.
+_Avoid_: published model, author model, hand-crafted model, baseline model
 
 ### Results
 
@@ -62,7 +62,7 @@ a sign that it absorbs drift between sessions rather than describing computation
 
 **Fit floor**:
 The validation score a simplified program must keep, as a fraction of the distance from the best
-published model to the best discovered program, both scored at the session level.
+literature model to the best discovered program, both scored at the session level.
 
 **Pre-registered programs**:
 The programs chosen on the selection subjects, by a rule fixed in advance, before the test subjects
