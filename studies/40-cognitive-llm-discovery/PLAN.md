@@ -382,7 +382,7 @@ launcher allows it, and a per-job working directory as the only writable path.
 ### 5.1 Fixes in the studies tooling (verified blockers, minimal fixes)
 | # | blocker | fix |
 |---|---|---|
-| 1 | no `model` tag for LLM-discovered programs | add `cognitive/discovered` to `schemas/tags.yaml` in the scaffold PR |
+| 1 | no `model` tag for LLM-discovered programs | add `cognitive/mevolve` to `schemas/tags.yaml` in the scaffold PR |
 | 2 | nothing in the studies repo writes an **initial** launch record; `write_intervention` refuses without one; freezes fail `artifact-group-unrecorded` | add `write_initial()` to `studies/util/launch_record.py` (schema-validated, fills `_meta`), small PR with a test, before the first real launch |
 | 3 | `revisions` allows only studies / dispatcher / wrapper / foraging_models SHAs | mevolve and Shinka SHAs in the variant manifest `harness_lock.yaml` and top-level record keys; follow-up issue for an optional `revisions.harness` |
 | 4 | `job_refs.type` has no `wandb_run` | `slurm_job` now; `wandb_run_id` / `wandb_run_url` at the record's top level; same follow-up issue |
@@ -400,14 +400,14 @@ launcher allows it, and a per-job working directory as the only writable path.
 Accession **40** (Han's choice; verified free: no directory, branch or issue claims it;
 `scripts/scaffold.py` refuses only taken numbers). From a fresh worktree branch off `origin/main`:
 ```bash
-# schemas/tags.yaml: add facets.model.values.cognitive/discovered (label "Cognitive › Discovered")
+# schemas/tags.yaml: add facets.model.values.cognitive/mevolve (label "Cognitive › MEvolve")
 make new-study NAME=40-cognitive-llm-discovery \
   QUESTION='Can LLM-driven evolutionary search over small JAX cognitive programs, with parameters that vary by mouse and by session, find an interpretable model whose held-out likelihood on the 149 held-out mice closes the gap from the best hierarchical cognitive baseline (HB-CTT) to the GRU, and that generates realistic behaviour in closed loop with the task?' \
   PROJECT=aind-dynamic-foraging-model VARIANT=base MOTIVATED_BY=13/r5,13/r4,01/r8 \
-  MODEL=cognitive/discovered QUESTION_TYPE=comparison,interpretation ISSUE=<studies issue number>
+  MODEL=cognitive/mevolve QUESTION_TYPE=comparison,interpretation ISSUE=<studies issue number>
 make new-variant STUDY=40-cognitive-llm-discovery NAME=seeded-ctt
 # + analysis/explainers/ (the approved explainer and schematic), CONTEXT.md, adr/ seeds
-make validate && git add -A && git commit -m "feat(study-40): scaffold 40-cognitive-llm-discovery and the cognitive/discovered tag"
+make validate && git add -A && git commit -m "feat(study-40): scaffold 40-cognitive-llm-discovery and the cognitive/mevolve tag"
 git push -u origin study/40-cognitive-llm-discovery
 ```
 The study's `wandb.entity` is `NeuralDynamics`, not `AIND-disRNN`: the Makefile's `new-study` target
@@ -418,7 +418,7 @@ trails the GRU; no hand-designed model has closed that gap"; 13/r4 "inferring ea
 own parameters from its earlier trials covers most of the distance from the per-mouse fit to the GRU,
 so programs are fitted the same way"; 01/r8 "the GRU beats every per-mouse classical fit on the 149
 held-out mice; this study keeps that protocol and its comparators".
-Tags `model: [cognitive/discovered]`, `question: [comparison, interpretation]`; reports add
+Tags `model: [cognitive/mevolve]`, `question: [comparison, interpretation]`; reports add
 `methods` (r1–r3) and `generative-run` (r4). Study-local `CONTEXT.md` (program, proposal, elite,
 generation / validation / test mice, evaluator, fit floor, fingerprint, gate, rollout, search run) and
 `adr/` after a grill session: 0001 objective (decided), 0002 three-tier split (to grill), 0003
@@ -461,9 +461,9 @@ top-3 per variant on T), `rollouts.json` + `example_session.json`, a latent-expo
 | id | slug | inputs | upstream | tags |
 |---|---|---|---|---|
 | r1 | `evaluator-parity`: Hattori, CTT and Bari as programs reproduce the per-mouse MLE numbers, and under the session level land near study 13's HB numbers; the 17 published models as a leaderboard on the 149, in both regimes | `parity.json`, `split.json`; study 13 `r1_hattori_pooled.json`, `r5_ctt_pooled.json` | `{01, r8}`, `{10, r1}`, `{13, r1}`, `{13, r5}` | `[cognitive]`, `[methods]` |
-| r2 | `program-recovery`: recovery of a known program on simulated mice | `recovery.json` | none | `[cognitive/discovered]`, `[methods]` |
-| r3 | `search-curve`: best validation likelihood vs proposals and USD for `base` and `seeded-ctt` | `trajectory_*.json` | none | `[cognitive/discovered]`, `[methods]` |
-| r4 | `heldout-gap-closed`: gap closed on T against HB-CTT, the ladder (per-mouse and session-level rungs beside study 13's), splits by stage and task variant, paired per mouse, fingerprints and generative match, the example-session figure, the fit–complexity curve | `test_scores.json`, `rollouts.json`, `example_session.json`, `split.json`, `elites.json`; registry sources `rl_baseline.json`, `report_data.json`, `nxd_scaling.json`, `generative_match.json`; study 13 `r5_ctt_pooled.json`, `r6_ctt_ladder.json` | `{01, r8}`, `{01, r1}`, `{01, r9}`, `{13, r5}`, `{13, r6}` | `[cognitive/discovered]`, `[comparison, generative-run, interpretation]` |
+| r2 | `program-recovery`: recovery of a known program on simulated mice | `recovery.json` | none | `[cognitive/mevolve]`, `[methods]` |
+| r3 | `search-curve`: best validation likelihood vs proposals and USD for `base` and `seeded-ctt` | `trajectory_*.json` | none | `[cognitive/mevolve]`, `[methods]` |
+| r4 | `heldout-gap-closed`: gap closed on T against HB-CTT, the ladder (per-mouse and session-level rungs beside study 13's), splits by stage and task variant, paired per mouse, fingerprints and generative match, the example-session figure, the fit–complexity curve | `test_scores.json`, `rollouts.json`, `example_session.json`, `split.json`, `elites.json`; registry sources `rl_baseline.json`, `report_data.json`, `nxd_scaling.json`, `generative_match.json`; study 13 `r5_ctt_pooled.json`, `r6_ctt_ladder.json` | `{01, r8}`, `{01, r1}`, `{01, r9}`, `{13, r5}`, `{13, r6}` | `[cognitive/mevolve]`, `[comparison, generative-run, interpretation]` |
 
 Makefile: `all: r1 r2 r3 r4` offline; `freeze-*` never in `all`; `.gitignore` adds `analysis/_cache_*/`,
 `*.sqlite`; `environment.lock` at the first freeze; README notes that launches are not dispatcher

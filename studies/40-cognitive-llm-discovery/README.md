@@ -22,7 +22,7 @@ motivated_by:
   note: the GRU beats every per-subject classical fit on the 149 held-out subjects; this study keeps that protocol and its comparators
 tags:
   model:
-  - cognitive/discovered
+  - cognitive/mevolve
   question:
   - comparison
   - interpretation
