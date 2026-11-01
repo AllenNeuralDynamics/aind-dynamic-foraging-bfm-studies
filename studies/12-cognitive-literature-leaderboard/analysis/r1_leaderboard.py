@@ -229,6 +229,9 @@ def main() -> None:
     REPORT.write_text(_rewrite(text, "result-2", render_repro(result)))
     for row in result["rows"]:
         del row["_deltas"]
+    # Stable JSON pointers for readers (the atlas): /by_model/<literature model>/pooled_heldout
+    result["by_model"] = {row["literature_model"]: {"rank": i, **row}
+                          for i, row in enumerate(result["rows"], 1)}
     meta = build_meta("analysis/r1_leaderboard.py", WANDB_GROUPS, study_root=HERE.parent,
                       code=[__file__], inputs=[FITS, RUNS, csl.HB_CTT_SOURCE, cs.GRU_CURVE_SOURCE,
                                                csl.GRU_PER_SUBJECT_SOURCE, cs.RL_SOURCE,
