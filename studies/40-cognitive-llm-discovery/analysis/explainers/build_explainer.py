@@ -1,7 +1,10 @@
 """Fill the explainer's reference numbers from committed JSON, so that nobody retypes them.
 
 Rewrites the block between ``// BEGIN REFS`` and ``// END REFS`` in
-``study40_animated_explainer.html`` in place. Run from anywhere; reads only committed files.
+``study40_animated_explainer.html`` in place, and writes the same numbers to
+``explainer_refs.json`` with a v2 ``_meta`` (the source files as inputs, the page as an output),
+so the provenance checker flags the page when a source result is corrected. Reads only
+committed files.
 """
 from __future__ import annotations
 
@@ -11,13 +14,17 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-REPO = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else HERE.parents[3]   # analysis/explainers/
-sys.path.insert(0, str(REPO))
-from studies.util import cross_study  # noqa: E402
+STUDY = HERE.parents[1]
+sys.path.insert(0, str(STUDY.parent / "util"))
+from _meta import build_meta, write_artifact  # noqa: E402
+import cross_study  # noqa: E402
 
+REPO = STUDY.parents[1]
 HTML = HERE / "study40_animated_explainer.html"
+OUT = HERE / "explainer_refs.json"
 S13_CTT = REPO / "studies" / "13-hb-subject-vs-gru-heldout" / "analysis" / "r5_ctt_pooled.json"
 SPLIT = REPO / "studies" / "10-gru-reservoir-ablation" / "reference" / "study01-v2-exact-split.json"
+INPUTS = [cross_study.RL_SOURCE, S13_CTT, cross_study.GRU_CURVE_SOURCE, SPLIT]
 
 
 def refs() -> dict:
@@ -49,12 +56,16 @@ def refs() -> dict:
 
 
 def main() -> None:
-    block = "// BEGIN REFS\nconst REFS = " + json.dumps(refs(), indent=1) + ";\n// END REFS"
+    values = refs()
+    block = "// BEGIN REFS\nconst REFS = " + json.dumps(values, indent=1) + ";\n// END REFS"
     text = HTML.read_text()
     new, n = re.subn(r"// BEGIN REFS.*?// END REFS", lambda _: block, text, flags=re.S)
     if n != 1:
         raise SystemExit("REFS markers not found exactly once")
     HTML.write_text(new)
+    meta = build_meta("analysis/explainers/build_explainer.py", [], study_root=STUDY,
+                      code=[__file__], inputs=INPUTS)
+    write_artifact(OUT, {"_meta": meta, **values}, outputs=[HTML])
     print(block)
 
 

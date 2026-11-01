@@ -25,6 +25,11 @@
   .caption i.t { font-style: normal; color: var(--green); }
   .foot { color: var(--dim); font-size: 12.5px; margin-top: 18px; line-height: 1.5; }
   .foot code { font-size: 12px; }
+  .text-version { margin-top: 18px; font-size: 15px; line-height: 1.55; }
+  .text-version summary { cursor: pointer; color: var(--blue); }
+  .text-version h2 { font-size: 16px; margin: 16px 0 4px; }
+  .text-version pre { background: #1b1f29; padding: 8px 10px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
+  .bar button:focus-visible, .text-version summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 </style>
 </head>
 <body>
@@ -33,13 +38,14 @@
   <div class="sub">Can an LLM-driven program search find a short, readable cognitive model that closes the gap
     between the best hand-written model and the GRU on held-out mice? This is the plan, before any code runs.</div>
   <div class="bar" id="scenes"></div>
-  <canvas id="c" width="960" height="460"></canvas>
+  <canvas id="c" width="960" height="460" role="img" aria-describedby="cap"></canvas>
   <div class="bar">
     <button id="play">▶ Play</button><button id="replay">↺ Replay scene</button>
     <button id="prev">← Prev</button><button id="next">Next →</button>
     <span class="clock" id="clock"></span>
   </div>
   <div class="caption" id="cap"></div>
+  <details class="text-version"><summary>Text version of all six scenes</summary><div id="transcript"></div></details>
   <div class="foot" id="foot"></div>
 </main>
 <script>
@@ -165,7 +171,7 @@ function makeSession(sv, n) {
 }
 const SESSION = makeSession(5, 120);
 
-// A session drawn the way the lab's plot_foraging_session draws it: block reward probabilities as
+// A session drawn the way the lab's plot_foraging_session draws it: block baiting probabilities as
 // steps, choices as ticks (right above, left below), tall tick = rewarded. Right = blue, left = red.
 function drawSession(S, n, bx, o = {}) {
   const { x, y, w, h } = bx, dx = w / S.length, top = y + 16, bot = y + h - 16;
@@ -195,9 +201,10 @@ const R = REFS || { chance: 0.5, mle_ctt: NaN, hb_ctt: NaN, gru_v2_h128: NaN };
 
 const SCENES = [
   { name: "1 · A mouse at work", dur: 20, cap: () =>
-    "A mouse chooses between two lick ports. Each port gives water with a probability that changes in " +
-    "<b>blocks</b> without warning (lines: blue = right port, red = left port). Ticks show the choices: right " +
-    "above, left below; a tall tick means water. To get water the mouse must track which port is better now. " +
+    "A mouse chooses between two lick ports. On each trial, each port is <b>baited</b> (loaded with water) with a " +
+    "probability that changes in <b>blocks</b> without warning (lines: blue = right port, red = left port). Water " +
+    "at a port the mouse did not choose stays there until it is collected. Ticks show the choices: right above, " +
+    "left below; a tall tick means water. To collect water the mouse must track which port is better now. " +
     `The data: <b>${N_TRAIN}</b> training mice and <b>${N_TEST}</b> held-out mice, many sessions each.`, draw: sceneMouse },
   { name: "2 · A model is a small program", dur: 25, cap: () =>
     "A cognitive model is a <b>small program</b> with three functions. <i class=t>init_latents</i> starts each " +
@@ -246,9 +253,9 @@ function sceneMouse(t) {
   text(n ? `trial ${n}` : "", mx, 330, { c: COL.dim, size: 13, align: "center" });
   // the session
   drawSession(SESSION, n, { x: 200, y: 110, w: 720, h: 200 });
-  text("p(water | right)", 210, 352, { c: COL.blue, size: 13 });
-  text("p(water | left)", 340, 352, { c: COL.red, size: 13 });
-  text("tall tick = water", 460, 352, { c: COL.dim, size: 13 });
+  text("baiting probability, right", 210, 352, { c: COL.blue, size: 13 });
+  text("baiting probability, left", 400, 352, { c: COL.red, size: 13 });
+  text("tall tick = water collected", 590, 352, { c: COL.dim, size: 13 });
   text("right choices", 920, 80, { c: COL.blue, size: 12, align: "right" });
   text("left choices", 920, 352, { c: COL.red, size: 12, align: "right" });
   const a = seg(t, 14, 16);
@@ -666,6 +673,55 @@ function sceneOutcome(t) {
   }
 }
 
+// ---------- text version (screen readers, and anyone who prefers to read) ----------
+// One entry per scene: what the canvas shows, with the same numbers. The canvas is labelled with
+// its scene's name and described by the caption.
+const f4 = v => Number.isFinite(v) ? v.toFixed(4) : "—";
+const fmtN = v => REFS ? v.toLocaleString("en-US") : "—";
+const TEXT = [
+  `A toy session of the two-port task, 120 trials. Two stepped lines give each port's baiting probability ` +
+  `in each block (for example 0.45 on the left and 0.05 on the right, then the reverse). Ticks above the panel ` +
+  `are right choices and ticks below are left choices; a tall tick means water was collected. ` +
+  `The data set has ${N_TRAIN} training-pool mice and ${N_TEST} held-out test mice.`,
+  `A program types itself in:<pre>${CODE.map(([l]) => l).join("\n")}</pre>` +
+  `Two bars show the latent variables q_left and q_right changing trial by trial. Three dials show the ` +
+  `parameters: alpha ${TOY_P.alpha}, forget ${TOY_P.forget}, beta ${TOY_P.beta}. Below, the session is replayed ` +
+  `with a white line for the program's p(right).`,
+  `Twelve session tiles, numbered 0 to 11 in date order and coloured by training stage; even tiles are marked ` +
+  `"fit" and odd tiles "score". For the fit sessions, dots show each session's own setting of one dial θ around ` +
+  `the mouse's typical value μ, inside a band of ± σ. For held-out session 5, 60 candidate settings are drawn; ` +
+  `as its 40 trials arrive, settings that explain the earlier trials grow, and a counter accumulates log p(choice) ` +
+  `and exp(mean log p). Last, a number line of held-out likelihood on the test mice: chance ${f4(R.chance)}, ` +
+  `MLE CTT ${f4(R.mle_ctt)} (one parameter set per mouse, study 01), HB-CTT ${f4(R.hb_ctt)} (a parameter set per ` +
+  `session, study 13), GRU ${f4(R.gru_v2_h128)} (study 01). The gap to close, from HB-CTT to the GRU, is ` +
+  `${f4(R.gru_v2_h128 - R.hb_ctt)}.`,
+  `Four islands of five program cards each, with toy scores (100 × validation likelihood). A parent card ` +
+  `(island 1) and an inspiration card (island 3) glow. The prompt fills with the cached task card, the parent ` +
+  `program, its feedback split by stage and task, and the inspiration. Claude writes a child; its diff replaces ` +
+  `"q = q.at[1-c].mul(1 - p['forget'])" with a forgetting rate gated by reward. A first child fails the quick ` +
+  `screen (24 mice, at most 2 minutes) with NaN on the probe, and its error goes back as feedback. A second ` +
+  `child passes, gets a full fit on the generation and validation mice at the session level, scores ` +
+  `${CHILD_SCORE.toFixed(2)} and joins island 1, which re-ranks. A card migrates from island 2 to island 4, and ` +
+  `a "what worked so far" note joins the prompt every tenth generation. A best-score curve rises with proposals ` +
+  `and a dollar counter grows (toy numbers).`,
+  `${N_TRAIN} training-pool mice as dots: about 48 move into the generation group (feedback to Claude) and ` +
+  `about 48 into the validation group (the score); the rest are not used in round 1. The ${N_TEST} test mice sit ` +
+  `in a locked box, touched once at the end. Five gates light in order: 0 data parity (${N_TEST} mice, ` +
+  `${REFS ? fmtN(REFS.n_test_sessions) : "—"} sessions, ${REFS ? fmtN(REFS.n_test_trials) : "—"} trials); ` +
+  `1 model parity (Hattori and CTT as programs match the committed fits); 2 timing (a full evaluation in ` +
+  `minutes, same text gives the same score); 3 engine smoke (about $7); 4 recovery of a known program from ` +
+  `simulated mice (at most $20). Then the pilot: at most $500 on Claude Sonnet 5.5.`,
+  `An illustration, not a result, in four panels. 1: the best program slides left along a fit-versus-complexity ` +
+  `curve while staying above a dashed fit floor. 2: on the number line from MLE CTT ${f4(R.mle_ctt)} through ` +
+  `HB-CTT ${f4(R.hb_ctt)} to the GRU ${f4(R.gru_v2_h128)}, a dot labelled "program ?" moves right from HB-CTT; ` +
+  `gap closed = (program − HB-CTT) / (GRU − HB-CTT). 3: the probability of switching after k unrewarded trials, ` +
+  `for mice (white) and for the program running the task (green dashed), overlapping. 4: the latent variables ` +
+  `q_left and q_right over a session, keyed by session_id and trial, feeding later joins with metadata, ` +
+  `photometry and Neuropixels.`,
+];
+document.getElementById("transcript").innerHTML =
+  SCENES.map((s, i) => `<h2>${s.name}</h2><p>${TEXT[i]}</p>`).join("");
+
 // ---------- player ----------
 // Play runs through all six scenes. prefers-reduced-motion shows each scene's last frame instead.
 // A URL hash such as #s=3&t=12 freezes scene 3 at 12 s (used for render checks).
@@ -682,6 +738,7 @@ function go(i, user) {
   playBtn.textContent = playing ? "❚❚ Pause" : "▶ Play";
   [...bar.children].forEach((b, k) => b.classList.toggle("on", k === cur));
   document.getElementById("cap").innerHTML = SCENES[cur].cap();
+  C.setAttribute("aria-label", `Scene ${SCENES[cur].name}. A full description is in the text version below the caption.`);
 }
 document.getElementById("next").onclick = () => go(cur + 1, true);
 document.getElementById("prev").onclick = () => go(cur - 1, true);
