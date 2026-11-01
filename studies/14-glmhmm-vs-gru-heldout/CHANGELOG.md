@@ -37,3 +37,11 @@
 - Correction before review: per-mouse refits reorder states as K grows, so state summaries now
   use posteriors under the global fit. The side-biased states at K >= 8 span whole sessions,
   not short epochs.
+
+## 2026-11-01
+
+- r1 also publishes the held-out **zero-shot** (global fit only) L/R-on-engaged score per K (#84):
+  `scores/<emission>/<K>/LR_engaged_zero_shot` in `r1_round_1.json`, a new result-1 column, and
+  a dashed line in `fig_r1_scores` panel d. The value was already in `frozen_round1.json`; no
+  existing number changed. It rises to K = 10 (hurdle 0.7111 → 0.7224), while the refit score
+  peaks at K = 3 (0.7207). The atlas leaderboard draws both.

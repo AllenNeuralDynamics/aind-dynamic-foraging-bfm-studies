@@ -65,33 +65,33 @@ same thing in every mouse. Per-mouse refits do not keep the global states in ord
 (result-3), so pooling their labels across mice would mix different states.
 
 <!-- BEGIN result-1 -->
-Each score is the geometric-mean probability given to the mouse's actual choice on sessions never fitted (chance 1/3). *Refit*: training mice, after the per-mouse refit (study 14's selection score; bold = each emission's best). *Global fit, same mice*: training mice, global fit only (Faeze's way of choosing K). *Held-out*: 149 new mice, with refit (matched, the GRU's protocol) and global fit only (zero-shot). GRU = study 02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error bars.
+Each score is the geometric-mean probability given to the mouse's actual choice on sessions never fitted (chance 1/3). *Refit*: training mice, after the per-mouse refit (study 14's selection score; bold = each emission's best). *Global fit, same mice*: training mice, global fit only (Faeze's way of choosing K). *Held-out*: 149 new mice, with refit (matched, the GRU's protocol) and global fit only (zero-shot); *L/R engaged*: left vs right on the trials the mouse responded (chance 1/2), under each. GRU = study 02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error bars.
 
-| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | held-out refit: L/R engaged | engage | ignore PR-AUC |
-|---|---|---|---|---|---|---|---|---|
-| hurdle | 1 | 0.6227 | 0.6143 | 0.6081 | 0.5997 | 0.7187 | 0.8188 | 0.6020 |
-| hurdle | 2 | 0.6278 | 0.6228 | 0.6139 | 0.6086 | 0.7195 | 0.8259 | 0.6139 |
-| hurdle | 3 | **0.6289** | 0.6280 | 0.6148 | 0.6139 | 0.7207 | 0.8258 | 0.6136 |
-| hurdle | 4 | 0.6284 | 0.6294 | 0.6143 | 0.6153 | 0.7203 | 0.8255 | 0.6122 |
-| hurdle | 5 | 0.6278 | 0.6305 | 0.6136 | 0.6163 | 0.7200 | 0.8250 | 0.6110 |
-| hurdle | 6 | 0.6266 | 0.6309 | 0.6121 | 0.6167 | 0.7195 | 0.8234 | 0.6051 |
-| hurdle | 7 | 0.6262 | 0.6317 | 0.6115 | 0.6175 | 0.7188 | 0.8234 | 0.6057 |
-| hurdle | 8 | 0.6252 | 0.6322 | 0.6104 | 0.6178 | 0.7184 | 0.8224 | 0.6029 |
-| hurdle | 9 | 0.6243 | 0.6325 | 0.6095 | 0.6183 | 0.7179 | 0.8215 | 0.5998 |
-| hurdle | 10 | 0.6241 | 0.6329 | 0.6095 | 0.6186 | 0.7178 | 0.8217 | 0.6020 |
-| reference | 1 | 0.6228 | 0.6143 | 0.6079 | 0.5996 | 0.7191 | 0.8182 | 0.5984 |
-| reference | 2 | **0.6262** | 0.6229 | 0.6119 | 0.6088 | 0.7189 | 0.8238 | 0.6072 |
-| reference | 3 | 0.6261 | 0.6280 | 0.6116 | 0.6138 | 0.7194 | 0.8228 | 0.6048 |
-| reference | 4 | 0.6243 | 0.6292 | 0.6099 | 0.6151 | 0.7181 | 0.8219 | 0.6000 |
-| reference | 5 | 0.6231 | 0.6303 | 0.6085 | 0.6161 | 0.7171 | 0.8210 | 0.5975 |
-| reference | 6 | 0.6209 | 0.6309 | 0.6062 | 0.6165 | 0.7160 | 0.8190 | 0.5911 |
-| reference | 7 | 0.6194 | 0.6318 | 0.6046 | 0.6173 | 0.7149 | 0.8181 | 0.5888 |
-| reference | 8 | 0.6182 | 0.6325 | 0.6029 | 0.6181 | 0.7140 | 0.8167 | 0.5836 |
-| reference | 9 | 0.6170 | 0.6331 | 0.6014 | 0.6186 | 0.7125 | 0.8163 | 0.5819 |
-| reference | 10 | 0.6159 | 0.6335 | 0.6006 | 0.6190 | 0.7120 | 0.8156 | 0.5808 |
-| GRU H64 (study 02) | — | — | — | 0.6249 | — | 0.7282 | 0.8316 | 0.6320 |
-| GRU H128 (study 02) | — | — | — | 0.6273 | — | 0.7303 | 0.8326 | 0.6362 |
-| GRU H256 (study 02) | — | — | — | 0.6288 | — | 0.7315 | 0.8334 | 0.6389 |
+| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | held-out refit: L/R engaged | held-out, global fit: L/R engaged | engage | ignore PR-AUC |
+|---|---|---|---|---|---|---|---|---|---|
+| hurdle | 1 | 0.6227 | 0.6143 | 0.6081 | 0.5997 | 0.7187 | 0.7111 | 0.8188 | 0.6020 |
+| hurdle | 2 | 0.6278 | 0.6228 | 0.6139 | 0.6086 | 0.7195 | 0.7114 | 0.8259 | 0.6139 |
+| hurdle | 3 | **0.6289** | 0.6280 | 0.6148 | 0.6139 | 0.7207 | 0.7184 | 0.8258 | 0.6136 |
+| hurdle | 4 | 0.6284 | 0.6294 | 0.6143 | 0.6153 | 0.7203 | 0.7188 | 0.8255 | 0.6122 |
+| hurdle | 5 | 0.6278 | 0.6305 | 0.6136 | 0.6163 | 0.7200 | 0.7205 | 0.8250 | 0.6110 |
+| hurdle | 6 | 0.6266 | 0.6309 | 0.6121 | 0.6167 | 0.7195 | 0.7210 | 0.8234 | 0.6051 |
+| hurdle | 7 | 0.6262 | 0.6317 | 0.6115 | 0.6175 | 0.7188 | 0.7213 | 0.8234 | 0.6057 |
+| hurdle | 8 | 0.6252 | 0.6322 | 0.6104 | 0.6178 | 0.7184 | 0.7216 | 0.8224 | 0.6029 |
+| hurdle | 9 | 0.6243 | 0.6325 | 0.6095 | 0.6183 | 0.7179 | 0.7220 | 0.8215 | 0.5998 |
+| hurdle | 10 | 0.6241 | 0.6329 | 0.6095 | 0.6186 | 0.7178 | 0.7224 | 0.8217 | 0.6020 |
+| reference | 1 | 0.6228 | 0.6143 | 0.6079 | 0.5996 | 0.7191 | 0.7112 | 0.8182 | 0.5984 |
+| reference | 2 | **0.6262** | 0.6229 | 0.6119 | 0.6088 | 0.7189 | 0.7118 | 0.8238 | 0.6072 |
+| reference | 3 | 0.6261 | 0.6280 | 0.6116 | 0.6138 | 0.7194 | 0.7185 | 0.8228 | 0.6048 |
+| reference | 4 | 0.6243 | 0.6292 | 0.6099 | 0.6151 | 0.7181 | 0.7190 | 0.8219 | 0.6000 |
+| reference | 5 | 0.6231 | 0.6303 | 0.6085 | 0.6161 | 0.7171 | 0.7205 | 0.8210 | 0.5975 |
+| reference | 6 | 0.6209 | 0.6309 | 0.6062 | 0.6165 | 0.7160 | 0.7206 | 0.8190 | 0.5911 |
+| reference | 7 | 0.6194 | 0.6318 | 0.6046 | 0.6173 | 0.7149 | 0.7219 | 0.8181 | 0.5888 |
+| reference | 8 | 0.6182 | 0.6325 | 0.6029 | 0.6181 | 0.7140 | 0.7221 | 0.8167 | 0.5836 |
+| reference | 9 | 0.6170 | 0.6331 | 0.6014 | 0.6186 | 0.7125 | 0.7229 | 0.8163 | 0.5819 |
+| reference | 10 | 0.6159 | 0.6335 | 0.6006 | 0.6190 | 0.7120 | 0.7233 | 0.8156 | 0.5808 |
+| GRU H64 (study 02) | — | — | — | 0.6249 | — | 0.7282 | — | 0.8316 | 0.6320 |
+| GRU H128 (study 02) | — | — | — | 0.6273 | — | 0.7303 | — | 0.8326 | 0.6362 |
+| GRU H256 (study 02) | — | — | — | 0.6288 | — | 0.7315 | — | 0.8334 | 0.6389 |
 
 **Lag scan** (K = 1, selection score; L = 15 from the follow-up launch):
 
