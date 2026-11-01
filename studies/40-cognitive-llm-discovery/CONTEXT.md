@@ -34,6 +34,13 @@ _Avoid_: test mice, evaluation set
 The 146 test subjects that are also on the GRU's held-out list; the headline is pooled over them
 for every model.
 
+### Models
+
+**Published model**:
+A cognitive model from the literature, as implemented in `aind-dynamic-foraging-models`; study 12
+fits all 17 of them per subject.
+_Avoid_: hand-crafted model, baseline model
+
 ### Results
 
 **Gap closed**:
@@ -50,8 +57,8 @@ Scoring an elite with one parameter set per subject and again with the session l
 mechanism that only absorbs drift between sessions.
 
 **Fit floor**:
-The validation score a simplified program must keep, as a fraction of the distance from the seed
-program to the best program.
+The validation score a simplified program must keep, as a fraction of the distance from the best
+published model to the best discovered program, both scored at the session level.
 
 **Pre-registered programs**:
 The programs chosen on the selection subjects, by a rule fixed in advance, before the test subjects
