@@ -43,7 +43,7 @@ sessions of the same 149 subjects, each adding one ingredient:
 | HB zero-spread | every posterior draw of the typical session; no between-session spread | yes: draws reweighted by the session's earlier trials |
 | HB full | draws include between-session spread (the r1 headline) | yes |
 
-An interactive walk-through of the sampling, for readers new to hierarchical Bayes (simulated toy mouse, same computation): [HB sampling explainer](../explainers/hb_sampling_explainer.html).
+An interactive walk-through of the sampling, for readers new to hierarchical Bayes (simulated toy mouse, same computation): [HB sampling explainer](../explainers/hb_sampling_explainer.html). The whole procedure, from the data split to both ladders, as a seven-scene [animated explainer](../explainers/study13_animated_explainer.html).
 
 The zero-spread and full rungs are scored by the session-marginal, which is a particle filter over
 the draws: predicting each trial, every draw is weighted by how well it explained the session's
