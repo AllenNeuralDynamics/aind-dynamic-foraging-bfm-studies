@@ -19,5 +19,7 @@ to one parameter set per subject (ADR 0002).
 
 - **A looser 1b tolerance (0.0005)**, as first planned: too close to the differences being measured.
 - **A stricter 1c tolerance (0.0005)**: study 13 samples the full posterior and rescues hard sessions by
-  importance sampling, while the search uses one best fit and a few hundred draws, so an exact match is
-  not expected.
+  importance sampling, while MEvolve approximates it (Laplace-EM with study 13's hyperprior, the session
+  marginal over 2,048 draws; MEvolve ADR 0004, AllenNeuralDynamics/aind-dynamic-foraging-mevolve#11), so
+  an exact match is not expected. A joint maximum over sessions and spreads was tried first and inflated
+  the between-session spread, which is why MEvolve uses Laplace-EM.
