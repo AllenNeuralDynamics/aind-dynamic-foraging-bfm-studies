@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all freeze-fits
 
-all:
+all: r1
 
 # The only live read: per-subject tables of the pinned W&B group, from the run directories on
 # /allen. Needs WANDB_API_KEY (the NeuralDynamics key); run on a compute node.

@@ -38,7 +38,7 @@ FIG = HERE / "fig_r1_leaderboard.svg"
 GRU_D = 614
 R8 = {"Hattori2019": "hattori", "Bari2019": "bari", "CompareToThreshold": "ctt"}
 TOL = 1e-4   # per-subject |Δ likelihood| that counts as reproducing study 01 r8
-CHANCE = 0.5   # below this a model predicts worse than a coin flip; drawn off scale
+AXIS_FLOOR = 0.69   # the leaderboard axis starts here; models below it are drawn off scale
 # Fitted and frozen but not ranked: a strawman with no lapse term, so its deterministic policy
 # scores every wrong call at the probability clip (Han, 2026-11-01).
 NOT_RANKED = {"Win-Stay-Lose-Shift": "strawman: deterministic policy, no lapse term"}
@@ -121,33 +121,36 @@ def figure(r: dict) -> None:
     y = list(range(len(rows)))
     fig, (a, b) = plt.subplots(1, 2, sharey=True, figsize=fs.mm(150, 18 + 4.2 * len(rows)),
                                gridspec_kw={"wspace": 0.08})
-    on = [(i, row) for i, row in zip(y, rows) if row["pooled_heldout"] >= CHANCE]
-    off = [(i, row) for i, row in zip(y, rows) if row["pooled_heldout"] < CHANCE]
+    on = [(i, row) for i, row in zip(y, rows) if row["pooled_heldout"] >= AXIS_FLOOR]
+    off = [(i, row) for i, row in zip(y, rows) if row["pooled_heldout"] < AXIS_FLOOR]
     a.scatter([row["pooled_heldout"] for _, row in on], [i for i, _ in on], s=10, color="k", zorder=3)
     ref = r["reference"]
-    lo = min([row["pooled_heldout"] for _, row in on] + [ref["hb_hattori"]]) - 0.004
+    lo = min([row["pooled_heldout"] for _, row in on] + [ref["hb_hattori"]]) - 0.002
     hi = max(ref["gru_d614_own_list"], max(row["pooled_heldout"] for _, row in on)) + 0.003
     a.set_xlim(lo, hi)
     for i, row in off:   # off scale: a marker at the left edge with the value beside it
         a.scatter([lo], [i], s=14, marker="<", color="0.5", clip_on=False, zorder=3)
-        a.text(lo + 0.0006, i, f"{row['pooled_heldout']:.4f} (off scale)", va="center", color="0.4")
+        a.text(lo + 0.0006, i, f"{row['pooled_heldout']:.4f}", va="center", color="0.4",
+               in_layout=False)
     for value, name, color in [(ref["hb_hattori"], "HB-Hattori (study 13)", fs.OKABE_ITO["orange"]),
                                (ref["hb_ctt"], "HB-CTT (study 13)", fs.OKABE_ITO["vermillion"]),
                                (ref["gru_d614_own_list"], "GRU D≈614 (study 01)", fs.OKABE_ITO["blue"])]:
         a.axvline(value, color=color, lw=0.8, ls="--", zorder=1, label=name)
-    a.legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=3, frameon=False, handlelength=1.5)
+    fig.legend(*a.get_legend_handles_labels(), loc="outside upper center", ncol=3, frameon=False,
+               handlelength=1.5)
     a.set_yticks(y, [f"{row['literature_model']} ({row['n_free_params']})" for row in rows])
     a.set_xlabel(f"Pooled held-out likelihood ({r['n_subjects_heldout']} subjects)")
-    fs.panel_label(a, "a", dx_pt=-90)
-    b.boxplot([row["_deltas"] if row["pooled_heldout"] >= CHANCE else [] for row in rows],
+    fs.panel_label(a, "a", dx_pt=-130)
+    b.boxplot([row["_deltas"] if row["pooled_heldout"] >= AXIS_FLOOR else [] for row in rows],
               positions=y, vert=False, widths=0.6, showfliers=False, medianprops={"color": "k"},
               manage_ticks=False)
     for i, row in off:
-        b.text(0.02, i, f"median {fs.num(row['minus_gru_median'], '+.3f')} (off scale)",
-               transform=b.get_yaxis_transform(), va="center", color="0.4")
+        b.text(0.02, i, f"median {fs.num(row['minus_gru_median'], '+.3f')}",
+               transform=b.get_yaxis_transform(), va="center", color="0.4", in_layout=False)
     b.axvline(0, color=fs.OKABE_ITO["blue"], lw=0.8, ls="--")
+    b.set_xlim(right=0.01)
     b.xaxis.set_major_locator(plt.MaxNLocator(4))
-    b.set_xlabel(f"Model − GRU, per subject ({r['n_subjects_shared']} subjects)")
+    b.set_xlabel(f"Model − GRU per subject (n = {r['n_subjects_shared']})")
     fs.panel_label(b, "b")
     fs.save_figure(fig, FIG)
 
@@ -162,7 +165,7 @@ def render(r: dict) -> str:
         f"trials); dashed lines: HB-CTT and HB-Hattori (study 13 r5, same subjects) and the GRU at "
         f"D≈614 (study 01 r1, on its own held-out list). **b**, per-subject likelihood minus the "
         f"GRU's (3-seed mean) on the {r['n_subjects_shared']} subjects on both lists; boxes are "
-        f"quartiles, whiskers 1.5 IQR. Models below chance ({CHANCE}) are drawn off scale with "
+        f"quartiles, whiskers 1.5 IQR. Models below {AXIS_FLOOR} are drawn off scale (grey) with "
         f"their value. One fit per subject and model, so no error bars.",
         "",
         f"| rank | literature model | params | held-out ({r['n_subjects_heldout']}) | median subject "

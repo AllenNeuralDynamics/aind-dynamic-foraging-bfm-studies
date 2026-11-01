@@ -1,0 +1,355 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r1_leaderboard.py",
+    "produced_at_pt": "2026-11-01T11:26:44-08:00",
+    "studies_git_sha": "64c21d2b9bfa3831d483baba9b3d81159028be9b",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "per-subject-de@20261101-012148",
+      "per-subject-de@20261101-071303"
+    ],
+    "source_studies_git_shas": [
+      "3d526412c5e7e81778cb019ed212d9c6e4fa4386",
+      "fab284da138461ef71c7a0d9f42fc4496f31afca"
+    ],
+    "source_dispatcher_git_shas": [
+      "6450af3c1505abf7806af4e46a62a48df56c75ac",
+      "7e3d67adf62af2bd467fcdbf0b0dd2077e5c6942"
+    ],
+    "source_wrapper_git_shas": [
+      "331d373c128682c2d8f766e344f9ba05f228d5cf"
+    ],
+    "source_foraging_models_git_shas": [
+      "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r1_leaderboard.py",
+        "sha256": "0279f8f9cbf7e5ee17cca07e9169cb8ac71da811e8ea76d587d33ac00d048aef"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/cross_study_literature.py",
+        "sha256": "4c031c43e54c88bea628041871c435b489346cc56e05e586c525deae34506bbe"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.json",
+        "sha256": "d688e860489d6bddb9f0a4306e289a2ce6bef0cbd60646097d0984721dbba5f2"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
+        "sha256": "eb35093f0104bed94e521d8d85008b823a1fa49e4f190d90d87a5ac6abba2011"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/report_data.json",
+        "sha256": "6b17fb3b7728c926161945f9e30d49d6c771466746ad6958c154b73371daf7f1"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
+        "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
+        "sha256": "f3cba9eb9c351c48434653c882a11e8afd8f6de9fe383f96af1e5e6e38191baa"
+      },
+      {
+        "path": "studies/10-gru-reservoir-ablation/reference/study01-v2-exact-split.json",
+        "sha256": "eec230c3c13abc2650d7a16d2e5bdac3bb1072f3a098e79870aa712c0463ae4e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r1_leaderboard.json",
+        "sha256": "db2f229e1fc766ba4cc58f2c3f018e7ed229f97d5a6983ee6c3424799d290b78"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/fig_r1_leaderboard.svg",
+        "sha256": "aa041e6747cc4baf5dd35d04f6b752b28d8878b4f70201a291a25597fc85e091"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r1-leaderboard.md#result-1",
+        "sha256": "ab5b19de94ac8b2e122e04baeee1eb669e19f750c42e78d9f8e01f5a29d74505"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r1-leaderboard.md#result-2",
+        "sha256": "66da85624475201703781a3e5eb29e684c891cfc9d98adfba7a3e76b487e8e0e"
+      }
+    ]
+  },
+  "n_subjects_heldout": 149,
+  "n_subjects_shared": 146,
+  "n_subjects_gru_list": 149,
+  "n_subjects_train": 614,
+  "n_trials_heldout": 1013172,
+  "shared_trials_differ_from_gru": [],
+  "reference": {
+    "hb_ctt": 0.7225,
+    "hb_hattori": 0.7213,
+    "gru_d614_own_list": 0.7268,
+    "gru_d614_shared": 0.7268256461659087,
+    "gru_d614_gru_list": 0.7267529353552321
+  },
+  "tolerance": 0.0001,
+  "rows": [
+    {
+      "literature_model": "Lopez-DoubleTrace",
+      "n_free_params": 6,
+      "pooled_heldout": 0.7187431466407855,
+      "median_heldout": 0.7344258371851607,
+      "pooled_train": 0.7227081190108712,
+      "pooled_shared": 0.7181495197394181,
+      "pooled_gru_list": 0.7180537223649393,
+      "minus_gru_median": -0.008635274319040931,
+      "frac_gru_higher": 0.9931506849315068
+    },
+    {
+      "literature_model": "Lebedeva-PR",
+      "n_free_params": 5,
+      "pooled_heldout": 0.7171973319366401,
+      "median_heldout": 0.7331685890583596,
+      "pooled_train": 0.7212210470230901,
+      "pooled_shared": 0.716621544971002,
+      "pooled_gru_list": 0.716501389470242,
+      "minus_gru_median": -0.009509842524307532,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "CompareToThreshold",
+      "n_free_params": 4,
+      "pooled_heldout": 0.7170395016451598,
+      "median_heldout": 0.7330844842051198,
+      "pooled_train": 0.7210423053592957,
+      "pooled_shared": 0.7164686985366925,
+      "pooled_gru_list": 0.7163644263019961,
+      "minus_gru_median": -0.009533948218912958,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Zid-HistoryKernel2-ForagingRL",
+      "n_free_params": 5,
+      "pooled_heldout": 0.7162795768364534,
+      "median_heldout": 0.7317568926605783,
+      "pooled_train": 0.7202632242878431,
+      "pooled_shared": 0.7156623602439057,
+      "pooled_gru_list": 0.715576005550651,
+      "minus_gru_median": -0.010143126702187644,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Miller-RHG",
+      "n_free_params": 7,
+      "pooled_heldout": 0.7160406831754967,
+      "median_heldout": 0.7350414913586751,
+      "pooled_train": 0.7208761095714818,
+      "pooled_shared": 0.7156198402210475,
+      "pooled_gru_list": 0.7155270841044707,
+      "minus_gru_median": -0.009011139204126828,
+      "frac_gru_higher": 0.9931506849315068
+    },
+    {
+      "literature_model": "Bari2019",
+      "n_free_params": 5,
+      "pooled_heldout": 0.7149126635108097,
+      "median_heldout": 0.7311353742163009,
+      "pooled_train": 0.7180879741424661,
+      "pooled_shared": 0.7143950016812569,
+      "pooled_gru_list": 0.7142372959399828,
+      "minus_gru_median": -0.011254784170288024,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Grossman-MetaLearning",
+      "n_free_params": 7,
+      "pooled_heldout": 0.7127228483556,
+      "median_heldout": 0.7280945453075444,
+      "pooled_train": 0.7159218765981225,
+      "pooled_shared": 0.712174583803408,
+      "pooled_gru_list": 0.7120606503929509,
+      "minus_gru_median": -0.014573650049904074,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Hattori2019",
+      "n_free_params": 5,
+      "pooled_heldout": 0.7126671375129033,
+      "median_heldout": 0.7285441933448077,
+      "pooled_train": 0.7159216610337379,
+      "pooled_shared": 0.7121487797691497,
+      "pooled_gru_list": 0.7120263790556164,
+      "minus_gru_median": -0.013640365856083747,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Chen-RLCK",
+      "n_free_params": 4,
+      "pooled_heldout": 0.7124214430490011,
+      "median_heldout": 0.7263320815490444,
+      "pooled_train": 0.7163382378180122,
+      "pooled_shared": 0.7118456954791943,
+      "pooled_gru_list": 0.7118080766994902,
+      "minus_gru_median": -0.014283881697937373,
+      "frac_gru_higher": 0.9931506849315068
+    },
+    {
+      "literature_model": "Beron-RFLR",
+      "n_free_params": 3,
+      "pooled_heldout": 0.711245554959155,
+      "median_heldout": 0.7298389008997374,
+      "pooled_train": 0.7143376247883542,
+      "pooled_shared": 0.7106642970223789,
+      "pooled_gru_list": 0.7105410314495262,
+      "minus_gru_median": -0.01394769665903739,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Eckstein-BI",
+      "n_free_params": 4,
+      "pooled_heldout": 0.7100045263008289,
+      "median_heldout": 0.7299900501673611,
+      "pooled_train": 0.7131616330122937,
+      "pooled_shared": 0.7094126430153245,
+      "pooled_gru_list": 0.7093185247931686,
+      "minus_gru_median": -0.013896464095441374,
+      "frac_gru_higher": 0.9931506849315068
+    },
+    {
+      "literature_model": "Eckstein-RL",
+      "n_free_params": 4,
+      "pooled_heldout": 0.7087833266986183,
+      "median_heldout": 0.726456480373221,
+      "pooled_train": 0.7120367423974361,
+      "pooled_shared": 0.7082087835664661,
+      "pooled_gru_list": 0.7081251500075844,
+      "minus_gru_median": -0.017327957022935603,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias+CK1",
+      "n_free_params": 5,
+      "pooled_heldout": 0.6969429647282196,
+      "median_heldout": 0.7171118786565476,
+      "pooled_train": 0.6998954322716952,
+      "pooled_shared": 0.6964003185971711,
+      "pooled_gru_list": 0.6962047363321071,
+      "minus_gru_median": -0.02709110315855706,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Alsio-DualRateSticky-RL",
+      "n_free_params": 4,
+      "pooled_heldout": 0.6960685322698903,
+      "median_heldout": 0.7146845672051814,
+      "pooled_train": 0.6992856412144035,
+      "pooled_shared": 0.6954805655186657,
+      "pooled_gru_list": 0.695360281085077,
+      "minus_gru_median": -0.028338263913933848,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "LossCounting",
+      "n_free_params": 3,
+      "pooled_heldout": 0.6697554164316181,
+      "median_heldout": 0.6922303455976021,
+      "pooled_train": 0.6671374847700996,
+      "pooled_shared": 0.6691198921649709,
+      "pooled_gru_list": 0.6691732937450519,
+      "minus_gru_median": -0.04410081431621693,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "ActorCritic",
+      "n_free_params": 4,
+      "pooled_heldout": 0.6272973110415319,
+      "median_heldout": 0.6587986837869766,
+      "pooled_train": 0.6258379644779367,
+      "pooled_shared": 0.6279298398179357,
+      "pooled_gru_list": 0.6286887695209742,
+      "minus_gru_median": -0.07026218009266122,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias",
+      "n_free_params": 4,
+      "pooled_heldout": 0.555762564109078,
+      "median_heldout": 0.5525084981366772,
+      "pooled_train": 0.5535428909323098,
+      "pooled_shared": 0.555926797199296,
+      "pooled_gru_list": 0.5553228204120179,
+      "minus_gru_median": -0.1810964885229137,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "FeedbackDependent-RL",
+      "n_free_params": 3,
+      "pooled_heldout": 0.548905204254559,
+      "median_heldout": 0.5414034874851084,
+      "pooled_train": 0.5478044104462647,
+      "pooled_shared": 0.5490437470609377,
+      "pooled_gru_list": 0.5485633191636161,
+      "minus_gru_median": -0.18612304459995993,
+      "frac_gru_higher": 1.0
+    },
+    {
+      "literature_model": "Rescorla-Wagner",
+      "n_free_params": 3,
+      "pooled_heldout": 0.5421764395178231,
+      "median_heldout": 0.5407410811500395,
+      "pooled_train": 0.5395440185405139,
+      "pooled_shared": 0.542234354000273,
+      "pooled_gru_list": 0.5418726912855184,
+      "minus_gru_median": -0.19440584806477051,
+      "frac_gru_higher": 1.0
+    }
+  ],
+  "reproduction": {
+    "Hattori2019": {
+      "n_subjects": 149,
+      "max_abs_delta": 7.272546018732839e-07,
+      "n_over_tolerance": 0,
+      "pooled_new": 0.7127,
+      "pooled_r8": 0.7127
+    },
+    "Bari2019": {
+      "n_subjects": 149,
+      "max_abs_delta": 1.3889026498903334e-06,
+      "n_over_tolerance": 0,
+      "pooled_new": 0.7149,
+      "pooled_r8": 0.7149
+    },
+    "CompareToThreshold": {
+      "n_subjects": 149,
+      "max_abs_delta": 0.00023352394215558903,
+      "n_over_tolerance": 1,
+      "pooled_new": 0.717,
+      "pooled_r8": 0.717
+    }
+  },
+  "not_ranked": [
+    {
+      "literature_model": "Win-Stay-Lose-Shift",
+      "reason": "strawman: deterministic policy, no lapse term",
+      "pooled_heldout": 0.006154232269288227
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# Analysis environment for studies/12-cognitive-literature-leaderboard/ (posthoc-reporting contract).
+# Not a full `pip freeze`: it pins what freeze_fits.py and r1_leaderboard.py import, in the env they
+# ran in (/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu, on an HPC compute
+# node), 2026-11-01 PST.
+#   Python 3.12.13
+numpy==2.4.6
+requests==2.34.2
+matplotlib==3.10.9  # r1 figure; byte-identical only on one plotting stack (posthoc-reporting)
+jsonschema==4.26.0
+PyYAML==6.0.3
+# The fits themselves ran in the same env: aind-dynamic-foraging-models 0.26.0 (PyPI = tag v0.26.0,
+# 0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112; backfill records in each launch_record/), and the
+# wrapper at 331d373c128682c2d8f766e344f9ba05f228d5cf.
