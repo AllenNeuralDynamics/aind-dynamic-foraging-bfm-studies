@@ -229,7 +229,9 @@ def main() -> None:
     REPORT.write_text(_rewrite(text, "result-2", render_repro(result)))
     for row in result["rows"]:
         del row["_deltas"]
-    # Stable JSON pointers for readers (the atlas): /by_model/<literature model>/pooled_heldout
+    # Stable JSON pointers for readers. The atlas leaderboard (atlas PR 40) reads this file at
+    # build time: /by_model/<name>/pooled_heldout (finite) and /by_model/<name>/rank (int), and
+    # the report's result-1 block. Renaming any of them fails its build; tell the atlas first.
     result["by_model"] = {row["literature_model"]: {"rank": i, **row}
                           for i, row in enumerate(result["rows"], 1)}
     meta = build_meta("analysis/r1_leaderboard.py", WANDB_GROUPS, study_root=HERE.parent,

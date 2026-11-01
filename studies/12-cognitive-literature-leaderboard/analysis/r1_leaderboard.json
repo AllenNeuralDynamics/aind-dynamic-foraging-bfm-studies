@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_leaderboard.py",
-    "produced_at_pt": "2026-11-01T13:03:04-08:00",
-    "studies_git_sha": "ec6c12719bf874fd07a88fd5ed747db669808c31",
+    "produced_at_pt": "2026-11-01T13:15:58-08:00",
+    "studies_git_sha": "1d5080c29bd57c3056552a4c6b095a7fcc0089bb",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -29,7 +29,7 @@
     "code": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r1_leaderboard.py",
-        "sha256": "6e2705f1da64a08a2d4a2551f4bc5295c2a3b2e778c93559934159b0e48511a1"
+        "sha256": "65929fc814f06521563f221abdcaa256a396baa00f5e0861373c7b75f71fb240"
       },
       {
         "path": "studies/util/cross_study.py",
