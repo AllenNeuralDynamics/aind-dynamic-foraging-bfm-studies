@@ -45,8 +45,7 @@ out in the task simulator to compare their behaviour with the mice's.
 
 | variant | what it varies |
 |---|---|
-| [`base`](variants/base/notes.md) | search starts from a near-empty program template |
-| [`seeded-ctt`](variants/seeded-ctt/notes.md) | search starts from CompareToThreshold written as a program |
+| [`seeded-islands`](variants/seeded-islands/notes.md) | one search, a different seed on each island: a near-empty template and published models from the seed library |
 
 The answer is the fraction of the gap from HB-CTT to the GRU that the best program closes on the
 test subjects, with its behavioural fingerprints and closed-loop match beside it.

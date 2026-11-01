@@ -4,8 +4,10 @@ During the search a program may have at most 8 parameters and 6 latent variables
 program with discrete states counts its state probabilities among its latent variables. Static checks
 reject unused parameters and unused latent variables, and the feedback flags parameters stuck at a
 bound or with negligible effect. After the search, the simplification stage minimizes Halstead effort
-while keeping the score above a fit floor, reported beside the parameter and latent-variable counts
-(decided with Han, 2026-10-31).
+while keeping the score above a fit floor, reported beside the parameter and latent-variable counts.
+There are three floors, as in DataDIVER: the simplified program keeps 90%, 75% or 50% of the gain from
+the best published model to the best discovered program, each floor a separate run; together they
+trace a fit-versus-complexity curve (decided with Han, 2026-10-31 and 2026-11-01).
 
 The lab's published models use 4 to 7 parameters. CogFunSearch's best rat program used 18, carried
 latent variables it never read and parameters that fit to zero. At the session level every parameter
