@@ -20,14 +20,25 @@ _Avoid_: training mice
 Training-pool subjects, disjoint from the generation subjects, whose pooled likelihood is a
 program's score; the LLM sees only that one number per program.
 
+**Selection subjects**:
+Training-pool subjects, disjoint from the other cohorts, used once at the end to choose the
+pre-registered programs.
+_Avoid_: second validation set, holdout set
+
 **Test subjects**:
-The held-out subjects the comparators were scored on, scored once per variant at the end.
+The 149 held-out subjects of the per-subject MLE and HB baselines, scored once per variant at the
+end.
 _Avoid_: test mice, evaluation set
+
+**Shared test subjects**:
+The 146 test subjects that are also on the GRU's held-out list; the headline is pooled over them
+for every model.
 
 ### Results
 
 **Gap closed**:
-On the test subjects, the program's likelihood minus HB-CTT's, divided by the GRU's minus HB-CTT's.
+On the shared test subjects, the program's likelihood minus HB-CTT's, divided by the GRU's minus
+HB-CTT's.
 _Avoid_: improvement
 
 **Stage group**:
@@ -43,4 +54,5 @@ The validation score a simplified program must keep, as a fraction of the distan
 program to the best program.
 
 **Pre-registered programs**:
-The programs chosen, by a rule fixed in advance, before the test subjects are scored.
+The programs chosen on the selection subjects, by a rule fixed in advance, before the test subjects
+are scored.
