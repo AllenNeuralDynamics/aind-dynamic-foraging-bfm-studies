@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-10-27T21:29:17-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "hurdle@20261027-212905",
+  "label": "hurdle-k1-10",
+  "note": "Study 14 hurdle: GLM-HMM K=1..10, held-out 3-way score vs study 02's GRU. L=10 (lag-scan@20261027-200129), 20 restarts per K>1 as Ashwood et al., run 10 at a time (num_workers=10) on 32 cores, 96 GB (64 GB in notes.md, raised: reference at L=10 peaked at 37 GB in the benchmark before trainer overhead). From wrapper 5f5301c, dispatcher f310905, studies 41e85aa (#53, open for review), models 0.25.0 at cf38f45 installed into the shared CPU env today for this launch. K chosen on glmhmm/select/eval_likelihood; the held-out K curve is reported in full.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "p4t3u2zf"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27518375"
+    }
+  ],
+  "revisions": {
+    "studies": "41e85aab9d006dd5b62df32f586c538be5a40f00",
+    "dispatcher": "f3109058e8106181917110789f1c11ddfb3f1ba1",
+    "wrapper": "5f5301c738898e1289060635e8b656222ba32912",
+    "foraging_models": "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
+  },
+  "manifests": [
+    "sweep_hpc.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 10,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "a4e519cee1b271cf6b340fa961753fb0721b7d906cacdc68d8865c935737c4d3"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "p4t3u2zf",
+  "wandb_sweep_path": "AIND-disRNN/mice_glmhmm/p4t3u2zf",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/mice_glmhmm/sweeps/p4t3u2zf",
+  "slurm_array_job_id": "27518375",
+  "slurm_autostop_job_id": "27518376",
+  "n_array_tasks": 10,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "f3109058e8106181917110789f1c11ddfb3f1ba1",
+  "studies_git_commit": "41e85aab9d006dd5b62df32f586c538be5a40f00",
+  "studies_git_branch": "HEAD",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "f3109058e8106181917110789f1c11ddfb3f1ba1",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "5f5301c738898e1289060635e8b656222ba32912",
+  "foraging_models_git_commit": "cf38f45d38eddaade38434bd9dbecfa4a98f7388",
+  "foraging_models_version": "0.25.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/14-hpc/aind-dynamic-foraging-bfm-studies/studies/14-glmhmm-vs-gru-heldout/variants/hurdle/sweep_hpc.yaml",
+  "created_utc": "2026-10-28T04:29:17.428808+00:00"
+}

@@ -1,0 +1,34 @@
+# Analysis environment for studies/14-glmhmm-vs-gru-heldout/ (per the posthoc-reporting contract).
+# Not a full `pip freeze`: it pins what freeze_round1.py and the r1 producer import, in the env
+# they ran in (/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu, on an HPC
+# compute node), 2026-10-28 PT.
+#   Python 3.12.13
+numpy==2.4.6
+pandas==2.3.3
+pyarrow==25.0.0
+PyYAML==6.0.3
+scipy==1.17.1
+matplotlib==3.10.9  # r1 figures; byte-identical only on one plotting stack (posthoc-reporting)
+# freeze_round1.py loads the held-out cohort through the wrapper's own loader (Hydra config from
+# the dispatcher) and evaluates the fitted emissions with foraging-models' glm_hmm:
+hydra-core==1.3.2
+omegaconf==2.3.0
+aind-dynamic-foraging-database==0.2.2
+duckdb==1.5.4
+aind-dynamic-foraging-models==0.26.0  # installed from git at 0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112 (direct_url.json);
+#   its glm_hmm is identical to 0.25.0's (cf38f45), which the K-grid runs used
+aind-dynamic-foraging-basic-analysis==0.3.34  # plot_foraging_session for the example sessions
+jax==0.6.1
+jaxlib==0.6.1
+dynamax==1.0.3
+#
+# Loader code for the freeze: aind-dynamic-foraging-bfm-wrapper 5f5301c738898e1289060635e8b656222ba32912
+# with aind-dynamic-foraging-bfm-dispatcher f3109058e8106181917110789f1c11ddfb3f1ba1 (WRAPPER_ROOT /
+# DISPATCHER_ROOT).
+#
+# Code whose outputs are frozen here, per the launch records under variants/*/launch_record/:
+# - lag-scan@20261027-200129: wrapper a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43, dispatcher
+#   90f9b6cfc2817a0f28b497f48666c769ffb36604, foraging-models 13f7e9c3af6e80bcaeaae65a970a410e0539077d;
+# - lag-scan@20261027-223410, hurdle@20261027-212905, reference@20261027-213006: wrapper
+#   5f5301c738898e1289060635e8b656222ba32912, dispatcher f3109058e8106181917110789f1c11ddfb3f1ba1,
+#   foraging-models cf38f45d38eddaade38434bd9dbecfa4a98f7388.

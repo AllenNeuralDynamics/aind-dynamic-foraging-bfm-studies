@@ -1,0 +1,52 @@
+entity: AIND-disRNN
+project: mice_glmhmm
+name: lag-scan-20261027-223410
+method: grid
+metric:
+  name: glmhmm/select/eval_likelihood
+  goal: maximize
+command:
+- python
+- -m
+- run_hpc
+- data=mice_snapshot_scaling
+- data.ignore_policy=include
+- +data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,current_stage_actual]
+- model=glmhmm
+- model.num_states=1
+- model.num_workers=10
+- seed=0
+- wandb.entity=AIND-disRNN
+- wandb.project=mice_glmhmm
+- ${args_no_hyphens}
+- +meta.study=14-glmhmm-vs-gru-heldout
+- +meta.variant=lag-scan
+- +meta.launch_id=20261027-223410
+- +meta.config_hash=9772395a
+- +meta.dispatcher_git_commit=f3109058e8106181917110789f1c11ddfb3f1ba1
+- +meta.dispatcher_git_branch=HEAD
+- +meta.dispatcher_git_dirty=no
+- +meta.wrapper_git_commit=5f5301c738898e1289060635e8b656222ba32912
+- +meta.wrapper_git_branch=HEAD
+- +meta.wrapper_git_dirty=no
+- +meta.studies_commit=5e00dde6afccd94c619b9761196aabf4ce1cbdd7
+- +meta.studies_git_branch=HEAD
+- +meta.studies_git_dirty=no
+- +meta.sweep_yaml=/home/han.hou/code/wt/14-hpc-l15-studies/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/sweep_hpc_l15.yaml
+- +meta.owner=han.hou
+- +meta.launcher_cmd=/home/han.hou/code/wt/14-hpc/aind-dynamic-foraging-bfm-di...
+- +meta.mode=cpu
+- +meta.label=lag-scan-l15
+- '+meta.note=''Study 14 lag-scan L=15 check: lag-scan@20261027-200129 pe...'''
+- +wandb.group=lag-scan@20261027-223410
+- +meta.slurm_job_id='${oc.env:SLURM_JOB_ID,unknown}'
+- +meta.slurm_array_job_id='${oc.env:SLURM_ARRAY_JOB_ID,unknown}'
+- +meta.slurm_array_task_id='${oc.env:SLURM_ARRAY_TASK_ID,unknown}'
+parameters:
+  model.emission:
+    values:
+    - hurdle
+    - reference
+  model.n_lags:
+    values:
+    - 15
