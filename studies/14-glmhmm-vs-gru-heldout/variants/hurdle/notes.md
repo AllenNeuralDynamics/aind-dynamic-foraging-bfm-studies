@@ -1,8 +1,10 @@
 # Variant `hurdle`
 
 **What.** K = 1 … 10 with the `hurdle` emission: per state, an engagement GLM on unsigned history times a side GLM on signed history (`sweep_hpc.yaml`). L comes from
-`lag-scan`; `model.n_lags=5` in the manifest is a placeholder to set before launching.
-10 restarts per K > 1, each from the K = 1 weights plus noise.
+`lag-scan`: L = 10, which maximised the selection score for both emissions
+(`lag-scan@20261027-200129`).
+20 restarts per K > 1, each from the K = 1 weights plus noise, as Ashwood et al. (20 per K
+in `zashwood/glm-hmm`). On HPC they run as two rounds of 10 (`model.num_workers=10`).
 
 **Why.** The held-out K curve against study 02's 3-way GRU. Hurdle maps one-to-one onto study 02's decomposition: the side GLM against LR_engaged, the engagement GLM against engage and ignore PR-AUC. K is chosen on
 `glmhmm/select/eval_likelihood` (training mice), and the full held-out curve is reported.
@@ -13,12 +15,13 @@ resolves a relative `--sweep-yaml` against the dispatcher, and writes the record
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py \
       --sweep-yaml "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/hurdle/sweep_hpc.yaml" \
-      --mode cpu --sbatch-extra "--cpus-per-task=8 --mem=64G --time=48:00:00" \
+      --mode cpu --sbatch-extra "--cpus-per-task=32 --mem=64G --time=48:00:00" \
       --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/hurdle/launch_record/hurdle-k1-10" \
-      --label hurdle-k1-10 --note "Study 14: hurdle GLM-HMM, K=1..10 at L=<from lag-scan>, held-out 3-way score vs study 02's GRU"
+      --label hurdle-k1-10 --note "Study 14: hurdle GLM-HMM, K=1..10 at L=10 (from lag-scan@20261027-200129), held-out 3-way score vs study 02's GRU"
 
-**Or on Beaker**, which needs the GLM-HMM image built first (wrapper `beaker/glmhmm/Dockerfile`,
-AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111; see `experiment_beaker.yaml`). Same
+**Or on Beaker**, on the GLM-HMM image `han-hou/dynamic-foraging-bfm-glmhmm-20261027` (wrapper
+`beaker/glmhmm/`, AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111; run its
+`smoke.yaml` first; see `experiment_beaker.yaml`). Same
 grid, one non-preemptible single-GPU task per cell:
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
