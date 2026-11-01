@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study 40 in six scenes</title>
+<style>
+  :root { --bg: #14171f; --ink: #e8e6e3; --dim: #8a8f98; --blue: #58c4dd; --yellow: #ffd866;
+          --red: #fc6255; --green: #83c167; --purple: #9a72ac; --grey: #5a5f6a; color-scheme: dark; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+               font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 980px; margin: 0 auto; padding: 22px 16px 40px; }
+  h1 { font-size: 24px; font-weight: 600; margin: 0 0 4px; }
+  .sub { color: var(--dim); font-size: 14px; margin-bottom: 14px; }
+  .bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 10px 0; }
+  .bar button { background: #222734; color: var(--ink); border: 1px solid #343a48; border-radius: 16px;
+                padding: 6px 13px; font-size: 13px; cursor: pointer; }
+  .bar button.on { background: var(--blue); color: #10131a; border-color: var(--blue); }
+  .bar .clock { color: var(--dim); font-size: 13px; margin-left: auto; font-variant-numeric: tabular-nums; }
+  canvas { display: block; width: 100%; height: auto; border-radius: 10px; background: var(--bg);
+           border: 1px solid #262b36; }
+  .caption { font-family: Charter, Georgia, serif; font-size: 18px; line-height: 1.6; min-height: 120px;
+             margin: 14px 4px 0; }
+  .caption b { color: var(--yellow); font-weight: 600; }
+  .caption i.t { font-style: normal; color: var(--green); }
+  .foot { color: var(--dim); font-size: 12.5px; margin-top: 18px; line-height: 1.5; }
+  .foot code { font-size: 12px; }
+  .text-version { margin-top: 18px; font-size: 15px; line-height: 1.55; }
+  .text-version summary { cursor: pointer; color: var(--blue); }
+  .text-version h2 { font-size: 16px; margin: 16px 0 4px; }
+  .text-version pre { background: #1b1f29; padding: 8px 10px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
+  .bar button:focus-visible, .text-version summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Study 40 in six scenes</h1>
+  <div class="sub">Can an LLM-driven program search find a short, readable cognitive model that closes the gap
+    between the best hand-written model and the GRU on held-out mice? This is the plan, before any code runs.</div>
+  <div class="bar" id="scenes"></div>
+  <canvas id="c" width="960" height="460" role="img" aria-describedby="cap"></canvas>
+  <div class="bar">
+    <button id="play">▶ Play</button><button id="replay">↺ Replay scene</button>
+    <button id="prev">← Prev</button><button id="next">Next →</button>
+    <span class="clock" id="clock"></span>
+  </div>
+  <div class="caption" id="cap"></div>
+  <details class="text-version"><summary>Text version of all six scenes</summary><div id="transcript"></div></details>
+  <div class="foot" id="foot"></div>
+</main>
+<script>
+"use strict";
+// BEGIN REFS
+const REFS = {
+ "chance": 0.5,
+ "mle_ctt": 0.717,
+ "hb_ctt": 0.7225,
+ "gru_v2_h128": 0.7282,
+ "n_train_mice": 614,
+ "n_test_mice": 149,
+ "n_test_sessions": 2138,
+ "n_test_trials": 1013172,
+ "sources": [
+  {
+   "value": "mle_ctt",
+   "file": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
+   "produced_at_pt": "2026-10-24T03:15:30-07:00"
+  },
+  {
+   "value": "hb_ctt, n_test_sessions, n_test_trials",
+   "file": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
+   "produced_at_pt": "2026-10-28T22:34:02-07:00"
+  },
+  {
+   "value": "gru_v2_h128",
+   "file": "studies/01-gru-scaling-law/analysis/report_data.json",
+   "produced_at_pt": "2026-09-01T13:55:57-07:00"
+  },
+  {
+   "value": "n_train_mice, n_test_mice",
+   "file": "studies/10-gru-reservoir-ablation/reference/study01-v2-exact-split.json"
+  }
+ ]
+};
+// END REFS
+
+const C = document.getElementById("c"), X = C.getContext("2d");
+const W = C.width, H = C.height;
+const COL = { bg: "#14171f", ink: "#e8e6e3", dim: "#8a8f98", blue: "#58c4dd", yellow: "#ffd866",
+              red: "#fc6255", green: "#83c167", purple: "#9a72ac", grey: "#5a5f6a", panel: "#1b1f29",
+              edge: "#2c3240" };
+const SANS = "-apple-system, Segoe UI, Helvetica, Arial, sans-serif";
+const MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+
+// ---------- small math helpers ----------
+let seed = 7;
+function rnd() { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
+function randn() { let u = 0, v = 0; while (u === 0) u = rnd(); v = rnd();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+const sig = x => 1 / (1 + Math.exp(-x));
+const ease = t => t < 0 ? 0 : t > 1 ? 1 : t * t * (3 - 2 * t);
+const lerp = (a, b, t) => a + (b - a) * t;
+const clamp01 = t => Math.max(0, Math.min(1, t));
+function seg(t, a, b) { return ease((t - a) / (b - a)); }   // eased progress of t within [a, b]
+const fmt4 = v => v.toFixed(4);
+
+// ---------- drawing helpers ----------
+function clear() { X.fillStyle = COL.bg; X.fillRect(0, 0, W, H); }
+function text(s, x, y, o = {}) {
+  X.save(); X.globalAlpha = o.a ?? 1; X.fillStyle = o.c || COL.ink;
+  X.font = `${o.w || 400} ${o.size || 16}px ${o.mono ? MONO : SANS}`;
+  X.textAlign = o.align || "left"; X.textBaseline = o.base || "alphabetic"; X.fillText(s, x, y); X.restore();
+}
+function line(x1, y1, x2, y2, c, w = 1.5, a = 1, dash) {
+  X.save(); X.globalAlpha = a; X.strokeStyle = c; X.lineWidth = w; if (dash) X.setLineDash(dash);
+  X.beginPath(); X.moveTo(x1, y1); X.lineTo(x2, y2); X.stroke(); X.restore();
+}
+function poly(pts, c, w = 2, a = 1, dash) {
+  if (pts.length < 2) return;
+  X.save(); X.globalAlpha = a; X.strokeStyle = c; X.lineWidth = w; if (dash) X.setLineDash(dash);
+  X.beginPath(); pts.forEach(([x, y], i) => i ? X.lineTo(x, y) : X.moveTo(x, y)); X.stroke(); X.restore();
+}
+function dot(x, y, r, c, a = 1) { X.save(); X.globalAlpha = a; X.fillStyle = c; X.beginPath();
+  X.arc(x, y, Math.max(0, r), 0, 2 * Math.PI); X.fill(); X.restore(); }
+function ring(x, y, r, c, a = 1, w = 1.5) { X.save(); X.globalAlpha = a; X.strokeStyle = c; X.lineWidth = w;
+  X.beginPath(); X.arc(x, y, Math.max(0, r), 0, 2 * Math.PI); X.stroke(); X.restore(); }
+function box(x, y, w, h, o = {}) {
+  X.save(); X.globalAlpha = o.a ?? 1; const r = o.r ?? 8;
+  X.beginPath(); X.roundRect(x, y, w, h, r);
+  if (o.fill) { X.fillStyle = o.fill; X.fill(); }
+  if (o.stroke) { X.strokeStyle = o.stroke; X.lineWidth = o.lw || 1.5; if (o.dash) X.setLineDash(o.dash); X.stroke(); }
+  if (o.glow) { X.shadowColor = o.glow; X.shadowBlur = 18 * (o.glowA ?? 1); X.strokeStyle = o.glow; X.lineWidth = 2; X.stroke(); }
+  X.restore();
+}
+function arrow(x1, y1, x2, y2, c, a = 1, w = 1.8) {
+  line(x1, y1, x2, y2, c, w, a);
+  const ang = Math.atan2(y2 - y1, x2 - x1), s = 8;
+  X.save(); X.globalAlpha = a; X.fillStyle = c; X.beginPath(); X.moveTo(x2, y2);
+  X.lineTo(x2 - s * Math.cos(ang - 0.4), y2 - s * Math.sin(ang - 0.4));
+  X.lineTo(x2 - s * Math.cos(ang + 0.4), y2 - s * Math.sin(ang + 0.4)); X.closePath(); X.fill(); X.restore();
+}
+function title(s, sub) { text(s, 32, 40, { size: 20, w: 600 }); if (sub) text(sub, W - 32, 40, { c: COL.dim, size: 13, align: "right" }); }
+
+// ---------- toy world: one session of the two-port task ----------
+// Coupled, baited block task; the toy mouse is the scene-2 program with fixed parameters.
+const TOY_P = { alpha: 0.45, forget: 0.15, beta: 5.0 };
+function programUpdate(q, choice, reward, p) {   // the same rule as the program typed in scene 2
+  const out = q.slice(), other = 1 - choice;
+  out[other] *= 1 - p.forget;
+  out[choice] += p.alpha * (reward - out[choice]);
+  return out;
+}
+function makeSession(sv, n) {
+  seed = sv;
+  const pairs = [[0.45, 0.05], [0.05, 0.45], [0.36, 0.14], [0.14, 0.36], [0.4, 0.1]];
+  const blocks = [], trials = [];
+  let t = 0, b = 0;
+  while (t < n) { const len = 22 + Math.floor(rnd() * 18); blocks.push({ start: t, len, p: pairs[b % pairs.length] }); t += len; b++; }
+  let q = [0, 0], bait = [false, false];
+  for (let k = 0; k < n; k++) {
+    const blk = blocks.find(B => k >= B.start && k < B.start + B.len);
+    const [pL, pR] = blk.p;
+    for (const i of [0, 1]) bait[i] = bait[i] || rnd() < [pL, pR][i];
+    const pRight = sig(TOY_P.beta * (q[1] - q[0]));
+    const choice = rnd() < pRight ? 1 : 0, reward = bait[choice] ? 1 : 0;
+    bait[choice] = false;
+    trials.push({ pL, pR, choice, reward, pRight, q: q.slice() });
+    q = programUpdate(q, choice, reward, TOY_P);
+  }
+  return trials;
+}
+const SESSION = makeSession(5, 120);
+
+// A session drawn the way the lab's plot_foraging_session draws it: block baiting probabilities as
+// steps, choices as ticks (right above, left below), tall tick = rewarded. Right = blue, left = red.
+function drawSession(S, n, bx, o = {}) {
+  const { x, y, w, h } = bx, dx = w / S.length, top = y + 16, bot = y + h - 16;
+  const py = p => bot - p * (bot - top);
+  box(x, y - 22, w, h + 44, { fill: COL.panel, r: 8, a: o.a ?? 1 });
+  const a = o.a ?? 1;
+  line(x, py(0), x + w, py(0), COL.grey, 1, 0.5 * a);
+  line(x, py(1), x + w, py(1), COL.grey, 1, 0.25 * a, [3, 4]);
+  const stepR = [], stepL = [];
+  for (let k = 0; k < n; k++) { const xs = x + k * dx; stepR.push([xs, py(S[k].pR)], [xs + dx, py(S[k].pR)]);
+    stepL.push([xs, py(S[k].pL)], [xs + dx, py(S[k].pL)]); }
+  poly(stepR, COL.blue, 2, 0.85 * a); poly(stepL, COL.red, 2, 0.85 * a);
+  for (let k = 0; k < n; k++) {
+    const T = S[k], xs = x + k * dx + dx / 2, len = T.reward ? 14 : 6;
+    if (T.choice === 1) line(xs, y - 18, xs, y - 18 + len, COL.blue, 2, (T.reward ? 1 : 0.6) * a);
+    else line(xs, y + h + 18, xs, y + h + 18 - len, COL.red, 2, (T.reward ? 1 : 0.6) * a);
+  }
+  if (o.fitted) { const pts = []; for (let k = 0; k < n; k++) pts.push([x + k * dx + dx / 2, py(S[k].pRight)]);
+    poly(pts, COL.ink, 2, a); }
+  if (o.cursor && n > 0 && n < S.length) line(x + n * dx, y - 20, x + n * dx, y + h + 20, COL.yellow, 1, 0.6 * a);
+  return { py, dx };
+}
+
+// ---------- scenes ----------
+const N_TRAIN = REFS ? REFS.n_train_mice : 614, N_TEST = REFS ? REFS.n_test_mice : 149;
+const R = REFS || { chance: 0.5, mle_ctt: NaN, hb_ctt: NaN, gru_v2_h128: NaN };
+
+const SCENES = [
+  { name: "1 · A mouse at work", dur: 20, cap: () =>
+    "A mouse chooses between two lick ports. On each trial, each port is <b>baited</b> (loaded with water) with a " +
+    "probability that changes in <b>blocks</b> without warning (lines: blue = right port, red = left port). Water " +
+    "at a port the mouse did not choose stays there until it is collected. Ticks show the choices: right above, " +
+    "left below; a tall tick means water. To collect water the mouse must track which port is better now. " +
+    `The data: <b>${N_TRAIN}</b> training mice and <b>${N_TEST}</b> held-out mice, many sessions each.`, draw: sceneMouse },
+  { name: "2 · A model is a small program", dur: 25, cap: () =>
+    "A cognitive model is a <b>small program</b> with three functions. <i class=t>init_latents</i> starts each " +
+    "session, <i class=t>predict</i> turns the <b>latent variables</b> (here two Q values) into p(right), <i class=t>update</i> learns from the choice " +
+    "and the water. The <b>parameters</b> (dials) are fitted to each mouse by our code. The search asks Claude " +
+    "to write new programs: a new rule, a new latent variable, a new way to forget.", draw: sceneProgram },
+  { name: "3 · Fit on even, score on odd", dur: 35, cap: () =>
+    "Per mouse, sessions in date order, counted from 0: <b>even sessions</b> (0, 2, 4, …) fit the parameters, " +
+    "<b>odd sessions</b> (1, 3, 5, …) are scored. " +
+    "Each session gets its own dial setting, pulled toward the mouse's typical value (the <b>session level</b>, " +
+    "as in study 13). To score a held-out session, many candidate settings are <b>reweighted</b> by how well " +
+    "they explain its earlier trials. The score is exp(mean log p) over all scored trials. " +
+    "The gap to close runs from HB-CTT to the GRU.", draw: sceneFit },
+  { name: "4 · One round of the search", dur: 45, cap: () =>
+    "ShinkaEvolve keeps programs on four <b>islands</b>. Each round it picks a <b>parent</b> and an " +
+    "<b>inspiration</b>, builds a prompt (the task card is cached, so it is cheap to resend), and Claude writes " +
+    "a <b>child</b>. A quick screen stops a broken child and returns its error as feedback. A full fit scores the " +
+    "survivor on the validation mice; it joins the island. Programs migrate between islands, and every tenth " +
+    "generation a short \"what worked\" note joins the prompt. Numbers here are toy numbers.", draw: sceneSearch },
+  { name: "5 · Three groups of mice, then gates", dur: 25, cap: () =>
+    "Three groups that never mix. <b>Generation</b> mice give the feedback that Claude reads. <b>Validation</b> " +
+    `mice give the score that ranks programs. The <b>${N_TEST} test</b> mice stay locked and are touched once, ` +
+    "at the end, with three programs chosen in advance. Before real money is spent, five <b>gates</b> must pass " +
+    "in order. Then the pilot: at most $500.", draw: sceneGroups },
+  { name: "6 · What comes out", dur: 25, cap: () =>
+    "Stage 2 <b>simplifies</b> the best programs while their fit stays above a floor. The headline is " +
+    "the fraction of the <b>gap closed</b> on the test mice. A good model must also <b>behave</b> like a mouse " +
+    "when it runs the task itself. Its per-trial latent variables are exported for later joins with metadata, photometry " +
+    "and Neuropixels. This scene is an illustration, not a result.", draw: sceneOutcome },
+];
+
+// Scene 1: two ports, then a session drawn trial by trial.
+function sceneMouse(t) {
+  clear();
+  title("A mouse at work", "toy session");
+  const n = Math.min(SESSION.length, Math.floor(Math.max(0, t - 1) * 9));
+  // the mouse and its two ports
+  const mx = 92, my = 260, cur = SESSION[Math.max(0, n - 1)];
+  text("left", mx - 34, 140, { c: COL.red, size: 13, align: "center" });
+  text("right", mx + 34, 140, { c: COL.blue, size: 13, align: "center" });
+  [-1, 1].forEach(s => { const c = s < 0 ? COL.red : COL.blue, on = n > 0 && n < SESSION.length && cur.choice === (s > 0 ? 1 : 0);
+    box(mx + s * 34 - 6, 150, 12, 46, { fill: c, a: on ? 1 : 0.45, r: 4 }); });
+  if (n > 0 && n < SESSION.length && cur.reward) dot(mx + (cur.choice ? 34 : -34), 206, 5, COL.ink, 0.9);
+  dot(mx, my, 38, "#2a2f3c"); dot(mx - 30, my - 30, 13, "#2a2f3c"); dot(mx + 30, my - 30, 13, "#2a2f3c");
+  dot(mx - 12, my - 8, 3.5, COL.ink); dot(mx + 12, my - 8, 3.5, COL.ink); dot(mx, my + 10, 4, "#c9a3a0");
+  text(n ? `trial ${n}` : "", mx, 330, { c: COL.dim, size: 13, align: "center" });
+  // the session
+  drawSession(SESSION, n, { x: 200, y: 110, w: 720, h: 200 });
+  text("baiting probability, right", 210, 352, { c: COL.blue, size: 13 });
+  text("baiting probability, left", 400, 352, { c: COL.red, size: 13 });
+  text("tall tick = water collected", 590, 352, { c: COL.dim, size: 13 });
+  text("right choices", 920, 80, { c: COL.blue, size: 12, align: "right" });
+  text("left choices", 920, 352, { c: COL.red, size: 12, align: "right" });
+  const a = seg(t, 14, 16);
+  if (a > 0) {
+    text(`${N_TRAIN}`, 300, 412, { c: COL.yellow, size: 30, w: 600, align: "right", a });
+    text("training mice", 310, 410, { size: 16, a });
+    text(`${N_TEST}`, 640, 412, { c: COL.yellow, size: 30, w: 600, align: "right", a });
+    text("held-out mice, the test set", 650, 410, { size: 16, a });
+  }
+}
+
+// Scene 2: the program types itself in, then runs on the toy session.
+const CODE = [
+  ['PARAMS = {"alpha": (0, 1), "forget": (0, 1),', 0],
+  ['          "beta": (0, 20)}', 0],
+  ['LATENT_NAMES = ("q_left", "q_right")', 0],
+  ['def init_latents(p, session):', 1], ['    return jnp.zeros(2)', 1],
+  ['def predict(q, p):', 2], ['    return p["beta"] * q      # logits', 2],
+  ['def update(q, choice, reward, p):', 3], ['    q = q.at[1 - choice].mul(1 - p["forget"])', 3],
+  ['    return q.at[choice].add(p["alpha"] * (reward - q[choice]))', 3],
+];
+function drawCode(chars, x, y, hl, size = 12.5) {
+  let left = chars;
+  CODE.forEach(([s, fn], i) => {
+    const yy = y + i * 21;
+    if (hl && hl === fn) box(x - 6, yy - 14, 484, 20, { fill: "#2a3040", r: 4 });
+    const shown = s.slice(0, Math.max(0, left)); left -= s.length;
+    const isDef = s.startsWith("def ");
+    text(shown, x, yy, { mono: true, size, c: isDef ? COL.green : s.startsWith("PARAMS") || s.startsWith("LATENT") || s.startsWith("   ") && i < 2 ? COL.purple : COL.ink });
+  });
+}
+function dial(cx, cy, r, v, label, val, a = 1) {
+  X.save(); X.globalAlpha = a; X.strokeStyle = COL.grey; X.lineWidth = 5;
+  X.beginPath(); X.arc(cx, cy, r, Math.PI * 0.75, Math.PI * 2.25); X.stroke();
+  X.strokeStyle = COL.yellow; X.beginPath(); X.arc(cx, cy, r, Math.PI * 0.75, Math.PI * (0.75 + 1.5 * v)); X.stroke(); X.restore();
+  const ang = Math.PI * (0.75 + 1.5 * v);
+  line(cx, cy, cx + (r - 8) * Math.cos(ang), cy + (r - 8) * Math.sin(ang), COL.ink, 2, a);
+  text(label, cx, cy + r + 16, { size: 13, align: "center", a });
+  text(val, cx, cy + r + 32, { size: 12, c: COL.dim, align: "center", a, mono: true });
+}
+function sceneProgram(t) {
+  clear();
+  title("A model is a small program", "toy parameters");
+  box(24, 62, 500, 238, { fill: COL.panel, r: 8 });
+  const total = CODE.reduce((s, [l]) => s + l.length, 0);
+  const chars = Math.floor(total * seg(t, 0.3, 8));
+  const n = Math.min(SESSION.length, Math.floor(Math.max(0, t - 9) * 8));
+  drawCode(chars, 36, 88, n > 0 && n < SESSION.length ? (Math.floor(t * 4) % 2 ? 2 : 3) : 0);
+  // latent-variable bars
+  const S = SESSION[Math.min(n, SESSION.length - 1)], q = n ? S.q : [0, 0];
+  const bx = 556, by = 230, bh = 140;
+  text("latent variables", bx, 82, { c: COL.dim, size: 13 });
+  [["q_left", q[0], COL.red], ["q_right", q[1], COL.blue]].forEach(([nm, v, c], i) => {
+    const x = bx + i * 70; box(x, by - bh, 44, bh, { stroke: COL.edge, r: 4 });
+    box(x, by - bh * clamp01(v), 44, bh * clamp01(v), { fill: c, r: 4, a: 0.9 });
+    text(nm, x + 22, by + 18, { size: 12, align: "center", mono: true });
+  });
+  // dials
+  const da = seg(t, 6, 8);
+  text("parameters, fitted per mouse", 712, 82, { c: COL.dim, size: 13, a: da });
+  dial(742, 140, 30, TOY_P.alpha, "alpha", TOY_P.alpha.toFixed(2), da);
+  dial(818, 140, 30, TOY_P.forget, "forget", TOY_P.forget.toFixed(2), da);
+  dial(894, 140, 30, TOY_P.beta / 20, "beta", TOY_P.beta.toFixed(1), da);
+  // the session with the program's p(right)
+  drawSession(SESSION, n, { x: 40, y: 352, w: 880, h: 70 }, { fitted: true, cursor: true });
+  if (n > 0) text("white line: the program's p(right), trial by trial", 920, 324, { c: COL.dim, size: 12, align: "right" });
+}
+
+// Scene 3: tiles of sessions; session-level dial settings; in-session reweighting; the number line.
+const STAGES = [COL.purple, COL.purple, COL.purple, COL.green, COL.green, COL.green, COL.green, COL.grey,
+                COL.grey, COL.grey, COL.grey, COL.grey];
+const STAGE_NAMES = [["early stage", COL.purple], ["later stage", COL.green], ["final stage", COL.grey]];
+const FIT = (() => {
+  seed = 23;
+  const mu = 0.9, sd = 0.45, th = STAGES.map(() => mu + sd * randn());
+  const K = 60, cand = []; for (let k = 0; k < K; k++) cand.push(mu + sd * 1.1 * randn());
+  const trueTh = 1.45, ch = []; for (let i = 0; i < 40; i++) ch.push(rnd() < sig(trueTh) ? 1 : 0);
+  // session marginal: predictive p(choice_t) = weighted mean over candidates, weights = lik(earlier trials)
+  const logw = cand.map(() => 0), cum = [0], wHist = [cand.map(() => 1 / K)];
+  for (let i = 0; i < ch.length; i++) {
+    const top = Math.max(...logw), w = logw.map(v => Math.exp(v - top)), sw = w.reduce((a, b) => a + b, 0);
+    const p = cand.reduce((s, c, k) => s + w[k] * (ch[i] ? sig(c) : 1 - sig(c)), 0) / sw;
+    cum.push(cum[i] + Math.log(p));
+    cand.forEach((c, k) => { logw[k] += Math.log(ch[i] ? sig(c) : 1 - sig(c)); });
+    const t2 = Math.max(...logw), w2 = logw.map(v => Math.exp(v - t2)), s2 = w2.reduce((a, b) => a + b, 0);
+    wHist.push(w2.map(v => v / s2));
+  }
+  return { mu, sd, th, cand, trueTh, ch, cum, wHist };
+})();
+function numberLine(t0, t, y, o = {}) {
+  // Zooms from the full range (chance to 0.75) into the narrow band where the models sit.
+  const z = o.zoom ?? seg(t, t0 + 2, t0 + 4.5);
+  const lo = lerp(0.48, 0.7095, z), hi = lerp(0.75, 0.7300, z), x0 = o.x0 ?? 90, x1 = o.x1 ?? 880;
+  const xv = v => x0 + (v - lo) / (hi - lo) * (x1 - x0);
+  const a = o.a ?? seg(t, t0, t0 + 1);
+  line(x0, y, x1, y, COL.dim, 1.5, a);
+  const step = z > 0.5 ? 0.005 : 0.05;
+  for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) {
+    line(xv(v), y - 4, xv(v), y + 4, COL.dim, 1, a);
+    text(v.toFixed(z > 0.5 ? 3 : 2), xv(v), y + 22, { c: COL.dim, size: 12, align: "center", a });
+  }
+  const pts = [["chance", R.chance, COL.dim, 1], ["MLE CTT", R.mle_ctt, COL.purple, -1],
+               ["HB-CTT", R.hb_ctt, COL.green, 1], ["GRU", R.gru_v2_h128, COL.ink, -1]];
+  pts.forEach(([nm, v, c, side], i) => {
+    const pa = a * seg(t, t0 + 0.6 + 0.3 * i, t0 + 1.2 + 0.3 * i);
+    if (xv(v) < x0 - 2) { text(`← ${nm} ${v.toFixed(2)}`, x0 + 4, y - 14, { c, size: 13, a: pa }); return; }
+    dot(xv(v), y, 6, c, pa);
+    text(nm, xv(v), y + side * 34 + (side > 0 ? 8 : 0), { c, size: 14, w: 600, align: "center", a: pa });
+    text(fmt4(v), xv(v), y + side * 34 + (side > 0 ? 24 : -16), { c, size: 12, align: "center", a: pa * z });
+  });
+  if (o.gap !== false) {
+    const g = a * seg(t, t0 + 5, t0 + 6.5);
+    if (g > 0) { X.save(); X.globalAlpha = 0.25 * g; X.fillStyle = COL.yellow;
+      X.fillRect(xv(R.hb_ctt), y - 12, xv(R.gru_v2_h128) - xv(R.hb_ctt), 24); X.restore();
+      text(`the gap to close: ${(R.gru_v2_h128 - R.hb_ctt).toFixed(4)}`, (xv(R.hb_ctt) + xv(R.gru_v2_h128)) / 2, y + 86,
+        { c: COL.yellow, size: 15, w: 600, align: "center", a: g }); }
+    const da = a * seg(t, t0 + 7, t0 + 8);
+    if (o.notes !== false && da > 0) [["MLE CTT: one parameter set per mouse (study 01)", COL.purple],
+      ["HB-CTT: a parameter set per session, around the mouse's typical values (study 13)", COL.green],
+      ["GRU: a recurrent network; strong but not readable (study 01)", COL.ink]].forEach(([s, c], k) =>
+      text(s, 90, y + 120 + k * 20, { c, size: 13, a: da }));
+  }
+  return xv;
+}
+function sceneFit(t) {
+  clear();
+  const tileX = i => 70 + i * 70, tileY = 64;
+  const phaseA = 1 - seg(t, 25.5, 26.5);
+  if (phaseA > 0) {
+    title("One mouse, many sessions", "toy model: one dial θ, p(right) = σ(θ)");
+    STAGES.forEach((c, i) => {
+      const a = seg(t, 0.2 * i, 0.2 * i + 0.8) * phaseA, scored = i % 2 === 1, lab = seg(t, 3.5, 4.5);
+      const focus = i === 5 && t > 15.5;
+      box(tileX(i), tileY, 58, 38, { fill: c, a: a * 0.35, r: 6 });
+      box(tileX(i), tileY, 58, 38, { stroke: scored && lab > 0 ? COL.yellow : c, a, r: 6, lw: focus ? 3 : 1.5 });
+      text(`${i}`, tileX(i) + 29, tileY + 25, { size: 14, align: "center", a });
+      if (lab > 0) text(scored ? "score" : "fit", tileX(i) + 29, tileY + 56, { size: 12, align: "center",
+        c: scored ? COL.yellow : COL.ink, a: a * lab });
+    });
+    STAGE_NAMES.forEach(([nm, c], k) => text(nm, 70 + k * 120, 150, { c, size: 12, a: phaseA * seg(t, 2, 3) }));
+    text("sessions in date order, counted from 0", 900, 150, { c: COL.dim, size: 12, align: "right", a: phaseA * seg(t, 3.5, 4.5) });
+  }
+  // Phase B: each fit session's own dial setting, around the mouse's typical value μ.
+  const pb = seg(t, 6, 7) * (1 - seg(t, 15, 16));
+  if (pb > 0) {
+    const ay = v => 400 - v * 95;
+    line(60, ay(0), 900, ay(0), COL.dim, 1, pb);
+    text("θ fitted for each even session", 60, 186, { c: COL.dim, size: 13, a: pb });
+    X.save(); X.globalAlpha = 0.14 * pb; X.fillStyle = COL.purple;
+    X.fillRect(60, ay(FIT.mu + FIT.sd), 840, ay(FIT.mu - FIT.sd) - ay(FIT.mu + FIT.sd)); X.restore();
+    line(60, ay(FIT.mu), 900, ay(FIT.mu), COL.purple, 1.5, pb, [6, 5]);
+    text("μ: the mouse's typical value", 900, ay(FIT.mu) - 8, { c: COL.purple, size: 13, align: "right", a: pb });
+    text("± σ: how much its sessions differ", 900, ay(FIT.mu - FIT.sd) + 18, { c: COL.purple, size: 12, align: "right", a: pb });
+    FIT.th.forEach((v, i) => { if (i % 2) return;
+      const p = seg(t, 7.5 + 0.5 * i, 8.5 + 0.5 * i), x = tileX(i) + 29;
+      line(x, ay(0), x, lerp(ay(0), ay(v), p), STAGES[i], 1, 0.4 * pb);
+      dot(x, lerp(ay(0) - 4, ay(v), p), 6, STAGES[i], pb * (p > 0 ? 1 : 0)); });
+  }
+  // Phase C: one held-out session, scored by reweighting candidate settings with its earlier trials.
+  const pc = seg(t, 16, 17) * (1 - seg(t, 25.5, 26.5));
+  if (pc > 0) {
+    const nSeen = Math.min(40, Math.floor(Math.max(0, t - 17.5) * 5.5));
+    const ax = v => 70 + (v + 0.6) * 200, base = 290;
+    line(ax(-0.6), base, ax(2.5), base, COL.dim, 1, pc);
+    text("candidate θ settings for session 5", 70, 186, { size: 15, w: 600, a: pc });
+    text("θ", ax(2.5) + 10, base + 5, { c: COL.dim, size: 13, a: pc });
+    const w = FIT.wHist[nSeen], wmax = Math.max(...w);
+    FIT.cand.forEach((c, k) => { const ww = w[k] / wmax;
+      dot(ax(c), base - 14 - (k % 6) * 14, 2 + 8 * Math.sqrt(ww), COL.green, pc * (0.25 + 0.7 * ww)); });
+    FIT.ch.forEach((v, k) => { const c = k < nSeen ? (v ? COL.blue : COL.red) : COL.grey;
+      const x = 70 + k * 12, y = v ? 336 : 352; line(x, y - 6, x, y + 6, c, 2, pc); });
+    text("trials of session 5 (right above, left below)", 70, 380, { c: COL.dim, size: 12, a: pc });
+    // the counter
+    const lp = FIT.cum[nSeen];
+    box(650, 196, 280, 170, { fill: COL.panel, a: pc });
+    text("trials scored", 666, 226, { c: COL.dim, size: 13, a: pc });
+    text(`${nSeen}`, 914, 226, { size: 15, align: "right", a: pc, mono: true });
+    text("Σ log p(choice)", 666, 258, { c: COL.dim, size: 13, a: pc });
+    text(lp.toFixed(2), 914, 258, { size: 15, align: "right", a: pc, mono: true });
+    text("exp(mean log p)", 666, 290, { c: COL.yellow, size: 13, a: pc });
+    text(nSeen ? fmt4(Math.exp(lp / nSeen)) : "—", 914, 290, { size: 15, c: COL.yellow, align: "right", a: pc, mono: true });
+    text("dot size = weight from earlier trials", 666, 334, { c: COL.dim, size: 12, a: pc });
+    text("study score: pooled over all scored trials", 666, 352, { c: COL.dim, size: 12, a: pc });
+  }
+  // Phase D: where the real models sit.
+  if (t > 26) {
+    title("Held-out likelihood on the test mice", "real numbers from committed results");
+    numberLine(26.5, t, 200);
+  }
+}
+
+// Scene 4: one round of the search.
+const ISL = (() => { seed = 31; const isl = [];
+  for (let i = 0; i < 4; i++) { const cards = [];
+    for (let k = 0; k < 5; k++) cards.push({ id: `${i}-${k}`, s: 71.2 + rnd() * 0.9 });
+    cards.sort((a, b) => b.s - a.s); isl.push(cards); }
+  return isl; })();
+const CHILD_SCORE = Math.max(...ISL[0].map(c => c.s)) + 0.12;
+const ISL_POS = [[24, 62], [210, 62], [24, 248], [210, 248]];
+function islandCards(i, extra) { const cards = ISL[i].slice(); if (extra) cards.push(extra); return cards.sort((a, b) => b.s - a.s); }
+const DIFF = [
+  [" ", 'def update(q, c, r, p):'],
+  ["-", '  q = q.at[1-c].mul(1 - p["forget"])'],
+  ["+", '  keep = 1 - p["forget"] * (1 - r)'],
+  ["+", '  q = q.at[1-c].mul(keep)'],
+  [" ", '  return q.at[c].add(...)'],
+];
+function sceneSearch(t) {
+  clear();
+  title("One round of the search", "toy numbers");
+  // islands
+  const join = seg(t, 28, 30), mig = seg(t, 32, 35);
+  ISL_POS.forEach(([x, y], i) => {
+    const a = seg(t, 0.3 * i, 0.3 * i + 1);
+    box(x, y, 176, 176, { stroke: COL.edge, fill: "#171b24", a, r: 14 });
+    text(`island ${i + 1}`, x + 12, y + 20, { c: COL.dim, size: 12, a });
+    let cards = islandCards(i, i === 0 && join > 0 ? { id: "child", s: CHILD_SCORE } : null);
+    if (i === 1 && mig > 0) cards = cards.filter(c => c.id !== ISL[1][0].id);
+    if (i === 3 && mig >= 1) cards = islandCards(3, { id: ISL[1][0].id, s: ISL[1][0].s });
+    cards.slice(0, 6).forEach((c, k) => {
+      const cy = y + 32 + k * 23, child = c.id === "child";
+      const parent = i === 0 && c.id === ISL[0][1].id && t > 4, insp = i === 2 && c.id === ISL[2][0].id && t > 5;
+      const glow = (parent || insp) && t < 28 ? (0.6 + 0.4 * Math.sin(t * 5)) : 0;
+      box(x + 12, cy, 152, 19, { fill: child ? "#24402b" : COL.panel, stroke: parent ? COL.green : insp ? COL.purple : child ? COL.green : COL.edge,
+        a: a * (child ? join : 1), r: 4, glow: glow ? (parent ? COL.green : COL.purple) : null, glowA: glow });
+      text(child ? "child" : `program ${c.id}`, x + 20, cy + 14, { size: 12, a: a * (child ? join : 1), mono: true });
+      text(c.s.toFixed(2), x + 156, cy + 14, { size: 12, align: "right", a: a * (child ? join : 1), mono: true,
+        c: child ? COL.green : COL.dim });
+    });
+  });
+  if (t > 4 && t < 28) { text("green = parent", 24, 444, { c: COL.green, size: 12, a: seg(t, 4, 5) });
+    text("purple = inspiration", 130, 444, { c: COL.purple, size: 12, a: seg(t, 5, 6) }); }
+  if (mig > 0 && mig < 1) { const [x1, y1] = [210 + 88, 62 + 44], [x2, y2] = [210 + 88, 248 + 44];
+    box(lerp(x1, x2, mig) - 76, lerp(y1, y2, mig) - 10, 152, 19, { fill: COL.panel, stroke: COL.yellow, r: 4 }); }
+  if (t > 32 && t < 38) text("migration", 396, 258, { c: COL.yellow, size: 13, align: "right", a: seg(t, 32, 33) * (1 - seg(t, 37, 38)) });
+  // the prompt
+  const px = 404, pw = 220;
+  text("prompt", px, 76, { c: COL.dim, size: 13, a: seg(t, 7, 8) });
+  const blocks = [["task card (cached)", COL.grey, 8], ["parent program", COL.green, 9.5],
+                  ["its feedback by stage, task", COL.yellow, 11], ["inspiration program", COL.purple, 12.5],
+                  ["note: what worked so far", COL.yellow, 38]];
+  blocks.forEach(([nm, c, t0], k) => { const a = seg(t, t0, t0 + 1); if (a <= 0) return;
+    const y = 86 + k * 34; box(px, y - 30 * (1 - a), pw, 28, { fill: c, a: a * (c === COL.grey ? 0.35 : 0.22), r: 6 });
+    box(px, y - 30 * (1 - a), pw, 28, { stroke: c, a, r: 6, dash: k === 4 ? [4, 3] : null });
+    text(nm, px + 10, y - 30 * (1 - a) + 19, { size: 13, a }); });
+  if (t > 38) text("every 10th generation", px + pw, 268, { c: COL.dim, size: 12, align: "right", a: seg(t, 38, 39) });
+  // Claude
+  const ca = seg(t, 14, 15), pulse = t > 15 && t < 20 ? 0.6 + 0.4 * Math.sin(t * 6) : 0;
+  box(px, 284, pw, 40, { fill: "#2a2533", stroke: COL.ink, a: ca, r: 8, glow: pulse ? COL.ink : null, glowA: pulse });
+  text("Claude writes a child", px + pw / 2, 309, { size: 14, w: 600, align: "center", a: ca });
+  // the child's diff
+  const dx = 642, dw = 294, da = seg(t, 15.5, 16.5);
+  box(dx, 62, dw, 132, { fill: COL.panel, a: da });
+  text("child = parent + a change", dx + 10, 82, { c: COL.dim, size: 12, a: da });
+  DIFF.forEach(([m, s], k) => { const a = seg(t, 16 + 0.7 * k, 16.6 + 0.7 * k); const y = 104 + k * 19;
+    if (m !== " ") box(dx + 4, y - 13, dw - 8, 18, { fill: m === "+" ? COL.green : COL.red, a: a * 0.18, r: 3 });
+    text(`${m} ${s}`, dx + 10, y, { mono: true, size: 11.5, a, c: m === "+" ? COL.green : m === "-" ? COL.red : COL.ink }); });
+  // evaluation: quick screen, then full fit
+  const ey = 208, qa = seg(t, 20, 21);
+  box(dx, ey, 138, 52, { stroke: COL.edge, fill: COL.panel, a: qa });
+  text("quick screen", dx + 69, ey + 22, { size: 13, w: 600, align: "center", a: qa });
+  text("24 mice, ≤ 2 min", dx + 69, ey + 40, { size: 12, c: COL.dim, align: "center", a: qa });
+  box(dx + 156, ey, 138, 52, { stroke: COL.edge, fill: COL.panel, a: qa });
+  text("full fit", dx + 225, ey + 22, { size: 13, w: 600, align: "center", a: qa });
+  text("G + V, session level", dx + 225, ey + 40, { size: 12, c: COL.dim, align: "center", a: qa });
+  arrow(dx + 140, ey + 26, dx + 154, ey + 26, COL.dim, qa);
+  const kill = seg(t, 21, 22) * (1 - seg(t, 24, 25));
+  if (kill > 0) { text("✗ broken child: NaN on the probe", dx, ey + 74, { c: COL.red, size: 13, w: 600, a: kill });
+    text("error text goes back as feedback", dx, ey + 92, { c: COL.dim, size: 12, a: kill }); }
+  const pass = seg(t, 25, 26);
+  if (pass > 0 && t < 31) { text("✓ survivor passes the screen", dx, ey + 74, { c: COL.green, size: 13, w: 600, a: pass });
+    const sc = seg(t, 26.5, 27.5);
+    text(`score = 100 × V likelihood = ${CHILD_SCORE.toFixed(2)}`, dx, ey + 92, { c: COL.yellow, size: 13, a: sc }); }
+  // best-so-far and dollars
+  const gx = dx, gy = 330, gw = dw, gh = 100, ga = seg(t, 20, 21);
+  box(gx, gy - 8, gw, gh + 30, { fill: COL.panel, a: ga });
+  text("best score so far", gx + 10, gy + 10, { c: COL.dim, size: 12, a: ga });
+  const prog = clamp01((t - 20) / 25), nP = Math.floor(prog * 60);
+  seed = 77; let best = 71.4; const pts = [];
+  for (let i = 0; i <= nP; i++) { best = Math.max(best, 71.4 + 1.0 * (1 - Math.exp(-i / 18)) + 0.15 * randn());
+    pts.push([gx + 10 + i / 60 * (gw - 90), gy + gh - 4 - (best - 71.3) / 1.4 * (gh - 24)]); }
+  poly(pts.flatMap((p, i) => i ? [[p[0], pts[i - 1][1]], p] : [p]), COL.yellow, 2, ga);
+  text(`proposals ${Math.round(prog * 600)}`, gx + 10, gy + gh + 16, { c: COL.dim, size: 12, a: ga, mono: true });
+  text(`$${(prog * 30).toFixed(2)}`, gx + gw - 10, gy + 30, { size: 16, align: "right", a: ga, mono: true, c: COL.green });
+}
+
+// Scene 5: three groups of mice, then the gates.
+const MICE = (() => { seed = 51; const pool = [];
+  for (let i = 0; i < N_TRAIN; i++) pool.push({ i, r: rnd() });
+  const order = pool.slice().sort((a, b) => a.r - b.r);
+  order.forEach((m, k) => { m.group = k < 48 ? "G" : k < 96 ? "V" : "-"; m.k = k; });
+  return pool; })();
+const GATES = () => [
+  ["0", "data parity", `${N_TEST} mice, ${REFS ? REFS.n_test_sessions.toLocaleString("en-US") : "—"} sessions, ` +
+    `${REFS ? REFS.n_test_trials.toLocaleString("en-US") : "—"} trials`],
+  ["1", "model parity", "Hattori and CTT as programs match the committed fits"],
+  ["2", "timing", "a full evaluation in minutes; same text, same score"],
+  ["3", "engine smoke", "ShinkaEvolve + Claude end to end, about $7"],
+  ["4", "recovery", "find a known program in simulated mice, ≤ $20"],
+];
+function sceneGroups(t) {
+  clear();
+  title("Three groups of mice, then the gates");
+  const sp = 8.6, gx0 = 34, gy0 = 92, cols = 30;
+  const move = seg(t, 4, 9);
+  text(`${N_TRAIN} training-pool mice`, gx0, 76, { c: COL.dim, size: 13 });
+  MICE.forEach((m, i) => {
+    const hx = gx0 + (i % cols) * sp, hy = gy0 + Math.floor(i / cols) * sp;
+    let tx = hx, ty = hy, c = COL.grey, a = seg(t, 0, 2);
+    if (m.group !== "-") { const j = m.k % 48, bx = m.group === "G" ? 36 : 176;
+      tx = bx + (j % 12) * 9.5; ty = 322 + Math.floor(j / 12) * 9.5; c = m.group === "G" ? COL.green : COL.yellow;
+      tx = lerp(hx, tx, move); ty = lerp(hy, ty, move); }
+    else a *= 1 - 0.55 * move;
+    dot(tx, ty, 3, c, a);
+  });
+  const la = seg(t, 8, 9);
+  text("G · generation", 36, 380, { c: COL.green, size: 14, w: 600, a: la });
+  text("~48 mice", 36, 397, { c: COL.dim, size: 12, a: la });
+  text("feedback to Claude", 36, 413, { c: COL.dim, size: 12, a: la });
+  text("V · validation", 176, 380, { c: COL.yellow, size: 14, w: 600, a: la });
+  text("~48 mice", 176, 397, { c: COL.dim, size: 12, a: la });
+  text("the score", 176, 413, { c: COL.dim, size: 12, a: la });
+  text("rest: not used in round 1", 34, 300, { c: COL.dim, size: 12, a: la });
+  // the locked test set
+  const tx0 = 330, tcols = 10;
+  text(`${N_TEST} test mice`, tx0, 76, { c: COL.dim, size: 13 });
+  for (let i = 0; i < N_TEST; i++) dot(tx0 + (i % tcols) * sp, gy0 + Math.floor(i / tcols) * sp, 3, COL.ink, seg(t, 1, 3) * 0.85);
+  const lk = seg(t, 9, 10);
+  box(tx0 - 8, gy0 - 10, tcols * sp + 8, Math.ceil(N_TEST / tcols) * sp + 12, { stroke: COL.ink, a: lk, dash: [4, 3] });
+  text("T · test, locked", tx0, 380, { c: COL.ink, size: 14, w: 600, a: lk });
+  text("touched once,", tx0, 397, { c: COL.dim, size: 12, a: lk });
+  text("at the end", tx0, 413, { c: COL.dim, size: 12, a: lk });
+  // gates
+  const qx = 470;
+  text("gates, in order", qx, 76, { c: COL.dim, size: 13, a: seg(t, 10, 11) });
+  GATES().forEach(([n, nm, d], k) => {
+    const y = 96 + k * 54, on = seg(t, 11 + 2 * k, 12 + 2 * k), a = seg(t, 10, 11);
+    box(qx, y, 460, 44, { fill: COL.panel, stroke: on > 0.5 ? COL.green : COL.edge, a, r: 8 });
+    dot(qx + 22, y + 22, 11, on > 0.5 ? COL.green : COL.grey, a);
+    text(n, qx + 22, y + 27, { size: 13, w: 700, align: "center", c: COL.bg, a });
+    text(nm, qx + 44, y + 19, { size: 14, w: 600, a });
+    text(d, qx + 44, y + 36, { size: 12, c: COL.dim, a });
+    if (on > 0.5) text("✓", qx + 440, y + 28, { c: COL.green, size: 16, align: "right", a: on });
+  });
+  const pa = seg(t, 21.5, 22.5);
+  box(qx, 372, 460, 44, { fill: "#3a3420", stroke: COL.yellow, a: pa, r: 8 });
+  text("then the pilot: ≤ $500, Claude Sonnet 5.5", qx + 230, 399, { size: 15, w: 600, align: "center", c: COL.yellow, a: pa });
+}
+
+// Scene 6: simplify, the gap, behaviour, latent exports. Illustration only.
+function sceneOutcome(t) {
+  clear();
+  title("What comes out", "illustration, not a result");
+  // A: fit against complexity; the best program shrinks while it stays above the fit floor.
+  const ax0 = 40, ay0 = 64, aw = 420, ah = 170, aa = seg(t, 0, 1);
+  const xc = v => ax0 + 20 + v * (aw - 40), yc = v => ay0 + ah - 24 - v * (ah - 50);
+  text("1 · simplify", ax0, ay0 + 6, { size: 13, w: 600, a: aa });
+  line(xc(0), yc(0), xc(1), yc(0), COL.dim, 1, aa); line(xc(0), yc(0), xc(0), yc(1), COL.dim, 1, aa);
+  text("complexity (Halstead effort) →", xc(1), yc(0) + 18, { c: COL.dim, size: 12, align: "right", a: aa });
+  text("fit on V ↑", xc(0) + 8, yc(1) + 4, { c: COL.dim, size: 12, a: aa });
+  seed = 91;
+  for (let i = 0; i < 40; i++) { const c = rnd();
+    dot(xc(0.12 + 0.85 * c), yc(Math.min(0.97, (0.25 + 0.7 * Math.sqrt(c)) * (0.75 + 0.25 * rnd()))), 2.5, COL.grey, aa); }
+  const front = v => 0.25 + 0.7 * Math.sqrt(v);
+  poly([...Array(41).keys()].map(i => { const v = 0.08 + 0.89 * i / 40; return [xc(v), yc(front(v))]; }), COL.green, 1.5, 0.5 * aa);
+  line(xc(0), yc(0.55), xc(1), yc(0.55), COL.yellow, 1.2, aa, [5, 4]);
+  text("fit floor", xc(1), yc(0.55) - 6, { c: COL.yellow, size: 12, align: "right", a: aa });
+  const sv = lerp(0.95, 0.20, seg(t, 2, 8));
+  dot(xc(sv), yc(front(sv)), 7, COL.green, aa);
+  text("best program", xc(sv) + 10, yc(front(sv)) + 20, { c: COL.green, size: 12, a: seg(t, 2, 3) });
+  // B: where it lands on the test mice.
+  const ba = seg(t, 7, 8);
+  if (ba > 0) {
+    text("2 · gap closed on the test mice", 500, ay0 + 6, { size: 13, w: 600, a: ba });
+    const xv = numberLine(-10, 100, 150, { zoom: 1, a: ba, gap: false, notes: false, x0: 520, x1: 920 });
+    const land = seg(t, 8.5, 11), v = lerp(R.hb_ctt, R.hb_ctt + 0.5 * (R.gru_v2_h128 - R.hb_ctt), land);
+    X.save(); X.globalAlpha = 0.22 * ba; X.fillStyle = COL.yellow;
+    X.fillRect(xv(R.hb_ctt), 140, xv(v) - xv(R.hb_ctt), 20); X.restore();
+    dot(xv(v), lerp(90, 150, land), 7, COL.yellow, ba);
+    text("program ?", xv(v), lerp(90, 150, land) - 12, { c: COL.yellow, size: 13, w: 600, align: "center", a: ba });
+    text("gap closed = (program − HB-CTT) / (GRU − HB-CTT)", 720, 232, { c: COL.yellow, size: 13, align: "center", a: seg(t, 10, 11) });
+  }
+  // C: behaviour in closed loop with the task.
+  const cx0 = 40, cy0 = 280, ca = seg(t, 13, 14);
+  if (ca > 0) {
+    text("3 · behaves like a mouse?", cx0, cy0, { size: 13, w: 600, a: ca });
+    text("p(switch) after k unrewarded trials", cx0, cy0 + 18, { c: COL.dim, size: 12, a: ca });
+    const px = k => cx0 + 30 + k * 62, pyy = v => cy0 + 150 - v * 190;
+    line(px(0), pyy(0), px(5), pyy(0), COL.dim, 1, ca);
+    const real = [0.08, 0.17, 0.27, 0.35, 0.41, 0.45], sim = [0.07, 0.18, 0.26, 0.36, 0.40, 0.47];
+    poly(real.map((v, k) => [px(k), pyy(v)]), COL.ink, 2, ca); real.forEach((v, k) => dot(px(k), pyy(v), 4, COL.ink, ca));
+    const sa = seg(t, 15, 16);
+    poly(sim.map((v, k) => [px(k), pyy(v)]), COL.green, 2, sa, [6, 4]);
+    for (let k = 0; k <= 5; k++) text(`${k}`, px(k), pyy(0) + 16, { c: COL.dim, size: 12, align: "center", a: ca });
+    text("white: mice", px(0), cy0 + 40, { size: 12, a: ca });
+    text("green dashed: the program running the task", px(0) + 80, cy0 + 40, { size: 12, c: COL.green, a: sa });
+  }
+  // D: latent exports for later joins.
+  const dx0 = 500, dy0 = 280, da = seg(t, 18, 19);
+  if (da > 0) {
+    text("4 · per-trial latent variables, exported", dx0, dy0, { size: 13, w: 600, a: da });
+    const n = Math.floor(SESSION.length * seg(t, 18.5, 22));
+    const lx = k => dx0 + k * (250 / SESSION.length), ly = v => dy0 + 110 - v * 80;
+    poly(SESSION.slice(0, n).map((s, k) => [lx(k), ly(s.q[0])]), COL.red, 1.8, da);
+    poly(SESSION.slice(0, n).map((s, k) => [lx(k), ly(s.q[1])]), COL.blue, 1.8, da);
+    text("q_left", dx0, dy0 + 134, { c: COL.red, size: 12, mono: true, a: da });
+    text("q_right", dx0 + 60, dy0 + 134, { c: COL.blue, size: 12, mono: true, a: da });
+    text("keyed by session_id and trial", dx0, dy0 + 152, { c: COL.dim, size: 12, a: da });
+    const ea = seg(t, 21, 22);
+    arrow(dx0 + 258, dy0 + 70, dx0 + 290, dy0 + 70, COL.dim, ea);
+    ["metadata", "photometry", "Neuropixels"].forEach((s, k) => {
+      box(dx0 + 298, dy0 + 22 + k * 34, 120, 26, { stroke: COL.edge, fill: COL.panel, a: ea, r: 6 });
+      text(s, dx0 + 358, dy0 + 40 + k * 34, { size: 12, align: "center", a: ea }); });
+    text("later rounds", dx0 + 358, dy0 + 140, { c: COL.dim, size: 12, align: "center", a: ea });
+  }
+}
+
+// ---------- text version (screen readers, and anyone who prefers to read) ----------
+// One entry per scene: what the canvas shows, with the same numbers. The canvas is labelled with
+// its scene's name and described by the caption.
+const f4 = v => Number.isFinite(v) ? v.toFixed(4) : "—";
+const fmtN = v => REFS ? v.toLocaleString("en-US") : "—";
+const TEXT = [
+  `A toy session of the two-port task, 120 trials. Two stepped lines give each port's baiting probability ` +
+  `in each block (for example 0.45 on the left and 0.05 on the right, then the reverse). Ticks above the panel ` +
+  `are right choices and ticks below are left choices; a tall tick means water was collected. ` +
+  `The data set has ${N_TRAIN} training-pool mice and ${N_TEST} held-out test mice.`,
+  `A program types itself in:<pre>${CODE.map(([l]) => l).join("\n")}</pre>` +
+  `Two bars show the latent variables q_left and q_right changing trial by trial. Three dials show the ` +
+  `parameters: alpha ${TOY_P.alpha}, forget ${TOY_P.forget}, beta ${TOY_P.beta}. Below, the session is replayed ` +
+  `with a white line for the program's p(right).`,
+  `Twelve session tiles, numbered 0 to 11 in date order and coloured by training stage; even tiles are marked ` +
+  `"fit" and odd tiles "score". For the fit sessions, dots show each session's own setting of one dial θ around ` +
+  `the mouse's typical value μ, inside a band of ± σ. For held-out session 5, 60 candidate settings are drawn; ` +
+  `as its 40 trials arrive, settings that explain the earlier trials grow, and a counter accumulates log p(choice) ` +
+  `and exp(mean log p). Last, a number line of held-out likelihood on the test mice: chance ${f4(R.chance)}, ` +
+  `MLE CTT ${f4(R.mle_ctt)} (one parameter set per mouse, study 01), HB-CTT ${f4(R.hb_ctt)} (a parameter set per ` +
+  `session, study 13), GRU ${f4(R.gru_v2_h128)} (study 01). The gap to close, from HB-CTT to the GRU, is ` +
+  `${f4(R.gru_v2_h128 - R.hb_ctt)}.`,
+  `Four islands of five program cards each, with toy scores (100 × validation likelihood). A parent card ` +
+  `(island 1) and an inspiration card (island 3) glow. The prompt fills with the cached task card, the parent ` +
+  `program, its feedback split by stage and task, and the inspiration. Claude writes a child; its diff replaces ` +
+  `"q = q.at[1-c].mul(1 - p['forget'])" with a forgetting rate gated by reward. A first child fails the quick ` +
+  `screen (24 mice, at most 2 minutes) with NaN on the probe, and its error goes back as feedback. A second ` +
+  `child passes, gets a full fit on the generation and validation mice at the session level, scores ` +
+  `${CHILD_SCORE.toFixed(2)} and joins island 1, which re-ranks. A card migrates from island 2 to island 4, and ` +
+  `a "what worked so far" note joins the prompt every tenth generation. A best-score curve rises with proposals ` +
+  `and a dollar counter grows (toy numbers).`,
+  `${N_TRAIN} training-pool mice as dots: about 48 move into the generation group (feedback to Claude) and ` +
+  `about 48 into the validation group (the score); the rest are not used in round 1. The ${N_TEST} test mice sit ` +
+  `in a locked box, touched once at the end. Five gates light in order: 0 data parity (${N_TEST} mice, ` +
+  `${REFS ? fmtN(REFS.n_test_sessions) : "—"} sessions, ${REFS ? fmtN(REFS.n_test_trials) : "—"} trials); ` +
+  `1 model parity (Hattori and CTT as programs match the committed fits); 2 timing (a full evaluation in ` +
+  `minutes, same text gives the same score); 3 engine smoke (about $7); 4 recovery of a known program from ` +
+  `simulated mice (at most $20). Then the pilot: at most $500 on Claude Sonnet 5.5.`,
+  `An illustration, not a result, in four panels. 1: the best program slides left along a fit-versus-complexity ` +
+  `curve while staying above a dashed fit floor. 2: on the number line from MLE CTT ${f4(R.mle_ctt)} through ` +
+  `HB-CTT ${f4(R.hb_ctt)} to the GRU ${f4(R.gru_v2_h128)}, a dot labelled "program ?" moves right from HB-CTT; ` +
+  `gap closed = (program − HB-CTT) / (GRU − HB-CTT). 3: the probability of switching after k unrewarded trials, ` +
+  `for mice (white) and for the program running the task (green dashed), overlapping. 4: the latent variables ` +
+  `q_left and q_right over a session, keyed by session_id and trial, feeding later joins with metadata, ` +
+  `photometry and Neuropixels.`,
+];
+document.getElementById("transcript").innerHTML =
+  SCENES.map((s, i) => `<h2>${s.name}</h2><p>${TEXT[i]}</p>`).join("");
+
+// ---------- player ----------
+// Play runs through all six scenes. prefers-reduced-motion shows each scene's last frame instead.
+// A URL hash such as #s=3&t=12 freezes scene 3 at 12 s (used for render checks).
+const REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HASH = Object.fromEntries(location.hash.slice(1).split("&").filter(Boolean).map(kv => kv.split("=")));
+const FROZEN = HASH.s !== undefined;
+let cur = 0, t0 = performance.now(), playing = !REDUCED && !FROZEN, tPaused = 0;
+const bar = document.getElementById("scenes"), playBtn = document.getElementById("play");
+SCENES.forEach((s, i) => { const b = document.createElement("button"); b.textContent = s.name;
+  b.onclick = () => go(i, true); bar.appendChild(b); });
+function go(i, user) {
+  cur = (i + SCENES.length) % SCENES.length; t0 = performance.now(); tPaused = REDUCED ? SCENES[cur].dur : 0;
+  if (user || !REDUCED) playing = !REDUCED;
+  playBtn.textContent = playing ? "❚❚ Pause" : "▶ Play";
+  [...bar.children].forEach((b, k) => b.classList.toggle("on", k === cur));
+  document.getElementById("cap").innerHTML = SCENES[cur].cap();
+  C.setAttribute("aria-label", `Scene ${SCENES[cur].name}. A full description is in the text version below the caption.`);
+}
+document.getElementById("next").onclick = () => go(cur + 1, true);
+document.getElementById("prev").onclick = () => go(cur - 1, true);
+document.getElementById("replay").onclick = () => { go(cur, true); if (REDUCED) tPaused = SCENES[cur].dur; };
+playBtn.onclick = () => {
+  if (playing) { tPaused = (performance.now() - t0) / 1000; playing = false; playBtn.textContent = "▶ Play"; }
+  else { if (tPaused >= SCENES[cur].dur) tPaused = 0;
+    t0 = performance.now() - tPaused * 1000; playing = true; playBtn.textContent = "❚❚ Pause"; } };
+const TOTAL = SCENES.reduce((s, x) => s + x.dur, 0);
+const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+function frame(now) {
+  let t = playing ? (now - t0) / 1000 : tPaused;
+  if (playing && t > SCENES[cur].dur + 1.5 && cur < SCENES.length - 1) { go(cur + 1); t = 0; }
+  else if (playing && t >= SCENES[cur].dur && cur === SCENES.length - 1) {    // the end: one click replays
+    playing = false; tPaused = t = SCENES[cur].dur; playBtn.textContent = "▶ Play"; }
+  const tt = Math.min(t, SCENES[cur].dur);
+  SCENES[cur].draw(tt);
+  X.fillStyle = COL.blue; X.fillRect(0, H - 3, W * tt / SCENES[cur].dur, 3);
+  const before = SCENES.slice(0, cur).reduce((s, x) => s + x.dur, 0);
+  document.getElementById("clock").textContent = `${mmss(before + tt)} / ${mmss(TOTAL)}`;
+  requestAnimationFrame(frame);
+}
+document.getElementById("foot").innerHTML =
+  "Scenes 1, 2 and 4–6 use toy data, and the toy model in scene 3 has one dial θ with p(right) = σ(θ). " +
+  "The real evaluator fits programs with up to 12 parameters. Numbers in scene 3 (and the reference lines in " +
+  "scene 6) are read from committed results by <code>build_explainer.py</code>: " +
+  (REFS ? REFS.sources.map(s => `<code>${s.file}</code>${s.produced_at_pt ? ` (${s.produced_at_pt.slice(0, 10)})` : ""}`).join(", ")
+        : "not filled yet") +
+  ". GRU = GRU v2, H128, trained on all " + N_TRAIN + " pool mice; MLE CTT = per-mouse CompareToThreshold; HB-CTT = study 13's " +
+  "two-level CompareToThreshold. Companion: <code>study40_schematic.html</code>.";
+go(FROZEN ? Number(HASH.s) - 1 : 0);
+if (FROZEN) { playing = false; tPaused = Number(HASH.t ?? 0); }
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

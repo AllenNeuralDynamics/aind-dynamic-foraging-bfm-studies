@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/explainers/build_explainer.py",
+    "produced_at_pt": "2026-10-31T23:55:07-07:00",
+    "studies_git_sha": "b39f52d0cf18ce8870bacec6f147f06b22dcb0d0",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/explainers/build_explainer.py",
+        "sha256": "b4b9a47e7cad81b0ad42e8eb5e8fe38ffd5b328d5aacb53b45818aa0eeb7318e"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
+        "sha256": "f3cba9eb9c351c48434653c882a11e8afd8f6de9fe383f96af1e5e6e38191baa"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
+        "sha256": "eb35093f0104bed94e521d8d85008b823a1fa49e4f190d90d87a5ac6abba2011"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/report_data.json",
+        "sha256": "6b17fb3b7728c926161945f9e30d49d6c771466746ad6958c154b73371daf7f1"
+      },
+      {
+        "path": "studies/10-gru-reservoir-ablation/reference/study01-v2-exact-split.json",
+        "sha256": "eec230c3c13abc2650d7a16d2e5bdac3bb1072f3a098e79870aa712c0463ae4e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/explainers/explainer_refs.json",
+        "sha256": "76217e56a91e703ba1ebe6e3ebd4ee8b3a6d0f82d96461647da0b4817a4cb594"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/explainers/study40_animated_explainer.html",
+        "sha256": "85e76255e221c9a7da946b536e33309094d8c1a05fa34e951de921ea54868e01"
+      }
+    ]
+  },
+  "chance": 0.5,
+  "mle_ctt": 0.717,
+  "hb_ctt": 0.7225,
+  "gru_v2_h128": 0.7282,
+  "n_train_mice": 614,
+  "n_test_mice": 149,
+  "n_test_sessions": 2138,
+  "n_test_trials": 1013172,
+  "sources": [
+    {
+      "value": "mle_ctt",
+      "file": "studies/01-gru-scaling-law/analysis/rl_baseline.json",
+      "produced_at_pt": "2026-10-24T03:15:30-07:00"
+    },
+    {
+      "value": "hb_ctt, n_test_sessions, n_test_trials",
+      "file": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
+      "produced_at_pt": "2026-10-28T22:34:02-07:00"
+    },
+    {
+      "value": "gru_v2_h128",
+      "file": "studies/01-gru-scaling-law/analysis/report_data.json",
+      "produced_at_pt": "2026-09-01T13:55:57-07:00"
+    },
+    {
+      "value": "n_train_mice, n_test_mice",
+      "file": "studies/10-gru-reservoir-ablation/reference/study01-v2-exact-split.json"
+    }
+  ]
+}
