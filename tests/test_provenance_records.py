@@ -334,3 +334,102 @@ class WriteInterventionV2Tests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WriteInitialTests(unittest.TestCase):
+    """write_initial records launches no dispatcher launcher wrote, such as MEvolve runs."""
+
+    GROUP = "two-level-em@20261102-003154"
+
+    def setUp(self):
+        import yaml  # noqa: F401  (dependency of launch_record)
+        self.tmp = tempfile.TemporaryDirectory()
+        self.variant = Path(self.tmp.name) / "studies" / "12-x" / "variants" / "two-level-em"
+        self.lr = self.variant / "launch_record"
+        self.lr.mkdir(parents=True)
+        (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Hattori2019\n")
+        self.study = self.variant.parents[1]
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def write(self, name="hpc_initial.json", **kw):
+        from launch_record import write_initial
+        args = dict(platform="hpc", wandb_group=self.GROUP, study_root=self.study, label="hattori-763",
+                    note="cost test: one model on all 763 subjects before the other 18",
+                    job_refs=[{"type": "slurm_job", "id": "27567407"}],
+                    revisions={"studies": "a" * 40, "mevolve": "d" * 40},
+                    manifests=["score.sbatch"],
+                    data={"source": "freeze", "config": "mice_snapshot_scaling", "snapshot": "20260603",
+                          "uri": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603", "manifest_sha256": "f" * 64},
+                    image={"platform": "hpc", "conda_env": "mevolve", "lock_sha256": "e" * 64},
+                    recorded_after_launch=True)
+        args.update(kw)
+        with mock.patch("launch_record.build_meta", return_value={
+                "produced_by": "x", "produced_at_pt": "2026-11-02T01:00:00-08:00", "wandb_groups": [self.GROUP]}):
+            return write_initial(self.lr / name, **args)
+
+    def schema_errors(self, rec):
+        from jsonschema import Draft202012Validator
+        schema = json.loads((Path(__file__).resolve().parents[1] / "schemas" / "launch-record.v2.schema.json").read_text())
+        return [e.message for e in Draft202012Validator(schema).iter_errors(rec)]
+
+    def test_mevolve_run_is_a_valid_initial_record(self):
+        rec = self.write()
+        self.assertEqual(self.schema_errors(rec), [])
+        self.assertTrue(rec["_meta"]["recorded_after_launch"])
+        self.assertNotIn("dispatcher", rec["revisions"])
+        findings = []
+        check_records_parse(load_records(self.lr), findings)
+        self.assertEqual(findings, [])
+
+    def test_revisions_need_dispatcher_and_wrapper_or_mevolve(self):
+        rec = self.write()
+        self.assertTrue(self.schema_errors({**rec, "revisions": {"studies": "a" * 40, "dispatcher": "b" * 40}}))
+        self.assertEqual(self.schema_errors({**rec, "revisions": {"studies": "a" * 40, "dispatcher": "b" * 40,
+                                                                  "wrapper": "c" * 40}}), [])
+        with self.assertRaisesRegex(ValueError, "dispatcher and wrapper or mevolve"):
+            self.write("b.json", revisions={"studies": "a" * 40, "dispatcher": "b" * 40})
+        with self.assertRaisesRegex(ValueError, "full 40-character"):
+            self.write("c.json", revisions={"studies": "a" * 40, "mevolve": "6af7d58"})
+
+    def test_freeze_needs_its_path_and_digest(self):
+        rec = self.write()
+        self.assertTrue(self.schema_errors({**rec, "data": {"source": "freeze", "config": "mice_snapshot_scaling",
+                                                            "snapshot": "20260603"}}))
+
+    def test_refusals(self):
+        self.write()
+        with self.assertRaisesRegex(ValueError, "already has an initial"):
+            self.write("again.json")
+        with self.assertRaisesRegex(ValueError, "must start with two-level-em@"):
+            self.write("g.json", wandb_group="other@20261102-003154")
+        with self.assertRaisesRegex(ValueError, "not found"):
+            self.write("m.json", wandb_group="two-level-em@20261102-010000", manifests=["missing.sbatch"])
+        with self.assertRaisesRegex(ValueError, "not valid for platform"):
+            self.write("r.json", wandb_group="two-level-em@20261102-010000",
+                       job_refs=[{"type": "beaker_experiment", "id": "01K"}])
+        with self.assertRaisesRegex(ValueError, "data and image"):
+            self.write("d.json", wandb_group="two-level-em@20261102-010000", image=None)
+        (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Bari2019\n")
+        with self.assertRaisesRegex(ValueError, "own subdirectory"):
+            self.write("bari.json", wandb_group="two-level-em@20261102-020000")
+        rec = self.write("bari/hpc_initial.json", wandb_group="two-level-em@20261102-020000")
+        self.assertEqual(self.schema_errors(rec), [])
+
+    def test_intervention_on_a_mevolve_run_diffs_the_script_as_one_key(self):
+        from launch_record import write_intervention
+        self.write()
+        self.assertTrue((self.lr / "score.sbatch").exists())      # the launch's snapshot
+        args = dict(kind="resubmit", platform="hpc", wandb_group=self.GROUP, study_root=self.study,
+                    job_refs=[{"type": "slurm_job", "id": "27570000"}],
+                    trigger={"symptom": "job killed at the time limit", "cause": "node drained"})
+        meta = {"produced_by": "x", "produced_at_pt": "2026-11-02T02:00:00-08:00", "wandb_groups": [self.GROUP]}
+        with mock.patch("launch_record.build_meta", return_value=meta):
+            rec = write_intervention(self.lr / "resubmit1.json", **args)
+        self.assertEqual(rec["revisions"]["mevolve"], "d" * 40)
+        self.assertEqual(self.schema_errors(rec), [])
+        (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Bari2019\n")
+        with mock.patch("launch_record.build_meta", return_value=meta):
+            with self.assertRaisesRegex(ValueError, r"undeclared key\(s\) \['script'\]"):
+                write_intervention(self.lr / "resubmit2.json", **args)

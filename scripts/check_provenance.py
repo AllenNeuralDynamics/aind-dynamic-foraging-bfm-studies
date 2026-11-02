@@ -401,8 +401,8 @@ class Checker:
                     self.add("warn", "record-data-unrecorded", p, "the launch record has no `data`")
                 elif data.get("source") == "live":
                     self.add("warn", "record-data-unrecorded", p, "the runs read the live database (no snapshot)")
-                elif data.get("source") == "snapshot" and not (data.get("uri") and data.get("manifest_sha256")):
-                    self.add("warn", "record-data-unrecorded", p, "the snapshot has no uri or manifest digest")
+                elif data.get("source") in ("snapshot", "freeze") and not (data.get("uri") and data.get("manifest_sha256")):
+                    self.add("warn", "record-data-unrecorded", p, f"the {data['source']} has no uri or manifest digest")
                 # the image must describe this record's backend: a Beaker id for Beaker, a conda
                 # lock digest for HPC; the other backend's identity proves nothing about this run
                 identity = {"beaker": "id", "hpc": "lock_sha256"}[rec["platform"]]
