@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_intervention",
+    "produced_at_pt": "2026-11-01T01:23:30-07:00",
+    "studies_git_sha": "fab284da138461ef71c7a0d9f42fc4496f31afca",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "per-subject-de@20261101-004845"
+    ],
+    "source_studies_git_shas": [
+      "eee996e4ba87547fad16a6da5b2a40273903f5c8"
+    ],
+    "source_dispatcher_git_shas": [
+      "2619e18e10f4811e1c4e48a497ba2cf75133524a"
+    ],
+    "source_wrapper_git_shas": [
+      "331d373c128682c2d8f766e344f9ba05f228d5cf"
+    ],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no foraging_models SHA in the launch record(s) of W&B group(s): per-subject-de@20261101-004845"
+    ]
+  },
+  "kind": "backfill",
+  "platform": "none",
+  "wandb_group": "per-subject-de@20261101-004845",
+  "label": "smoke-1-models-revision",
+  "note": "Records the foraging-models commit the launch ran, which the launcher could not read (PyPI install, no direct_url.json). Nothing was resubmitted; hpc_sweep.json is unchanged.",
+  "revisions": {
+    "studies": "eee996e4ba87547fad16a6da5b2a40273903f5c8",
+    "dispatcher": "2619e18e10f4811e1c4e48a497ba2cf75133524a",
+    "wrapper": "331d373c128682c2d8f766e344f9ba05f228d5cf",
+    "foraging_models": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
+  },
+  "manifests": [
+    "sweep_hpc_smoke.yaml",
+    "launch_record/smoke-1/sweep_submitted.yaml"
+  ],
+  "job_refs": [],
+  "supersedes": [],
+  "trigger": {
+    "symptom": "hpc_sweep.json has foraging_models_git_commit null and the warning 'version 0.26.0 in the runtime env was not installed from git'.",
+    "cause": "aind-dynamic-foraging-models 0.26.0 was pip-installed from PyPI into the shared env dynamic-foraging-bfm-cpu (2026-10-27 23:44 PT), so no VCS commit was recorded.",
+    "evidence": {
+      "release": "tag v0.26.0 = commit 0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112",
+      "file_match": "All 47 .py files of the installed package equal the v0.26.0 tree byte for byte (sha256), checked 2026-11-01 00:47 PT, before this launch.",
+      "env_unchanged": "dist-info dated 2026-10-27 23:44:37 PT; image.lock_sha256 e86b63bf5f63a0f94fe8a4e2e14ecef0ddd320fb3ec8a30ccb22cc6ea930dd41 equals study 13's ctt launch."
+    }
+  },
+  "tasks": [],
+  "deviations": {},
+  "cost": {}
+}

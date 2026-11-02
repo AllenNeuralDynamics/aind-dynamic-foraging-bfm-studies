@@ -1,0 +1,742 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_fits.py",
+    "produced_at_pt": "2026-11-02T00:16:49-08:00",
+    "studies_git_sha": "f0052ca302ace3276b039a0ed3fdde19ddbee164",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "per-subject-de@20261101-012148",
+      "per-subject-de@20261101-071303"
+    ],
+    "source_studies_git_shas": [
+      "3d526412c5e7e81778cb019ed212d9c6e4fa4386",
+      "fab284da138461ef71c7a0d9f42fc4496f31afca"
+    ],
+    "source_dispatcher_git_shas": [
+      "6450af3c1505abf7806af4e46a62a48df56c75ac",
+      "7e3d67adf62af2bd467fcdbf0b0dd2077e5c6942"
+    ],
+    "source_wrapper_git_shas": [
+      "331d373c128682c2d8f766e344f9ba05f228d5cf"
+    ],
+    "source_foraging_models_git_shas": [
+      "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/freeze_fits.py",
+        "sha256": "fd1fe1d2144217fa6f6a6cd53afb05dcad843e6a88c63058e4edc19166b4cc97"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/10-gru-reservoir-ablation/reference/study01-v2-exact-split.json",
+        "sha256": "eec230c3c13abc2650d7a16d2e5bdac3bb1072f3a098e79870aa712c0463ae4e"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/1fwpodj8",
+        "state": "finished",
+        "updated_at": "2026-11-01T09:36:51Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012242-1fwpodj8/files/outputs/subject_fit_metrics.csv",
+        "sha256": "4f8a5db8e5b7b74cfd1372f9ac44a7428b5c82c39344ee6a3f2f308470222eca"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012242-1fwpodj8/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "088d3345b32d1e6f40b7023e3535dd07bd057fb74727184e226d0f6581ca990a"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/39pm7rb8",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:59:30Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011409-39pm7rb8/files/outputs/subject_fit_metrics.csv",
+        "sha256": "df94238a859d8d5fe737f0ec564299d5538a528fd7a5c3cc0022f129e3eacee3"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011409-39pm7rb8/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "a47699e0359ef4de44718db3ab282be15294a70876af3e306b58cf077683f743"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/5sbet4kh",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:35:46Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-5sbet4kh/files/outputs/subject_fit_metrics.csv",
+        "sha256": "69ae6e19e68f0f8f53ff7a06bdacdc151478d290fb95de24a7d757c3f2849831"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-5sbet4kh/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "48f8d542251373a0c40720a8d5c0db4b81e8ae784c863d8c21ab88770ea4a8b7"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/8ftgp0gp",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:11:01Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012353-8ftgp0gp/files/outputs/subject_fit_metrics.csv",
+        "sha256": "13c19ac1ed8b7f62cb83511640fe6e97a6006038f94741e21101240b632778cd"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012353-8ftgp0gp/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "4a3dd57c94e1a7a451057b4bd6be437949fdf86e97bbee40033af76d3c872e09"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/b2y9f1kg",
+        "state": "finished",
+        "updated_at": "2026-11-01T14:50:34Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012240-b2y9f1kg/files/outputs/subject_fit_metrics.csv",
+        "sha256": "cfcb0de98ba6a5630f91a85032c5c876c4fef028298111ff287061b7cbfd618c"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012240-b2y9f1kg/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "9c68fdf03ac7b7dab23978630f025f6409e87a0f95cac89c65d86ea77a52e746"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/dufh9lkj",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:52:11Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012308-dufh9lkj/files/outputs/subject_fit_metrics.csv",
+        "sha256": "46a1ac836bb536c706bbb6f027b3457cb60b606a75cabef2a8d46c83949a0919"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012308-dufh9lkj/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "228d8d6fdee0b1c2f39d27337cb902d3b70072b5c8f89c5b182be1c0c0f4bed6"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/ey0l4ntq",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:37:42Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011408-ey0l4ntq/files/outputs/subject_fit_metrics.csv",
+        "sha256": "0d1bcebc6621127a8c58676c154992568c0e9c9a9e8496ddc51a14b58a4b0f73"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011408-ey0l4ntq/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "78b8cf8d7ad190c28f1287fc39bf2c2c617fb4b82a1718dc48e2fe971b18425e"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/f0t7jvcm",
+        "state": "finished",
+        "updated_at": "2026-11-01T16:02:46Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011351-f0t7jvcm/files/outputs/subject_fit_metrics.csv",
+        "sha256": "c366ff5fb89175e9daf4f342599da29f73e306814310403721c9b7bb69aa8608"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011351-f0t7jvcm/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "414c9a057d8705f9ae9dfe7f05fd59b00f6480efa922982d32775459ab33731a"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/ib7g8xlg",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:40:21Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-ib7g8xlg/files/outputs/subject_fit_metrics.csv",
+        "sha256": "c760e630daf1a52f2ae9d8b8e87df62104b087b5cb1290f02669d632950c796a"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-ib7g8xlg/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "6d4f6ed18a61c2b4180d95d8682852b1470c9be64bcbd5ee5f3c73c8ed327195"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/k6z1kjer",
+        "state": "finished",
+        "updated_at": "2026-11-01T09:12:53Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012238-k6z1kjer/files/outputs/subject_fit_metrics.csv",
+        "sha256": "9c3f0b3cddbbf2b11c1d28f478544092cbc88ad558e176bc83974da86949ef1b"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012238-k6z1kjer/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "4f019ba8d834ff700c72cee8af5f8a6f5f3b71a47f19976701683cd439d4d857"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/kq9c4ktd",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:19:06Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011415-kq9c4ktd/files/outputs/subject_fit_metrics.csv",
+        "sha256": "d15ee6d994c9fef0634e67d5646da905730f23551b6ff767854af1acbe3ff3b7"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011415-kq9c4ktd/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "f08646aba35f1a3c82e21aeb099287533761bdb9d9bc21543ab6b2fcd7758227"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/kz9k2azw",
+        "state": "finished",
+        "updated_at": "2026-11-01T19:19:52Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071231-kz9k2azw/files/outputs/subject_fit_metrics.csv",
+        "sha256": "dc5e88aa6257696d4f306bf42e95466e312b41aa85089013a3806454c8af7878"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071231-kz9k2azw/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "c27335d7f2f94725babd1eabc478bce182ec8f6e7496f55975262d5da42305ee"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/nehcp6x3",
+        "state": "finished",
+        "updated_at": "2026-11-01T11:57:38Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011422-nehcp6x3/files/outputs/subject_fit_metrics.csv",
+        "sha256": "0d46ff9fe28dfc00fecbd73b9fddbd6c84896d0c143a90726e0b0e88d3f33700"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011422-nehcp6x3/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "f6a77d3e95a96444e19cbe795548e5534b04c62259bf2fc58e793ff49cba66b5"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/tjjkb6zf",
+        "state": "finished",
+        "updated_at": "2026-11-01T09:04:17Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-tjjkb6zf/files/outputs/subject_fit_metrics.csv",
+        "sha256": "7f9348f0b47d72fc118c13f917cb9096c15bded54293bbaad68c98b061811619"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-tjjkb6zf/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "e8c3dc6932a4a6ef028af5ad5d08e9520e195beeb16b2782fac42288ac66f97d"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/ul7gdijw",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:38:31Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011419-ul7gdijw/files/outputs/subject_fit_metrics.csv",
+        "sha256": "8287b0d423649e2bccd871881ee1d39e862964c27b055c6d70d0766792096b32"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011419-ul7gdijw/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "dded0d1c304e917a2abedd9458a3bfd59258f6018b565e3de01438814e412321"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/v6ygm8le",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:55:22Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-v6ygm8le/files/outputs/subject_fit_metrics.csv",
+        "sha256": "b592b2fbcc24c7509b5ca0dafd938aa577944fc2f7fe2311157e6a10bd0ee8a1"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-v6ygm8le/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "10931ab7c2beb11891070da8a15e44011df298821a4079bd29dcee7554257d87"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/wbz9d84o",
+        "state": "finished",
+        "updated_at": "2026-11-01T12:27:09Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-wbz9d84o/files/outputs/subject_fit_metrics.csv",
+        "sha256": "34b80f0d6bb154b8a38ab89587dd92d020c439e3f5996e7b261a80fb60fc7113"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-wbz9d84o/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "78daec9192492b214645895e52a64bb17bb8fd6976adbd8e5e6bb881a342d767"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/xbb1k4zn",
+        "state": "finished",
+        "updated_at": "2026-11-01T10:12:16Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_010458-xbb1k4zn/files/outputs/subject_fit_metrics.csv",
+        "sha256": "47af4e1b5224e3f003845d79bfff0843454f545f8ffb7e0e654a2c955f7e1531"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_010458-xbb1k4zn/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "bb3a29b28a5da38aaaafeb0e2b8cdc28e6f6611847f2874645d56d2daa54ed58"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/yuuo84qw",
+        "state": "finished",
+        "updated_at": "2026-11-01T18:57:33Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-yuuo84qw/files/outputs/subject_fit_metrics.csv",
+        "sha256": "abed3a8e0866c38b18fddae6fa4b85fb0db46d8a457b8d656cd58567b62971be"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-yuuo84qw/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "23b52547e311315b95d1f98c9efcb71a576d2756de9a32b64e3e88df7546e622"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/7rob2zou",
+        "state": "finished",
+        "updated_at": "2026-11-01T19:20:53Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071404-7rob2zou/files/outputs/subject_fit_metrics.csv",
+        "sha256": "cac8b3319ebee93bbd1f0a93d84aef97431557ed289ecf132aaa626736cc87c3"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071404-7rob2zou/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "13ca97ef061f65fa5ceb659c512f158fe1970e590012a9aeb1a0980a1c187ac1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.json",
+        "sha256": "cbc26c008de78e0e4c3898f833bdea8b7509d0d13f57fe21ab6a5531a3225a72"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      }
+    ]
+  },
+  "columns": [
+    "literature_model",
+    "wandb_run_id",
+    "cohort",
+    "subject_id",
+    "curriculum_name",
+    "eval_total_log_likelihood",
+    "eval_total_trials",
+    "eval_likelihood",
+    "train_total_log_likelihood",
+    "train_total_trials",
+    "n_free_params",
+    "fitted_params"
+  ],
+  "gru_split_swap": {
+    "heldout_here_train_in_gru_split": [
+      "722683",
+      "795395",
+      "820243"
+    ],
+    "train_here_test_in_gru_split": [
+      "764791",
+      "808057",
+      "823164"
+    ]
+  },
+  "runs": [
+    {
+      "wandb_run_id": "1fwpodj8",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_rescorla_wagner",
+      "literature_model": "Rescorla-Wagner",
+      "agent_class": "ForagerQLearning",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012242-1fwpodj8/files/outputs/subject_fit_metrics.csv",
+          "sha256": "4f8a5db8e5b7b74cfd1372f9ac44a7428b5c82c39344ee6a3f2f308470222eca"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012242-1fwpodj8/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "088d3345b32d1e6f40b7023e3535dd07bd057fb74727184e226d0f6581ca990a"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "39pm7rb8",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_eckstein_bi",
+      "literature_model": "Eckstein-BI",
+      "agent_class": "ForagerEcksteinBI",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011409-39pm7rb8/files/outputs/subject_fit_metrics.csv",
+          "sha256": "df94238a859d8d5fe737f0ec564299d5538a528fd7a5c3cc0022f129e3eacee3"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011409-39pm7rb8/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "a47699e0359ef4de44718db3ab282be15294a70876af3e306b58cf077683f743"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "5sbet4kh",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_zid_history_kernel2",
+      "literature_model": "Zid-HistoryKernel2-ForagingRL",
+      "agent_class": "ForagerZidHistoryKernel",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-5sbet4kh/files/outputs/subject_fit_metrics.csv",
+          "sha256": "69ae6e19e68f0f8f53ff7a06bdacdc151478d290fb95de24a7d757c3f2849831"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-5sbet4kh/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "48f8d542251373a0c40720a8d5c0db4b81e8ae784c863d8c21ab88770ea4a8b7"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "8ftgp0gp",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_lebedeva_pr",
+      "literature_model": "Lebedeva-PR",
+      "agent_class": "ForagerLebedevaPR",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012353-8ftgp0gp/files/outputs/subject_fit_metrics.csv",
+          "sha256": "13c19ac1ed8b7f62cb83511640fe6e97a6006038f94741e21101240b632778cd"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012353-8ftgp0gp/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "4a3dd57c94e1a7a451057b4bd6be437949fdf86e97bbee40033af76d3c872e09"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "b2y9f1kg",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_actor_critic",
+      "literature_model": "ActorCritic",
+      "agent_class": "ForagerActorCritic",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012240-b2y9f1kg/files/outputs/subject_fit_metrics.csv",
+          "sha256": "cfcb0de98ba6a5630f91a85032c5c876c4fef028298111ff287061b7cbfd618c"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012240-b2y9f1kg/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "9c68fdf03ac7b7dab23978630f025f6409e87a0f95cac89c65d86ea77a52e746"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "dufh9lkj",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_grossman_meta_learning",
+      "literature_model": "Grossman-MetaLearning",
+      "agent_class": "ForagerGrossmanMetaLearning",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012308-dufh9lkj/files/outputs/subject_fit_metrics.csv",
+          "sha256": "46a1ac836bb536c706bbb6f027b3457cb60b606a75cabef2a8d46c83949a0919"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012308-dufh9lkj/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "228d8d6fdee0b1c2f39d27337cb902d3b70072b5c8f89c5b182be1c0c0f4bed6"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "ey0l4ntq",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_eckstein_rl",
+      "literature_model": "Eckstein-RL",
+      "agent_class": "ForagerEcksteinRL",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011408-ey0l4ntq/files/outputs/subject_fit_metrics.csv",
+          "sha256": "0d1bcebc6621127a8c58676c154992568c0e9c9a9e8496ddc51a14b58a4b0f73"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011408-ey0l4ntq/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "78b8cf8d7ad190c28f1287fc39bf2c2c617fb4b82a1718dc48e2fe971b18425e"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "f0t7jvcm",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_miller_rhg",
+      "literature_model": "Miller-RHG",
+      "agent_class": "ForagerMillerRHG",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011351-f0t7jvcm/files/outputs/subject_fit_metrics.csv",
+          "sha256": "c366ff5fb89175e9daf4f342599da29f73e306814310403721c9b7bb69aa8608"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011351-f0t7jvcm/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "414c9a057d8705f9ae9dfe7f05fd59b00f6480efa922982d32775459ab33731a"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "ib7g8xlg",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_alsio_dual_rate_sticky_rl",
+      "literature_model": "Alsio-DualRateSticky-RL",
+      "agent_class": "ForagerAlsioRL",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-ib7g8xlg/files/outputs/subject_fit_metrics.csv",
+          "sha256": "c760e630daf1a52f2ae9d8b8e87df62104b087b5cb1290f02669d632950c796a"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-ib7g8xlg/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "6d4f6ed18a61c2b4180d95d8682852b1470c9be64bcbd5ee5f3c73c8ed327195"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "k6z1kjer",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_compare_to_threshold",
+      "literature_model": "CompareToThreshold",
+      "agent_class": "ForagerCompareThreshold",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012238-k6z1kjer/files/outputs/subject_fit_metrics.csv",
+          "sha256": "9c3f0b3cddbbf2b11c1d28f478544092cbc88ad558e176bc83974da86949ef1b"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012238-k6z1kjer/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "4f019ba8d834ff700c72cee8af5f8a6f5f3b71a47f19976701683cd439d4d857"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "kq9c4ktd",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_feedback_dependent_rl",
+      "literature_model": "FeedbackDependent-RL",
+      "agent_class": "ForagerFeedbackDependentRL",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011415-kq9c4ktd/files/outputs/subject_fit_metrics.csv",
+          "sha256": "d15ee6d994c9fef0634e67d5646da905730f23551b6ff767854af1acbe3ff3b7"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011415-kq9c4ktd/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "f08646aba35f1a3c82e21aeb099287533761bdb9d9bc21543ab6b2fcd7758227"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "kz9k2azw",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_hattori2019",
+      "literature_model": "Hattori2019",
+      "agent_class": "ForagerQLearning",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071231-kz9k2azw/files/outputs/subject_fit_metrics.csv",
+          "sha256": "dc5e88aa6257696d4f306bf42e95466e312b41aa85089013a3806454c8af7878"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071231-kz9k2azw/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "c27335d7f2f94725babd1eabc478bce182ec8f6e7496f55975262d5da42305ee"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "nehcp6x3",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_feedback_dependent_rl_bias_ck1",
+      "literature_model": "FeedbackDependent-RL+Bias+CK1",
+      "agent_class": "ForagerFeedbackDependentRLBiasCK1",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011422-nehcp6x3/files/outputs/subject_fit_metrics.csv",
+          "sha256": "0d46ff9fe28dfc00fecbd73b9fddbd6c84896d0c143a90726e0b0e88d3f33700"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011422-nehcp6x3/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "f6a77d3e95a96444e19cbe795548e5534b04c62259bf2fc58e793ff49cba66b5"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "tjjkb6zf",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_win_stay_lose_shift",
+      "literature_model": "Win-Stay-Lose-Shift",
+      "agent_class": "ForagerLossCounting",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-tjjkb6zf/files/outputs/subject_fit_metrics.csv",
+          "sha256": "7f9348f0b47d72fc118c13f917cb9096c15bded54293bbaad68c98b061811619"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-tjjkb6zf/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "e8c3dc6932a4a6ef028af5ad5d08e9520e195beeb16b2782fac42288ac66f97d"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "ul7gdijw",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_feedback_dependent_rl_bias",
+      "literature_model": "FeedbackDependent-RL+Bias",
+      "agent_class": "ForagerFeedbackDependentRLBias",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011419-ul7gdijw/files/outputs/subject_fit_metrics.csv",
+          "sha256": "8287b0d423649e2bccd871881ee1d39e862964c27b055c6d70d0766792096b32"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011419-ul7gdijw/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "dded0d1c304e917a2abedd9458a3bfd59258f6018b565e3de01438814e412321"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "v6ygm8le",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_chen_rlck",
+      "literature_model": "Chen-RLCK",
+      "agent_class": "ForagerRLCK",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-v6ygm8le/files/outputs/subject_fit_metrics.csv",
+          "sha256": "b592b2fbcc24c7509b5ca0dafd938aa577944fc2f7fe2311157e6a10bd0ee8a1"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012248-v6ygm8le/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "10931ab7c2beb11891070da8a15e44011df298821a4079bd29dcee7554257d87"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "wbz9d84o",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_bari2019",
+      "literature_model": "Bari2019",
+      "agent_class": "ForagerQLearning",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-wbz9d84o/files/outputs/subject_fit_metrics.csv",
+          "sha256": "34b80f0d6bb154b8a38ab89587dd92d020c439e3f5996e7b261a80fb60fc7113"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_012239-wbz9d84o/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "78daec9192492b214645895e52a64bb17bb8fd6976adbd8e5e6bb881a342d767"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "xbb1k4zn",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_beron_rflr",
+      "literature_model": "Beron-RFLR",
+      "agent_class": "ForagerBeronRFLR",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_010458-xbb1k4zn/files/outputs/subject_fit_metrics.csv",
+          "sha256": "47af4e1b5224e3f003845d79bfff0843454f545f8ffb7e0e654a2c955f7e1531"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_010458-xbb1k4zn/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "bb3a29b28a5da38aaaafeb0e2b8cdc28e6f6611847f2874645d56d2daa54ed58"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "yuuo84qw",
+      "wandb_group": "per-subject-de@20261101-012148",
+      "model_config": "baseline_rl_lit_lopez_double_trace",
+      "literature_model": "Lopez-DoubleTrace",
+      "agent_class": "ForagerLopezDoubleTrace",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-yuuo84qw/files/outputs/subject_fit_metrics.csv",
+          "sha256": "abed3a8e0866c38b18fddae6fa4b85fb0db46d8a457b8d656cd58567b62971be"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_011442-yuuo84qw/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "23b52547e311315b95d1f98c9efcb71a576d2756de9a32b64e3e88df7546e622"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "7rob2zou",
+      "wandb_group": "per-subject-de@20261101-071303",
+      "model_config": "baseline_rl_lit_loss_counting",
+      "literature_model": "LossCounting",
+      "agent_class": "ForagerLossCounting",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071404-7rob2zou/files/outputs/subject_fit_metrics.csv",
+          "sha256": "cac8b3319ebee93bbd1f0a93d84aef97431557ed289ecf132aaa626736cc87c3"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261101_071404-7rob2zou/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "13ca97ef061f65fa5ceb659c512f158fe1970e590012a9aeb1a0980a1c187ac1"
+        }
+      }
+    }
+  ]
+}
