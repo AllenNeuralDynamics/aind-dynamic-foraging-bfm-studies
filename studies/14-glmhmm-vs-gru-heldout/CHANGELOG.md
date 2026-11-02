@@ -1,5 +1,11 @@
 # Changelog — 14-glmhmm-vs-gru-heldout
 
+## 2026-11-01
+
+- Variant `refit-prior` (round 2, #48): per-mouse refits with the weight prior centred on the
+  global fit, σ ∈ {0.25, 0.5, 1, 2}, K = 1–10, both emissions, reusing round 1's global fits
+  (manifest in the variant). Selection rule and checks are stated in its notes before launch.
+
 ## 2026-10-27
 
 - Study created (#48): README design, PLAN.md, and variants `lag-scan`, `hurdle` and

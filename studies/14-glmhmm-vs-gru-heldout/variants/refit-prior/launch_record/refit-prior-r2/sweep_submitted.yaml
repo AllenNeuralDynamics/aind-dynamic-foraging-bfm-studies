@@ -1,0 +1,77 @@
+entity: AIND-disRNN
+project: mice_glmhmm
+name: refit-prior-20261101-130226
+method: grid
+metric:
+  name: glmhmm/select/eval_likelihood
+  goal: maximize
+command:
+- python
+- -m
+- run_hpc
+- data=mice_snapshot_scaling
+- data.ignore_policy=include
+- +data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,current_stage_actual]
+- model=glmhmm
+- model.n_lags=10
+- model.num_restarts=20
+- model.subject_prior_center=global
+- model.global_fit_dir=/allen/aind/scratch/han.hou/outputs/glmhmm_global_fits/study14-round1
+- model.num_workers=10
+- model.save_posteriors=false
+- seed=0
+- wandb.entity=AIND-disRNN
+- wandb.project=mice_glmhmm
+- ${args_no_hyphens}
+- +meta.study=14-glmhmm-vs-gru-heldout
+- +meta.variant=refit-prior
+- +meta.launch_id=20261101-130226
+- +meta.config_hash=8328b6b3
+- +meta.dispatcher_git_commit=ea2d6deaf308c0c04cde5b925f3444631415d754
+- +meta.dispatcher_git_branch=HEAD
+- +meta.dispatcher_git_dirty=no
+- +meta.wrapper_git_commit=f9ea87594215c4ce8dbb772de2b2af6968d38222
+- +meta.wrapper_git_branch=HEAD
+- +meta.wrapper_git_dirty=no
+- +meta.studies_commit=cb21327b77aa7423cb160ce7e01a67853a585130
+- +meta.studies_git_branch=feat/48-refit-prior
+- +meta.studies_git_dirty=no
+- +meta.sweep_yaml=/home/han.hou/code/wt/studies-14-r2/studies/14-glmhmm-vs-gru-heldout/variants/refit-prior/sweep_hpc.yaml
+- +meta.owner=han.hou
+- +meta.launcher_cmd=/home/han.hou/code/wt/14-hpc-r2/aind-dynamic-foraging-bfm...
+- +meta.mode=cpu
+- +meta.label=refit-prior-r2
+- '+meta.note=''Study 14 round 2: per-mouse GLM-HMM refits pooled toward...'''
+- +wandb.group=refit-prior@20261101-130226
+- +meta.slurm_job_id='${oc.env:SLURM_JOB_ID,unknown}'
+- +meta.slurm_array_job_id='${oc.env:SLURM_ARRAY_JOB_ID,unknown}'
+- +meta.slurm_array_task_id='${oc.env:SLURM_ARRAY_TASK_ID,unknown}'
+parameters:
+  model.emission:
+    values:
+    - hurdle
+    - reference
+  model.num_states:
+    values:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+  model.prior_sigma_subject:
+    values:
+    - 0.25
+    - 0.5
+    - 1.0
+    - 2.0
+  model.transition_strength_subject:
+    values:
+    - 'null'
+    - 10.0
+    - 100.0
+    - 1000.0
