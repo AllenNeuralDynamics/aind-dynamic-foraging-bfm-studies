@@ -1,0 +1,229 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/f_embedding_licks.py",
+    "produced_at_pt": "2026-10-29T16:46:57-07:00",
+    "studies_git_sha": "b0385d8747376867c166c07f2876fdc2c7b1561d",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "81fba2b27cff62c24c8b1352977677200a898807",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/f_embedding_licks.py",
+        "sha256": "a247b6a81cfd7ad1cd8e3faede3012739785642164446a003e3c1e446b187c20"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-70ec9561"
+      },
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_rt_lick_scaling/h128-dscan-licks-only-20260823-093110-61c16e62"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s0/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s0/run/outputs/checkpoints/index.json",
+        "sha256": "7eae42e93f0b9b659b8cb857042efcfb99dbb43f45e1b399fb6059f9acb1fbf6"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "83f8949532ba459c99d01621cb89ec3088c111462b34df5373df606bd8f4bb6d"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s1/run/outputs/checkpoints/index.json",
+        "sha256": "b84ad9cbc1f8dc4e996b6d0a9259daf94724972826470b0e427a4cb86290171d"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/models/L-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "a01793038c5c2fbb2230ea3975125d254fbb4ebce5db48ac9519b3ad70fae885"
+      },
+      {
+        "type": "file",
+        "id": "studies/52-gru-dynamics-timing-inputs/analysis/_cache/trial_states_L-s0.parquet",
+        "sha256": "d32e2e957d487bcf541ee62210a6aa38035bfbfbb562454a3e32ac710c14ec68"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/52-gru-dynamics-timing-inputs/analysis/f_embedding_licks.json",
+        "sha256": "111f5cd2a02db4134b92251e592c7165f6817d3b630652bfb507c9e4b7d6efd5"
+      }
+    ]
+  },
+  "n_mice": 614,
+  "decoding": {
+    "C": {
+      "other-side licks": {
+        "raw": {
+          "rank_r2": 0.27701215166363236,
+          "null_95": -0.0016843116504603008,
+          "p": 0.004975124378109453
+        },
+        "beyond_task_mix": {
+          "rank_r2": 0.22557833577637354,
+          "null_95": -0.0014609640445308616,
+          "p": 0.004975124378109453
+        }
+      },
+      "chosen licks after win": {
+        "raw": {
+          "rank_r2": -0.019561843668346013,
+          "null_95": 0.00017306962018835074,
+          "p": 0.8606965174129353
+        },
+        "beyond_task_mix": {
+          "rank_r2": -0.01417840025239947,
+          "null_95": -4.129362315559883e-05,
+          "p": 0.6567164179104478
+        }
+      },
+      "chosen licks after loss": {
+        "raw": {
+          "rank_r2": 0.03841689324173736,
+          "null_95": -0.0013463146701375255,
+          "p": 0.004975124378109453
+        },
+        "beyond_task_mix": {
+          "rank_r2": -0.000837224406885495,
+          "null_95": 0.0003853239577822201,
+          "p": 0.06965174129353234
+        }
+      }
+    },
+    "L-s0": {
+      "other-side licks": {
+        "raw": {
+          "rank_r2": 0.21639380218372617,
+          "null_95": -0.0012044941769768236,
+          "p": 0.004975124378109453
+        },
+        "beyond_task_mix": {
+          "rank_r2": 0.1738193459238817,
+          "null_95": -0.0003572653839923679,
+          "p": 0.004975124378109453
+        }
+      },
+      "chosen licks after win": {
+        "raw": {
+          "rank_r2": -0.003800449320298327,
+          "null_95": 0.001241277877237813,
+          "p": 0.13432835820895522
+        },
+        "beyond_task_mix": {
+          "rank_r2": -0.01500734429188344,
+          "null_95": 0.002019225249253166,
+          "p": 0.7761194029850746
+        }
+      },
+      "chosen licks after loss": {
+        "raw": {
+          "rank_r2": 0.024575789744586074,
+          "null_95": 3.998598625722801e-05,
+          "p": 0.004975124378109453
+        },
+        "beyond_task_mix": {
+          "rank_r2": -0.011843953033117804,
+          "null_95": -0.0008009691629203916,
+          "p": 0.48258706467661694
+        }
+      }
+    },
+    "L-s1": {
+      "other-side licks": {
+        "raw": {
+          "rank_r2": 0.22721530178129745,
+          "null_95": -0.002199972602114387,
+          "p": 0.004975124378109453
+        },
+        "beyond_task_mix": {
+          "rank_r2": 0.18915942739760572,
+          "null_95": -0.0006374071942171887,
+          "p": 0.004975124378109453
+        }
+      },
+      "chosen licks after win": {
+        "raw": {
+          "rank_r2": -0.0055981511036344855,
+          "null_95": 0.0005609071033879686,
+          "p": 0.2537313432835821
+        },
+        "beyond_task_mix": {
+          "rank_r2": -0.01171601699628666,
+          "null_95": 0.0006183869989723129,
+          "p": 0.5522388059701493
+        }
+      },
+      "chosen licks after loss": {
+        "raw": {
+          "rank_r2": 0.02804589026206472,
+          "null_95": 0.0014408332744136102,
+          "p": 0.004975124378109453
+        },
+        "beyond_task_mix": {
+          "rank_r2": -0.010230103242537592,
+          "null_95": -0.0012665623188383042,
+          "p": 0.4129353233830846
+        }
+      }
+    }
+  },
+  "alignment_cv_r2": {
+    "C": {
+      "L-s0": 0.7908766587686835,
+      "L-s1": 0.8167418505466165
+    },
+    "L-s0": {
+      "C": 0.8201243175780207,
+      "L-s1": 0.936905523882303
+    },
+    "L-s1": {
+      "C": 0.821587234720341,
+      "L-s0": 0.935745805121645
+    }
+  }
+}

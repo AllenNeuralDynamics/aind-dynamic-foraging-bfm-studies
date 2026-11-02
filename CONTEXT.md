@@ -14,6 +14,8 @@ A study may keep its own `CONTEXT.md` for the vocabulary only that study uses, a
 **Study**:
 One scientific question, with everything launched, produced and concluded to answer it. Its
 accession number is permanent and never reused.
+Numbers 50–69 are reserved for Po-Chen Kuo's studies, so two people starting studies in
+parallel do not collide; everyone else takes the next free number below 50.
 _Avoid_: experiment, project
 
 **Variant**:

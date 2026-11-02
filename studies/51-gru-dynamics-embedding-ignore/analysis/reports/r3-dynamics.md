@@ -1,0 +1,130 @@
+---
+schema_version: 1
+id: r3
+slug: dynamics
+status: draft
+authors: [pck, claude]
+wandb_groups: []
+inputs:
+  scripts:
+    - analysis/d_dynamics.py
+    - analysis/report_r3.py
+  data:
+    - analysis/d_dynamics.json
+upstream:
+  - study: 50-gru-dynamics-embedding
+    report: r3
+  - study: 02-gru-scaling-law-ignore
+    wandb_group: nxd-3way@20260707-075401
+  - study: 01-gru-scaling-law
+    wandb_group: e4-e8-d614-source@20260906-195409
+reproduce: make -C studies/51-gru-dynamics-embedding-ignore r3
+---
+
+# r3 — Dynamics of the 3-way GRU: what the ignore input does to the state
+
+**Question.** Under each input held constant, where does C3's state go, how fast, and how
+does that compare with C (Study 50)? What does a run of ignore inputs do to the side
+preference and to engagement, and how does the network come back?
+
+Method: the wrapper's free-context step (``gru_step``) reproduces C3's stored readouts to
+4e-7 on real sessions, ignored steps included. Fixed points per constant input at the mean
+context (Adam and forward iteration, Newton-refined in float64); flow fields over real
+states; relaxation from 5,000 real engaged states, each with its own session context.
+
+## Summary — how C3 differs from C, and what the ignore input does
+
+1. **The four engaged inputs behave as in C.** Each has one stable attractor on its chosen
+   side, for rewarded and unrewarded inputs alike (C3: R+ +3.86, R− +4.86, L+ −4.83, L− −3.65
+   in side log-odds; C: the same signs and similar depths, +4.34 / +3.05 / −4.98 / −3.05,
+   except that C's L+ is bistable at its mean context — two stable points and a saddle — where
+   C3's has one). At these attractors P(ignore) is low (0.02–0.08) (D2).
+2. **The ignore input has its own attractor: side-neutral and disengaged.** Holding the input
+   at "ignore" drives every state to one stable point with side log-odds +0.04 and
+   P(ignore) 0.98, in the corner of state space where B3 found the post-ignore cluster. The
+   flow field shows one ignore step carrying states most of the way there and collapsing the
+   side spread along PC1 (D1, D2).
+3. **Repeated ignores erase the side preference on the animals' timescale.** From real
+   engaged states, the side log-odds keep 0.61 of their size after one ignore, 0.45 after two,
+   0.36 after three and 0.10 after thirty; the animals' lag-1 kernel after 1, 2 and 3–5
+   ignores is 0.64, 0.45 and 0.38 of its no-gap value (r2, C1b). The network was not fitted
+   to that ratio; it emerges from its dynamics (D3).
+4. **Disengagement builds over a few ignores and recovery is slower than the fall.** P(ignore)
+   goes 0.05 → 0.15 → 0.31 → 0.47 → 0.62 over four ignores and 0.92 after thirty. From
+   there, unrewarded choices of the pre-bout side bring it down to 0.61, 0.37 and 0.30 over
+   three choices but only to 0.18 after ten; the side preference rebuilds within about three
+   choices. So engagement has a slower recovery than the side belief (D3).
+5. **Slow modes are very slow and barely touch either readout**, as in C: τ of hundreds to
+   thousands of steps, overlap with the side and engage directions ≤ 0.3 (D2).
+
+## What is by construction vs what is a finding
+
+- **By construction.** The step function is the trained update, so parity is a check, not a
+  result. A constant input is an idealisation the animals never produce for long; fixed points
+  describe where the dynamics point, not states the network visits. Starting the relaxation
+  from engaged states selects for low starting P(ignore).
+- **Findings.** That the ignore attractor is side-neutral (the network does not keep the side
+  belief through a long bout, it erases it); the rate of that erasure and its match to the
+  animals' kernel shrinkage; the asymmetry between fast disengagement and slower re-engagement;
+  the engaged-input attractors matching C's.
+
+## Relation to Study 02 r3 (generated bouts too long)
+
+The ignore attractor is close to absorbing (P(ignore) 0.98 there). In a free-running rollout
+the model's own sampled ignores feed this attractor, so once a generated bout is a few steps
+long, leaving it depends on sampling an engaged response at ~2–10% per step; with real
+history (r1, B8) the animals' re-engagements pull the state out. This makes the compounding
+explanation in r1 concrete. *Still inference*: no rollout on C3 has been run, and the
+repeated-ignore curve here (0.92 after 30) is close to the animals' observed P(ignore) after
+15+ ignores (0.92, r1 B8b), so the gap with data may be in how often generated bouts *start*
+or grow past a few steps rather than in the deep-bout hazard.
+
+## Caveats
+
+- Fixed points and flow are at the mean context; the relaxation uses each state's own context.
+  Phase F will ask how the context moves the ignore attractor.
+- Convergence: 53% of candidates reached the ignore fixed point within tolerance, 66–82% for
+  the engaged inputs; no other fixed points were found for any input.
+- One seed (C3-s0).
+
+## Numbers
+
+<!-- BEGIN result-1 -->
+[regenerated by `analysis/report_r3.py` — do not edit by hand]
+
+Step parity (median / max |Δ| vs A1, first 200 sessions): side 4.2e-07 / 4.0e-06; engage 5.3e-07 / 6.4e-06.
+
+### D2 Fixed points of each constant input (mean context)
+
+| input | model | fixed point | side logit | P(ignore) | stable | three slowest τ (steps) | slowest mode overlap: side / engage |
+|---|---|---|---:|---:|---|---|---|
+| R+ | C3 | 1 | +3.86 | 0.078 | yes | 3652.0, 906.8, 853.9 | 0.02 / 0.12 |
+| R+ | C | 1 | +4.34 | — | yes | 263.6, 263.6, 243.6 | — |
+| R− | C3 | 1 | +4.86 | 0.050 | yes | 555.0, 530.2, 237.0 | 0.26 / 0.23 |
+| R− | C | 1 | +3.05 | — | yes | 324.9, 164.7, 105.0 | — |
+| L+ | C3 | 1 | -4.83 | 0.019 | yes | 2347.1, 660.7, 453.5 | 0.06 / 0.25 |
+| L+ | C | 1 | -4.98 | — | yes | 646.6, 237.0, 151.7 | — |
+| L+ | C | 2 | -4.95 | — | no | 182.0, 173.2 | — |
+| L+ | C | 3 | -4.04 | — | yes | 1894.8, 181.9, 119.5 | — |
+| L− | C3 | 1 | -3.65 | 0.018 | yes | 248.4, 221.0, 221.0 | 0.00 / 0.30 |
+| L− | C | 1 | -3.05 | — | yes | 195.5, 110.5, 110.5 | — |
+| ignore | C3 | 1 | +0.04 | 0.978 | yes | 565.5, 515.9, 318.0 | 0.05 / 0.03 |
+
+Share of fixed-point candidates that converged: R+ 80%; R− 74%; L+ 82%; L− 66%; ignore 53%.
+
+![D1](../fig_D1_flow_fields.png)
+![D2](../fig_D2_fixed_points.png)
+
+### D3 Relaxation under repeated ignores (5,000 real engaged states, own contexts)
+
+At the start: median |side logit| 2.50, mean P(ignore) 0.054. Side preference halves after 2 ignores.
+
+| consecutive inputs | 1 | 2 | 3 | 5 | 10 | 20 | 30 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| ignores: \|side\| / start (median) | 0.61 | 0.45 | 0.36 | 0.26 | 0.18 | 0.11 | 0.10 |
+| ignores: mean P(ignore) | 0.146 | 0.311 | 0.474 | 0.702 | 0.827 | 0.894 | 0.917 |
+| then unrewarded choices: mean P(ignore) | 0.610 | 0.372 | 0.304 | 0.229 | 0.184 | 0.135 | 0.104 |
+| then unrewarded choices: side toward that side (median) | +1.14 | +1.76 | +1.92 | +2.10 | +2.13 | +2.30 | +2.51 |
+
+![D3](../fig_D3_relaxation.png)
+<!-- END result-1 -->

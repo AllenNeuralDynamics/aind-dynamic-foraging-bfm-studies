@@ -16,12 +16,13 @@ resolves a relative `--sweep-yaml` against the dispatcher, and writes the record
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.py \
       --sweep-yaml "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/sweep_hpc.yaml" \
-      --mode cpu --sbatch-extra "--cpus-per-task=8 --mem=64G --time=48:00:00" \
+      --mode cpu --sbatch-extra "--cpus-per-task=32 --mem=64G --time=48:00:00" \
       --output-dir "$PWD/studies/14-glmhmm-vs-gru-heldout/variants/lag-scan/launch_record/lag-scan" \
       --label lag-scan --note "Study 14: K=1 GLM-HMM over L x emission to fix the history length for the K grids, chosen on the training-mouse refit score"
 
-**Or on Beaker**, which needs the GLM-HMM image built first (wrapper `beaker/glmhmm/Dockerfile`,
-AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111; see `experiment_beaker.yaml`). Same
+**Or on Beaker**, on the GLM-HMM image `han-hou/dynamic-foraging-bfm-glmhmm-20261027` (wrapper
+`beaker/glmhmm/`, AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111; run its
+`smoke.yaml` first; see `experiment_beaker.yaml`). Same
 grid, one non-preemptible single-GPU task per cell:
 
     python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
@@ -35,4 +36,11 @@ grid, one non-preemptible single-GPU task per cell:
 `lag-scan@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join
 that group.
 
-**Status.** Not launched.
+**Status.** Done. Launched 2026-10-27 as `lag-scan@20261027-200129`, after the smoke
+`lag-scan@20261027-194921`. L = 10 maximises the selection score for both emissions, at the
+scan's upper bound (`launch_record/lag-scan/results.md`).
+
+**L = 15 check** (`sweep_hpc_l15.yaml`). The first launch peaked at its cap, L = 10, for both
+emissions, so two K = 1 cells at L = 15 test whether the selection score turns down (overfit)
+or keeps rising. The K grids were already launched at L = 10 and keep running. If L = 15 scores
+higher, that is reported, and whether to rerun the grids at a longer L is decided then.
