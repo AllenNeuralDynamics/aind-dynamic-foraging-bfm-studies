@@ -1,0 +1,327 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_two_level_em.py",
+    "produced_at_pt": "2026-11-02T03:57:03-08:00",
+    "studies_git_sha": "797a8c7b22df8d4ce57f6e0a06d7b3955dd1704e",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/freeze_two_level_em.py",
+        "sha256": "3ef60a9c1fccf601754b31ec776733c6a594b729ae24f197b7bb6cd705f5fbb6"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-003154/2level_Hattori2019.json",
+        "sha256": "194ffb39fa321860d1a81b2657ee9e2df783ed9954a99fb7936c4ad2020b6866"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_ActorCritic.json",
+        "sha256": "d11eff09d8dfbcd86e1ad53a3a42c4810cdbe1b454bf126c7722e7ee6f06bf45"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Alsio-DualRateSticky-RL.json",
+        "sha256": "6fd137ab0235d6ea37f148b6d1bd12d2b62649bba75dd3beb573ddcd11c86686"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Bari2019.json",
+        "sha256": "e720b8ab7d7acd8bfd9f2ee5037d25b92c2c4657f00f9418d31fb36e755b02de"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Beron-RFLR.json",
+        "sha256": "f18e4fed1a2caf8c4e302ed0b316aab73965e4156d4a85e8ebc3224c5fd4b4af"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Chen-RLCK.json",
+        "sha256": "75e688ba9589c2fea0f8974e919f85f84d60a9d1edefc29912b0d760472e2fc1"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_CompareToThreshold.json",
+        "sha256": "f846c67eb4eb698b0a8c6d4a25cd0a8e63082084e3d0dc6aaa63ba340dd27b05"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Eckstein-BI.json",
+        "sha256": "99c8b47c39f9bd6c881e437ca0e878fe5aaf1604e2ed88ddedf8fc1d29d4968c"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Eckstein-RL.json",
+        "sha256": "b2e1b2ef76205f271f150f2d41e39486e722c75229df3e0d3a67ed66f2f7264d"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_FeedbackDependent-RL+Bias+CK1.json",
+        "sha256": "a1a9a68f6e8decebd949de8c8e01aca56ef7288ccd87418941f8912f53a59a43"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_FeedbackDependent-RL+Bias.json",
+        "sha256": "e7c2f40c42d8049d9e26e8ad0828e9737a8f8f6bb0cb95c64d91ff80fbb59084"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_FeedbackDependent-RL.json",
+        "sha256": "f0ba58caccf7b1b83e7c6249ac1b9c7665726ac4a811ba092b42d56615c35c2f"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Grossman-MetaLearning.json",
+        "sha256": "c1a1a815249eabca3483aef9c422ee7cd69b2540924a791aab5d02d8ce439eda"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lebedeva-PR.json",
+        "sha256": "b5118f3630ca6f1b99cdb9a6a2aab44d2786df80a83c73c65fd25daef12be273"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lopez-DoubleTrace.json",
+        "sha256": "f4e913f6f9c2e0c5902c30a0af11c2eb23792954a94f0756953acdc62efb4d0e"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_LossCounting.json",
+        "sha256": "90b36f1c1c503f09062e04ace728256ff556437c4e81a9a818dc061ba4e03a09"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Miller-RHG.json",
+        "sha256": "8b85f35352bb3e39c40ed7a6b0e48663f147104d135c99f006cb739e7b6db980"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Rescorla-Wagner.json",
+        "sha256": "1184dd4bb54b8c22527de49d9e4a2345ea73f82ec7ebf387d886964538b760a2"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Zid-HistoryKernel2-ForagingRL.json",
+        "sha256": "2369e8afa4f0f8ab6fe55027d11b5e2c2eba40627c30158227ff4e1848a5c39f"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.json",
+        "sha256": "284ac610f0e16ffbe62c51af25341aa7fa279b1adf7cff3499ae8a11c2d8402b"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
+      }
+    ]
+  },
+  "columns": [
+    "literature_model",
+    "subject_id",
+    "pool",
+    "log_lik",
+    "n_trials",
+    "fit_log_lik",
+    "n_fit_trials",
+    "em_iterations",
+    "converged",
+    "ess_median",
+    "ess_min",
+    "typical_params",
+    "log_sigma"
+  ],
+  "mevolve_git_sha": "6af7d58a0a2dadb4d4eec7ab72108c6350e8dfbe",
+  "freeze_manifest_sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0",
+  "settings": {
+    "regime": "2level",
+    "max_em": 100,
+    "n_draws": 2048,
+    "seed": 0
+  },
+  "runs": [
+    {
+      "literature_model": "ActorCritic",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_ActorCritic.json",
+      "sha256": "d11eff09d8dfbcd86e1ad53a3a42c4810cdbe1b454bf126c7722e7ee6f06bf45",
+      "program_sha256": "c808e9032e3725f25aa21281d9d0d01b555491b85670e3a9d41080542972115a",
+      "wall_seconds": 2728.2204632759094,
+      "n_not_converged": 689
+    },
+    {
+      "literature_model": "Alsio-DualRateSticky-RL",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Alsio-DualRateSticky-RL.json",
+      "sha256": "6fd137ab0235d6ea37f148b6d1bd12d2b62649bba75dd3beb573ddcd11c86686",
+      "program_sha256": "269721587b3ee6e94f0283ebc2f28747f9b96ccb62898b144450ca0cefb4c691",
+      "wall_seconds": 572.1435396671295,
+      "n_not_converged": 59
+    },
+    {
+      "literature_model": "Bari2019",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Bari2019.json",
+      "sha256": "e720b8ab7d7acd8bfd9f2ee5037d25b92c2c4657f00f9418d31fb36e755b02de",
+      "program_sha256": "8c8a1bed59457ba727f76ef8269480c692319d97b71156e73e06219db1ecc9bf",
+      "wall_seconds": 802.5824654102325,
+      "n_not_converged": 16
+    },
+    {
+      "literature_model": "Beron-RFLR",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Beron-RFLR.json",
+      "sha256": "f18e4fed1a2caf8c4e302ed0b316aab73965e4156d4a85e8ebc3224c5fd4b4af",
+      "program_sha256": "a520aedfc5c5b79d0346b983ba7c8ceacd5928d241219bcbf09cc5545f43e3ff",
+      "wall_seconds": 460.5572657585144,
+      "n_not_converged": 2
+    },
+    {
+      "literature_model": "Chen-RLCK",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Chen-RLCK.json",
+      "sha256": "75e688ba9589c2fea0f8974e919f85f84d60a9d1edefc29912b0d760472e2fc1",
+      "program_sha256": "a2da0e787d2dea0b0c3e186f5b2ccd083c4631bf46cc89bb34d8ef7face1754b",
+      "wall_seconds": 584.3222784996033,
+      "n_not_converged": 16
+    },
+    {
+      "literature_model": "CompareToThreshold",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_CompareToThreshold.json",
+      "sha256": "f846c67eb4eb698b0a8c6d4a25cd0a8e63082084e3d0dc6aaa63ba340dd27b05",
+      "program_sha256": "6b100b7240dbaa00a55af9f6218adfc2cd0dd2f51782d6f3f912cd4696798152",
+      "wall_seconds": 1068.7327461242676,
+      "n_not_converged": 46
+    },
+    {
+      "literature_model": "Eckstein-BI",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Eckstein-BI.json",
+      "sha256": "99c8b47c39f9bd6c881e437ca0e878fe5aaf1604e2ed88ddedf8fc1d29d4968c",
+      "program_sha256": "2bc7009579b6883e7b9931a39358ffb6fc8b781b1de0e81a45ab97506b658a27",
+      "wall_seconds": 2472.002286195755,
+      "n_not_converged": 616
+    },
+    {
+      "literature_model": "Eckstein-RL",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Eckstein-RL.json",
+      "sha256": "b2e1b2ef76205f271f150f2d41e39486e722c75229df3e0d3a67ed66f2f7264d",
+      "program_sha256": "2f12b4a43f2be6fb33daad9bdfe38dc68612970c16fbd0c52903154e0b633ed4",
+      "wall_seconds": 723.3229653835297,
+      "n_not_converged": 112
+    },
+    {
+      "literature_model": "FeedbackDependent-RL",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_FeedbackDependent-RL.json",
+      "sha256": "f0ba58caccf7b1b83e7c6249ac1b9c7665726ac4a811ba092b42d56615c35c2f",
+      "program_sha256": "cb22d4b53670825134c764e28d95655eb7b40081143ae6f3fed828a82b12ce7f",
+      "wall_seconds": 501.87079763412476,
+      "n_not_converged": 26
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_FeedbackDependent-RL+Bias.json",
+      "sha256": "e7c2f40c42d8049d9e26e8ad0828e9737a8f8f6bb0cb95c64d91ff80fbb59084",
+      "program_sha256": "c87e6c5a07ad4f20bf7e6a0095a0d598e28c22f5abec75c368569eb8c1da1e4f",
+      "wall_seconds": 484.5180022716522,
+      "n_not_converged": 16
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias+CK1",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_FeedbackDependent-RL+Bias+CK1.json",
+      "sha256": "a1a9a68f6e8decebd949de8c8e01aca56ef7288ccd87418941f8912f53a59a43",
+      "program_sha256": "d662ba9b6be636c35ce45f61e6a5da001c1c3ac4a04e9b779169223a068375d2",
+      "wall_seconds": 835.039623260498,
+      "n_not_converged": 246
+    },
+    {
+      "literature_model": "Grossman-MetaLearning",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Grossman-MetaLearning.json",
+      "sha256": "c1a1a815249eabca3483aef9c422ee7cd69b2540924a791aab5d02d8ce439eda",
+      "program_sha256": "bfb520b207f115795990ccf4f0d83bd556efef8fff83565ba5866761788ac3a2",
+      "wall_seconds": 6726.428980112076,
+      "n_not_converged": 289
+    },
+    {
+      "literature_model": "Hattori2019",
+      "wandb_group": "two-level-em@20261102-003154",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-003154/2level_Hattori2019.json",
+      "sha256": "194ffb39fa321860d1a81b2657ee9e2df783ed9954a99fb7936c4ad2020b6866",
+      "program_sha256": "62518ba4ed4167081b6286ec3b8409d8dd355348972de667a2b95db428f779e1",
+      "wall_seconds": 737.8014662265778,
+      "n_not_converged": 37
+    },
+    {
+      "literature_model": "Lebedeva-PR",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lebedeva-PR.json",
+      "sha256": "b5118f3630ca6f1b99cdb9a6a2aab44d2786df80a83c73c65fd25daef12be273",
+      "program_sha256": "4184fca08e58fe8f9e573a275d174f8bd39cb94a1381859bc4a48f911f15243e",
+      "wall_seconds": 781.1030421257019,
+      "n_not_converged": 1
+    },
+    {
+      "literature_model": "Lopez-DoubleTrace",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lopez-DoubleTrace.json",
+      "sha256": "f4e913f6f9c2e0c5902c30a0af11c2eb23792954a94f0756953acdc62efb4d0e",
+      "program_sha256": "3aa892821fe593ee5ad7b59cd1dbacdbed9652a4de575890eeca195176f5cee7",
+      "wall_seconds": 3089.087144613266,
+      "n_not_converged": 116
+    },
+    {
+      "literature_model": "LossCounting",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_LossCounting.json",
+      "sha256": "90b36f1c1c503f09062e04ace728256ff556437c4e81a9a818dc061ba4e03a09",
+      "program_sha256": "64a8c9d4f5bfa1407dcff03ef7a8831243fab0334902fcf199711ba420837330",
+      "wall_seconds": 5358.627259731293,
+      "n_not_converged": 271
+    },
+    {
+      "literature_model": "Miller-RHG",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Miller-RHG.json",
+      "sha256": "8b85f35352bb3e39c40ed7a6b0e48663f147104d135c99f006cb739e7b6db980",
+      "program_sha256": "288aaac0b8ec53aacc871bd05f5759c9bf50328629422f735927e7f8e8d84dc2",
+      "wall_seconds": 1959.741152048111,
+      "n_not_converged": 113
+    },
+    {
+      "literature_model": "Rescorla-Wagner",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Rescorla-Wagner.json",
+      "sha256": "1184dd4bb54b8c22527de49d9e4a2345ea73f82ec7ebf387d886964538b760a2",
+      "program_sha256": "491f5b1eb828fee15da6f14e35854fa1e2846bf4d1db306a9ad7cd025a0e393f",
+      "wall_seconds": 11217.829319953918,
+      "n_not_converged": 733
+    },
+    {
+      "literature_model": "Zid-HistoryKernel2-ForagingRL",
+      "wandb_group": "two-level-em@20261102-004644",
+      "path": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Zid-HistoryKernel2-ForagingRL.json",
+      "sha256": "2369e8afa4f0f8ab6fe55027d11b5e2c2eba40627c30158227ff4e1848a5c39f",
+      "program_sha256": "bcc93ff2ab3583f9a77150ebeafac314fa5baf74f1820cf952e6ee06ad95b346",
+      "wall_seconds": 945.1061472892761,
+      "n_not_converged": 343
+    }
+  ]
+}
