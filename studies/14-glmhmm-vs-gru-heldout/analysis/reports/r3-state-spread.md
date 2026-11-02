@@ -8,11 +8,21 @@ authors:
 wandb_groups:
 - hurdle@20261027-212905
 - reference@20261027-213006
+- refit-prior@20261101-130226
 inputs:
   script: analysis/r3_state_spread.py
   data: analysis/frozen_r3.json
-  weights_hurdle: analysis/frozen_r3_weights_hurdle.npz
-  weights_reference: analysis/frozen_r3_weights_reference.npz
+  cells_hurdle_global: analysis/frozen_r3_cells_hurdle_global.npz
+  cells_hurdle_refit: analysis/frozen_r3_cells_hurdle_refit.npz
+  cells_reference_global: analysis/frozen_r3_cells_reference_global.npz
+  cells_reference_refit: analysis/frozen_r3_cells_reference_refit.npz
+  weights_hurdle_global: analysis/frozen_r3_weights_hurdle_global.npz
+  weights_hurdle_refit: analysis/frozen_r3_weights_hurdle_refit.npz
+  weights_reference_global: analysis/frozen_r3_weights_reference_global.npz
+  weights_reference_refit: analysis/frozen_r3_weights_reference_refit.npz
+  refits_hurdle: analysis/frozen_r3_refits_hurdle.npz
+  refits_reference: analysis/frozen_r3_refits_reference.npz
+  round2_pick: analysis/r2_refit_prior.json
   freeze: analysis/freeze_r3.py
 reproduce: make -C studies/14-glmhmm-vs-gru-heldout r3
 tags:
@@ -35,13 +45,23 @@ how does it change with K?
    state's own emission GLM to them, with the per-mouse refit's prior (Gaussian, SD 2, centred
    at 0), starting from the global state's weights. History lags come from the whole session,
    so no lag crosses a cut between epochs.
-3. **Two cohorts, shown apart.**
+3. **Other ways to cut trials into states** (result-3). Step 1 counts every trial for its
+   Viterbi state. Two changes, crossed into 18 settings:
+   - *Labels from each mouse's own refit*: the Viterbi path and posteriors under the mouse's
+     round-2 refit (r2: EM from the global fit on the mouse's train sessions, with r2's picked
+     prior at that K, weights centred on the global fit). With that prior the refit keeps the
+     global states' order (checked, result-4), so state k still means the same state.
+   - *Cuts*: keep a trial only if its state's smoothed posterior is at least p ∈ {0.8, 0.95}
+     and it lies in a same-state run of at least m ∈ {10, 30} trials (each also off).
+   Each cell is refitted to its kept trials. A cut keeps the trials that best fit a state, so
+   tighter clusters after a cut are partly selection.
+4. **Two cohorts, shown apart.**
    - *Held-out mice* (149): the global fit never saw them.
    - *Training mice* (614): they shaped the global states, so some clustering is expected by
      construction.
 
    Every session of each mouse is used.
-4. **Cluster scores.**
+5. **Cluster scores.**
    - *Silhouette*: for each dot, the mean distance to the nearest other state's dots minus the
      mean distance to its own state's dots, divided by the larger of the two, then averaged. It
      is 1 for tight, separate clusters and 0 for clusters that overlap.
@@ -126,6 +146,12 @@ Each panel: every {subject, state} GLM of one cohort at one K, on the first two 
 
 ![reference weight space](../fig_r3_scatter_reference.svg)
 <!-- END result-2 -->
+
+<!-- BEGIN result-3 -->
+<!-- END result-3 -->
+
+<!-- BEGIN result-4 -->
+<!-- END result-4 -->
 
 ## What it says
 

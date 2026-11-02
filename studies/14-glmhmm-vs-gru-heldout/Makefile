@@ -37,6 +37,7 @@ r3:
 
 .PHONY: freeze-r3
 # Node-only (reads /allen and the snapshot), same WRAPPER_ROOT / DISPATCHER_ROOT as
-# freeze-round1. Writes analysis/frozen_r3.json and analysis/frozen_r3_weights_*.npz.
+# freeze-round1. Run as the SLURM array analysis/freeze_r3.sbatch (fit and score one K-grid run
+# per task into R3_PARTS), then R3_MERGE=1 writes analysis/frozen_r3.json and its npz files.
 freeze-r3:
 	$(PY) analysis/freeze_r3.py
