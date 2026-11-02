@@ -16,4 +16,4 @@ so through its bounds or an easier search: 72 of the 763 subjects sit at Compare
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `ctt-credit@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-02 13:26 PT as `ctt-credit@20261102-132626` ([W&B sweep 2f26d1qa](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/2f26d1qa), SLURM array 27572010; studies 9da9390, dispatcher 3b2197d, wrapper 331d373, foraging-models 4574b4b = v0.29.0, installed from git into dynamic-foraging-bfm-cpu for this launch). Record: [`launch_record/production/`](launch_record/production/).
