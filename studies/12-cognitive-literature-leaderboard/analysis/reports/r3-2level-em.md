@@ -50,16 +50,16 @@ variant with a launch record, and freezes per-subject rows. Because 17 of the 19
 reference, this report gives three checks per model:
 - median weight ESS of the session marginal;
 - the share of subjects whose EM stopped at the iteration cap before converging;
-- 2-level EM score minus per-subject score (r1). A negative value flags a failed Laplace fit.
+- 2-level EM score minus per-subject score (r1). A negative value is flagged: a numerical failure or a 2-level structure that predicts worse.
 
 ## Leaderboard
 
 <!-- BEGIN result-1 -->
 ![2-level EM](../fig_r3_2level_em.svg)
 
-Each line runs from a literature model's per-subject score (open circle, r1) to its 2-level EM score (filled) on the 149 held-out subjects. 2-level EM: Laplace-EM within each subject under study 13's hyperprior, EM to convergence (max_em = 100), held-out sessions scored by the session marginal over 2048 draws (MEvolve `6af7d58`). Dashed lines: 2-level HB (study 13) and the GRU at D≈614 (on its own held-out list). Models whose per-subject score is below 0.69 are written in grey, not drawn. * marks a model whose 2-level EM score falls below its per-subject score over all subjects (a failed Laplace fit; see the checks). One fit per subject and model, so no error bars.
+Each line runs from a literature model's per-subject score (open circle, r1) to its 2-level EM score (filled) on the 149 held-out subjects. 2-level EM: Laplace-EM within each subject under study 13's hyperprior, EM to convergence (max_em = 100), held-out sessions scored by the session marginal over 2048 draws (MEvolve `6af7d58`). Dashed lines: 2-level HB (study 13) and the GRU at D≈614 (on its own held-out list). Models whose per-subject score is below 0.69 are written in grey, not drawn. * marks a model whose 2-level EM score falls below its per-subject score over all subjects (see the checks). One fit per subject and model, so no error bars.
 
-Headline ranking: by the 2-level EM score, except that the 3 models whose 2-level fit failed (*) are placed by their per-subject score.
+Headline ranking: by the 2-level EM score, except that the 3 models whose 2-level score falls below their per-subject score (*) are placed by their per-subject score.
 
 | rank | literature model | family | headline (149) | 2-level EM | per subject | gain | 2-level EM, GRU's list (149) |
 |---:|---|---|---:|---:|---:|---:|---:|
@@ -92,7 +92,7 @@ Headline ranking: by the 2-level EM score, except that the 3 models whose 2-leve
 ## Checks (no 2-level HB reference for 17 models)
 
 <!-- BEGIN result-2 -->
-On all 763 subjects. Only CompareToThreshold and Hattori2019 have a 2-level HB reference (gate 1c); for the others these checks stand in. A 2-level EM score below the per-subject score would mark a failed Laplace fit.
+On all 763 subjects. Only CompareToThreshold and Hattori2019 have a 2-level HB reference (gate 1c); for the others these checks stand in. A 2-level EM score below the per-subject score is not by itself a failed fit: study 13's fixed prior on log σ keeps the session spread from shrinking to 0, so a 2-level model can predict worse. The share of subjects at the EM cap and the weight ESS tell a numerical failure apart.
 
 | 2-level EM model | median weight ESS | subjects at EM cap | 2-level EM − per subject (763) | subjects scoring below per subject |
 |---|---:|---:|---:|---:|
@@ -134,10 +134,12 @@ EM-Rescorla-Wagner: its epsilon-greedy likelihood is flat or stepped in some par
 - **The ranking reshuffles.** Models gain by different amounts. Bari2019 moves from 6th to 3rd and Hattori2019
   from 8th to 6th; Zid-HistoryKernel2 drops from 4th to 7th. Structure and session-level flexibility are
   not separable from one per-subject ranking.
-- **Three fits failed, and are flagged, not ranked as findings.** EM-Rescorla-Wagner (96% of subjects at the
-  EM cap; its stepped likelihood defeats the gradient-based per-session step), EM-LossCounting and
-  EM-Grossman-MetaLearning all score below their own per-subject fits, which a model with more freedom
-  should not do. Their 2-level EM values say nothing about the models themselves.
+- **Three models score below their own per-subject fits, and are placed by their per-subject score.**
+  A lower 2-level score is not by itself a failed fit: study 13's fixed prior on log σ keeps the session
+  spread away from 0, so a 2-level model can genuinely predict worse. EM-Rescorla-Wagner is a numerical
+  failure (96% of subjects at the EM cap; its stepped likelihood defeats the gradient-based per-session
+  step). EM-Grossman-MetaLearning (38% at the cap) and EM-LossCounting (36%; its weight ESS is at the
+  2,048-draw maximum) are open: either cause fits.
 - **Some gains are probably underestimates.** EM-ActorCritic (90% of subjects at the EM cap),
   EM-Eckstein-BI (81%) and EM-Zid-HistoryKernel2 (45%) often stopped before converging. Their scores still
   beat their per-subject fits, but a longer EM could raise them.

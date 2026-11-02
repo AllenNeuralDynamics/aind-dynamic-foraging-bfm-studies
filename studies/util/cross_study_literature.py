@@ -124,10 +124,10 @@ def two_level_em_per_subject(cohort: str | None = None) -> dict[str, dict[str, t
 def literature_headline_ranking() -> list[dict]:
     """Study 12 r3: the headline ranking of the literature models, best first.
 
-    By the 2-level EM score, except that a model whose 2-level fit failed (it scores below its own
-    per-subject fit) is placed by its per-subject score. Each entry: ``literature_model``, ``score``
+    By the 2-level EM score, except that a model whose 2-level score falls below its own per-subject
+    score is placed by its per-subject score. Each entry: ``literature_model``, ``score``
     (pooled held-out likelihood on the 149 held-out subjects) and ``source`` ("2-level EM" or
-    "per subject (2-level fit failed)"). ``literature_ranking()`` (r1) still decides eligibility.
+    "per subject (2-level score below per subject)"). ``literature_ranking()`` (r1) still decides eligibility.
     """
     rows = json.loads(HEADLINE_SOURCE.read_text())["rows"]
     return [{"literature_model": r["literature_model"], "score": r["headline_score"],

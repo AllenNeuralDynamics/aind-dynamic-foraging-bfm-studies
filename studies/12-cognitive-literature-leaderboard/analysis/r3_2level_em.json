@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_2level_em.py",
-    "produced_at_pt": "2026-11-02T12:21:28-08:00",
-    "studies_git_sha": "62ba646fb0a51167a22552e1ae46a80704982aa4",
+    "produced_at_pt": "2026-11-02T12:29:53-08:00",
+    "studies_git_sha": "3c81c2704145501ae9f93fdc90095ba2651d44fc",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.py",
-        "sha256": "33531ce6a94bcad47089884e6167cf71a7b2963c9edf671e335e8b667f0d3338"
+        "sha256": "47acbd52e4dbfd7e91c4ecbc5ecc0092b8a54a255d753ce2ff81ae7a069cf290"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -24,7 +24,7 @@
       },
       {
         "path": "studies/util/cross_study_literature.py",
-        "sha256": "e7a1d3606d5db03c4018a5fb298630cf0365a3de44c351966c6fc85b3ff2d525"
+        "sha256": "112514978d87c6d7fe15804ef570cbef9aa4de880ed7a75d8a5c5e95df52fb4e"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -50,7 +50,7 @@
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r1_leaderboard.json",
-        "sha256": "49c0b0a18c5cab3c9d30dc8bc125840d6e3c9126392a5b170f30ff7c967989e3"
+        "sha256": "87ea48bb2b22b897fd1572f96d2568548bfcae12fc633c4593ccbd5a9ffe12ad"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
@@ -72,7 +72,7 @@
     "outputs": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
-        "sha256": "f830446fbdc3d84a3b798a07a9f42a1dab52251cf8e7fd3c6b602e8a5eeaa798"
+        "sha256": "41fd4ad22d966520c888023285bef6de23c76d0a696126a8b6852dddf5b0a794"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/fig_r3_2level_em.svg",
@@ -80,11 +80,11 @@
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r3-2level-em.md#result-1",
-        "sha256": "d9891647b2902f3451dc3bc9d2bd13d61eae81e21c730078c5415c2a89ec2b28"
+        "sha256": "a6bc05b2f914c5b19b8250e7091d276122e6a570bb3b6b98bd2f022d8a63dd92"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r3-2level-em.md#result-2",
-        "sha256": "8c8290199a31ca92557fb3602923e1b57506b17cefb411d8fe857dfbcc9d72cb"
+        "sha256": "813bb488336724224cca9d6ce314534e7cf63266c34cedf9cf9ba2f367d7594b"
       }
     ]
   },
@@ -344,7 +344,7 @@
       "gain_all": -0.004462433773432473,
       "em_rank": 13,
       "headline_score": 0.7127228483556,
-      "headline_source": "per subject (2-level fit failed)"
+      "headline_source": "per subject (2-level score below per subject)"
     },
     {
       "literature_model": "FeedbackDependent-RL+Bias+CK1",
@@ -404,7 +404,7 @@
       "gain_all": -0.0034594087851699262,
       "em_rank": 16,
       "headline_score": 0.6697554164316181,
-      "headline_source": "per subject (2-level fit failed)"
+      "headline_source": "per subject (2-level score below per subject)"
     },
     {
       "literature_model": "ActorCritic",
@@ -484,7 +484,7 @@
       "gain_all": -0.08985761798107278,
       "em_rank": 19,
       "headline_score": 0.5421764395178231,
-      "headline_source": "per subject (2-level fit failed)"
+      "headline_source": "per subject (2-level score below per subject)"
     }
   ],
   "by_model": {
@@ -881,7 +881,7 @@
       "gain_all": -0.004462433773432473,
       "em_rank": 13,
       "headline_score": 0.7127228483556,
-      "headline_source": "per subject (2-level fit failed)",
+      "headline_source": "per subject (2-level score below per subject)",
       "summary": "Grossman-MetaLearning with session-to-session variation: each session's parameters vary around the subject's typical values (2-level EM). Learns a value for each side and lets the unchosen side decay; it also tracks how surprising outcomes usually are, and uses surprise to change its learning rate after bad outcomes and to damp learning when outcomes are noisy; logistic choice with a side bias.",
       "equations": "Notation: trial $t$; choice $c_t \\in \\{L, R\\}$; reward $r_t \\in \\{0, 1\\}$; signed choice $s_t = +1$ (right) or $-1$ (left); signed outcome $f_t = +1$ (rewarded) or $-1$ (unrewarded); $\\sigma(x) = 1/(1+e^{-x})$. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.\n\n**Update** (chosen side $c_t$, unchosen side $u$):\n\n$$\\begin{aligned} \\delta_t &= r_t - Q_t(c_t), \\qquad \\upsilon_t = |\\delta_t| - \\varepsilon_t \\\\ \\alpha^-_{t+1} &= \\begin{cases} \\max\\!\\big(0,\\; \\psi\\,(\\upsilon_t + \\alpha^-_0) + (1-\\psi)\\,\\alpha^-_t\\big) & \\delta_t < 0 \\\\ \\alpha^-_t & \\delta_t \\ge 0 \\end{cases} \\\\ Q_{t+1}(c_t) &= Q_t(c_t) + \\alpha_t\\,\\delta_t\\,(1 - \\varepsilon_t), \\qquad \\alpha_t = \\begin{cases} \\alpha^-_{t+1} & \\delta_t < 0 \\\\ \\alpha^+ & \\delta_t \\ge 0 \\end{cases} \\\\ Q_{t+1}(u) &= \\zeta\\,Q_t(u) \\\\ \\varepsilon_{t+1} &= \\varepsilon_t + \\alpha_v\\,\\upsilon_t \\end{aligned}$$\n\nInitial values $Q_0 = 0$, $\\varepsilon_0 = 0$, $\\alpha^-_{\\text{init}} = \\alpha^-_0$. $\\alpha^-$ is clipped at 0 but not at 1, and $\\varepsilon$ is not bounded, so $(1 - \\varepsilon_t)$ can turn negative.\n\n**Choice** (bias inside the inverse temperature):\n\n$$P(c_t = R) = \\sigma\\!\\big(\\beta\\,[Q_t(R) - Q_t(L) + b]\\big)$$\n\nIf the logit is not finite (the meta-learning state diverged), the code returns $P = 1/2$ so the optimizer can reject that parameter set.\n\n**Symbols and parameters:**\n\n- $Q_t(a)$: value; $\\varepsilon_t$: expected uncertainty; $\\upsilon_t$: unexpected uncertainty; $\\alpha^-_t$: current negative learning rate.\n- $\\alpha^+$ `learn_rate_rew`: learning rate when $\\delta \\ge 0$. Free, $[0, 1]$.\n- $\\alpha^-_0$ `learn_rate_unrew`: baseline negative learning rate. Free, $[0, 1]$.\n- $\\zeta$ `forgetting_factor`: retention of the unchosen value. Free, $[0, 1]$.\n- $\\alpha_v$ `expected_uncertainty_step_size`: Free, $[0, 1]$.\n- $\\psi$ `negative_learning_rate_step_size`: Free, $[0, 1]$.\n- $b$ `choice_bias`: right bias in value units (effective logit bias $\\beta b$). Free, $[-1, 1]$.\n- $\\beta$ `softmax_inverse_temperature`: Free, $[0, 10]$.\n\nDiffers from the paper: the original hierarchical Stan fit and its parameter-order constraint are not reproduced (per-subject MLE by differential evolution instead). Not checked against the paper: the clip of $\\alpha^-$ at 0, the non-finite fallback, and the bounds $b \\in [-1, 1]$, $\\beta \\le 10$.\n\n**2-level EM layer** (regime 2; the per-session model above is unchanged):\n\n$$x_{sk} \\sim \\mathcal{N}\\big(\\mu_s,\\ \\operatorname{diag}(\\sigma_s^2)\\big), \\qquad \\theta_{sk} = \\ell + (h - \\ell)\\,\\Phi(x_{sk}), \\qquad k = \\text{fit session of subject } s$$\n\nEach bounded parameter $\\theta$ with fit bounds $[\\ell, h]$ lives on a probit scale $x$ ($\\Phi$ the standard normal CDF, so $x \\sim \\mathcal{N}(0,1)$ is uniform on the bounds). Study 13's fixed hyperprior: $\\mu_s \\sim \\mathcal{N}(0, 1)$, $\\log \\sigma_s \\sim \\mathcal{N}(-1, 1)$. Fit by Laplace-EM (Huys et al. 2011), which integrates each session's parameters out: the E-step finds each fit session's best $x_{sk}$ and a Gaussian approximation of its uncertainty; the M-step updates $\\mu_s, \\sigma_s$; EM runs to convergence (at most 100 iterations). A held-out session $j$ is scored by the session marginal $p(c_j) = \\mathbb{E}_{x \\sim \\mathcal{N}(\\mu_s, \\sigma_s^2)}\\, p(c_j \\mid \\theta(x))$ over 2,048 draws. Implementation: MEvolve `mevolve.score` (ADR 0004).",
       "paper": {
@@ -895,8 +895,8 @@
       },
       "family_note": "",
       "fit_flag": {
-        "kind": "laplace_failed",
-        "reason": "2-level EM scores -0.0045 below the per-subject fit over all subjects (9% of subjects lower)"
+        "kind": "below_per_subject",
+        "reason": "2-level EM scores -0.0045 below the per-subject fit over all subjects (9% of subjects lower; 38% stopped at the EM cap): a numerical failure or a 2-level structure that predicts worse for this model"
       }
     },
     "EM-FeedbackDependent-RL+Bias+CK1": {
@@ -986,7 +986,7 @@
       "gain_all": -0.0034594087851699262,
       "em_rank": 16,
       "headline_score": 0.6697554164316181,
-      "headline_source": "per subject (2-level fit failed)",
+      "headline_source": "per subject (2-level score below per subject)",
       "summary": "LossCounting with session-to-session variation: each session's parameters vary around the subject's typical values (2-level EM). Counts consecutive unrewarded trials on the current side and switches sides once the count passes a threshold drawn from a normal distribution with a fitted mean and spread; a left bias is added directly to the choice probability.",
       "equations": "Notation: trial $t$; choice $c_t \\in \\{L, R\\}$; reward $r_t \\in \\{0, 1\\}$; signed choice $s_t = +1$ (right) or $-1$ (left); signed outcome $f_t = +1$ (rewarded) or $-1$ (unrewarded); $\\sigma(x) = 1/(1+e^{-x})$. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.\n\n**Update** (loss count $n$):\n\n$$n_{t+1} = \\begin{cases} 0 & r_t = 1 \\\\ 1 & r_t = 0 \\text{ and } (t = 0 \\text{ or } c_t \\ne c_{t-1}) \\\\ n_t + 1 & \\text{otherwise} \\end{cases}, \\qquad n_0 = 0$$\n\n**Choice** (switch probability from a normal CDF, then an additive bias on the probability):\n\n$$p^{sw}_t = \\Phi\\!\\left(\\frac{n_t - \\mu + 10^{-10}}{\\sigma + 10^{-16}}\\right), \\qquad \\tilde p_t(L) = \\begin{cases} 1 - p^{sw}_t & c_{t-1} = L \\\\ p^{sw}_t & c_{t-1} = R \\end{cases}$$\n\n$$P(c_t = L) = \\operatorname{clip}\\big(\\tilde p_t(L) + b_L,\\; 0,\\; 1\\big), \\qquad P(c_0 = L) = \\tfrac12 \\text{ (no bias on trial 0)}$$\n\nThe $10^{-10}$ makes the rule switch when $n_t \\ge \\mu$ for integer $\\mu$; the $10^{-16}$ keeps the CDF defined at $\\sigma = 0$, where the rule becomes deterministic. A probability clipped to 0 is floored at $10^{-16}$ in the likelihood.\n\n**Symbols and parameters:**\n\n- $n_t$: consecutive losses on the current side since the last reward or switch.\n- $\\mu$ `loss_count_threshold_mean`: Free, $[0, 10]$.\n- $\\sigma$ `loss_count_threshold_std`: Free, $[0, 10]$.\n- $b_L$ `biasL`: added to $P(L)$ itself, not to a logit. Free, $[-1, 1]$.\n- `win_stay_lose_switch = False` (the free form; the Win-Stay-Lose-Shift preset fixes $\\mu = 1$, $\\sigma = 0$).\n\nDiffers from the paper: no single source paper. Code choices worth knowing: the probability-scale bias with clipping (not comparable to logit biases in other models) and the count reset to 1 on a loss right after a switch.\n\n**2-level EM layer** (regime 2; the per-session model above is unchanged):\n\n$$x_{sk} \\sim \\mathcal{N}\\big(\\mu_s,\\ \\operatorname{diag}(\\sigma_s^2)\\big), \\qquad \\theta_{sk} = \\ell + (h - \\ell)\\,\\Phi(x_{sk}), \\qquad k = \\text{fit session of subject } s$$\n\nEach bounded parameter $\\theta$ with fit bounds $[\\ell, h]$ lives on a probit scale $x$ ($\\Phi$ the standard normal CDF, so $x \\sim \\mathcal{N}(0,1)$ is uniform on the bounds). Study 13's fixed hyperprior: $\\mu_s \\sim \\mathcal{N}(0, 1)$, $\\log \\sigma_s \\sim \\mathcal{N}(-1, 1)$. Fit by Laplace-EM (Huys et al. 2011), which integrates each session's parameters out: the E-step finds each fit session's best $x_{sk}$ and a Gaussian approximation of its uncertainty; the M-step updates $\\mu_s, \\sigma_s$; EM runs to convergence (at most 100 iterations). A held-out session $j$ is scored by the session marginal $p(c_j) = \\mathbb{E}_{x \\sim \\mathcal{N}(\\mu_s, \\sigma_s^2)}\\, p(c_j \\mid \\theta(x))$ over 2,048 draws. Implementation: MEvolve `mevolve.score` (ADR 0004).",
       "paper": {
@@ -1000,8 +1000,8 @@
       },
       "family_note": "Choice is defined as stay or switch relative to the last choice, so the rule uses choice history by construction.",
       "fit_flag": {
-        "kind": "laplace_failed",
-        "reason": "2-level EM scores -0.0035 below the per-subject fit over all subjects (53% of subjects lower)"
+        "kind": "below_per_subject",
+        "reason": "2-level EM scores -0.0035 below the per-subject fit over all subjects (53% of subjects lower; 36% stopped at the EM cap): a numerical failure or a 2-level structure that predicts worse for this model"
       }
     },
     "EM-ActorCritic": {
@@ -1125,7 +1125,7 @@
       "gain_all": -0.08985761798107278,
       "em_rank": 19,
       "headline_score": 0.5421764395178231,
-      "headline_source": "per subject (2-level fit failed)",
+      "headline_source": "per subject (2-level score below per subject)",
       "summary": "Rescorla-Wagner with session-to-session variation: each session's parameters vary around the subject's typical values (2-level EM). Learns a value for each side from reward with one learning rate; only the chosen side is updated and nothing is forgotten. Picks the higher-valued side most of the time and a random side with a fixed probability (epsilon-greedy).",
       "equations": "Notation: trial $t$; choice $c_t \\in \\{L, R\\}$; reward $r_t \\in \\{0, 1\\}$; signed choice $s_t = +1$ (right) or $-1$ (left); signed outcome $f_t = +1$ (rewarded) or $-1$ (unrewarded); $\\sigma(x) = 1/(1+e^{-x})$. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.\n\n**Update** (unchosen side unchanged):\n\n$$Q_{t+1}(c_t) = Q_t(c_t) + \\alpha\\,\\big(r_t - Q_t(c_t)\\big)$$\n\nInitial values $Q_0 = 0$.\n\n**Choice** (epsilon-greedy on bias-adjusted values $Q'_t(L) = Q_t(L) + b_L$, $Q'_t(R) = Q_t(R)$):\n\n$$P(c_t = a) = \\begin{cases} 1 - \\epsilon/2 & a = \\arg\\max Q'_t \\\\ \\epsilon/2 & \\text{otherwise} \\\\ 1/2 & \\text{if } Q'_t(L) = Q'_t(R) \\end{cases}$$\n\n**Symbols and parameters:**\n\n- $Q_t(a)$: value of side $a$.\n- $\\alpha$ `learn_rate`: Free, $[0, 1]$.\n- $\\epsilon$ `epsilon`: total probability of a random choice. Free, $[0, 1]$.\n- $b_L$ `biasL`: added to the left value (not a logit). Free, $[-5, 5]$. Trial 0 is $1/2$ only if $b_L = 0$.\n\nFitting note: the likelihood is piecewise constant in $\\alpha$ and $b_L$ (only the sign of $Q'_t(L) - Q'_t(R)$ matters), so differential evolution works but the gradient polish step cannot improve those two.\n\nDiffers from the paper: the 1972 rule is an update rule only; the epsilon-greedy choice rule and the left bias are additions (the preset describes it as the model discussed in Sutton & Barto). Not checked: none further.\n\n**2-level EM layer** (regime 2; the per-session model above is unchanged):\n\n$$x_{sk} \\sim \\mathcal{N}\\big(\\mu_s,\\ \\operatorname{diag}(\\sigma_s^2)\\big), \\qquad \\theta_{sk} = \\ell + (h - \\ell)\\,\\Phi(x_{sk}), \\qquad k = \\text{fit session of subject } s$$\n\nEach bounded parameter $\\theta$ with fit bounds $[\\ell, h]$ lives on a probit scale $x$ ($\\Phi$ the standard normal CDF, so $x \\sim \\mathcal{N}(0,1)$ is uniform on the bounds). Study 13's fixed hyperprior: $\\mu_s \\sim \\mathcal{N}(0, 1)$, $\\log \\sigma_s \\sim \\mathcal{N}(-1, 1)$. Fit by Laplace-EM (Huys et al. 2011), which integrates each session's parameters out: the E-step finds each fit session's best $x_{sk}$ and a Gaussian approximation of its uncertainty; the M-step updates $\\mu_s, \\sigma_s$; EM runs to convergence (at most 100 iterations). A held-out session $j$ is scored by the session marginal $p(c_j) = \\mathbb{E}_{x \\sim \\mathcal{N}(\\mu_s, \\sigma_s^2)}\\, p(c_j \\mid \\theta(x))$ over 2,048 draws. Implementation: MEvolve `mevolve.score` (ADR 0004).",
       "paper": {
@@ -1139,8 +1139,8 @@
       },
       "family_note": "",
       "fit_flag": {
-        "kind": "laplace_failed",
-        "reason": "2-level EM scores -0.0899 below the per-subject fit over all subjects (58% of subjects lower)"
+        "kind": "below_per_subject",
+        "reason": "2-level EM scores -0.0899 below the per-subject fit over all subjects (58% of subjects lower; 96% stopped at the EM cap): a numerical failure or a 2-level structure that predicts worse for this model"
       }
     }
   }

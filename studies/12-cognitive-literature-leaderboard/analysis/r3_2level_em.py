@@ -106,15 +106,15 @@ def compute() -> dict:
         row["gain_heldout"] = row["pooled_heldout"] - row["pooled_heldout_per_subject"]
         row["gain_all"] = row["pooled_all"] - row["pooled_all_per_subject"]
         rows.append(row)
-    # The headline ranking (Han, 2026-11-02): 2-level EM, except that a model whose 2-level fit failed
-    # (it scores below its own per-subject fit) is placed by its per-subject score. em_rank keeps the
+    # The headline ranking (Han, 2026-11-02): 2-level EM, except that a model whose 2-level score falls
+    # below its own per-subject score (pooled over all subjects) is placed by its per-subject score. em_rank keeps the
     # pure 2-level EM order.
     rows.sort(key=lambda r: -r["pooled_heldout"])
     for i, row in enumerate(rows, 1):
         failed = row["gain_all"] < 0
         row["em_rank"] = i
         row["headline_score"] = row["pooled_heldout_per_subject"] if failed else row["pooled_heldout"]
-        row["headline_source"] = "per subject (2-level fit failed)" if failed else "2-level EM"
+        row["headline_source"] = "per subject (2-level score below per subject)" if failed else "2-level EM"
     rows.sort(key=lambda r: -r["headline_score"])
     return {"n_models": len(rows), "n_subjects": rows[0]["n_subjects"],
             "n_heldout": rows[0]["n_heldout"], "n_gru_list": len(gru_list),
@@ -169,10 +169,10 @@ def render(r: dict) -> str:
         f"`{r['mevolve_git_sha'][:7]}`). Dashed lines: 2-level HB (study 13) and the GRU at D≈614 "
         f"(on its own held-out list). Models whose per-subject score is below {AXIS_FLOOR} are written "
         f"in grey, not drawn. * marks a model whose 2-level EM score falls below its per-subject score over "
-        f"all subjects (a failed Laplace fit; see the checks). One fit per subject and model, so no error bars.",
+        f"all subjects (see the checks). One fit per subject and model, so no error bars.",
         "",
         f"Headline ranking: by the 2-level EM score, except that the {sum(row['headline_source'] != '2-level EM' for row in r['rows'])} "
-        f"models whose 2-level fit failed (*) are placed by their per-subject score.",
+        f"models whose 2-level score falls below their per-subject score (*) are placed by their per-subject score.",
         "",
         f"| rank | literature model | family | headline ({r['n_heldout']}) | 2-level EM | per subject | gain "
         f"| 2-level EM, GRU's list ({r['n_gru_list']}) |",
@@ -198,7 +198,9 @@ def render(r: dict) -> str:
 def render_checks(r: dict) -> str:
     lines = [f"On all {r['n_subjects']} subjects. Only CompareToThreshold and Hattori2019 have a 2-level HB "
              "reference (gate 1c); for the others these checks stand in. A 2-level EM score below the "
-             "per-subject score would mark a failed Laplace fit.",
+             "per-subject score is not by itself a failed fit: study 13's fixed prior on log σ keeps the "
+             "session spread from shrinking to 0, so a 2-level model can predict worse. The share of subjects "
+             "at the EM cap and the weight ESS tell a numerical failure apart.",
              "",
              f"| 2-level EM model | median weight ESS | subjects at EM cap | 2-level EM − per subject "
              f"({r['n_subjects']}) | subjects scoring below per subject |",
@@ -216,14 +218,18 @@ def render_checks(r: dict) -> str:
 def _fit_flag(row: dict) -> dict | None:
     """Whether to distrust a model's 2-level EM score, and why (the atlas shows it as is).
 
-    laplace_failed: pooled over all subjects, 2-level EM scores below the same model's per-subject
-    fit, which adds flexibility and so should not lose; caveat: a likelihood the gradient-based
-    per-session step cannot fit reliably (Rescorla-Wagner's epsilon-greedy choice).
+    below_per_subject: pooled over all subjects, 2-level EM scores below the same model's per-subject
+    fit. That is a numerical failure (EM not converging, a likelihood the gradient-based per-session
+    step cannot fit) or a 2-level structure that predicts worse for this model (study 13's prior on
+    log sigma keeps the session spread away from 0); the reason gives the share at the EM cap to help
+    tell them apart. caveat: Rescorla-Wagner's stepped (epsilon-greedy) likelihood.
     """
     if row["gain_all"] < 0:
-        return {"kind": "laplace_failed",
+        return {"kind": "below_per_subject",
                 "reason": f"2-level EM scores {row['gain_all']:+.4f} below the per-subject fit over all "
-                          f"subjects ({row['share_below_per_subject']:.0%} of subjects lower)"}
+                          f"subjects ({row['share_below_per_subject']:.0%} of subjects lower; "
+                          f"{row['share_at_em_cap']:.0%} stopped at the EM cap): a numerical failure or a "
+                          "2-level structure that predicts worse for this model"}
     if row["literature_model"] == "Rescorla-Wagner":
         return {"kind": "caveat", "reason": "epsilon-greedy likelihood is stepped, so the gradient-based "
                                             "per-session step can report convergence while poorly fitted"}
