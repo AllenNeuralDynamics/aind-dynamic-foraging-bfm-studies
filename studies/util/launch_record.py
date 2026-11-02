@@ -462,9 +462,10 @@ def _manifest_keys(name: str, text: str) -> dict[str, Any]:
         return _flatten(yaml.safe_load(text) or {})
     keys: dict[str, Any] = {"script": text}
     for token in text.split():
+        token = token.strip("'\"")             # a quoted override is still an override
         m = _OVERRIDE.match(token)
-        if m:
-            keys[f"script.={m[1]}"] = token
+        if m:                                   # a repeated key keeps every value, in order
+            keys[f"script.={m[1]}"] = keys.get(f"script.={m[1]}", ()) + (token,)
     return keys
 
 

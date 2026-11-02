@@ -490,6 +490,15 @@ class WriteInitialTests(unittest.TestCase):
                                    manifests=["train.sbatch"],
                                    trigger={"symptom": "killed at time limit", "cause": "node drained"})
 
+    def test_quoted_or_repeated_step_overrides_are_seen(self):
+        from launch_record import _manifest_keys
+        base = _manifest_keys("a.sbatch", "run.py model.training.n_steps=60000\n")
+        quoted = _manifest_keys("a.sbatch", "run.py 'model.training.n_steps=120000'\n")
+        repeated = _manifest_keys("a.sbatch", "run.py model.training.n_steps=60000 model.training.n_steps=120000\n")
+        key = "script.=model.training.n_steps"
+        self.assertNotEqual(base[key], quoted[key])
+        self.assertNotEqual(base[key], repeated[key])
+
     def test_after_launch_record_needs_only_the_committed_manifest(self):
         (self.variant / "score.sbatch").unlink()            # moved away after the submission
         rec = self.write("moved/hpc_initial.json")
