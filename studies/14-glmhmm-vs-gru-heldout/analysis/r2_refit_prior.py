@@ -60,9 +60,12 @@ def gru_d614():
     return out
 
 
-def arm_label(centre, sigma, c):
-    """A short name for one prior setting."""
-    trans = "transitions free" if c is None else f"transitions c = {c:g}"
+def arm_label(centre, sigma, c, K=None):
+    """A short name for one prior setting (at K = 1 the transition matrix is fixed at 1)."""
+    if K == 1:
+        trans = "transitions fixed (K = 1)"
+    else:
+        trans = "transitions free" if c is None else f"transitions c = {c:g}"
     return f"weights → {centre}, σ = {sigma:g}; {trans}"
 
 
@@ -170,7 +173,8 @@ def fig_grid(cands, path):
             for i in range(len(SIGMAS)):
                 for j in range(len(STRENGTHS)):
                     if np.isfinite(M[i, j]):
-                        ax.text(j, i, fs.num(M[i, j], ".1f"), ha="center", va="center", fontsize=5,
+                        shown = round(M[i, j], 1) + 0.0   # + 0.0 turns -0.0 into 0.0
+                        ax.text(j, i, fs.num(shown, ".1f"), ha="center", va="center", fontsize=5,
                                 color="white" if M[i, j] < -1.5 else "black")
             ax.set_xticks(range(len(STRENGTHS)), ["free" if c is None else f"{c:g}" for c in STRENGTHS])
             ax.set_yticks(range(len(SIGMAS)), [f"{s:g}" for s in SIGMAS])
@@ -193,7 +197,7 @@ def block_selection(selected, by_k, round1, missing):
     for e in EMISSIONS:
         sel = selected[e]
         r1_pick = max(round1[e], key=lambda K: round1[e][K]["select"])
-        lines += [f"**{e}: the rule picks K = {sel['K']}, {arm_label(sel['centre'], sel['sigma'], sel['c'])}** "
+        lines += [f"**{e}: the rule picks K = {sel['K']}, {arm_label(sel['centre'], sel['sigma'], sel['c'], sel['K'])}** "
                   f"(selection score {f4(sel['select'])}; round 1 picked K = {r1_pick}, "
                   f"{f4(round1[e][r1_pick]['select'])}).", "",
                   "| K | best prior (by selection score) | selection | − round 1 (×1000) | global fit only |",
@@ -201,7 +205,7 @@ def block_selection(selected, by_k, round1, missing):
         for K in sorted(by_k[e]):
             b = by_k[e][K]
             mark = "**" if K == sel["K"] else ""
-            lines.append(f"| {mark}{K}{mark} | {arm_label(b['centre'], b['sigma'], b['c'])} | {f4(b['select'])} | "
+            lines.append(f"| {mark}{K}{mark} | {arm_label(b['centre'], b['sigma'], b['c'], K)} | {f4(b['select'])} | "
                          f"{signed(b['select'] - round1[e][K]['select'])} | {f4(round1[e][K]['global_same_mice'])} |")
         lines.append("")
     lines += ["![scores](../fig_r2_scores.svg)", "", "Selection score over the prior grid at K = 3, 6 and 10, "

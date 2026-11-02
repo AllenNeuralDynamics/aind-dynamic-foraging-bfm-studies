@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1
+all: r1 r2
 
 # r1 = GLM-HMM round 1: held-out score vs K, and what the states are
 .PHONY: r1
