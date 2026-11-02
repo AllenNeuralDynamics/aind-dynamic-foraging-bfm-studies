@@ -17,3 +17,13 @@ freeze-fits:
 .PHONY: r1
 r1:
 	$(PY) analysis/r1_leaderboard.py
+
+# r2 = CompareToThreshold in stay-credit coordinates vs the original
+.PHONY: r2
+r2:
+	$(PY) analysis/r2_ctt_credit.py
+
+# r3 = Literature models at the session level (Laplace-EM, regime 2)
+.PHONY: r3
+r3:
+	$(PY) analysis/r3_session_level.py
