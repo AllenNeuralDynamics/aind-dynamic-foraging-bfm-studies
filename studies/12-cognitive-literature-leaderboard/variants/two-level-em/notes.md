@@ -20,4 +20,23 @@ digest and SLURM job id. The group name `two-level-em@<launch_id>` identifies it
 the per-session Laplace step uses gradients, so EM-Rescorla-Wagner can report "converged" while
 poorly fitted (MEvolve Phase 1). Gate 1c covered only CompareToThreshold and Hattori2019.
 
-**Status.** First launch: Hattori2019 alone on all 763 subjects, to measure cost.
+## Launch facts (until the MEvolve launch-record writer lands)
+
+The studies launch-record v2 schema cannot yet name a MEvolve SHA; the MEvolve PM session is adding
+an optional `mevolve` revision and `write_initial()` (study 40 PLAN build step 5). These facts are
+kept here and will be written as v2 records, marked as written after launch.
+
+| | cost run |
+|---|---|
+| label | `cost-hattori` |
+| note | Study 12 r3 cost run: Hattori2019 as 2-level EM on all 763 subjects with MEvolve's reported settings, to measure wall time before the other 18 ranked models. |
+| W&B group (identity; no W&B runs) | `two-level-em@20261102-003154` |
+| SLURM job | 27567407 (one exclusive 6238R node, 56 workers), submitted 2026-11-02 00:31 PST |
+| MEvolve | `6af7d58a0a2dadb4d4eec7ab72108c6350e8dfbe` (clean detached worktree) |
+| studies | `b1816eee09b59316c8cd2b9626c6cfb40095c31a` |
+| data freeze | `/allen/aind/scratch/han.hou/mevolve/freeze/20260603`, manifest sha256 `cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0` |
+| env | `/allen/aind/scratch/han.hou/miniforge3/envs/mevolve` |
+| output | `/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-003154/` |
+| command | `sbatch --export=ALL,MEVOLVE_ROOT=<worktree>,OUT=<output>,MODELS="Hattori2019" -J s12-2level -o <output>/slurm-%j.out run_2level.sbatch` → `python -m mevolve.score --model Hattori2019 --pool all --freeze <freeze> --out <output> --workers 56` (defaults max_em 100, n_draws 2048, seed 0) |
+
+**Status.** Cost run (Hattori2019, all 763 subjects) running since 2026-11-02 00:32 PST.
