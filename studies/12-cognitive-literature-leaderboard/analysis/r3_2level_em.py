@@ -119,7 +119,7 @@ def compute() -> dict:
 def figure(r: dict) -> None:
     rows = r["rows"][::-1]                       # best at the top
     y = list(range(len(rows)))
-    fig, ax = plt.subplots(figsize=fs.mm(120, 22 + 4.2 * len(rows)))
+    fig, ax = plt.subplots(figsize=fs.mm(140, 22 + 4.2 * len(rows)))
     ref = r["reference"]
     on = [row for row in rows if row["pooled_heldout_per_subject"] >= AXIS_FLOOR]
     lo = min([row["pooled_heldout_per_subject"] for row in on] + [ref["hb_hattori"]]) - 0.002
@@ -140,7 +140,8 @@ def figure(r: dict) -> None:
                                (ref["hb_ctt"], "2-level HB CTT (study 13)", fs.OKABE_ITO["vermillion"]),
                                (ref["gru_d614_own_list"], "GRU D≈614 (study 01)", fs.OKABE_ITO["blue"])]:
         ax.axvline(value, color=color, lw=0.8, ls="--", zorder=0, label=name)
-    ax.set_yticks(y, [row["label"] for row in rows])
+    ax.set_ylim(-0.8, len(rows) - 0.4)
+    ax.set_yticks(y, [row["label"] + (" *" if row["gain_all"] < 0 else "") for row in rows])
     ax.set_xlabel(f"Pooled held-out likelihood ({r['n_heldout']} subjects)")
     fig.legend(*ax.get_legend_handles_labels(), loc="outside upper center", ncol=2, frameon=False,
                handlelength=1.5)
@@ -158,7 +159,8 @@ def render(r: dict) -> str:
         f"sessions scored by the session marginal over {s['n_draws']} draws (MEvolve "
         f"`{r['mevolve_git_sha'][:7]}`). Dashed lines: 2-level HB (study 13) and the GRU at D≈614 "
         f"(on its own held-out list). Models whose per-subject score is below {AXIS_FLOOR} are written "
-        f"in grey, not drawn. One fit per subject and model, so no error bars.",
+        f"in grey, not drawn. * marks a model whose 2-level EM score falls below its per-subject score over "
+        f"all subjects (a failed Laplace fit; see the checks). One fit per subject and model, so no error bars.",
         "",
         f"| rank | 2-level EM model | family | held-out ({r['n_heldout']}) | per subject | gain "
         f"| GRU's list ({r['n_gru_list']}) |",
