@@ -352,6 +352,8 @@ def write_initial(
         raise ValueError("data and image are required: what the run read and the environment it ran in (studies#25)")
 
     path = Path(path).resolve()
+    if path.exists():
+        raise ValueError(f"{path} already exists; a launch record is never overwritten")
     launch_dir = _launch_record_root(path)
     variant_dir = launch_dir.parent
     if wandb_group.split("@")[0] != variant_dir.name:
@@ -362,14 +364,17 @@ def write_initial(
         pass
     else:
         raise ValueError(f"{wandb_group} already has an initial launch record; a later action is an intervention")
+    if (image or {}).get("platform") != platform:
+        raise ValueError(f"image describes {(image or {}).get('platform')!r}, but the launch ran on {platform!r}")
     if not manifests:
         raise ValueError("manifests is empty; a record must name what it submitted")
+    snapshots = {}
     for m in manifests:
+        if Path(m).suffix == ".json":   # a JSON snapshot in launch_record/ would read as a record
+            raise ValueError(f"manifest {m} is JSON; submit YAML or a script, which cannot be "
+                             "mistaken for a launch record")
         if not (variant_dir / m).exists():
             raise ValueError(f"manifest {m} not found in {variant_dir}; commit it beside the record")
-    # snapshot each manifest beside the record, as the dispatcher launchers do, so a later
-    # intervention compares against what was submitted even if the variant's copy changes
-    for m in manifests:
         if recorded_after_launch:      # the working copy may have changed since the submission
             text = _text_at_commit(variant_dir / m, revisions["studies"])
             if text is None:
@@ -382,8 +387,7 @@ def write_initial(
             raise ValueError(f"{snap} already holds a different manifest; write each launch's record "
                              "in its own subdirectory of launch_record/")
         if snap != (variant_dir / m).resolve():
-            path.parent.mkdir(parents=True, exist_ok=True)
-            snap.write_text(text)
+            snapshots[snap] = text
 
     meta = build_meta(produced_by, [wandb_group], study_root=study_root)
     record = {
@@ -402,7 +406,18 @@ def write_initial(
         "data": dict(data),
         "image": dict(image),
     }
+    from jsonschema import Draft202012Validator   # dev requirement, as for scripts/check_provenance.py
+    schema = json.loads((Path(__file__).resolve().parents[2] / "schemas" / "launch-record.v2.schema.json").read_text())
+    errors = sorted(f"{'/'.join(map(str, e.absolute_path)) or '<record>'}: {e.message}"
+                    for e in Draft202012Validator(schema).iter_errors(record))
+    if errors:
+        raise ValueError("the record does not match schemas/launch-record.v2.schema.json: " + "; ".join(errors))
+    # snapshot each manifest beside the record, as the dispatcher launchers do, so a later
+    # intervention compares against what was submitted even if the variant's copy changes;
+    # written only once the record is known to be valid
     path.parent.mkdir(parents=True, exist_ok=True)
+    for snap, text in snapshots.items():
+        snap.write_text(text)
     path.write_text(json.dumps(record, indent=2) + "\n")
     return record
 

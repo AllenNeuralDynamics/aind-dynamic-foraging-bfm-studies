@@ -418,6 +418,20 @@ class WriteInitialTests(unittest.TestCase):
                        job_refs=[{"type": "beaker_experiment", "id": "01K"}])
         with self.assertRaisesRegex(ValueError, "data and image"):
             self.write("d.json", wandb_group="two-level-em@20261102-010000", image=None)
+        with self.assertRaisesRegex(ValueError, "already exists"):      # never overwritten, any group
+            self.write("hpc_initial.json", wandb_group="two-level-em@20261102-010000")
+        with self.assertRaisesRegex(ValueError, "data/uri|manifest_sha256|uri"):
+            self.write("f/x.json", wandb_group="two-level-em@20261102-010000",
+                       data={"source": "freeze", "config": "mice_snapshot_scaling", "snapshot": "20260603"})
+        self.assertFalse((self.lr / "f").exists())                      # nothing written on a refusal
+        with self.assertRaisesRegex(ValueError, "wandb_group"):
+            self.write("n/x.json", wandb_group="two-level-em@")
+        with self.assertRaisesRegex(ValueError, "image describes"):
+            self.write("i/x.json", wandb_group="two-level-em@20261102-010000",
+                       image={"platform": "beaker", "name": "x", "id": "01K"})
+        (self.variant / "spec.json").write_text("[]")
+        with self.assertRaisesRegex(ValueError, "is JSON"):
+            self.write("j/x.json", wandb_group="two-level-em@20261102-010000", manifests=["spec.json"])
         (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Bari2019\n")
         with self.assertRaisesRegex(ValueError, "own subdirectory"):
             self.write("bari.json", wandb_group="two-level-em@20261102-020000", recorded_after_launch=False)
