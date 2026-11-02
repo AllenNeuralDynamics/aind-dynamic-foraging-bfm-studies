@@ -31,14 +31,18 @@ from _meta import build_meta, write_artifact  # noqa: E402
 FITS = HERE / "ctt_credit_fits.csv"
 RUNS = HERE / "ctt_credit_fits.json"
 R1_FITS = HERE / "per_subject_fits.csv"
-WANDB_GROUPS = json.loads(RUNS.read_text())["_meta"]["wandb_groups"]   # pinned in the freeze
+R1_RUNS = HERE / "per_subject_fits.json"
+# Pinned in the freezes: the ctt-credit group, and the r1 group that fit the reference CTT row.
+WANDB_GROUPS = json.loads(RUNS.read_text())["_meta"]["wandb_groups"] + sorted(
+    {run["wandb_group"] for run in json.loads(R1_RUNS.read_text())["runs"]
+     if run["literature_model"] == "CompareToThreshold"})
 REPORT = HERE / "reports" / "r2-ctt-credit.md"
 FIG = HERE / "fig_r2_ctt_credit.svg"
 CREDIT, CTT, CTT_R1 = "CompareToThreshold-credit", "CompareToThreshold", "CompareToThreshold (r1)"
 THETA_MIN, CREDIT_BOUND = -1.0, 20.0   # CompareToThreshold's lower θ bound; the credits' |bound|
 BOUND_TOL = 1e-6   # θ within this of −1: the optimizer stopped on the bound
 NEAR_BOUND = -0.95  # θ below this is "near the bound" in the text
-TOL = 1e-4         # agreement that counts as the same fit (per trial, and per parameter)
+TOL = 1e-4         # nat per trial (0.1 mnat): agreement that counts as the same fit
 
 
 def _load(path: Path, models: dict[str, str]) -> dict:
@@ -204,7 +208,7 @@ def render(r: dict) -> str:
                      f"| {row['pooled_fit_all']:.5f} |")
     lines += [
         "",
-        "| subjects | n (of them test) | fit gain, median [IQR] | fit gain > 1e-4 | held-out gain, median [IQR] | held-out up / down |",
+        f"| subjects | n (of them test) | fit gain (mnat/trial), median [IQR] | fit gain > {1e3 * r['tol']:g} mnat/trial | held-out gain (mnat/trial), median [IQR] | held-out up / down |",
         "|---|---|---|---|---|---|"]
     for name, s in (("θ at −1 bound", sb), ("θ inside", sn)):
         lines.append(f"| {name} | {s['n']} ({s['n_heldout']}) | {iqr(s['d_fit'])} | {s['n_fit_gain']} "
@@ -213,8 +217,8 @@ def render(r: dict) -> str:
         "",
         f"**Checks.** At the bound means θ within {r['bound_tol']:g} of −1. Inside the bound "
         f"({sn['n']} subjects) the two forms reach the same likelihood: the 99th percentile of "
-        f"|fit difference| is {eq['p99_abs_d_fit']:.1e} per trial. {len(eq['n_d_fit_above_tol'])} "
-        f"subjects differ by more than {r['tol']:g}, all with θ below {fs.num(NEAR_BOUND, 'g')} and all "
+        f"|fit difference| is {eq['p99_abs_d_fit']:.1e} nat per trial. {len(eq['n_d_fit_above_tol'])} "
+        f"subjects differ by more than {1e3 * r['tol']:g} mnat/trial, all with θ below {fs.num(NEAR_BOUND, 'g')} and all "
         "in the credit form's favour: " + ", ".join(f"{x['subject_id']} (θ = {fs.num(x['theta'], '.3f')}, fit "
                                       f"{mn(x['d_fit'])}, held-out {mn(x['d_eval'])} mnat/trial)"
                                       for x in eq["n_d_fit_above_tol"]) + ". "
@@ -222,15 +226,15 @@ def render(r: dict) -> str:
         f"percentiles of |c_win − β(1 − θ)| {eq['p99_abs_d_credit_win']:.3f}, |c_loss + βθ| "
         f"{eq['p99_abs_d_credit_loss']:.3f}, learning rate {eq['p99_abs_d_learn_rate']:.1e}, bias "
         f"{eq['p99_abs_d_biasL']:.1e}. The credit form fits worse than CTT by more than "
-        f"{r['tol']:g} per trial on {r['n_fit_worse']} subjects. No credit reaches its ±20 bound "
+        f"{1e3 * r['tol']:g} mnat per trial on {r['n_fit_worse']} subjects. No credit reaches its ±20 bound "
         f"({r['n_credit_at_bound']} subjects), no CTT fit reaches θ = +1 "
         f"({r['n_theta_upper_bound']}), and no credit fit implies β < 0 ({r['n_negative_beta']}). "
         f"At the bound, the credit fits imply θ of median {fs.num(th['median'], '.2f')} "
         f"(range {fs.num(th['min'], '.2f')} to {fs.num(th['max'], '.2f')}).",
         "",
         f"**Same-launch CTT (foraging-models v0.29.0) against r1's CTT (v0.26.0).** The largest "
-        f"per-subject held-out difference is {rv['max_abs_d_eval']:.1e} per trial "
-        f"({rv['n_above_tol']} subjects above {r['tol']:g}); the pooled scores agree to five "
+        f"per-subject held-out difference is {rv['max_abs_d_eval']:.1e} nat per trial "
+        f"({rv['n_above_tol']} subjects above {1e3 * r['tol']:g} mnat); the pooled scores agree to five "
         f"decimals (table). {len(rv['bound_flips'])} subjects sit on the bound in one fit and just "
         "inside it in the other, the search stopping at slightly different points: "
         + ", ".join(f"{f['subject_id']} (θ = {fs.num(f['theta'], '.3f')})" for f in rv["bound_flips"])
@@ -252,7 +256,7 @@ def main() -> None:
     REPORT.write_text(_rewrite(REPORT.read_text(), "result-1", render(result)))
     del result["_per"]
     meta = build_meta("analysis/r2_ctt_credit.py", WANDB_GROUPS, study_root=HERE.parent,
-                      code=[__file__], inputs=[FITS, RUNS, R1_FITS])
+                      code=[__file__], inputs=[FITS, RUNS, R1_FITS, R1_RUNS])
     write_artifact(HERE / "r2_ctt_credit.json", {"_meta": meta, **result},
                    outputs=[FIG, f"{REPORT}#result-1"])
 

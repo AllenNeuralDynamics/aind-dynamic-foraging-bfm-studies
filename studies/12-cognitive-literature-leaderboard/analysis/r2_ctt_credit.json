@@ -3,30 +3,34 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_ctt_credit.py",
-    "produced_at_pt": "2026-11-02T15:18:56-08:00",
-    "studies_git_sha": "66ec11a794993993b93051af83ad8bf21d398787",
+    "produced_at_pt": "2026-11-02T15:23:44-08:00",
+    "studies_git_sha": "0d0f36402e802d7c37998a8314975481fc62105c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
-      "ctt-credit@20261102-132626"
+      "ctt-credit@20261102-132626",
+      "per-subject-de@20261101-012148"
     ],
     "source_studies_git_shas": [
-      "9da9390db5225409dffbc71e9ae8bbf76fd258a3"
+      "9da9390db5225409dffbc71e9ae8bbf76fd258a3",
+      "fab284da138461ef71c7a0d9f42fc4496f31afca"
     ],
     "source_dispatcher_git_shas": [
-      "3b2197d30196881e1f30c41ee3dc512f3aa5dcde"
+      "3b2197d30196881e1f30c41ee3dc512f3aa5dcde",
+      "6450af3c1505abf7806af4e46a62a48df56c75ac"
     ],
     "source_wrapper_git_shas": [
       "331d373c128682c2d8f766e344f9ba05f228d5cf"
     ],
     "source_foraging_models_git_shas": [
+      "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112",
       "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
     ],
     "provenance_findings": [],
     "code": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r2_ctt_credit.py",
-        "sha256": "4dfbb14d6a936454bfb6f8a96c1f7211bceef7671678c515eafedaf547d97b3f"
+        "sha256": "250b832b4a37d301f4e441504ee5792f0983a4de22db0a21fbe3584595c72489"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -49,6 +53,10 @@
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
         "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.json",
+        "sha256": "18dc0ef653bc427c606853f173d57e367e3d1be4731570bbbd153e8c4224ebdc"
       }
     ],
     "outputs": [
@@ -62,7 +70,7 @@
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r2-ctt-credit.md#result-1",
-        "sha256": "4b7df69426810238846eb74005a4b3c805d44f99c6edfcd352524e358914a0cd"
+        "sha256": "3f8af783d42aff1af9fc1fa58949b5574a635441893eb93b58c00e78877aeed3"
       }
     ]
   },
