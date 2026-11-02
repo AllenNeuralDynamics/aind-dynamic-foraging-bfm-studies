@@ -58,7 +58,7 @@ re-pool them over any subset of the 763, including the GRU's own test list (`gru
 | regime | what | report | status |
 |---|---|---|---|
 | 1, per subject | one parameter set per subject (this variant) | r1 | in progress |
-| 2, session level | each session's parameters partially pooled toward the subject's typical values (no population level); held-out sessions scored by the session marginal, as in study 13; all 17 presets on all 763 subjects. Fit by Laplace-EM with study 13's hyperprior and scored over 2,048 draws, as MEvolve's [ADR 0004](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/pull/11) records | r3 | planned: computed with [MEvolve](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve)'s evaluator after its gate 1c passes, so the literature models and study 40's programs share one evaluator |
+| 2, 2-level EM (session → subject) | each session's parameters partially pooled toward the subject's typical values (no population level); held-out sessions scored by the session marginal, as in study 13; all 17 presets on all 763 subjects. Fit by Laplace-EM with study 13's hyperprior and scored over 2,048 draws, as MEvolve's [ADR 0004](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/pull/11) records | r3 | planned: computed with [MEvolve](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve)'s evaluator after its gate 1c passes, so the literature models and study 40's programs share one evaluator |
 
 Study 40's requirements (issue #73, decision records 0005 to 0007) set the regime 2 design.
 

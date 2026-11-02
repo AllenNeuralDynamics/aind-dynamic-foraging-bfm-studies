@@ -23,7 +23,7 @@ r1:
 r2:
 	$(PY) analysis/r2_ctt_credit.py
 
-# r3 = Literature models at the session level (Laplace-EM, regime 2)
+# r3 = Literature models as 2-level EM (session → subject, Laplace-EM; regime 2)
 .PHONY: r3
 r3:
-	$(PY) analysis/r3_session_level.py
+	$(PY) analysis/r3_2level_em.py
