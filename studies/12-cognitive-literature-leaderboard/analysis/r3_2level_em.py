@@ -230,9 +230,10 @@ def main() -> None:
     figure(result)
     text = _rewrite(REPORT.read_text(), "result-1", render(result))
     REPORT.write_text(_rewrite(text, "result-2", render_checks(result)))
-    # Atlas leaderboard fields (same contract as r1's by_model: family and summary required;
-    # rank an int; pooled_heldout finite): the r1 model card plus the 2-level layer. Renaming any
-    # of these fails the atlas build; tell the atlas session first.
+    # Atlas leaderboard fields (atlas PR 43, a twin overlay on r1's panel): family and summary
+    # required, rank an int, pooled_heldout finite, literature_model equal to a ranked r1 by_model
+    # key (a missing twin fails the build), fit_flag null or {kind, reason}; plus the report's
+    # result-1 block. Renaming any of these fails the atlas build; tell the atlas session first.
     cards = json.loads(R1.read_text())["by_model"]
     result["by_model"] = {}
     for i, row in enumerate(result["rows"], 1):

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_2level_em.py",
-    "produced_at_pt": "2026-11-02T04:00:31-08:00",
-    "studies_git_sha": "c2515dc3c7c3d17e8a6d8cae79b8479b8bb5d0ac",
+    "produced_at_pt": "2026-11-02T07:52:31-08:00",
+    "studies_git_sha": "bbc6303cd9c4468a1f29f4289ef1720d058db78c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.py",
-        "sha256": "9e916062c77a1f5be7082fa73b46b78e4617f19a3813b6d0337bbea549569075"
+        "sha256": "25fad97e0fad785075dcde7542eb00bb530e68337ce32f1ed146c4eb36bf3c8e"
       },
       {
         "path": "studies/util/cross_study.py",
