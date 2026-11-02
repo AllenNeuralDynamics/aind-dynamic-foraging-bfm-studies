@@ -29,3 +29,14 @@ r2:
 # analysis/frozen_round2.json; never part of `all`.
 freeze-round2:
 	$(PY) analysis/freeze_round2.py
+
+# r3 = How each state spreads across subjects
+.PHONY: r3
+r3:
+	$(PY) analysis/r3_state_spread.py
+
+.PHONY: freeze-r3
+# Node-only (reads /allen and the snapshot), same WRAPPER_ROOT / DISPATCHER_ROOT as
+# freeze-round1. Writes analysis/frozen_r3.json and analysis/frozen_r3_weights_*.npz.
+freeze-r3:
+	$(PY) analysis/freeze_r3.py

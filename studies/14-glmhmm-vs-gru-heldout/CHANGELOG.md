@@ -60,3 +60,11 @@
   before launch. Launched as `refit-prior@20261101-130226`.
 - r2 (draft): `freeze_round2.py` and `r2_refit_prior.py`, the round-2 report: selection over
   the 320 refit-prior cells plus round 1's refit, held-out scores against no refit and the GRU.
+
+- r3 (draft, #70): how each state spreads across subjects. `freeze_r3.py` fits one GLM per
+  {subject, state} on the state's Viterbi trials under each K-grid run's global fit (prior
+  SD 2), for the held-out and training mice, as a 20-task SLURM array plus a merge.
+  `r3_state_spread.py` plots every {subject, state} in weight space and scores the clusters
+  against K (silhouette against a within-mouse label-shuffle null, η² by state and by subject,
+  k-means ARI). The weights are committed as float16 `.npz`, one per emission, to stay under
+  the 10 MiB file cap; the float32 parts stay on `/allen`. Q-learning parameters are deferred.
