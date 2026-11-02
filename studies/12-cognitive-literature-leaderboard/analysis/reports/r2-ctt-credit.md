@@ -16,6 +16,9 @@ inputs:
   reference: analysis/per_subject_fits.csv
   reference_runs: analysis/per_subject_fits.json
   figure: analysis/fig_r2_ctt_credit.svg
+upstream:
+- study: 10-gru-reservoir-ablation
+  report: r1
 reproduce: make -C studies/12-cognitive-literature-leaderboard r2
 tags:
   model: [cognitive]
