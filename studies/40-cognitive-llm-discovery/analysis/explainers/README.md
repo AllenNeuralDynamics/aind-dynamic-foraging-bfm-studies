@@ -5,7 +5,7 @@ Two pages for readers new to the study, written before any implementation (step 
 | file | what it is | rebuild |
 |---|---|---|
 | `study40_animated_explainer.html` | six animated scenes, about 3 minutes; toy data except the reference numbers | `make explainer` refills the numbers from committed JSON (`build_explainer.py`) |
-| `study40_schematic.html` | static map of the study's steps and decision points | archify ≥ 3.2: `archify deliver workflow reference/study40_schematic.workflow.json analysis/explainers/study40_schematic.html --quality showcase` |
+| `study40_schematic.html` | static map of the study's steps and decision points | archify ≥ 3.2: `archify deliver workflow reference/study40_schematic.workflow.json analysis/explainers/study40_schematic.html --quality showcase`, on a local disk (archify refuses the hard links of the home file system) |
 
 `build_explainer.py` reads study 01 `rl_baseline.json` (through `studies/util/cross_study.py`) and
 `report_data.json`, study 13 `r5_ctt_pooled.json`, and study 10's split list. It rewrites only the

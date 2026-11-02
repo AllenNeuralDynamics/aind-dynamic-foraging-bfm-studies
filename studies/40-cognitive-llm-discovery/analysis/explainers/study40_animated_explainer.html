@@ -209,8 +209,8 @@ const SCENES = [
   { name: "2 · A model is a small program", dur: 25, cap: () =>
     "A cognitive model is a <b>small program</b> with three functions. <i class=t>init_latents</i> starts each " +
     "session, <i class=t>predict</i> turns the <b>latent variables</b> (here two Q values) into p(right), <i class=t>update</i> learns from the choice " +
-    "and the water. The <b>parameters</b> (dials) are fitted to each mouse by our code. The search asks Claude " +
-    "to write new programs: a new rule, a new latent variable, a new way to forget.", draw: sceneProgram },
+    "and the water. The <b>parameters</b> (dials) are fitted to each mouse by our code; a program may have at most 8 of them " +
+    "and 6 latent variables. The search asks Claude to write new programs: a new rule, a new latent variable, a new way to forget.", draw: sceneProgram },
   { name: "3 · Fit on even, score on odd", dur: 35, cap: () =>
     "Per mouse, sessions in date order, counted from 0: <b>even sessions</b> (0, 2, 4, …) fit the parameters, " +
     "<b>odd sessions</b> (1, 3, 5, …) are scored. " +
@@ -219,21 +219,23 @@ const SCENES = [
     "they explain its earlier trials. The score is exp(mean log p) over all scored trials. " +
     "The gap to close runs from HB-CTT to the GRU.", draw: sceneFit },
   { name: "4 · One round of the search", dur: 45, cap: () =>
-    "ShinkaEvolve keeps programs on four <b>islands</b>. Each round it picks a <b>parent</b> and an " +
-    "<b>inspiration</b>, builds a prompt (the task card is cached, so it is cheap to resend), and Claude writes " +
-    "a <b>child</b>. A quick screen stops a broken child and returns its error as feedback. A full fit scores the " +
-    "survivor on the validation mice; it joins the island. Programs migrate between islands, and every tenth " +
-    "generation a short \"what worked\" note joins the prompt. Numbers here are toy numbers.", draw: sceneSearch },
-  { name: "5 · Three groups of mice, then gates", dur: 25, cap: () =>
-    "Three groups that never mix. <b>Generation</b> mice give the feedback that Claude reads. <b>Validation</b> " +
-    `mice give the score that ranks programs. The <b>${N_TEST} test</b> mice stay locked and are touched once, ` +
-    "at the end, with three programs chosen in advance. Before real money is spent, five <b>gates</b> must pass " +
-    "in order. Then the pilot: at most $500.", draw: sceneGroups },
+    "ShinkaEvolve keeps programs on five <b>islands</b>, each started from its own <b>seed</b>: a near-empty " +
+    "template, the three best literature models, and Eckstein's Bayesian-inference model (or the fourth best). " +
+    "Each round it picks a <b>parent</b> and an <b>inspiration</b>, builds a prompt (the task card is cached, so it " +
+    "is cheap to resend), and Claude writes a <b>child</b>. A quick screen stops a broken child and returns its " +
+    "error as feedback; a full fit scores the survivor on the validation mice. Programs migrate between islands, " +
+    "and every tenth generation a short \"what worked\" note joins the prompt. Toy numbers.", draw: sceneSearch },
+  { name: "5 · Four groups of mice, then gates", dur: 25, cap: () =>
+    "Four groups that never mix. <b>Generation</b> mice give the feedback that Claude reads. <b>Validation</b> " +
+    "mice give the score that ranks programs. <b>Selection</b> mice are used once, to choose the four final " +
+    `programs. The <b>${N_TEST} test</b> mice stay locked and are scored once, at the end. Before real money is ` +
+    "spent, the <b>gates</b> must pass in order. Then the search: about $450.", draw: sceneGroups },
   { name: "6 · What comes out", dur: 25, cap: () =>
-    "Stage 2 <b>simplifies</b> the best programs while their fit stays above a floor. The headline is " +
-    "the fraction of the <b>gap closed</b> on the test mice. A good model must also <b>behave</b> like a mouse " +
-    "when it runs the task itself. Its per-trial latent variables are exported for later joins with metadata, photometry " +
-    "and Neuropixels. This scene is an illustration, not a result.", draw: sceneOutcome },
+    "Stage 2 <b>simplifies</b> the best program at three <b>floors</b>: keep 90%, 75% or 50% of its gain over " +
+    "the best literature model. Four programs (the best, and one per floor) are chosen in advance on the selection " +
+    "mice. The headline is each one's <b>gap closed</b> on the test mice shared with the GRU. A good model must " +
+    "also <b>behave</b> like a mouse, in replay and when it runs the task, at least as well as the best literature " +
+    "model. Its per-trial latent variables are exported for later joins. An illustration, not a result.", draw: sceneOutcome },
 ];
 
 // Scene 1: two ports, then a session drawn trial by trial.
@@ -448,13 +450,15 @@ function sceneFit(t) {
 }
 
 // Scene 4: one round of the search.
+// One island per seed (ADR 0006); which literature models rank top is decided from study 12's scores.
+const ISL_SEED = ["template", "literature #1", "literature #2", "literature #3", "Eckstein or #4"];
 const ISL = (() => { seed = 31; const isl = [];
-  for (let i = 0; i < 4; i++) { const cards = [];
-    for (let k = 0; k < 5; k++) cards.push({ id: `${i}-${k}`, s: 71.2 + rnd() * 0.9 });
+  for (let i = 0; i < ISL_SEED.length; i++) { const cards = [];
+    for (let k = 0; k < 5; k++) cards.push({ id: `${i + 1}.${k}`, s: 71.2 + rnd() * 0.9 });
     cards.sort((a, b) => b.s - a.s); isl.push(cards); }
   return isl; })();
 const CHILD_SCORE = Math.max(...ISL[0].map(c => c.s)) + 0.12;
-const ISL_POS = [[24, 62], [210, 62], [24, 248], [210, 248]];
+const ISL_W = 118, ISL_POS = [[24, 62], [150, 62], [276, 62], [87, 248], [213, 248]];
 function islandCards(i, extra) { const cards = ISL[i].slice(); if (extra) cards.push(extra); return cards.sort((a, b) => b.s - a.s); }
 const DIFF = [
   [" ", 'def update(q, c, r, p):'],
@@ -470,26 +474,26 @@ function sceneSearch(t) {
   const join = seg(t, 28, 30), mig = seg(t, 32, 35);
   ISL_POS.forEach(([x, y], i) => {
     const a = seg(t, 0.3 * i, 0.3 * i + 1);
-    box(x, y, 176, 176, { stroke: COL.edge, fill: "#171b24", a, r: 14 });
-    text(`island ${i + 1}`, x + 12, y + 20, { c: COL.dim, size: 12, a });
+    box(x, y, ISL_W, 176, { stroke: COL.edge, fill: "#171b24", a, r: 12 });
+    text(ISL_SEED[i], x + 10, y + 20, { c: COL.dim, size: 12, a });
     let cards = islandCards(i, i === 0 && join > 0 ? { id: "child", s: CHILD_SCORE } : null);
     if (i === 1 && mig > 0) cards = cards.filter(c => c.id !== ISL[1][0].id);
-    if (i === 3 && mig >= 1) cards = islandCards(3, { id: ISL[1][0].id, s: ISL[1][0].s });
+    if (i === 4 && mig >= 1) cards = islandCards(4, { id: ISL[1][0].id, s: ISL[1][0].s });
     cards.slice(0, 6).forEach((c, k) => {
       const cy = y + 32 + k * 23, child = c.id === "child";
       const parent = i === 0 && c.id === ISL[0][1].id && t > 4, insp = i === 2 && c.id === ISL[2][0].id && t > 5;
       const glow = (parent || insp) && t < 28 ? (0.6 + 0.4 * Math.sin(t * 5)) : 0;
-      box(x + 12, cy, 152, 19, { fill: child ? "#24402b" : COL.panel, stroke: parent ? COL.green : insp ? COL.purple : child ? COL.green : COL.edge,
+      box(x + 8, cy, ISL_W - 16, 19, { fill: child ? "#24402b" : COL.panel, stroke: parent ? COL.green : insp ? COL.purple : child ? COL.green : COL.edge,
         a: a * (child ? join : 1), r: 4, glow: glow ? (parent ? COL.green : COL.purple) : null, glowA: glow });
-      text(child ? "child" : `program ${c.id}`, x + 20, cy + 14, { size: 12, a: a * (child ? join : 1), mono: true });
-      text(c.s.toFixed(2), x + 156, cy + 14, { size: 12, align: "right", a: a * (child ? join : 1), mono: true,
+      text(child ? "child" : `p${c.id}`, x + 14, cy + 14, { size: 11.5, a: a * (child ? join : 1), mono: true });
+      text(c.s.toFixed(2), x + ISL_W - 14, cy + 14, { size: 11.5, align: "right", a: a * (child ? join : 1), mono: true,
         c: child ? COL.green : COL.dim });
     });
   });
   if (t > 4 && t < 28) { text("green = parent", 24, 444, { c: COL.green, size: 12, a: seg(t, 4, 5) });
     text("purple = inspiration", 130, 444, { c: COL.purple, size: 12, a: seg(t, 5, 6) }); }
-  if (mig > 0 && mig < 1) { const [x1, y1] = [210 + 88, 62 + 44], [x2, y2] = [210 + 88, 248 + 44];
-    box(lerp(x1, x2, mig) - 76, lerp(y1, y2, mig) - 10, 152, 19, { fill: COL.panel, stroke: COL.yellow, r: 4 }); }
+  if (mig > 0 && mig < 1) { const [x1, y1] = [150 + ISL_W / 2, 62 + 42], [x2, y2] = [213 + ISL_W / 2, 248 + 42];
+    box(lerp(x1, x2, mig) - (ISL_W - 16) / 2, lerp(y1, y2, mig) - 10, ISL_W - 16, 19, { fill: COL.panel, stroke: COL.yellow, r: 4 }); }
   if (t > 32 && t < 38) text("migration", 396, 258, { c: COL.yellow, size: 13, align: "right", a: seg(t, 32, 33) * (1 - seg(t, 37, 38)) });
   // the prompt
   const px = 404, pw = 220;
@@ -542,52 +546,53 @@ function sceneSearch(t) {
   text(`$${(prog * 30).toFixed(2)}`, gx + gw - 10, gy + 30, { size: 16, align: "right", a: ga, mono: true, c: COL.green });
 }
 
-// Scene 5: three groups of mice, then the gates.
+// Scene 5: four groups of mice (ADR 0003), then the gates (ADR 0004, PLAN.md).
+const COHORTS = { G: { x: 34, k0: 0, cols: 8, c: COL.green }, V: { x: 124, k0: 48, cols: 8, c: COL.yellow },
+                  S: { x: 214, k0: 96, cols: 10, c: COL.purple } };
 const MICE = (() => { seed = 51; const pool = [];
   for (let i = 0; i < N_TRAIN; i++) pool.push({ i, r: rnd() });
   const order = pool.slice().sort((a, b) => a.r - b.r);
-  order.forEach((m, k) => { m.group = k < 48 ? "G" : k < 96 ? "V" : "-"; m.k = k; });
+  order.forEach((m, k) => { m.group = k < 48 ? "G" : k < 96 ? "V" : k < 196 ? "S" : "-"; m.k = k; });
   return pool; })();
 const GATES = () => [
   ["0", "data parity", `${N_TEST} mice, ${REFS ? REFS.n_test_sessions.toLocaleString("en-US") : "—"} sessions, ` +
     `${REFS ? REFS.n_test_trials.toLocaleString("en-US") : "—"} trials`],
-  ["1", "model parity", "Hattori and CTT as programs match the committed fits"],
-  ["2", "timing", "a full evaluation in minutes; same text, same score"],
+  ["1", "parity: 1a dynamics, 1b fitter, 1c session level", "1a–1b: every seed model · 1c: CTT and Hattori (hierarchical)"],
+  ["2", "timing", "a full evaluation in about 3 minutes; cohort sizes fixed here"],
   ["3", "engine smoke", "ShinkaEvolve + Claude end to end, about $7"],
   ["4", "recovery", "find a known program in simulated mice, ≤ $20"],
 ];
 function sceneGroups(t) {
   clear();
-  title("Three groups of mice, then the gates");
+  title("Four groups of mice, then the gates");
   const sp = 8.6, gx0 = 34, gy0 = 92, cols = 30;
   const move = seg(t, 4, 9);
   text(`${N_TRAIN} training-pool mice`, gx0, 76, { c: COL.dim, size: 13 });
   MICE.forEach((m, i) => {
     const hx = gx0 + (i % cols) * sp, hy = gy0 + Math.floor(i / cols) * sp;
     let tx = hx, ty = hy, c = COL.grey, a = seg(t, 0, 2);
-    if (m.group !== "-") { const j = m.k % 48, bx = m.group === "G" ? 36 : 176;
-      tx = bx + (j % 12) * 9.5; ty = 322 + Math.floor(j / 12) * 9.5; c = m.group === "G" ? COL.green : COL.yellow;
-      tx = lerp(hx, tx, move); ty = lerp(hy, ty, move); }
+    if (m.group !== "-") { const g = COHORTS[m.group], j = m.k - g.k0;
+      tx = lerp(hx, g.x + (j % g.cols) * sp, move); ty = lerp(hy, 296 + Math.floor(j / g.cols) * sp, move); c = g.c; }
     else a *= 1 - 0.55 * move;
     dot(tx, ty, 3, c, a);
   });
   const la = seg(t, 8, 9);
-  text("G · generation", 36, 380, { c: COL.green, size: 14, w: 600, a: la });
-  text("~48 mice", 36, 397, { c: COL.dim, size: 12, a: la });
-  text("feedback to Claude", 36, 413, { c: COL.dim, size: 12, a: la });
-  text("V · validation", 176, 380, { c: COL.yellow, size: 14, w: 600, a: la });
-  text("~48 mice", 176, 397, { c: COL.dim, size: 12, a: la });
-  text("the score", 176, 413, { c: COL.dim, size: 12, a: la });
-  text("rest: not used in round 1", 34, 300, { c: COL.dim, size: 12, a: la });
+  [["G", "generation", "~48 mice", "feedback"], ["V", "validation", "~48 mice", "the score"],
+   ["S", "selection", "~100 mice", "picks the final 4"]].forEach(([g, nm, n, role]) => {
+    const { x, c } = COHORTS[g];
+    text(nm, x, 400, { c, size: 13, w: 600, a: la });
+    text(n, x, 416, { c: COL.dim, size: 12, a: la });
+    text(role, x, 431, { c: COL.dim, size: 12, a: la }); });
+  text("rest: not used in round 1", 34, 284, { c: COL.dim, size: 12, a: la });
   // the locked test set
   const tx0 = 330, tcols = 10;
   text(`${N_TEST} test mice`, tx0, 76, { c: COL.dim, size: 13 });
   for (let i = 0; i < N_TEST; i++) dot(tx0 + (i % tcols) * sp, gy0 + Math.floor(i / tcols) * sp, 3, COL.ink, seg(t, 1, 3) * 0.85);
   const lk = seg(t, 9, 10);
   box(tx0 - 8, gy0 - 10, tcols * sp + 8, Math.ceil(N_TEST / tcols) * sp + 12, { stroke: COL.ink, a: lk, dash: [4, 3] });
-  text("T · test, locked", tx0, 380, { c: COL.ink, size: 14, w: 600, a: lk });
-  text("touched once,", tx0, 397, { c: COL.dim, size: 12, a: lk });
-  text("at the end", tx0, 413, { c: COL.dim, size: 12, a: lk });
+  text("test, locked", tx0, 400, { c: COL.ink, size: 13, w: 600, a: lk });
+  text("scored once,", tx0, 416, { c: COL.dim, size: 12, a: lk });
+  text("at the end", tx0, 431, { c: COL.dim, size: 12, a: lk });
   // gates
   const qx = 470;
   text("gates, in order", qx, 76, { c: COL.dim, size: 13, a: seg(t, 10, 11) });
@@ -602,34 +607,39 @@ function sceneGroups(t) {
   });
   const pa = seg(t, 21.5, 22.5);
   box(qx, 372, 460, 44, { fill: "#3a3420", stroke: COL.yellow, a: pa, r: 8 });
-  text("then the pilot: ≤ $500, Claude Sonnet 5.5", qx + 230, 399, { size: 15, w: 600, align: "center", c: COL.yellow, a: pa });
+  text("then the search: 5 islands, about $450", qx + 230, 399, { size: 15, w: 600, align: "center", c: COL.yellow, a: pa });
 }
 
 // Scene 6: simplify, the gap, behaviour, latent exports. Illustration only.
 function sceneOutcome(t) {
   clear();
   title("What comes out", "illustration, not a result");
-  // A: fit against complexity; the best program shrinks while it stays above the fit floor.
-  const ax0 = 40, ay0 = 64, aw = 420, ah = 170, aa = seg(t, 0, 1);
+  // A: fit against complexity; the best program shrinks to each of three fit floors (ADR 0005).
+  const ax0 = 40, ay0 = 64, aw = 420, ah = 200, aa = seg(t, 0, 1);
   const xc = v => ax0 + 20 + v * (aw - 40), yc = v => ay0 + ah - 24 - v * (ah - 50);
-  text("1 · simplify", ax0, ay0 + 6, { size: 13, w: 600, a: aa });
+  text("1 · simplify, at three floors", ax0, ay0 + 6, { size: 13, w: 600, a: aa });
   line(xc(0), yc(0), xc(1), yc(0), COL.dim, 1, aa); line(xc(0), yc(0), xc(0), yc(1), COL.dim, 1, aa);
   text("complexity (Halstead effort) →", xc(1), yc(0) + 18, { c: COL.dim, size: 12, align: "right", a: aa });
   text("fit on V ↑", xc(0) + 8, yc(1) + 4, { c: COL.dim, size: 12, a: aa });
   seed = 91;
+  const front = v => 0.1 + 0.85 * Math.sqrt(v), lit = 0.08, top = front(0.95);
   for (let i = 0; i < 40; i++) { const c = rnd();
-    dot(xc(0.12 + 0.85 * c), yc(Math.min(0.97, (0.25 + 0.7 * Math.sqrt(c)) * (0.75 + 0.25 * rnd()))), 2.5, COL.grey, aa); }
-  const front = v => 0.25 + 0.7 * Math.sqrt(v);
+    dot(xc(0.12 + 0.85 * c), yc(Math.min(0.97, front(c) * (0.75 + 0.25 * rnd()))), 2.5, COL.grey, aa); }
   poly([...Array(41).keys()].map(i => { const v = 0.08 + 0.89 * i / 40; return [xc(v), yc(front(v))]; }), COL.green, 1.5, 0.5 * aa);
-  line(xc(0), yc(0.55), xc(1), yc(0.55), COL.yellow, 1.2, aa, [5, 4]);
-  text("fit floor", xc(1), yc(0.55) - 6, { c: COL.yellow, size: 12, align: "right", a: aa });
-  const sv = lerp(0.95, 0.20, seg(t, 2, 8));
-  dot(xc(sv), yc(front(sv)), 7, COL.green, aa);
-  text("best program", xc(sv) + 10, yc(front(sv)) + 20, { c: COL.green, size: 12, a: seg(t, 2, 3) });
+  line(xc(0), yc(lit), xc(1), yc(lit), COL.dim, 1, aa, [2, 3]);
+  text("best literature model", xc(1), yc(lit) - 5, { c: COL.dim, size: 11, align: "right", a: aa });
+  dot(xc(0.95), yc(top), 7, COL.green, aa);
+  text("best program", xc(0.95) - 12, yc(top) + 4, { c: COL.green, size: 12, align: "right", a: aa });
+  [0.9, 0.75, 0.5].forEach((k, j) => {
+    const f = lit + k * (top - lit), v = ((f - 0.1) / 0.85) ** 2, fa = seg(t, 1 + 2 * j, 2 + 2 * j);
+    line(xc(0), yc(f), xc(1), yc(f), COL.yellow, 1, fa * aa, [5, 4]);
+    text(`${k * 100}%`, xc(0) + 6, yc(f) - 3, { c: COL.yellow, size: 11, a: fa * aa });
+    const sv = lerp(0.95, v, seg(t, 2 + 2 * j, 4 + 2 * j));
+    if (fa > 0) dot(xc(sv), yc(front(sv)), 5, COL.yellow, fa * aa); });
   // B: where it lands on the test mice.
   const ba = seg(t, 7, 8);
   if (ba > 0) {
-    text("2 · gap closed on the test mice", 500, ay0 + 6, { size: 13, w: 600, a: ba });
+    text("2 · gap closed on the shared test mice", 500, ay0 + 6, { size: 13, w: 600, a: ba });
     const xv = numberLine(-10, 100, 150, { zoom: 1, a: ba, gap: false, notes: false, x0: 520, x1: 920 });
     const land = seg(t, 8.5, 11), v = lerp(R.hb_ctt, R.hb_ctt + 0.5 * (R.gru_v2_h128 - R.hb_ctt), land);
     X.save(); X.globalAlpha = 0.22 * ba; X.fillStyle = COL.yellow;
@@ -695,26 +705,34 @@ const TEXT = [
   `MLE CTT ${f4(R.mle_ctt)} (one parameter set per mouse, study 01), HB-CTT ${f4(R.hb_ctt)} (a parameter set per ` +
   `session, study 13), GRU ${f4(R.gru_v2_h128)} (study 01). The gap to close, from HB-CTT to the GRU, is ` +
   `${f4(R.gru_v2_h128 - R.hb_ctt)}.`,
-  `Four islands of five program cards each, with toy scores (100 × validation likelihood). A parent card ` +
-  `(island 1) and an inspiration card (island 3) glow. The prompt fills with the cached task card, the parent ` +
+  `Five islands, each titled by its seed program (template, literature #1 to #3, Eckstein or #4), with five ` +
+  `program cards each and toy scores (100 × validation likelihood). A parent card (template island) and an ` +
+  `inspiration card (literature #2 island) glow. The prompt fills with the cached task card, the parent ` +
   `program, its feedback split by stage and task, and the inspiration. Claude writes a child; its diff replaces ` +
   `"q = q.at[1-c].mul(1 - p['forget'])" with a forgetting rate gated by reward. A first child fails the quick ` +
   `screen (24 mice, at most 2 minutes) with NaN on the probe, and its error goes back as feedback. A second ` +
   `child passes, gets a full fit on the generation and validation mice at the session level, scores ` +
-  `${CHILD_SCORE.toFixed(2)} and joins island 1, which re-ranks. A card migrates from island 2 to island 4, and ` +
+  `${CHILD_SCORE.toFixed(2)} and joins the template island, which re-ranks. A card migrates from the literature #1 ` +
+  `island to the Eckstein-or-#4 island, and ` +
   `a "what worked so far" note joins the prompt every tenth generation. A best-score curve rises with proposals ` +
   `and a dollar counter grows (toy numbers).`,
-  `${N_TRAIN} training-pool mice as dots: about 48 move into the generation group (feedback to Claude) and ` +
-  `about 48 into the validation group (the score); the rest are not used in round 1. The ${N_TEST} test mice sit ` +
-  `in a locked box, touched once at the end. Five gates light in order: 0 data parity (${N_TEST} mice, ` +
+  `${N_TRAIN} training-pool mice as dots: about 48 move into the generation group (feedback to Claude), ` +
+  `about 48 into the validation group (the score) and about 100 into the selection group (picks the four final ` +
+  `programs); the rest are not used in round 1. The ${N_TEST} test mice sit in a locked box, scored once at the ` +
+  `end. Five gates light in order: 0 data parity (${N_TEST} mice, ` +
   `${REFS ? fmtN(REFS.n_test_sessions) : "—"} sessions, ${REFS ? fmtN(REFS.n_test_trials) : "—"} trials); ` +
-  `1 model parity (Hattori and CTT as programs match the committed fits); 2 timing (a full evaluation in ` +
-  `minutes, same text gives the same score); 3 engine smoke (about $7); 4 recovery of a known program from ` +
-  `simulated mice (at most $20). Then the pilot: at most $500 on Claude Sonnet 5.5.`,
-  `An illustration, not a result, in four panels. 1: the best program slides left along a fit-versus-complexity ` +
-  `curve while staying above a dashed fit floor. 2: on the number line from MLE CTT ${f4(R.mle_ctt)} through ` +
+  `1 parity in three parts, 1a dynamics, 1b fitter and 1c session level (1a and 1b: every model in the seed ` +
+  `library matches its committed fit; 1c: CTT and Hattori, the only models with a hierarchical reference, match ` +
+  `study 13's fits at the session level); 2 timing (a full evaluation in about 3 minutes; cohort sizes are fixed here); 3 engine smoke ` +
+  `(about $7); 4 recovery of a known program from simulated mice (at most $20). Then the search: 5 islands, ` +
+  `about $450.`,
+  `An illustration, not a result, in four panels. 1: a fit-versus-complexity plot with a dotted line for the best ` +
+  `literature model and dashed floors at 90%, 75% and 50% of the best program's gain over it; a simplified copy ` +
+  `of the best program slides left along the curve to each floor. These four programs are chosen in advance on ` +
+  `the selection mice. 2: on the number line from MLE CTT ${f4(R.mle_ctt)} through ` +
   `HB-CTT ${f4(R.hb_ctt)} to the GRU ${f4(R.gru_v2_h128)}, a dot labelled "program ?" moves right from HB-CTT; ` +
-  `gap closed = (program − HB-CTT) / (GRU − HB-CTT). 3: the probability of switching after k unrewarded trials, ` +
+  `gap closed = (program − HB-CTT) / (GRU − HB-CTT), pooled over the test mice shared with the GRU. ` +
+  `3: the probability of switching after k unrewarded trials, ` +
   `for mice (white) and for the program running the task (green dashed), overlapping. 4: the latent variables ` +
   `q_left and q_right over a session, keyed by session_id and trial, feeding later joins with metadata, ` +
   `photometry and Neuropixels.`,
@@ -763,12 +781,14 @@ function frame(now) {
 }
 document.getElementById("foot").innerHTML =
   "Scenes 1, 2 and 4–6 use toy data, and the toy model in scene 3 has one dial θ with p(right) = σ(θ). " +
-  "The real evaluator fits programs with up to 12 parameters. Numbers in scene 3 (and the reference lines in " +
+  "Real programs have at most 8 parameters and 6 latent variables. Numbers in scene 3 (and the reference lines in " +
   "scene 6) are read from committed results by <code>build_explainer.py</code>: " +
   (REFS ? REFS.sources.map(s => `<code>${s.file}</code>${s.produced_at_pt ? ` (${s.produced_at_pt.slice(0, 10)})` : ""}`).join(", ")
         : "not filled yet") +
   ". GRU = GRU v2, H128, trained on all " + N_TRAIN + " pool mice; MLE CTT = per-mouse CompareToThreshold; HB-CTT = study 13's " +
-  "two-level CompareToThreshold. Companion: <code>study40_schematic.html</code>.";
+  "two-level CompareToThreshold. These are the published values, each pooled over its own " + N_TEST + " test mice; " +
+  "the headline re-pools every model on the test mice shared with the GRU's list. " +
+  "Companion: <code>study40_schematic.html</code>.";
 go(FROZEN ? Number(HASH.s) - 1 : 0);
 if (FROZEN) { playing = false; tPaused = Number(HASH.t ?? 0); }
 requestAnimationFrame(frame);
