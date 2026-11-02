@@ -249,11 +249,12 @@ def main() -> None:
     figure(result)
     text = _rewrite(REPORT.read_text(), "result-1", render(result))
     REPORT.write_text(_rewrite(text, "result-2", render_checks(result)))
-    # Atlas leaderboard fields (atlas PR 43, a twin overlay on r1's panel): family and summary
-    # required, rank an int (the headline rank; em_rank is the pure 2-level EM order), headline_score
-    # and headline_source, pooled_heldout (the 2-level EM score) finite, literature_model equal to a ranked r1 by_model
-    # key (a missing twin fails the build), fit_flag null or {kind, reason}; plus the report's
-    # result-1 block. Renaming any of these fails the atlas build; tell the atlas session first.
+    # Atlas leaderboard fields. Atlas PR 43 reads only this file (not r1): per ranked entry rank (the
+    # headline rank), headline_score, headline_source, pooled_heldout (2-level EM), pooled_heldout_per_subject,
+    # literature_model (a ranked r1 key), family, summary, short_name (1-10 characters, unique), fit_flag
+    # (null or {kind, reason}); plus the report's result-1 block. The atlas treats headline_source ==
+    # "2-level EM" exactly as "the headline is the 2-level fit". Renaming any of these, or changing that
+    # string, fails or misdraws the atlas; tell the atlas session first.
     cards = json.loads(R1.read_text())["by_model"]
     result["by_model"] = {}
     for i, row in enumerate(result["rows"], 1):
@@ -264,7 +265,7 @@ def main() -> None:
                         "parameters vary around the subject's typical values (2-level EM). "
                         + card["summary"]),
             "equations": card["equations"] + TWO_LEVEL_EQUATIONS,
-            "paper": card["paper"], "code": card["code"],
+            "paper": card["paper"], "code": card["code"], "short_name": card["short_name"],
             "family_note": card.get("family_note", ""),
             "fit_flag": _fit_flag(row)}
     meta = build_meta("analysis/r3_2level_em.py", WANDB_GROUPS, study_root=HERE.parent,

@@ -264,6 +264,8 @@ def main() -> None:
         assert not c["code"]["path"].startswith("/"), f"{m}: code.path is not repo-relative"
         assert c["paper"]["url"] == "" or c["paper"]["url"].startswith("https://"), f"{m}: paper.url"
         assert not re.search(r"<[a-zA-Z/][^>]*>", c["equations"]), f"{m}: raw HTML in equations"
+        assert 0 < len(c["short_name"]) <= 10, f"{m}: short_name must be 1-10 characters"
+    assert len({c["short_name"] for c in cards.values()}) == len(cards), "short_name not unique"
     text = _rewrite(REPORT.read_text(), "result-1", render(result))
     text = _rewrite(text, "result-2", render_repro(result))
     REPORT.write_text(_rewrite(text, "result-3", render_models(result, cards)))

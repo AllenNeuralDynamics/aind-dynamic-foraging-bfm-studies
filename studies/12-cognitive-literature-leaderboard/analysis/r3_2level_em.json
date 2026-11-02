@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_2level_em.py",
-    "produced_at_pt": "2026-11-02T12:29:53-08:00",
-    "studies_git_sha": "3c81c2704145501ae9f93fdc90095ba2651d44fc",
+    "produced_at_pt": "2026-11-02T12:43:02-08:00",
+    "studies_git_sha": "30d13686e496d9668ff8bd8c1f0aafa224e4befa",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.py",
-        "sha256": "47acbd52e4dbfd7e91c4ecbc5ecc0092b8a54a255d753ce2ff81ae7a069cf290"
+        "sha256": "d6cc02b405cb0c0237d470be38abb1a6ef4e3b8f1d985a24193caaf047d003fc"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -50,7 +50,7 @@
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r1_leaderboard.json",
-        "sha256": "87ea48bb2b22b897fd1572f96d2568548bfcae12fc633c4593ccbd5a9ffe12ad"
+        "sha256": "5468d7bf17b38b495b67d43c78a456e62c3a30bd7f1cc7b3babd550e487f59c4"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
@@ -72,7 +72,7 @@
     "outputs": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
-        "sha256": "41fd4ad22d966520c888023285bef6de23c76d0a696126a8b6852dddf5b0a794"
+        "sha256": "5773fdbed3e4a901dd80ea652807f70ed5d3c2158c811bda08505a22af9aa7c6"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/fig_r3_2level_em.svg",
@@ -519,6 +519,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Lebedeva",
       "family_note": "Debatable: it keeps no value per side; it accumulates two signed log-odds states (perseveration and reward-seeking), the same recursive-logistic form as Beron-RFLR and Miller-RHG.",
       "fit_flag": null
     },
@@ -553,6 +554,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "López",
       "family_note": "",
       "fit_flag": null
     },
@@ -587,6 +589,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_q_learning.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Bari",
       "family_note": "",
       "fit_flag": null
     },
@@ -621,6 +624,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Miller",
       "family_note": "Debatable: it keeps no value per side; reward-seeking, habit and gambler's-fallacy states are signed log-odds traces, the same recursive-logistic form as Beron-RFLR.",
       "fit_flag": null
     },
@@ -655,6 +659,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_compare_threshold.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "CTT",
       "family_note": "Choice is defined as stay or leave relative to the last choice, and the left bias acts only after a left choice, so the model has built-in choice history; its core is still a threshold rule.",
       "fit_flag": null
     },
@@ -689,6 +694,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_q_learning.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Hattori",
       "family_note": "",
       "fit_flag": null
     },
@@ -723,6 +729,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Zid",
       "family_note": "Moved from 'Q-learning + choice history': the core is a compare-to-threshold stay/leave rule (the class docstring calls it compare-to-threshold foraging-RL), with a stay-count history kernel added on top.",
       "fit_flag": null
     },
@@ -757,6 +764,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Eck-BI",
       "family_note": "Also has a perseveration bonus on the previous choice; kept under Bayesian inference because its core is a hidden-state belief update.",
       "fit_flag": null
     },
@@ -791,6 +799,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Beron",
       "family_note": "Also has a one-trial choice-history term (repeat or alternate the last choice); kept under regression because its core is a recursively computed logistic regression.",
       "fit_flag": null
     },
@@ -825,6 +834,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Chen",
       "family_note": "",
       "fit_flag": null
     },
@@ -859,6 +869,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Eck-RL",
       "family_note": "Moved from 'value only' as expected: a perseveration bonus is added to the value of the previous choice before the softmax.",
       "fit_flag": null
     },
@@ -893,6 +904,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Grossman",
       "family_note": "",
       "fit_flag": {
         "kind": "below_per_subject",
@@ -930,6 +942,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Costa+BCK",
       "family_note": "",
       "fit_flag": null
     },
@@ -964,6 +977,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Alsiö",
       "family_note": "",
       "fit_flag": null
     },
@@ -998,6 +1012,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_loss_counting.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "LossCount",
       "family_note": "Choice is defined as stay or switch relative to the last choice, so the rule uses choice history by construction.",
       "fit_flag": {
         "kind": "below_per_subject",
@@ -1035,6 +1050,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_actor_critic.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "AC",
       "family_note": "",
       "fit_flag": null
     },
@@ -1069,6 +1085,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Costa+B",
       "family_note": "",
       "fit_flag": null
     },
@@ -1103,6 +1120,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_published_bandits.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "Costa",
       "family_note": "",
       "fit_flag": null
     },
@@ -1137,6 +1155,7 @@
         "path": "src/aind_dynamic_foraging_models/generative_model/forager_q_learning.py",
         "commit": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
       },
+      "short_name": "RW",
       "family_note": "",
       "fit_flag": {
         "kind": "below_per_subject",
