@@ -1,10 +1,10 @@
-# Fit programs at the session level, with session facts and split diagnostics
+# Fit programs with the 2-level model, with session facts and split diagnostics
 
-Programs are fitted with a session level during the search: each session's parameters vary around
-the subject's typical values, with no population level, and a held-out session is scored by the
-session marginal. Programs also receive each session's training stage, task variant and index, and
-every score and feedback line is split by stage group and task variant. Without a session level the
-search could only win back the likelihood that sessions differ by writing parameter inference into
+Programs are fitted with the 2-level model during the search (2-level EM, MEvolve ADR 0004): each
+session's parameters vary around the subject's typical values, with no population level, and a
+held-out session is scored by the session marginal. Programs also receive each session's training stage, task variant and index, and
+every score and feedback line is split by stage group and task variant. If sessions could not vary around the subject,
+the search could only win back the likelihood that sessions differ by writing parameter inference into
 the program, folding training stage, task and day-to-day drift into "mechanisms" (decided with Han,
 2026-10-31).
 
@@ -19,8 +19,8 @@ subject's typical values raised it again for 95% of them.
 ## Considered options
 
 - **One parameter set per subject**, with session facts and split diagnostics, re-scoring the elites
-  at the session level afterwards. Cheaper, but the search itself stays biased. Kept as the fallback
-  if the session-level scorer fails its parity gate.
+  as 2-level EM afterwards. Cheaper, but the search itself stays biased. Kept as the fallback
+  if the 2-level EM scorer fails its parity gate.
 - **Discovery on final-stage sessions of one task family.** The cleanest steady-state mechanism, but
   every comparator would need re-scoring on the subset, and early learning drops out. A later variant.
 - **A population level.** Study 08's three-level fit did not mix and scored below the per-subject
@@ -28,8 +28,9 @@ subject's typical values raised it again for 95% of them.
 
 ## Consequences
 
-- The headline compares against HB-CTT, the comparator fitted the same way.
+- The headline compares against HB-CTT, the comparator with the same 2-level model (2-level HB,
+  sampled by NUTS rather than fitted by Laplace-EM).
 - Each elite also gets the both-regime test, to flag mechanisms that only absorb drift between
   sessions. A flagged mechanism is reported and ablated in the interpretation report (removed, the
-  program refitted at the session level); no program is excluded automatically, since the signal is
+  program refitted as 2-level EM); no program is excluded automatically, since the signal is
   not yet calibrated.

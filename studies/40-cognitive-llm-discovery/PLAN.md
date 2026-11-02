@@ -22,7 +22,7 @@ test subjects, its complexity, and its replay and rollout fingerprints beside th
 |---|---|---|
 | objective | maximize pooled held-out likelihood on the validation subjects; behaviour never enters the score | ADR 0001 |
 | behaviour | replay fingerprints for every program, in the feedback; rollout fingerprints at pre-registration; both gate pre-registration against the best literature model | ADR 0001, 0007 |
-| fitting | session level (each session's parameters around the subject's typical values, no population level), session facts as program inputs, every score split by stage group and task variant; fallback to one parameter set per subject | ADR 0002 |
+| fitting | the 2-level model (each session's parameters around the subject's typical values, no population level), fitted as 2-level EM (Laplace-EM), session facts as program inputs, every score split by stage group and task variant; fallback to one parameter set per subject | ADR 0002 |
 | cohorts | generation and validation (48 each, resized at gate 2), about 100 selection subjects, test = 149 held-out subjects with the headline on the 146 shared ones; one fit direction; stratified draws that exclude the GRU's three extra test subjects | ADR 0003 |
 | parity | gates 1a, 1b, 1c with fixed tolerances | ADR 0004 |
 | interpretable | at most 8 parameters and 6 latent variables, static checks, Halstead effort, floors at 90%, 75% and 50% of the gain over the best literature model | ADR 0005 |
@@ -37,7 +37,7 @@ test subjects, its complexity, and its replay and rollout fingerprints beside th
 | what | source | reader |
 |---|---|---|
 | literature models, per subject (regime 1), fitted parameters | study 12 r1 | `cross_study.literature_per_subject`, `literature_fitted_params` |
-| literature models at the session level (regime 2) | study 12 r2, computed with MEvolve's evaluator after gate 1c | to come |
+| literature models as 2-level EM (regime 2) | study 12 r3 (`analysis/r3_2level_em.json`), computed with MEvolve's evaluator after gate 1c | study 12's regime 2 reader, to come |
 | HB-CTT and HB-Hattori, per subject | study 13 r5 and r1 | read by path until the reference registry (issue #63) has entries |
 | GRU v2 H128, per subject | study 01 | registry `gru_ceiling.v2_h128` once #63 merges |
 | the GRU's own split | study 12 | `cross_study.gru_split` |
@@ -62,10 +62,10 @@ carries its state probabilities among its latent variables.
 | 0 data | the split built through the wrapper's loader matches the committed subject lists and scored-trial counts |
 | 1a dynamics | each literature program reproduces its reference forager: per-trial within 1e-6, pooled within 1e-5 |
 | 1b fitter | gradient fits within 0.0002 of study 12's differential-evolution fits, pooled; 95% of subjects within 0.5 nats on context sessions |
-| 1c session level | CTT and Hattori within 0.001 of study 13's HB scores, their gap within 0.0005; else the documented fallbacks of ADR 0004 |
+| 1c 2-level EM | CTT and Hattori as 2-level EM within 0.001 of study 13's 2-level HB scores, their gap within 0.0005; else the documented fallbacks of ADR 0004 |
 | 2 timing | Stage B under about 3 minutes; cohort sizes and the paired standard error for the stopping rule fixed here |
 | 3 engine smoke (about $7) | Shinka in-process with the shim; no API errors; prompt caching works; cost within 5% of the Console; web UI works; 10 proposals at medium effort against 10 at high, keeping high only if clearly better per dollar |
-| 4 recovery (≤ $20) | the session-level fitter recovers simulated typical values and spreads; a short search reaches the generating program's score within 0.002 |
+| 4 recovery (≤ $20) | the 2-level EM fitter recovers simulated typical values and spreads; a short search reaches the generating program's score within 0.002 |
 
 ## Budget
 
@@ -86,12 +86,12 @@ each); evaluator cost a few hundred to a thousand core-hours per search.
 | step | what | needs |
 |---|---|---|
 | 1 | MEvolve: data freeze and split lists (gate 0) | — |
-| 2 | MEvolve: evaluator, per-subject and session-level fits, session marginal, session facts, split diagnostics, replay fingerprints (gates 1b, 1c, 2) | study 12 regime 1 fitted parameters |
+| 2 | MEvolve: evaluator, per-subject and 2-level EM fits, session marginal, session facts, split diagnostics, replay fingerprints (gates 1b, 1c, 2) | study 12 regime 1 fitted parameters |
 | 3 | MEvolve: the ranked literature models (19 as of 2026-11-01, including LossCounting; not Win-Stay-Lose-Shift) as programs with parity tests (gate 1a) | study 12 configs (dispatcher PR 214) |
 | 4 | MEvolve: Shinka integration, shim, seed placement on islands, launch wrapper (gate 3) | — |
 | 5 | studies: `write_initial()` for MEvolve launches; recovery runs (gate 4); 100-proposal smoke launch | — |
 | 6 | the `seeded-islands` search | study 12 scores for the seed choice |
-| 7 | simplification at three floors; selection; rollouts; test scores; reports | study 12 r2 for the leaderboard |
+| 7 | simplification at three floors; selection; rollouts; test scores; reports | study 12 r3 for the leaderboard |
 
 ## Reports
 
