@@ -17,11 +17,13 @@ from __future__ import annotations
 import csv
 import json
 import math
+import re
 import statistics
 import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import yaml
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
@@ -35,6 +37,10 @@ RUNS = HERE / "per_subject_fits.json"             # its run table and source dig
 WANDB_GROUPS = json.loads(RUNS.read_text())["_meta"]["wandb_groups"]   # pinned in the freeze
 REPORT = HERE / "reports" / "r1-leaderboard.md"
 FIG = HERE / "fig_r1_leaderboard.svg"
+CARDS = HERE / "model_cards.yaml"   # hand-written: family, summary, equations, paper, code per model
+FAMILIES = ["Q-learning + choice history", "Foraging and counting heuristics",
+            "Q-learning, value only", "Choice-history regression", "Bayesian state inference",
+            "Actor-critic"]
 GRU_D = 614
 R8 = {"Hattori2019": "hattori", "Bari2019": "bari", "CompareToThreshold": "ctt"}
 TOL = 1e-4   # per-subject |Δ likelihood| that counts as reproducing study 01 r8
@@ -221,25 +227,60 @@ def _rewrite(text: str, block: str, body: str) -> str:
     return f"{head}{begin}\n{body}\n{end}{tail}"
 
 
+def render_models(r: dict, cards: dict) -> str:
+    """The model cards, grouped by family; each family in rank order."""
+    rank = {row["literature_model"]: i for i, row in enumerate(r["rows"], 1)}
+    params = {row["literature_model"]: row["n_free_params"] for row in r["rows"]}
+    lines = ["Each card is written from the code that was fitted (aind-dynamic-foraging-models at "
+             "the commit named under Code). Ranks are those of the leaderboard above."]
+    for family in FAMILIES:
+        members = sorted((m for m in rank if cards[m]["family"] == family), key=rank.get)
+        if not members:
+            continue
+        lines += ["", f"### {family}"]
+        for m in members:
+            c = cards[m]
+            code = c["code"]
+            url = (f"https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-models/blob/"
+                   f"{code['commit']}/{code['path']}")
+            paper = c["paper"]["cite"] + (f" ([link]({c['paper']['url']}))" if c["paper"]["url"] else "")
+            lines += ["", f"#### {rank[m]}. {m} ({params[m]} free parameters)", "", c["summary"]]
+            if c.get("family_note"):
+                lines += ["", f"*Family:* {c['family_note']}"]
+            lines += ["", c["equations"], "", f"*Paper:* {paper}. *Code:* [`{code['agent_class']}`]({url})."]
+    return "\n".join(lines)
+
+
 def main() -> None:
     fs.apply_paper_style()
     result = compute()
     figure(result)
+    cards = yaml.safe_load(CARDS.read_text())
+    missing = [row["literature_model"] for row in result["rows"] if row["literature_model"] not in cards]
+    assert not missing, f"no model card for {missing}"
+    for m, c in cards.items():   # what the atlas build requires of every entry
+        assert c["family"] in FAMILIES and c["summary"].strip(), f"{m}: family or summary"
+        assert re.fullmatch(r"[0-9a-f]{40}", c["code"]["commit"]), f"{m}: code.commit is not a full SHA"
+        assert not c["code"]["path"].startswith("/"), f"{m}: code.path is not repo-relative"
+        assert c["paper"]["url"] == "" or c["paper"]["url"].startswith("https://"), f"{m}: paper.url"
+        assert not re.search(r"<[a-zA-Z/][^>]*>", c["equations"]), f"{m}: raw HTML in equations"
     text = _rewrite(REPORT.read_text(), "result-1", render(result))
-    REPORT.write_text(_rewrite(text, "result-2", render_repro(result)))
+    text = _rewrite(text, "result-2", render_repro(result))
+    REPORT.write_text(_rewrite(text, "result-3", render_models(result, cards)))
     for row in result["rows"]:
         del row["_deltas"]
     # Stable JSON pointers for readers. The atlas leaderboard (atlas PR 40) reads this file at
     # build time: /by_model/<name>/pooled_heldout (finite) and /by_model/<name>/rank (int), and
     # the report's result-1 block. Renaming any of them fails its build; tell the atlas first.
-    result["by_model"] = {row["literature_model"]: {"rank": i, **row}
+    # family and summary are required by the atlas once its PR 40 merges; the rest are optional.
+    result["by_model"] = {row["literature_model"]: {"rank": i, **row, **cards[row["literature_model"]]}
                           for i, row in enumerate(result["rows"], 1)}
     meta = build_meta("analysis/r1_leaderboard.py", WANDB_GROUPS, study_root=HERE.parent,
                       code=[__file__], inputs=[FITS, RUNS, csl.HB_CTT_SOURCE, cs.GRU_CURVE_SOURCE,
                                                csl.GRU_PER_SUBJECT_SOURCE, cs.RL_SOURCE,
-                                               csl.GRU_SPLIT_SOURCE])
+                                               csl.GRU_SPLIT_SOURCE, CARDS])
     write_artifact(HERE / "r1_leaderboard.json", {"_meta": meta, **result},
-                   outputs=[FIG, f"{REPORT}#result-1", f"{REPORT}#result-2"])
+                   outputs=[FIG, f"{REPORT}#result-1", f"{REPORT}#result-2", f"{REPORT}#result-3"])
 
 
 if __name__ == "__main__":
