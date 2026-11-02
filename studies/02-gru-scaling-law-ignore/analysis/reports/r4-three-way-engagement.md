@@ -24,7 +24,7 @@ GLM-HMM (study 14) on the same scores.
 | engagement likelihood | geometric-mean probability of respond vs ignore, every held-out trial | 1/2 |
 
 **Method.** No new runs: the kept runs of `frozen_runs.json`, the same 3 seeds per cell as r1 and r2
-(W&B keys `heldout/final/eval_likelihood` and `eval_likelihood_engage`).
+(W&B keys `heldout/final/eval_likelihood` and `heldout/final/eval_likelihood_engage`).
 
 <!-- BEGIN result-1 -->
 ![3-way and engagement likelihood](../fig_r4_three_way_engagement.svg)
