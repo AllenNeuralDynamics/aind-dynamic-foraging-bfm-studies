@@ -34,9 +34,17 @@ reference, this report gives three checks per model:
 - the share of subjects whose EM stopped at the iteration cap before converging;
 - 2-level EM score minus per-subject score (r1). A negative value flags a failed Laplace fit.
 
+## Leaderboard
+
 <!-- BEGIN result-1 -->
 TODO: written by the producer, never by hand.
 <!-- END result-1 -->
+
+## Checks (no 2-level HB reference for 17 models)
+
+<!-- BEGIN result-2 -->
+TODO: written by the producer, never by hand.
+<!-- END result-2 -->
 
 ## What it says
 

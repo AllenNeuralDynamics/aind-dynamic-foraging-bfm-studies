@@ -13,6 +13,11 @@ all: r1
 freeze-fits:
 	$(PY) analysis/freeze_fits.py
 
+# 2-level EM rows from MEvolve's score CLI outputs on /allen; run on a compute node.
+.PHONY: freeze-two-level-em
+freeze-two-level-em:
+	$(PY) analysis/freeze_two_level_em.py
+
 # r1 = Literature models on the held-out subjects: the leaderboard
 .PHONY: r1
 r1:

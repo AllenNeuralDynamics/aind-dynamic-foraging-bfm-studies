@@ -24,6 +24,7 @@ GRU_PER_SUBJECT_SOURCE = _S01 / "per_subject_rows.json"   # study 01 r2: per-hel
 HB_CTT_SOURCE = _S13 / "r5_ctt_pooled.json"    # study 13 r5: HB-CTT (and HB-Hattori) pooled
 LITERATURE_SOURCE = _S12 / "per_subject_fits.csv"   # study 12 freeze: literature models per subject
 LEADERBOARD_SOURCE = _S12 / "r1_leaderboard.json"   # study 12 r1: which literature models it ranks
+TWO_LEVEL_EM_SOURCE = _S12 / "two_level_em_fits.csv"   # study 12 freeze: literature models as 2-level EM
 GRU_SPLIT_SOURCE = (REPO / "studies" / "10-gru-reservoir-ablation" / "reference"
                     / "study01-v2-exact-split.json")   # study 01's GRU training pool / test list
 
@@ -100,3 +101,20 @@ def literature_ranking() -> dict[str, list]:
     return {"ranked": [row["literature_model"] for row in board["rows"]],
             "not_ranked": [{"literature_model": r["literature_model"], "reason": r["reason"]}
                            for r in board["not_ranked"]]}
+
+
+def two_level_em_per_subject(cohort: str | None = None) -> dict[str, dict[str, tuple[float, int]]]:
+    """Study 12 r3: each literature model's 2-level EM score per subject, full precision.
+
+    ``{literature_model: {subject: (sum_log_p, n_scored_trials)}}`` over the score sessions, scored by
+    the session marginal (Laplace-EM within each subject; MEvolve ADR 0004 settings), for ``cohort``
+    ``"train"``, ``"heldout"`` or ``None`` (all 763). The scored trials equal those of
+    ``literature_per_subject`` for every subject, so the two can be compared subject by subject.
+    """
+    out: dict[str, dict[str, tuple[float, int]]] = {}
+    with TWO_LEVEL_EM_SOURCE.open(newline="") as handle:
+        for row in csv.DictReader(handle):
+            if cohort is None or row["pool"] == cohort:
+                out.setdefault(row["literature_model"], {})[row["subject_id"]] = (
+                    float(row["log_lik"]), int(row["n_trials"]))
+    return out
