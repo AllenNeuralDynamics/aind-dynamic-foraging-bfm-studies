@@ -17,6 +17,7 @@ Study cover (question, verdict, provenance): [../../README.md](../../README.md).
 | [r1](r1-lr-engaged-scaling.md) | lr-engaged-scaling | live | 3-way head is free on choice: L/R-engaged matches the 2-way ceiling and scales with D (best H256/D614 = 0.7315, still climbing) |
 | [r2](r2-ignore-detection-scaling.md) | ignore-detection-scaling | live | ignore-class detection PR-AUC ~0.61→0.64 with D (far above ~0.05–0.10 base rate); recall capped ~0.47 regardless of scale |
 | [r3](r3-generative-ignore-fidelity.md) | generative-ignore-fidelity | live | free rollouts DO generate ignores but over-produce ~1.6× (0.151 vs 0.096) and fail to *exit* the ignore state (`ignore→ignore` +0.145); a single rollout is not interpretable (seed variance 4.6× the session effect) |
+| [r4](r4-three-way-engagement.md) | three-way-engagement | draft | 3-way (L/R/ignore) and engagement likelihood per H × D; both rise with D (best H256/D614: 3-way 0.6288, engagement 0.8334) |
 
 ## Conventions
 
