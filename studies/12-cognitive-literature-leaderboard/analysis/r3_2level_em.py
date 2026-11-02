@@ -40,6 +40,13 @@ REPORT = HERE / "reports" / "r3-2level-em.md"
 FIG = HERE / "fig_r3_2level_em.svg"
 GRU_D = 614
 AXIS_FLOOR = 0.69   # the axis starts here; models below it are written, not drawn
+TWO_LEVEL_EQUATIONS = r"""
+
+**2-level EM layer** (regime 2; the per-session model above is unchanged):
+
+$$x_{sk} \sim \mathcal{N}\big(\mu_s,\ \operatorname{diag}(\sigma_s^2)\big), \qquad \theta_{sk} = \ell + (h - \ell)\,\Phi(x_{sk}), \qquad k = \text{fit session of subject } s$$
+
+Each bounded parameter $\theta$ with fit bounds $[\ell, h]$ lives on a probit scale $x$ ($\Phi$ the standard normal CDF, so $x \sim \mathcal{N}(0,1)$ is uniform on the bounds). Study 13's fixed hyperprior: $\mu_s \sim \mathcal{N}(0, 1)$, $\log \sigma_s \sim \mathcal{N}(-1, 1)$. Fit by Laplace-EM (Huys et al. 2011), which integrates each session's parameters out: the E-step finds each fit session's best $x_{sk}$ and a Gaussian approximation of its uncertainty; the M-step updates $\mu_s, \sigma_s$; EM runs to convergence (at most 100 iterations). A held-out session $j$ is scored by the session marginal $p(c_j) = \mathbb{E}_{x \sim \mathcal{N}(\mu_s, \sigma_s^2)}\, p(c_j \mid \theta(x))$ over 2,048 draws. Implementation: MEvolve `mevolve.score` (ADR 0004)."""
 
 
 def _pooled(rows) -> float:
@@ -204,8 +211,21 @@ def main() -> None:
     figure(result)
     text = _rewrite(REPORT.read_text(), "result-1", render(result))
     REPORT.write_text(_rewrite(text, "result-2", render_checks(result)))
-    result["by_model"] = {row["literature_model"]: {"rank": i, **row}
-                          for i, row in enumerate(result["rows"], 1)}
+    # Atlas leaderboard fields (same contract as r1's by_model: family and summary required;
+    # rank an int; pooled_heldout finite): the r1 model card plus the 2-level layer. Renaming any
+    # of these fails the atlas build; tell the atlas session first.
+    cards = json.loads(R1.read_text())["by_model"]
+    result["by_model"] = {}
+    for i, row in enumerate(result["rows"], 1):
+        card = cards[row["literature_model"]]
+        result["by_model"][row["label"]] = {
+            "rank": i, **row,
+            "summary": (f"{row['literature_model']} with session-to-session variation: each session's "
+                        "parameters vary around the subject's typical values (2-level EM). "
+                        + card["summary"]),
+            "equations": card["equations"] + TWO_LEVEL_EQUATIONS,
+            "paper": card["paper"], "code": card["code"],
+            "family_note": card.get("family_note", "")}
     meta = build_meta("analysis/r3_2level_em.py", WANDB_GROUPS, study_root=HERE.parent,
                       code=[__file__], inputs=[EM, EM_RUNS, PS, R1, csl.HB_CTT_SOURCE,
                                                cs.GRU_CURVE_SOURCE, csl.GRU_PER_SUBJECT_SOURCE,
