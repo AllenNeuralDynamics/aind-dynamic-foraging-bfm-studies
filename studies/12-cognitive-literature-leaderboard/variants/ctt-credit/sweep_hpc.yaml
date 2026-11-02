@@ -3,7 +3,8 @@
 # subject on all 763 subjects with per-subject-de's protocol and data. Same likelihood as
 # CompareToThreshold; stay credits bounded to [-20, 20] instead of the threshold to [-1, 1].
 #   model -> dispatcher code/config/model/baseline_rl_lit_compare_to_threshold_credit.yaml
-# Compared with per-subject-de's CompareToThreshold in report r2.
+# CompareToThreshold is refit in the same launch, so report r2 compares the two on one
+# foraging-models commit; per-subject-de's CompareToThreshold is a second reference.
 
 entity: NeuralDynamics
 project: aind-dynamic-foraging-model
@@ -44,3 +45,4 @@ parameters:
   model:
     values:
       - baseline_rl_lit_compare_to_threshold_credit
+      - baseline_rl_lit_compare_to_threshold
