@@ -448,6 +448,26 @@ class WriteInitialTests(unittest.TestCase):
         self.assertEqual((self.lr / "cost-hattori" / "score.sbatch").read_text(),
                          "python -m mevolve.score --model Hattori2019\n")
 
+    def test_duplicate_manifest_names_are_refused(self):
+        (self.variant / "a").mkdir()
+        (self.variant / "a" / "score.sbatch").write_text("other\n")
+        with self.assertRaisesRegex(ValueError, "share a file name"):
+            self.write(manifests=["score.sbatch", "a/score.sbatch"], recorded_after_launch=False)
+
+    def test_manifest_recovered_from_git_after_its_directory_is_removed(self):
+        import shutil
+        from launch_record import _text_at_commit
+        (self.variant / "old").mkdir()
+        (self.variant / "old" / "run.sbatch").write_text("python -m mevolve.score\n")
+        import subprocess
+        subprocess.run(["git", "-C", self.tmp.name, "add", "-A"], check=True)
+        subprocess.run(["git", "-C", self.tmp.name, "-c", "user.name=t", "-c", "user.email=t@t",
+                        "commit", "-q", "-m", "old"], check=True)
+        sha = subprocess.run(["git", "-C", self.tmp.name, "rev-parse", "HEAD"], check=True,
+                             capture_output=True, text=True).stdout.strip()
+        shutil.rmtree(self.variant / "old")
+        self.assertEqual(_text_at_commit(self.variant / "old" / "run.sbatch", sha), "python -m mevolve.score\n")
+
     def test_command_is_recorded_and_validated(self):
         rec = self.write()
         self.assertEqual(rec["command"], "sbatch score.sbatch")

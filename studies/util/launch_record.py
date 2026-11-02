@@ -368,6 +368,10 @@ def write_initial(
         raise ValueError(f"image describes {(image or {}).get('platform')!r}, but the launch ran on {platform!r}")
     if not manifests:
         raise ValueError("manifests is empty; a record must name what it submitted")
+    names = [Path(m).name for m in manifests]
+    if len(set(names)) != len(names):     # snapshots are stored by file name beside the record
+        raise ValueError(f"manifests {list(manifests)} share a file name; rename one so each "
+                         "snapshot beside the record is distinct")
     snapshots = {}
     for m in manifests:
         if Path(m).suffix == ".json":   # a JSON snapshot in launch_record/ would read as a record
@@ -485,8 +489,10 @@ _EXTEND_ONLY = ("n_steps",)
 
 def _text_at_commit(path: Path, sha: str) -> str | None:
     """``path``'s text in the studies repo at commit ``sha``, or None if git cannot show it."""
+    # run git from the nearest directory that still exists: the manifest's own may be gone
+    here = next((d for d in path.resolve().parents if d.is_dir()), Path("/"))
     try:
-        top = subprocess.run(["git", "-C", str(path.parent), "rev-parse", "--show-toplevel"],
+        top = subprocess.run(["git", "-C", str(here), "rev-parse", "--show-toplevel"],
                              capture_output=True, text=True, check=True).stdout.strip()
         rel = path.resolve().relative_to(Path(top).resolve()).as_posix()
         return subprocess.run(["git", "-C", top, "show", f"{sha}:{rel}"],
