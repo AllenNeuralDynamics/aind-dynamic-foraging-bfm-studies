@@ -3,8 +3,8 @@
 The vocabulary only this study needs. Hierarchy and evaluation terms (subject, session, held-out
 subject, context session, condition) are the
 [dispatcher glossary](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher/blob/main/CONTEXT.md)'s;
-program and search terms (program, parameter, latent variable, state, session level, session
-marginal, rollout, fingerprint, proposal, score) are
+program and search terms (program, parameter, latent variable, state, the fitting regimes (per subject,
+2-level HB, 2-level EM, ...), 2-level model, session marginal, rollout, fingerprint, proposal, score) are
 [MEvolve's](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/blob/main/CONTEXT.md).
 Both keep their meaning here.
 
@@ -54,10 +54,10 @@ score is split by stage group and task variant.
 
 **Both-regime test**:
 Scoring an elite with and without one of its mechanisms, once with one parameter set per subject and
-once at the session level.
+once as 2-level EM.
 
 **Flagged mechanism**:
-A program edit whose gain appears with one parameter set per subject but vanishes at the session level,
+A program edit whose gain appears with one parameter set per subject but vanishes as 2-level EM,
 a sign that it absorbs drift between sessions rather than describing computation within a session.
 
 **Fingerprint gate**:
@@ -66,7 +66,7 @@ subjects exceeds that of the best literature model.
 
 **Fit floor**:
 The validation score a simplified program must keep, as a fraction of the distance from the best
-literature model to the best discovered program, both scored at the session level.
+literature model to the best discovered program, both scored as 2-level EM.
 
 **Pre-registered programs**:
 The programs chosen on the selection subjects, by a rule fixed in advance, before the test subjects

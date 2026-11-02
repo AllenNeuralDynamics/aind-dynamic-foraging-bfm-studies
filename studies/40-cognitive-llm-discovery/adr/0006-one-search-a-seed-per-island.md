@@ -13,11 +13,12 @@ checked against its original; nothing else enters the prompt pool. Study 12 fits
 lapse term, scores near zero, so it is neither a seed nor an inspiration (updated 2026-11-01, when
 study 12 added the free LossCounting model). Which models are eligible comes from study 12 r1
 (`cross_study_literature.literature_ranking()`, its ranked and not-ranked lists); their order for
-seeding is recomputed on study 40's validation subjects from `literature_per_subject`, never taken
-from study 12's ranking, so scores on the test subjects cannot influence the search. There
-are five islands: a near-empty template; the three literature models with the best scores on the
-validation subjects (from study 12, which fits them on every cohort subject: its session-level scores
-if they exist when the pilot starts, otherwise its per-subject ones); and
+seeding is recomputed from study 12's scores on study 40's validation subjects, never taken from
+study 12's ranking, so scores on the test subjects cannot influence the search. Study 12 fits every
+cohort subject; the order uses its 2-level EM scores (r3) if they exist when the pilot starts,
+otherwise its per-subject scores (`literature_per_subject`; rule stated once, 2026-11-02). There
+are five islands: a near-empty template; the three literature models with the best of those
+validation scores; and
 Eckstein's Bayesian-inference model as the library's model with discrete states, or the fourth-ranked
 model if Eckstein's is already in the top three. That spreads the $450 at roughly $90 per island
 (decided with Han, 2026-11-01).
