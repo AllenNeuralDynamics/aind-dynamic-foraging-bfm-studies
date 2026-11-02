@@ -106,7 +106,16 @@ def compute() -> dict:
         row["gain_heldout"] = row["pooled_heldout"] - row["pooled_heldout_per_subject"]
         row["gain_all"] = row["pooled_all"] - row["pooled_all_per_subject"]
         rows.append(row)
+    # The headline ranking (Han, 2026-11-02): 2-level EM, except that a model whose 2-level fit failed
+    # (it scores below its own per-subject fit) is placed by its per-subject score. em_rank keeps the
+    # pure 2-level EM order.
     rows.sort(key=lambda r: -r["pooled_heldout"])
+    for i, row in enumerate(rows, 1):
+        failed = row["gain_all"] < 0
+        row["em_rank"] = i
+        row["headline_score"] = row["pooled_heldout_per_subject"] if failed else row["pooled_heldout"]
+        row["headline_source"] = "per subject (2-level fit failed)" if failed else "2-level EM"
+    rows.sort(key=lambda r: -r["headline_score"])
     return {"n_models": len(rows), "n_subjects": rows[0]["n_subjects"],
             "n_heldout": rows[0]["n_heldout"], "n_gru_list": len(gru_list),
             "settings": runs["settings"], "mevolve_git_sha": runs["mevolve_git_sha"],
@@ -162,18 +171,22 @@ def render(r: dict) -> str:
         f"in grey, not drawn. * marks a model whose 2-level EM score falls below its per-subject score over "
         f"all subjects (a failed Laplace fit; see the checks). One fit per subject and model, so no error bars.",
         "",
-        f"| rank | 2-level EM model | family | held-out ({r['n_heldout']}) | per subject | gain "
-        f"| GRU's list ({r['n_gru_list']}) |",
-        "|---:|---|---|---:|---:|---:|---:|",
+        f"Headline ranking: by the 2-level EM score, except that the {sum(row['headline_source'] != '2-level EM' for row in r['rows'])} "
+        f"models whose 2-level fit failed (*) are placed by their per-subject score.",
+        "",
+        f"| rank | literature model | family | headline ({r['n_heldout']}) | 2-level EM | per subject | gain "
+        f"| 2-level EM, GRU's list ({r['n_gru_list']}) |",
+        "|---:|---|---|---:|---:|---:|---:|---:|",
     ]
     for i, row in enumerate(r["rows"], 1):
-        lines.append(f"| {i} | {row['label']} | {row['family']} | {row['pooled_heldout']:.4f} "
-                     f"| {row['pooled_heldout_per_subject']:.4f} | {fs.num(row['gain_heldout'], '+.4f')} "
-                     f"| {row['pooled_gru_list']:.4f} |")
+        star = " *" if row["headline_source"] != "2-level EM" else ""
+        lines.append(f"| {i} | {row['literature_model']}{star} | {row['family']} | {row['headline_score']:.4f} "
+                     f"| {row['pooled_heldout']:.4f} | {row['pooled_heldout_per_subject']:.4f} "
+                     f"| {fs.num(row['gain_heldout'], '+.4f')} | {row['pooled_gru_list']:.4f} |")
     lines += [
-        f"| | *2-level HB CTT (study 13)* | | {ref['hb_ctt']:.4f} | | | |",
-        f"| | *2-level HB Hattori (study 13)* | | {ref['hb_hattori']:.4f} | | | |",
-        f"| | *GRU D≈614 (study 01)* | | {ref['gru_d614_own_list']:.4f}† | | | "
+        f"| | *2-level HB CTT (study 13)* | | {ref['hb_ctt']:.4f} | | | | |",
+        f"| | *2-level HB Hattori (study 13)* | | {ref['hb_hattori']:.4f} | | | | |",
+        f"| | *GRU D≈614 (study 01)* | | {ref['gru_d614_own_list']:.4f}† | | | | "
         f"{ref['gru_d614_gru_list']:.4f} |",
         "",
         "† On the GRU's own held-out list. Every subject's fit and scored trial counts equal r1's, so the "
@@ -231,7 +244,8 @@ def main() -> None:
     text = _rewrite(REPORT.read_text(), "result-1", render(result))
     REPORT.write_text(_rewrite(text, "result-2", render_checks(result)))
     # Atlas leaderboard fields (atlas PR 43, a twin overlay on r1's panel): family and summary
-    # required, rank an int, pooled_heldout finite, literature_model equal to a ranked r1 by_model
+    # required, rank an int (the headline rank; em_rank is the pure 2-level EM order), headline_score
+    # and headline_source, pooled_heldout (the 2-level EM score) finite, literature_model equal to a ranked r1 by_model
     # key (a missing twin fails the build), fit_flag null or {kind, reason}; plus the report's
     # result-1 block. Renaming any of these fails the atlas build; tell the atlas session first.
     cards = json.loads(R1.read_text())["by_model"]

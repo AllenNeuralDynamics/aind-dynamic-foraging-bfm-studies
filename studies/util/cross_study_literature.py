@@ -25,6 +25,7 @@ HB_CTT_SOURCE = _S13 / "r5_ctt_pooled.json"    # study 13 r5: HB-CTT (and HB-Hat
 LITERATURE_SOURCE = _S12 / "per_subject_fits.csv"   # study 12 freeze: literature models per subject
 LEADERBOARD_SOURCE = _S12 / "r1_leaderboard.json"   # study 12 r1: which literature models it ranks
 TWO_LEVEL_EM_SOURCE = _S12 / "two_level_em_fits.csv"   # study 12 freeze: literature models as 2-level EM
+HEADLINE_SOURCE = _S12 / "r3_2level_em.json"   # study 12 r3: the headline ranking
 GRU_SPLIT_SOURCE = (REPO / "studies" / "10-gru-reservoir-ablation" / "reference"
                     / "study01-v2-exact-split.json")   # study 01's GRU training pool / test list
 
@@ -118,3 +119,16 @@ def two_level_em_per_subject(cohort: str | None = None) -> dict[str, dict[str, t
                 out.setdefault(row["literature_model"], {})[row["subject_id"]] = (
                     float(row["log_lik"]), int(row["n_trials"]))
     return out
+
+
+def literature_headline_ranking() -> list[dict]:
+    """Study 12 r3: the headline ranking of the literature models, best first.
+
+    By the 2-level EM score, except that a model whose 2-level fit failed (it scores below its own
+    per-subject fit) is placed by its per-subject score. Each entry: ``literature_model``, ``score``
+    (pooled held-out likelihood on the 149 held-out subjects) and ``source`` ("2-level EM" or
+    "per subject (2-level fit failed)"). ``literature_ranking()`` (r1) still decides eligibility.
+    """
+    rows = json.loads(HEADLINE_SOURCE.read_text())["rows"]
+    return [{"literature_model": r["literature_model"], "score": r["headline_score"],
+             "source": r["headline_source"]} for r in rows]

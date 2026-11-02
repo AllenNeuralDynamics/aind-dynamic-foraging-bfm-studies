@@ -59,30 +59,32 @@ reference, this report gives three checks per model:
 
 Each line runs from a literature model's per-subject score (open circle, r1) to its 2-level EM score (filled) on the 149 held-out subjects. 2-level EM: Laplace-EM within each subject under study 13's hyperprior, EM to convergence (max_em = 100), held-out sessions scored by the session marginal over 2048 draws (MEvolve `6af7d58`). Dashed lines: 2-level HB (study 13) and the GRU at D≈614 (on its own held-out list). Models whose per-subject score is below 0.69 are written in grey, not drawn. * marks a model whose 2-level EM score falls below its per-subject score over all subjects (a failed Laplace fit; see the checks). One fit per subject and model, so no error bars.
 
-| rank | 2-level EM model | family | held-out (149) | per subject | gain | GRU's list (149) |
-|---:|---|---|---:|---:|---:|---:|
-| 1 | EM-Lebedeva-PR | Q-learning + choice history | 0.7243 | 0.7172 | +0.0071 | 0.7237 |
-| 2 | EM-Lopez-DoubleTrace | Q-learning + choice history | 0.7240 | 0.7187 | +0.0053 | 0.7233 |
-| 3 | EM-Bari2019 | Q-learning + choice history | 0.7233 | 0.7149 | +0.0084 | 0.7226 |
-| 4 | EM-Miller-RHG | Q-learning + choice history | 0.7225 | 0.7160 | +0.0065 | 0.7218 |
-| 5 | EM-CompareToThreshold | Foraging and counting heuristics | 0.7223 | 0.7170 | +0.0053 | 0.7217 |
-| 6 | EM-Hattori2019 | Q-learning, value only | 0.7211 | 0.7127 | +0.0084 | 0.7205 |
-| 7 | EM-Zid-HistoryKernel2-ForagingRL | Foraging and counting heuristics | 0.7197 | 0.7163 | +0.0034 | 0.7190 |
-| 8 | EM-Eckstein-BI | Bayesian state inference | 0.7181 | 0.7100 | +0.0081 | 0.7174 |
-| 9 | EM-Beron-RFLR | Choice-history regression | 0.7179 | 0.7112 | +0.0067 | 0.7172 |
-| 10 | EM-Chen-RLCK | Q-learning + choice history | 0.7178 | 0.7124 | +0.0054 | 0.7172 |
-| 11 | EM-Eckstein-RL | Q-learning + choice history | 0.7158 | 0.7088 | +0.0070 | 0.7151 |
-| 12 | EM-FeedbackDependent-RL+Bias+CK1 | Q-learning + choice history | 0.7118 | 0.6969 | +0.0149 | 0.7111 |
-| 13 | EM-Grossman-MetaLearning | Q-learning, value only | 0.7095 | 0.7127 | −0.0032 | 0.7094 |
-| 14 | EM-Alsio-DualRateSticky-RL | Q-learning + choice history | 0.7061 | 0.6961 | +0.0101 | 0.7055 |
-| 15 | EM-ActorCritic | Actor-critic | 0.6662 | 0.6273 | +0.0390 | 0.6657 |
-| 16 | EM-LossCounting | Foraging and counting heuristics | 0.6660 | 0.6698 | −0.0038 | 0.6654 |
-| 17 | EM-FeedbackDependent-RL+Bias | Q-learning, value only | 0.6145 | 0.5558 | +0.0588 | 0.6142 |
-| 18 | EM-FeedbackDependent-RL | Q-learning, value only | 0.5855 | 0.5489 | +0.0366 | 0.5854 |
-| 19 | EM-Rescorla-Wagner | Q-learning, value only | 0.3733 | 0.5422 | −0.1689 | 0.3731 |
-| | *2-level HB CTT (study 13)* | | 0.7225 | | | |
-| | *2-level HB Hattori (study 13)* | | 0.7213 | | | |
-| | *GRU D≈614 (study 01)* | | 0.7268† | | | 0.7268 |
+Headline ranking: by the 2-level EM score, except that the 3 models whose 2-level fit failed (*) are placed by their per-subject score.
+
+| rank | literature model | family | headline (149) | 2-level EM | per subject | gain | 2-level EM, GRU's list (149) |
+|---:|---|---|---:|---:|---:|---:|---:|
+| 1 | Lebedeva-PR | Q-learning + choice history | 0.7243 | 0.7243 | 0.7172 | +0.0071 | 0.7237 |
+| 2 | Lopez-DoubleTrace | Q-learning + choice history | 0.7240 | 0.7240 | 0.7187 | +0.0053 | 0.7233 |
+| 3 | Bari2019 | Q-learning + choice history | 0.7233 | 0.7233 | 0.7149 | +0.0084 | 0.7226 |
+| 4 | Miller-RHG | Q-learning + choice history | 0.7225 | 0.7225 | 0.7160 | +0.0065 | 0.7218 |
+| 5 | CompareToThreshold | Foraging and counting heuristics | 0.7223 | 0.7223 | 0.7170 | +0.0053 | 0.7217 |
+| 6 | Hattori2019 | Q-learning, value only | 0.7211 | 0.7211 | 0.7127 | +0.0084 | 0.7205 |
+| 7 | Zid-HistoryKernel2-ForagingRL | Foraging and counting heuristics | 0.7197 | 0.7197 | 0.7163 | +0.0034 | 0.7190 |
+| 8 | Eckstein-BI | Bayesian state inference | 0.7181 | 0.7181 | 0.7100 | +0.0081 | 0.7174 |
+| 9 | Beron-RFLR | Choice-history regression | 0.7179 | 0.7179 | 0.7112 | +0.0067 | 0.7172 |
+| 10 | Chen-RLCK | Q-learning + choice history | 0.7178 | 0.7178 | 0.7124 | +0.0054 | 0.7172 |
+| 11 | Eckstein-RL | Q-learning + choice history | 0.7158 | 0.7158 | 0.7088 | +0.0070 | 0.7151 |
+| 12 | Grossman-MetaLearning * | Q-learning, value only | 0.7127 | 0.7095 | 0.7127 | −0.0032 | 0.7094 |
+| 13 | FeedbackDependent-RL+Bias+CK1 | Q-learning + choice history | 0.7118 | 0.7118 | 0.6969 | +0.0149 | 0.7111 |
+| 14 | Alsio-DualRateSticky-RL | Q-learning + choice history | 0.7061 | 0.7061 | 0.6961 | +0.0101 | 0.7055 |
+| 15 | LossCounting * | Foraging and counting heuristics | 0.6698 | 0.6660 | 0.6698 | −0.0038 | 0.6654 |
+| 16 | ActorCritic | Actor-critic | 0.6662 | 0.6662 | 0.6273 | +0.0390 | 0.6657 |
+| 17 | FeedbackDependent-RL+Bias | Q-learning, value only | 0.6145 | 0.6145 | 0.5558 | +0.0588 | 0.6142 |
+| 18 | FeedbackDependent-RL | Q-learning, value only | 0.5855 | 0.5855 | 0.5489 | +0.0366 | 0.5854 |
+| 19 | Rescorla-Wagner * | Q-learning, value only | 0.5422 | 0.3733 | 0.5422 | −0.1689 | 0.3731 |
+| | *2-level HB CTT (study 13)* | | 0.7225 | | | | |
+| | *2-level HB Hattori (study 13)* | | 0.7213 | | | | |
+| | *GRU D≈614 (study 01)* | | 0.7268† | | | | 0.7268 |
 
 † On the GRU's own held-out list. Every subject's fit and scored trial counts equal r1's, so the gain compares the same trials.
 <!-- END result-1 -->
@@ -119,6 +121,7 @@ EM-Rescorla-Wagner: its epsilon-greedy likelihood is flat or stepped in some par
 
 ## What it says
 
+- **This is study 12's headline ranking** (Han, 2026-11-02): literature models ranked by 2-level EM, like for like with 2-level HB and with how study 40 scores programs. The three failed fits are placed by their per-subject score. r1 stays the per-subject reference and each model's twin.
 - **Session-to-session variation lifts almost every literature model.** 16 of the 19 gain on the held-out
   subjects (median +0.0076 among those not flagged), on exactly the same trials as r1.
 - **The best literature models now beat 2-level HB CTT.** EM-Lebedeva-PR (0.7243), EM-Lopez-DoubleTrace

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_leaderboard.py",
-    "produced_at_pt": "2026-11-02T04:00:26-08:00",
-    "studies_git_sha": "c2515dc3c7c3d17e8a6d8cae79b8479b8bb5d0ac",
+    "produced_at_pt": "2026-11-02T12:21:24-08:00",
+    "studies_git_sha": "62ba646fb0a51167a22552e1ae46a80704982aa4",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -37,7 +37,7 @@
       },
       {
         "path": "studies/util/cross_study_literature.py",
-        "sha256": "9df790788d9880a880e4e22ca36a8752d1f2abd00e4de2bdb2fbee31679e0377"
+        "sha256": "e7a1d3606d5db03c4018a5fb298630cf0365a3de44c351966c6fc85b3ff2d525"
       },
       {
         "path": "studies/util/figure_audit.py",
