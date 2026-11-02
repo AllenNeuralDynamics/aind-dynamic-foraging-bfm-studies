@@ -94,4 +94,5 @@ that group.
 [`6mzqt91f`](https://wandb.ai/AIND-disRNN/mice_glmhmm/sweeps/6mzqt91f), SLURM array 27565930):
 320 cells, 30 at a time, HPC CPU, 32 cores and 32 GB each. Runtime: studies `cb21327`, wrapper
 `f9ea875`, dispatcher `ea2d6de`, foraging models `2ce1f70` (v0.28.0, installed from git in the
-shared CPU env). Running.
+shared CPU env). Settled 2026-11-01 17:59 PT: all 320 cells finished; results in
+[`launch_record/refit-prior-r2/results.md`](launch_record/refit-prior-r2/results.md) and r2.
