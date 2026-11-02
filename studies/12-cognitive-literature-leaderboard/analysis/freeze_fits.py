@@ -138,6 +138,7 @@ def main() -> None:
     if not args.out_dir.resolve().is_relative_to(HERE.parents[2].resolve()):
         parser.error("--out-dir must be inside the studies checkout (write_artifact records "
                      "repository-relative paths); use analysis/_cache_smoke for a smoke freeze")
+    args.out_dir.mkdir(parents=True, exist_ok=True)
 
     rows, runs, sources = [], [], []
     for group in groups:
