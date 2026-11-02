@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_leaderboard.py",
-    "produced_at_pt": "2026-11-01T13:15:58-08:00",
-    "studies_git_sha": "1d5080c29bd57c3056552a4c6b095a7fcc0089bb",
+    "produced_at_pt": "2026-11-01T18:03:01-08:00",
+    "studies_git_sha": "e83aaf7f98620319f031f5fa140325a67f38c74c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -55,7 +55,7 @@
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.json",
-        "sha256": "c8ca925f3cb6dc7abc740da2c0d984932f25f192ddbc32a64650bf3582e6fef5"
+        "sha256": "e588b027572ec5dd7f2cf260dec071ec3ac04b721ef0e3695f955d4ecff876de"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",

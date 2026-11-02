@@ -13,7 +13,7 @@ compute node. Every report producer reads only the two committed files.
     python analysis/freeze_fits.py [--group <group>] [--out-dir <dir>]
 
 ``--group`` and ``--out-dir`` exist to test the freeze on a smoke group without touching the
-committed files; ``make freeze-fits`` uses neither.
+committed files (``--out-dir analysis/_cache_smoke``, gitignored); ``make freeze-fits`` uses neither.
 """
 from __future__ import annotations
 
@@ -133,7 +133,11 @@ def main() -> None:
     test = bool(args.group)
     if test and args.out_dir.resolve() == HERE.resolve():
         parser.error("--group skips the completeness checks; pass --out-dir to a scratch "
-                     "directory so the committed freeze is never overwritten")
+                     "directory (e.g. analysis/_cache_smoke, gitignored) so the committed freeze "
+                     "is never overwritten")
+    if not args.out_dir.resolve().is_relative_to(HERE.parents[2].resolve()):
+        parser.error("--out-dir must be inside the studies checkout (write_artifact records "
+                     "repository-relative paths); use analysis/_cache_smoke for a smoke freeze")
 
     rows, runs, sources = [], [], []
     for group in groups:
