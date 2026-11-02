@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_ctt_credit.py",
-    "produced_at_pt": "2026-11-02T15:16:31-08:00",
-    "studies_git_sha": "a5cbf1f243f8171c82b35ec1730f7a75b06a4a3b",
+    "produced_at_pt": "2026-11-02T15:18:56-08:00",
+    "studies_git_sha": "66ec11a794993993b93051af83ad8bf21d398787",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r2_ctt_credit.py",
-        "sha256": "a1703cf0878dfb7486ad051712d7ffae51e639d5c8e16d199ad22bcde690a30d"
+        "sha256": "4dfbb14d6a936454bfb6f8a96c1f7211bceef7671678c515eafedaf547d97b3f"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -62,7 +62,7 @@
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r2-ctt-credit.md#result-1",
-        "sha256": "14547f7ff3af5cf13c80d897cfeae45ebfb1e6150ded3bcb8c7d6b5b880faa84"
+        "sha256": "4b7df69426810238846eb74005a4b3c805d44f99c6edfcd352524e358914a0cd"
       }
     ]
   },

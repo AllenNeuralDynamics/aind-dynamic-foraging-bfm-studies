@@ -37,6 +37,7 @@ FIG = HERE / "fig_r2_ctt_credit.svg"
 CREDIT, CTT, CTT_R1 = "CompareToThreshold-credit", "CompareToThreshold", "CompareToThreshold (r1)"
 THETA_MIN, CREDIT_BOUND = -1.0, 20.0   # CompareToThreshold's lower θ bound; the credits' |bound|
 BOUND_TOL = 1e-6   # θ within this of −1: the optimizer stopped on the bound
+NEAR_BOUND = -0.95  # θ below this is "near the bound" in the text
 TOL = 1e-4         # agreement that counts as the same fit (per trial, and per parameter)
 
 
@@ -110,6 +111,8 @@ def compute() -> dict:
                        "n_fit_gain": sum(r["d_fit"] > TOL for r in group)}
     interior = [r for r in per if not r["at_bound"]]
     bound = [r for r in per if r["at_bound"]]
+    # The report calls the interior subjects that differ "near the bound, in the credit form's favour".
+    assert all(r["theta"] < NEAR_BOUND and r["d_fit"] > 0 for r in interior if abs(r["d_fit"]) > TOL)
     flips = [{"subject_id": r["subject_id"], "theta": r["theta"], "d_eval": r["d_eval_r1"]}
              for r in per if r["at_bound"] != r["at_bound_r1"]]
     return {
@@ -211,8 +214,8 @@ def render(r: dict) -> str:
         f"**Checks.** At the bound means θ within {r['bound_tol']:g} of −1. Inside the bound "
         f"({sn['n']} subjects) the two forms reach the same likelihood: the 99th percentile of "
         f"|fit difference| is {eq['p99_abs_d_fit']:.1e} per trial. {len(eq['n_d_fit_above_tol'])} "
-        f"subjects differ by more than {r['tol']:g}, both near the bound and both in the credit "
-        "form's favour: " + ", ".join(f"{x['subject_id']} (θ = {fs.num(x['theta'], '.3f')}, fit "
+        f"subjects differ by more than {r['tol']:g}, all with θ below {fs.num(NEAR_BOUND, 'g')} and all "
+        "in the credit form's favour: " + ", ".join(f"{x['subject_id']} (θ = {fs.num(x['theta'], '.3f')}, fit "
                                       f"{mn(x['d_fit'])}, held-out {mn(x['d_eval'])} mnat/trial)"
                                       for x in eq["n_d_fit_above_tol"]) + ". "
         f"The parameters agree less tightly, along flat directions of the likelihood: 99th "
