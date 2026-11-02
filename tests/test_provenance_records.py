@@ -349,6 +349,13 @@ class WriteInitialTests(unittest.TestCase):
         self.lr.mkdir(parents=True)
         (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Hattori2019\n")
         self.study = self.variant.parents[1]
+        import subprocess      # the variant is committed, as at a real launch
+        git = lambda *a: subprocess.run(["git", "-C", self.tmp.name, *a], check=True,
+                                        capture_output=True, text=True).stdout.strip()
+        git("init", "-q")
+        git("add", "-A")
+        git("-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "launch")
+        self.sha = git("rev-parse", "HEAD")
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -358,8 +365,8 @@ class WriteInitialTests(unittest.TestCase):
         args = dict(platform="hpc", wandb_group=self.GROUP, study_root=self.study, label="hattori-763",
                     note="cost test: one model on all 763 subjects before the other 18",
                     job_refs=[{"type": "slurm_job", "id": "27567407"}],
-                    revisions={"studies": "a" * 40, "mevolve": "d" * 40},
-                    manifests=["score.sbatch"],
+                    revisions={"studies": self.sha, "mevolve": "d" * 40},
+                    manifests=["score.sbatch"], command="sbatch score.sbatch",
                     data={"source": "freeze", "config": "mice_snapshot_scaling", "snapshot": "20260603",
                           "uri": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603", "manifest_sha256": "f" * 64},
                     image={"platform": "hpc", "conda_env": "mevolve", "lock_sha256": "e" * 64},
@@ -389,9 +396,9 @@ class WriteInitialTests(unittest.TestCase):
         self.assertEqual(self.schema_errors({**rec, "revisions": {"studies": "a" * 40, "dispatcher": "b" * 40,
                                                                   "wrapper": "c" * 40}}), [])
         with self.assertRaisesRegex(ValueError, "dispatcher and wrapper or mevolve"):
-            self.write("b.json", revisions={"studies": "a" * 40, "dispatcher": "b" * 40})
+            self.write("b.json", revisions={"studies": self.sha, "dispatcher": "b" * 40})
         with self.assertRaisesRegex(ValueError, "full 40-character"):
-            self.write("c.json", revisions={"studies": "a" * 40, "mevolve": "6af7d58"})
+            self.write("c.json", revisions={"studies": self.sha, "mevolve": "6af7d58"})
 
     def test_freeze_needs_its_path_and_digest(self):
         rec = self.write()
@@ -413,9 +420,38 @@ class WriteInitialTests(unittest.TestCase):
             self.write("d.json", wandb_group="two-level-em@20261102-010000", image=None)
         (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Bari2019\n")
         with self.assertRaisesRegex(ValueError, "own subdirectory"):
-            self.write("bari.json", wandb_group="two-level-em@20261102-020000")
-        rec = self.write("bari/hpc_initial.json", wandb_group="two-level-em@20261102-020000")
+            self.write("bari.json", wandb_group="two-level-em@20261102-020000", recorded_after_launch=False)
+        rec = self.write("bari/hpc_initial.json", wandb_group="two-level-em@20261102-020000",
+                         recorded_after_launch=False)
         self.assertEqual(self.schema_errors(rec), [])
+        (self.variant / "new.sbatch").write_text("never committed\n")
+        with self.assertRaisesRegex(ValueError, "is not at studies"):
+            self.write("late/x.json", wandb_group="two-level-em@20261102-030000", manifests=["new.sbatch"])
+
+    def test_recorded_after_launch_snapshots_the_committed_manifest(self):
+        (self.variant / "score.sbatch").write_text("#SBATCH --array=0-17\npython -m mevolve.score\n")
+        self.write("cost-hattori/hpc_initial.json")
+        self.assertEqual((self.lr / "cost-hattori" / "score.sbatch").read_text(),
+                         "python -m mevolve.score --model Hattori2019\n")
+
+    def test_command_is_recorded_and_validated(self):
+        rec = self.write()
+        self.assertEqual(rec["command"], "sbatch score.sbatch")
+        self.assertTrue(self.schema_errors({**rec, "command": ""}))
+
+    def test_conda_image_digests_like_the_launcher(self):
+        import hashlib
+        from launch_record import conda_image
+        prefix = Path(self.tmp.name) / "env"
+        (prefix / "conda-meta").mkdir(parents=True)
+        (prefix / "conda-meta" / "numpy-2.0-py312.json").write_text("{}")
+        sp = prefix / "lib" / "python3.12" / "site-packages"
+        (sp / "jax-0.4.dist-info").mkdir(parents=True)
+        image = conda_image(prefix)
+        expected = hashlib.sha256("numpy-2.0-py312.json\njax-0.4.dist-info".encode()).hexdigest()
+        self.assertEqual(image, {"platform": "hpc", "conda_env": str(prefix.resolve()), "lock_sha256": expected})
+        with self.assertRaisesRegex(ValueError, "site-packages"):
+            conda_image(Path(self.tmp.name) / "nothing")
 
     def test_intervention_on_a_mevolve_run_diffs_the_script_as_one_key(self):
         from launch_record import write_intervention

@@ -61,6 +61,7 @@ Times are Seattle per AGENTS.md section 7.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -262,6 +263,21 @@ def write_intervention(
     return record
 
 
+def conda_image(prefix: Path | str) -> dict:
+    """The launch record's HPC ``image`` for a conda env, digested as the dispatcher's launcher
+    does (``image_record_hpc`` in the dispatcher's ``code/launch_inputs.py``): sha256 over the
+    sorted conda package filenames in ``conda-meta`` and then the sorted pip ``*.dist-info`` names
+    in each site-packages, so it changes when any installed version does."""
+    prefix = Path(prefix).expanduser().resolve()
+    site_packages = sorted(prefix.glob("lib/python*/site-packages"))
+    if not site_packages:
+        raise ValueError(f"{prefix} has no lib/python*/site-packages; is it a conda env prefix?")
+    names = sorted(p.name for p in (prefix / "conda-meta").glob("*.json"))
+    names += sorted(p.name for sp in site_packages for p in sp.glob("*.dist-info"))
+    return {"platform": "hpc", "conda_env": str(prefix),
+            "lock_sha256": hashlib.sha256("\n".join(names).encode()).hexdigest()}
+
+
 _SHA = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -279,6 +295,7 @@ def write_initial(
     data: dict[str, Any],
     image: dict[str, Any],
     recorded_after_launch: bool = False,
+    command: str | None = None,
     n_tasks: int | None = None,
     produced_by: str = "launch_record.write_initial",
 ) -> dict:
@@ -304,7 +321,10 @@ def write_initial(
             their own subdirectory of ``launch_record/``.
         data, image: what the run read and ran in (studies#25); both required.
         recorded_after_launch: True when written after submission from the launch facts kept in
-            the variant's notes; stored as ``_meta.recorded_after_launch``.
+            the variant's notes; stored as ``_meta.recorded_after_launch``. The manifests are then
+            snapshotted from git at ``revisions["studies"]``, not from the working copy.
+        command: the exact command line submitted, when the manifest alone does not carry its
+            arguments (e.g. ``sbatch --array=0-17 run_2level.sbatch``).
 
     Raises:
         ValueError: on a bad platform, ref, group prefix, SHA, note, missing manifest, missing
@@ -350,7 +370,14 @@ def write_initial(
     # snapshot each manifest beside the record, as the dispatcher launchers do, so a later
     # intervention compares against what was submitted even if the variant's copy changes
     for m in manifests:
-        text, snap = (variant_dir / m).read_text(), path.parent / Path(m).name
+        if recorded_after_launch:      # the working copy may have changed since the submission
+            text = _text_at_commit(variant_dir / m, revisions["studies"])
+            if text is None:
+                raise ValueError(f"manifest {m} is not at studies {revisions['studies']}; a record "
+                                 "written after launch snapshots what was committed when it ran")
+        else:
+            text = (variant_dir / m).read_text()
+        snap = path.parent / Path(m).name
         if snap.exists() and snap.read_text() != text:
             raise ValueError(f"{snap} already holds a different manifest; write each launch's record "
                              "in its own subdirectory of launch_record/")
@@ -370,6 +397,7 @@ def write_initial(
         "revisions": revisions,
         "manifests": list(manifests),
         "job_refs": job_refs,
+        **({"command": command} if command else {}),
         **({"n_tasks": n_tasks} if n_tasks is not None else {}),
         "data": dict(data),
         "image": dict(image),
@@ -440,6 +468,18 @@ def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:
 _EXTEND_ONLY = ("n_steps",)
 
 
+def _text_at_commit(path: Path, sha: str) -> str | None:
+    """``path``'s text in the studies repo at commit ``sha``, or None if git cannot show it."""
+    try:
+        top = subprocess.run(["git", "-C", str(path.parent), "rev-parse", "--show-toplevel"],
+                             capture_output=True, text=True, check=True).stdout.strip()
+        rel = path.resolve().relative_to(Path(top).resolve()).as_posix()
+        return subprocess.run(["git", "-C", top, "show", f"{sha}:{rel}"],
+                              capture_output=True, text=True, check=True).stdout
+    except (subprocess.CalledProcessError, ValueError, OSError):
+        return None
+
+
 def _launch_manifest_text(name: str, initial: dict, variant_dir: Path) -> str:
     """The launch's manifest as submitted: its immutable snapshot beside the launch record,
     else the file at the launch's studies commit. Never the variant's current file, which
@@ -449,15 +489,9 @@ def _launch_manifest_text(name: str, initial: dict, variant_dir: Path) -> str:
         return snap.read_text()
     sha = (initial.get("revisions") or {}).get("studies")
     if sha:
-        target = (variant_dir / name).resolve()
-        try:
-            top = subprocess.run(["git", "-C", str(variant_dir), "rev-parse", "--show-toplevel"],
-                                 capture_output=True, text=True, check=True).stdout.strip()
-            rel = target.relative_to(Path(top).resolve()).as_posix()
-            return subprocess.run(["git", "-C", top, "show", f"{sha}:{rel}"],
-                                  capture_output=True, text=True, check=True).stdout
-        except (subprocess.CalledProcessError, ValueError, OSError):
-            pass
+        text = _text_at_commit(variant_dir / name, sha)
+        if text is not None:
+            return text
     raise ValueError(f"cannot recover the launch's {name} (no snapshot beside its record, and not "
                      f"at studies {sha or '<no revision>'}); refusing to compare against a file "
                      "that may have changed since the launch")
