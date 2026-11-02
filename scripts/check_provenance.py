@@ -390,7 +390,7 @@ class Checker:
                 self.add("error", "record-orphan-intervention", p,
                          f"{rec.get('kind')} joins {group}, which has no initial launch record in {v.name}")
             for m in rec.get("manifests") or []:
-                if not (v / m).exists() and not (p.parent / m).exists():
+                if not any(x.exists() for x in (v / m, p.parent / m, p.parent / Path(m).name)):
                     self.add("error", "record-manifest-missing", p, f"manifest {m} not found", item=m)
             # what the runs trained on and ran in (studies#25); a backfill submits nothing.
             # The schema accepts a null digest or id (a launcher without network or token

@@ -377,7 +377,7 @@ def write_initial(
         if Path(m).suffix == ".json":   # a JSON snapshot in launch_record/ would read as a record
             raise ValueError(f"manifest {m} is JSON; submit YAML or a script, which cannot be "
                              "mistaken for a launch record")
-        if not (variant_dir / m).exists():
+        if not recorded_after_launch and not (variant_dir / m).exists():
             raise ValueError(f"manifest {m} not found in {variant_dir}; commit it beside the record")
         if recorded_after_launch:      # the working copy may have changed since the submission
             text = _text_at_commit(variant_dir / m, revisions["studies"])
@@ -455,10 +455,17 @@ _OVERRIDE = re.compile(r"^[+~]*([A-Za-z_][\w.]*)=(.*)$")
 
 def _manifest_keys(name: str, text: str) -> dict[str, Any]:
     """A manifest's keys for the diff: YAML or JSON flattened; any other file (an sbatch script
-    for a MEvolve run) is one key, ``script``, so any edit to it must be declared."""
+    for a MEvolve run) is one key, ``script``, so any edit to it must be declared, plus one key
+    per Hydra-style override token in it (``script.=model.training.n_steps``), so declaring the
+    script edit cannot slip a step-budget change past the extend-only rule."""
     if Path(name).suffix in (".yaml", ".yml", ".json"):
         return _flatten(yaml.safe_load(text) or {})
-    return {"script": text}
+    keys: dict[str, Any] = {"script": text}
+    for token in text.split():
+        m = _OVERRIDE.match(token)
+        if m:
+            keys[f"script.={m[1]}"] = token
+    return keys
 
 
 def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:

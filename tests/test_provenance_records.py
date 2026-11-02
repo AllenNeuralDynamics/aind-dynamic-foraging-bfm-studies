@@ -412,7 +412,8 @@ class WriteInitialTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "must start with two-level-em@"):
             self.write("g.json", wandb_group="other@20261102-003154")
         with self.assertRaisesRegex(ValueError, "not found"):
-            self.write("m.json", wandb_group="two-level-em@20261102-010000", manifests=["missing.sbatch"])
+            self.write("m.json", wandb_group="two-level-em@20261102-010000", manifests=["missing.sbatch"],
+                       recorded_after_launch=False)
         with self.assertRaisesRegex(ValueError, "not valid for platform"):
             self.write("r.json", wandb_group="two-level-em@20261102-010000",
                        job_refs=[{"type": "beaker_experiment", "id": "01K"}])
@@ -467,6 +468,35 @@ class WriteInitialTests(unittest.TestCase):
                              capture_output=True, text=True).stdout.strip()
         shutil.rmtree(self.variant / "old")
         self.assertEqual(_text_at_commit(self.variant / "old" / "run.sbatch", sha), "python -m mevolve.score\n")
+
+    def test_script_edit_cannot_change_the_step_budget_outside_extend(self):
+        from launch_record import write_intervention
+        (self.variant / "train.sbatch").write_text("python run.py model.training.n_steps=60000\n")
+        import subprocess
+        subprocess.run(["git", "-C", self.tmp.name, "add", "-A"], check=True)
+        subprocess.run(["git", "-C", self.tmp.name, "-c", "user.name=t", "-c", "user.email=t@t",
+                        "commit", "-q", "-m", "t"], check=True)
+        sha = subprocess.run(["git", "-C", self.tmp.name, "rev-parse", "HEAD"], check=True,
+                             capture_output=True, text=True).stdout.strip()
+        self.write("t/hpc_initial.json", wandb_group="two-level-em@20261102-040000",
+                   manifests=["train.sbatch"], revisions={"studies": sha, "mevolve": "d" * 40})
+        (self.variant / "train.sbatch").write_text("python run.py model.training.n_steps=120000\n")
+        meta = {"produced_by": "x", "produced_at_pt": "2026-11-02T02:00:00-08:00", "wandb_groups": ["g"]}
+        with mock.patch("launch_record.build_meta", return_value=meta):
+            with self.assertRaisesRegex(ValueError, "only an extend"):
+                write_intervention(self.lr / "t" / "resubmit1.json", kind="resubmit", platform="hpc",
+                                   wandb_group="two-level-em@20261102-040000", study_root=self.study,
+                                   job_refs=[{"type": "slurm_job", "id": "9"}], deviations={"script": True},
+                                   manifests=["train.sbatch"],
+                                   trigger={"symptom": "killed at time limit", "cause": "node drained"})
+
+    def test_after_launch_record_needs_only_the_committed_manifest(self):
+        (self.variant / "score.sbatch").unlink()            # moved away after the submission
+        rec = self.write("moved/hpc_initial.json")
+        self.assertEqual(self.schema_errors(rec), [])
+        findings = []
+        check_records_parse(load_records(self.lr), findings)
+        self.assertEqual(findings, [])
 
     def test_command_is_recorded_and_validated(self):
         rec = self.write()
