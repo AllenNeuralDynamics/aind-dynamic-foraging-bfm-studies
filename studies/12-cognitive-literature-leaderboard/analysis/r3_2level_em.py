@@ -198,6 +198,23 @@ def render_checks(r: dict) -> str:
     return "\n".join(lines)
 
 
+def _fit_flag(row: dict) -> dict | None:
+    """Whether to distrust a model's 2-level EM score, and why (the atlas shows it as is).
+
+    laplace_failed: pooled over all subjects, 2-level EM scores below the same model's per-subject
+    fit, which adds flexibility and so should not lose; caveat: a likelihood the gradient-based
+    per-session step cannot fit reliably (Rescorla-Wagner's epsilon-greedy choice).
+    """
+    if row["gain_all"] < 0:
+        return {"kind": "laplace_failed",
+                "reason": f"2-level EM scores {row['gain_all']:+.4f} below the per-subject fit over all "
+                          f"subjects ({row['share_below_per_subject']:.0%} of subjects lower)"}
+    if row["literature_model"] == "Rescorla-Wagner":
+        return {"kind": "caveat", "reason": "epsilon-greedy likelihood is stepped, so the gradient-based "
+                                            "per-session step can report convergence while poorly fitted"}
+    return None
+
+
 def _rewrite(text: str, block: str, body: str) -> str:
     begin, end = f"<!-- BEGIN {block} -->", f"<!-- END {block} -->"
     head, rest = text.split(begin)
@@ -217,7 +234,7 @@ def main() -> None:
     cards = json.loads(R1.read_text())["by_model"]
     result["by_model"] = {}
     for i, row in enumerate(result["rows"], 1):
-        card = cards[row["literature_model"]]
+        card = cards[row["literature_model"]]   # every EM- model has its r1 twin (keyed by name)
         result["by_model"][row["label"]] = {
             "rank": i, **row,
             "summary": (f"{row['literature_model']} with session-to-session variation: each session's "
@@ -225,7 +242,8 @@ def main() -> None:
                         + card["summary"]),
             "equations": card["equations"] + TWO_LEVEL_EQUATIONS,
             "paper": card["paper"], "code": card["code"],
-            "family_note": card.get("family_note", "")}
+            "family_note": card.get("family_note", ""),
+            "fit_flag": _fit_flag(row)}
     meta = build_meta("analysis/r3_2level_em.py", WANDB_GROUPS, study_root=HERE.parent,
                       code=[__file__], inputs=[EM, EM_RUNS, PS, R1, csl.HB_CTT_SOURCE,
                                                cs.GRU_CURVE_SOURCE, csl.GRU_PER_SUBJECT_SOURCE,
