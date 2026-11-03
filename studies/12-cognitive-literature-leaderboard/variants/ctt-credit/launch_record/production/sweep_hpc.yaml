@@ -1,0 +1,48 @@
+# Study 12 / ctt-credit: CompareToThreshold in stay-credit coordinates
+# (ForagerCompareThresholdCredit; AllenNeuralDynamics/aind-dynamic-foraging-models#95), fit per
+# subject on all 763 subjects with per-subject-de's protocol and data. Same likelihood as
+# CompareToThreshold; stay credits bounded to [-20, 20] instead of the threshold to [-1, 1].
+#   model -> dispatcher code/config/model/baseline_rl_lit_compare_to_threshold_credit.yaml
+# CompareToThreshold is refit in the same launch, so report r2 compares the two on one
+# foraging-models commit; per-subject-de's CompareToThreshold is a second reference.
+
+entity: NeuralDynamics
+project: aind-dynamic-foraging-model
+name: ctt-credit
+
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - seed=0
+  # One Hydra run dir per array task: the default (job_id 0) is shared, so concurrent runs
+  # overwrite each other's .hydra/ and inputs.yaml copies (smoke-2). Output paths only.
+  - job_id='${oc.env:SLURM_JOB_ID,0}'
+  # Fit BOTH cohorts in one run: the training pool, then the held-out refit
+  # (the baseline_rl_lit configs default to heldout_refit.enabled=false).
+  - model.heldout_refit.enabled=true
+  - model.heldout_refit.skip_train_fit=false
+  # Parallelize over subjects, not inside differential evolution.
+  - model.multisubject_subject_workers=112
+  - +model.DE_kwargs.workers=1
+  # No example-session plots; metrics come from the per-subject tables.
+  - data.heldout_example_sessions_per_subject=0
+  - data.train_example_sessions_per_subject=0
+  - data.eval_example_sessions_per_subject=0
+  - data.example_max_subjects=0
+  - wandb.entity=NeuralDynamics
+  - wandb.project=aind-dynamic-foraging-model
+  - "wandb.tags=[hpc,cpu,mice,baseline_rl,ctt_credit,12-cognitive-literature-leaderboard]"
+  - ${args_no_hyphens}
+
+parameters:
+  model:
+    values:
+      - baseline_rl_lit_compare_to_threshold_credit
+      - baseline_rl_lit_compare_to_threshold

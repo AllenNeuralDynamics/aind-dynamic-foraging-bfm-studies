@@ -1,0 +1,225 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r2_ctt_credit.py",
+    "produced_at_pt": "2026-11-02T16:40:01-08:00",
+    "studies_git_sha": "a5fec37f5eecae27bc10bde731ccd3ac637ba2a4",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "ctt-credit@20261102-132626",
+      "per-subject-de@20261101-012148"
+    ],
+    "source_studies_git_shas": [
+      "9da9390db5225409dffbc71e9ae8bbf76fd258a3",
+      "fab284da138461ef71c7a0d9f42fc4496f31afca"
+    ],
+    "source_dispatcher_git_shas": [
+      "3b2197d30196881e1f30c41ee3dc512f3aa5dcde",
+      "6450af3c1505abf7806af4e46a62a48df56c75ac"
+    ],
+    "source_wrapper_git_shas": [
+      "331d373c128682c2d8f766e344f9ba05f228d5cf"
+    ],
+    "source_foraging_models_git_shas": [
+      "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112",
+      "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r2_ctt_credit.py",
+        "sha256": "287953be3e435fa43b24a378a1a22c3373f7864dde5f8232f1e9ed48bfb706dd"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/ctt_credit_fits.csv",
+        "sha256": "502f788748d7ecb50a894b172df5d92f68a750de7ecd43a14b1f195985f81762"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/ctt_credit_fits.json",
+        "sha256": "d9f081a8313be89886b8eb022f205a36e76f4816f4643568aa66440cea514459"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.json",
+        "sha256": "18dc0ef653bc427c606853f173d57e367e3d1be4731570bbbd153e8c4224ebdc"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r2_ctt_credit.json",
+        "sha256": "64152c569fc93841bc1ae73253c081fc70cdf5ce43c144536702a2f8c7b99b3e"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/fig_r2_ctt_credit.svg",
+        "sha256": "aa214511e095f7da1e473ab03f10b4d81681f982100e78ea65f9908333da7824"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r2-ctt-credit.md#result-1",
+        "sha256": "73dcdfa1add5c5f603fbbcb20b5e03189ba9d40c3375e674a4691a6cce2c672d"
+      }
+    ]
+  },
+  "n_subjects": 763,
+  "n_heldout": 149,
+  "bound_tol": 1e-06,
+  "tol": 0.0001,
+  "table": [
+    {
+      "model": "CompareToThreshold-credit",
+      "pooled_heldout": 0.7170455734470984,
+      "pooled_train_pool_eval": 0.7210736133142784,
+      "pooled_fit_all": 0.7139196758419918
+    },
+    {
+      "model": "CompareToThreshold",
+      "pooled_heldout": 0.7170394993970253,
+      "pooled_train_pool_eval": 0.7210419313864477,
+      "pooled_fit_all": 0.7138874754038752
+    },
+    {
+      "model": "CompareToThreshold (r1)",
+      "pooled_heldout": 0.7170395016451598,
+      "pooled_train_pool_eval": 0.7210423053592957,
+      "pooled_fit_all": 0.71388732946784
+    }
+  ],
+  "split": {
+    "at_bound": {
+      "n": 81,
+      "n_heldout": 15,
+      "d_fit": {
+        "median": 0.00015651329937460545,
+        "q1": 3.77695525584365e-05,
+        "q3": 0.0005891256576419368,
+        "n_up": 81,
+        "n_down": 0
+      },
+      "d_eval": {
+        "median": 4.614940700375936e-05,
+        "q1": -5.532920406120523e-05,
+        "q3": 0.0007062810281387444,
+        "n_up": 46,
+        "n_down": 35
+      },
+      "n_fit_gain": 47
+    },
+    "not_at_bound": {
+      "n": 682,
+      "n_heldout": 134,
+      "d_fit": {
+        "median": 3.679279103607769e-13,
+        "q1": -1.126189419498047e-12,
+        "q3": 7.33453575652021e-12,
+        "n_up": 408,
+        "n_down": 274
+      },
+      "d_eval": {
+        "median": -4.922038193688749e-10,
+        "q1": -5.059816669816808e-08,
+        "q3": 5.557056541316552e-08,
+        "n_up": 339,
+        "n_down": 343
+      },
+      "n_fit_gain": 2
+    }
+  },
+  "equivalence_not_at_bound": {
+    "p99_abs_d_fit": 1.3450930046904342e-06,
+    "n_d_fit_above_tol": [
+      {
+        "subject_id": "641494",
+        "theta": -0.980827987746433,
+        "d_fit": 0.0008673957201250082,
+        "d_eval": 0.000542794412262515
+      },
+      {
+        "subject_id": "816992",
+        "theta": -0.9904404059504945,
+        "d_fit": 0.0005598631354845063,
+        "d_eval": 0.0001553226313077971
+      }
+    ],
+    "p99_abs_d_credit_win": 0.01570193920406564,
+    "p99_abs_d_credit_loss": 0.006902138706326421,
+    "p99_abs_d_learn_rate": 0.00027097987349965685,
+    "p99_abs_d_biasL": 0.002857477616006319
+  },
+  "n_fit_worse": 0,
+  "implied_theta_at_bound": {
+    "median": -1.2750622066700494,
+    "min": -7.513815269557183,
+    "max": -1.0150904696589533
+  },
+  "stay_after_losses_median": {
+    "at_bound": 0.9008235638109403,
+    "not_at_bound": 0.8232422211116157
+  },
+  "stay_after_wins_median": {
+    "at_bound": 0.9815726694866694,
+    "not_at_bound": 0.9884783335844727
+  },
+  "n_theta_upper_bound": 0,
+  "n_credit_at_bound": 0,
+  "n_negative_beta": 0,
+  "r1_vs_same_launch": {
+    "max_abs_d_eval": 0.00048385251499805104,
+    "n_above_tol": 5,
+    "bound_flips": [
+      {
+        "subject_id": "711256",
+        "theta": -1.0,
+        "d_eval": -0.000146856109031257
+      },
+      {
+        "subject_id": "713378",
+        "theta": -1.0,
+        "d_eval": 0.00044665021659598403
+      },
+      {
+        "subject_id": "726477",
+        "theta": -1.0,
+        "d_eval": -9.364752448098868e-05
+      },
+      {
+        "subject_id": "786866",
+        "theta": -0.9980614153787741,
+        "d_eval": -4.424557772014781e-05
+      },
+      {
+        "subject_id": "787539",
+        "theta": -1.0,
+        "d_eval": -0.00025810075401205834
+      },
+      {
+        "subject_id": "812304",
+        "theta": -0.9789136555966699,
+        "d_eval": -7.473118182238503e-05
+      },
+      {
+        "subject_id": "816992",
+        "theta": -0.9904404059504945,
+        "d_eval": 0.00048385251499805104
+      },
+      {
+        "subject_id": "843079",
+        "theta": -0.9870128241102754,
+        "d_eval": -0.00016424427544053932
+      }
+    ]
+  }
+}

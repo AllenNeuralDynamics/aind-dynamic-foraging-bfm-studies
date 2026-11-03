@@ -46,8 +46,8 @@ later study draws has a score.
 
 | variant | what it varies |
 |---|---|
-| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over 19 literature models, one run per model, plus a second launch for LossCounting; production group [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce), running |
-| [`ctt-credit`](variants/ctt-credit/notes.md) | CompareToThreshold in stay-credit coordinates (same likelihood, wider bounds), compared with per-subject-de's CompareToThreshold in r2 |
+| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over 19 literature models, one run per model, plus a second launch for LossCounting; production group [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce), complete |
+| [`ctt-credit`](variants/ctt-credit/notes.md) | CompareToThreshold in stay-credit coordinates (same likelihood, wider bounds) and the original CompareToThreshold, refit together on one foraging-models commit and compared in r2; group [`ctt-credit@20261102-132626`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/2f26d1qa), complete |
 
 **Headline ranking: r3** (2-level EM; models whose 2-level score falls below their per-subject score are placed by the latter), because the hierarchical baselines are 2-level too; r1 is the per-subject reference. The answer is the leaderboard of literature models on the 149 test subjects (and on the 146 also
 on the GRU's held-out list), with HB-CTT and HB-Hattori (study 13) and the GRU (study 01) as
