@@ -42,7 +42,7 @@ minimum reward, so only the auto-block rule (not recorded) or the experimenter c
 block. Vermillion: the session set a minimum reward per block.*
 
 <!-- BEGIN result-1 -->
-**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `2bc6f2d`, MEvolve `2eef359`):
+**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `d987816`, MEvolve `2eef359`):
 
 | check | max \|difference\| | pass |
 |---|---|---|

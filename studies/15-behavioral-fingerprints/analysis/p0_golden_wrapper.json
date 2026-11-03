@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p0_golden_wrapper.py",
-    "produced_at_pt": "2026-11-03T01:51:38-08:00",
-    "studies_git_sha": "d44dcee96faf8df0d51532eac821a72a09d4a3b6",
+    "produced_at_pt": "2026-11-03T02:13:44-08:00",
+    "studies_git_sha": "51b671ccc5d6d376d8e2004351bad5a8cb8f34dc",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -80,13 +80,13 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_golden_wrapper.json",
-        "sha256": "1797ff4cad1f11e840f06fefa1bfc64c2e005550f237651c03abdad52b8a35ff"
+        "sha256": "93cdf2757e924974aca0426b3737484763bc6fdbb976ed0087af50c473b76623"
       }
     ]
   },
   "fingerprints_library": {
     "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
-    "git_sha": "2bc6f2d778d0854b8db67f7ae7784540378178ea"
+    "git_sha": "d9878168ef683b197ce2c6bda7a6098978762c36"
   },
   "tolerance": 1e-12,
   "passed": true,

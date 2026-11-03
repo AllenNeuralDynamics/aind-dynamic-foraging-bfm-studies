@@ -49,8 +49,13 @@ over subjects so each counts once.
 _Avoid_: error, distance, match
 
 **Noise floor**:
-The gap a perfect model would still have, because each subject has a finite number of trials.
-_Avoid_: ceiling, chance level
+A test–retest reference: the gap between two halves of a subject's own sessions, scaled to the
+full data, so how far the subject is from itself.
+_Avoid_: ceiling, chance level, perfect-model gap
+
+**Coverage**:
+The share of a subject's kept-bin weight that a rollout visits; bins it never visits are left
+out of its gap.
 
 **Floor ratio**:
-A gap divided by its noise floor; 1 means as close as the data can show.
+A gap divided by its noise floor; 1 means as close to the subject as the subject is to itself.
