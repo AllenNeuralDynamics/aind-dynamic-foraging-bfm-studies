@@ -1,0 +1,42 @@
+{
+ "results_dir": "$TMPDIR/medium",
+ "out_dir": "$MEVOLVE_LAUNCH_DIR/medium",
+ "freeze": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+ "cohorts": "$VARIANT_DIR/cohorts_smoke_seed0.json",
+ "generation": "smoke_generation",
+ "validation": "smoke_validation",
+ "workers": 16,
+ "max_evaluation_jobs": 3,
+ "max_proposal_jobs": 3,
+ "max_em": 20,
+ "n_draws": 2048,
+ "model": "claude-sonnet-5-5",
+ "effort": "medium",
+ "max_usd": 3.5,
+ "max_tokens": 32000,
+ "n_proposals": 10,
+ "seeds": [
+  "Miller-RHG",
+  "Lopez-DoubleTrace",
+  "Lebedeva-PR",
+  "Eckstein-BI"
+ ],
+ "seed_cache": "$MEVOLVE_LAUNCH_DIR/seed_cache",
+ "library_in_prompt": true,
+ "migration_interval": 5,
+ "migration_rate": 0.1,
+ "wandb": {
+  "entity": "NeuralDynamics",
+  "project": "aind-dynamic-foraging-model",
+  "group": "$WANDB_GROUP",
+  "name": "engine-smoke-medium",
+  "mode": "online",
+  "notes": "Gate 3 engine smoke: 10 proposals at this effort"
+ },
+ "launch": {
+  "label": "$LAUNCH_LABEL",
+  "launch_id": "$LAUNCH_ID",
+  "studies_sha": "$STUDIES_SHA",
+  "mevolve_sha": "$MEVOLVE_SHA"
+ }
+}

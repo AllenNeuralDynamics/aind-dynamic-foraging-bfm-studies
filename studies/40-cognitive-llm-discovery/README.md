@@ -46,6 +46,7 @@ out in the task simulator to compare their behaviour with the mice's.
 | variant | what it varies |
 |---|---|
 | [`seeded-islands`](variants/seeded-islands/notes.md) | one search, a different seed on each island: a near-empty template and literature models from the seed library |
+| [`engine-smoke`](variants/engine-smoke/notes.md) | gate 3: the first ShinkaEvolve runs, 10 proposals each at effort medium and high, on a small separate cohort; tests the engine, not the science |
 
 The answer is the fraction of the gap from HB-CTT to the GRU that the best program closes on the
 test subjects, with its behavioural fingerprints and closed-loop match beside it.

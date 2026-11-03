@@ -1,5 +1,11 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-03
+
+- Variant `engine-smoke` (issue #97): gate 3's engine smoke, two 10-proposal ShinkaEvolve runs
+  (Claude Sonnet 5.5 at effort medium and high) on 8 + 8 smoke subjects drawn after the draft cohorts,
+  with the five-island seed layout of ADR 0006; code in AllenNeuralDynamics/aind-dynamic-foraging-mevolve#32.
+
 ## 2026-11-02
 
 - "Session level" retired (issue #87): fits are named by their levels and method (per session, per
