@@ -23,4 +23,14 @@ Sonnet 5.5, one at effort `medium` and one at `high`, with everything else equal
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `engine-smoke@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-03 03:03 PT as `engine-smoke@20261103-030341` (SLURM 27586076;
+record in `launch_record/engine-smoke-1/`). Outputs: `/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/`
+(`medium/` and `high/` each hold the Shinka database, `ledger.jsonl` with every API call and its cost,
+`proposals.csv`, `run_report.md`, `run_summary.json`; `comparison.md` sets the two side by side). A
+preflight of two calls (effort low) before launch: the key, the model and the request shape work, and
+the cache was written once (14,370 tokens) and read on the second call; it cost $0.04.
+
+**Viewer.** SLURM job 27586077 starts ShinkaEvolve's web viewer on n268, port 8765, when the smoke job
+ends, for two days. In VS Code connected to n268, forward port 8765 and open http://localhost:8765. It
+has no login and listens on all interfaces of n268 (cluster network only); cancel it with `scancel` when
+done.
