@@ -26,5 +26,7 @@ cd "$TMPDIR"                                     # no .env here for Shinka to lo
 "$PY" -c "import mevolve, sys; assert mevolve.__file__.startswith('$MEVOLVE_SRC'), mevolve.__file__"
 echo "node $(hostname) cpus $(nproc) launch $LAUNCH_ID studies $STUDIES_SHA mevolve $MEVOLVE_SHA"
 for effort in medium high; do
-  "$PY" -m mevolve.search.run --config "$VARIANT_DIR/run_${effort}.json"
+  "$PY" -m mevolve.search.run --config "$VARIANT_DIR/run_${effort}.json" || echo "run $effort failed"
 done
+"$PY" -m mevolve.search.report "$MEVOLVE_LAUNCH_DIR/medium" "$MEVOLVE_LAUNCH_DIR/high" \
+  --out "$MEVOLVE_LAUNCH_DIR/comparison.md"
