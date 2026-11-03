@@ -78,6 +78,9 @@ carries its state probabilities among its latent variables.
 | simplification, three floors | $120 |
 | **total** | **about $617**, under the $650 Console workspace limit |
 
+Dollar figures are list prices. After the organisation's discount the bill is about half of list
+price (gate 3, [`engine-smoke` notes](variants/engine-smoke/notes.md)).
+
 Compute: one SLURM job on a 112-core node per search run (about 24 evaluations at a time, 4 cores
 each); evaluator cost a few hundred to a thousand core-hours per search.
 

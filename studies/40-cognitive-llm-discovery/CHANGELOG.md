@@ -5,6 +5,11 @@
 - Variant `engine-smoke` (issue #97): gate 3's engine smoke, two 10-proposal ShinkaEvolve runs
   (Claude Sonnet 5.5 at effort medium and high) on 8 + 8 smoke subjects drawn after the draft cohorts,
   with the five-island seed layout of ADR 0006; code in AllenNeuralDynamics/aind-dynamic-foraging-mevolve#32.
+- Gate 3 passes (`engine-smoke@20261103-030341`, results in `variants/engine-smoke/notes.md`): 22 Claude
+  calls with no errors; the ledger's token counts match the Console and its cost is 4% above the
+  Console's list price; caching works; seeds sit on their islands. Effort medium is kept for the search:
+  high cost 38% more per proposal and improved fewer parents. PLAN.md notes that its budget is at list
+  price, about twice the bill after the organisation's discount.
 
 ## 2026-11-02
 
