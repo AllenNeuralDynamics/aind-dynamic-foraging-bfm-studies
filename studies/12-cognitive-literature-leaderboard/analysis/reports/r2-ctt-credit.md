@@ -30,9 +30,10 @@ tags:
 Does it, and on which subjects?
 
 **Method.** In CTT a value V tracks reward on the current side; the subject stays with
-probability σ(β(V − θ)), where θ is a threshold and β an inverse temperature. The credit form
+probability σ(β(V − θ) + b), where θ is a threshold, β an inverse temperature, and b = biasL
+after a Left choice and 0 after a Right one. The credit form
 (`ForagerCompareThresholdCredit`, variant [`ctt-credit`](../../variants/ctt-credit/notes.md))
-fits the stay logit c = β(V − θ) directly: c moves toward c_win after a reward and toward
+fits the stay credit c = β(V − θ) directly, with the same b added: c moves toward c_win after a reward and toward
 c_loss after no reward, with c_win = β(1 − θ) and c_loss = −βθ. The likelihood is the same.
 Only the parameters and their bounds differ: CTT bounds θ to [−1, 1], while the credit form
 bounds both credits to [−20, 20]. θ = −1 means c_loss = c_win / 2. A credit fit with
@@ -46,9 +47,9 @@ foraging-models commit (v0.29.0). r1's CTT fit (v0.26.0) is a second reference.
 <!-- BEGIN result-1 -->
 ![Credit form vs CompareToThreshold, per subject](../fig_r2_ctt_credit.svg)
 
-*Figure.* **a**, Each subject's credit fit (n = 763). c_win and c_loss are the stay logits a subject approaches after a run of wins or of losses. A threshold θ is a line through the origin, c_loss = −θ / (1 − θ) · c_win; CTT can reach only the shaded wedge below θ = −1. Red: subjects whose CTT fit stopped on that line. **b**, Those subjects ranked by how much better the credit form fits them (bars, fit sessions). Dots: the same comparison on held-out sessions. Gains are credit form − CTT from the same launch, in millinats per trial. One seed per fit, so there are no error bars.
+*Figure.* **a**, Each subject's credit fit (n = 763). c_win and c_loss are the stay logits a subject approaches after a run of wins or of losses, before the side bias (both forms add the same biasL after a Left choice). A threshold θ is a line through the origin, c_loss = −θ / (1 − θ) · c_win; CTT can reach only the shaded wedge below θ = −1. Red: subjects whose CTT fit stopped on that line. **b**, Those subjects ranked by how much better the credit form fits them (bars, fit sessions). Dots: the same comparison on held-out sessions. Gains are credit form − CTT from the same launch, in millinats per trial. One seed per fit, so there are no error bars.
 
-After a run of losses, the subjects at the bound stay with probability 0.90 (median of σ(c_loss)), against 0.82 for the others. After wins, 0.98 and 0.99.
+After a run of losses on the Right side, the subjects at the bound stay with probability 0.90 (median of σ(c_loss)), against 0.82 for the others. After wins, 0.98 and 0.99 (σ(c_win)). On the Left side the same limits are σ(c_loss + biasL) and σ(c_win + biasL).
 
 | model | pooled held-out, 149 test subjects | pooled odd sessions, 614 training-pool subjects | pooled fit sessions, all 763 |
 |---|---|---|---|

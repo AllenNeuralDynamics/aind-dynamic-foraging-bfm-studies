@@ -136,6 +136,7 @@ def compute() -> dict:
         "implied_theta_at_bound": {"median": statistics.median(r["implied_theta"] for r in bound),
                                    "min": min(r["implied_theta"] for r in bound),
                                    "max": max(r["implied_theta"] for r in bound)},
+        # Right-side limits: σ(c), without biasL (which both forms add after a Left choice).
         "stay_after_losses_median": {
             name: statistics.median(1 / (1 + math.exp(-r["c_loss"])) for r in group)
             for name, group in (("at_bound", bound), ("not_at_bound", interior))},
@@ -216,18 +217,20 @@ def render(r: dict) -> str:
         "![Credit form vs CompareToThreshold, per subject](../fig_r2_ctt_credit.svg)",
         "",
         f"*Figure.* **a**, Each subject's credit fit (n = {r['n_subjects']}). c_win and c_loss "
-        "are the stay logits a subject approaches after a run of wins or of losses. A threshold θ "
+        "are the stay logits a subject approaches after a run of wins or of losses, before the "
+        "side bias (both forms add the same biasL after a Left choice). A threshold θ "
         "is a line through the origin, c_loss = −θ / (1 − θ) · c_win; CTT can reach only the "
         "shaded wedge below θ = −1. Red: subjects whose CTT fit stopped on that line. **b**, Those "
         "subjects ranked by how much better the credit form fits them (bars, fit sessions). Dots: "
         "the same comparison on held-out sessions. Gains are credit form − CTT from the same launch, "
         "in millinats per trial. One seed per fit, so there are no error bars.",
         "",
-        f"After a run of losses, the subjects at the bound stay with probability "
+        f"After a run of losses on the Right side, the subjects at the bound stay with probability "
         f"{r['stay_after_losses_median']['at_bound']:.2f} (median of σ(c_loss)), against "
         f"{r['stay_after_losses_median']['not_at_bound']:.2f} for the others. After wins, "
         f"{r['stay_after_wins_median']['at_bound']:.2f} and "
-        f"{r['stay_after_wins_median']['not_at_bound']:.2f}.",
+        f"{r['stay_after_wins_median']['not_at_bound']:.2f} (σ(c_win)). On the Left side the same "
+        "limits are σ(c_loss + biasL) and σ(c_win + biasL).",
         "",
         "| model | pooled held-out, 149 test subjects | pooled odd sessions, 614 training-pool subjects | pooled fit sessions, all 763 |",
         "|---|---|---|---|"]
