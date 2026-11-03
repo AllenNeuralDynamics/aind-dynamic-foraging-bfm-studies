@@ -137,7 +137,7 @@ def render(gm: dict, gw: dict, t: dict, rows: list[dict]) -> str:
         f"| share of its pool a coupled score session shows | mean "
         f"{rp['score_session_share_of_pool_seen']['mean']:.2f}; all of it in "
         f"{rp['score_session_share_of_pool_seen']['share_seeing_all']:.0%} |",
-        f"| sessions where a block's pair does not sum to the recorded base sum | "
+        f"| coupled score sessions where a block's pair does not sum to the recorded base sum | "
         f"{rp['pair_sum_vs_base']['mismatched']} of {rp['pair_sum_vs_base']['checked']} |",
     ]
     return "\n".join(lines)
@@ -153,6 +153,10 @@ def _rewrite(text: str, block: str, body: str) -> str:
 def main() -> None:
     gm = golden_mevolve(json.loads(MEVOLVE.read_text()))
     gw = golden_wrapper(json.loads(WRAPPER.read_text()))
+    # A failed freeze (a numeric difference, a missing group or statistic) is never rendered.
+    for name, g in (("MEvolve", gm), ("wrapper", gw)):
+        if not g["passed"]:
+            raise SystemExit(f"the {name} golden freeze failed; fix it before rendering r1")
     task = json.loads(TASK.read_text())
     rows = held_rows(task)
     draw(rows)

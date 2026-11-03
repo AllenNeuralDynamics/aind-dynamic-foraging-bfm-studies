@@ -93,6 +93,9 @@ def load_trials(sessions: pd.DataFrame) -> pd.DataFrame:
 def main() -> None:
     manifest = FREEZE / "manifest.json"
     assert hashlib.sha256(manifest.read_bytes()).hexdigest() == FREEZE_MANIFEST
+    expected = json.loads(manifest.read_text())["files"]["sessions.parquet"]
+    actual = hashlib.sha256((FREEZE / "sessions.parquet").read_bytes()).hexdigest()
+    assert actual == expected, f"sessions.parquet {actual} differs from the manifest's {expected}"
     meta_sessions = pd.read_parquet(FREEZE / "sessions.parquet")
     sessions = meta_sessions[meta_sessions["pool"] == "heldout"].copy()
     assert sessions["subject_id"].nunique() == 149
@@ -121,7 +124,7 @@ def main() -> None:
             if not binary:
                 coupled_shares[row.session_id] = frozenset(_share(x) for x in hi_lo if sum(x) > 0)
             base = t["base_reward_probability_sum"].to_numpy(float)
-            if np.isfinite(base).all():
+            if row.role == "score" and np.isfinite(base).all():
                 sum_mismatch["checked"] += 1
                 sum_mismatch["mismatched"] += int(np.any(np.abs(p.sum(1) - base) > 1e-6))
             if row.role != "score":

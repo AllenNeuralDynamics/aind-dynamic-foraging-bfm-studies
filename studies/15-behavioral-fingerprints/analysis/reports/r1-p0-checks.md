@@ -42,7 +42,7 @@ minimum reward, so only the auto-block rule (not recorded) or the experimenter c
 block. Vermillion: the session set a minimum reward per block.*
 
 <!-- BEGIN result-1 -->
-**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `d987816`, MEvolve `30ae4f3`):
+**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `f554270`, MEvolve `30ae4f3`):
 
 | check | max \|difference\| | pass |
 |---|---|---|
@@ -83,7 +83,7 @@ Subjects whose replay from the stored parameters does not reproduce the stored l
 | coupled score sessions whose pairs fit one GUI reward family | 541 of 600 |
 | (subject, task, stage) pools equal to a family prefix | 307 of 331 |
 | share of its pool a coupled score session shows | mean 0.84; all of it in 57% |
-| sessions where a block's pair does not sum to the recorded base sum | 11 of 1336 |
+| coupled score sessions where a block's pair does not sum to the recorded base sum | 3 of 621 |
 <!-- END result-1 -->
 
 ## What it says

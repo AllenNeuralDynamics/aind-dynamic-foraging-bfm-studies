@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p0_task_checks.py",
-    "produced_at_pt": "2026-11-03T02:07:09-08:00",
-    "studies_git_sha": "d44dcee96faf8df0d51532eac821a72a09d4a3b6",
+    "produced_at_pt": "2026-11-03T02:38:24-08:00",
+    "studies_git_sha": "7fdc141ff678c3f547fb6f57fd2e89285060badf",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_task_checks.py",
-        "sha256": "cc9157960ebab707d8c32bfb48402b61002b7cff5c685eb4bb454a88e419c756"
+        "sha256": "c1ac840aeafba42b7f45c2ce8c6faf9f5caca5f87590b26c63ed1a603bff417f"
       }
     ],
     "inputs": [],
@@ -35,7 +35,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_task_checks.json",
-        "sha256": "a852a698806a418ff8da0c6a8f83702c7a03bd48a3f0bf779a6b862951767392"
+        "sha256": "c82b666192b440e342b401f642c4b2170e8b4cce287b1ba074280a77aeb1f320"
       }
     ]
   },
@@ -202,8 +202,8 @@
       "share_seeing_all": 0.5683333333333334
     },
     "pair_sum_vs_base": {
-      "checked": 1336,
-      "mismatched": 11
+      "checked": 621,
+      "mismatched": 3
     },
     "uncoupled_probability_sets": {
       "[0.1, 0.4, 0.7]": 2562,

@@ -37,7 +37,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
-from _meta import build_meta, write_artifact  # noqa: E402
+from _meta import _git_env, build_meta, write_artifact  # noqa: E402
 
 from aind_dynamic_foraging_models.fingerprints import (  # noqa: E402
     BINS,
@@ -71,12 +71,13 @@ def _sha256(path: Path) -> str:
 
 
 def _git_sha(repo: Path) -> str:
+    env = _git_env(repo)  # ignores a GIT_DIR / GIT_WORK_TREE exported for another checkout
     dirty = subprocess.run(["git", "-C", str(repo), "status", "--porcelain", "--", "src"],
-                           capture_output=True, text=True, check=True).stdout.strip()
+                           capture_output=True, text=True, check=True, env=env).stdout.strip()
     if dirty:
         raise SystemExit(f"{repo} has uncommitted changes under src/: {dirty}")
     return subprocess.run(["git", "-C", str(repo), "rev-parse", "HEAD"],
-                          capture_output=True, text=True, check=True).stdout.strip()
+                          capture_output=True, text=True, check=True, env=env).stdout.strip()
 
 
 def subject_tallies(frame) -> tuple[dict, int]:
