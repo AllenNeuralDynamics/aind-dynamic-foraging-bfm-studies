@@ -91,6 +91,7 @@ def compute() -> dict:
             "at_bound": abs(q["threshold"] - THETA_MIN) < BOUND_TOL,
             "at_bound_r1": abs(r1["params"]["threshold"] - THETA_MIN) < BOUND_TOL,
             "implied_theta": -p["stay_credit_loss"] / beta, "implied_beta": beta,
+            "c_win": p["stay_credit_win"], "c_loss": p["stay_credit_loss"],
             "credit_at_bound": max(abs(p["stay_credit_win"]), abs(p["stay_credit_loss"])) >= CREDIT_BOUND - 1e-3,
             "d_fit": _per_trial(cr["fit"]) - _per_trial(ct["fit"]),
             "d_eval": _per_trial(cr["eval"]) - _per_trial(ct["eval"]),
@@ -135,6 +136,12 @@ def compute() -> dict:
         "implied_theta_at_bound": {"median": statistics.median(r["implied_theta"] for r in bound),
                                    "min": min(r["implied_theta"] for r in bound),
                                    "max": max(r["implied_theta"] for r in bound)},
+        "stay_after_losses_median": {
+            name: statistics.median(1 / (1 + math.exp(-r["c_loss"])) for r in group)
+            for name, group in (("at_bound", bound), ("not_at_bound", interior))},
+        "stay_after_wins_median": {
+            name: statistics.median(1 / (1 + math.exp(-r["c_win"])) for r in group)
+            for name, group in (("at_bound", bound), ("not_at_bound", interior))},
         "n_theta_upper_bound": sum(abs(r["theta"] - 1) < BOUND_TOL for r in per),
         "n_credit_at_bound": sum(r["credit_at_bound"] for r in per),
         "n_negative_beta": sum(r["implied_beta"] < 0 for r in per),
@@ -146,37 +153,51 @@ def compute() -> dict:
 
 def figure(r: dict) -> None:
     per = r["_per"]
-    fig, axes = plt.subplots(1, 3, figsize=fs.mm(fs.fit_width(square_panels=3, axes=3), 48),
-                             layout="constrained")
-    colors = {True: fs.OKABE_ITO["vermillion"], False: "0.6"}
-    groups = [(True, f"θ at −1 bound (n = {r['split']['at_bound']['n']})"),
-              (False, f"θ inside (n = {r['split']['not_at_bound']['n']})")]
-    a, b, c = axes
-    for keep, label in groups:
-        g = [x for x in per if x["at_bound"] == keep]
-        a.scatter([x["theta"] for x in g], [1e3 * x["d_fit"] for x in g], s=3, lw=0,
-                  color=colors[keep], label=label)
-        b.scatter([1e3 * x["d_fit"] for x in g], [1e3 * x["d_eval"] for x in g], s=3, lw=0,
-                  color=colors[keep])
-        c.scatter([x["theta"] for x in g], [x["implied_theta"] for x in g], s=3, lw=0,
-                  color=colors[keep])
-    a.axhline(0, color="k", lw=0.5)
-    a.set_xlabel("CTT threshold θ")
-    a.set_ylabel("Fit gain (mnat/trial)")
+    fig, (a, b) = plt.subplots(1, 2, figsize=fs.mm(140, 62), layout="constrained",
+                               gridspec_kw={"width_ratios": [1, 1.3]})
+    bound = [x for x in per if x["at_bound"]]
+    inside = [x for x in per if not x["at_bound"]]
+    red = fs.OKABE_ITO["vermillion"]
+
+    # a: every subject's credit fit in the (c_win, c_loss) plane. Each θ is a line through the
+    # origin, c_loss = −θ / (1 − θ) · c_win; CTT reaches only the wedge below θ = −1.
+    x_hi = 1.08 * max(x["c_win"] for x in per)
+    y_lo, y_hi = -1.0, 1.25 * max(x["c_loss"] for x in per)
+    xs = [0, x_hi]
+    a.fill_between(xs, [y_lo, y_lo], [0, x_hi / 2], color="0.93", lw=0, zorder=0)
+    a.text(0.97 * x_hi, y_lo / 2, "CTT's range (−1 ≤ θ ≤ 1)", ha="right", va="center",
+           color="0.45", in_layout=False)
+    for theta in (-1, -0.5, 0):   # labelled in the right margin, where each line leaves the axes
+        slope = -theta / (1 - theta)
+        color = red if theta == THETA_MIN else "0.45"
+        a.plot(xs, [0, slope * x_hi], lw=0.5, color=red if theta == THETA_MIN else "0.65",
+               ls="-" if theta == THETA_MIN else ":", zorder=1)
+        a.text(1.01 * x_hi, slope * x_hi, f"θ = {fs.num(theta, 'g')}", ha="left", va="center",
+               color=color, clip_on=False)
+    a.scatter([x["c_win"] for x in inside], [x["c_loss"] for x in inside], s=3, lw=0,
+              color="0.55", zorder=2, label=f"CTT's θ inside (n = {len(inside)})")
+    a.scatter([x["c_win"] for x in bound], [x["c_loss"] for x in bound], s=4, lw=0, color=red,
+              zorder=3, label=f"CTT stopped at θ = −1 (n = {len(bound)})")
+    a.set_xlim(0, x_hi)
+    a.set_ylim(y_lo, y_hi)
+    a.set_xlabel("c_win, stay logit after wins")
+    a.set_ylabel("c_loss, stay logit after losses")
+    a.legend(loc="upper left", frameon=False, handletextpad=0.2, markerscale=2)
+    fs.panel_label(a, "a")
+
+    # b: the bound subjects, ranked by fit gain; held-out gain on top.
+    ranked = sorted(bound, key=lambda x: -x["d_fit"])
+    idx = range(1, len(ranked) + 1)
+    b.bar(idx, [1e3 * x["d_fit"] for x in ranked], width=1.0, color="0.78", lw=0,
+          label="fit sessions")
+    b.scatter(idx, [1e3 * x["d_eval"] for x in ranked], s=5, lw=0,
+              color=fs.OKABE_ITO["blue"], zorder=3, label="held-out sessions")
     b.axhline(0, color="k", lw=0.5)
-    b.axvline(0, color="k", lw=0.5)
-    b.set_xlabel("Fit gain (mnat/trial)")
-    b.set_ylabel("Held-out gain (mnat/trial)")
-    hi = max(x["theta"] for x in per) + 0.05
-    c.plot([THETA_MIN, hi], [THETA_MIN, hi], color="k", lw=0.5)
-    c.axhline(THETA_MIN, color=fs.OKABE_ITO["vermillion"], lw=0.5, ls="--")
-    c.set_xlim(THETA_MIN - 0.05, hi)
-    c.set_xlabel("CTT threshold θ")
-    c.set_ylabel("θ implied by credit fit")
-    fig.legend(*a.get_legend_handles_labels(), loc="outside upper center", ncol=2, frameon=False,
-               markerscale=2.5)
-    for ax, letter in zip(axes, "abc"):
-        fs.panel_label(ax, letter)
+    b.set_xlim(0, len(ranked) + 1)
+    b.set_xlabel(f"The {len(ranked)} subjects at θ = −1, ranked by fit gain")
+    b.set_ylabel("Credit − CTT (mnat/trial)")
+    b.legend(loc="upper right", bbox_to_anchor=(0.95, 1), frameon=False, handletextpad=0.2)
+    fs.panel_label(b, "b")
     fs.save_figure(fig, FIG)
 
 
@@ -194,11 +215,19 @@ def render(r: dict) -> str:
     lines = [
         "![Credit form vs CompareToThreshold, per subject](../fig_r2_ctt_credit.svg)",
         "",
-        f"*Figure.* One dot per subject (n = {r['n_subjects']}); gains are credit form − "
-        "CompareToThreshold from the same launch, in millinats per trial. **a**, Fit gain against "
-        "CTT's fitted θ. **b**, Held-out gain against fit gain. **c**, The θ the credit fit implies, "
-        "−c_loss / (c_win − c_loss), against CTT's θ; the dashed line is CTT's bound θ = −1. One seed per fit, so there are no "
-        "error bars.",
+        f"*Figure.* **a**, Each subject's credit fit (n = {r['n_subjects']}). c_win and c_loss "
+        "are the stay logits a subject approaches after a run of wins or of losses. A threshold θ "
+        "is a line through the origin, c_loss = −θ / (1 − θ) · c_win; CTT can reach only the "
+        "shaded wedge below θ = −1. Red: subjects whose CTT fit stopped on that line. **b**, Those "
+        "subjects ranked by how much better the credit form fits them (bars, fit sessions). Dots: "
+        "the same comparison on held-out sessions. Gains are credit form − CTT from the same launch, "
+        "in millinats per trial. One seed per fit, so there are no error bars.",
+        "",
+        f"After a run of losses, the subjects at the bound stay with probability "
+        f"{r['stay_after_losses_median']['at_bound']:.2f} (median of σ(c_loss)), against "
+        f"{r['stay_after_losses_median']['not_at_bound']:.2f} for the others. After wins, "
+        f"{r['stay_after_wins_median']['at_bound']:.2f} and "
+        f"{r['stay_after_wins_median']['not_at_bound']:.2f}.",
         "",
         "| model | pooled held-out, 149 test subjects | pooled odd sessions, 614 training-pool subjects | pooled fit sessions, all 763 |",
         "|---|---|---|---|"]

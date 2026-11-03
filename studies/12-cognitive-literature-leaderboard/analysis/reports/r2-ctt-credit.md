@@ -46,7 +46,9 @@ foraging-models commit (v0.29.0). r1's CTT fit (v0.26.0) is a second reference.
 <!-- BEGIN result-1 -->
 ![Credit form vs CompareToThreshold, per subject](../fig_r2_ctt_credit.svg)
 
-*Figure.* One dot per subject (n = 763); gains are credit form − CompareToThreshold from the same launch, in millinats per trial. **a**, Fit gain against CTT's fitted θ. **b**, Held-out gain against fit gain. **c**, The θ the credit fit implies, −c_loss / (c_win − c_loss), against CTT's θ; the dashed line is CTT's bound θ = −1. One seed per fit, so there are no error bars.
+*Figure.* **a**, Each subject's credit fit (n = 763). c_win and c_loss are the stay logits a subject approaches after a run of wins or of losses. A threshold θ is a line through the origin, c_loss = −θ / (1 − θ) · c_win; CTT can reach only the shaded wedge below θ = −1. Red: subjects whose CTT fit stopped on that line. **b**, Those subjects ranked by how much better the credit form fits them (bars, fit sessions). Dots: the same comparison on held-out sessions. Gains are credit form − CTT from the same launch, in millinats per trial. One seed per fit, so there are no error bars.
+
+After a run of losses, the subjects at the bound stay with probability 0.90 (median of σ(c_loss)), against 0.82 for the others. After wins, 0.98 and 0.99.
 
 | model | pooled held-out, 149 test subjects | pooled odd sessions, 614 training-pool subjects | pooled fit sessions, all 763 |
 |---|---|---|---|

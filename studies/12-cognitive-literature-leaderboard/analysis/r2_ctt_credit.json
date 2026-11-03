@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_ctt_credit.py",
-    "produced_at_pt": "2026-11-02T15:23:44-08:00",
-    "studies_git_sha": "0d0f36402e802d7c37998a8314975481fc62105c",
+    "produced_at_pt": "2026-11-02T16:33:22-08:00",
+    "studies_git_sha": "8b54d6918f3b10fd9cedc0161c8f2a70be8d5f77",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -30,7 +30,7 @@
     "code": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r2_ctt_credit.py",
-        "sha256": "250b832b4a37d301f4e441504ee5792f0983a4de22db0a21fbe3584595c72489"
+        "sha256": "f9823a28f612400ffa52f2aa4421d0a7a6d48b3c70e549060dae5941d256f6e1"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -62,15 +62,15 @@
     "outputs": [
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r2_ctt_credit.json",
-        "sha256": "0d29b7d10c4c2ca2d9029e2b22f801dcef874b6839470548e4ce7b1178fb2a66"
+        "sha256": "64152c569fc93841bc1ae73253c081fc70cdf5ce43c144536702a2f8c7b99b3e"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/fig_r2_ctt_credit.svg",
-        "sha256": "6d6ff6fdfe3fc213de18d9ec8ef3fd7c15d79385e41fbb92d8b7fa349e600333"
+        "sha256": "aa214511e095f7da1e473ab03f10b4d81681f982100e78ea65f9908333da7824"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r2-ctt-credit.md#result-1",
-        "sha256": "3f8af783d42aff1af9fc1fa58949b5574a635441893eb93b58c00e78877aeed3"
+        "sha256": "0c84195fb51173b6a3bab241d3eb9aa8c4a2ab29007b35f340f2dff4a89a781e"
       }
     ]
   },
@@ -164,6 +164,14 @@
     "median": -1.2750622066700494,
     "min": -7.513815269557183,
     "max": -1.0150904696589533
+  },
+  "stay_after_losses_median": {
+    "at_bound": 0.9008235638109403,
+    "not_at_bound": 0.8232422211116157
+  },
+  "stay_after_wins_median": {
+    "at_bound": 0.9815726694866694,
+    "not_at_bound": 0.9884783335844727
   },
   "n_theta_upper_bound": 0,
   "n_credit_at_bound": 0,
