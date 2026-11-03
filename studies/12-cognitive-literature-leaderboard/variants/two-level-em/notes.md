@@ -20,11 +20,14 @@ digest and SLURM job id. The group name `two-level-em@<launch_id>` identifies it
 the per-session Laplace step uses gradients, so EM-Rescorla-Wagner can report "converged" while
 poorly fitted (MEvolve Phase 1). Gate 1c covered only CompareToThreshold and Hattori2019.
 
-## Launch facts (until the MEvolve launch-record writer lands)
+## Launch facts
 
-The studies launch-record v2 schema cannot yet name a MEvolve SHA; the MEvolve PM session is adding
-an optional `mevolve` revision and `write_initial()` (study 40 PLAN build step 5). These facts are
-kept here and will be written as v2 records, marked as written after launch.
+Written as v2 launch records after launch (`launch_record.write_initial(...,
+recorded_after_launch=True)`, studies #89/#90): [`launch_record/cost-hattori/`](launch_record/cost-hattori/launch_record.json)
+and [`launch_record/rest-18/`](launch_record/rest-18/launch_record.json). Each holds the studies and
+MEvolve SHAs, the data freeze's manifest digest, the mevolve env's package digest, the SLURM job and
+the sbatch line from SLURM's accounting, plus `run_2level.sbatch` as committed at that launch's
+studies SHA. The table below is what the records were written from.
 
 | | cost run | remaining 18 models |
 |---|---|---|
