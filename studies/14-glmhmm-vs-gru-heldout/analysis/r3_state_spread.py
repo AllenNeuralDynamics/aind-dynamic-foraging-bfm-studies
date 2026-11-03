@@ -487,7 +487,7 @@ def pack_cells(state, subject, n, coords):
 
 
 def interactive_files(runs):
-    """One data file per (emission, labelling), plus the refit dots per emission.
+    """One data file per (emission, labelling, K), plus the refit dots per emission.
 
     Each is a script that hands its data to the page (``R3.load``), so the page also works when
     opened as a local file. Coordinates are quantised to 1/65535 of each column's range.
@@ -496,10 +496,10 @@ def interactive_files(runs):
     for emission in EMISSIONS:
         by_k = {r["num_states"]: r for r in runs if r["emission"] == emission}
         for labelling in LABELLINGS:
-            data = {str(K): {key: pack_cells(s["state"], s["subject"], s["n_trials"], s["coords"])
-                             for key, s in run["settings"].items() if s["labelling"] == labelling}
-                    for K, run in by_k.items()}
-            files[f"{emission}_{labelling}"] = data
+            for K, run in by_k.items():
+                files[f"{emission}_{labelling}_K{K}"] = {
+                    key: pack_cells(s["state"], s["subject"], s["n_trials"], s["coords"])
+                    for key, s in run["settings"].items() if s["labelling"] == labelling}
         files[f"{emission}_refits"] = {
             str(K): pack_cells(run["refit_state"], run["refit_subject"],
                                np.zeros(len(run["refit_state"]), int), run["refit_coords"])
@@ -651,11 +651,11 @@ function layoutBase(extra) {
 }
 function draw() {
   const e = $("emission").value, dots = $("dots").value;
-  need(`${e}_${$("labelling").value}`, () => dots === "cells" ? drawScatter() : need(`${e}_refits`, drawScatter));
+  need(`${e}_${$("labelling").value}_K${$("K").value}`, () => dots === "cells" ? drawScatter() : need(`${e}_refits`, drawScatter));
 }
 function drawScatter() {
   const e = $("emission").value, k = $("K").value, setting = key(), dots = $("dots").value;
-  const C = cells(R3.files[`${e}_${$("labelling").value}`][k][setting]);
+  const C = cells(R3.files[`${e}_${$("labelling").value}_K${k}`][setting]);
   const R = dots === "cells" ? null : cells(R3.files[`${e}_refits`][k]);
   const xi = +$("x").value, yi = +$("y").value, zi = +$("z").value, which = $("cohort").value;
   const labels = axisLabels(e, k), three = $("threeD").checked, info = D.emissions[e].K[k];
@@ -733,7 +733,7 @@ $("emission").onchange = () => { fillAxes(); draw(); drawScores(); };
 $("K").onchange = () => { fillAxes(); draw(); };
 for (const id of ["labelling", "p", "m"]) $(id).onchange = () => { draw(); drawScores(); };
 for (const id of ["cohort", "dots"]) $(id).onchange = draw;
-for (const id of ["x", "y", "z", "threeD"]) $(id).onchange = drawScatter;
+for (const id of ["x", "y", "z", "threeD"]) $(id).onchange = draw;
 fillAxes(); draw(); drawScores();
 </script></body></html>
 """

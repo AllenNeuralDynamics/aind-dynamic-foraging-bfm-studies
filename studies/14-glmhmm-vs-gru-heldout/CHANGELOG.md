@@ -61,10 +61,15 @@
 - r2 (draft): `freeze_round2.py` and `r2_refit_prior.py`, the round-2 report: selection over
   the 320 refit-prior cells plus round 1's refit, held-out scores against no refit and the GRU.
 
-- r3 (draft, #70): how each state spreads across subjects. `freeze_r3.py` fits one GLM per
-  {subject, state} on the state's Viterbi trials under each K-grid run's global fit (prior
-  SD 2), for the held-out and training mice, as a 20-task SLURM array plus a merge.
-  `r3_state_spread.py` plots every {subject, state} in weight space and scores the clusters
-  against K (silhouette against a within-mouse label-shuffle null, η² by state and by subject,
-  k-means ARI). The weights are committed as float16 `.npz`, one per emission, to stay under
-  the 10 MiB file cap; the float32 parts stay on `/allen`. Q-learning parameters are deferred.
+- r3 (draft, #70; numbered r2 before the refit-prior report took r2): how each state spreads
+  across subjects. `freeze_r3.py` fits one GLM per {subject, state} (prior SD 2) for the
+  held-out and training mice under 18 settings: trials labelled by the Viterbi path of the
+  global fit or of each mouse's round-2 refit (r2's pick at that K, recomputed; it reproduces
+  r2's saved held-out refits), times nine cuts on the state's smoothed posterior (≥ 0.8, 0.95)
+  and same-state run length (≥ 10, 30 trials). A 20-task SLURM array fits and scores one K-grid
+  run per task (the producer's own score functions); the merge writes cells and plotted
+  coordinates, the uncut settings' float16 weights and the refits as `.npz`, each under the
+  10 MiB cap; the float32 parts stay on `/allen`. `r3_state_spread.py` reports the uncut
+  global setting (cluster scores vs K against a within-mouse label-shuffle null, η² by state
+  and by subject, k-means ARI), the cuts, and the refit checks; its interactive page loads
+  each setting on demand. Q-learning parameters are deferred.
