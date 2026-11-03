@@ -8,7 +8,8 @@
   "properties": {
     "_meta": {
       "type": "object", "required": ["schema_version", "produced_by", "produced_at_pt"],
-      "properties": {"schema_version": {"const": 2}}
+      "properties": {"schema_version": {"const": 2},
+                     "recorded_after_launch": {"type": "boolean", "description": "True when the record was written after the job was submitted (from launch facts kept in the variant's notes), not by the launcher at submit time."}}
     },
     "kind": {"enum": ["initial", "resubmit", "rescue", "probe", "tier-change", "backfill", "extend"]},
     "platform": {"enum": ["beaker", "hpc", "none"], "description": "`none` only for kind backfill, which submits nothing."},
@@ -27,17 +28,21 @@
       }
     },
     "revisions": {
-      "type": "object", "required": ["studies", "dispatcher", "wrapper"],
+      "type": "object", "required": ["studies"],
       "additionalProperties": false,
+      "description": "Full SHAs of the code that ran. A dispatcher launch names the dispatcher and the wrapper; a MEvolve run (aind-dynamic-foraging-mevolve) names MEvolve instead.",
       "properties": {
         "studies": {"$ref": "#/$defs/sha"},
         "dispatcher": {"$ref": "#/$defs/sha"},
         "wrapper": {"$ref": "#/$defs/sha"},
-        "foraging_models": {"$ref": "#/$defs/sha"}
-      }
+        "foraging_models": {"$ref": "#/$defs/sha"},
+        "mevolve": {"$ref": "#/$defs/sha"}
+      },
+      "anyOf": [{"required": ["dispatcher", "wrapper"]}, {"required": ["mevolve"]}]
     },
     "manifests": {"type": "array", "minItems": 1, "items": {"type": "string"},
                   "description": "Variant-relative paths of the submitted sweep/experiment manifests."},
+    "command": {"type": "string", "minLength": 1, "description": "The exact command line submitted, for runs whose manifest does not carry its own arguments (an sbatch script run with an --array or extra flags)."},
     "n_tasks": {"type": "integer", "minimum": 1},
     "supersedes": {"type": "array", "items": {"type": "string"}},
     "trigger": {
@@ -49,9 +54,9 @@
     "tasks": {"type": "array"},
     "data": {
       "type": "object", "required": ["source", "config"], "additionalProperties": false,
-      "description": "What the runs trained and were evaluated on. snapshot: a dated, immutable copy of the foraging database, by id and the sha256 of its snapshot_manifest.json; live: the growing database (not reproducible; launchers refuse it without --allow-live-data); generated: a synthetic population defined by the config itself; external: a dataset outside the foraging database, read by a non-Hydra runner (e.g. study 09's external_transfer), named in `config`.",
+      "description": "What the runs trained and were evaluated on. snapshot: a dated, immutable copy of the foraging database, by id and the sha256 of its snapshot_manifest.json; live: the growing database (not reproducible; launchers refuse it without --allow-live-data); generated: a synthetic population defined by the config itself; freeze: a tool's frozen copy of a snapshot's split and trials (MEvolve's data freeze), by the snapshot id, the freeze's path (`uri`) and the sha256 of its manifest, with `config` naming the data config it was built from; external: a dataset outside the foraging database, read by a non-Hydra runner (e.g. study 09's external_transfer), named in `config`.",
       "properties": {
-        "source": {"enum": ["snapshot", "live", "generated", "external"]},
+        "source": {"enum": ["snapshot", "live", "generated", "freeze", "external"]},
         "config": {"type": "string", "description": "The Hydra data config, e.g. mice_snapshot_scaling; for an external source, the runner and its dataset argument."},
         "type": {"type": ["string", "null"], "description": "The data config's `type`, e.g. mice_snapshot."},
         "snapshot": {"type": ["string", "null"]},
@@ -60,7 +65,7 @@
         "build_id": {"type": ["string", "integer", "null"]},
         "n_sessions": {"type": ["integer", "null"]}
       },
-      "if": {"properties": {"source": {"const": "snapshot"}}},
+      "if": {"properties": {"source": {"enum": ["snapshot", "freeze"]}}},
       "then": {"required": ["snapshot", "uri", "manifest_sha256"], "properties": {"snapshot": {"type": "string", "minLength": 1}}}
     },
     "image": {

@@ -334,3 +334,211 @@ class WriteInterventionV2Tests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WriteInitialTests(unittest.TestCase):
+    """write_initial records launches no dispatcher launcher wrote, such as MEvolve runs."""
+
+    GROUP = "two-level-em@20261102-003154"
+
+    def setUp(self):
+        import yaml  # noqa: F401  (dependency of launch_record)
+        self.tmp = tempfile.TemporaryDirectory()
+        self.variant = Path(self.tmp.name) / "studies" / "12-x" / "variants" / "two-level-em"
+        self.lr = self.variant / "launch_record"
+        self.lr.mkdir(parents=True)
+        (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Hattori2019\n")
+        self.study = self.variant.parents[1]
+        import subprocess      # the variant is committed, as at a real launch
+        git = lambda *a: subprocess.run(["git", "-C", self.tmp.name, *a], check=True,
+                                        capture_output=True, text=True).stdout.strip()
+        git("init", "-q")
+        git("add", "-A")
+        git("-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "launch")
+        self.sha = git("rev-parse", "HEAD")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def write(self, name="hpc_initial.json", **kw):
+        from launch_record import write_initial
+        args = dict(platform="hpc", wandb_group=self.GROUP, study_root=self.study, label="hattori-763",
+                    note="cost test: one model on all 763 subjects before the other 18",
+                    job_refs=[{"type": "slurm_job", "id": "27567407"}],
+                    revisions={"studies": self.sha, "mevolve": "d" * 40},
+                    manifests=["score.sbatch"], command="sbatch score.sbatch",
+                    data={"source": "freeze", "config": "mice_snapshot_scaling", "snapshot": "20260603",
+                          "uri": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603", "manifest_sha256": "f" * 64},
+                    image={"platform": "hpc", "conda_env": "mevolve", "lock_sha256": "e" * 64},
+                    recorded_after_launch=True)
+        args.update(kw)
+        with mock.patch("launch_record.build_meta", return_value={
+                "produced_by": "x", "produced_at_pt": "2026-11-02T01:00:00-08:00", "wandb_groups": [self.GROUP]}):
+            return write_initial(self.lr / name, **args)
+
+    def schema_errors(self, rec):
+        from jsonschema import Draft202012Validator
+        schema = json.loads((Path(__file__).resolve().parents[1] / "schemas" / "launch-record.v2.schema.json").read_text())
+        return [e.message for e in Draft202012Validator(schema).iter_errors(rec)]
+
+    def test_mevolve_run_is_a_valid_initial_record(self):
+        rec = self.write()
+        self.assertEqual(self.schema_errors(rec), [])
+        self.assertTrue(rec["_meta"]["recorded_after_launch"])
+        self.assertNotIn("dispatcher", rec["revisions"])
+        findings = []
+        check_records_parse(load_records(self.lr), findings)
+        self.assertEqual(findings, [])
+
+    def test_revisions_need_dispatcher_and_wrapper_or_mevolve(self):
+        rec = self.write()
+        self.assertTrue(self.schema_errors({**rec, "revisions": {"studies": "a" * 40, "dispatcher": "b" * 40}}))
+        self.assertEqual(self.schema_errors({**rec, "revisions": {"studies": "a" * 40, "dispatcher": "b" * 40,
+                                                                  "wrapper": "c" * 40}}), [])
+        with self.assertRaisesRegex(ValueError, "dispatcher and wrapper or mevolve"):
+            self.write("b.json", revisions={"studies": self.sha, "dispatcher": "b" * 40})
+        with self.assertRaisesRegex(ValueError, "full 40-character"):
+            self.write("c.json", revisions={"studies": self.sha, "mevolve": "6af7d58"})
+
+    def test_freeze_needs_its_path_and_digest(self):
+        rec = self.write()
+        self.assertTrue(self.schema_errors({**rec, "data": {"source": "freeze", "config": "mice_snapshot_scaling",
+                                                            "snapshot": "20260603"}}))
+
+    def test_refusals(self):
+        self.write()
+        with self.assertRaisesRegex(ValueError, "already has an initial"):
+            self.write("again.json")
+        with self.assertRaisesRegex(ValueError, "must start with two-level-em@"):
+            self.write("g.json", wandb_group="other@20261102-003154")
+        with self.assertRaisesRegex(ValueError, "not found"):
+            self.write("m.json", wandb_group="two-level-em@20261102-010000", manifests=["missing.sbatch"],
+                       recorded_after_launch=False)
+        with self.assertRaisesRegex(ValueError, "not valid for platform"):
+            self.write("r.json", wandb_group="two-level-em@20261102-010000",
+                       job_refs=[{"type": "beaker_experiment", "id": "01K"}])
+        with self.assertRaisesRegex(ValueError, "data and image"):
+            self.write("d.json", wandb_group="two-level-em@20261102-010000", image=None)
+        with self.assertRaisesRegex(ValueError, "already exists"):      # never overwritten, any group
+            self.write("hpc_initial.json", wandb_group="two-level-em@20261102-010000")
+        with self.assertRaisesRegex(ValueError, "data/uri|manifest_sha256|uri"):
+            self.write("f/x.json", wandb_group="two-level-em@20261102-010000",
+                       data={"source": "freeze", "config": "mice_snapshot_scaling", "snapshot": "20260603"})
+        self.assertFalse((self.lr / "f").exists())                      # nothing written on a refusal
+        with self.assertRaisesRegex(ValueError, "wandb_group"):
+            self.write("n/x.json", wandb_group="two-level-em@")
+        with self.assertRaisesRegex(ValueError, "image describes"):
+            self.write("i/x.json", wandb_group="two-level-em@20261102-010000",
+                       image={"platform": "beaker", "name": "x", "id": "01K"})
+        (self.variant / "spec.json").write_text("[]")
+        with self.assertRaisesRegex(ValueError, "is JSON"):
+            self.write("j/x.json", wandb_group="two-level-em@20261102-010000", manifests=["spec.json"])
+        (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Bari2019\n")
+        with self.assertRaisesRegex(ValueError, "own subdirectory"):
+            self.write("bari.json", wandb_group="two-level-em@20261102-020000", recorded_after_launch=False)
+        rec = self.write("bari/hpc_initial.json", wandb_group="two-level-em@20261102-020000",
+                         recorded_after_launch=False)
+        self.assertEqual(self.schema_errors(rec), [])
+        (self.variant / "new.sbatch").write_text("never committed\n")
+        with self.assertRaisesRegex(ValueError, "is not at studies"):
+            self.write("late/x.json", wandb_group="two-level-em@20261102-030000", manifests=["new.sbatch"])
+
+    def test_recorded_after_launch_snapshots_the_committed_manifest(self):
+        (self.variant / "score.sbatch").write_text("#SBATCH --array=0-17\npython -m mevolve.score\n")
+        self.write("cost-hattori/hpc_initial.json")
+        self.assertEqual((self.lr / "cost-hattori" / "score.sbatch").read_text(),
+                         "python -m mevolve.score --model Hattori2019\n")
+
+    def test_duplicate_manifest_names_are_refused(self):
+        (self.variant / "a").mkdir()
+        (self.variant / "a" / "score.sbatch").write_text("other\n")
+        with self.assertRaisesRegex(ValueError, "share a file name"):
+            self.write(manifests=["score.sbatch", "a/score.sbatch"], recorded_after_launch=False)
+
+    def test_manifest_recovered_from_git_after_its_directory_is_removed(self):
+        import shutil
+        from launch_record import _text_at_commit
+        (self.variant / "old").mkdir()
+        (self.variant / "old" / "run.sbatch").write_text("python -m mevolve.score\n")
+        import subprocess
+        subprocess.run(["git", "-C", self.tmp.name, "add", "-A"], check=True)
+        subprocess.run(["git", "-C", self.tmp.name, "-c", "user.name=t", "-c", "user.email=t@t",
+                        "commit", "-q", "-m", "old"], check=True)
+        sha = subprocess.run(["git", "-C", self.tmp.name, "rev-parse", "HEAD"], check=True,
+                             capture_output=True, text=True).stdout.strip()
+        shutil.rmtree(self.variant / "old")
+        self.assertEqual(_text_at_commit(self.variant / "old" / "run.sbatch", sha), "python -m mevolve.score\n")
+
+    def test_script_edit_cannot_change_the_step_budget_outside_extend(self):
+        from launch_record import write_intervention
+        (self.variant / "train.sbatch").write_text("python run.py model.training.n_steps=60000\n")
+        import subprocess
+        subprocess.run(["git", "-C", self.tmp.name, "add", "-A"], check=True)
+        subprocess.run(["git", "-C", self.tmp.name, "-c", "user.name=t", "-c", "user.email=t@t",
+                        "commit", "-q", "-m", "t"], check=True)
+        sha = subprocess.run(["git", "-C", self.tmp.name, "rev-parse", "HEAD"], check=True,
+                             capture_output=True, text=True).stdout.strip()
+        self.write("t/hpc_initial.json", wandb_group="two-level-em@20261102-040000",
+                   manifests=["train.sbatch"], revisions={"studies": sha, "mevolve": "d" * 40})
+        (self.variant / "train.sbatch").write_text("python run.py model.training.n_steps=120000\n")
+        meta = {"produced_by": "x", "produced_at_pt": "2026-11-02T02:00:00-08:00", "wandb_groups": ["g"]}
+        with mock.patch("launch_record.build_meta", return_value=meta):
+            with self.assertRaisesRegex(ValueError, "only an extend"):
+                write_intervention(self.lr / "t" / "resubmit1.json", kind="resubmit", platform="hpc",
+                                   wandb_group="two-level-em@20261102-040000", study_root=self.study,
+                                   job_refs=[{"type": "slurm_job", "id": "9"}], deviations={"script": True},
+                                   manifests=["train.sbatch"],
+                                   trigger={"symptom": "killed at time limit", "cause": "node drained"})
+
+    def test_quoted_or_repeated_step_overrides_are_seen(self):
+        from launch_record import _manifest_keys
+        base = _manifest_keys("a.sbatch", "run.py model.training.n_steps=60000\n")
+        quoted = _manifest_keys("a.sbatch", "run.py 'model.training.n_steps=120000'\n")
+        repeated = _manifest_keys("a.sbatch", "run.py model.training.n_steps=60000 model.training.n_steps=120000\n")
+        key = "script.=model.training.n_steps"
+        self.assertNotEqual(base[key], quoted[key])
+        self.assertNotEqual(base[key], repeated[key])
+
+    def test_after_launch_record_needs_only_the_committed_manifest(self):
+        (self.variant / "score.sbatch").unlink()            # moved away after the submission
+        rec = self.write("moved/hpc_initial.json")
+        self.assertEqual(self.schema_errors(rec), [])
+        findings = []
+        check_records_parse(load_records(self.lr), findings)
+        self.assertEqual(findings, [])
+
+    def test_command_is_recorded_and_validated(self):
+        rec = self.write()
+        self.assertEqual(rec["command"], "sbatch score.sbatch")
+        self.assertTrue(self.schema_errors({**rec, "command": ""}))
+
+    def test_conda_image_digests_like_the_launcher(self):
+        import hashlib
+        from launch_record import conda_image
+        prefix = Path(self.tmp.name) / "env"
+        (prefix / "conda-meta").mkdir(parents=True)
+        (prefix / "conda-meta" / "numpy-2.0-py312.json").write_text("{}")
+        sp = prefix / "lib" / "python3.12" / "site-packages"
+        (sp / "jax-0.4.dist-info").mkdir(parents=True)
+        image = conda_image(prefix)
+        expected = hashlib.sha256("numpy-2.0-py312.json\njax-0.4.dist-info".encode()).hexdigest()
+        self.assertEqual(image, {"platform": "hpc", "conda_env": str(prefix.resolve()), "lock_sha256": expected})
+        with self.assertRaisesRegex(ValueError, "site-packages"):
+            conda_image(Path(self.tmp.name) / "nothing")
+
+    def test_intervention_on_a_mevolve_run_diffs_the_script_as_one_key(self):
+        from launch_record import write_intervention
+        self.write()
+        self.assertTrue((self.lr / "score.sbatch").exists())      # the launch's snapshot
+        args = dict(kind="resubmit", platform="hpc", wandb_group=self.GROUP, study_root=self.study,
+                    job_refs=[{"type": "slurm_job", "id": "27570000"}],
+                    trigger={"symptom": "job killed at the time limit", "cause": "node drained"})
+        meta = {"produced_by": "x", "produced_at_pt": "2026-11-02T02:00:00-08:00", "wandb_groups": [self.GROUP]}
+        with mock.patch("launch_record.build_meta", return_value=meta):
+            rec = write_intervention(self.lr / "resubmit1.json", **args)
+        self.assertEqual(rec["revisions"]["mevolve"], "d" * 40)
+        self.assertEqual(self.schema_errors(rec), [])
+        (self.variant / "score.sbatch").write_text("python -m mevolve.score --model Bari2019\n")
+        with mock.patch("launch_record.build_meta", return_value=meta):
+            with self.assertRaisesRegex(ValueError, r"undeclared key\(s\) \['script'\]"):
+                write_intervention(self.lr / "resubmit2.json", **args)
