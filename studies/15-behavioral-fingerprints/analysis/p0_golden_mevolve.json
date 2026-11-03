@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p0_golden_mevolve.py",
-    "produced_at_pt": "2026-11-03T02:15:35-08:00",
-    "studies_git_sha": "51b671ccc5d6d376d8e2004351bad5a8cb8f34dc",
+    "produced_at_pt": "2026-11-03T02:34:15-08:00",
+    "studies_git_sha": "2df5717fb0d91d1d53a8bbbedd875773fa473a4a",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -125,7 +125,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_golden_mevolve.json",
-        "sha256": "53767c507d392de1554a34ee5b4a3560a0e98cbcb921477e2acf39212780a7ab"
+        "sha256": "9604f3a2754f197c42a68b92a4e1f8be7bc5ce6ab79d0703dea8980434d04563"
       }
     ]
   },
@@ -133,7 +133,7 @@
     "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
     "git_sha": "d9878168ef683b197ce2c6bda7a6098978762c36"
   },
-  "mevolve_git_sha": "2eef3592d8a56aa7b9d2ad2d681c49a86262e210",
+  "mevolve_git_sha": "30ae4f3386a67a02b543b4b84fb83caedd1cd8a2",
   "tolerance": {
     "library_vs_mevolve": 1e-12,
     "library_vs_stored": 1e-09,
@@ -146,11 +146,11 @@
       "program": "actor_critic",
       "n_subjects": 149,
       "n_values": 2184,
-      "n_subjects_replay_differs": 3,
+      "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 5.342948306008566e-16,
-        "mevolve_vs_stored": 1.2588244335809406e-10,
-        "library_vs_stored": 1.2588244335809406e-10
+        "library_vs_mevolve": 1.1449174941446927e-15,
+        "mevolve_vs_stored": 2.3592239273284576e-16,
+        "library_vs_stored": 1.1449174941446927e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -165,9 +165,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 4.163336342344337e-16,
-        "mevolve_vs_stored": 2.0333706940434126e-11,
-        "library_vs_stored": 2.0333706940434126e-11
+        "library_vs_mevolve": 7.494005416219807e-16,
+        "mevolve_vs_stored": 1.3877787807814457e-16,
+        "library_vs_stored": 7.494005416219807e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -183,8 +183,8 @@
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
         "library_vs_mevolve": 5.134781488891349e-16,
-        "mevolve_vs_stored": 6.234873728416801e-13,
-        "library_vs_stored": 6.233971672209293e-13
+        "mevolve_vs_stored": 3.191891195797325e-16,
+        "library_vs_stored": 5.134781488891349e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -217,8 +217,8 @@
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
         "library_vs_mevolve": 5.620504062164855e-16,
-        "mevolve_vs_stored": 2.3918367286768216e-14,
-        "library_vs_stored": 2.3848978347729144e-14
+        "mevolve_vs_stored": 3.469446951953614e-16,
+        "library_vs_stored": 5.620504062164855e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -234,8 +234,8 @@
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
         "library_vs_mevolve": 3.1676050671336498e-15,
-        "mevolve_vs_stored": 4.1975450892905997e-13,
-        "library_vs_stored": 4.1975450892905997e-13
+        "mevolve_vs_stored": 4.215378046623641e-16,
+        "library_vs_stored": 3.1676050671336498e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -250,9 +250,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 4.579669976578771e-16,
-        "mevolve_vs_stored": 2.0614066009727594e-13,
-        "library_vs_stored": 2.0614066009727594e-13
+        "library_vs_mevolve": 5.898059818321144e-16,
+        "mevolve_vs_stored": 8.36136715420821e-15,
+        "library_vs_stored": 8.444633881055097e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -267,9 +267,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 3.0184188481996443e-16,
-        "mevolve_vs_stored": 5.11617137544107e-12,
-        "library_vs_stored": 5.116095047608127e-12
+        "library_vs_mevolve": 8.604228440844963e-16,
+        "mevolve_vs_stored": 2.636779683484747e-16,
+        "library_vs_stored": 8.743006318923108e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -284,9 +284,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 8.881784197001252e-16,
-        "mevolve_vs_stored": 8.561740205692558e-11,
-        "library_vs_stored": 8.561729103462312e-11
+        "library_vs_mevolve": 2.6645352591003757e-15,
+        "mevolve_vs_stored": 5.551115123125783e-16,
+        "library_vs_stored": 2.4980018054066022e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -301,9 +301,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 1.27675647831893e-15,
-        "mevolve_vs_stored": 4.0539127610372816e-11,
-        "library_vs_stored": 4.0539016588070353e-11
+        "library_vs_mevolve": 3.3861802251067274e-15,
+        "mevolve_vs_stored": 3.3306690738754696e-16,
+        "library_vs_stored": 3.4416913763379853e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -318,9 +318,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 5.134781488891349e-16,
-        "mevolve_vs_stored": 9.784603682838622e-12,
-        "library_vs_stored": 9.784534293899583e-12
+        "library_vs_mevolve": 1.4224732503009818e-15,
+        "mevolve_vs_stored": 4.163336342344337e-16,
+        "library_vs_stored": 1.4224732503009818e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -333,11 +333,11 @@
       "program": "grossman_meta_learning",
       "n_subjects": 149,
       "n_values": 2184,
-      "n_subjects_replay_differs": 9,
+      "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 3.608224830031759e-16,
-        "mevolve_vs_stored": 2.409495103439241e-10,
-        "library_vs_stored": 2.4094946871056067e-10
+        "library_vs_mevolve": 9.71445146547012e-16,
+        "mevolve_vs_stored": 1.5265566588595902e-16,
+        "library_vs_stored": 9.853229343548264e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -352,9 +352,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 5.655198531684391e-16,
-        "mevolve_vs_stored": 1.8645363031311035e-12,
-        "library_vs_stored": 1.8646056920701426e-12
+        "library_vs_mevolve": 9.159339953157541e-16,
+        "mevolve_vs_stored": 3.677613769070831e-16,
+        "library_vs_stored": 9.853229343548264e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -387,8 +387,8 @@
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
         "library_vs_mevolve": 4.0592529337857286e-16,
-        "mevolve_vs_stored": 7.292784431900401e-12,
-        "library_vs_stored": 7.292784431900401e-12
+        "mevolve_vs_stored": 2.6020852139652106e-16,
+        "library_vs_stored": 4.163336342344337e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -403,9 +403,9 @@
       "n_values": 2184,
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
-        "library_vs_mevolve": 7.91033905045424e-15,
-        "mevolve_vs_stored": 3.6423641880389823e-13,
-        "library_vs_stored": 3.6423641880389823e-13
+        "library_vs_mevolve": 6.2727600891321345e-15,
+        "mevolve_vs_stored": 4.926614671774132e-16,
+        "library_vs_stored": 6.2727600891321345e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -421,8 +421,8 @@
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
         "library_vs_mevolve": 6.279698983036042e-16,
-        "mevolve_vs_stored": 8.215650382226158e-14,
-        "library_vs_stored": 8.215650382226158e-14
+        "mevolve_vs_stored": 1.0408340855860843e-16,
+        "library_vs_stored": 6.279698983036042e-16
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,
@@ -455,8 +455,8 @@
       "n_subjects_replay_differs": 0,
       "max_abs_diff": {
         "library_vs_mevolve": 7.044712035941814e-15,
-        "mevolve_vs_stored": 9.821726765224525e-13,
-        "library_vs_stored": 9.821726765224525e-13
+        "mevolve_vs_stored": 3.5388358909926865e-16,
+        "library_vs_stored": 7.0360384185619296e-15
       },
       "n_unshared_keys": {
         "library_vs_mevolve": 0,

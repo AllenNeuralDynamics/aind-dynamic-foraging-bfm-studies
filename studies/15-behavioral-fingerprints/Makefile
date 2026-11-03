@@ -6,7 +6,7 @@
 
 PY ?= python
 MODELS ?= ../../../aind-dynamic-foraging-models
-MEVOLVE ?= /allen/aind/scratch/han.hou/tmp/s15/mevolve-2eef359
+MEVOLVE ?= /allen/aind/scratch/han.hou/tmp/s15/mevolve-30ae4f3
 MEVOLVE_PY ?= /allen/aind/scratch/han.hou/miniforge3/envs/mevolve/bin/python
 .PHONY: all freeze-p0-golden-mevolve freeze-p0-golden-wrapper freeze-p0-task-checks
 
