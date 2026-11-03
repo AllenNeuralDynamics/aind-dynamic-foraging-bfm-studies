@@ -39,6 +39,16 @@ Only the parameters and their bounds differ: CTT bounds θ to [−1, 1], while t
 bounds both credits to [−20, 20]. θ = −1 means c_loss = c_win / 2. A credit fit with
 c_loss > c_win / 2 is therefore a CTT fit with θ < −1, which CTT cannot reach.
 
+How the two forms' parameters map onto each other:
+
+| CTT | credit form | meaning |
+|---|---|---|
+| learn_rate | learn_rate | the same parameter |
+| biasL | biasL | the same parameter: added to the stay logit after a Left choice |
+| β, θ | c_win = β(1 − θ), c_loss = −βθ | the stay logit (before the side bias) a subject approaches after a run of wins, or of losses |
+| β = c_win − c_loss | | how much one outcome changes the urge to stay |
+| θ = −c_loss / (c_win − c_loss) | | where c_loss sits between 0 and c_win; each θ is a line through the origin of the (c_win, c_loss) plane (figure, panel a) |
+
 One launch refit both forms per subject on all 763 subjects (W&B group
 [`ctt-credit@20261102-132626`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/2f26d1qa)).
 It used r1's protocol and data (fit on even sessions, scored on odd sessions) and one
@@ -82,3 +92,9 @@ After a run of losses on the Right side, the subjects at the bound stay with pro
 - **What θ < −1 means.** After a loss these subjects keep more than half of the stay credit they
   have after a win. CTT cannot fit that, because its threshold stops at −1. Galen's form removes the limit at no cost to the other subjects, but at about 1.8×
   the fit time (launch [results](../../variants/ctt-credit/launch_record/production/results.md)).
+
+## Decision
+
+- **CompareToThreshold-credit is not added to the leaderboard** (r1, r3, or the atlas). It scores
+  the same as CompareToThreshold, which is already ranked, so it would be a second row for one
+  model (Han, 2026-11-02).
