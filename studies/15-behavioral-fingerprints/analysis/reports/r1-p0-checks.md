@@ -94,11 +94,14 @@ Subjects whose replay from the stored parameters does not reproduce the stored l
   subject-mean history-pattern rows, their summaries and the post-switch summary, for all three
   RL baselines, to about 3e-16, with every subject count equal. So MEvolve's gate and the
   wrapper's old numbers can move onto the library without changing.
-- **Replaying from stored parameters is not always the fit.** For 9 Grossman-MetaLearning
-  subjects whose `forgetting_factor` is stored at its bound of 0, a replay from the stored
-  parameters does not reproduce MEvolve's stored log likelihood, so those subjects are not
-  compared with the stored fingerprints. This is a property of the stored parameters, not of the
-  fingerprints. MEvolve has been told.
+- **This check found a bug in MEvolve's parameter conversion.** For 12 subjects (9
+  Grossman-MetaLearning, 3 ActorCritic), a replay through MEvolve's `fitting.from_params` did not
+  reproduce MEvolve's stored log likelihood, so they are counted, not compared with the stored
+  fingerprints. The stored parameters were right: `from_params` clipped every parameter 1e-12
+  inside its bounds, and Grossman-MetaLearning is sensitive at `forgetting_factor` ≈ 0. MEvolve
+  fixed it (its PR #31; every stored gate-1b fit then replays to within 1.7e-11). This check is
+  rerun at the fixed version once that is merged. It does not touch the fingerprints: the
+  library-against-MEvolve comparison uses the same p(right) on both sides.
 - **Real coupled blocks are often held, and the gym cannot hold them.** About a quarter of the
   measurable coupled blocks ran past `block_max`, about 30% in `STAGE_2` but 3% in
   `STAGE_FINAL`. Most were in sessions with no minimum reward set, so the unrecorded auto-block
