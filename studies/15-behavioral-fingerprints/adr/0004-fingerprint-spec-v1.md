@@ -14,7 +14,7 @@ at 3 trials back, and the golden test maps one set of labels onto the other.
 | family | statistics |
 |---|---|
 | local switching | p(switch) by the last 1 to 3 trials; by consecutive losses on the current side; by last reward × current run length (the hazard); after a switch, by reward and the run before it (study 01 r9's headline) |
-| sequence shape | run-length distributions, tallied as counts of runs per length (rollout); replay tests them through the hazard, which determines them |
+| sequence shape | run-length distributions, tallied as counts of completed runs per length (1 to 5, 6–10, 11–20, 21–40, 41 or more; a session's last run is incomplete and not counted) (rollout); replay tests them through the hazard, which determines them |
 
 Each is also split by stage group × task variant. Only engaged trials count; in replay, p(left)
 and p(right) are renormalised over the engaged choices. Ignore statistics come in v2, with the

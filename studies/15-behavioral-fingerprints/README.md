@@ -56,7 +56,7 @@ with ignore statistics; MEvolve's pre-registered programs from study 40.
 
 | phase | what | check |
 |---|---|---|
-| P0 | spec, library, golden tests; reward-pair pools; how often real coupled blocks run past `block_max` | reproduces the wrapper's statistics on r9's frozen rollout histories and MEvolve's `replay_gap` on its gate-1 inputs |
+| P0 | spec, library, golden tests; reward-pair pools; how often real coupled blocks run past `block_max` | reproduces the wrapper's statistics on study 05's cached RL rollout histories (r9's RL rows) and MEvolve's `replay_gap` on its gate-1b fits; done, [r1](analysis/reports/r1-p0-checks.md) |
 | P1 | replay fingerprints of `literature-models` | each adapter reproduces its model's own probabilities to 1e-6 |
 | P2 | rollout fingerprints of the same, and the noise floor | |
 | P3 | GRU and GLM-HMM | |

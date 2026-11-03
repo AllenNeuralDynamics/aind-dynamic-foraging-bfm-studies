@@ -1,0 +1,468 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_p0_golden_mevolve.py",
+    "produced_at_pt": "2026-11-03T02:02:44-08:00",
+    "studies_git_sha": "d44dcee96faf8df0d51532eac821a72a09d4a3b6",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
+        "sha256": "842fa87c5919c8d62d374ce4655b5844398157b10071ab27a0c2c7026b5ab3dd"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_ActorCritic_actor_critic.json",
+        "sha256": "796c92e00a124d85f50fc00dfe398b60a4aefa255624b4e158bd3e2ff0df5ea3"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Alsio-DualRateSticky-RL_alsio_dual_rate_sticky_rl.json",
+        "sha256": "821074b8818b6a2b0466c976f4d8ecd7e7932cdefa34724edf7e663ea265018c"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Bari2019_bari2019.json",
+        "sha256": "e8e58dd7d3d6674698c0d52f349dadc9e7647ddbc670ffbb89f0c60a8febfdc8"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Beron-RFLR_beron_rflr.json",
+        "sha256": "c5bce4966ddf583896779f4e61c9699fcfd53c82b1907fd5270dad1ddc2d7e7e"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Chen-RLCK_chen_rlck.json",
+        "sha256": "7cc0a35640ab6639d17f33dcf545e4ad87f394d3caa598c3dbe585a54f3e8543"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_CompareToThreshold_compare_to_threshold.json",
+        "sha256": "74d1e847534640a512fd57e71b72ec4a342000400b2ec5cde3cb8668c7708292"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Eckstein-BI_eckstein_bi.json",
+        "sha256": "1c790111311e30419fa09af661b4ffaaa4eafc5cc4cd0af4a32af101c7f540da"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Eckstein-RL_eckstein_rl.json",
+        "sha256": "58f391da011895487e6e0250c07c90f8388b6c211ee5e26ace31a2814d019555"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_FeedbackDependent-RL+Bias+CK1_feedback_dependent_rl_bias_ck1.json",
+        "sha256": "e37c391cf767edc2e922fb96fdea16a32eb2791ea23b0255836021d02692d4c8"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_FeedbackDependent-RL+Bias_feedback_dependent_rl_bias.json",
+        "sha256": "b9f0d7d3d7ede09719d5e3d35a90a8a4ac587a2d13700e16577678d25359bed6"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_FeedbackDependent-RL_feedback_dependent_rl.json",
+        "sha256": "bf04f096e49aae7a61ec047d46794607b770394f524ccff695446ea7f62a8a14"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Grossman-MetaLearning_grossman_meta_learning.json",
+        "sha256": "ccfbb9eb9a94fe9e39530938581542667850d0bfe52765b766424f9b757c5e68"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Hattori2019_hattori2019.json",
+        "sha256": "39482bef6fa6e37eb586dc79a4498841769c3c355346fa0d6320dcff37a13b4c"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Lebedeva-PR_lebedeva_pr.json",
+        "sha256": "f8afb2053f2d44960c8789b77d87c0460e16124a0ec6119a91a9b9442569994b"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Lopez-DoubleTrace_lopez_double_trace.json",
+        "sha256": "1b5dc22ddfe5f2616610a02c5937142cf8b37e4cb2d2b323da29735a5c91ec34"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_LossCounting_loss_counting.json",
+        "sha256": "d6610fe9356605adca1387a73338730f8e21304768fb5bdbb843e364b23dbcfa"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Miller-RHG_miller_rhg.json",
+        "sha256": "d76b1e347bdc681f60b62399d8b0d1444085f9808ce78197e609c181f764dc7c"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Rescorla-Wagner_rescorla_wagner.json",
+        "sha256": "a9c5c322a107cef7b6832bded9d48f33d130d38f7accd3c34385358c71f71833"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/gate1b/final_888c4ea/subject_Zid-HistoryKernel2-ForagingRL_zid_history_kernel2.json",
+        "sha256": "5d2b4ebf9bd5ca6238b7050c9706d48239129e5779b194da788467dfa30926a2"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p0_golden_mevolve.json",
+        "sha256": "982634dfd9eb862165b595f3903ef2677d9f7c638375944df4c429b88dc9ad77"
+      }
+    ]
+  },
+  "fingerprints_library": {
+    "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
+    "git_sha": "2bc6f2d778d0854b8db67f7ae7784540378178ea"
+  },
+  "mevolve_git_sha": "2eef3592d8a56aa7b9d2ad2d681c49a86262e210",
+  "tolerance": {
+    "library_vs_mevolve": 1e-12,
+    "library_vs_stored": 1e-09,
+    "replay_log_lik": 1e-06
+  },
+  "passed": true,
+  "models": [
+    {
+      "literature_model": "ActorCritic",
+      "program": "actor_critic",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 3,
+      "max_abs_diff": {
+        "library_vs_mevolve": 5.342948306008566e-16,
+        "mevolve_vs_stored": 1.2588244335809406e-10,
+        "library_vs_stored": 1.2588244335809406e-10
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Alsio-DualRateSticky-RL",
+      "program": "alsio_dual_rate_sticky_rl",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 4.163336342344337e-16,
+        "mevolve_vs_stored": 2.0333706940434126e-11,
+        "library_vs_stored": 2.0333706940434126e-11
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Bari2019",
+      "program": "bari2019",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 5.134781488891349e-16,
+        "mevolve_vs_stored": 6.234873728416801e-13,
+        "library_vs_stored": 6.233971672209293e-13
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Beron-RFLR",
+      "program": "beron_rflr",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 4.649058915617843e-16,
+        "mevolve_vs_stored": 1.457167719820518e-16,
+        "library_vs_stored": 4.649058915617843e-16
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Chen-RLCK",
+      "program": "chen_rlck",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 5.620504062164855e-16,
+        "mevolve_vs_stored": 2.3918367286768216e-14,
+        "library_vs_stored": 2.3848978347729144e-14
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "CompareToThreshold",
+      "program": "compare_to_threshold",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 3.1676050671336498e-15,
+        "mevolve_vs_stored": 4.1975450892905997e-13,
+        "library_vs_stored": 4.1975450892905997e-13
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Eckstein-BI",
+      "program": "eckstein_bi",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 4.579669976578771e-16,
+        "mevolve_vs_stored": 2.0614066009727594e-13,
+        "library_vs_stored": 2.0614066009727594e-13
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Eckstein-RL",
+      "program": "eckstein_rl",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 3.0184188481996443e-16,
+        "mevolve_vs_stored": 5.11617137544107e-12,
+        "library_vs_stored": 5.116095047608127e-12
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "FeedbackDependent-RL",
+      "program": "feedback_dependent_rl",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 8.881784197001252e-16,
+        "mevolve_vs_stored": 8.561740205692558e-11,
+        "library_vs_stored": 8.561729103462312e-11
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias",
+      "program": "feedback_dependent_rl_bias",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 1.27675647831893e-15,
+        "mevolve_vs_stored": 4.0539127610372816e-11,
+        "library_vs_stored": 4.0539016588070353e-11
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias+CK1",
+      "program": "feedback_dependent_rl_bias_ck1",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 5.134781488891349e-16,
+        "mevolve_vs_stored": 9.784603682838622e-12,
+        "library_vs_stored": 9.784534293899583e-12
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Grossman-MetaLearning",
+      "program": "grossman_meta_learning",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 9,
+      "max_abs_diff": {
+        "library_vs_mevolve": 3.608224830031759e-16,
+        "mevolve_vs_stored": 2.409495103439241e-10,
+        "library_vs_stored": 2.4094946871056067e-10
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Hattori2019",
+      "program": "hattori2019",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 5.655198531684391e-16,
+        "mevolve_vs_stored": 1.8645363031311035e-12,
+        "library_vs_stored": 1.8646056920701426e-12
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Lebedeva-PR",
+      "program": "lebedeva_pr",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 4.3194614551822497e-16,
+        "mevolve_vs_stored": 5.551115123125783e-17,
+        "library_vs_stored": 4.3194614551822497e-16
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Lopez-DoubleTrace",
+      "program": "lopez_double_trace",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 4.0592529337857286e-16,
+        "mevolve_vs_stored": 7.292784431900401e-12,
+        "library_vs_stored": 7.292784431900401e-12
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "LossCounting",
+      "program": "loss_counting",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 7.91033905045424e-15,
+        "mevolve_vs_stored": 3.6423641880389823e-13,
+        "library_vs_stored": 3.6423641880389823e-13
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Miller-RHG",
+      "program": "miller_rhg",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 6.279698983036042e-16,
+        "mevolve_vs_stored": 8.215650382226158e-14,
+        "library_vs_stored": 8.215650382226158e-14
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Rescorla-Wagner",
+      "program": "rescorla_wagner",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 1.3933298959045715e-14,
+        "mevolve_vs_stored": 0.0,
+        "library_vs_stored": 1.3933298959045715e-14
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    },
+    {
+      "literature_model": "Zid-HistoryKernel2-ForagingRL",
+      "program": "zid_history_kernel2",
+      "n_subjects": 149,
+      "n_values": 2184,
+      "n_subjects_replay_differs": 0,
+      "max_abs_diff": {
+        "library_vs_mevolve": 7.044712035941814e-15,
+        "mevolve_vs_stored": 9.821726765224525e-13,
+        "library_vs_stored": 9.821726765224525e-13
+      },
+      "n_unshared_keys": {
+        "library_vs_mevolve": 0,
+        "mevolve_vs_stored": 0,
+        "library_vs_stored": 0
+      }
+    }
+  ]
+}
