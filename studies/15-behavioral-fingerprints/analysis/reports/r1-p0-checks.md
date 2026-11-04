@@ -34,15 +34,17 @@ reward pairs for parameter-matched rollouts (ADR 0006)?
 
 ![held blocks](../fig_r1_held_blocks.svg)
 
-*Share of coupled blocks that ran past their recorded `block_max`, in the score sessions of
-study 12's 149 test subjects, by task and stage (`S2` = `STAGE_2`; "no stage" = none recorded).
-The number over each bar is its block count. The gym cannot make such a block: its block length
-is capped at `block_max`, and it has neither of the real task's holds. Blue: the session set no
-minimum reward, so only the auto-block rule (not recorded) or the experimenter can have held the
-block. Vermillion: the session set a minimum reward per block.*
+*Share of coupled blocks that were certainly held (more engaged trials than their recorded
+`block_max`), in the score sessions of study 12's 149 test subjects, by task and stage (`S2` =
+`STAGE_2`; "no stage" = none recorded). Ignored trials are not counted, because the task can add
+one trial to a block for each of them. The number over each bar is its block count. The gym
+cannot make such a block: its block length is capped at `block_max`, and it has neither of the
+real task's holds. Blue: the session set no minimum reward, so the auto-block rule (not
+recorded) or an experimenter's change of settings held the block. Vermillion: the session set a
+minimum reward per block.*
 
 <!-- BEGIN result-1 -->
-**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `f554270`, MEvolve `30ae4f3`):
+**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `29ab766`, MEvolve `30ae4f3`):
 
 | check | max \|difference\| | pass |
 |---|---|---|
@@ -59,20 +61,20 @@ Subjects whose replay from the stored parameters does not reproduce the stored l
 | bari | 3.3e-16 | 0 |
 | hattori | 3.3e-16 | 0 |
 
-**Held coupled blocks** (study 12's test subjects, score sessions; 5502 blocks with a recorded `block_max`, last block of each session left out): 24.6% ran past `block_max`; 1205 of 1354 were in sessions that set no minimum reward.
+**Held coupled blocks** (study 12's test subjects, score sessions; 5502 blocks with a recorded `block_max`, last block of each session left out): 12.5% had more engaged trials than `block_max`, so were held; 24.6% ran past it counting all trials, which ignored trials can lengthen. Of the held blocks, 586 of 686 were in sessions that set no minimum reward.
 
-| task | stage | sessions | blocks | past block_max | share |
-|---|---|---|---|---|---|
-| Coupled Baiting | STAGE_1_WARMUP | 4 | 213 | 65 | 30.5% |
-| Coupled Baiting | STAGE_1 | 49 | 1161 | 221 | 19.0% |
-| Coupled Baiting | STAGE_2 | 120 | 2157 | 639 | 29.6% |
-| Coupled Baiting | STAGE_3 | 12 | 134 | 16 | 11.9% |
-| Coupled Baiting | STAGE_FINAL | 22 | 172 | 5 | 2.9% |
-| Coupled Baiting | GRADUATED | 2 | 30 | 0 | 0.0% |
-| Coupled Baiting | None | 346 | 468 | 80 | 17.1% |
-| Coupled Without Baiting | STAGE_2 | 38 | 718 | 208 | 29.0% |
-| Coupled Without Baiting | STAGE_3 | 24 | 424 | 116 | 27.4% |
-| Coupled Without Baiting | None | 4 | 25 | 4 | 16.0% |
+| task | stage | sessions | blocks | held (engaged trials > block_max) | share | all trials > block_max |
+|---|---|---|---|---|---|---|
+| Coupled Baiting | STAGE_1_WARMUP | 4 | 213 | 59 | 27.7% | 30.5% |
+| Coupled Baiting | STAGE_1 | 49 | 1161 | 77 | 6.6% | 19.0% |
+| Coupled Baiting | STAGE_2 | 120 | 2157 | 365 | 16.9% | 29.6% |
+| Coupled Baiting | STAGE_3 | 12 | 134 | 11 | 8.2% | 11.9% |
+| Coupled Baiting | STAGE_FINAL | 22 | 172 | 0 | 0.0% | 2.9% |
+| Coupled Baiting | GRADUATED | 2 | 30 | 0 | 0.0% | 0.0% |
+| Coupled Baiting | None | 346 | 468 | 41 | 8.8% | 17.1% |
+| Coupled Without Baiting | STAGE_2 | 38 | 718 | 72 | 10.0% | 29.0% |
+| Coupled Without Baiting | STAGE_3 | 24 | 424 | 58 | 13.7% | 27.4% |
+| Coupled Without Baiting | None | 4 | 25 | 3 | 12.0% | 16.0% |
 
 **Reward pairs and coverage** (2138 score sessions):
 
@@ -100,10 +102,13 @@ Subjects whose replay from the stored parameters does not reproduce the stored l
   clipped every parameter 1e-12 inside its bounds and these models are sensitive near a bound.
   The stored parameters were right. MEvolve fixed it (its PR #31); rerun at the fixed 30ae4f3,
   every subject is compared and the library matches the stored fingerprints to about 1e-14.
-- **Real coupled blocks are often held, and the gym cannot hold them.** About a quarter of the
-  measurable coupled blocks ran past `block_max`, about 30% in `STAGE_2` but 3% in
-  `STAGE_FINAL`. Most were in sessions with no minimum reward set, so the unrecorded auto-block
-  rule did it. Rollouts of early-stage coupled sessions will therefore have shorter blocks than
+- **Real coupled blocks are often held, and the gym cannot hold them.** One in eight measurable
+  coupled blocks had more engaged trials than `block_max`, so was certainly held: 17% in
+  `STAGE_2`, 28% in the warm-up, none in the final stages. A quarter ran past `block_max`
+  counting all trials, but the task can add a trial for each ignored one, so only the engaged
+  count proves a hold. Most held blocks were in sessions with no minimum reward set, so the
+  unrecorded auto-block rule or an experimenter's change of settings held them; the data cannot
+  tell which. Rollouts of early-stage coupled sessions will therefore have shorter blocks than
   the real ones. Fingerprints that depend on block length (run lengths, the hazard at long runs)
   should be read by stage group, and the final stages are where rollouts match the task best.
 - **Reward pairs can mostly be pooled.** Most coupled score sessions show pairs that fit one of

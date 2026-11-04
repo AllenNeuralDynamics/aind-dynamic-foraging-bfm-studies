@@ -4,11 +4,15 @@
 1. Held blocks. The real coupled task draws a block length as ``block_min + Exp(block_beta)``,
    capped at ``block_max`` (dynamic-foraging-task ``MyFunctions._generate_next_coupled_block``),
    then can hold the switch: ``BlockMinReward`` and ``AdvancedBlockAuto``
-   (``_check_coupled_block_transition``). The gym has neither hold, so a real block longer than
-   its ``block_max`` is one a rollout cannot produce. This counts them in the score sessions of
-   study 12's 149 test subjects (ADR 0007), by task and stage, and splits them by whether the
-   session set a minimum reward (``min_reward_each_block`` > 0): where it did not, only the
-   unrecorded auto-block rule or the experimenter can have held the block.
+   (``_check_coupled_block_transition``). With ``AddOneTrialForNoresponse`` (not recorded) it
+   also adds one trial to the block for each ignored trial (``_add_one_trial``). So a block's
+   count of *engaged* trials exceeds ``block_max`` only if the block was held, whatever that
+   setting was; that count is a lower bound on holds, and the count over all trials, also kept,
+   an upper one. The gym has neither hold, so such a block is one a rollout cannot produce. This
+   counts them in the score sessions of study 12's 149 test subjects (ADR 0007), by task and stage,
+   and splits them by whether the session set a minimum reward (``min_reward_each_block`` > 0):
+   where it did not, the unrecorded auto-block rule or an experimenter's change of settings
+   held the block; the data cannot tell which.
 2. Reward-pair pools. The pairs of a coupled session are ``RewardFamilies[family][:N]`` scaled to
    ``base_reward_probability_sum`` (``Foraging.py``); family and N are not recorded. ADR 0006 pools
    the pairs seen in the subject's sessions (fit and score) with the same task and stage. This
@@ -52,7 +56,7 @@ REWARD_FAMILIES = {
     3: [[1, 0], [0.9, 0.1], [0.8, 0.2], [0.7, 0.3], [0.6, 0.4], [0.5, 0.5]],
     4: [[6, 1], [3, 1], [1, 1]],
 }
-COLUMNS = ["session_id", "trial", "reward_probabilityL", "reward_probabilityR", "block_min",
+COLUMNS = ["session_id", "trial", "animal_response", "reward_probabilityL", "reward_probabilityR", "block_min",
            "block_max", "block_beta", "min_reward_each_block", "base_reward_probability_sum"]
 OUT = HERE / "p0_task_checks.json"
 
@@ -135,13 +139,15 @@ def main() -> None:
             c = holds[key]
             c["sessions"] += 1
             c["sessions_with_min_reward"] += int(sets_min)
+            engaged = (t["animal_response"].to_numpy(float) != 2).astype(int)
             for start, length in blocks:
                 if not np.isfinite(bmax[start]):
                     c["blocks_no_block_max"] += 1
                     continue
-                over = int(length > bmax[start])
+                over = int(engaged[start:start + length].sum() > bmax[start])  # held, for sure
                 c["blocks"] += 1
                 c["over_max"] += over
+                c["over_max_all_trials"] += int(length > bmax[start])
                 c["over_max_with_min_reward" if sets_min else "over_max_without_min_reward"] += over
         elif not binary:
             uncoupled_values[row.session_id] = frozenset(np.round(np.unique(p), 3).tolist())
@@ -184,7 +190,8 @@ def main() -> None:
                    "pool": "heldout", "freeze_manifest_sha256": FREEZE_MANIFEST},
         "held_blocks": {"rows": hold_rows,
                         "coupled_total": {k: int(v) for k, v in totals.items()},
-                        "share_over_max": totals["over_max"] / totals["blocks"]},
+                        "share_over_max": totals["over_max"] / totals["blocks"],
+                        "share_over_max_all_trials": totals["over_max_all_trials"] / totals["blocks"]},
         "reward_pairs": {
             "coupled_pools": len(pools),
             "pool_matches": dict(matches.most_common()),

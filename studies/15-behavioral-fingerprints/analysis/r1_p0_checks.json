@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_p0_checks.py",
-    "produced_at_pt": "2026-11-03T02:40:32-08:00",
-    "studies_git_sha": "7fdc141ff678c3f547fb6f57fd2e89285060badf",
+    "produced_at_pt": "2026-11-03T21:13:03-08:00",
+    "studies_git_sha": "4b41ea0b9fce5b8992c4ce701964f3cdf10b078c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r1_p0_checks.py",
-        "sha256": "a6a808cdbc53d11f9fcfcb22000d609a5ae2137b5814c173420981e870e3f9f6"
+        "sha256": "5548ddcbaeee075e7fab9e46221f0af41f71800e6cc3f53ed04764c57dc6763b"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -30,29 +30,29 @@
     "inputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_golden_mevolve.json",
-        "sha256": "4b2d1250d889575513b1beaa5d2e869385ecbb379abea42cb53c012ddd2b3a14"
+        "sha256": "84d2eabb874c461c9fd1bddab0f06ea5fa5811953b59bc3a5d45d8fc5fb3e701"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_golden_wrapper.json",
-        "sha256": "7862e60b9dda9c12ccea9f23d35a732da21d48199075219a6ea0ddd3d5634f95"
+        "sha256": "fe4c446b0515f907d186f7b5ab3096e1ddf97baf91382c08ff52c6e8783fce77"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_task_checks.json",
-        "sha256": "e168d29763b9d4d6bf86be21ddff5b9bbc89cc6d2399012db62a1721095b07db"
+        "sha256": "e5e87132e014bdd99c18d3b5cdcfea9dc8e2987b0c0e51552253e53fb21481e1"
       }
     ],
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r1_p0_checks.json",
-        "sha256": "7f8bdffcdfd42f1aaa26ccfbc1b7025a89c73ec347cbc13cce94b79fd9e11613"
+        "sha256": "7bf589151c44968c7d91aeac8fa4247e9dddc508a0a62ba36fde9cb41a9935a3"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r1_held_blocks.svg",
-        "sha256": "7dd1ac1d8517002cd8ea3b8f2ae3bad508e992197172acdf43ba9466de2da7db"
+        "sha256": "4a01b6c9f45fed74d9e24aae2f2914622d53ebe566c2bc0ba2ea6a05f1f4756f"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r1-p0-checks.md#result-1",
-        "sha256": "0c79d0aa3bc2e431134bb09e39f0aaa5c54ae780dd85810b679a9fd62178c838"
+        "sha256": "d9f243175ce1a6b992d1ceef0d4552d65cec8566a46f9271816c21e83e0c454b"
       }
     ]
   },
@@ -63,12 +63,12 @@
     "max_library_vs_mevolve": 1.3933298959045715e-14,
     "max_library_vs_stored": 1.3933298959045715e-14,
     "replay_differs": {},
-    "library_git_sha": "f55427091a711ee015f1baf65bbb4597941983d5",
+    "library_git_sha": "29ab76629e031dac1a1d3505d373399540f3de8d",
     "mevolve_git_sha": "30ae4f3386a67a02b543b4b84fb83caedd1cd8a2"
   },
   "golden_wrapper": {
     "passed": true,
-    "library_git_sha": "f55427091a711ee015f1baf65bbb4597941983d5",
+    "library_git_sha": "29ab76629e031dac1a1d3505d373399540f3de8d",
     "aliases": {
       "ctt": {
         "max_abs_diff": 3.3306690738754696e-16,
@@ -91,15 +91,17 @@
     }
   },
   "held_blocks": {
-    "share_over_max": 0.2460923300617957,
+    "share_over_max": 0.12468193384223919,
+    "share_over_max_all_trials": 0.2460923300617957,
     "coupled_total": {
       "sessions": 621,
       "sessions_with_min_reward": 44,
       "blocks_no_block_max": 5306,
       "blocks": 5502,
-      "over_max": 1354,
-      "over_max_with_min_reward": 149,
-      "over_max_without_min_reward": 1205
+      "over_max": 686,
+      "over_max_all_trials": 1354,
+      "over_max_with_min_reward": 100,
+      "over_max_without_min_reward": 586
     },
     "rows": [
       {
@@ -109,9 +111,10 @@
         "sessions": 4,
         "sessions_with_min_reward": 4,
         "blocks": 213,
-        "over_max": 65,
-        "over_max_with_min_reward": 65,
-        "share_over_max": 0.3051643192488263
+        "over_max": 59,
+        "over_max_all_trials": 65,
+        "over_max_with_min_reward": 59,
+        "share_over_max": 0.27699530516431925
       },
       {
         "task": "Coupled Baiting",
@@ -120,10 +123,11 @@
         "sessions": 49,
         "sessions_with_min_reward": 1,
         "blocks": 1161,
-        "over_max": 221,
-        "over_max_without_min_reward": 216,
-        "over_max_with_min_reward": 5,
-        "share_over_max": 0.19035314384151594
+        "over_max": 77,
+        "over_max_all_trials": 221,
+        "over_max_without_min_reward": 76,
+        "over_max_with_min_reward": 1,
+        "share_over_max": 0.06632213608957795
       },
       {
         "task": "Coupled Baiting",
@@ -132,9 +136,10 @@
         "sessions": 120,
         "sessions_with_min_reward": 0,
         "blocks": 2157,
-        "over_max": 639,
-        "over_max_without_min_reward": 639,
-        "share_over_max": 0.29624478442280944
+        "over_max": 365,
+        "over_max_all_trials": 639,
+        "over_max_without_min_reward": 365,
+        "share_over_max": 0.1692165044042652
       },
       {
         "task": "Coupled Baiting",
@@ -143,9 +148,10 @@
         "sessions": 12,
         "sessions_with_min_reward": 0,
         "blocks": 134,
-        "over_max": 16,
-        "over_max_without_min_reward": 16,
-        "share_over_max": 0.11940298507462686
+        "over_max": 11,
+        "over_max_all_trials": 16,
+        "over_max_without_min_reward": 11,
+        "share_over_max": 0.08208955223880597
       },
       {
         "task": "Coupled Baiting",
@@ -154,9 +160,10 @@
         "sessions": 22,
         "sessions_with_min_reward": 0,
         "blocks": 172,
-        "over_max": 5,
-        "over_max_without_min_reward": 5,
-        "share_over_max": 0.029069767441860465
+        "over_max": 0,
+        "over_max_all_trials": 5,
+        "over_max_without_min_reward": 0,
+        "share_over_max": 0.0
       },
       {
         "task": "Coupled Baiting",
@@ -166,6 +173,7 @@
         "sessions_with_min_reward": 0,
         "blocks": 30,
         "over_max": 0,
+        "over_max_all_trials": 0,
         "over_max_without_min_reward": 0,
         "share_over_max": 0.0
       },
@@ -177,10 +185,11 @@
         "sessions_with_min_reward": 38,
         "blocks_no_block_max": 5306,
         "blocks": 468,
-        "over_max": 80,
-        "over_max_with_min_reward": 77,
+        "over_max": 41,
+        "over_max_all_trials": 80,
+        "over_max_with_min_reward": 38,
         "over_max_without_min_reward": 3,
-        "share_over_max": 0.17094017094017094
+        "share_over_max": 0.0876068376068376
       },
       {
         "task": "Coupled Without Baiting",
@@ -189,9 +198,10 @@
         "sessions": 38,
         "sessions_with_min_reward": 0,
         "blocks": 718,
-        "over_max": 208,
-        "over_max_without_min_reward": 208,
-        "share_over_max": 0.28969359331476324
+        "over_max": 72,
+        "over_max_all_trials": 208,
+        "over_max_without_min_reward": 72,
+        "share_over_max": 0.10027855153203342
       },
       {
         "task": "Coupled Without Baiting",
@@ -200,9 +210,10 @@
         "sessions": 24,
         "sessions_with_min_reward": 0,
         "blocks": 424,
-        "over_max": 116,
-        "over_max_without_min_reward": 116,
-        "share_over_max": 0.27358490566037735
+        "over_max": 58,
+        "over_max_all_trials": 116,
+        "over_max_without_min_reward": 58,
+        "share_over_max": 0.13679245283018868
       },
       {
         "task": "Coupled Without Baiting",
@@ -211,10 +222,11 @@
         "sessions": 4,
         "sessions_with_min_reward": 1,
         "blocks": 25,
-        "over_max": 4,
+        "over_max": 3,
+        "over_max_all_trials": 4,
         "over_max_with_min_reward": 2,
-        "over_max_without_min_reward": 2,
-        "share_over_max": 0.16
+        "over_max_without_min_reward": 1,
+        "share_over_max": 0.12
       }
     ]
   }

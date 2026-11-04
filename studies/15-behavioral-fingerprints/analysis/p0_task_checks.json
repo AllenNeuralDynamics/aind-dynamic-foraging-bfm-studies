@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p0_task_checks.py",
-    "produced_at_pt": "2026-11-03T02:38:24-08:00",
-    "studies_git_sha": "7fdc141ff678c3f547fb6f57fd2e89285060badf",
+    "produced_at_pt": "2026-11-03T21:08:44-08:00",
+    "studies_git_sha": "4b41ea0b9fce5b8992c4ce701964f3cdf10b078c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_task_checks.py",
-        "sha256": "c1ac840aeafba42b7f45c2ce8c6faf9f5caca5f87590b26c63ed1a603bff417f"
+        "sha256": "934af864802403d8031003b68b97ea25291952ad19fe4830e59f60c1eb0febf4"
       }
     ],
     "inputs": [],
@@ -35,7 +35,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_task_checks.json",
-        "sha256": "c82b666192b440e342b401f642c4b2170e8b4cce287b1ba074280a77aeb1f320"
+        "sha256": "0a608efc4b16fa46d104911b57aca948e0add151f8969ab1f254b2db2ad3b15c"
       }
     ]
   },
@@ -55,6 +55,7 @@
         "sessions_with_min_reward": 0,
         "blocks": 30,
         "over_max": 0,
+        "over_max_all_trials": 0,
         "over_max_without_min_reward": 0,
         "share_over_max": 0.0
       },
@@ -66,10 +67,11 @@
         "sessions_with_min_reward": 38,
         "blocks_no_block_max": 5306,
         "blocks": 468,
-        "over_max": 80,
-        "over_max_with_min_reward": 77,
+        "over_max": 41,
+        "over_max_all_trials": 80,
+        "over_max_with_min_reward": 38,
         "over_max_without_min_reward": 3,
-        "share_over_max": 0.17094017094017094
+        "share_over_max": 0.0876068376068376
       },
       {
         "task": "Coupled Baiting",
@@ -78,10 +80,11 @@
         "sessions": 49,
         "sessions_with_min_reward": 1,
         "blocks": 1161,
-        "over_max": 221,
-        "over_max_without_min_reward": 216,
-        "over_max_with_min_reward": 5,
-        "share_over_max": 0.19035314384151594
+        "over_max": 77,
+        "over_max_all_trials": 221,
+        "over_max_without_min_reward": 76,
+        "over_max_with_min_reward": 1,
+        "share_over_max": 0.06632213608957795
       },
       {
         "task": "Coupled Baiting",
@@ -90,9 +93,10 @@
         "sessions": 4,
         "sessions_with_min_reward": 4,
         "blocks": 213,
-        "over_max": 65,
-        "over_max_with_min_reward": 65,
-        "share_over_max": 0.3051643192488263
+        "over_max": 59,
+        "over_max_all_trials": 65,
+        "over_max_with_min_reward": 59,
+        "share_over_max": 0.27699530516431925
       },
       {
         "task": "Coupled Baiting",
@@ -101,9 +105,10 @@
         "sessions": 120,
         "sessions_with_min_reward": 0,
         "blocks": 2157,
-        "over_max": 639,
-        "over_max_without_min_reward": 639,
-        "share_over_max": 0.29624478442280944
+        "over_max": 365,
+        "over_max_all_trials": 639,
+        "over_max_without_min_reward": 365,
+        "share_over_max": 0.1692165044042652
       },
       {
         "task": "Coupled Baiting",
@@ -112,9 +117,10 @@
         "sessions": 12,
         "sessions_with_min_reward": 0,
         "blocks": 134,
-        "over_max": 16,
-        "over_max_without_min_reward": 16,
-        "share_over_max": 0.11940298507462686
+        "over_max": 11,
+        "over_max_all_trials": 16,
+        "over_max_without_min_reward": 11,
+        "share_over_max": 0.08208955223880597
       },
       {
         "task": "Coupled Baiting",
@@ -123,9 +129,10 @@
         "sessions": 22,
         "sessions_with_min_reward": 0,
         "blocks": 172,
-        "over_max": 5,
-        "over_max_without_min_reward": 5,
-        "share_over_max": 0.029069767441860465
+        "over_max": 0,
+        "over_max_all_trials": 5,
+        "over_max_without_min_reward": 0,
+        "share_over_max": 0.0
       },
       {
         "task": "Coupled Without Baiting",
@@ -134,10 +141,11 @@
         "sessions": 4,
         "sessions_with_min_reward": 1,
         "blocks": 25,
-        "over_max": 4,
+        "over_max": 3,
+        "over_max_all_trials": 4,
         "over_max_with_min_reward": 2,
-        "over_max_without_min_reward": 2,
-        "share_over_max": 0.16
+        "over_max_without_min_reward": 1,
+        "share_over_max": 0.12
       },
       {
         "task": "Coupled Without Baiting",
@@ -146,9 +154,10 @@
         "sessions": 38,
         "sessions_with_min_reward": 0,
         "blocks": 718,
-        "over_max": 208,
-        "over_max_without_min_reward": 208,
-        "share_over_max": 0.28969359331476324
+        "over_max": 72,
+        "over_max_all_trials": 208,
+        "over_max_without_min_reward": 72,
+        "share_over_max": 0.10027855153203342
       },
       {
         "task": "Coupled Without Baiting",
@@ -157,9 +166,10 @@
         "sessions": 24,
         "sessions_with_min_reward": 0,
         "blocks": 424,
-        "over_max": 116,
-        "over_max_without_min_reward": 116,
-        "share_over_max": 0.27358490566037735
+        "over_max": 58,
+        "over_max_all_trials": 116,
+        "over_max_without_min_reward": 58,
+        "share_over_max": 0.13679245283018868
       }
     ],
     "coupled_total": {
@@ -167,11 +177,13 @@
       "sessions_with_min_reward": 44,
       "blocks_no_block_max": 5306,
       "blocks": 5502,
-      "over_max": 1354,
-      "over_max_with_min_reward": 149,
-      "over_max_without_min_reward": 1205
+      "over_max": 686,
+      "over_max_all_trials": 1354,
+      "over_max_with_min_reward": 100,
+      "over_max_without_min_reward": 586
     },
-    "share_over_max": 0.2460923300617957
+    "share_over_max": 0.12468193384223919,
+    "share_over_max_all_trials": 0.2460923300617957
   },
   "reward_pairs": {
     "coupled_pools": 331,

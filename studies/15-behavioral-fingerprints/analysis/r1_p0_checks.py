@@ -68,7 +68,7 @@ def draw(rows: list[dict]) -> None:
         ax.text(i, r["share_over_max"] + 0.01, f"{r['blocks']}", ha="center", va="bottom")
     ax.set_xticks(list(x))
     ax.set_xticklabels([f"{STAGE_LABELS[r['stage']]}\n{TASKS[r['task']]}" for r in rows])
-    ax.set_ylabel("coupled blocks longer than block_max")
+    ax.set_ylabel("held coupled blocks")
     ax.set_ylim(0, 0.4)
     ax.legend(frameon=False, loc="upper right")
     ax.spines[["top", "right"]].set_visible(False)
@@ -110,16 +110,21 @@ def render(gm: dict, gw: dict, t: dict, rows: list[dict]) -> str:
         "",
         f"**Held coupled blocks** (study 12's test subjects, score sessions; {total['blocks']} "
         f"blocks with a recorded `block_max`, last block of each session left out): "
-        f"{t['held_blocks']['share_over_max']:.1%} ran past `block_max`; "
+        f"{t['held_blocks']['share_over_max']:.1%} had more engaged trials than `block_max`, so "
+        "were held; "
+        f"{t['held_blocks']['share_over_max_all_trials']:.1%} ran past it counting all trials, "
+        "which ignored trials can lengthen. Of the held blocks, "
         f"{total['over_max_without_min_reward']} of {total['over_max']} were in sessions that set "
         "no minimum reward.",
         "",
-        "| task | stage | sessions | blocks | past block_max | share |",
-        "|---|---|---|---|---|---|",
+        "| task | stage | sessions | blocks | held (engaged trials > block_max) | share | "
+        "all trials > block_max |",
+        "|---|---|---|---|---|---|---|",
     ]
     for r in rows:
         lines.append(f"| {r['task']} | {r['stage']} | {r['sessions']} | {r['blocks']} | "
-                     f"{r['over_max']} | {r['share_over_max']:.1%} |")
+                     f"{r['over_max']} | {r['share_over_max']:.1%} | "
+                     f"{r['over_max_all_trials'] / r['blocks']:.1%} |")
     within = rp["score_sessions_within_one_family"]
     lines += [
         "",
@@ -166,6 +171,8 @@ def main() -> None:
     write_artifact(HERE / "r1_p0_checks.json",
                    {"_meta": meta, "golden_mevolve": gm, "golden_wrapper": gw,
                     "held_blocks": {"share_over_max": task["held_blocks"]["share_over_max"],
+                                    "share_over_max_all_trials":
+                                        task["held_blocks"]["share_over_max_all_trials"],
                                     "coupled_total": task["held_blocks"]["coupled_total"],
                                     "rows": rows}},
                    outputs=[FIG, f"{REPORT}#result-1"])

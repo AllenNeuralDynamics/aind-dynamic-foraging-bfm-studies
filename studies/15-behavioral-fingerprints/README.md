@@ -7,7 +7,7 @@ question: How closely does each model's behaviour, replayed on the subjects' rea
 status: planned
 wandb:
   entity: NeuralDynamics
-  project: aind-dynamic-foraging-model
+  project: dfbfm_15-behavioral-fingerprints
 motivated_by:
 - study: 01-gru-scaling-law
   report: r9
@@ -28,7 +28,7 @@ issues:
 ---
 # Study: 15-behavioral-fingerprints
 
-W&B project [`aind-dynamic-foraging-model`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model).
+W&B project [`dfbfm_15-behavioral-fingerprints`](https://wandb.ai/NeuralDynamics/dfbfm_15-behavioral-fingerprints) (no runs yet).
 
 **Question.** How closely does each model's behaviour, replayed on the subjects' real histories and rolled out in the task, match the subjects' model-free choice statistics, measured against the animals' own noise floor?
 
