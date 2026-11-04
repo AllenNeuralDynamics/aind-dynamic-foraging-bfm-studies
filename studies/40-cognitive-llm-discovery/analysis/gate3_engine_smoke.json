@@ -1,0 +1,479 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/gate3_engine_smoke.py",
+    "produced_at_pt": "2026-11-04T00:29:20-08:00",
+    "studies_git_sha": "2a55eebc64eb2e0e07459dea1b647188ea266a74",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "engine-smoke@20261103-030341"
+    ],
+    "source_studies_git_shas": [
+      "f90b4b78e02c335975a9c806d507d76e75a02733"
+    ],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no dispatcher SHA in the launch record(s) of W&B group(s): engine-smoke@20261103-030341",
+      "no wrapper SHA in the launch record(s) of W&B group(s): engine-smoke@20261103-030341",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): engine-smoke@20261103-030341"
+    ],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/gate3_engine_smoke.py",
+        "sha256": "ecfa0444802ae784bc3b2b0a5cd1e9969ef4a907c77d4fead1994f70a1133031"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/ledger_preflight.jsonl",
+        "sha256": "1b6eacfbdbc48b5fcfdb086ccaa293724d21c66927a1214f0068e7670f713090"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/ledger_medium.jsonl",
+        "sha256": "743700efe406916a22ea90c9a0934900ba15830276dafc5d4b797df5377eb686"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/ledger_high.jsonl",
+        "sha256": "b5a00bba56178c43093a399c80432435f7831ba11de1d48ca33d9fbae214dc95"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/programs.json",
+        "sha256": "a85104dd5f0497c22d6827f9ca4df0fc2e1dfc643920d8aa96ffc7647c7d9283"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/console.json",
+        "sha256": "0e0fcb6ab577e660a7dca19eacc65e95b5c69d7c9f64af556110290ccb66ff8c"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/gate3_engine_smoke.json",
+        "sha256": "bc2deba56acc66c7309f65295cc85fa1e3d1bbe89eae09f082bdd31f8b8f72a6"
+      }
+    ]
+  },
+  "question": "Gate 3 (PLAN.md): does the engine run end to end with real Claude calls, and what does it cost? Numbers for the Result section of variants/engine-smoke/notes.md.",
+  "calls": {
+    "n": 22,
+    "by_run": {
+      "preflight": 2,
+      "medium": 10,
+      "high": 10
+    },
+    "errors": 0,
+    "refusals": 0,
+    "cut_off": 0,
+    "stop_reasons": {
+      "end_turn": 22
+    },
+    "models": [
+      "claude-sonnet-5-5"
+    ],
+    "served_models": [
+      "claude-sonnet-5-5"
+    ],
+    "first_call_utc": "2026-11-03T11:02:09+00:00",
+    "last_call_utc": "2026-11-03T11:24:00+00:00"
+  },
+  "ledger_vs_console": {
+    "ledger": {
+      "uncached_input_tokens": 51092,
+      "cache_write_tokens": 57480,
+      "cache_read_tokens": 258660,
+      "all_input_tokens": 367232,
+      "output_tokens": 31793,
+      "cost_list_usd": 0.615546,
+      "cache_read_ratio": 0.8351,
+      "cache_reads_per_write": 4.5
+    },
+    "console": {
+      "uncached_input_tokens": 51000,
+      "cache_read_tokens": 259000,
+      "all_input_tokens": 367000,
+      "cache_write_tokens_implied": 57556,
+      "cache_read_ratio": 0.835,
+      "write_amortization": 4.5,
+      "token_list_price_usd": 0.59,
+      "token_cost_billed_usd": 0.29
+    },
+    "console_rounding_matches": {
+      "uncached_input_tokens": true,
+      "cache_read_tokens": true,
+      "all_input_tokens": true,
+      "cache_read_ratio": true,
+      "write_amortization": true
+    },
+    "ledger_cost_above_console_list_pct": 4.33,
+    "within_5pct": true,
+    "billed_over_list_pct": 49.2,
+    "ledger_over_billed": 2.12
+  },
+  "price_table": {
+    "usd_per_million_tokens": {
+      "input": 2.0,
+      "output": 10.0,
+      "cache_write_5m": 2.5,
+      "cache_read": 0.2
+    },
+    "reproduces_every_ledger_cost": true,
+    "max_abs_diff_usd": 0.0
+  },
+  "cost_split": {
+    "output_share_of_cost_pct": 51.7,
+    "uncached_share_of_input_pct": 13.9,
+    "mean_uncached_input_per_run_call": 2553
+  },
+  "caching": {
+    "prefix_tokens": [
+      14370
+    ],
+    "writes": {
+      "preflight": 1,
+      "medium": 3,
+      "high": 0
+    },
+    "reads": {
+      "preflight": 1,
+      "medium": 7,
+      "high": 10
+    },
+    "medium_writers": {
+      "call_numbers": [
+        1,
+        2,
+        3
+      ],
+      "start_spread_s": 0.23
+    },
+    "longest_gap_within_run_s": {
+      "preflight": {
+        "start_to_start": 2.2,
+        "end_to_start": 0.0
+      },
+      "medium": {
+        "start_to_start": 119.4,
+        "end_to_start": 111.8
+      },
+      "high": {
+        "start_to_start": 125.7,
+        "end_to_start": 116.9
+      }
+    },
+    "gap_preflight_to_medium_s": {
+      "start_to_start": 532.4,
+      "end_to_start": 531.1
+    },
+    "gap_medium_to_high_s": {
+      "start_to_start": 191.3,
+      "end_to_start": 184.5
+    },
+    "cache_lifetime_s": 300
+  },
+  "islands": {
+    "medium": {
+      "start": {
+        "0": "template",
+        "1": "Miller-RHG",
+        "2": "Lopez-DoubleTrace",
+        "3": "Lebedeva-PR",
+        "4": "Eckstein-BI"
+      },
+      "one_program_per_island_at_start": true,
+      "children": 8,
+      "children_on_another_island": 3
+    },
+    "high": {
+      "start": {
+        "0": "template",
+        "1": "Miller-RHG",
+        "2": "Lopez-DoubleTrace",
+        "3": "Lebedeva-PR",
+        "4": "Eckstein-BI"
+      },
+      "one_program_per_island_at_start": true,
+      "children": 10,
+      "children_on_another_island": 4
+    },
+    "children_on_another_island": 7,
+    "by_reason": {
+      "child migrated": 6,
+      "born before its parent migrated": 1,
+      "unexplained": 0
+    },
+    "migration_generations": [
+      9,
+      10
+    ],
+    "detail": [
+      {
+        "run": "medium",
+        "generation": 6,
+        "island": 1,
+        "parent": "generation 2",
+        "parent_island": 0,
+        "born_on_island": 0,
+        "why": "child migrated",
+        "migrations": [
+          {
+            "generation": 10,
+            "from": 0,
+            "to": 1
+          }
+        ]
+      },
+      {
+        "run": "medium",
+        "generation": 7,
+        "island": 1,
+        "parent": "Lebedeva-PR",
+        "parent_island": 3,
+        "born_on_island": 3,
+        "why": "child migrated",
+        "migrations": [
+          {
+            "generation": 10,
+            "from": 3,
+            "to": 1
+          }
+        ]
+      },
+      {
+        "run": "medium",
+        "generation": 10,
+        "island": 3,
+        "parent": "Miller-RHG",
+        "parent_island": 1,
+        "born_on_island": 1,
+        "why": "child migrated",
+        "migrations": [
+          {
+            "generation": 10,
+            "from": 1,
+            "to": 3
+          }
+        ]
+      },
+      {
+        "run": "high",
+        "generation": 1,
+        "island": 2,
+        "parent": "Lebedeva-PR",
+        "parent_island": 3,
+        "born_on_island": 3,
+        "why": "child migrated",
+        "migrations": [
+          {
+            "generation": 9,
+            "from": 3,
+            "to": 1
+          },
+          {
+            "generation": 10,
+            "from": 1,
+            "to": 2
+          }
+        ]
+      },
+      {
+        "run": "high",
+        "generation": 4,
+        "island": 4,
+        "parent": "generation 2",
+        "parent_island": 3,
+        "born_on_island": 3,
+        "why": "child migrated",
+        "migrations": [
+          {
+            "generation": 10,
+            "from": 3,
+            "to": 4
+          }
+        ]
+      },
+      {
+        "run": "high",
+        "generation": 6,
+        "island": 4,
+        "parent": "template",
+        "parent_island": 0,
+        "born_on_island": 0,
+        "why": "child migrated",
+        "migrations": [
+          {
+            "generation": 9,
+            "from": 0,
+            "to": 4
+          }
+        ]
+      },
+      {
+        "run": "high",
+        "generation": 9,
+        "island": 0,
+        "parent": "generation 6",
+        "parent_island": 4,
+        "born_on_island": 0,
+        "why": "born before its parent migrated",
+        "migrations": [
+          {
+            "generation": 9,
+            "from": 0,
+            "to": 4
+          }
+        ]
+      }
+    ]
+  },
+  "effort": {
+    "medium": {
+      "proposals": 10,
+      "edits_not_applied": 2,
+      "edits_not_applied_generations": [
+        1,
+        5
+      ],
+      "edits_not_applied_reasons": [
+        "patch_apply_failed: SEARCH text not found in editable regions"
+      ],
+      "rejected": 0,
+      "rejected_reasons": [],
+      "valid": 8,
+      "improved_on_parent_by_more_than_0.05": 4,
+      "best_validation_score": 73.4487,
+      "best_program": "generation 4",
+      "best_seed": {
+        "name": "Lebedeva-PR",
+        "validation_score": 73.4088
+      },
+      "best_minus_best_seed": 0.0399,
+      "output_tokens_per_call": 1310.2,
+      "calls_reading_the_cache": 7,
+      "cost_per_proposal_reading_the_cache_usd": 0.019579,
+      "cache_writes": 3,
+      "run_cost_list_usd": 0.306227
+    },
+    "high": {
+      "proposals": 10,
+      "edits_not_applied": 0,
+      "edits_not_applied_generations": [],
+      "edits_not_applied_reasons": [],
+      "rejected": 1,
+      "rejected_reasons": [
+        "The program failed and was not scored: rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 26)"
+      ],
+      "valid": 9,
+      "improved_on_parent_by_more_than_0.05": 2,
+      "best_validation_score": 73.4304,
+      "best_program": "generation 10",
+      "best_seed": {
+        "name": "Lebedeva-PR",
+        "validation_score": 73.4088
+      },
+      "best_minus_best_seed": 0.0216,
+      "output_tokens_per_call": 1868.3,
+      "calls_reading_the_cache": 10,
+      "cost_per_proposal_reading_the_cache_usd": 0.027037,
+      "cache_writes": 0,
+      "run_cost_list_usd": 0.270372
+    },
+    "high_over_medium": {
+      "cost_per_proposal_reading_the_cache": 1.381,
+      "output_tokens_per_call": 1.426
+    },
+    "improved": [
+      {
+        "run": "medium",
+        "generation": 2,
+        "parent": "template",
+        "parent_score": 70.6979,
+        "score": 73.4428,
+        "gain": 2.7449
+      },
+      {
+        "run": "medium",
+        "generation": 3,
+        "parent": "Eckstein-BI",
+        "parent_score": 72.5499,
+        "score": 73.1758,
+        "gain": 0.6259
+      },
+      {
+        "run": "medium",
+        "generation": 4,
+        "parent": "template",
+        "parent_score": 70.6979,
+        "score": 73.4487,
+        "gain": 2.7508
+      },
+      {
+        "run": "medium",
+        "generation": 10,
+        "parent": "Miller-RHG",
+        "parent_score": 73.3488,
+        "score": 73.4315,
+        "gain": 0.0827
+      },
+      {
+        "run": "high",
+        "generation": 6,
+        "parent": "template",
+        "parent_score": 70.6979,
+        "score": 73.4023,
+        "gain": 2.7044
+      },
+      {
+        "run": "high",
+        "generation": 10,
+        "parent": "Lopez-DoubleTrace",
+        "parent_score": 73.3101,
+        "score": 73.4304,
+        "gain": 0.1203
+      }
+    ]
+  },
+  "evaluation": {
+    "medium": {
+      "start_programs_seconds": {
+        "Miller-RHG": 88.3,
+        "Lopez-DoubleTrace": 109.3,
+        "Lebedeva-PR": 53.3,
+        "Eckstein-BI": 74.5,
+        "template": 38.0
+      },
+      "scored_children": 8,
+      "two_level_failed": 0,
+      "two_level_failed_generations": [],
+      "seconds_per_program": {
+        "min": 71.1,
+        "median": 88.9,
+        "max": 125.2
+      },
+      "subject_seconds_max": 107.1
+    },
+    "high": {
+      "start_programs_seconds": {
+        "Miller-RHG": 88.3,
+        "Lopez-DoubleTrace": 109.3,
+        "Lebedeva-PR": 53.3,
+        "Eckstein-BI": 74.5,
+        "template": 36.8
+      },
+      "scored_children": 9,
+      "two_level_failed": 2,
+      "two_level_failed_generations": [
+        1,
+        3
+      ],
+      "seconds_per_program": {
+        "min": 67.5,
+        "median": 96.2,
+        "max": 208.8
+      },
+      "subject_seconds_max": 190.1
+    }
+  }
+}

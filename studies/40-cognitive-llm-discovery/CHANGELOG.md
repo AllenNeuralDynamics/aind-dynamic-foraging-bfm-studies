@@ -1,5 +1,27 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-04
+
+- Gate 3's numbers are regenerable (issue #97, review of #98): `make freeze-engine-smoke` freezes the
+  engine-smoke ledgers, Shinka's program table and the hand-typed Console figures into
+  `analysis/engine_smoke/`, and `make gate3` (in `all`) writes `analysis/gate3_engine_smoke.json`, which
+  the notes' Result section now cites; the ledger's cost reads $0.616 (was $0.615), and the Console's
+  Caching page is dated 11:00 UTC, not 19:48.
+
+## 2026-11-03
+
+- Variant `engine-smoke` (issue #97): gate 3's engine smoke, two 10-proposal ShinkaEvolve runs
+  (Claude Sonnet 5.5 at effort medium and high) on 8 + 8 smoke subjects drawn after the draft cohorts,
+  with the five-island seed layout of ADR 0006; code in AllenNeuralDynamics/aind-dynamic-foraging-mevolve#32.
+- Gate 3 passes (`engine-smoke@20261103-030341`, results in `variants/engine-smoke/notes.md`): 22 Claude
+  calls with no errors; the ledger's token counts match the Console and its cost is 4% above the
+  Console's list price; caching works; seeds sit on their islands. Effort medium is kept for the search:
+  high cost 38% more per proposal and improved fewer parents. PLAN.md notes that its budget is at list
+  price, about twice the bill after the organisation's discount.
+- W&B (issue #99): new runs log to `NeuralDynamics/dfbfm-mevolve`, shared with MEvolve; the README
+  frontmatter and the engine-smoke run configs name it. `engine-smoke@20261103-030341` stays in
+  `aind-dynamic-foraging-model`.
+
 ## 2026-11-02
 
 - "Session level" retired (issue #87): fits are named by their levels and method (per session, per

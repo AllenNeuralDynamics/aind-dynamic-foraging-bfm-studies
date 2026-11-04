@@ -1,0 +1,119 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_engine_smoke.py",
+    "produced_at_pt": "2026-11-04T00:29:18-08:00",
+    "studies_git_sha": "2a55eebc64eb2e0e07459dea1b647188ea266a74",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/freeze_engine_smoke.py",
+        "sha256": "1fca829a59bca98de51f95390816f53350a9a79e64f3e58797d430c3fd1d7022"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "url",
+        "id": "Anthropic Console, Cost page (workspace Han's Credits, last 7 days)",
+        "state": "Data as of Nov 3, 7:48 PM UTC; read by hand from a screenshot",
+        "updated_at": "2026-11-03T19:48:00Z"
+      },
+      {
+        "type": "url",
+        "id": "Anthropic Console, Caching page (workspace Han's Credits, last 7 days)",
+        "state": "Data as of Nov 3, 11:00 AM UTC, updates hourly; read by hand from a screenshot",
+        "updated_at": "2026-11-03T11:00:00Z"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/console.json",
+        "sha256": "3431f5ce8de00b844377be25d6911b81822b592a9f0fb88b8404fec9cd0753d0"
+      }
+    ]
+  },
+  "transcription": "Typed in by hand from screenshots of the Anthropic Console that Han sent on 2026-11-03. The Console cannot be read by a script, so these figures cannot be frozen any other way; the screenshots themselves are not committed.",
+  "workspace": "Han's Credits",
+  "range": "last 7 days",
+  "cost_page": {
+    "data_as_of": "Nov 3, 7:48 PM UTC",
+    "data_as_of_utc": "2026-11-03T19:48:00Z",
+    "models": [
+      "Claude Sonnet 5.5"
+    ],
+    "days": [
+      "2026-11-03"
+    ],
+    "total_cost_usd": {
+      "shown": "$0.29",
+      "value": 0.29
+    },
+    "token_cost_usd": {
+      "shown": "$0.29",
+      "value": 0.29
+    },
+    "token_list_price_usd": {
+      "shown": "List price before discount $0.59",
+      "value": 0.59
+    },
+    "web_search_usd": {
+      "shown": "$0.00",
+      "value": 0.0
+    },
+    "code_execution_usd": {
+      "shown": "$0.00",
+      "value": 0.0
+    },
+    "session_runtime_usd": {
+      "shown": "$0.00",
+      "value": 0.0
+    }
+  },
+  "caching_page": {
+    "data_as_of": "Nov 3, 11:00 AM UTC, updates hourly",
+    "data_as_of_utc": "2026-11-03T11:00:00Z",
+    "uncached_input_tokens": {
+      "shown": "51K",
+      "value": 51000
+    },
+    "cache_read_tokens": {
+      "shown": "259K",
+      "value": 259000
+    },
+    "cache_read_ratio": {
+      "shown": "83.5%",
+      "value": 0.835
+    },
+    "by_model": {
+      "Claude Sonnet 5.5": {
+        "input_tokens": {
+          "shown": "367K",
+          "value": 367000
+        },
+        "read_ratio": {
+          "shown": "83.5%",
+          "value": 0.835
+        },
+        "write_amortization": {
+          "shown": "4.50×",
+          "value": 4.5
+        }
+      }
+    },
+    "legend": [
+      "cache read",
+      "cache write (5m)",
+      "cache write (1h)",
+      "uncached"
+    ]
+  }
+}
