@@ -109,7 +109,7 @@ def build_spec(tasks: list[dict], refs: dict[str, str]) -> dict:
                 "constraints": {"cluster": [CLUSTER]},
                 "resources": {"gpuCount": 1, "cpuCount": 12, "memory": "90GiB"},   # one GPU bundle
                 "datasets": [{"mountPath": "/prior", "source": {"beaker": t["result_dataset"]}}],
-                "envVars": env,
+                "envVars": [dict(e) for e in env],   # one copy per task: no YAML anchors
                 "result": {"path": "/results"},
             } for t in tasks]}
 
