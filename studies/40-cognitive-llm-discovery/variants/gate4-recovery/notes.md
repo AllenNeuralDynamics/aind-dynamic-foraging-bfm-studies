@@ -111,4 +111,6 @@ seeds nor the library: the satiety design, then the hand-set one.
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `gate4-recovery@<launch_id>` in `NeuralDynamics/dfbfm-mevolve` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-04 13:26 PT as `gate4-recovery-1` (SLURM 27614671, studies b429728,
+MEvolve 59adafd), W&B group `gate4-recovery@20261104-132600` in
+[NeuralDynamics/dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve).
