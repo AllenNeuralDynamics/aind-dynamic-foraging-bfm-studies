@@ -120,6 +120,7 @@ def main() -> None:
         jobs.append((sid, freeze.subject_sessions(sid, "fit"), score,
                      [groups["groups"][s.session_id] for s in score]))
     os.environ.update(WORKER_ENV)
+    OUT_TALLIES.parent.mkdir(exist_ok=True)
     with mp.get_context("spawn").Pool(min(a.workers, len(jobs))) as pool:
         rows = pool.map(_subject_job, jobs, chunksize=1)
 

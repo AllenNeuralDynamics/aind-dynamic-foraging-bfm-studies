@@ -226,6 +226,7 @@ def main() -> None:
     index = {r["literature_model"]: r for r in json.loads(TWO_LEVEL_INDEX.read_text())["runs"]}
 
     os.environ.update(WORKER_ENV)
+    OUT_DIR.mkdir(exist_ok=True)
     meta_args = dict(study_root=HERE.parent, kind="freeze",
                      code=[__file__, HERE / "freeze_p0_golden_mevolve.py"],
                      inputs=[GROUPS, lit.LITERATURE_SOURCE, lit.LEADERBOARD_SOURCE, lit.TWO_LEVEL_EM_SOURCE,

@@ -3,7 +3,8 @@
 # compute node, 2026-11-03 PST. The fingerprint library itself is read from a clean checkout of
 # aind-dynamic-foraging-models at the SHA each freeze records (fingerprints_library.git_sha).
 #
-# freeze_p0_golden_wrapper.py, freeze_p0_task_checks.py, r1_p0_checks.py:
+# freeze_p0_golden_wrapper.py, freeze_p0_task_checks.py, freeze_p1_session_groups.py,
+# r1_p0_checks.py, r2_replay_grid.py:
 #   /allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu
 #   Python 3.12.13
 numpy==2.4.6
@@ -12,9 +13,12 @@ duckdb==1.5.4
 aind-dynamic-foraging-database==0.2.2
 matplotlib==3.10.9
 #
-# freeze_p0_golden_mevolve.py: /allen/aind/scratch/han.hou/miniforge3/envs/mevolve, with MEvolve
+# freeze_p0_golden_mevolve.py, freeze_p1_replay.py, freeze_p1_glm.py, freeze_p1_gaps.py:
+# /allen/aind/scratch/han.hou/miniforge3/envs/mevolve, with MEvolve
 # main 30ae4f3386a67a02b543b4b84fb83caedd1cd8a2 on PYTHONPATH (the freeze records it):
 #   Python 3.12.16
 # mevolve env: numpy==2.4.6
 # mevolve env: jax==0.6.1
 # mevolve env: pandas==2.3.3
+# mevolve env: scipy==1.17.1
+# mevolve env: scikit-learn==1.9.1
