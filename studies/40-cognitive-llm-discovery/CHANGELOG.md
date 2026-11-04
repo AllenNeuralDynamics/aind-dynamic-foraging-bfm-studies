@@ -2,6 +2,9 @@
 
 ## 2026-11-04
 
+- Variant `gate4-recovery` (issue #105): gate 4's second half, a 100-proposal search on mice simulated from
+  Hattori2019 with Hattori2019 left out of the prompt, pre-registered with a pre-check of every program
+  Claude is shown; code in AllenNeuralDynamics/aind-dynamic-foraging-mevolve#48.
 - Gate 3's numbers are regenerable (issue #97, review of #98): `make freeze-engine-smoke` freezes the
   engine-smoke ledgers, Shinka's program table and the hand-typed Console figures into
   `analysis/engine_smoke/`, and `make gate3` (in `all`) writes `analysis/gate3_engine_smoke.json`, which
