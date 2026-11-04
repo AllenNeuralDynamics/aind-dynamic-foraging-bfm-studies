@@ -78,6 +78,10 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
 
 **a**, p(switch) by the count of consecutive unrewarded trials on the current side, and **b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent first): subjects and the same four models as above, over subjects that keep the bin. **c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's per-subject scores, re-pooled; the GLM's own) against its mean floor ratio over the losses, last 1–3 trials and hazard statistics, per regime; labels mark the four models of the curves in the regime drawn there. Off the axis: Win-Stay-Lose-Shift (per subject, likelihood 0.006, floor ratio 39).
 
+![pattern scatter](../fig_r2_pattern_scatter.svg)
+
+Study 01 r9's view, here in replay: each point is one history pattern (1, 2 or 3 trials back), the subjects' mean p(switch) against the model's replayed prediction, over subjects that keep the pattern; r and RMSE are over patterns. CompareToThreshold (per subject) r 0.929, RMSE 0.053; Bari2019 (per subject) r 0.981, RMSE 0.046; Hattori2019 (per subject) r 0.963, RMSE 0.067; Lebedeva-PR (2-level EM) r 0.984, RMSE 0.031; GLM-Su2022 (per subject) r 0.977, RMSE 0.040; Win-Stay-Lose-Shift (per subject) r 0.508, RMSE 0.317.
+
 **Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (20 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169.
 <!-- END result-1 -->
 

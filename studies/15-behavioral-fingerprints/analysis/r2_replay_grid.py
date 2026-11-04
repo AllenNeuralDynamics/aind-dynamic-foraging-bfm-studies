@@ -24,6 +24,12 @@ GAPS = HERE / "p1_replay_gaps.json"
 REPORT = HERE / "reports" / "r2-replay-grid.md"
 FIG = HERE / "fig_r2_replay_grid.svg"
 FIG_BINS = HERE / "fig_r2_bins.svg"
+FIG_CORR = HERE / "fig_r2_pattern_scatter.svg"
+# study 01 r9 rolled out the per-subject CompareToThreshold, Bari2019 and Hattori2019; then the best
+# 2-level model, the GLM and the strawman
+SCATTER = [("CompareToThreshold", "per_subject"), ("Bari2019", "per_subject"), ("Hattori2019", "per_subject"),
+           ("Lebedeva-PR", "two_level_em"), ("GLM-Su2022", "per_subject"), ("Win-Stay-Lose-Shift", "per_subject")]
+DEPTH_COLORS = {1: "black", 2: "blue", 3: "orange"}
 LOCAL = ("losses", "pattern", "hazard")   # the local switching statistics
 LABEL_OFFSETS = {"Lebedeva-PR": (-4, -5), "CompareToThreshold": (-4, 5)}   # panel c, points: pt
 C_MIN_LIKELIHOOD = 0.5   # panel c's x axis starts here; models below are named in the caption
@@ -214,6 +220,47 @@ def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
     return points
 
 
+def draw_scatter(gaps: dict) -> list[dict]:
+    """Study 01 r9's view, in replay: per history pattern (1 to 3 trials back), the subjects' mean
+    p(switch) against the model's, over subjects that keep the pattern; r and RMSE over patterns."""
+    fs.apply_paper_style()
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    head = gaps["headline_set"]
+    labels = gaps["bins"]["pattern"]
+    depth = np.array([len(lab) // 2 for lab in labels])
+    fig, axes = plt.subplots(1, len(SCATTER), figsize=fs.mm(183, 42), sharex=True, sharey=True)
+    out = []
+    for k, (ax, (m, reg)) in enumerate(zip(axes, SCATTER)):
+        pb = gaps["models"][m][reg][head]["pattern"]["per_bin"]
+        x, y = np.array(_floats(pb["subject"])), np.array(_floats(pb["model"]))
+        ok = np.isfinite(x) & np.isfinite(y)
+        r = float(np.corrcoef(x[ok], y[ok])[0, 1])
+        rmse = float(np.sqrt(np.mean((y[ok] - x[ok]) ** 2)))
+        out.append({"model": m, "regime": reg, "n_patterns": int(ok.sum()), "r": r, "rmse": rmse})
+        ax.plot([0, 1], [0, 1], color="0.7", lw=0.5, zorder=0)
+        for d, c in DEPTH_COLORS.items():
+            sel = ok & (depth == d)
+            ax.scatter(x[sel], y[sel], s=5, color=fs.OKABE_ITO[c], lw=0,
+                       label=f"{d} trial{'s' if d > 1 else ''} back")
+        ax.set_title(f"{m}\n{REGIMES[reg]}", fontsize=5)
+        ax.text(0.04, 0.96, f"r = {r:.3f}\nRMSE = {rmse:.3f}", transform=ax.transAxes, va="top", fontsize=5,
+                bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.5}, zorder=4)
+        ax.set_xlim(0, 0.8)
+        ax.set_ylim(0, 0.8)
+        ax.set_aspect("equal")
+        ax.set_xlabel("subjects p(switch)")
+        ax.spines[["top", "right"]].set_visible(False)
+        if k == 0:
+            ax.set_ylabel("model p(switch)")
+    axes[-1].legend(frameon=False, loc="lower right", fontsize=5, handletextpad=0.2)
+    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.24, top=0.8, wspace=0.25)
+    fs.save_figure(fig, FIG_CORR)
+    plt.close(fig)
+    return out
+
+
 def summary(gaps: dict, names: list[str]) -> list[dict]:
     """Per model and regime: the headline floor ratio of each statistic, and the worst one."""
     head = gaps["headline_set"]
@@ -248,7 +295,8 @@ def gate_summary(replay: dict, glm: dict, gaps: dict) -> dict:
     return out
 
 
-def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis: list[dict]) -> str:
+def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis: list[dict],
+           scatter: list[dict]) -> str:
     head = gaps["headline_set"]
     lines = [
         f"![replay grid](../{FIG.name})",
@@ -286,6 +334,14 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         + "; ".join(f"{p['model']} ({REGIMES[p['regime']]}, likelihood {p['likelihood']:.3f}, "
                     f"floor ratio {p['mean_local_floor_ratio']:.0f})" for p in off_axis) + ".",
         "",
+        f"![pattern scatter](../{FIG_CORR.name})",
+        "",
+        "Study 01 r9's view, here in replay: each point is one history pattern (1, 2 or 3 trials "
+        "back), the subjects' mean p(switch) against the model's replayed prediction, over "
+        "subjects that keep the pattern; r and RMSE are over patterns. "
+        + "; ".join(f"{c['model']} ({REGIMES[c['regime']]}) r {c['r']:.3f}, RMSE {c['rmse']:.3f}"
+                    for c in scatter) + ".",
+        "",
         f"**Gates** (library `{gates['library_git_sha'][:7]}`, MEvolve `{gates['mevolve_git_sha'][:7]}`). "
         f"Every replay shown ({gates['n_models']} of study 12's models × {gates['n_subjects']} subjects) "
         "reproduces the held-out log likelihood study 12 stored for the subject: largest difference "
@@ -316,9 +372,10 @@ def main() -> None:
     names, failed = ordered_models(gaps)
     draw(gaps, names, failed)
     points = draw_bins(gaps, names, likelihoods(glm))
+    scatter = draw_scatter(gaps)
     rows = summary(gaps, names)
     REPORT.write_text(_rewrite(REPORT.read_text(), "result-1", render(gates, rows, gaps, failed,
-                                       [p for p in points if p['likelihood'] < C_MIN_LIKELIHOOD])))
+                                       [p for p in points if p['likelihood'] < C_MIN_LIKELIHOOD], scatter)))
     by_set = {m: {reg: {name: {s: c["floor_ratio"] for s, c in cells.items()}
                         for name, cells in sets.items()}
                   for reg, sets in gaps["models"][m].items()} for m in names}
@@ -328,8 +385,9 @@ def main() -> None:
     write_artifact(HERE / "r2_replay_grid.json",
                    {"_meta": meta, "gates": gates, "headline_set": gaps["headline_set"],
                     "order": names, "two_level_failed": sorted(failed), "rows": rows,
-                    "floor_ratio_by_set": by_set, "likelihood_vs_floor_ratio": points},
-                   outputs=[FIG, FIG_BINS, f"{REPORT}#result-1"])
+                    "floor_ratio_by_set": by_set, "likelihood_vs_floor_ratio": points,
+                    "pattern_scatter": scatter},
+                   outputs=[FIG, FIG_BINS, FIG_CORR, f"{REPORT}#result-1"])
 
 
 if __name__ == "__main__":
