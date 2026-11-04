@@ -63,7 +63,8 @@ Lebedeva-PR is a seed, so the pre-registered stop fired and the choice went to H
 the rule's edge: Lebedeva-PR is inside by 0.006, and Miller-RHG is outside by 0.053, both within
 noise of the limit. The pre-check was run again from MEvolve 1c57149, which adds the stage fix
 (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#49), so the search's seed scores come from the same
-code.
+code (SLURM 27609980, studies 1f1371a). All 20 scores were identical (largest difference 0.0); its
+result is `precheck.json` here.
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `gate4-recovery@<launch_id>` in `NeuralDynamics/dfbfm-mevolve` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
