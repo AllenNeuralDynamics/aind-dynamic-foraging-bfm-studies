@@ -28,8 +28,11 @@ cd "$TMPDIR"                                     # no .env here for Shinka to lo
 "$PY" -c "import mevolve, sys; assert mevolve.__file__.startswith('$MEVOLVE_SRC'), mevolve.__file__"
 echo "node $(hostname) cpus $(nproc) launch $LAUNCH_ID studies $STUDIES_SHA mevolve $MEVOLVE_SHA"
 status=0                                         # try every step, then fail if any did
-"$PY" -m mevolve.search.run --config "$VARIANT_DIR/run.json" || { echo "search failed"; status=1; }
+search_ok=1
+"$PY" -m mevolve.search.run --config "$VARIANT_DIR/run.json" || { echo "search failed"; status=1; search_ok=0; }
 "$PY" -m mevolve.search.report "$MEVOLVE_LAUNCH_DIR/search" || { echo "report failed"; status=1; }
-"$PY" "$VARIANT_DIR/heldout.py" --run "$MEVOLVE_LAUNCH_DIR/search" --config "$VARIANT_DIR/run.json" \
-  --heldout "$HELDOUT" --target Hattori2019 --out "$MEVOLVE_LAUNCH_DIR/heldout" || { echo "held-out check failed"; status=1; }
+if [ "$search_ok" = 1 ]; then                    # the held-out mice are used once, on the finished search only
+  "$PY" "$VARIANT_DIR/heldout.py" --run "$MEVOLVE_LAUNCH_DIR/search" --config "$VARIANT_DIR/run.json" \
+    --heldout "$HELDOUT" --target Hattori2019 --out "$MEVOLVE_LAUNCH_DIR/heldout" || { echo "held-out check failed"; status=1; }
+fi
 exit "$status"
