@@ -26,3 +26,8 @@ freeze-p0-task-checks:
 .PHONY: r1
 r1:
 	$(PY) analysis/r1_p0_checks.py
+
+# r2 = Replay fingerprints of the literature models
+.PHONY: r2
+r2:
+	$(PY) analysis/r2_replay_grid.py
