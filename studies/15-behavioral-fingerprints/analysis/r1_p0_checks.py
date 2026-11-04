@@ -134,6 +134,10 @@ def render(gm: dict, gw: dict, t: dict, rows: list[dict]) -> str:
         "|---|---|",
         f"| sessions with no `block_min` / `block_max` / `block_beta` | {cov['missing_block_max']} |",
         f"| sessions whose probabilities are only 0 and 1 | {cov['binary_probabilities']} |",
+        f"| warm-up sessions (one side at 0 on every trial, or only 0 and 1) | "
+        f"{t['warm_up_score_sessions']['total']}; "
+        f"{t['warm_up_score_sessions']['among first three sessions']} among the subject's first "
+        "three |",
         f"| coupled score sessions whose pairs fit one GUI reward family | {within['within']} of "
         f"{within['n']} |",
         f"| (subject, task, stage) pools equal to a family prefix | "

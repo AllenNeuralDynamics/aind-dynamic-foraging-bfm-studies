@@ -20,6 +20,13 @@ Each is also split by stage group × task variant. Only engaged trials count; in
 and p(right) are renormalised over the engaged choices. Ignore statistics come in v2, with the
 3-way models.
 
+**Warm-up sessions are their own group.** A session is a warm-up when, on every trial, one side's
+reward probability is 0, or when its probabilities are only 0 and 1 (older Bpod sessions). One side
+always pays and the other never does, so there is nothing to forage and the switch statistics
+measure task learning. Warm-ups get their own group in every split and are left out of the
+headline grid. They are mostly a subject's first sessions: 86 of the test subjects' score
+sessions, 58 of them among the first three (r1). Decided with Han, 2026-11-03.
+
 **No regression kernels.** A fitted kernel has no bins and cannot be rebuilt from tallies, and a
 GLM with the same design matches it by construction. If longer history (4 to 10 trials back) is
 wanted, a later version adds it as a binned statistic, for example p(switch) by the rewards in the

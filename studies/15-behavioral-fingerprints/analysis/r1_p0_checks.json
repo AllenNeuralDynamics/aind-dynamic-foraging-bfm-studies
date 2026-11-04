@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_p0_checks.py",
-    "produced_at_pt": "2026-11-03T21:13:03-08:00",
-    "studies_git_sha": "4b41ea0b9fce5b8992c4ce701964f3cdf10b078c",
+    "produced_at_pt": "2026-11-04T00:45:15-08:00",
+    "studies_git_sha": "5b148a6507acee161639e63965ee2593d43d0d6c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r1_p0_checks.py",
-        "sha256": "5548ddcbaeee075e7fab9e46221f0af41f71800e6cc3f53ed04764c57dc6763b"
+        "sha256": "91b5b50fb3bc4d9416a09f2d4679bd0e73b8522aab9a70e755cfb841597ff158"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -30,21 +30,21 @@
     "inputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_golden_mevolve.json",
-        "sha256": "84d2eabb874c461c9fd1bddab0f06ea5fa5811953b59bc3a5d45d8fc5fb3e701"
+        "sha256": "1ce5eae1c2285529f631b3f2067583398d63c0573373f772481e000f5710133c"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_golden_wrapper.json",
-        "sha256": "fe4c446b0515f907d186f7b5ab3096e1ddf97baf91382c08ff52c6e8783fce77"
+        "sha256": "88f61ad6db20db80273d5f1d402a7008a2484bd94f7b44c616c3b556a6ce7a11"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_task_checks.json",
-        "sha256": "e5e87132e014bdd99c18d3b5cdcfea9dc8e2987b0c0e51552253e53fb21481e1"
+        "sha256": "594fd6ed7f7e9c640b8e455789a4c344458a34393a59f49d94293227515279ec"
       }
     ],
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r1_p0_checks.json",
-        "sha256": "7bf589151c44968c7d91aeac8fa4247e9dddc508a0a62ba36fde9cb41a9935a3"
+        "sha256": "4fb16da168b338cbb19eda742ab38c3588e556642f0c96d98e07bbf18abf4773"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r1_held_blocks.svg",
@@ -52,7 +52,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r1-p0-checks.md#result-1",
-        "sha256": "d9f243175ce1a6b992d1ceef0d4552d65cec8566a46f9271816c21e83e0c454b"
+        "sha256": "0774a567a0def8d1fa0ab7fed78c2b6e015239bdb58b73ad3f06573ffc965f58"
       }
     ]
   },
@@ -63,12 +63,12 @@
     "max_library_vs_mevolve": 1.3933298959045715e-14,
     "max_library_vs_stored": 1.3933298959045715e-14,
     "replay_differs": {},
-    "library_git_sha": "29ab76629e031dac1a1d3505d373399540f3de8d",
+    "library_git_sha": "6da203771847306656aa335d2d7852911170800d",
     "mevolve_git_sha": "30ae4f3386a67a02b543b4b84fb83caedd1cd8a2"
   },
   "golden_wrapper": {
     "passed": true,
-    "library_git_sha": "29ab76629e031dac1a1d3505d373399540f3de8d",
+    "library_git_sha": "6da203771847306656aa335d2d7852911170800d",
     "aliases": {
       "ctt": {
         "max_abs_diff": 3.3306690738754696e-16,

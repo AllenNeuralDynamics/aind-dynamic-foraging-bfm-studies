@@ -22,6 +22,9 @@
 3. Coverage: score sessions missing ``block_min``, ``block_max``, ``block_beta``, and sessions
    whose recorded probabilities are only 0 and 1 (older sessions record which side is better, not
    the schedule); those carry no usable pairs and are left out of the pools.
+4. Warm-up sessions (ADR 0004): on every trial one side's reward probability is 0, or the
+   probabilities are only 0 and 1. Counted by stage, with how many are among the subject's first
+   three sessions.
 
 Needs /allen (the database snapshot); on a compute node:
 
@@ -109,7 +112,7 @@ def main() -> None:
     assert not missing, f"{len(missing)} freeze sessions have no trials in the snapshot"
 
     holds = defaultdict(lambda: Counter())
-    coverage = Counter()
+    coverage, warm_ups = Counter(), Counter()
     coupled_shares, sum_mismatch = {}, Counter()
     uncoupled_values = {}
     for row in sessions.itertuples(index=False):
@@ -117,9 +120,13 @@ def main() -> None:
         p = t[["reward_probabilityL", "reward_probabilityR"]].to_numpy(float)
         key = (row.task, row.stage if isinstance(row.stage, str) else "None")
         binary = bool(np.isin(p, (0.0, 1.0)).all())
+        warm_up = binary or bool((p.min(axis=1) == 0).all())
         if row.role == "score":
             coverage["sessions"] += 1
             coverage["binary_probabilities"] += int(binary)
+            if warm_up:
+                warm_ups[str(row.stage)] += 1
+                warm_ups["among first three sessions"] += int(row.index < 3)
             for col in ("block_min", "block_max", "block_beta", "min_reward_each_block"):
                 coverage[f"missing_{col}"] += int(t[col].isna().all())
         if row.task.startswith("Coupled"):
@@ -204,6 +211,9 @@ def main() -> None:
             "uncoupled_probability_sets": dict(uncoupled_pools.most_common(10)),
         },
         "coverage": dict(coverage),
+        "warm_up_score_sessions": {"total": sum(v for k, v in warm_ups.items()
+                                                if k != "among first three sessions"),
+                                   **dict(warm_ups)},
     })
     print(json.dumps({"held": hold_rows, "total": dict(totals), "pairs": dict(matches)}, indent=1))
 

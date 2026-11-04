@@ -33,6 +33,13 @@ names.
 For one bin, subject and session partition: the trial count, the summed predicted outcome and the
 summed observed outcome.
 
+### Sessions
+
+**Warm-up session**:
+A session in which, on every trial, one side's reward probability is 0 (or the probabilities are
+only 0 and 1): one side always pays, so there is nothing to forage.
+_Avoid_: training session, shaping session
+
 ### Rollouts
 
 **Parameter-matched rollout**:

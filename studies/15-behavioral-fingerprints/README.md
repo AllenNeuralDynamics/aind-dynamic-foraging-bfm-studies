@@ -42,7 +42,7 @@ vocabulary in [CONTEXT.md](CONTEXT.md).
 |---|---|
 | Statistics | `fingerprints-v1`: p(switch) by the last 1 to 3 trials, by consecutive losses, by last reward × run length (the hazard), after a switch; run-length distributions; each by stage group × task variant (ADR 0004) |
 | Modes | replay and rollout for every model; a grid, never one score (ADR 0001) |
-| Rollouts | parameter-matched, in the gym, 10 per session (ADR 0006); 2-level EM fits draw session parameters per rollout (ADR 0005) |
+| Rollouts | parameter-matched, in the gym, 10 per session; the headline uses uncoupled and final-stage sessions, because the gym cannot hold an early coupled block (ADR 0006); 2-level EM fits draw session parameters per rollout (ADR 0005) |
 | Comparison | per statistic, the subject-balanced gap as a multiple of a split-half noise floor (ADR 0003) |
 | Data | study 12's 149 test subjects, held-out (odd) sessions only; the 146 on the GRU's held-out list marked (ADR 0007) |
 | Code | one library in `aind-dynamic-foraging-models`, behind MEvolve's program protocol (ADR 0002) |
@@ -58,7 +58,7 @@ with ignore statistics; MEvolve's pre-registered programs from study 40.
 |---|---|---|
 | P0 | spec, library, golden tests; reward-pair pools; how often real coupled blocks run past `block_max` | reproduces the wrapper's statistics on study 05's cached RL rollout histories (r9's RL rows) and MEvolve's `replay_gap` on its gate-1b fits; done, [r1](analysis/reports/r1-p0-checks.md) |
 | P1 | replay fingerprints of `literature-models` | each adapter reproduces its model's own probabilities to 1e-6 |
-| P2 | rollout fingerprints of the same, and the noise floor | |
+| P2 | rollout fingerprints of the same, and the noise floor; a sensitivity check with the coupled task's holds on and off (ADR 0006) | the holds move the fingerprints less than the noise floor, or a new ADR turns them on |
 | P3 | GRU and GLM-HMM | |
 | P4 | MEvolve imports the library (a proposal to its sessions) | MEvolve's `replay_gap` unchanged |
 

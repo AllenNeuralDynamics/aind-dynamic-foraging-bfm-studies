@@ -44,7 +44,7 @@ recorded) or an experimenter's change of settings held the block. Vermillion: th
 minimum reward per block.*
 
 <!-- BEGIN result-1 -->
-**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `29ab766`, MEvolve `30ae4f3`):
+**Library against MEvolve's replay fingerprints** (gate-1b per-subject fits, 19 literature programs × 149 test subjects, score sessions; library `6da2037`, MEvolve `30ae4f3`):
 
 | check | max \|difference\| | pass |
 |---|---|---|
@@ -82,6 +82,7 @@ Subjects whose replay from the stored parameters does not reproduce the stored l
 |---|---|
 | sessions with no `block_min` / `block_max` / `block_beta` | 368 |
 | sessions whose probabilities are only 0 and 1 | 21 |
+| warm-up sessions (one side at 0 on every trial, or only 0 and 1) | 86; 58 among the subject's first three |
 | coupled score sessions whose pairs fit one GUI reward family | 541 of 600 |
 | (subject, task, stage) pools equal to a family prefix | 307 of 331 |
 | share of its pool a coupled score session shows | mean 0.84; all of it in 57% |
@@ -103,8 +104,9 @@ Subjects whose replay from the stored parameters does not reproduce the stored l
   The stored parameters were right. MEvolve fixed it (its PR #31); rerun at the fixed 30ae4f3,
   every subject is compared and the library matches the stored fingerprints to about 1e-14.
 - **Real coupled blocks are often held, and the gym cannot hold them.** One in eight measurable
-  coupled blocks had more engaged trials than `block_max`, so was certainly held: 17% in
-  `STAGE_2`, 28% in the warm-up, none in the final stages. A quarter ran past `block_max`
+  coupled blocks had more engaged trials than `block_max`, so was certainly held: 17% in baited
+  `STAGE_2` sessions (15% over both coupled tasks), 28% in the warm-up, none in the final
+  stages. A quarter ran past `block_max`
   counting all trials, but the task can add a trial for each ignored one, so only the engaged
   count proves a hold. Most held blocks were in sessions with no minimum reward set, so the
   unrecorded auto-block rule or an experimenter's change of settings held them; the data cannot
@@ -114,8 +116,11 @@ Subjects whose replay from the stored parameters does not reproduce the stored l
 - **Reward pairs can mostly be pooled.** Most coupled score sessions show pairs that fit one of
   the GUI's reward families, and a session shows on average most of its subject's pool for that
   task and stage. About a sixth of the score sessions (older ones) have no recorded block
-  parameters, and a few record only 0 and 1 as probabilities; those fall back to the gym's
-  defaults.
+  parameters and use the gym's defaults.
+- **Warm-ups are a different task.** 86 score sessions are warm-ups (one side at reward
+  probability 0 on every trial, or only 0 and 1), mostly a subject's first sessions. They get
+  their own group, are left out of the headline (ADR 0004), and roll out with the pair [1, 0]
+  (ADR 0006), so a missing parameter never turns them into a foraging task.
 
 ## Methods
 

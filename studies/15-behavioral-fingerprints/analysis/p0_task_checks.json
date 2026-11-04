@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p0_task_checks.py",
-    "produced_at_pt": "2026-11-03T21:08:44-08:00",
-    "studies_git_sha": "4b41ea0b9fce5b8992c4ce701964f3cdf10b078c",
+    "produced_at_pt": "2026-11-03T23:48:03-08:00",
+    "studies_git_sha": "5b148a6507acee161639e63965ee2593d43d0d6c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_task_checks.py",
-        "sha256": "934af864802403d8031003b68b97ea25291952ad19fe4830e59f60c1eb0febf4"
+        "sha256": "2cb42bf9dcedd33dd7efe9defe2750a887f5de7e490ae91b10d150a6bdee80eb"
       }
     ],
     "inputs": [],
@@ -35,7 +35,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p0_task_checks.json",
-        "sha256": "0a608efc4b16fa46d104911b57aca948e0add151f8969ab1f254b2db2ad3b15c"
+        "sha256": "1602c85ebc270fd3be13d1004c6c642f4349c83cd5845a8a20c2ad31f64ba293"
       }
     ]
   },
@@ -237,5 +237,12 @@
     "missing_block_max": 368,
     "missing_block_beta": 368,
     "missing_min_reward_each_block": 368
+  },
+  "warm_up_score_sessions": {
+    "total": 86,
+    "None": 28,
+    "among first three sessions": 58,
+    "STAGE_1": 54,
+    "STAGE_1_WARMUP": 4
   }
 }

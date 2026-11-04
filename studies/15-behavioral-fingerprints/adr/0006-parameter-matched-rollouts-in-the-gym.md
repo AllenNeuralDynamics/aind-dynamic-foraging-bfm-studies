@@ -12,7 +12,9 @@ The reward-probability pairs of a coupled session are not recorded, only their s
 (`base_reward_probability_sum`), and a short session shows only some of them. The pool is the set
 of pairs seen in the subject's sessions with the same task and stage, scaled to the session's sum;
 P0 checks this against the curriculum definitions. Random-walk parameters are not recorded either,
-so those sessions use the gym's defaults.
+so those sessions use the gym's defaults. A warm-up session (ADR 0004) rolls out with the single
+pair [1, 0] scaled to its recorded base sum, which is 1 for the older Bpod warm-ups that record
+only 0 and 1, so a missing parameter never turns a warm-up into a foraging task.
 
 ## Considered options
 
@@ -30,5 +32,13 @@ so those sessions use the gym's defaults.
 - Two holds of the real coupled task are not simulated: `BlockMinReward`, and `AdvancedBlockAuto`,
   which keeps a block until the animal's choices follow the better side (not recorded; the
   curricula turn it on in the early coupled stages). The manual next-block button is not recorded
-  either. A held block can run past `block_max`, so P0 measures, by stage, how often real coupled
-  blocks do; the report states that number as the limit of every rollout fingerprint.
+  either. P0 (r1) measured how often a real coupled block had more engaged trials than its
+  `block_max`, so was certainly held: 12.5% of measurable blocks, 17% in baited `STAGE_2`, 28%
+  in the warm-up, none in the final stages; uncoupled sessions run the real rule already.
+- So the headline rollout fingerprints use uncoupled and final-stage sessions. Early coupled
+  stages are shown beside them, marked as limited by the simulator (decided with Han,
+  2026-11-03).
+- P2 runs a sensitivity check: the two holds as an optional gym rule, set as the curricula set
+  them for those stages, and 2 or 3 models rolled out with the holds on and off. If the
+  fingerprints move less than the noise floor, this ADR stands; if they move more, the holds are
+  turned on where they can be inferred, by a new ADR.
