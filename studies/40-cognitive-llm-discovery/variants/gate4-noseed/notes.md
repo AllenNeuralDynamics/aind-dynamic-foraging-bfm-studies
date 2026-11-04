@@ -39,4 +39,7 @@ proposals.
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `gate4-noseed@<launch_id>` in `NeuralDynamics/dfbfm-mevolve` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-04 14:15 PT as `gate4-noseed-1` (SLURM 27615169, studies 92ee0ae,
+MEvolve 59adafd), W&B group `gate4-noseed@20261104-141503` in
+[NeuralDynamics/dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve). A dry run with no Claude
+call (SLURM 27615125) built the runner with no seeds first.
