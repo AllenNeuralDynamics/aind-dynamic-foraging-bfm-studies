@@ -147,6 +147,9 @@ def new_study(a: argparse.Namespace) -> None:
         fail("QUESTION is the study's one scientific question; write it out")
     if not a.project:
         fail("PROJECT is the study's W&B project (one per study)")
+    if a.entity == "NeuralDynamics" and not re.fullmatch(r"dfbfm[_-][A-Za-z0-9_-]+", a.project):
+        fail(f"{a.project!r}: projects in NeuralDynamics are named dfbfm_NN-name or dfbfm-name "
+             "(plain characters; no brackets or spaces)")
     check_variant_name(a.variant)
     issue = parse_issue(a.issue) if a.issue else None
     motivated_by = parse_motivation(a.motivated_by, m["number"])
@@ -274,7 +277,7 @@ def main(argv: list[str] | None = None) -> None:
     s.add_argument("--name", required=True)
     s.add_argument("--question", required=True)
     s.add_argument("--project", required=True, help="W&B project (one per study)")
-    s.add_argument("--entity", default="AIND-disRNN")
+    s.add_argument("--entity", default="NeuralDynamics", help="W&B entity (new studies: NeuralDynamics)")
     s.add_argument("--variant", required=True, help="first variant")
     s.add_argument("--issue", help="e.g. AllenNeuralDynamics/aind-dynamic-foraging-bfm-studies#20")
     s.add_argument("--motivated-by", help="earlier results this study follows up: 05/r1,03/r2 | 05 | #23 | none")
