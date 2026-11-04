@@ -10,6 +10,9 @@
   Console's list price; caching works; seeds sit on their islands. Effort medium is kept for the search:
   high cost 38% more per proposal and improved fewer parents. PLAN.md notes that its budget is at list
   price, about twice the bill after the organisation's discount.
+- W&B (issue #99): new runs log to `NeuralDynamics/dfbfm-mevolve`, shared with MEvolve; the README
+  frontmatter and the engine-smoke run configs name it. `engine-smoke@20261103-030341` stays in
+  `aind-dynamic-foraging-model`.
 
 ## 2026-11-02
 

@@ -24,7 +24,8 @@ Sonnet 5.5, one at effort `medium` and one at `high`, with everything else equal
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `engine-smoke@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
 **Status.** Launched 2026-11-03 03:03 PT as `engine-smoke@20261103-030341` (SLURM 27586076;
-record in `launch_record/engine-smoke-1/`). Outputs: `/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/`
+record in `launch_record/engine-smoke-1/`). Its W&B group is in `NeuralDynamics/aind-dynamic-foraging-model`
+and stays there; the run configs now name `dfbfm-mevolve`, so a new launch logs there (issue #99). Outputs: `/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/`
 (`medium/` and `high/` each hold the Shinka database, `ledger.jsonl` with every API call and its cost,
 `proposals.csv`, `run_report.md`, `run_summary.json`; `comparison.md` sets the two side by side). A
 preflight of two calls (effort low) before launch: the key, the model and the request shape work, and
