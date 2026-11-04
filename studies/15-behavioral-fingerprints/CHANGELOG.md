@@ -1,5 +1,10 @@
 # Changelog — 15-behavioral-fingerprints
 
+## 2026-11-04
+
+- ADR 0008 (decided with Han): replay uses a binomial noise floor, rollouts keep the split-half
+  floor (foraging-models `binomial_floor`); CONTEXT names both floors.
+
 ## 2026-11-03
 
 - Study created (#94); ADRs 0001–0007 and CONTEXT.md from the design grill with Han.

@@ -43,7 +43,7 @@ vocabulary in [CONTEXT.md](CONTEXT.md).
 | Statistics | `fingerprints-v1`: p(switch) by the last 1 to 3 trials, by consecutive losses, by last reward × run length (the hazard), after a switch; run-length distributions; each by stage group × task variant (ADR 0004) |
 | Modes | replay and rollout for every model; a grid, never one score (ADR 0001) |
 | Rollouts | parameter-matched, in the gym, 10 per session; the headline uses uncoupled and final-stage sessions, because the gym cannot hold an early coupled block (ADR 0006); 2-level EM fits draw session parameters per rollout (ADR 0005) |
-| Comparison | per statistic, the subject-balanced gap as a multiple of a split-half noise floor (ADR 0003) |
+| Comparison | per statistic, the subject-balanced gap as a multiple of a noise floor: binomial in replay, split-half in rollout, so a perfect model scores about 1 in both (ADR 0003, 0008) |
 | Data | study 12's 149 test subjects, held-out (odd) sessions only; the 146 on the GRU's held-out list marked (ADR 0007) |
 | Code | one library in `aind-dynamic-foraging-models`, behind MEvolve's program protocol (ADR 0002) |
 

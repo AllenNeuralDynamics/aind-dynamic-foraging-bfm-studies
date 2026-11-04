@@ -1,5 +1,7 @@
 # The headline is the gap as a multiple of a split-half noise floor
 
+**Status:** accepted; its replay floor is superseded by ADR 0008 (replay uses a binomial floor).
+
 For each subject and statistic, the gap is the mean of |model − subject| over the statistic's
 bins, weighted by the subject's own trial count in each bin, in replay and rollout alike; bins
 with fewer than 5 of the subject's trials are dropped, as the wrapper does. A rollout may never
@@ -32,5 +34,4 @@ with 10 rollouts per session. The same floor serves replay and rollout (decided 
 - The floor includes differences between the subject's sessions. A replayed model can predict
   those differences from each session's own history, so its replay gap can fall below the floor
   (a ratio under 1). Rollouts draw new sessions, so for them the floor is the fair reference.
-  Whether replay should get its own floor (for example the binomial one on the same trials) is
-  open.
+  Replay therefore gets its own floor, the binomial one: ADR 0008.
