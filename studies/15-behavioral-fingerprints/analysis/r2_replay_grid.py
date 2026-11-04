@@ -24,7 +24,7 @@ GAPS = HERE / "p1_replay_gaps.json"
 REPORT = HERE / "reports" / "r2-replay-grid.md"
 FIG = HERE / "fig_r2_replay_grid.svg"
 FIG_BINS = HERE / "fig_r2_bins.svg"
-FIG_CORR = HERE / "fig_r2_pattern_scatter.svg"
+FIG_CORR = HERE / "fig_r2_scatter.svg"
 # study 01 r9 rolled out the per-subject CompareToThreshold, Bari2019 and Hattori2019; then the best
 # 2-level model, the GLM and the strawman
 SCATTER = [("CompareToThreshold", "per_subject"), ("Bari2019", "per_subject"), ("Hattori2019", "per_subject"),
@@ -220,42 +220,66 @@ def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
     return points
 
 
+def _bin_groups(stat: str, labels: list[str]) -> list[tuple[str, str, list[int]]]:
+    """Colour groups of a statistic's bins: patterns by depth, reward x run statistics by the
+    last trial's reward; losses in one colour."""
+    if stat == "pattern":
+        return [(f"{d} trial{'s' if d > 1 else ''} back", c, [i for i, lab in enumerate(labels) if len(lab) == 2 * d])
+                for d, c in ((1, "black"), (2, "blue"), (3, "orange"))]
+    if stat in ("hazard", "post_switch"):
+        return [("last trial unrewarded", "vermillion", [i for i, lab in enumerate(labels) if lab[0] == "-"]),
+                ("last trial rewarded", "blue", [i for i, lab in enumerate(labels) if lab[0] == "+"])]
+    return [("all bins", "black", list(range(len(labels))))]
+
+
 def draw_scatter(gaps: dict) -> list[dict]:
-    """Study 01 r9's view, in replay: per history pattern (1 to 3 trials back), the subjects' mean
-    p(switch) against the model's, over subjects that keep the pattern; r and RMSE over patterns."""
+    """Study 01 r9's view, in replay, for every rate statistic: per bin, the subjects' mean
+    p(switch) against the model's, over subjects that keep the bin; each panel prints r and RMSE
+    over the bins and the model's floor ratio for that statistic (the grid's cell)."""
     fs.apply_paper_style()
     import matplotlib.pyplot as plt
     import numpy as np
 
     head = gaps["headline_set"]
-    labels = gaps["bins"]["pattern"]
-    depth = np.array([len(lab) // 2 for lab in labels])
-    fig, axes = plt.subplots(1, len(SCATTER), figsize=fs.mm(183, 42), sharex=True, sharey=True)
+    fig, axes = plt.subplots(len(STATS), len(SCATTER), figsize=fs.mm(183, 158))
     out = []
-    for k, (ax, (m, reg)) in enumerate(zip(axes, SCATTER)):
-        pb = gaps["models"][m][reg][head]["pattern"]["per_bin"]
-        x, y = np.array(_floats(pb["subject"])), np.array(_floats(pb["model"]))
-        ok = np.isfinite(x) & np.isfinite(y)
-        r = float(np.corrcoef(x[ok], y[ok])[0, 1])
-        rmse = float(np.sqrt(np.mean((y[ok] - x[ok]) ** 2)))
-        out.append({"model": m, "regime": reg, "n_patterns": int(ok.sum()), "r": r, "rmse": rmse})
-        ax.plot([0, 1], [0, 1], color="0.7", lw=0.5, zorder=0)
-        for d, c in DEPTH_COLORS.items():
-            sel = ok & (depth == d)
-            ax.scatter(x[sel], y[sel], s=5, color=fs.OKABE_ITO[c], lw=0,
-                       label=f"{d} trial{'s' if d > 1 else ''} back")
-        ax.set_title(f"{m}\n{REGIMES[reg]}", fontsize=5)
-        ax.text(0.04, 0.96, f"r = {r:.3f}\nRMSE = {rmse:.3f}", transform=ax.transAxes, va="top", fontsize=5,
-                bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.5}, zorder=4)
-        ax.set_xlim(0, 0.8)
-        ax.set_ylim(0, 0.8)
-        ax.set_aspect("equal")
-        ax.set_xlabel("subjects p(switch)")
-        ax.spines[["top", "right"]].set_visible(False)
-        if k == 0:
-            ax.set_ylabel("model p(switch)")
-    axes[-1].legend(frameon=False, loc="lower right", fontsize=5, handletextpad=0.2)
-    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.24, top=0.8, wspace=0.25)
+    for row, stat in enumerate(STATS):
+        labels = gaps["bins"][stat]
+        cells = [gaps["models"][m][reg][head][stat] for m, reg in SCATTER]
+        top = max(np.nanmax(_floats(c["per_bin"][k])) for c in cells for k in ("model", "subject"))
+        lim = float(np.ceil(top * 10.5) / 10)
+        for col, ((m, reg), cell) in enumerate(zip(SCATTER, cells)):
+            ax = axes[row, col]
+            x, y = np.array(_floats(cell["per_bin"]["subject"])), np.array(_floats(cell["per_bin"]["model"]))
+            ok = np.isfinite(x) & np.isfinite(y)
+            r = float(np.corrcoef(x[ok], y[ok])[0, 1])
+            rmse = float(np.sqrt(np.mean((y[ok] - x[ok]) ** 2)))
+            out.append({"statistic": stat, "model": m, "regime": reg, "n_bins": int(ok.sum()), "r": r,
+                        "rmse": rmse, "floor_ratio": cell["floor_ratio"]})
+            ax.plot([0, lim], [0, lim], color="0.7", lw=0.5, zorder=0)
+            for name, c, idx in _bin_groups(stat, labels):
+                sel = np.zeros(len(x), bool)
+                sel[idx] = True
+                sel &= ok
+                ax.scatter(x[sel], y[sel], s=5, color=fs.OKABE_ITO[c], lw=0, label=name)
+            ax.text(0.98, 0.03, f"r = {r:.3f}\nRMSE = {rmse:.3f}\nfloor ratio = {cell['floor_ratio']:.1f}",
+                    transform=ax.transAxes, ha="right", va="bottom", fontsize=5,
+                    bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.5}, zorder=4)
+            ax.set_xlim(0, lim)
+            ax.set_ylim(0, lim)
+            ax.set_aspect("equal")
+            ax.spines[["top", "right"]].set_visible(False)
+            if row == 0:
+                ax.set_title(f"{m}\n{REGIMES[reg]}", fontsize=5)
+            if row == len(STATS) - 1:
+                ax.set_xlabel("subjects p(switch)")
+            if col == 0:
+                ax.set_ylabel(f"{STATS[stat]}\nmodel p(switch)")
+                fs.panel_label(ax, "abcd"[row])
+            if col == 0 and stat != "losses":   # above the diagonal's left end: empty for this model
+                ax.legend(frameon=False, loc="upper left", fontsize=5, handletextpad=0.2,
+                          borderaxespad=0.1)
+    fig.subplots_adjust(left=0.08, right=0.99, bottom=0.05, top=0.95, wspace=0.3, hspace=0.3)
     fs.save_figure(fig, FIG_CORR)
     plt.close(fig)
     return out
@@ -334,13 +358,15 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         + "; ".join(f"{p['model']} ({REGIMES[p['regime']]}, likelihood {p['likelihood']:.3f}, "
                     f"floor ratio {p['mean_local_floor_ratio']:.0f})" for p in off_axis) + ".",
         "",
-        f"![pattern scatter](../{FIG_CORR.name})",
+        f"![scatter](../{FIG_CORR.name})",
         "",
-        "Study 01 r9's view, here in replay: each point is one history pattern (1, 2 or 3 trials "
-        "back), the subjects' mean p(switch) against the model's replayed prediction, over "
-        "subjects that keep the pattern; r and RMSE are over patterns. "
-        + "; ".join(f"{c['model']} ({REGIMES[c['regime']]}) r {c['r']:.3f}, RMSE {c['rmse']:.3f}"
-                    for c in scatter) + ".",
+        "Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): each point is "
+        "one bin, the subjects' mean p(switch) against the model's replayed prediction, over "
+        "subjects that keep the bin. Each panel prints r and RMSE over the bins and the model's "
+        "floor ratio for that statistic (the first figure's cell): the floor ratio weights each bin "
+        "by its trials and compares with what the subjects' data allow; r and RMSE count every bin "
+        "once. Patterns are coloured by depth, hazard and after-a-switch bins by the last trial's "
+        "reward.",
         "",
         f"**Gates** (library `{gates['library_git_sha'][:7]}`, MEvolve `{gates['mevolve_git_sha'][:7]}`). "
         f"Every replay shown ({gates['n_models']} of study 12's models × {gates['n_subjects']} subjects) "
@@ -386,7 +412,7 @@ def main() -> None:
                    {"_meta": meta, "gates": gates, "headline_set": gaps["headline_set"],
                     "order": names, "two_level_failed": sorted(failed), "rows": rows,
                     "floor_ratio_by_set": by_set, "likelihood_vs_floor_ratio": points,
-                    "pattern_scatter": scatter},
+                    "scatter": scatter},
                    outputs=[FIG, FIG_BINS, FIG_CORR, f"{REPORT}#result-1"])
 
 

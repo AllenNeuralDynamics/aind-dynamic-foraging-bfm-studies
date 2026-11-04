@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-04T10:48:35-08:00",
-    "studies_git_sha": "efd565599735fe486367337515ec02c24c2b4588",
+    "produced_at_pt": "2026-11-04T10:55:40-08:00",
+    "studies_git_sha": "b303d5c1ae2a10f26c84213ece83ffd1555df2da",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
-        "sha256": "8538793b7328e2bc814d31635795b8000fcb03a701c9ba753b695a2d99aea865"
+        "sha256": "79c7260fe57394de3c534ce301dba886b4f645f585f6574d49d1fb5d802736a0"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -64,7 +64,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.json",
-        "sha256": "b98fd407845e9f120895c70c41b9d54cb82922251428f267eefc23340f7fa921"
+        "sha256": "dd46027cede397a9573e04f98afa82ad3dc509d36f9b1bb8dd57f7cb3b50350c"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_replay_grid.svg",
@@ -75,12 +75,12 @@
         "sha256": "6e71865a3c45ea059d49fcf02a7bd987f13e9efc716b78735348abc8dd13084e"
       },
       {
-        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_pattern_scatter.svg",
-        "sha256": "20a5b1155e2ec21163f4dcc36bcf7b30e0d1faacc7441ae866175fd5dca50794"
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scatter.svg",
+        "sha256": "bebefc834eec19f69f75f22eb292cc62e62f3ffe61bcc8c9efe6fe355535bd44"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-1",
-        "sha256": "225b53299943ffa3eae1c5408f2d9c88f1d7ac52c0f4ace1faeffca3665184a3"
+        "sha256": "3f256513c6ed3d39c06c5adeebbd9385acbf7578ecf01fd54317f382df5934eb"
       }
     ]
   },
@@ -4423,48 +4423,222 @@
       "mean_local_floor_ratio": 39.23883680359339
     }
   ],
-  "pattern_scatter": [
+  "scatter": [
     {
+      "statistic": "losses",
       "model": "CompareToThreshold",
       "regime": "per_subject",
-      "n_patterns": 42,
-      "r": 0.9293092137963734,
-      "rmse": 0.05316045003136132
+      "n_bins": 6,
+      "r": 0.9827361438980569,
+      "rmse": 0.005260947518145109,
+      "floor_ratio": 1.6083797190543037
     },
     {
+      "statistic": "losses",
       "model": "Bari2019",
       "regime": "per_subject",
-      "n_patterns": 42,
-      "r": 0.98091597316019,
-      "rmse": 0.04592288001667993
+      "n_bins": 6,
+      "r": 0.927159299498295,
+      "rmse": 0.03175117745427688,
+      "floor_ratio": 2.2652976566011485
     },
     {
+      "statistic": "losses",
       "model": "Hattori2019",
       "regime": "per_subject",
-      "n_patterns": 42,
-      "r": 0.9631980333823761,
-      "rmse": 0.06664695784643183
+      "n_bins": 6,
+      "r": 0.9331031279595065,
+      "rmse": 0.03263702741388845,
+      "floor_ratio": 2.526829573976895
     },
     {
+      "statistic": "losses",
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
-      "n_patterns": 42,
-      "r": 0.9842593288309146,
-      "rmse": 0.030706336081349078
+      "n_bins": 6,
+      "r": -0.6493639520385253,
+      "rmse": 0.015084891327999929,
+      "floor_ratio": 1.3952387506537633
     },
     {
+      "statistic": "losses",
       "model": "GLM-Su2022",
       "regime": "per_subject",
-      "n_patterns": 42,
-      "r": 0.9770668744935523,
-      "rmse": 0.04041354177022089
+      "n_bins": 6,
+      "r": 0.1368107486148287,
+      "rmse": 0.012853072012286158,
+      "floor_ratio": 2.0444570178233
     },
     {
+      "statistic": "losses",
       "model": "Win-Stay-Lose-Shift",
       "regime": "per_subject",
-      "n_patterns": 42,
+      "n_bins": 6,
+      "r": -0.8074848576983321,
+      "rmse": 0.515393128522892,
+      "floor_ratio": 43.89547241121204
+    },
+    {
+      "statistic": "pattern",
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.9293092137963734,
+      "rmse": 0.05316045003136132,
+      "floor_ratio": 1.898597744370424
+    },
+    {
+      "statistic": "pattern",
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.98091597316019,
+      "rmse": 0.04592288001667993,
+      "floor_ratio": 2.4816160320596037
+    },
+    {
+      "statistic": "pattern",
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.9631980333823761,
+      "rmse": 0.06664695784643183,
+      "floor_ratio": 2.722595622284781
+    },
+    {
+      "statistic": "pattern",
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "n_bins": 42,
+      "r": 0.9842593288309146,
+      "rmse": 0.030706336081349078,
+      "floor_ratio": 1.4325259839336248
+    },
+    {
+      "statistic": "pattern",
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.9770668744935523,
+      "rmse": 0.04041354177022089,
+      "floor_ratio": 2.2706127200903263
+    },
+    {
+      "statistic": "pattern",
+      "model": "Win-Stay-Lose-Shift",
+      "regime": "per_subject",
+      "n_bins": 42,
       "r": 0.5081597011872249,
-      "rmse": 0.317134632483005
+      "rmse": 0.317134632483005,
+      "floor_ratio": 38.47067133657034
+    },
+    {
+      "statistic": "hazard",
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9953384284894714,
+      "rmse": 0.011283157062215709,
+      "floor_ratio": 1.725495215552861
+    },
+    {
+      "statistic": "hazard",
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9838578622286248,
+      "rmse": 0.02524702530748762,
+      "floor_ratio": 2.483312871475963
+    },
+    {
+      "statistic": "hazard",
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9898767559635936,
+      "rmse": 0.04299217247671316,
+      "floor_ratio": 2.5828942613279486
+    },
+    {
+      "statistic": "hazard",
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "n_bins": 12,
+      "r": 0.9950744309852596,
+      "rmse": 0.012950189969803369,
+      "floor_ratio": 1.4073099373190985
+    },
+    {
+      "statistic": "hazard",
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9927733357006897,
+      "rmse": 0.019571347030275032,
+      "floor_ratio": 2.2508798310636973
+    },
+    {
+      "statistic": "hazard",
+      "model": "Win-Stay-Lose-Shift",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.5942495462545122,
+      "rmse": 0.3698511314653894,
+      "floor_ratio": 35.35036666299777
+    },
+    {
+      "statistic": "post_switch",
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9669296296072931,
+      "rmse": 0.047187603313294156,
+      "floor_ratio": 1.5820744160569469
+    },
+    {
+      "statistic": "post_switch",
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9767060234067612,
+      "rmse": 0.06409341605452042,
+      "floor_ratio": 1.6459364439196642
+    },
+    {
+      "statistic": "post_switch",
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9924274629993989,
+      "rmse": 0.0825685093211854,
+      "floor_ratio": 1.8196939001029613
+    },
+    {
+      "statistic": "post_switch",
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "n_bins": 12,
+      "r": 0.98908031973034,
+      "rmse": 0.036454245766605636,
+      "floor_ratio": 1.3082118140648948
+    },
+    {
+      "statistic": "post_switch",
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9597407658158413,
+      "rmse": 0.05655720483707309,
+      "floor_ratio": 1.9088917699443015
+    },
+    {
+      "statistic": "post_switch",
+      "model": "Win-Stay-Lose-Shift",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9664235551012381,
+      "rmse": 0.18270159937338992,
+      "floor_ratio": 3.8680809570404726
     }
   ]
 }
