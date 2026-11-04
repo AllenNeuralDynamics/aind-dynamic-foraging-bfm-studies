@@ -41,7 +41,7 @@ class ScaffoldTest(unittest.TestCase):
 
     def new_study(self, name="12-gru-example", motivated_by="none"):
         scaffold.main(["study", "--name", name, "--question", "Does the example hold up?",
-                       "--project", "gru_example", "--variant", "base", "--motivated-by", motivated_by,
+                       "--project", "dfbfm_12-example", "--variant", "base", "--motivated-by", motivated_by,
                        "--model", "gru", "--question-type", "scaling"])
 
     def test_study_variant_report_validate_clean(self):
@@ -54,6 +54,16 @@ class ScaffoldTest(unittest.TestCase):
         reports = sorted(p.name for p in (self.root / "studies/12-gru-example/analysis/reports").glob("r*.md"))
         self.assertEqual(reports, ["r1-heldout-curve.md", "r2-second.md"])
         self.assertIn("r2:", (self.root / "studies/12-gru-example/Makefile").read_text())
+
+    def test_neuraldynamics_project_must_be_dfbfm(self):
+        for project in ("aind-dynamic-foraging-model", "[dfbfm] x", "gru_example"):
+            with self.assertRaises(SystemExit):
+                scaffold.main(["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                               "--project", project, "--variant", "base", "--motivated-by", "none",
+                               "--model", "gru", "--question-type", "scaling"])
+        scaffold.main(["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
+                       "--project", "mice_example", "--entity", "AIND-disRNN", "--variant", "base",
+                       "--motivated-by", "none", "--model", "gru", "--question-type", "scaling"])
 
     def test_reused_accession_number_is_refused(self):
         with self.assertRaises(SystemExit):
@@ -170,7 +180,7 @@ class MakeTargetTest(unittest.TestCase):
         q = 'Does "high D" help, and isn\'t $HOME expanded?'
         run = lambda *a: subprocess.run(["make", "-s", "-C", str(self.root), *a, f"PY={sys.executable}"],
                                         check=True, capture_output=True, text=True)
-        run("new-study", "NAME=12-gru-quoting", f"QUESTION={q}", "PROJECT=p", "VARIANT=base", "MOTIVATED_BY=none",
+        run("new-study", "NAME=12-gru-quoting", f"QUESTION={q}", "PROJECT=dfbfm_12-quoting", "VARIANT=base", "MOTIVATED_BY=none",
             "MODEL=gru,cognitive", "QUESTION_TYPE=scaling")
         run("new-report", "STUDY=12-gru-quoting", "SLUG=curve", 'TITLE=The "curve"')
         study = self.root / "studies" / "12-gru-quoting"
