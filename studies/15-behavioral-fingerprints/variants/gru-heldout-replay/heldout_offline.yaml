@@ -1,6 +1,11 @@
-# Study 01's offline held-out config (studies/01-gru-scaling-law/heldout_offline.yaml), unchanged,
-# so the fine-tune reproduces its held-out numbers; study 15 reads the per-trial predictions that
-# current wrapper main also writes (test_trial_predictions.csv). W&B stays off (`wandb: {}`).
+# Study 01's offline held-out config (studies/01-gru-scaling-law/heldout_offline.yaml), with one
+# change: the held-out selectors are pinned to the MEvolve freeze's data (snapshot 20260603, the
+# freeze manifest's selector values). Without them the wrapper re-selects the held-out cohort from
+# the live database, and the first launch (gru-heldout-replay@20261104-124134) scored 162 subjects,
+# only 67 of them in the freeze's 149. A selector needs curricula, min_sessions or heldout_every_n
+# set, or the wrapper ignores the whole block (heldout_finetuning._selector_fields_present).
+# Study 15 reads the per-trial predictions that current wrapper main also writes
+# (test_trial_predictions.csv). W&B stays off (`wandb: {}`).
 #
 # Offline held-out fine-tune+test config (the study y-axis), reusable across all runs.
 # Each offline job mounts ONE training run's result dataset at /prior, so model_dir is
@@ -12,12 +17,13 @@ source_run:
   checkpoint_policy: best_eval
 
 heldout_subjects:
-  test_subject_ids: null     # inherit the reserved held-out set from the source run
-  curricula: null
-  min_sessions: null
-  heldout_every_n: null
-  mature_only: null
+  test_subject_ids: null     # the reserved every-5th-ranked cohort, ranked on the snapshot below
+  curricula: [Coupled Baiting, Uncoupled Baiting, Uncoupled Without Baiting]
+  min_sessions: 10
+  heldout_every_n: 5
+  mature_only: false
   cols_to_retain: null
+  snapshot: "20260603"       # the MEvolve freeze's snapshot (study 15 ADR 0007)
 
 heldout_finetuning:
   n_steps: 500
