@@ -31,6 +31,11 @@ mechanism the search is not shown.
    - Score the template, all 19 library programs and the target on the same mice.
    - Leave out of the prompt any program within 0.4 of the target (twice the tolerance).
    - Stop and ask Han if the target's own 2-level fit fails, if a seed or more than 3 programs would be left out, or if the template is within 0.4.
+   - **Amended 2026-11-04, after the real-mouse fits and before any score on the simulated mice:**
+     also stop if the target beats Hattori2019 (the same program without satiety) by less than 0.4.
+     Otherwise the search could pass by rebuilding plain Q-learning, without finding satiety. On the
+     24 real generation mice, satiety beat Hattori2019 by only 0.015 (66.378 against 66.363; median
+     satiety_rate 0.0008 per reward), which prompted this rule.
 3. **If satiety is too weak to matter:** if the pre-check stops because library programs come within
    0.4 of the target, and the fitted satiety is the reason, the mice are simulated once more. Every
    fitted parameter is kept except `satiety_rate`, which is set, for every mouse, to the 75th
