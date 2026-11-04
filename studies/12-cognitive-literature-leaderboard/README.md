@@ -7,7 +7,7 @@ question: How well do the models in the literature, each fit per subject on our 
 status: active
 wandb:
   entity: NeuralDynamics
-  project: aind-dynamic-foraging-model
+  project: dfbfm_12-leaderboard
 motivated_by:
 - study: 01-gru-scaling-law
   report: r8
@@ -26,7 +26,8 @@ issues:
 ---
 # Study: 12-cognitive-literature-leaderboard
 
-W&B project [`aind-dynamic-foraging-model`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model).
+W&B project [`dfbfm_12-leaderboard`](https://wandb.ai/NeuralDynamics/dfbfm_12-leaderboard) for new launches. Every launch to
+date (per-subject-de, ctt-credit) is in [`aind-dynamic-foraging-model`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model) and stays there.
 
 **Question.** How well do the models in the literature, each fit per subject on our subjects, predict held-out sessions, and how do they rank against the hierarchical cognitive baselines and the GRU?
 
@@ -64,10 +65,14 @@ Study 40's requirements (issue #73, decision records 0005 to 0007) set the regim
 
 ## Deviations from study-conventions
 
-- **Shared W&B project.** Runs log to `NeuralDynamics/aind-dynamic-foraging-model`, which study 40
-  also uses, not to a project of their own: the BFM stack is moving off a personal W&B account
-  that is almost full (decided 2026-11-01). Groups (`per-subject-de@<launch_id>`) and
-  `meta.study` keep the two studies apart.
+- **Two W&B projects.** The launches up to 2026-11-02 (`per-subject-de@20261101-012148`,
+  `per-subject-de@20261101-071303`, `ctt-credit@20261102-132626`) log to the shared
+  `NeuralDynamics/aind-dynamic-foraging-model`, which study 40 also used; groups and `meta.study`
+  keep the studies apart. From 2026-11-03 new launches go to `NeuralDynamics/dfbfm_12-leaderboard`
+  (one project per study, `dfbfm_NN-name`; studies #99). The old runs are not moved or re-logged:
+  the freezes (`freeze_fits.py`, `freeze_ctt_credit.py`) read those pinned groups from the shared
+  project, and their launch records stay as written. A new launch's sweep sets
+  `wandb.project=dfbfm_12-leaderboard`; an intervention on an old group joins it in the shared project.
 
 ## Verdict
 
