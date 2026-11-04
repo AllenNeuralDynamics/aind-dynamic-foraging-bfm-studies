@@ -82,16 +82,16 @@ class ScaffoldTest(unittest.TestCase):
     def test_refusals_leave_the_tree_unchanged(self):
         before = self.tree()
         for argv in (["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "Bad Name", "--motivated-by", "none", *TAGS],   # bad first variant
+                      "--project", "dfbfm_12-example", "--variant", "Bad Name", "--motivated-by", "none", *TAGS],   # bad first variant
                      ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "base", "--issue", "#14",
+                      "--project", "dfbfm_12-example", "--variant", "base", "--issue", "#14",
                       "--motivated-by", "none", *TAGS],                                       # malformed issue
                      ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "base", *TAGS],                   # no MOTIVATED_BY
+                      "--project", "dfbfm_12-example", "--variant", "base", *TAGS],                   # no MOTIVATED_BY
                      ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "base", "--motivated-by", "none"],   # no tags
+                      "--project", "dfbfm_12-example", "--variant", "base", "--motivated-by", "none"],   # no tags
                      ["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                      "--project", "p", "--variant", "base", "--motivated-by", "none",
+                      "--project", "dfbfm_12-example", "--variant", "base", "--motivated-by", "none",
                       "--model", "lstm", "--question-type", "scaling"],               # tag not in the vocabulary
                      ["variant", "--study", "", "--name", "wider"]):                   # missing STUDY
             with self.assertRaises(SystemExit):
@@ -114,7 +114,7 @@ class ScaffoldTest(unittest.TestCase):
 
     def test_local_issue_number_becomes_an_int(self):
         scaffold.main(["study", "--name", "12-gru-example", "--question", "Does the example hold up?",
-                       "--project", "p", "--variant", "base", "--issue", "14", "--motivated-by", "none", *TAGS])
+                       "--project", "dfbfm_12-example", "--variant", "base", "--issue", "14", "--motivated-by", "none", *TAGS])
         self.assertIn("- 14\n", (self.root / "studies/12-gru-example/README.md").read_text())
         self.assertEqual(self.findings(), [])
 
