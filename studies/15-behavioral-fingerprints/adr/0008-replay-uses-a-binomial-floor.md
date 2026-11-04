@@ -27,6 +27,8 @@ distribution has no replay prediction.
 
 ## Consequences
 
-- The binomial floor sits slightly below a perfect model's gap when a bin pools sessions with
-  different rates, because the pooled rate overstates the coin-flip noise; a perfect replay then
-  scores a little under 1 (0.97 in the test). That errs on the side of a high floor.
+- The binomial floor takes a bin's trials to share one switch probability. Where they differ
+  (a bin pooling sessions with different rates), a perfect model's gap is smaller, down to 0 for a
+  bin of certain switches and certain stays. The floor then sits slightly above a perfect
+  model's gap, and a perfect replay scores a little under 1 (0.97 in the test). That errs on the
+  side of a high floor.
