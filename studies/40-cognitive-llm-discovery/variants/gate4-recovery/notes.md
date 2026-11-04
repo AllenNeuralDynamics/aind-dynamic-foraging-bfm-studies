@@ -1,63 +1,63 @@
 # Variant `gate4-recovery`
 
 **What.** Gate 4's second half (PLAN): can a short search find a program from data that the program
-generated? The generating program is **new: in neither the seeds nor the library** (Han,
-2026-11-04). It is Hattori2019 plus satiety, `generator/hattori_satiety.py`: Q-learning with separate
-rates after reward and no reward and forgetting of the unchosen side, whose softmax inverse
-temperature falls as rewards accumulate within a session, as β·exp(−satiety_rate × rewards so far).
-No literature model changes within a session. The search uses the engine of the search to come: the
-same seeds and islands, effort medium, and one repair attempt per edit.
+generated? As simple as the engine smoke test (Han, 2026-11-04): the generating program is
+**hand-set, not fitted to mice**, the seeds are **simplified programs** that each lack part of it,
+and the literature library is **off**. The generating program, `generator/two_timescale_ck.py`, has
+reward history at two timescales plus a choice kernel: a fast and a slow reward trace for each side
+(learned on the chosen side), a choice kernel, and a side bias. The search uses the engine of the
+search to come: islands, effort medium, and one repair attempt per edit.
 
 | setting | value |
 |---|---|
-| target (generating program) | `generator/hattori_satiety.py`: 6 parameters, 3 latent variables (`q_left`, `q_right`, `rewards_so_far`) |
-| generating parameters | its own 2-level EM fit (at most 100 iterations) of each real template mouse: generation[0:24], validation[0:24], validation[24:48] (`mevolve.gate4 --fit-truths`). The selection cohort is not touched. |
-| simulated mice | 24 generation, 24 validation and 24 held-out mice, one per template mouse, each with that mouse's sessions (count, lengths, stages, order), each session's parameters drawn around the mouse's fit, playing the coupled block task with baiting (`--simulate-only`) |
-| library in the prompt | all 19 literature programs, except any the pre-check leaves out |
-| seeds | the template on island 0; Miller-RHG, Lopez-DoubleTrace, Lebedeva-PR and Eckstein-BI on islands 1 to 4 (ADR 0006) |
+| target (generating program) | `generator/two_timescale_ck.py`: 7 parameters, 5 latent variables |
+| generating parameters | hand-set (`make_truths.py`): every simulated mouse has the same typical values, and each session's parameters are drawn around them with a spread of 0.3 on the probit scale. Three settings, a to c, from mild to strong mechanisms. |
+| simulated mice | 24 generation, 24 validation and 24 held-out mice. Each borrows only its session layout (count, lengths, order) from a real template mouse: generation[0:24], validation[0:24], validation[24:48]. They play the coupled block task with baiting (`mevolve.gate4 --simulate-only`). The selection cohort is not touched. |
+| library in the prompt | off (`library_in_prompt: false`): Lopez-DoubleTrace already has two timescales |
+| seeds | the template (side bias + stickiness) on island 0; `seeds/q_learning.py` (one timescale), `seeds/choice_kernel.py` (no reward learning) and `seeds/two_timescale.py` (no kernel) on islands 1 to 3 |
+| reference, scored but never shown | `generator/one_timescale_ck.py`: the generating program without its slow trace |
 | search | 100 proposals by Claude Sonnet 5.5 at effort medium, one repair attempt per edit, a $8 cap |
 | evaluator | 2-level EM, at most 20 EM iterations, 2,048 draws: the search's settings for every score here |
 | code | MEvolve at the launch record's commit (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#51), ShinkaEvolve pinned at 8adc053a |
 
 **Why.** If the search cannot reach a program it is searching toward, a failure of the real search
-would say nothing about mouse behaviour. Gate 4 checks this before the $450 search, here with a
-mechanism the search is not shown.
+would say nothing about mouse behaviour. Gate 4 checks this before the $450 search. A hand-set
+generator lets each mechanism matter by a set margin, which fitted ones did not (the superseded
+designs below).
 
-**Pre-registered (2026-11-04, before any fit or score of the new program).**
+**Pre-registered (2026-11-04, before any simulation of this program).**
 
 1. **Target:** the generating program's own score on the simulated validation mice, with the
    search's settings.
-2. **Pre-check, before any Claude call** (`precheck.sbatch`, `mevolve.search.precheck`):
-   - Score the template, all 19 library programs and the target on the same mice.
-   - Leave out of the prompt any program within 0.4 of the target (twice the tolerance).
-   - Stop and ask Han if the target's own 2-level fit fails, if a seed or more than 3 programs would be left out, or if the template is within 0.4.
-   - **Amended 2026-11-04, after the real-mouse fits and before any score on the simulated mice:**
-     also stop if the target beats Hattori2019 (the same program without satiety) by less than 0.4.
-     Otherwise the search could pass by rebuilding plain Q-learning, without finding satiety. On the
-     24 real generation mice, satiety beat Hattori2019 by only 0.015 (66.378 against 66.363; median
-     satiety_rate 0.0008 per reward), which prompted this rule.
-3. **If satiety is too weak to matter:** if the pre-check stops because library programs come within
-   0.4 of the target, and the fitted satiety is the reason, the mice are simulated once more. Every
-   fitted parameter is kept except `satiety_rate`, which is set, for every mouse, to the 75th
-   percentile of the fitted typical values over all 72 mice; its fitted spread is kept. The pre-check
-   is then run once more. If it still stops, or if the real mice show no satiety at all (most fits at
-   the lower bound), Han decides.
+2. **Pre-check, before any Claude call** (`precheck.sbatch`, `mevolve.search.precheck`): score the
+   template, the three seeds, the reference and the target on the same mice. Stop if the target's own
+   2-level fit fails, or if the template, a seed or the reference comes within 0.4 of the target
+   (twice the tolerance): then the search could pass without the slow trace or without the kernel.
+3. **Calibration:** simulate and pre-check setting a; if it stops, b; then c. The first setting that
+   passes is used, and its directory is fixed in `search.sbatch`. If c stops too, Han decides.
 4. **Pass:** the best validation score of the search is at least the target − 0.2 on the ×100
    scale, the PLAN's 0.002 in pooled likelihood. The test is one-sided, because on finite data a
-   program may beat the one that generated it. On 24 mice the paired standard error between two
-   programs is about 0.045 to 0.08, so 0.2 is about 3 to 4 standard errors.
+   program may beat the one that generated it.
 5. **Winner's curse:** the winner is chosen on the validation mice, so its score there is biased
    upward. The winner and the target are each scored once on the 24 held-out mice (`heldout.py`),
    and both numbers are reported. The pass is decided on validation, as written in step 4.
 
-**What a pass shows.** The search can find a within-session mechanism that none of the programs it
-is shown has. **A failure is ambiguous:** the search may be weak, or a counter-based drift may simply
-be hard to invent in 100 proposals. Han chose this knowingly.
+**What a pass shows.** The search can combine and extend simplified programs into a mechanism none
+of them has, on data where that mechanism clearly matters. It does not show that the search finds
+subtle mechanisms in real mice.
 
 **Steps.**
-1. `truths.sbatch` fits the generating program to the template mice and simulates the three sets.
-2. `precheck.sbatch` writes `precheck.json`; its exclusions go into `run.json` in a new commit.
-3. `search.sbatch` runs the search and writes the launch record.
+1. `truths.sbatch` (with `SETTING`) writes the hand-set truths and simulates the three sets.
+2. `precheck.sbatch` (with `SIM_DIR`, step 1's directory) writes `precheck.json` there.
+3. `search.sbatch` runs the search and the held-out check; the launch writes its record.
+
+**Superseded second design: Hattori2019 plus satiety (2026-11-04).** The target was Hattori2019 whose
+softmax inverse temperature falls as rewards accumulate, β·exp(−satiety_rate × rewards so far)
+(`generator/hattori_satiety.py`), fitted by 2-level EM to each real template mouse. The real mice show
+almost no satiety: on the 24 real generation mice it beat Hattori2019 by only 0.015 (66.378 against
+66.363; median satiety_rate 0.0008 per reward), and by 0.030 on its own simulated mice. A pass would
+not have needed satiety, so Han stopped this design before its pre-check and chose the hand-set one
+above. Its fits and simulated mice are in `gate4/satiety_8e38b20/`.
 
 **Superseded first design: Hattori2019 as the target (2026-11-04).** The first design used Hattori2019
 (simulated mice in `gate4/run_85de84f/` and `gate4/second_half_cee79da/`). Its pre-check: SLURM 27609017, from studies 6e92764 and MEvolve cee79da, wrote
@@ -81,7 +81,7 @@ noise of the limit. The pre-check was run again from MEvolve 1c57149, which adds
 (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#49), so the search's seed scores come from the same
 code (SLURM 27609980, studies 1f1371a). All 20 scores were identical (largest difference 0.0); its
 result is `precheck_hattori2019.json` here. Han then chose a generating program in neither the
-seeds nor the library, the current design above.
+seeds nor the library: the satiety design, then the hand-set one.
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `gate4-recovery@<launch_id>` in `NeuralDynamics/dfbfm-mevolve` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 

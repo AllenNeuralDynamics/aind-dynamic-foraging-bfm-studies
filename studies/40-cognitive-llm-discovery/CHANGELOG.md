@@ -2,6 +2,11 @@
 
 ## 2026-11-04
 
+- `gate4-recovery`: a hand-set design, as simple as the engine smoke test (Han). The generating program
+  has two reward timescales plus a choice kernel (`generator/two_timescale_ck.py`), with hand-set values
+  (`make_truths.py`), not fits to mice; three simplified seeds (`seeds/`), the library off, and a
+  reference without the slow trace that the target must beat by 0.4. The satiety design is kept as
+  superseded: the mice showed almost no satiety (0.015 above Hattori2019).
 - `gate4-recovery`: Han chose a generating program in neither the seeds nor the library, Hattori2019
   plus satiety (`generator/hattori_satiety.py`), after the Hattori2019 design's pre-check stopped on the
   seed Lebedeva-PR; its parameters come from its own 2-level fit of the template mice

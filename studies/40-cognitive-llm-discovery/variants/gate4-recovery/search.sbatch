@@ -11,13 +11,15 @@
 #   VARIANT_DIR   this directory in the studies checkout at STUDIES_SHA
 #   MEVOLVE_SRC   src/ of a MEvolve checkout at MEVOLVE_SHA
 #   LAUNCH_ID, LAUNCH_LABEL, STUDIES_SHA, MEVOLVE_SHA
+# SIM_DIR is fixed below: the simulated mice of the setting the pre-check passed (notes.md).
 # The API keys come from ~/.config/mevolve/ and are never printed; the evaluation script removes
 # them before any candidate program runs.
 set -euo pipefail
 : "${VARIANT_DIR:?}" "${MEVOLVE_SRC:?}" "${LAUNCH_ID:?}" "${LAUNCH_LABEL:?}" "${STUDIES_SHA:?}" "${MEVOLVE_SHA:?}"
 PY=/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search/bin/python
-HELDOUT=/allen/aind/scratch/han.hou/mevolve/gate4/satiety_8e38b20/simulated_hattori_satiety_heldout.json.gz
-export PYTHONPATH="$MEVOLVE_SRC"
+export SIM_DIR=TO_BE_SET_AFTER_THE_PRECHECK
+HELDOUT="$SIM_DIR/simulated_two_timescale_ck_heldout.json.gz"
+export PYTHONPATH="$MEVOLVE_SRC" VARIANT_DIR
 export WANDB_GROUP="gate4-recovery@${LAUNCH_ID}"
 export MEVOLVE_LAUNCH_DIR="/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/${LAUNCH_ID}"
 export ANTHROPIC_API_KEY="$(cat ~/.config/mevolve/anthropic_api_key)"
@@ -33,6 +35,6 @@ search_ok=1
 "$PY" -m mevolve.search.report "$MEVOLVE_LAUNCH_DIR/search" || { echo "report failed"; status=1; }
 if [ "$search_ok" = 1 ]; then                    # the held-out mice are used once, on the finished search only
   "$PY" "$VARIANT_DIR/heldout.py" --run "$MEVOLVE_LAUNCH_DIR/search" --config "$VARIANT_DIR/run.json" \
-    --heldout "$HELDOUT" --target "$VARIANT_DIR/generator/hattori_satiety.py" --out "$MEVOLVE_LAUNCH_DIR/heldout" || { echo "held-out check failed"; status=1; }
+    --heldout "$HELDOUT" --target "$VARIANT_DIR/generator/two_timescale_ck.py" --out "$MEVOLVE_LAUNCH_DIR/heldout" || { echo "held-out check failed"; status=1; }
 fi
 exit "$status"

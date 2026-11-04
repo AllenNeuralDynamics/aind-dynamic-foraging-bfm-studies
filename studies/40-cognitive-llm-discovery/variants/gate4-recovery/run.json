@@ -2,8 +2,8 @@
  "results_dir": "$TMPDIR/search",
  "out_dir": "$MEVOLVE_LAUNCH_DIR/search",
  "simulated": {
-  "generation": "/allen/aind/scratch/han.hou/mevolve/gate4/satiety_8e38b20/simulated_hattori_satiety_generation.json.gz",
-  "validation": "/allen/aind/scratch/han.hou/mevolve/gate4/satiety_8e38b20/simulated_hattori_satiety_validation.json.gz"
+  "generation": "$SIM_DIR/simulated_two_timescale_ck_generation.json.gz",
+  "validation": "$SIM_DIR/simulated_two_timescale_ck_validation.json.gz"
  },
  "library_exclude": [],
  "workers": 24,
@@ -18,13 +18,12 @@
  "max_patch_attempts": 2,
  "n_proposals": 100,
  "seeds": [
-  "Miller-RHG",
-  "Lopez-DoubleTrace",
-  "Lebedeva-PR",
-  "Eckstein-BI"
+  "$VARIANT_DIR/seeds/q_learning.py",
+  "$VARIANT_DIR/seeds/choice_kernel.py",
+  "$VARIANT_DIR/seeds/two_timescale.py"
  ],
  "seed_cache": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/seed_cache",
- "library_in_prompt": true,
+ "library_in_prompt": false,
  "migration_interval": 10,
  "migration_rate": 0.1,
  "wandb": {
@@ -33,7 +32,7 @@
   "group": "$WANDB_GROUP",
   "name": "gate4-recovery-search",
   "mode": "online",
-  "notes": "Gate 4 second half: 100 proposals on mice simulated from Hattori2019 plus satiety, a program in neither the seeds nor the library"
+  "notes": "Gate 4 second half: 100 proposals on mice simulated from a hand-set program (two reward timescales plus a choice kernel), seeded with simplified programs, library off"
  },
  "launch": {
   "label": "$LAUNCH_LABEL",
