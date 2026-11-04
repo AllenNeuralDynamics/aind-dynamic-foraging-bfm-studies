@@ -40,6 +40,12 @@ GLM = HERE / "p1_glm.json"
 OUT = HERE / "p1_agent_check.json"
 
 
+def _max_diff(got, want) -> float:
+    """Largest |got - want|; a non-finite difference counts as infinite, so it fails the gate."""
+    d = np.abs(np.asarray(got, dtype=float) - np.asarray(want, dtype=float))
+    return float(np.max(np.where(np.isfinite(d), d, np.inf)))
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--models-repo", type=Path, required=True)
@@ -67,8 +73,8 @@ def main() -> None:
             sessions = freeze.subject_sessions(sid, "score")
             p = {k: params[sid][k] for k in prog.params}
             want = scoring.point_p_right(prog, fitting.from_params(prog, p), fitting.pad(sessions))
-            diff = max(float(np.max(np.abs(replay(ProgramAgent(prog, p), s.choices, s.rewards)
-                                            - np.asarray(want[i, : len(s.choices)]))))
+            diff = max(_max_diff(replay(ProgramAgent(prog, p), s.choices, s.rewards),
+                                 want[i, : len(s.choices)])
                        for i, s in enumerate(sessions))
             rows.append({"adapter": "ProgramAgent", "model": name, "subject_id": sid,
                          "n_trials": int(sum(len(s.choices) for s in sessions)), "max_abs_diff": diff})
@@ -79,8 +85,8 @@ def main() -> None:
         agent = GLMAgent(r["coef_rewc"], r["coef_unrc"], r["bias"])
         w = np.r_[r["coef_rewc"], r["coef_unrc"]]
         sessions = freeze.subject_sessions(sid, "score")
-        diff = max(float(np.max(np.abs(replay(agent, s.choices, s.rewards)
-                                        - 1 / (1 + np.exp(-(design(s.choices, s.rewards) @ w + r["bias"]))))))
+        diff = max(_max_diff(replay(agent, s.choices, s.rewards),
+                             1 / (1 + np.exp(-(design(s.choices, s.rewards) @ w + r["bias"]))))
                    for s in sessions)
         rows.append({"adapter": "GLMAgent", "model": json.loads(GLM.read_text())["model"], "subject_id": sid,
                      "n_trials": int(sum(len(s.choices) for s in sessions)), "max_abs_diff": diff})

@@ -3,9 +3,9 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p1_agent_check.py",
-    "produced_at_pt": "2026-11-04T13:01:24-08:00",
-    "studies_git_sha": "89d8b8818d7fdec495c1f7c68a5eaa43aa4be8c5",
-    "studies_git_dirty": false,
+    "produced_at_pt": "2026-11-04T13:17:48-08:00",
+    "studies_git_sha": "03473b4ef1dbc106f69721cb2d2bb92e18f6eaf7",
+    "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
     "source_studies_git_shas": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_agent_check.py",
-        "sha256": "85edc177599c9611fb36a07a4b80184ff7fe0da9ee8d0f2256f909c24bb8fcbf"
+        "sha256": "4a043b7a0da0129288f7e743c8edd3637c873e96899c736e2ff6caa62faddb17"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
@@ -59,13 +59,13 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_agent_check.json",
-        "sha256": "aa134bb402822234abff4559d18d7608a087782577a34dd975a2c25e61b8f98c"
+        "sha256": "0f03347f939a0f3a5669fca75d46cf32ae2c3b117d58992dea32e8834c10034c"
       }
     ]
   },
   "fingerprints_library": {
     "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
-    "git_sha": "95c4646729e7e72346fcff384066dea811ef8daf"
+    "git_sha": "7f32dd8ecc5209934173cafc2958e25cf43d3cc9"
   },
   "mevolve_git_sha": "30ae4f3386a67a02b543b4b84fb83caedd1cd8a2",
   "tolerance": 1e-06,
