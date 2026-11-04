@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-04T08:36:29-08:00",
-    "studies_git_sha": "9fef0e4428f0ff8b5bcdb2b07e1cb372b6b46fa4",
+    "produced_at_pt": "2026-11-04T08:42:39-08:00",
+    "studies_git_sha": "76d7388ca9000bb3cdf765eed4ce7d9306c93b07",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
-        "sha256": "9f7e8354faf769a43e672a1c01d7921d88479750c5e7463289638c4a262da43a"
+        "sha256": "e3f0612163c20a9ad24504e5312243943f03666d3b18accaf2d6ebaa837063c3"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -64,7 +64,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-1",
-        "sha256": "77087ca73c2ce0352f9e76a2df4fa967473d38167e8f6ff7c6af4347232ad59e"
+        "sha256": "8d77aba2efea49e011570ab0335ea4f4d6520b42efe10ee8eba8abb98ef27c0f"
       }
     ]
   },

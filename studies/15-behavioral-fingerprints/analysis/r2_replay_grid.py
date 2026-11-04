@@ -185,14 +185,12 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str]) -> str:
     lines += [
         "",
         f"**Gates** (library `{gates['library_git_sha'][:7]}`, MEvolve `{gates['mevolve_git_sha'][:7]}`). "
-        f"Every replay shown ({gates['n_models']} models × {gates['n_subjects']} subjects) "
+        f"Every replay shown ({gates['n_models']} of study 12's models × {gates['n_subjects']} subjects) "
         "reproduces the held-out log likelihood study 12 stored for the subject: largest difference "
         + ", ".join(f"{REGIMES[k]} {v:.1e}" for k, v in gates["max_abs_log_lik_diff"].items())
         + f" (tolerance {gates['tolerance']['log_lik']:.0e}). "
-        + "".join(f"Left out: {e['model']} ({REGIMES[e['regime']]}), whose 2-level fit study 12 r3 "
-                  f"marks failed; {e['n_subjects_replay_differs']} subjects' typical values sit on a "
-                  "parameter bound with spreads up to e^10, so the stored values cannot rebuild the "
-                  "fit's draws. " for e in gates["excluded"])
+        + "".join(f"Left out: {e['model']} ({REGIMES[e['regime']]}; {e['n_subjects_replay_differs']} "
+                  f"subjects differ): {e['reason']}. " for e in gates["excluded"])
         + "MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the "
         f"stored one to {gates['max_fingerprint_diff']:.1e}. The GLM's replay equals scikit-learn's "
         f"prediction to {gates['glm_max_abs_diff']:.1e}; its pooled held-out likelihood is "

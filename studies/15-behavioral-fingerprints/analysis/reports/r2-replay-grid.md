@@ -74,7 +74,7 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
 | GLM-Su2022 | last 1–3 trials | 2.3 | — | — |
 | Win-Stay-Lose-Shift | losses | 43.9 | — | — |
 
-**Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (20 models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM), whose 2-level fit study 12 r3 marks failed; 2 subjects' typical values sit on a parameter bound with spreads up to e^10, so the stored values cannot rebuild the fit's draws. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169.
+**Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (20 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169.
 <!-- END result-1 -->
 
 ## What it says
@@ -102,5 +102,10 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
   ratios on the three local statistics are 1.1 to 1.4 within single session groups and 1.3 to
   1.4 when the groups are pooled (`r2_replay_grid.json`, `floor_ratio_by_set`). Compare models
   within a column, not columns with each other.
+- **Rescorla-Wagner's 2-level cell is left out.** Its 2-level fit diverged: for 11 of the 149
+  test subjects a typical value sits on a parameter bound, with spreads up to e^10, and the
+  stored values cannot rebuild the fit's draws. Two subjects miss the stored score; on subjects
+  whose score matches, MEvolve's stored fingerprints still differ by up to 0.019
+  (`p1_replay.json`). Study 12 r3 already ranks the model by its per-subject score.
 
 Rollouts (P2) test whether these per-trial errors add up over a session.
