@@ -9,6 +9,11 @@ then per model, regime, set and statistic the subject-balanced gap, floor and fl
 ``warm-up``, and each ``{stage_group}|{task}`` group alone. It reads only committed files, but it
 needs the fingerprint library, which CI does not install, so it is a freeze and r2 reads its output.
 
+A model and regime enter only if every subject's replay reproduced study 12 (``p1_replay.json``).
+The one exception is a 2-level fit that study 12 r3 marks failed (its 2-level score is below its
+per-subject score, so r3 places the model by the latter): a cell of such a fit that did not
+reproduce is left out and listed in ``excluded``; any other failed cell stops the freeze.
+
 Also writes, for the headline set, each subject's gap and floor (for scatters) and the
 subject-mean predicted and observed rate per bin (for the per-bin curves).
 
@@ -30,6 +35,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
 sys.path.insert(0, str(HERE))
+import cross_study_literature as lit  # noqa: E402
 from _meta import build_meta, write_artifact  # noqa: E402
 from freeze_p0_golden_mevolve import _git_sha  # noqa: E402
 
@@ -106,8 +112,23 @@ def main() -> None:
                 floors[name][stat][sid] = np.nan if t is None else binomial_floor(t, stat)
 
     glm = json.loads(GLM.read_text())
-    assert replay["passed"] and glm["passed"], "a P1 replay gate failed; fix it before comparing"
-    inputs, models = [REPLAY, GLM, GROUPS, animal_file], {}
+    assert glm["passed"], "the GLM replay gate failed; fix it before comparing"
+    failed_fits = {r["literature_model"] for r in lit.literature_headline_ranking()
+                   if r["source"] != "2-level EM"}
+    excluded = []
+    for model, regimes in replay["models"].items():
+        for regime, g in regimes.items():
+            if g["passed"]:
+                continue
+            if regime != "two_level_em" or model not in failed_fits:
+                raise SystemExit(f"{model} {regime} does not reproduce study 12; fix it before comparing")
+            excluded.append({"model": model, "regime": regime,
+                             "n_subjects_replay_differs": g["n_subjects_replay_differs"],
+                             "reason": "study 12 r3 marks this 2-level fit failed, and its replay "
+                                       "from the stored typical values does not reproduce the "
+                                       "stored score"})
+    skip = {(e["model"], e["regime"]) for e in excluded}
+    inputs, models = [REPLAY, GLM, GROUPS, animal_file, lit.HEADLINE_SOURCE], {}
     for model in list(replay["models"]) + [glm["model"]]:
         path = TALLIES / f"{model}.json"
         inputs.append(path)
@@ -115,6 +136,8 @@ def main() -> None:
         assert body["spec"] == SPEC_VERSION and body["model"] == model
         models[model] = {}
         for regime, r in body["regimes"].items():
+            if (model, regime) in skip:
+                continue
             flagged = set(r["subjects_replay_differs"])
             tallies = {sid: _with_pred(animal[sid], r["pred"][sid]) for sid in subjects}
             cells = {}
@@ -152,6 +175,7 @@ def main() -> None:
         "spec": SPEC_VERSION,
         "min_trials": MIN_TRIALS,
         "headline_set": HEADLINE,
+        "excluded": excluded,
         "sets": {k: sorted(v) for k, v in sets.items()},
         "subjects": subjects,
         "bins": {s: list(BINS[s]) for s in RATE_STATISTICS},
