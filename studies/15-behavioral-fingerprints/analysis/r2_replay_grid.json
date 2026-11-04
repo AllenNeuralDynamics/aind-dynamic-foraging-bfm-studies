@@ -1,0 +1,4533 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r2_replay_grid.py",
+    "produced_at_pt": "2026-11-04T12:52:44-08:00",
+    "studies_git_sha": "99376f20c37c169aaed52b6592b566b158d6fe8d",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
+        "sha256": "2da61150e45bbdf0d8c49bfa81d09388dd6ca614143a3d1f7a29c67c52571817"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/cross_study_literature.py",
+        "sha256": "112514978d87c6d7fe15804ef570cbef9aa4de880ed7a75d8a5c5e95df52fb4e"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay.json",
+        "sha256": "3a0c7c0d4a3334119c7f11dc32c3a64cfc3c421602f914ea1533f5af99fc7020"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_glm.json",
+        "sha256": "1b25d1427a004119a77a975797e0897f4a9da48db0aeef8c6f72abd794dd0131"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay_gaps.json",
+        "sha256": "e27f9fe75210c8e74de04d3835be5e9e58c24ae867deb6317a538e51a2de0396"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
+        "sha256": "7db7708473d23024670c879b6d732a7c6a38f359461fdd47c08c799bf6ff845c"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.json",
+        "sha256": "8f2f399a81bd74a79b02dccbd08e46739f511461cbbe99f814f740af78f4735d"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_replay_grid.svg",
+        "sha256": "d10d1e8b84ccb2c351ae72f0a9880ca2841187022256ec6497d8a288dd7aedcf"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_bins.svg",
+        "sha256": "59baf7fec9ef9806e65f9818b82c8a18d6c02d9b65e36a687daa9a52956c553c"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scatter.svg",
+        "sha256": "5662f9aa4878a2a6b42e5c6e4a843486c6e7ffb68df18d96be6e577d7827a1a7"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-1",
+        "sha256": "0df2ecf520b0faa82dae6d4420eeeda9562e7ad1066584aa76c91b7be25bac30"
+      }
+    ]
+  },
+  "gates": {
+    "library_git_sha": "286692dd076fe6203c0fcf096c06fe37552e49da",
+    "mevolve_git_sha": "30ae4f3386a67a02b543b4b84fb83caedd1cd8a2",
+    "tolerance": {
+      "log_lik": 1e-06,
+      "fingerprint": 1e-09
+    },
+    "n_models": 19,
+    "n_subjects": 149,
+    "max_abs_log_lik_diff": {
+      "per_subject": 1.8189894035458565e-11,
+      "two_level_em": 3.637978807091713e-12
+    },
+    "max_fingerprint_diff": 1.0907941216942163e-14,
+    "excluded": [
+      {
+        "model": "Rescorla-Wagner",
+        "regime": "two_level_em",
+        "n_subjects_replay_differs": 2,
+        "reason": "study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score"
+      }
+    ],
+    "glm_max_abs_diff": 2.220446049250313e-16,
+    "glm_pooled_heldout_likelihood": 0.7168649596421358,
+    "passed": true
+  },
+  "headline_set": "non-warm-up",
+  "order": [
+    "Lebedeva-PR",
+    "Lopez-DoubleTrace",
+    "Bari2019",
+    "Miller-RHG",
+    "CompareToThreshold",
+    "Hattori2019",
+    "Zid-HistoryKernel2-ForagingRL",
+    "Eckstein-BI",
+    "Beron-RFLR",
+    "Chen-RLCK",
+    "Eckstein-RL",
+    "Grossman-MetaLearning",
+    "FeedbackDependent-RL+Bias+CK1",
+    "Alsio-DualRateSticky-RL",
+    "LossCounting",
+    "ActorCritic",
+    "FeedbackDependent-RL+Bias",
+    "FeedbackDependent-RL",
+    "Rescorla-Wagner",
+    "GLM-Su2022"
+  ],
+  "two_level_failed": [
+    "Grossman-MetaLearning",
+    "LossCounting",
+    "Rescorla-Wagner"
+  ],
+  "rows": [
+    {
+      "model": "Lebedeva-PR",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.991902089930144,
+          "pattern": 2.0292550446449726,
+          "hazard": 2.183630411396302,
+          "post_switch": 1.7185425053396515
+        },
+        "worst": "hazard",
+        "score": 1.9734949002069926,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.3952387506537633,
+          "pattern": 1.4325259839336248,
+          "hazard": 1.407309937319099,
+          "post_switch": 1.3082118140648948
+        },
+        "worst": "pattern",
+        "score": 1.3850157583953246,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.8978814046866965,
+          "pattern": 1.944137159971818,
+          "hazard": 1.9951125348198255,
+          "post_switch": 1.6437807045859523
+        },
+        "worst": "hazard",
+        "score": 1.865098667698597,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.400206169322342,
+          "pattern": 1.424880992007749,
+          "hazard": 1.2998288381780694,
+          "post_switch": 1.213347372718063
+        },
+        "worst": "pattern",
+        "score": 1.3318658256252662,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Bari2019",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.2652976566011485,
+          "pattern": 2.4816160320596037,
+          "hazard": 2.483312871475963,
+          "post_switch": 1.6459364439196642
+        },
+        "worst": "hazard",
+        "score": 2.1894049251369423,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4058057481979696,
+          "pattern": 1.5541387811819287,
+          "hazard": 1.5145228592430744,
+          "post_switch": 1.37873956656847
+        },
+        "worst": "pattern",
+        "score": 1.4614814117875374,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Miller-RHG",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.2224604187773274,
+          "pattern": 2.729309598900247,
+          "hazard": 2.661244472261911,
+          "post_switch": 1.9017851321445312
+        },
+        "worst": "pattern",
+        "score": 2.353874285058226,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4662212886169046,
+          "pattern": 1.5862391483616558,
+          "hazard": 1.4876050467952473,
+          "post_switch": 1.2962869222371707
+        },
+        "worst": "pattern",
+        "score": 1.4552554751148825,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "CompareToThreshold",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.6083797190543037,
+          "pattern": 1.898597744370424,
+          "hazard": 1.725495215552861,
+          "post_switch": 1.5820744160569469
+        },
+        "worst": "pattern",
+        "score": 1.6991845632429858,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.3872217071530333,
+          "pattern": 1.5327190390583691,
+          "hazard": 1.4201223127871532,
+          "post_switch": 1.6010579679488253
+        },
+        "worst": "post_switch",
+        "score": 1.4828093261528317,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Hattori2019",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.5268295739768956,
+          "pattern": 2.722595622284781,
+          "hazard": 2.5828942613279486,
+          "post_switch": 1.8196939001029613
+        },
+        "worst": "pattern",
+        "score": 2.3846026098248863,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.98731315225559,
+          "pattern": 2.039110062578296,
+          "hazard": 1.9299163710321487,
+          "post_switch": 1.679373426099305
+        },
+        "worst": "pattern",
+        "score": 1.9036985774151114,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.3063998841031106,
+          "pattern": 2.117292887038814,
+          "hazard": 2.0077142050099885,
+          "post_switch": 1.9567824316433262
+        },
+        "worst": "losses",
+        "score": 2.09285911820585,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.9719017803240142,
+          "pattern": 1.7795279966712576,
+          "hazard": 1.792133161497256,
+          "post_switch": 2.1338830711468866
+        },
+        "worst": "post_switch",
+        "score": 1.913959525631862,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Eckstein-BI",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.2479688022097375,
+          "pattern": 2.856004624676246,
+          "hazard": 3.252328197670818,
+          "post_switch": 1.938586127058545
+        },
+        "worst": "hazard",
+        "score": 2.522360534808197,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4635086475459205,
+          "pattern": 1.7864859693960766,
+          "hazard": 1.881496500093515,
+          "post_switch": 1.630073186086082
+        },
+        "worst": "hazard",
+        "score": 1.6827761775710828,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Beron-RFLR",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.557469994901797,
+          "pattern": 2.9544032772852318,
+          "hazard": 3.2154190427488825,
+          "post_switch": 1.9334227734339384
+        },
+        "worst": "hazard",
+        "score": 2.617949008069486,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4972194951848825,
+          "pattern": 1.8112399157172858,
+          "hazard": 1.9132670322197503,
+          "post_switch": 1.714416970058238
+        },
+        "worst": "hazard",
+        "score": 1.726984241645271,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Chen-RLCK",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.3313048858774494,
+          "pattern": 2.8277338836467147,
+          "hazard": 2.480676112734652,
+          "post_switch": 1.910625994408426
+        },
+        "worst": "pattern",
+        "score": 2.364263290860948,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.9458361182791823,
+          "pattern": 2.278969068439424,
+          "hazard": 1.8635740342232194,
+          "post_switch": 1.474993409118315
+        },
+        "worst": "pattern",
+        "score": 1.8685096941094368,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Eckstein-RL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.0153705518697045,
+          "pattern": 2.8629670317627163,
+          "hazard": 3.1120430836516304,
+          "post_switch": 1.9258558531264884
+        },
+        "worst": "hazard",
+        "score": 2.424991152985285,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4526900508153446,
+          "pattern": 1.9988533539768103,
+          "hazard": 2.1617284982386638,
+          "post_switch": 1.6888851951641979
+        },
+        "worst": "hazard",
+        "score": 1.8044248232270952,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.744290915037242,
+          "pattern": 2.76407498643542,
+          "hazard": 2.499705783155021,
+          "post_switch": 1.8436035034077922
+        },
+        "worst": "pattern",
+        "score": 2.431554998109662,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 3.0518711675355448,
+          "pattern": 3.5121864499784055,
+          "hazard": 3.270126949507947,
+          "post_switch": 1.8964940212839076
+        },
+        "worst": "pattern",
+        "score": 2.8553868984623385,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.608903472075293,
+          "pattern": 4.681692390212286,
+          "hazard": 5.920509370243305,
+          "post_switch": 3.4170422164691243
+        },
+        "worst": "hazard",
+        "score": 3.9647661401198215,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.5975754619145774,
+          "pattern": 3.005590146816501,
+          "hazard": 3.4144391175264968,
+          "post_switch": 2.5511082595060413
+        },
+        "worst": "hazard",
+        "score": 2.5430789931095314,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.5544233404866885,
+          "pattern": 4.740084891491854,
+          "hazard": 6.086513242325433,
+          "post_switch": 3.6488789994716218
+        },
+        "worst": "hazard",
+        "score": 4.049503294878869,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.7189245634179975,
+          "pattern": 3.3826075327020786,
+          "hazard": 3.9619852371003637,
+          "post_switch": 3.052832954738417
+        },
+        "worst": "hazard",
+        "score": 2.895883463023477,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "LossCounting",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 6.242849939743966,
+          "pattern": 7.539425630705365,
+          "hazard": 9.236552620148885,
+          "post_switch": 4.192276391869152
+        },
+        "worst": "hazard",
+        "score": 6.533866299935723,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 6.375203122799004,
+          "pattern": 7.974382005525672,
+          "hazard": 9.489272800545772,
+          "post_switch": 4.077348185528524
+        },
+        "worst": "hazard",
+        "score": 6.6596353303891265,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "ActorCritic",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 8.239088922656011,
+          "pattern": 10.554842314174387,
+          "hazard": 10.95382713227912,
+          "post_switch": 4.674406023861225
+        },
+        "worst": "hazard",
+        "score": 8.168753929777537,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 4.082820530965795,
+          "pattern": 4.942290979026647,
+          "hazard": 6.0679031391286555,
+          "post_switch": 4.242609429375209
+        },
+        "worst": "hazard",
+        "score": 4.774084189442737,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 27.229446357053323,
+          "pattern": 29.465518208500477,
+          "hazard": 27.073634770073017,
+          "post_switch": 3.8707793181695607
+        },
+        "worst": "pattern",
+        "score": 17.02842449841181,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 17.999931043715236,
+          "pattern": 19.511497812569228,
+          "hazard": 17.9410201704363,
+          "post_switch": 4.066439589365213
+        },
+        "worst": "pattern",
+        "score": 12.651899328318208,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 28.186210974709123,
+          "pattern": 30.901558652971506,
+          "hazard": 28.38728434598043,
+          "post_switch": 3.960693084615653
+        },
+        "worst": "pattern",
+        "score": 17.690008046943046,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 21.851046137474597,
+          "pattern": 24.395257663427003,
+          "hazard": 22.445821575728154,
+          "post_switch": 4.160657838460686
+        },
+        "worst": "pattern",
+        "score": 14.937185967236374,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 27.166952987376426,
+          "pattern": 31.437444325284677,
+          "hazard": 28.899883219816772,
+          "post_switch": 4.121953594749603
+        },
+        "worst": "pattern",
+        "score": 17.85960451597118,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "GLM-Su2022",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.0444570178233,
+          "pattern": 2.2706127200903263,
+          "hazard": 2.250879831063697,
+          "post_switch": 1.9088917699443015
+        },
+        "worst": "pattern",
+        "score": 2.1133122309001005,
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    }
+  ],
+  "floor_ratio_by_set": {
+    "Lebedeva-PR": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 1.991902089930144,
+          "pattern": 2.0292550446449726,
+          "hazard": 2.183630411396302,
+          "post_switch": 1.7185425053396515
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.5926854663699246,
+          "pattern": 1.9618020209147198,
+          "hazard": 1.8331863361917915,
+          "post_switch": 2.7215994250027964
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.6559864400584101,
+          "pattern": 1.9016258902864607,
+          "hazard": 1.8262517680206372,
+          "post_switch": 1.7185260321628724
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.7737956397180996,
+          "pattern": 2.1952919980766605,
+          "hazard": 2.034615939534315,
+          "post_switch": 2.1763503334574703
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.3692644384829422,
+          "pattern": 1.5328725173428586,
+          "hazard": 1.45086420458765,
+          "post_switch": 1.2981849973997501
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.397028310131753,
+          "pattern": 1.5846063542420774,
+          "hazard": 1.5658691477754283,
+          "post_switch": 1.5470620512443642
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.8261820023682411,
+          "pattern": 1.9476263373092082,
+          "hazard": 2.071351380175353,
+          "post_switch": 1.5612969951563664
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.8340299746967148,
+          "pattern": 1.9841496702627843,
+          "hazard": 2.015467517328814,
+          "post_switch": 1.5833642410680824
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.1921857648647993,
+          "pattern": 2.4942485092880027,
+          "hazard": 2.48065845219793,
+          "post_switch": 1.9140662064961973
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.91190829462769,
+          "pattern": 2.000696143086479,
+          "hazard": 1.6388257543947318,
+          "post_switch": 1.5157565708751495
+        },
+        "unknown|Random Walk": {
+          "losses": 2.6153739487815058,
+          "pattern": 3.8506144034663063,
+          "hazard": 3.2877504643261757,
+          "post_switch": 0.2548301841174843
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.5663949484421023,
+          "pattern": 1.8190381166789353,
+          "hazard": 1.837985962241648,
+          "post_switch": 1.4112624158753297
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.9915184512125823,
+          "pattern": 2.6919559431394413,
+          "hazard": 2.6670427286491716,
+          "post_switch": 2.3482352571426444
+        },
+        "warm-up": {
+          "losses": 1.753799661221619,
+          "pattern": 2.196092766855005,
+          "hazard": 1.7673468843669746,
+          "post_switch": 1.747890707399198
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.3952387506537633,
+          "pattern": 1.4325259839336248,
+          "hazard": 1.407309937319099,
+          "post_switch": 1.3082118140648948
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1566150683717082,
+          "pattern": 1.24671183938082,
+          "hazard": 1.2129685572178033,
+          "post_switch": 1.5904710872403023
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.1742267250190987,
+          "pattern": 1.1712280372181265,
+          "hazard": 1.2184200101048028,
+          "post_switch": 1.2757168763371505
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.13774170737833,
+          "pattern": 1.2951113894473105,
+          "hazard": 1.2841727075913223,
+          "post_switch": 1.4737242097074184
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.1196179063600151,
+          "pattern": 1.26555264108341,
+          "hazard": 1.1882512054353482,
+          "post_switch": 1.17064726795079
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.1751807299774448,
+          "pattern": 1.237130940474051,
+          "hazard": 1.137828228030134,
+          "post_switch": 1.4680755040625064
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.318315397701165,
+          "pattern": 1.3389950086786158,
+          "hazard": 1.3386052059070983,
+          "post_switch": 1.253827209809855
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.3761107530052272,
+          "pattern": 1.238373250373667,
+          "hazard": 1.2231089470708736,
+          "post_switch": 1.2451301578681264
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.4836215225503635,
+          "pattern": 1.5181274192407375,
+          "hazard": 1.52027605328866,
+          "post_switch": 1.3222612905791187
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.6656736702894092,
+          "pattern": 0.7877066434485837,
+          "hazard": 0.8660743992380517,
+          "post_switch": 1.1117889979740754
+        },
+        "unknown|Random Walk": {
+          "losses": 0.9573968650290215,
+          "pattern": 0.5622626777095979,
+          "hazard": 1.0808170593468125,
+          "post_switch": 0.33246092418780876
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.0526668879594374,
+          "pattern": 1.2160391362674154,
+          "hazard": 1.3345679274209339,
+          "post_switch": 1.090619134665396
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.1290481970573543,
+          "pattern": 1.250979363215365,
+          "hazard": 1.3557232577099965,
+          "post_switch": 1.7692454589311664
+        },
+        "warm-up": {
+          "losses": 1.3179155765813597,
+          "pattern": 1.3440585016659536,
+          "hazard": 1.1481407281588827,
+          "post_switch": 1.2956957028772256
+        }
+      }
+    },
+    "Lopez-DoubleTrace": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 1.8978814046866965,
+          "pattern": 1.944137159971818,
+          "hazard": 1.9951125348198255,
+          "post_switch": 1.6437807045859523
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.5735417401482974,
+          "pattern": 1.962415096617039,
+          "hazard": 1.800539132571969,
+          "post_switch": 2.6112806502047934
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.6733705026401184,
+          "pattern": 1.9112406890230433,
+          "hazard": 1.8113692460452921,
+          "post_switch": 1.7176646245644929
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.7464656396466438,
+          "pattern": 2.1604199094966385,
+          "hazard": 1.9751990161520943,
+          "post_switch": 2.134473785176711
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.3711867395404165,
+          "pattern": 1.5335245571594125,
+          "hazard": 1.435751118816207,
+          "post_switch": 1.3243224074821405
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.3244516466669616,
+          "pattern": 1.503964062794578,
+          "hazard": 1.4556591529316463,
+          "post_switch": 1.4064765695390968
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.7609344717603561,
+          "pattern": 1.9162837043470808,
+          "hazard": 1.9311937626723432,
+          "post_switch": 1.503165826601284
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.8159359681635232,
+          "pattern": 1.98129519283805,
+          "hazard": 1.972980715610281,
+          "post_switch": 1.5744201615061428
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.0981893870068085,
+          "pattern": 2.3620546116109096,
+          "hazard": 2.333304987213758,
+          "post_switch": 1.7364048519654542
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.9031541220764803,
+          "pattern": 2.011488245998119,
+          "hazard": 1.6309838905763046,
+          "post_switch": 1.5237270037863657
+        },
+        "unknown|Random Walk": {
+          "losses": 2.4645698128578526,
+          "pattern": 3.6875267745710403,
+          "hazard": 3.161971174425122,
+          "post_switch": 0.1846337566606185
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.6164686455591082,
+          "pattern": 1.8427795483901621,
+          "hazard": 1.8177232425053376,
+          "post_switch": 1.386365011145871
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.964104328933649,
+          "pattern": 2.653221933513178,
+          "hazard": 2.5936443621144236,
+          "post_switch": 2.3028815105292035
+        },
+        "warm-up": {
+          "losses": 1.7510151158828493,
+          "pattern": 2.228381234240624,
+          "hazard": 1.7787577039617017,
+          "post_switch": 1.750761178734155
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.400206169322342,
+          "pattern": 1.424880992007749,
+          "hazard": 1.2998288381780694,
+          "post_switch": 1.213347372718063
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1976010320424926,
+          "pattern": 1.2801776005797227,
+          "hazard": 1.2497884534832508,
+          "post_switch": 1.6089544154577204
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.2658150672800945,
+          "pattern": 1.2555755116092877,
+          "hazard": 1.2646129972287152,
+          "post_switch": 1.3652305423131792
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.132490288091622,
+          "pattern": 1.2618840913585876,
+          "hazard": 1.2519205614302138,
+          "post_switch": 1.4186402238643057
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.1119908045169118,
+          "pattern": 1.1473990156189382,
+          "hazard": 1.1453214382343564,
+          "post_switch": 1.1853746629878992
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.4112271360680417,
+          "pattern": 1.592412126617232,
+          "hazard": 1.4052390576116134,
+          "post_switch": 1.6267799490893482
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.3157155112657801,
+          "pattern": 1.3495703149784888,
+          "hazard": 1.230881050790517,
+          "post_switch": 1.155863693182664
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.3627010594625901,
+          "pattern": 1.2453663992809505,
+          "hazard": 1.2330363205688262,
+          "post_switch": 1.221976196713758
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.4833905173385242,
+          "pattern": 1.4586996887716512,
+          "hazard": 1.4226483913621233,
+          "post_switch": 1.1637093436443757
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.6132315426645492,
+          "pattern": 0.9645720133599716,
+          "hazard": 1.004969944900659,
+          "post_switch": 1.1320546162506235
+        },
+        "unknown|Random Walk": {
+          "losses": 0.8431272330760127,
+          "pattern": 0.4339910528600092,
+          "hazard": 0.8942819357633532,
+          "post_switch": 0.6415178978068186
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.199879955934758,
+          "pattern": 1.3504408906874383,
+          "hazard": 1.3495065476295298,
+          "post_switch": 1.062543255702144
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.0579323213135037,
+          "pattern": 1.2319392335914783,
+          "hazard": 1.2830370434826417,
+          "post_switch": 1.7524964827148748
+        },
+        "warm-up": {
+          "losses": 1.3388876544435975,
+          "pattern": 1.3738795744101162,
+          "hazard": 1.198827666318423,
+          "post_switch": 1.355326694470688
+        }
+      }
+    },
+    "Bari2019": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.2652976566011485,
+          "pattern": 2.4816160320596037,
+          "hazard": 2.483312871475963,
+          "post_switch": 1.6459364439196642
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.4909610722150222,
+          "pattern": 1.9401296329205224,
+          "hazard": 1.7981242494171514,
+          "post_switch": 2.1659445173289433
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.7376466548200054,
+          "pattern": 2.0393412372755364,
+          "hazard": 1.944048313710095,
+          "post_switch": 1.4237415685913675
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.8229877815334363,
+          "pattern": 2.3113638356073656,
+          "hazard": 2.0868153230291138,
+          "post_switch": 1.796607905892325
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.2944174421079166,
+          "pattern": 1.7020586883839004,
+          "hazard": 1.7129389225651421,
+          "post_switch": 1.4329072857597531
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.6603626930284137,
+          "pattern": 1.854956176898158,
+          "hazard": 1.8328605641739582,
+          "post_switch": 1.4950079588404077
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.132558559309457,
+          "pattern": 2.3334546049580416,
+          "hazard": 2.286367261019723,
+          "post_switch": 1.5066208505136058
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.2846977518487175,
+          "pattern": 2.6389048701867646,
+          "hazard": 2.5920655760503943,
+          "post_switch": 1.6797106379263638
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.935687218632288,
+          "pattern": 3.062211070675042,
+          "hazard": 2.9989883352449103,
+          "post_switch": 2.0770579785830536
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.4250764791162636,
+          "pattern": 2.1811062621046307,
+          "hazard": 2.0328743228235893,
+          "post_switch": 1.8261347217756114
+        },
+        "unknown|Random Walk": {
+          "losses": 2.9865304547070286,
+          "pattern": 5.617479714936298,
+          "hazard": 5.023734085574385,
+          "post_switch": 2.1451725760546463
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.9150431895870534,
+          "pattern": 2.0272744933329356,
+          "hazard": 2.000393868815363,
+          "post_switch": 1.5276431223383073
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.2958838707279074,
+          "pattern": 3.0158642993312297,
+          "hazard": 3.015726847782118,
+          "post_switch": 2.1768345487784617
+        },
+        "warm-up": {
+          "losses": 1.9154403522302597,
+          "pattern": 2.404264694683137,
+          "hazard": 1.9719432005689306,
+          "post_switch": 1.8139561639019486
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.4058057481979696,
+          "pattern": 1.5541387811819287,
+          "hazard": 1.5145228592430744,
+          "post_switch": 1.37873956656847
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1451943420319535,
+          "pattern": 1.2755245034879177,
+          "hazard": 1.29283942786011,
+          "post_switch": 1.5133562737265285
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.1746586429348727,
+          "pattern": 1.2635578361127768,
+          "hazard": 1.3296765636645214,
+          "post_switch": 1.2453613013341767
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.1588758694521506,
+          "pattern": 1.3156209123552765,
+          "hazard": 1.3153577303117192,
+          "post_switch": 1.4267204675393477
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.0768225514393919,
+          "pattern": 1.243762317497294,
+          "hazard": 1.3447064938442503,
+          "post_switch": 1.2955465108029836
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.295147311166106,
+          "pattern": 1.5371515601107166,
+          "hazard": 1.5234851757675096,
+          "post_switch": 1.5367196815093664
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.2771960912706317,
+          "pattern": 1.4301682090273329,
+          "hazard": 1.35106147337764,
+          "post_switch": 1.2876368046521656
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.4296962146146963,
+          "pattern": 1.5317603246470024,
+          "hazard": 1.6110928337286632,
+          "post_switch": 1.444467653857108
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.755647091853103,
+          "pattern": 1.6840266497101541,
+          "hazard": 1.730370182304296,
+          "post_switch": 1.4431636847313123
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.9949581556642637,
+          "pattern": 1.042756917386295,
+          "hazard": 1.3153486670239845,
+          "post_switch": 1.2075730964023408
+        },
+        "unknown|Random Walk": {
+          "losses": 1.3684440763476795,
+          "pattern": 1.6925800531964774,
+          "hazard": 2.0841442970631388,
+          "post_switch": 2.0432897199753355
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.227022008811665,
+          "pattern": 1.3493832681777467,
+          "hazard": 1.4315639093062738,
+          "post_switch": 1.1775394629165332
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.2380144945211622,
+          "pattern": 1.5881326002370173,
+          "hazard": 1.7433507279079874,
+          "post_switch": 2.0559285038421633
+        },
+        "warm-up": {
+          "losses": 1.2912760737508162,
+          "pattern": 1.4488660769783834,
+          "hazard": 1.262783806994578,
+          "post_switch": 1.3674104708430612
+        }
+      }
+    },
+    "Miller-RHG": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.2224604187773274,
+          "pattern": 2.729309598900247,
+          "hazard": 2.661244472261911,
+          "post_switch": 1.9017851321445312
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.6298917303948899,
+          "pattern": 2.2572807688896273,
+          "hazard": 1.978114394433009,
+          "post_switch": 2.7324584586121476
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.6091183328715224,
+          "pattern": 1.8787924715736306,
+          "hazard": 1.7480643691352655,
+          "post_switch": 1.6371520568885523
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.7389822694942776,
+          "pattern": 2.3241140364416117,
+          "hazard": 2.1065067108027247,
+          "post_switch": 2.239603923115624
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.3161977772374227,
+          "pattern": 1.5604414806544378,
+          "hazard": 1.4736514844458972,
+          "post_switch": 1.302791796220843
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.6875090460725466,
+          "pattern": 2.234113304280377,
+          "hazard": 2.0334757807739146,
+          "post_switch": 1.7492732022447868
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.9824522298298841,
+          "pattern": 2.35683595048337,
+          "hazard": 2.287900241446451,
+          "post_switch": 1.6794494594021954
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.7708781653913934,
+          "pattern": 2.0420393521434077,
+          "hazard": 2.0205076147461742,
+          "post_switch": 1.5669936714147985
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.4643778669935203,
+          "pattern": 3.3342369909773995,
+          "hazard": 3.1338254040298557,
+          "post_switch": 2.2986713293930197
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.7731130009001143,
+          "pattern": 1.792098059552089,
+          "hazard": 1.4449037544637677,
+          "post_switch": 1.4663149342620134
+        },
+        "unknown|Random Walk": {
+          "losses": 2.233768071429374,
+          "pattern": 3.244749972138326,
+          "hazard": 2.7896790060041146,
+          "post_switch": 0.35556621727946836
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.699464533236978,
+          "pattern": 2.0086846944978998,
+          "hazard": 1.9606582052739856,
+          "post_switch": 1.541711373380504
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.8477736369004403,
+          "pattern": 2.681281967709952,
+          "hazard": 2.629307156506063,
+          "post_switch": 2.330179405576748
+        },
+        "warm-up": {
+          "losses": 1.851965566209119,
+          "pattern": 2.3753538698200813,
+          "hazard": 1.8977983099718934,
+          "post_switch": 1.742426726481448
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.4662212886169046,
+          "pattern": 1.5862391483616558,
+          "hazard": 1.4876050467952473,
+          "post_switch": 1.2962869222371707
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1470748039849683,
+          "pattern": 1.2616741773163818,
+          "hazard": 1.2049878257389826,
+          "post_switch": 1.5193220226538113
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.1490462698971795,
+          "pattern": 1.1684542586234283,
+          "hazard": 1.2031659833447805,
+          "post_switch": 1.2677490253856698
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.1289525129674283,
+          "pattern": 1.2804753258743273,
+          "hazard": 1.2592454212475246,
+          "post_switch": 1.430665197283851
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.1102426229597309,
+          "pattern": 1.2342149444870936,
+          "hazard": 1.1639489713111446,
+          "post_switch": 1.1866208293581788
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.1316683304834219,
+          "pattern": 1.2539005375403138,
+          "hazard": 1.1075956583646034,
+          "post_switch": 1.4519169096727849
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.336164764175767,
+          "pattern": 1.3629894542722218,
+          "hazard": 1.271202571268573,
+          "post_switch": 1.2182854850721576
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.365604232169334,
+          "pattern": 1.2318822147712924,
+          "hazard": 1.1814904346226338,
+          "post_switch": 1.2339347496988304
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.5252719736892253,
+          "pattern": 1.5532469158635884,
+          "hazard": 1.515595464217937,
+          "post_switch": 1.3657493705920443
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.6801683943569337,
+          "pattern": 1.0240957385370528,
+          "hazard": 0.9940359434667019,
+          "post_switch": 0.9778734781026817
+        },
+        "unknown|Random Walk": {
+          "losses": 1.061050078960561,
+          "pattern": 0.5962329896242263,
+          "hazard": 1.1112917229166925,
+          "post_switch": 0.18640496076015658
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.3282635148578572,
+          "pattern": 1.572072490510605,
+          "hazard": 1.6473387318086372,
+          "post_switch": 1.1722621471367813
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.1029943208260868,
+          "pattern": 1.2519571096131825,
+          "hazard": 1.333936581936815,
+          "post_switch": 1.7584662189549507
+        },
+        "warm-up": {
+          "losses": 1.2483513269184547,
+          "pattern": 1.32594009721833,
+          "hazard": 1.1321365601271522,
+          "post_switch": 1.2360949727540398
+        }
+      }
+    },
+    "CompareToThreshold": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 1.6083797190543037,
+          "pattern": 1.898597744370424,
+          "hazard": 1.725495215552861,
+          "post_switch": 1.5820744160569469
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.46987513548249,
+          "pattern": 1.8889918357299975,
+          "hazard": 1.788278492701132,
+          "post_switch": 2.1624843253587134
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.591472614292683,
+          "pattern": 1.9329723207444613,
+          "hazard": 1.8156497117021309,
+          "post_switch": 1.407613653813405
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.597651351088803,
+          "pattern": 2.0502029159168176,
+          "hazard": 1.8722382621132845,
+          "post_switch": 1.725511940701999
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.2331139118208998,
+          "pattern": 1.5711850273163086,
+          "hazard": 1.5155720351777053,
+          "post_switch": 1.416993865359678
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.3539839792324446,
+          "pattern": 1.5910054951469599,
+          "hazard": 1.4967907522211954,
+          "post_switch": 1.4995474565664042
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.5991622169724113,
+          "pattern": 1.8572582426329318,
+          "hazard": 1.7300845887599343,
+          "post_switch": 1.602180589094432
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.8039457006562476,
+          "pattern": 2.0402723962115936,
+          "hazard": 1.8383634035002845,
+          "post_switch": 1.5922948775863097
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.125691001685396,
+          "pattern": 2.403420122154438,
+          "hazard": 2.1580876002036287,
+          "post_switch": 1.9669030335705093
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.6944272519269066,
+          "pattern": 2.311203765315737,
+          "hazard": 2.163996795156339,
+          "post_switch": 1.749962709702235
+        },
+        "unknown|Random Walk": {
+          "losses": 2.1145359810765987,
+          "pattern": 3.3960167905560974,
+          "hazard": 2.6149084305960977,
+          "post_switch": 0.9905604984849965
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.5633864155642987,
+          "pattern": 1.7877676849906627,
+          "hazard": 1.7001575647371756,
+          "post_switch": 1.4867749176154499
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.5865246433395832,
+          "pattern": 2.3257827503762125,
+          "hazard": 2.2609108709180137,
+          "post_switch": 2.0106776400818616
+        },
+        "warm-up": {
+          "losses": 1.8456516152657223,
+          "pattern": 2.2627080547719456,
+          "hazard": 1.8503504614485244,
+          "post_switch": 1.6336507038892787
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.3872217071530333,
+          "pattern": 1.5327190390583691,
+          "hazard": 1.4201223127871532,
+          "post_switch": 1.6010579679488253
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1952371296866393,
+          "pattern": 1.2846571765637038,
+          "hazard": 1.2930223512388608,
+          "post_switch": 1.5668728003250243
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.2335426981084687,
+          "pattern": 1.3420801646798712,
+          "hazard": 1.381844953660214,
+          "post_switch": 1.4216432186204127
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.1279097232791708,
+          "pattern": 1.2767234622689168,
+          "hazard": 1.2491009833245195,
+          "post_switch": 1.3415870366019462
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.0926099580366502,
+          "pattern": 1.1365195449920098,
+          "hazard": 1.1768483409136754,
+          "post_switch": 1.378583682189972
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.0142379650810491,
+          "pattern": 1.2466343736670307,
+          "hazard": 1.1701621031006584,
+          "post_switch": 1.608780599976678
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.3055336236985313,
+          "pattern": 1.4263597933199628,
+          "hazard": 1.3224726817129566,
+          "post_switch": 1.5685325331107642
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.3824814874956695,
+          "pattern": 1.4816833778284726,
+          "hazard": 1.4460545088915784,
+          "post_switch": 1.5614397379505034
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.6088251757799368,
+          "pattern": 1.6536525117990257,
+          "hazard": 1.5445619114834137,
+          "post_switch": 1.7648030496206293
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.2721846528889753,
+          "pattern": 1.1369359027509365,
+          "hazard": 1.446782967771639,
+          "post_switch": 0.9506513740049977
+        },
+        "unknown|Random Walk": {
+          "losses": 1.0211134545419531,
+          "pattern": 0.9570418606039306,
+          "hazard": 1.0546079325167106,
+          "post_switch": 1.041110380306288
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.227459246878233,
+          "pattern": 1.3766527378350741,
+          "hazard": 1.4439997571424177,
+          "post_switch": 1.3216977599455113
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.0923767442627512,
+          "pattern": 1.3525174951536665,
+          "hazard": 1.435529148930504,
+          "post_switch": 1.9068337050422308
+        },
+        "warm-up": {
+          "losses": 1.3284030277122494,
+          "pattern": 1.4330629693993506,
+          "hazard": 1.2370317427542292,
+          "post_switch": 1.4751674525506568
+        }
+      }
+    },
+    "Hattori2019": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.5268295739768956,
+          "pattern": 2.722595622284781,
+          "hazard": 2.5828942613279486,
+          "post_switch": 1.8196939001029613
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.559677817070364,
+          "pattern": 2.0942422467094395,
+          "hazard": 2.060136564188,
+          "post_switch": 2.533878696177747
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.745049288765039,
+          "pattern": 2.0533158818430697,
+          "hazard": 2.2974604809957153,
+          "post_switch": 2.078277693485454
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.804463185521359,
+          "pattern": 2.3351672425837573,
+          "hazard": 2.111091896315835,
+          "post_switch": 1.7932947417782938
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.5937597009523339,
+          "pattern": 1.876049267231758,
+          "hazard": 1.9105020498125784,
+          "post_switch": 1.5129926314153717
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.6365894204547018,
+          "pattern": 1.8771912341468755,
+          "hazard": 1.814201547301658,
+          "post_switch": 1.6210603666780343
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.0465448562138198,
+          "pattern": 2.3315979099074693,
+          "hazard": 2.1560268863030854,
+          "post_switch": 1.621678067685734
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 3.0835203271210005,
+          "pattern": 3.365527232910139,
+          "hazard": 3.2843124464369144,
+          "post_switch": 2.281906143165327
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.7363031680367964,
+          "pattern": 3.03050934136616,
+          "hazard": 2.734648204986314,
+          "post_switch": 1.899862969500005
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.8863320493260788,
+          "pattern": 1.6012582457351947,
+          "hazard": 1.6661153579672077,
+          "post_switch": 1.2050368344790896
+        },
+        "unknown|Random Walk": {
+          "losses": 4.738486483169385,
+          "pattern": 6.661270081277476,
+          "hazard": 5.278063625289292,
+          "post_switch": 1.826661612401594
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.5253295299780179,
+          "pattern": 1.8297488245368,
+          "hazard": 1.8129030510344244,
+          "post_switch": 1.4430237677354623
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.8408204338460408,
+          "pattern": 3.5801947012447033,
+          "hazard": 3.4758588896554854,
+          "post_switch": 2.2653801762201544
+        },
+        "warm-up": {
+          "losses": 1.491073606198374,
+          "pattern": 1.9417552760523253,
+          "hazard": 1.820196659999729,
+          "post_switch": 1.8204364921583347
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.98731315225559,
+          "pattern": 2.039110062578296,
+          "hazard": 1.9299163710321487,
+          "post_switch": 1.679373426099305
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.2267474432690877,
+          "pattern": 1.3961868096323626,
+          "hazard": 1.4299367288752536,
+          "post_switch": 1.9477860288845121
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.5877652561821398,
+          "pattern": 1.6257911744776476,
+          "hazard": 1.729343058579995,
+          "post_switch": 2.055342189994851
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.2715401291097685,
+          "pattern": 1.4907048060606176,
+          "hazard": 1.406152735296819,
+          "post_switch": 1.3678156115164946
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.440229433091797,
+          "pattern": 1.5468065386975156,
+          "hazard": 1.5758812600968606,
+          "post_switch": 1.5046819823143782
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.5914715057540028,
+          "pattern": 1.5486159649157054,
+          "hazard": 1.385909107637105,
+          "post_switch": 1.5947125135905516
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.589624150575803,
+          "pattern": 1.638594373830173,
+          "hazard": 1.5359077269347465,
+          "post_switch": 1.39603990003289
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.6300533881666377,
+          "pattern": 2.6262985588666465,
+          "hazard": 2.575583132736623,
+          "post_switch": 2.2042961950683404
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.0371108246751093,
+          "pattern": 2.117761147428058,
+          "hazard": 1.9536632932748113,
+          "post_switch": 1.5103437635273254
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.8330666623495062,
+          "pattern": 0.9165237405404787,
+          "hazard": 1.0006512362356315,
+          "post_switch": 0.7745358044733875
+        },
+        "unknown|Random Walk": {
+          "losses": 3.6020917752347144,
+          "pattern": 4.586562757152961,
+          "hazard": 3.7219476352134753,
+          "post_switch": 1.8411475457898656
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.2474832896256272,
+          "pattern": 1.3958098032320367,
+          "hazard": 1.4183502174665272,
+          "post_switch": 1.0694827850278603
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.04117331403853,
+          "pattern": 2.3814716045022104,
+          "hazard": 2.3607555630657937,
+          "post_switch": 2.1238104953220827
+        },
+        "warm-up": {
+          "losses": 1.3501425319410152,
+          "pattern": 1.3832605983770512,
+          "hazard": 1.3171092356707885,
+          "post_switch": 1.5769771034767428
+        }
+      }
+    },
+    "Zid-HistoryKernel2-ForagingRL": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.3063998841031106,
+          "pattern": 2.117292887038814,
+          "hazard": 2.0077142050099885,
+          "post_switch": 1.9567824316433262
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.592056746534041,
+          "pattern": 1.8640660068077912,
+          "hazard": 1.8487310928438683,
+          "post_switch": 2.454209471120064
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.749869611283894,
+          "pattern": 1.9351630656121848,
+          "hazard": 2.0215872647642277,
+          "post_switch": 2.028592165699897
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.7230407969609907,
+          "pattern": 2.0133859786124706,
+          "hazard": 1.8762798884128566,
+          "post_switch": 1.880737521468736
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.52489290051656,
+          "pattern": 1.6072576728460763,
+          "hazard": 1.54146747927816,
+          "post_switch": 1.4757174628802345
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.411328110391981,
+          "pattern": 1.5219016162121022,
+          "hazard": 1.4979228045494295,
+          "post_switch": 1.6312155209245645
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.9753569741241535,
+          "pattern": 2.0281655915780914,
+          "hazard": 1.8917769578363501,
+          "post_switch": 1.8360230582849055
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.221159142706444,
+          "pattern": 2.2280840586887214,
+          "hazard": 2.098131319075857,
+          "post_switch": 2.091293009194754
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.152030810109194,
+          "pattern": 2.2497403914531815,
+          "hazard": 2.1314615918825477,
+          "post_switch": 2.0976356106741787
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.2786910537365765,
+          "pattern": 1.946437941347676,
+          "hazard": 1.8047100762174946,
+          "post_switch": 1.0089601402930464
+        },
+        "unknown|Random Walk": {
+          "losses": 2.885583260695101,
+          "pattern": 3.910006598921555,
+          "hazard": 3.0555758500401398,
+          "post_switch": 1.2477123988026266
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.3502216902265196,
+          "pattern": 1.6597167591719872,
+          "hazard": 1.5976050802832258,
+          "post_switch": 1.4787356327392722
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.7965972039309464,
+          "pattern": 2.3359235303167663,
+          "hazard": 2.2153669025356906,
+          "post_switch": 2.4633359655435085
+        },
+        "warm-up": {
+          "losses": 1.7051148385170758,
+          "pattern": 2.0242848041323533,
+          "hazard": 1.6951549565855513,
+          "post_switch": 1.7578611473401051
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.9719017803240142,
+          "pattern": 1.7795279966712576,
+          "hazard": 1.792133161497256,
+          "post_switch": 2.1338830711468866
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.371031144417624,
+          "pattern": 1.3907809588175721,
+          "hazard": 1.468906080973415,
+          "post_switch": 2.219654701817228
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.542446867785709,
+          "pattern": 1.494058796926921,
+          "hazard": 1.6056895223341967,
+          "post_switch": 2.1326628127020157
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.304327682072002,
+          "pattern": 1.3867961351007205,
+          "hazard": 1.401750002820207,
+          "post_switch": 1.730797834371744
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.3904668491702692,
+          "pattern": 1.3545103434659258,
+          "hazard": 1.3188315947764273,
+          "post_switch": 1.528039956886248
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.4161183746946011,
+          "pattern": 1.351249898287631,
+          "hazard": 1.2698538907735046,
+          "post_switch": 1.6839649134810746
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.6377198841804261,
+          "pattern": 1.5934171581883323,
+          "hazard": 1.584582475783629,
+          "post_switch": 1.9133920178135322
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.9811805906973852,
+          "pattern": 1.7767468279590428,
+          "hazard": 1.7409426248434139,
+          "post_switch": 2.259351890314594
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.7211457836418362,
+          "pattern": 1.7064027158596007,
+          "hazard": 1.7001158400183787,
+          "post_switch": 2.0764145548372412
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.9164097323561552,
+          "pattern": 0.8210823128083792,
+          "hazard": 0.8683460301080251,
+          "post_switch": 1.0178925207056395
+        },
+        "unknown|Random Walk": {
+          "losses": 1.83973980297159,
+          "pattern": 1.2551291244466938,
+          "hazard": 1.3056696581064,
+          "post_switch": 1.2741593234996476
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.2022570042552292,
+          "pattern": 1.3174489327398597,
+          "hazard": 1.366386697996251,
+          "post_switch": 1.4762928269631945
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.2694540229289553,
+          "pattern": 1.5135926149713133,
+          "hazard": 1.4888756589198913,
+          "post_switch": 2.461701523271741
+        },
+        "warm-up": {
+          "losses": 1.4896900780429918,
+          "pattern": 1.458177555986287,
+          "hazard": 1.2866096322184386,
+          "post_switch": 1.786119613666818
+        }
+      }
+    },
+    "Eckstein-BI": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.2479688022097375,
+          "pattern": 2.856004624676246,
+          "hazard": 3.252328197670818,
+          "post_switch": 1.938586127058545
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.5061625828053506,
+          "pattern": 2.0162752453782646,
+          "hazard": 1.8510793946382682,
+          "post_switch": 1.9639341746660386
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.5838280026363687,
+          "pattern": 1.877602306658536,
+          "hazard": 1.8663664246799987,
+          "post_switch": 1.4333063717588463
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.7489251095369427,
+          "pattern": 2.314856528801097,
+          "hazard": 2.119097351161471,
+          "post_switch": 1.6614287464005413
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.252147835613282,
+          "pattern": 1.7126515846747246,
+          "hazard": 1.7344984469412585,
+          "post_switch": 1.3779679082029144
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.5385963061635377,
+          "pattern": 1.8333848729488806,
+          "hazard": 2.0042294146231407,
+          "post_switch": 1.7157451356714972
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.0245004311491512,
+          "pattern": 2.55095439252489,
+          "hazard": 2.692898687482521,
+          "post_switch": 1.728052965186675
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.071749739434628,
+          "pattern": 2.5608840510587054,
+          "hazard": 2.7728915300980055,
+          "post_switch": 1.7690586224328035
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 3.333288642166305,
+          "pattern": 3.7970165046024933,
+          "hazard": 4.265539120085512,
+          "post_switch": 2.457461579432554
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.0350262524703722,
+          "pattern": 1.9797520913306905,
+          "hazard": 1.7727756885477943,
+          "post_switch": 1.6939854729305341
+        },
+        "unknown|Random Walk": {
+          "losses": 1.896321470266215,
+          "pattern": 4.081765773366347,
+          "hazard": 3.7654401468076966,
+          "post_switch": 1.887367661034706
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.8222885957637887,
+          "pattern": 2.0635943110067947,
+          "hazard": 2.1591164454733844,
+          "post_switch": 1.7314227622045442
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.395288487618415,
+          "pattern": 3.993027228211619,
+          "hazard": 4.01632366609842,
+          "post_switch": 2.4078693860740974
+        },
+        "warm-up": {
+          "losses": 1.8173852419965235,
+          "pattern": 2.3931390283649665,
+          "hazard": 2.0097983325092508,
+          "post_switch": 1.870346539668702
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.4635086475459205,
+          "pattern": 1.7864859693960766,
+          "hazard": 1.881496500093515,
+          "post_switch": 1.630073186086082
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.2065509132811323,
+          "pattern": 1.3973660544940336,
+          "hazard": 1.368245829866546,
+          "post_switch": 1.5163140635846495
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.1740917059812608,
+          "pattern": 1.3503160035355348,
+          "hazard": 1.406141524981724,
+          "post_switch": 1.223490040208229
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.1808004630372069,
+          "pattern": 1.3731799890182292,
+          "hazard": 1.379778675673445,
+          "post_switch": 1.4588875447178984
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.0915461929571264,
+          "pattern": 1.2913083949156967,
+          "hazard": 1.372806233870044,
+          "post_switch": 1.35083896796589
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.4063215182180444,
+          "pattern": 1.6798935733659819,
+          "hazard": 1.495823858749947,
+          "post_switch": 1.7267937612497515
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.2794522447552874,
+          "pattern": 1.5704048866942792,
+          "hazard": 1.5850614709109745,
+          "post_switch": 1.4840004218578338
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.498268138130554,
+          "pattern": 1.6696633704433592,
+          "hazard": 1.820533197984371,
+          "post_switch": 1.59330237756996
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.9722345709640656,
+          "pattern": 2.0942592340343706,
+          "hazard": 2.2788224619426214,
+          "post_switch": 1.7783325289489123
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.9300840049137094,
+          "pattern": 0.9943851733706208,
+          "hazard": 1.5351958680734976,
+          "post_switch": 1.43042298293404
+        },
+        "unknown|Random Walk": {
+          "losses": 1.5443459811063398,
+          "pattern": 1.919695508989851,
+          "hazard": 2.397232189248177,
+          "post_switch": 2.282440955711025
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.2596909770413218,
+          "pattern": 1.420669933420319,
+          "hazard": 1.4440104295377092,
+          "post_switch": 1.3317341868907187
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.3540674423456371,
+          "pattern": 1.797522284829751,
+          "hazard": 1.9885554671166048,
+          "post_switch": 2.3669928195609224
+        },
+        "warm-up": {
+          "losses": 1.2999527576037322,
+          "pattern": 1.4977914864294728,
+          "hazard": 1.3672955269994036,
+          "post_switch": 1.4269524692098032
+        }
+      }
+    },
+    "Beron-RFLR": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.557469994901797,
+          "pattern": 2.9544032772852318,
+          "hazard": 3.2154190427488825,
+          "post_switch": 1.9334227734339384
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.515799503835526,
+          "pattern": 1.9393786597741995,
+          "hazard": 1.7920469495774758,
+          "post_switch": 2.0235942227202814
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.7448462235081896,
+          "pattern": 1.9664687820599265,
+          "hazard": 1.9134282650830892,
+          "post_switch": 1.4618130227994326
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.862986236513313,
+          "pattern": 2.361140833777295,
+          "hazard": 2.1529454691622045,
+          "post_switch": 1.760602214372805
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.3618087892757902,
+          "pattern": 1.8218452466271615,
+          "hazard": 1.8410021949289959,
+          "post_switch": 1.4567137445323768
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.5376445742640914,
+          "pattern": 1.8801415434783237,
+          "hazard": 1.9653053540399885,
+          "post_switch": 1.6961500031065055
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.219924632028067,
+          "pattern": 2.616762346518868,
+          "hazard": 2.6931914859909356,
+          "post_switch": 1.6985491357875564
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.426644305990368,
+          "pattern": 2.871490535294474,
+          "hazard": 2.9648292060455717,
+          "post_switch": 1.8518739420004326
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 3.5065206541259943,
+          "pattern": 3.7664995237970778,
+          "hazard": 4.147028428344086,
+          "post_switch": 2.5379274042357456
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.1123769780018977,
+          "pattern": 2.050027169163214,
+          "hazard": 1.8432676170167395,
+          "post_switch": 1.8036433573762125
+        },
+        "unknown|Random Walk": {
+          "losses": 2.999987179751935,
+          "pattern": 5.514190146837143,
+          "hazard": 5.12906124556008,
+          "post_switch": 2.4020488555890624
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.9061733817819482,
+          "pattern": 2.156247596020557,
+          "hazard": 2.1950016070432534,
+          "post_switch": 1.641176479080915
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.616884623037105,
+          "pattern": 3.7458605970787113,
+          "hazard": 3.635922616439082,
+          "post_switch": 2.3747501068487376
+        },
+        "warm-up": {
+          "losses": 1.934354367841951,
+          "pattern": 2.4376104980609594,
+          "hazard": 1.991371975397808,
+          "post_switch": 1.8914128167986375
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.4972194951848825,
+          "pattern": 1.8112399157172858,
+          "hazard": 1.9132670322197503,
+          "post_switch": 1.714416970058238
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.2021365116653917,
+          "pattern": 1.3724860465383668,
+          "hazard": 1.3378728890557898,
+          "post_switch": 1.4881610520149646
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.1912108149542597,
+          "pattern": 1.3691065841121612,
+          "hazard": 1.3929383375421995,
+          "post_switch": 1.263113936517923
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.1806682662472843,
+          "pattern": 1.3652485201877702,
+          "hazard": 1.3713059785508195,
+          "post_switch": 1.4682237211237088
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.126286370131199,
+          "pattern": 1.3653960215869076,
+          "hazard": 1.4431213311082929,
+          "post_switch": 1.4696729914122046
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.367717820714632,
+          "pattern": 1.6094099473883012,
+          "hazard": 1.5064615159935126,
+          "post_switch": 1.7624830577660977
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.2772823742061779,
+          "pattern": 1.570440158357118,
+          "hazard": 1.595425261137203,
+          "post_switch": 1.5167832669564605
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.5630617582524629,
+          "pattern": 1.7389921839221338,
+          "hazard": 1.8908022076908533,
+          "post_switch": 1.741813930959684
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.0261945401421464,
+          "pattern": 2.1272342104162614,
+          "hazard": 2.3388279922854127,
+          "post_switch": 1.8425941382378541
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.9714280060115942,
+          "pattern": 1.1079673988216239,
+          "hazard": 1.5748184122651485,
+          "post_switch": 1.4223484367047456
+        },
+        "unknown|Random Walk": {
+          "losses": 1.5809257232692193,
+          "pattern": 1.97417538496531,
+          "hazard": 2.5294546947161645,
+          "post_switch": 2.4204738315352214
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.2614352174715033,
+          "pattern": 1.4222347518891778,
+          "hazard": 1.456990195021121,
+          "post_switch": 1.3343037720980666
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.4182613216176096,
+          "pattern": 1.8297368672220964,
+          "hazard": 2.058024074263857,
+          "post_switch": 2.406179733191535
+        },
+        "warm-up": {
+          "losses": 1.315130809290911,
+          "pattern": 1.4914323285857727,
+          "hazard": 1.3600166037946098,
+          "post_switch": 1.4221750578608918
+        }
+      }
+    },
+    "Chen-RLCK": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.3313048858774494,
+          "pattern": 2.8277338836467147,
+          "hazard": 2.480676112734652,
+          "post_switch": 1.910625994408426
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.6853779725612457,
+          "pattern": 2.207617384416491,
+          "hazard": 1.9409385394604715,
+          "post_switch": 2.811907790016834
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.860414177826181,
+          "pattern": 2.238468164206141,
+          "hazard": 2.0081853315185954,
+          "post_switch": 1.7947570967106619
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.6710458879884578,
+          "pattern": 2.2685621953443653,
+          "hazard": 2.026972853667012,
+          "post_switch": 2.4292820654254923
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.4995898571011934,
+          "pattern": 1.956614461597869,
+          "hazard": 1.6022975166783289,
+          "post_switch": 1.377586422032052
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.3613242898019904,
+          "pattern": 1.5222479414058447,
+          "hazard": 1.44717447275396,
+          "post_switch": 1.5420237783337432
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.9997367761701483,
+          "pattern": 2.4346921137364874,
+          "hazard": 2.2738010691586017,
+          "post_switch": 1.7405863604011846
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.099274410055279,
+          "pattern": 2.48525218892282,
+          "hazard": 2.1995857835756825,
+          "post_switch": 1.5057029192114295
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.504871506782844,
+          "pattern": 2.9097296351866664,
+          "hazard": 2.6699151461197084,
+          "post_switch": 2.14286449631109
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.8418601936316286,
+          "pattern": 1.432122956029231,
+          "hazard": 1.2433040371535824,
+          "post_switch": 1.6217431675736467
+        },
+        "unknown|Random Walk": {
+          "losses": 2.2788115723090705,
+          "pattern": 3.112727818618241,
+          "hazard": 2.8596327441529636,
+          "post_switch": 0.23931039251313954
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.6095145461426077,
+          "pattern": 1.8354746999746165,
+          "hazard": 1.7695914573268263,
+          "post_switch": 1.5647268014025437
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.0334062840551637,
+          "pattern": 3.180961020790635,
+          "hazard": 2.922775811523681,
+          "post_switch": 2.4964606661985886
+        },
+        "warm-up": {
+          "losses": 1.9844377770364365,
+          "pattern": 2.493376962306431,
+          "hazard": 1.9852417019342739,
+          "post_switch": 1.7187652677546557
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.9458361182791823,
+          "pattern": 2.278969068439424,
+          "hazard": 1.8635740342232194,
+          "post_switch": 1.474993409118315
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.3654729334404452,
+          "pattern": 1.6140417474340554,
+          "hazard": 1.4559729628350049,
+          "post_switch": 1.693069342804547
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.4308119363364833,
+          "pattern": 1.6056322465627604,
+          "hazard": 1.4468364040150545,
+          "post_switch": 1.329343780119085
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.2945647226469559,
+          "pattern": 1.5481811340623268,
+          "hazard": 1.4019880682562165,
+          "post_switch": 1.6085272425920578
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.3393100266852436,
+          "pattern": 1.6769061639459109,
+          "hazard": 1.3508001297406713,
+          "post_switch": 1.2655189276659182
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.1880936034639802,
+          "pattern": 1.3819343145399787,
+          "hazard": 1.1894078751786346,
+          "post_switch": 1.430766761227777
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.7296545483771668,
+          "pattern": 2.035140622852906,
+          "hazard": 1.7179709473848663,
+          "post_switch": 1.4079959707093657
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.8514651354858307,
+          "pattern": 1.9997731381683372,
+          "hazard": 1.6444812125416008,
+          "post_switch": 1.1939810740991066
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.717318627704567,
+          "pattern": 1.8665687864206506,
+          "hazard": 1.699149004465808,
+          "post_switch": 1.50309159773796
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.7646995081538667,
+          "pattern": 0.99506731051973,
+          "hazard": 0.9186467793850472,
+          "post_switch": 1.299423239551697
+        },
+        "unknown|Random Walk": {
+          "losses": 1.4827977268386479,
+          "pattern": 1.0214187465430788,
+          "hazard": 1.3122367579127647,
+          "post_switch": 0.32342593678211906
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.1736682755816499,
+          "pattern": 1.3703636555034377,
+          "hazard": 1.3516948339981831,
+          "post_switch": 1.2239168955430046
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.2042353779392838,
+          "pattern": 1.638225945056876,
+          "hazard": 1.5350437695911467,
+          "post_switch": 1.8624103675208146
+        },
+        "warm-up": {
+          "losses": 1.5023860826172897,
+          "pattern": 1.7162683471038498,
+          "hazard": 1.3386773956992264,
+          "post_switch": 1.3271625119408847
+        }
+      }
+    },
+    "Eckstein-RL": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.0153705518697045,
+          "pattern": 2.8629670317627163,
+          "hazard": 3.1120430836516304,
+          "post_switch": 1.9258558531264884
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.5409104222123222,
+          "pattern": 2.146706725887116,
+          "hazard": 2.0180764582627004,
+          "post_switch": 1.9932224797832574
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.6277577105436687,
+          "pattern": 2.056213606060497,
+          "hazard": 2.08140849661531,
+          "post_switch": 1.4690171487036852
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.6415196180365212,
+          "pattern": 2.312612235272113,
+          "hazard": 2.0908772325321663,
+          "post_switch": 1.5780696096458078
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.2506113446370954,
+          "pattern": 1.9857495508960266,
+          "hazard": 1.9623536281432832,
+          "post_switch": 1.4618995000070747
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.4212208542882354,
+          "pattern": 1.782543328357519,
+          "hazard": 1.880293639981675,
+          "post_switch": 1.7010316593510113
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.9015228392211787,
+          "pattern": 2.5366915944608697,
+          "hazard": 2.668119367482023,
+          "post_switch": 1.8036386760397434
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.2354975644146546,
+          "pattern": 3.1254710141735713,
+          "hazard": 3.2313967348802257,
+          "post_switch": 1.9292771726608442
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.7678725905695027,
+          "pattern": 3.304076030197454,
+          "hazard": 3.4895019970041945,
+          "post_switch": 2.2181420850114195
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.5029945894765233,
+          "pattern": 1.7434160579794484,
+          "hazard": 2.1640808350561485,
+          "post_switch": 2.1274565329054993
+        },
+        "unknown|Random Walk": {
+          "losses": 1.5926125123367063,
+          "pattern": 4.045322102424061,
+          "hazard": 3.674543798211577,
+          "post_switch": 1.7274449295927918
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.7513984207809201,
+          "pattern": 2.032687840518319,
+          "hazard": 2.0789183270937293,
+          "post_switch": 1.734126004777789
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.207280643770593,
+          "pattern": 3.9344252974983682,
+          "hazard": 3.877391130084581,
+          "post_switch": 2.2098900764304337
+        },
+        "warm-up": {
+          "losses": 1.80766619324155,
+          "pattern": 2.392678360941425,
+          "hazard": 2.076431099092517,
+          "post_switch": 1.8669782272326012
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.4526900508153446,
+          "pattern": 1.9988533539768103,
+          "hazard": 2.1617284982386638,
+          "post_switch": 1.6888851951641979
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1508033129723763,
+          "pattern": 1.3663079977101737,
+          "hazard": 1.3933206676860093,
+          "post_switch": 1.3705793007901357
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.0942390540488733,
+          "pattern": 1.3531188768552724,
+          "hazard": 1.5441497865966693,
+          "post_switch": 1.287043443480722
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.1594554017670544,
+          "pattern": 1.4314374122979308,
+          "hazard": 1.3897989954274488,
+          "post_switch": 1.3259857474453356
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.053622160254579,
+          "pattern": 1.4462396060366594,
+          "hazard": 1.537831167585485,
+          "post_switch": 1.4033578231086856
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.3179462647983327,
+          "pattern": 1.6246677764975594,
+          "hazard": 1.4475812504645527,
+          "post_switch": 1.780741847672426
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.3490867842982488,
+          "pattern": 1.7507000599676228,
+          "hazard": 1.8575471754516244,
+          "post_switch": 1.5752885326015742
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.5988511383965673,
+          "pattern": 2.032456232157229,
+          "hazard": 2.224884191860651,
+          "post_switch": 1.7060555877620824
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.7877667660169643,
+          "pattern": 2.2057891880190694,
+          "hazard": 2.248010842446322,
+          "post_switch": 1.6964312802411978
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.8870337611657124,
+          "pattern": 1.1455695085251396,
+          "hazard": 1.5849269648431648,
+          "post_switch": 1.2869739231261512
+        },
+        "unknown|Random Walk": {
+          "losses": 1.1074086035798174,
+          "pattern": 1.7242727597102205,
+          "hazard": 2.2893043602918777,
+          "post_switch": 2.271604153117992
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.2110884108919968,
+          "pattern": 1.425030248077219,
+          "hazard": 1.5127435947002168,
+          "post_switch": 1.268712321807568
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.2528485693712306,
+          "pattern": 1.9567171484682035,
+          "hazard": 2.0491194559146293,
+          "post_switch": 2.1644029234674647
+        },
+        "warm-up": {
+          "losses": 1.2440358083536307,
+          "pattern": 1.5977805813295616,
+          "hazard": 1.4998051828241967,
+          "post_switch": 1.3301921587720205
+        }
+      }
+    },
+    "Grossman-MetaLearning": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.744290915037242,
+          "pattern": 2.76407498643542,
+          "hazard": 2.499705783155021,
+          "post_switch": 1.8436035034077922
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.6078030209505245,
+          "pattern": 2.015352901400098,
+          "hazard": 1.9451231557631314,
+          "post_switch": 2.5540030740368858
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.7476712289884826,
+          "pattern": 1.995337060023406,
+          "hazard": 2.1529448483360767,
+          "post_switch": 2.1291844654963636
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.8216229776815858,
+          "pattern": 2.266629538286312,
+          "hazard": 2.036964514868039,
+          "post_switch": 1.951754959467008
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.7813583623312306,
+          "pattern": 1.9743874062013689,
+          "hazard": 1.9876330480874305,
+          "post_switch": 1.5605164045564275
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.609301532020284,
+          "pattern": 1.8636883816242313,
+          "hazard": 1.7281521937092483,
+          "post_switch": 1.6011345967558739
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.108447604688182,
+          "pattern": 2.2631589841639155,
+          "hazard": 2.0372511287720267,
+          "post_switch": 1.6332743143619803
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 3.2717074490852864,
+          "pattern": 3.3725261848875117,
+          "hazard": 3.1399974660365015,
+          "post_switch": 2.192855230969323
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.845561727076068,
+          "pattern": 3.126430525325684,
+          "hazard": 2.7610917053947275,
+          "post_switch": 1.9731139015220638
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.0910299293230799,
+          "pattern": 1.661207225456606,
+          "hazard": 1.6382670534580326,
+          "post_switch": 1.1812705263616485
+        },
+        "unknown|Random Walk": {
+          "losses": 5.087742839249939,
+          "pattern": 6.730556318001775,
+          "hazard": 5.3156814235711565,
+          "post_switch": 1.713615051503163
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.3779479724161725,
+          "pattern": 1.6780559404831215,
+          "hazard": 1.7036860932687246,
+          "post_switch": 1.4336776650675052
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.8359684261904614,
+          "pattern": 3.392176655457579,
+          "hazard": 3.2803949783433284,
+          "post_switch": 2.2515453360556177
+        },
+        "warm-up": {
+          "losses": 1.4579771993384032,
+          "pattern": 1.8871015493669092,
+          "hazard": 1.6366997570617732,
+          "post_switch": 1.7604658865806675
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 3.0518711675355448,
+          "pattern": 3.5121864499784055,
+          "hazard": 3.270126949507947,
+          "post_switch": 1.8964940212839076
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.448176591206178,
+          "pattern": 1.7862455962497263,
+          "hazard": 1.7075527390127958,
+          "post_switch": 2.1821175565442954
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.6912814330449535,
+          "pattern": 1.7219987105856172,
+          "hazard": 1.7740083761200647,
+          "post_switch": 2.0937651648583997
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.6197600530152183,
+          "pattern": 2.1257785698134346,
+          "hazard": 1.900143248152989,
+          "post_switch": 1.6325630924662946
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.5842736085674727,
+          "pattern": 1.7100712138030485,
+          "hazard": 1.6564661454627783,
+          "post_switch": 1.5010985733864455
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.7685604494183333,
+          "pattern": 1.753669688855171,
+          "hazard": 1.4979160457957368,
+          "post_switch": 1.6701579959326494
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.2595073799981162,
+          "pattern": 2.536138413995328,
+          "hazard": 2.3706790120551853,
+          "post_switch": 1.5679503908720152
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.8067899834600536,
+          "pattern": 2.756213632978305,
+          "hazard": 2.6893973086007894,
+          "post_switch": 2.186762305032417
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 3.859140046922642,
+          "pattern": 4.687056870470104,
+          "hazard": 4.175972284080843,
+          "post_switch": 1.8785752344019402
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.9784602078256207,
+          "pattern": 0.9667765741195543,
+          "hazard": 1.3198005606830203,
+          "post_switch": 0.9519853632290217
+        },
+        "unknown|Random Walk": {
+          "losses": 4.099401376415713,
+          "pattern": 5.242363090681437,
+          "hazard": 4.183843468089904,
+          "post_switch": 1.8469711301979612
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.6095685296795617,
+          "pattern": 1.9245866232444222,
+          "hazard": 1.926806552863932,
+          "post_switch": 1.2773518943705673
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.8222891055780472,
+          "pattern": 3.694423380655428,
+          "hazard": 3.547548657653039,
+          "post_switch": 2.1542601527527903
+        },
+        "warm-up": {
+          "losses": 1.4705273147683948,
+          "pattern": 1.7860446994637145,
+          "hazard": 1.59229353525323,
+          "post_switch": 1.6419774013842336
+        }
+      }
+    },
+    "FeedbackDependent-RL+Bias+CK1": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.608903472075293,
+          "pattern": 4.681692390212286,
+          "hazard": 5.920509370243305,
+          "post_switch": 3.4170422164691243
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.6923258903832363,
+          "pattern": 2.5446081065161605,
+          "hazard": 2.371135348053451,
+          "post_switch": 1.8456657443197602
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 2.059351718805398,
+          "pattern": 2.601213103160652,
+          "hazard": 2.507296987150575,
+          "post_switch": 2.236950316811359
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.8722775603174966,
+          "pattern": 2.9193200339600955,
+          "hazard": 2.8298788560312698,
+          "post_switch": 1.7415763485501117
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.525164333589847,
+          "pattern": 2.6134492648277696,
+          "hazard": 2.6292418144630405,
+          "post_switch": 2.199313151034106
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.7683184046820095,
+          "pattern": 2.5000673803129434,
+          "hazard": 3.1527672036185637,
+          "post_switch": 2.386524629717815
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.143201876066265,
+          "pattern": 3.7898370275688666,
+          "hazard": 4.691064095386711,
+          "post_switch": 2.8437113293844294
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.52176572991031,
+          "pattern": 4.429957251991796,
+          "hazard": 5.215439355584478,
+          "post_switch": 3.1773829775659266
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 4.53518984233796,
+          "pattern": 5.360796847163138,
+          "hazard": 6.326222455146708,
+          "post_switch": 3.388925489379735
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.5435337655269776,
+          "pattern": 1.5943793176036856,
+          "hazard": 2.5772823199785524,
+          "post_switch": 2.684092075334843
+        },
+        "unknown|Random Walk": {
+          "losses": 2.6011100251490875,
+          "pattern": 6.894731358822566,
+          "hazard": 6.619483928161891,
+          "post_switch": 3.1426133804033896
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 2.2610804847938977,
+          "pattern": 2.724711449364926,
+          "hazard": 3.1805456480599794,
+          "post_switch": 2.378236012126996
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 3.2229973355001538,
+          "pattern": 5.957825059851342,
+          "hazard": 6.1808056133879266,
+          "post_switch": 3.2010415782310777
+        },
+        "warm-up": {
+          "losses": 2.385179959590786,
+          "pattern": 2.9756198165468994,
+          "hazard": 2.519919129427481,
+          "post_switch": 2.275021039849917
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.5975754619145774,
+          "pattern": 3.005590146816501,
+          "hazard": 3.4144391175264968,
+          "post_switch": 2.5511082595060413
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.2694765157338808,
+          "pattern": 1.6860494785723639,
+          "hazard": 1.7242125030354447,
+          "post_switch": 1.5392514259490042
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.4512778056194966,
+          "pattern": 1.9390825161816008,
+          "hazard": 1.8877090334346516,
+          "post_switch": 1.5985782105368649
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.197047632551397,
+          "pattern": 1.7238792465788535,
+          "hazard": 1.7223707652009155,
+          "post_switch": 1.6184083579355117
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.1920529578263228,
+          "pattern": 1.884744886532102,
+          "hazard": 1.9321448423385492,
+          "post_switch": 1.810968126102107
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.4110880084843378,
+          "pattern": 1.949941600417037,
+          "hazard": 2.1633680954206786,
+          "post_switch": 1.942955080938851
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.321744460034148,
+          "pattern": 2.4952333842632015,
+          "hazard": 2.8050879984749226,
+          "post_switch": 2.154305465840477
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.6734909390449906,
+          "pattern": 2.8768423973721595,
+          "hazard": 3.3193800797563515,
+          "post_switch": 2.6230559598419174
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.216209592017878,
+          "pattern": 2.9309810735218287,
+          "hazard": 3.2962871864254737,
+          "post_switch": 2.372743686004913
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.4500092670730456,
+          "pattern": 1.7139052469995986,
+          "hazard": 2.159198166412705,
+          "post_switch": 1.5757969323136949
+        },
+        "unknown|Random Walk": {
+          "losses": 1.3630538484765495,
+          "pattern": 2.2151119156051036,
+          "hazard": 3.1077834690255988,
+          "post_switch": 2.9651205170444075
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.2937823371918133,
+          "pattern": 1.7110689544692932,
+          "hazard": 2.1018382104756026,
+          "post_switch": 1.7736830314820213
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.3651309250328667,
+          "pattern": 2.5770694084497348,
+          "hazard": 2.9727284351891767,
+          "post_switch": 3.2328869078961033
+        },
+        "warm-up": {
+          "losses": 1.4803346800496566,
+          "pattern": 1.9149987042403829,
+          "hazard": 1.6632236569187413,
+          "post_switch": 1.4587446393850099
+        }
+      }
+    },
+    "Alsio-DualRateSticky-RL": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.5544233404866885,
+          "pattern": 4.740084891491854,
+          "hazard": 6.086513242325433,
+          "post_switch": 3.6488789994716218
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.7257374501865608,
+          "pattern": 2.4939267642213876,
+          "hazard": 2.330621994172948,
+          "post_switch": 1.8510344978409554
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 2.2360134703421513,
+          "pattern": 2.6931330930358865,
+          "hazard": 2.589001550099152,
+          "post_switch": 2.430827748190642
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.816407137999452,
+          "pattern": 2.8353762430831515,
+          "hazard": 2.7679860260330607,
+          "post_switch": 1.8054889785719497
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.5086000522697849,
+          "pattern": 2.6151043663257636,
+          "hazard": 2.6954782258785426,
+          "post_switch": 2.309347937902914
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.837507831295558,
+          "pattern": 2.4457706087628117,
+          "hazard": 3.2527670203640864,
+          "post_switch": 2.5066756250429125
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.0910539067521747,
+          "pattern": 3.859930273703272,
+          "hazard": 4.8720670231327645,
+          "post_switch": 3.0062651356708208
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 2.3585687253305365,
+          "pattern": 4.3647750663024905,
+          "hazard": 5.312465977355801,
+          "post_switch": 3.3954663359844433
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 4.340802195009231,
+          "pattern": 5.237973305870455,
+          "hazard": 6.353772928980144,
+          "post_switch": 3.601016036027674
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.5010135638503832,
+          "pattern": 1.5817904578694242,
+          "hazard": 2.6031361932568355,
+          "post_switch": 2.667203439413145
+        },
+        "unknown|Random Walk": {
+          "losses": 2.704049442620228,
+          "pattern": 6.5132614139483325,
+          "hazard": 6.488097238341499,
+          "post_switch": 3.245496446376186
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 2.16430773540796,
+          "pattern": 2.720042892833456,
+          "hazard": 3.2791602870129006,
+          "post_switch": 2.481057549777175
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.940063954138332,
+          "pattern": 5.73997961436264,
+          "hazard": 5.985481975604706,
+          "post_switch": 3.3084817488305216
+        },
+        "warm-up": {
+          "losses": 2.5162325650588055,
+          "pattern": 3.091964560278732,
+          "hazard": 2.6235565748723335,
+          "post_switch": 2.428363541219223
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 1.7189245634179975,
+          "pattern": 3.3826075327020786,
+          "hazard": 3.9619852371003637,
+          "post_switch": 3.052832954738417
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.3522724579088239,
+          "pattern": 1.794232502783767,
+          "hazard": 1.779709930414555,
+          "post_switch": 1.6226210228841904
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.4211136009899301,
+          "pattern": 2.010029782781038,
+          "hazard": 1.9578778339983678,
+          "post_switch": 1.8272414554064877
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.2188476009446874,
+          "pattern": 1.8056251923820474,
+          "hazard": 1.8272165245746461,
+          "post_switch": 1.7626458568128682
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.2427577101081764,
+          "pattern": 2.0886172678698958,
+          "hazard": 2.0799380104358036,
+          "post_switch": 2.0890007409343094
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.5105995721364538,
+          "pattern": 2.0323150494870275,
+          "hazard": 2.2631502262260805,
+          "post_switch": 2.1142934766540185
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.3671855861145161,
+          "pattern": 2.802630021617225,
+          "hazard": 3.248294501576512,
+          "post_switch": 2.591291380675542
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.8958393232347843,
+          "pattern": 3.206754270251273,
+          "hazard": 3.7110444044102784,
+          "post_switch": 3.081033191442553
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.308528369062271,
+          "pattern": 3.240659370132611,
+          "hazard": 3.9468395122936237,
+          "post_switch": 2.7922938983675225
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.1740686732897745,
+          "pattern": 1.7612074434554315,
+          "hazard": 2.5351474469079167,
+          "post_switch": 1.9183359845543146
+        },
+        "unknown|Random Walk": {
+          "losses": 1.434552342643412,
+          "pattern": 2.9798388138827896,
+          "hazard": 3.9428036929602372,
+          "post_switch": 3.3710275873386863
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.2894817916892414,
+          "pattern": 1.790958803175835,
+          "hazard": 2.2694530868627503,
+          "post_switch": 2.0148800600037418
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.3589583229642483,
+          "pattern": 2.6272687540402946,
+          "hazard": 3.1668357292601543,
+          "post_switch": 3.3001958292543687
+        },
+        "warm-up": {
+          "losses": 1.5283711273792455,
+          "pattern": 2.0508407331828318,
+          "hazard": 1.8264159441465218,
+          "post_switch": 1.5758318645387461
+        }
+      }
+    },
+    "LossCounting": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 6.242849939743966,
+          "pattern": 7.539425630705365,
+          "hazard": 9.236552620148885,
+          "post_switch": 4.192276391869152
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 2.3908596991137916,
+          "pattern": 3.2674238441057577,
+          "hazard": 3.2533179259416003,
+          "post_switch": 2.052286560302206
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 2.793109485948167,
+          "pattern": 3.687516846678003,
+          "hazard": 3.9880638388044365,
+          "post_switch": 2.956901739298154
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 2.84049508401981,
+          "pattern": 3.815795546229142,
+          "hazard": 3.7629048098960802,
+          "post_switch": 1.93597104399413
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 2.486449131851814,
+          "pattern": 4.0848009690053635,
+          "hazard": 4.163163454136943,
+          "post_switch": 2.7456884425831847
+        },
+        "final|Coupled Baiting": {
+          "losses": 3.204181650888762,
+          "pattern": 3.1781735895346332,
+          "hazard": 4.187568455777668,
+          "post_switch": 2.8351970758851026
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 4.532120403574434,
+          "pattern": 5.4601843477776475,
+          "hazard": 6.682114151214288,
+          "post_switch": 3.3932574783833567
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 6.677049406455535,
+          "pattern": 8.573608348831002,
+          "hazard": 9.53434941130552,
+          "post_switch": 3.924253125216696
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 7.9468429879083775,
+          "pattern": 8.073823746640473,
+          "hazard": 9.497214004059357,
+          "post_switch": 4.115316308891263
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 2.997887717351292,
+          "pattern": 2.5100868484941214,
+          "hazard": 3.4649568152933727,
+          "post_switch": 3.7856916381893466
+        },
+        "unknown|Random Walk": {
+          "losses": 16.255259487554152,
+          "pattern": 24.90367576175306,
+          "hazard": 19.967937955275207,
+          "post_switch": 3.1477984571250364
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 3.310667098916674,
+          "pattern": 3.5371696695802846,
+          "hazard": 4.0702636043278835,
+          "post_switch": 2.694555126678853
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 7.8096159676595605,
+          "pattern": 11.669422101501356,
+          "hazard": 11.613461972854886,
+          "post_switch": 3.3733508097302334
+        },
+        "warm-up": {
+          "losses": 2.96166447294894,
+          "pattern": 3.4195726216143747,
+          "hazard": 3.250476670099719,
+          "post_switch": 2.8079866987263205
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 6.375203122799004,
+          "pattern": 7.974382005525672,
+          "hazard": 9.489272800545772,
+          "post_switch": 4.077348185528524
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 2.503017765388339,
+          "pattern": 3.528956696276509,
+          "hazard": 3.463909271526577,
+          "post_switch": 2.0791524417859026
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 2.7256891241953545,
+          "pattern": 3.6810284636786323,
+          "hazard": 3.956480524989915,
+          "post_switch": 2.8868651641838663
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 3.0666897786105936,
+          "pattern": 4.195779802094318,
+          "hazard": 4.045962964551606,
+          "post_switch": 1.9529764367755653
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 2.4814573467878365,
+          "pattern": 4.194397308303908,
+          "hazard": 4.245060416280532,
+          "post_switch": 2.720048974567303
+        },
+        "final|Coupled Baiting": {
+          "losses": 3.2047697667882287,
+          "pattern": 3.2303525295000166,
+          "hazard": 4.190125197662057,
+          "post_switch": 2.8427557319705357
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 4.803402623692366,
+          "pattern": 5.934768353775181,
+          "hazard": 7.048410632180397,
+          "post_switch": 3.3244427080586925
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 6.417003050803854,
+          "pattern": 8.684886625304593,
+          "hazard": 9.59011107659913,
+          "post_switch": 3.849244301427073
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 7.799682140982053,
+          "pattern": 8.208639707770871,
+          "hazard": 9.411029207779244,
+          "post_switch": 3.8684982427037125
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 2.8766394707789957,
+          "pattern": 2.458732020248425,
+          "hazard": 3.5484238536019412,
+          "post_switch": 3.6916656256376497
+        },
+        "unknown|Random Walk": {
+          "losses": 17.720012591456666,
+          "pattern": 27.509818754530396,
+          "hazard": 21.808233168279287,
+          "post_switch": 2.9847428423747986
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 3.305981550387848,
+          "pattern": 3.5605494550785486,
+          "hazard": 4.074914193691725,
+          "post_switch": 2.681994079884782
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 7.704653607227929,
+          "pattern": 11.73199329147284,
+          "hazard": 11.648321263186718,
+          "post_switch": 3.3571643404479268
+        },
+        "warm-up": {
+          "losses": 3.0238591860451445,
+          "pattern": 3.6651307743602377,
+          "hazard": 3.447537717692376,
+          "post_switch": 2.746261208926538
+        }
+      }
+    },
+    "ActorCritic": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 8.239088922656011,
+          "pattern": 10.554842314174387,
+          "hazard": 10.95382713227912,
+          "post_switch": 4.674406023861225
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 3.2186467249819466,
+          "pattern": 4.85003879544123,
+          "hazard": 4.939894541396956,
+          "post_switch": 5.252449863538089
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 4.920776503656494,
+          "pattern": 7.765361736566131,
+          "hazard": 7.67218993712271,
+          "post_switch": 4.438369359643986
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 3.559962005625749,
+          "pattern": 5.2547257419995885,
+          "hazard": 4.96698287662625,
+          "post_switch": 4.0845466107441775
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 4.824233735570019,
+          "pattern": 8.09389118214337,
+          "hazard": 7.235369928869142,
+          "post_switch": 3.2192450740674485
+        },
+        "final|Coupled Baiting": {
+          "losses": 3.292723404095964,
+          "pattern": 3.584619974721574,
+          "hazard": 3.1968393949077107,
+          "post_switch": 2.44159977813052
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 5.547878181691132,
+          "pattern": 7.2335293542343155,
+          "hazard": 7.644256365932629,
+          "post_switch": 3.9829430661295957
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 8.684322983186851,
+          "pattern": 12.995739201580266,
+          "hazard": 12.936135652130854,
+          "post_switch": 4.5623068092683035
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 8.423062700199704,
+          "pattern": 10.19005468000302,
+          "hazard": 9.210606970055208,
+          "post_switch": 3.665569816468469
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.6084224850196391,
+          "pattern": 1.4354801817640956,
+          "hazard": 2.0641108878357217,
+          "post_switch": 2.4202941491311853
+        },
+        "unknown|Random Walk": {
+          "losses": 4.9112653708969205,
+          "pattern": 7.125833843070563,
+          "hazard": 5.448430741035087,
+          "post_switch": 2.6460250958527967
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 3.0219540619658867,
+          "pattern": 3.958751568555519,
+          "hazard": 4.082064764353631,
+          "post_switch": 2.725570160977428
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 6.012048359238563,
+          "pattern": 10.403129189079538,
+          "hazard": 9.949056639059439,
+          "post_switch": 5.310560906509051
+        },
+        "warm-up": {
+          "losses": 2.959204879436677,
+          "pattern": 4.1742561288186595,
+          "hazard": 4.0167692519623825,
+          "post_switch": 3.4755185268390494
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 4.082820530965795,
+          "pattern": 4.942290979026647,
+          "hazard": 6.0679031391286555,
+          "post_switch": 4.242609429375209
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 2.2630577144748156,
+          "pattern": 2.7298283314568557,
+          "hazard": 3.374345575276276,
+          "post_switch": 4.485563752090741
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 3.158598399986844,
+          "pattern": 4.23953677645755,
+          "hazard": 4.75935216650128,
+          "post_switch": 4.797826114462999
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.8952470719687677,
+          "pattern": 2.4360514535892035,
+          "hazard": 2.8198951381610295,
+          "post_switch": 3.1606332957684384
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 2.6275687587934486,
+          "pattern": 3.4024997113437423,
+          "hazard": 3.4600696883823003,
+          "post_switch": 3.4882757174978636
+        },
+        "final|Coupled Baiting": {
+          "losses": 2.6821924441672467,
+          "pattern": 2.9980213960557904,
+          "hazard": 2.613770006188831,
+          "post_switch": 2.332356850235265
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 2.7337253543956996,
+          "pattern": 3.398643826407755,
+          "hazard": 4.386090720019313,
+          "post_switch": 3.435979748742201
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 4.299729561654792,
+          "pattern": 5.2161284266344445,
+          "hazard": 6.205477524159559,
+          "post_switch": 4.5131056311991316
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 4.540227979951018,
+          "pattern": 5.457845484272244,
+          "hazard": 5.188748005556585,
+          "post_switch": 3.1041871330229034
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.3082188692053012,
+          "pattern": 2.3471916614581865,
+          "hazard": 2.2412648530436745,
+          "post_switch": 1.684909504996394
+        },
+        "unknown|Random Walk": {
+          "losses": 5.63525447150323,
+          "pattern": 8.796483125322984,
+          "hazard": 6.710741897679683,
+          "post_switch": 2.5280887319803798
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.4125004560514185,
+          "pattern": 1.7581803175126727,
+          "hazard": 2.183685478670083,
+          "post_switch": 2.0885892400115695
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 2.792871664857931,
+          "pattern": 4.023301138253259,
+          "hazard": 4.332187080268624,
+          "post_switch": 4.01461750756004
+        },
+        "warm-up": {
+          "losses": 2.3410791840693115,
+          "pattern": 3.197839904256473,
+          "hazard": 3.1092594754435723,
+          "post_switch": 3.4413915486853783
+        }
+      }
+    },
+    "FeedbackDependent-RL+Bias": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 27.229446357053323,
+          "pattern": 29.465518208500477,
+          "hazard": 27.073634770073017,
+          "post_switch": 3.8707793181695607
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 8.61013966717157,
+          "pattern": 12.569887291600883,
+          "hazard": 10.371480605438943,
+          "post_switch": 3.854187035143739
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 9.88071319336673,
+          "pattern": 12.615059209542562,
+          "hazard": 10.72366915977591,
+          "post_switch": 2.6234303340599836
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 11.41227869286936,
+          "pattern": 15.480846277220772,
+          "hazard": 12.721594752159838,
+          "post_switch": 3.2968624538591524
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 9.291590776868992,
+          "pattern": 13.002445330082677,
+          "hazard": 10.574470509139307,
+          "post_switch": 1.7711456542312682
+        },
+        "final|Coupled Baiting": {
+          "losses": 12.608595657708712,
+          "pattern": 13.491396791592349,
+          "hazard": 11.325855478312489,
+          "post_switch": 2.6091610936138485
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 22.91056556420956,
+          "pattern": 25.652816405762675,
+          "hazard": 23.037347363699862,
+          "post_switch": 3.7965767998438142
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 24.472632921491194,
+          "pattern": 28.484912252519827,
+          "hazard": 26.063325124343923,
+          "post_switch": 2.9393682470757874
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 19.486842698834447,
+          "pattern": 20.115045112292893,
+          "hazard": 17.956879221633958,
+          "post_switch": 2.934790691414984
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 6.952360184295845,
+          "pattern": 7.87820977170458,
+          "hazard": 6.716534648511346,
+          "post_switch": 1.9830876765548036
+        },
+        "unknown|Random Walk": {
+          "losses": 45.24754662756308,
+          "pattern": 67.79526015691772,
+          "hazard": 51.27478641790326,
+          "post_switch": 1.4337840928787595
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 10.486483685423796,
+          "pattern": 11.006169502927923,
+          "hazard": 9.869989180416209,
+          "post_switch": 2.5020046288544817
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 19.80902214191866,
+          "pattern": 27.982720393973214,
+          "hazard": 25.484913633243593,
+          "post_switch": 3.0343849276374204
+        },
+        "warm-up": {
+          "losses": 4.9062353623946375,
+          "pattern": 7.00874987687559,
+          "hazard": 5.5145228995291165,
+          "post_switch": 2.384778655900526
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 17.999931043715236,
+          "pattern": 19.511497812569228,
+          "hazard": 17.9410201704363,
+          "post_switch": 4.066439589365213
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 6.536518273165315,
+          "pattern": 8.739800934498758,
+          "hazard": 7.256888592643612,
+          "post_switch": 3.6425123412615763
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 6.933378971247932,
+          "pattern": 8.595570147001327,
+          "hazard": 7.322556578207299,
+          "post_switch": 2.906979538186477
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 8.229661993435327,
+          "pattern": 10.591433197007856,
+          "hazard": 8.738979314712921,
+          "post_switch": 3.356132063867812
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 6.208060642927806,
+          "pattern": 8.801108365513134,
+          "hazard": 7.186902089511868,
+          "post_switch": 2.237059704645638
+        },
+        "final|Coupled Baiting": {
+          "losses": 8.385886198523353,
+          "pattern": 9.095357853843513,
+          "hazard": 7.626721349582723,
+          "post_switch": 2.275381721677938
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 15.130988407403203,
+          "pattern": 17.116862488303838,
+          "hazard": 15.404102652856732,
+          "post_switch": 3.9817286955488846
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 15.42410366404625,
+          "pattern": 18.268704880687547,
+          "hazard": 16.7480586923717,
+          "post_switch": 3.2691916724064605
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 11.103936155347492,
+          "pattern": 12.141111866542552,
+          "hazard": 10.861746999598015,
+          "post_switch": 2.879348000548985
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 4.521550131967508,
+          "pattern": 5.579012300543667,
+          "hazard": 4.762542085506769,
+          "post_switch": 1.2617923120499057
+        },
+        "unknown|Random Walk": {
+          "losses": 19.429334883706574,
+          "pattern": 27.731571173679782,
+          "hazard": 21.11241476499683,
+          "post_switch": 2.320270378790494
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 7.063985848312895,
+          "pattern": 7.157781191781057,
+          "hazard": 6.524574030909417,
+          "post_switch": 2.37553900774016
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 11.42495471872046,
+          "pattern": 15.738719091058547,
+          "hazard": 14.276377969157865,
+          "post_switch": 3.2110113633487942
+        },
+        "warm-up": {
+          "losses": 3.2766988497491467,
+          "pattern": 4.2699655896300595,
+          "hazard": 3.3766608505658633,
+          "post_switch": 2.1008774264435264
+        }
+      }
+    },
+    "FeedbackDependent-RL": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 28.186210974709123,
+          "pattern": 30.901558652971506,
+          "hazard": 28.38728434598043,
+          "post_switch": 3.960693084615653
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 8.835993273912546,
+          "pattern": 13.104460250214952,
+          "hazard": 10.807436910895943,
+          "post_switch": 3.9272833129595948
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 10.492633793947562,
+          "pattern": 13.555869318492736,
+          "hazard": 11.516398652009151,
+          "post_switch": 2.621807633871068
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 11.509644263933875,
+          "pattern": 15.852644577573159,
+          "hazard": 13.012822848847357,
+          "post_switch": 3.405150587914746
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 10.139193882242116,
+          "pattern": 14.39900806938541,
+          "hazard": 11.706025543270385,
+          "post_switch": 1.8685323849333393
+        },
+        "final|Coupled Baiting": {
+          "losses": 13.200599980088182,
+          "pattern": 13.922501577865113,
+          "hazard": 11.7202148289566,
+          "post_switch": 2.425274772259224
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 23.593493720972038,
+          "pattern": 26.910874314373572,
+          "hazard": 24.155110947592263,
+          "post_switch": 3.925897206441898
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 25.958434702715795,
+          "pattern": 30.627362055532245,
+          "hazard": 28.0276946077462,
+          "post_switch": 2.957995653995475
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 20.075771403457882,
+          "pattern": 20.824898803704027,
+          "hazard": 18.575557389967425,
+          "post_switch": 2.9949674548278473
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 7.189384296603431,
+          "pattern": 8.307158013199603,
+          "hazard": 7.065807080164515,
+          "post_switch": 1.991706800949883
+        },
+        "unknown|Random Walk": {
+          "losses": 45.42308116236654,
+          "pattern": 67.81594726027868,
+          "hazard": 51.28249273179189,
+          "post_switch": 1.403005249874542
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 10.77337716143792,
+          "pattern": 11.608685027105468,
+          "hazard": 10.415281626950005,
+          "post_switch": 2.531714382092756
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 20.434610714426412,
+          "pattern": 28.48884191755899,
+          "hazard": 25.96012067789263,
+          "post_switch": 3.109538498877962
+        },
+        "warm-up": {
+          "losses": 4.984640384897918,
+          "pattern": 7.288234742165752,
+          "hazard": 5.738909105069716,
+          "post_switch": 2.4189598093690496
+        }
+      },
+      "two_level_em": {
+        "non-warm-up": {
+          "losses": 21.851046137474597,
+          "pattern": 24.395257663427003,
+          "hazard": 22.445821575728154,
+          "post_switch": 4.160657838460686
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 7.611743940936711,
+          "pattern": 10.385553388492438,
+          "hazard": 8.588195304053555,
+          "post_switch": 3.5785848571832997
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 8.807093900338444,
+          "pattern": 11.077566291882604,
+          "hazard": 9.434731269339382,
+          "post_switch": 2.733907647910078
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 9.560542136125932,
+          "pattern": 12.938486167944822,
+          "hazard": 10.657728999196088,
+          "post_switch": 3.444300065327093
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 7.958376505146899,
+          "pattern": 11.97612434028297,
+          "hazard": 9.76657532320524,
+          "post_switch": 2.2141509784758178
+        },
+        "final|Coupled Baiting": {
+          "losses": 9.215951288961568,
+          "pattern": 10.090187971162072,
+          "hazard": 8.488358186629718,
+          "post_switch": 2.344848101726034
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 18.171435263710816,
+          "pattern": 21.27834260340121,
+          "hazard": 19.14975526024084,
+          "post_switch": 4.1256610378407945
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 18.993505917735792,
+          "pattern": 23.769191596370582,
+          "hazard": 21.80732190916732,
+          "post_switch": 3.2840344664257546
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 13.734095826888167,
+          "pattern": 15.103936341347069,
+          "hazard": 13.533619484044406,
+          "post_switch": 2.835733293215583
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 6.067680699132616,
+          "pattern": 8.159235769575869,
+          "hazard": 6.898990947670666,
+          "post_switch": 1.1571102630354284
+        },
+        "unknown|Random Walk": {
+          "losses": 30.603557353936218,
+          "pattern": 47.99045237664078,
+          "hazard": 36.333493785397664,
+          "post_switch": 1.9171971740215032
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 8.5351152429612,
+          "pattern": 9.07533666870445,
+          "hazard": 8.180902582977978,
+          "post_switch": 2.3953517959149004
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 14.657976110118554,
+          "pattern": 20.188836761537576,
+          "hazard": 18.31748830454765,
+          "post_switch": 3.2140641118626103
+        },
+        "warm-up": {
+          "losses": 4.021188017094936,
+          "pattern": 5.437803181018137,
+          "hazard": 4.254632616352536,
+          "post_switch": 2.1275535036221145
+        }
+      }
+    },
+    "Rescorla-Wagner": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 27.166952987376426,
+          "pattern": 31.437444325284677,
+          "hazard": 28.899883219816772,
+          "post_switch": 4.121953594749603
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 8.605578892683198,
+          "pattern": 13.505931758269751,
+          "hazard": 11.125543831700167,
+          "post_switch": 4.087470034679906
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 9.437930198894724,
+          "pattern": 14.063558663806566,
+          "hazard": 11.941215052824711,
+          "post_switch": 2.7493884996744162
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 11.377193085744683,
+          "pattern": 16.255035264627594,
+          "hazard": 13.33289142497292,
+          "post_switch": 3.52368073560107
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 8.684398352341315,
+          "pattern": 14.6774792734341,
+          "hazard": 11.919157686184255,
+          "post_switch": 1.9703824498355718
+        },
+        "final|Coupled Baiting": {
+          "losses": 12.888713075227297,
+          "pattern": 14.071330851622863,
+          "hazard": 11.838322696961534,
+          "post_switch": 2.7874193364417614
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 23.24771259743822,
+          "pattern": 27.295121310803744,
+          "hazard": 24.524144711786995,
+          "post_switch": 3.9663836993051547
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 22.9188018138712,
+          "pattern": 30.386575597603315,
+          "hazard": 27.81575194539879,
+          "post_switch": 3.0272675577275048
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 19.125608799748697,
+          "pattern": 20.956696366712734,
+          "hazard": 18.713016765068605,
+          "post_switch": 3.266057535977597
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 5.842131686369933,
+          "pattern": 8.987720366343243,
+          "hazard": 7.329496276237701,
+          "post_switch": 1.3864597289727016
+        },
+        "unknown|Random Walk": {
+          "losses": 47.012492149636735,
+          "pattern": 70.24225773020973,
+          "hazard": 53.19220571087479,
+          "post_switch": 1.8922417392893898
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 10.938381915933556,
+          "pattern": 11.990495018815452,
+          "hazard": 10.799927654435189,
+          "post_switch": 2.6814259638732083
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 18.715983256687974,
+          "pattern": 29.427574084599456,
+          "hazard": 26.782722517323645,
+          "post_switch": 3.142676220684229
+        },
+        "warm-up": {
+          "losses": 4.756156834075179,
+          "pattern": 7.976839099972843,
+          "hazard": 6.28161789505884,
+          "post_switch": 2.407546613437973
+        }
+      }
+    },
+    "GLM-Su2022": {
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 2.0444570178233,
+          "pattern": 2.2706127200903263,
+          "hazard": 2.250879831063697,
+          "post_switch": 1.9088917699443015
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.5925906204688427,
+          "pattern": 2.0494833899201486,
+          "hazard": 1.867235468481786,
+          "post_switch": 2.792324157346749
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.637456766434389,
+          "pattern": 1.939384267171717,
+          "hazard": 1.8787328394451945,
+          "post_switch": 1.887888504143619
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.7910037845463156,
+          "pattern": 2.2955848733575035,
+          "hazard": 2.074952318491372,
+          "post_switch": 2.331172036101574
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.3843477524484828,
+          "pattern": 1.6083530899130491,
+          "hazard": 1.5145450257823563,
+          "post_switch": 1.3179124134998368
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.4214276716245486,
+          "pattern": 1.5165715883424389,
+          "hazard": 1.50299481098838,
+          "post_switch": 1.3889776868567592
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.8881482013939945,
+          "pattern": 2.1476990435946517,
+          "hazard": 2.1073757773946307,
+          "post_switch": 1.7331480143578564
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.930780574069244,
+          "pattern": 2.2101492221747985,
+          "hazard": 2.122290351684271,
+          "post_switch": 1.6531851626677319
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 2.145539473842228,
+          "pattern": 2.51109363454059,
+          "hazard": 2.4283916328904525,
+          "post_switch": 2.016201024238655
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 0.7956294036463037,
+          "pattern": 1.701664977725098,
+          "hazard": 1.3682599410128142,
+          "post_switch": 1.5690264675800243
+        },
+        "unknown|Random Walk": {
+          "losses": 2.3456049302306385,
+          "pattern": 3.7153029896139365,
+          "hazard": 2.9967652946304932,
+          "post_switch": 0.33411226148575474
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.5933244357289673,
+          "pattern": 1.8039057585257257,
+          "hazard": 1.81313330474969,
+          "post_switch": 1.6213360319404884
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.9024584767666874,
+          "pattern": 2.871967179882742,
+          "hazard": 2.852825647267331,
+          "post_switch": 2.3779276220836807
+        },
+        "warm-up": {
+          "losses": 1.6793957774616353,
+          "pattern": 2.094659128665163,
+          "hazard": 1.6705846158661266,
+          "post_switch": 1.6995405329079005
+        }
+      }
+    }
+  },
+  "likelihood_vs_floor_ratio": [
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "likelihood": 0.7171973319366401,
+      "replay_score": 1.9734949002069926
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "likelihood": 0.7243196198605001,
+      "replay_score": 1.3850157583953246
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "likelihood": 0.7187431466407855,
+      "replay_score": 1.865098667698597
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "likelihood": 0.7239981986540848,
+      "replay_score": 1.3318658256252662
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "likelihood": 0.7149126635108097,
+      "replay_score": 2.1894049251369423
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "likelihood": 0.7232846776236617,
+      "replay_score": 1.4614814117875374
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "likelihood": 0.7160406831754967,
+      "replay_score": 2.353874285058226
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "likelihood": 0.7225079050669331,
+      "replay_score": 1.4552554751148825
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "likelihood": 0.7170395016451598,
+      "replay_score": 1.6991845632429858
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "likelihood": 0.7223356608700302,
+      "replay_score": 1.4828093261528317
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "likelihood": 0.7126671375129033,
+      "replay_score": 2.3846026098248863
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "likelihood": 0.7211022982880708,
+      "replay_score": 1.9036985774151114
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "likelihood": 0.7162795768364534,
+      "replay_score": 2.09285911820585
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "likelihood": 0.719725621112509,
+      "replay_score": 1.913959525631862
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "likelihood": 0.7100045263008289,
+      "replay_score": 2.522360534808197
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "likelihood": 0.7180621901182492,
+      "replay_score": 1.6827761775710828
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "likelihood": 0.711245554959155,
+      "replay_score": 2.617949008069486
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "likelihood": 0.7179081060555206,
+      "replay_score": 1.726984241645271
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "likelihood": 0.7124214430490011,
+      "replay_score": 2.364263290860948
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "likelihood": 0.7178095080576691,
+      "replay_score": 1.8685096941094368
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "likelihood": 0.7087833266986183,
+      "replay_score": 2.424991152985285
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "likelihood": 0.7157979916647754,
+      "replay_score": 1.8044248232270952
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "likelihood": 0.7127228483556,
+      "replay_score": 2.431554998109662
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "likelihood": 0.7095074763468017,
+      "replay_score": 2.8553868984623385
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "likelihood": 0.6969429647282196,
+      "replay_score": 3.9647661401198215
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "likelihood": 0.711796831198377,
+      "replay_score": 2.5430789931095314
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "likelihood": 0.6960685322698903,
+      "replay_score": 4.049503294878869
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "likelihood": 0.7061490911325979,
+      "replay_score": 2.895883463023477
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "likelihood": 0.6697554164316181,
+      "replay_score": 6.533866299935723
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "likelihood": 0.665957637502634,
+      "replay_score": 6.6596353303891265
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "likelihood": 0.6272973110415319,
+      "replay_score": 8.168753929777537
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "likelihood": 0.6662486743303208,
+      "replay_score": 4.774084189442737
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "likelihood": 0.555762564109078,
+      "replay_score": 17.02842449841181
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "likelihood": 0.6145271051521211,
+      "replay_score": 12.651899328318208
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "likelihood": 0.548905204254559,
+      "replay_score": 17.690008046943046
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "likelihood": 0.585532853013893,
+      "replay_score": 14.937185967236374
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "likelihood": 0.5421764395178231,
+      "replay_score": 17.85960451597118
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "likelihood": 0.7168649596421358,
+      "replay_score": 2.1133122309001005
+    }
+  ],
+  "scatter": [
+    {
+      "statistic": "losses",
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "n_bins": 6,
+      "r": 0.982736143898057,
+      "rmse": 0.005260947518145113,
+      "floor_ratio": 1.6083797190543037
+    },
+    {
+      "statistic": "losses",
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "n_bins": 6,
+      "r": 0.9271592994982953,
+      "rmse": 0.0317511774542769,
+      "floor_ratio": 2.2652976566011485
+    },
+    {
+      "statistic": "losses",
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "n_bins": 6,
+      "r": 0.9331031279595063,
+      "rmse": 0.03263702741388844,
+      "floor_ratio": 2.5268295739768956
+    },
+    {
+      "statistic": "losses",
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "n_bins": 6,
+      "r": -0.6493639520385253,
+      "rmse": 0.015084891327999929,
+      "floor_ratio": 1.3952387506537633
+    },
+    {
+      "statistic": "losses",
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "n_bins": 6,
+      "r": 0.13681074861482853,
+      "rmse": 0.012853072012286157,
+      "floor_ratio": 2.0444570178233
+    },
+    {
+      "statistic": "pattern",
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.9293092137963734,
+      "rmse": 0.053160450031361314,
+      "floor_ratio": 1.898597744370424
+    },
+    {
+      "statistic": "pattern",
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.98091597316019,
+      "rmse": 0.04592288001667993,
+      "floor_ratio": 2.4816160320596037
+    },
+    {
+      "statistic": "pattern",
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.9631980333823761,
+      "rmse": 0.06664695784643183,
+      "floor_ratio": 2.722595622284781
+    },
+    {
+      "statistic": "pattern",
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "n_bins": 42,
+      "r": 0.9842593288309146,
+      "rmse": 0.03070633608134908,
+      "floor_ratio": 1.4325259839336248
+    },
+    {
+      "statistic": "pattern",
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.9770668744935521,
+      "rmse": 0.04041354177022089,
+      "floor_ratio": 2.2706127200903263
+    },
+    {
+      "statistic": "hazard",
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9953384284894714,
+      "rmse": 0.011283157062215709,
+      "floor_ratio": 1.725495215552861
+    },
+    {
+      "statistic": "hazard",
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9838578622286248,
+      "rmse": 0.02524702530748762,
+      "floor_ratio": 2.483312871475963
+    },
+    {
+      "statistic": "hazard",
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9898767559635936,
+      "rmse": 0.04299217247671316,
+      "floor_ratio": 2.5828942613279486
+    },
+    {
+      "statistic": "hazard",
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "n_bins": 12,
+      "r": 0.9950744309852597,
+      "rmse": 0.012950189969803355,
+      "floor_ratio": 1.407309937319099
+    },
+    {
+      "statistic": "hazard",
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9927733357006897,
+      "rmse": 0.019571347030275032,
+      "floor_ratio": 2.250879831063697
+    },
+    {
+      "statistic": "post_switch",
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9669296296072931,
+      "rmse": 0.047187603313294156,
+      "floor_ratio": 1.5820744160569469
+    },
+    {
+      "statistic": "post_switch",
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9767060234067612,
+      "rmse": 0.06409341605452042,
+      "floor_ratio": 1.6459364439196642
+    },
+    {
+      "statistic": "post_switch",
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9924274629993989,
+      "rmse": 0.0825685093211854,
+      "floor_ratio": 1.8196939001029613
+    },
+    {
+      "statistic": "post_switch",
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "n_bins": 12,
+      "r": 0.9890803197303402,
+      "rmse": 0.03645424576660562,
+      "floor_ratio": 1.3082118140648948
+    },
+    {
+      "statistic": "post_switch",
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9597407658158411,
+      "rmse": 0.0565572048370731,
+      "floor_ratio": 1.9088917699443015
+    }
+  ]
+}

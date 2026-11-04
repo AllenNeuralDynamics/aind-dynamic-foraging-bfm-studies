@@ -1,5 +1,7 @@
 # Replay and rollout for every model, reported as a grid, never one score
 
+**Status:** accepted; amended by ADR 0009 (one fingerprint score per mode, for leaderboards, beside the grid).
+
 Every model gets both kinds of fingerprint. A replay fingerprint runs the model on the subjects'
 real choices and rewards and compares its predicted switch probability in each history bin with
 the subjects' observed rate. A rollout fingerprint lets the fitted model play the task and
