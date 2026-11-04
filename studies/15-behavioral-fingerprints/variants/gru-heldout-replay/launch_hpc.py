@@ -22,7 +22,7 @@ from zoneinfo import ZoneInfo
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from launch import DATA, STUDY, VARIANT, _run, _studies_sha  # noqa: E402
+from launch import DATA, REPOS, STUDY, VARIANT, _main_sha, _run, _studies_sha  # noqa: E402
 from launch_record import write_initial  # noqa: E402
 
 CONDA_ENV = "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu"
@@ -43,19 +43,26 @@ def main() -> None:
     ap.add_argument("--wrapper", type=Path, required=True)
     ap.add_argument("--models", type=Path, required=True)
     ap.add_argument("--prior-root", type=Path, required=True)
+    ap.add_argument("--job", help="record this already-submitted array instead of submitting")
+    ap.add_argument("--launch-id", help="with --job: the launch id its outputs were written under")
+    ap.add_argument("--studies-sha", help="with --job: the studies commit the job was submitted from")
     a = ap.parse_args()
     studies = _studies_sha()
-    revisions = {"studies": studies, "wrapper": _clean_sha(a.wrapper, "code"),
-                 "foraging_models": _clean_sha(a.models, "src")}
+    if a.job:   # recorded after submission: name the commit it ran from; manifests come from git
+        assert a.launch_id and a.studies_sha, "--job needs --launch-id and --studies-sha"
+        studies = a.studies_sha
+    # The job does not read the dispatcher; the schema asks for one, so this is the Beaker twin's pin.
+    revisions = {"studies": studies, "dispatcher": _main_sha(REPOS["dispatcher"]),
+                 "wrapper": _clean_sha(a.wrapper, "code"), "foraging_models": _clean_sha(a.models, "src")}
     for seed in range(3):
         assert (a.prior_root / f"s{seed}" / "run" / "outputs" / "checkpoints" / "index.json").exists(), seed
-    launch_id = datetime.now(ZoneInfo("America/Los_Angeles")).strftime("%Y%m%d-%H%M%S")
+    launch_id = a.launch_id or datetime.now(ZoneInfo("America/Los_Angeles")).strftime("%Y%m%d-%H%M%S")
     out_root = OUT_BASE / launch_id
     env = (f"ALL,WRAPPER={a.wrapper},MODELS={a.models},CONFIG={HERE / 'heldout_offline.yaml'},"
            f"PRIOR_ROOT={a.prior_root},OUT_ROOT={out_root},PATH={CONDA_ENV}/bin:/usr/bin:/bin")
     command = ["sbatch", "--parsable", f"--export={env}", "-J", "s15-gru-replay",
                "-o", str(LOGS / "gru_replay_%A_%a.log"), str(HERE / "run_hpc.sbatch")]
-    job = _run(*command).strip().split(";")[0]
+    job = a.job or _run(*command).strip().split(";")[0]
     assert re.fullmatch(r"\d+", job), job
     packages = _run(f"{CONDA_ENV}/bin/python", "-m", "pip", "list", "--format=freeze")
     write_initial(HERE / "launch_record" / a.label / f"hpc_{launch_id}.json", platform="hpc",
@@ -64,7 +71,8 @@ def main() -> None:
                   manifests=["run_hpc.sbatch", "heldout_offline.yaml", "launch_hpc.py"], data=DATA,
                   image={"platform": "hpc", "conda_env": CONDA_ENV,
                          "lock_sha256": hashlib.sha256(packages.encode()).hexdigest()},
-                  command=" ".join(command), n_tasks=3, produced_by=f"variants/{VARIANT}/launch_hpc.py")
+                  command=" ".join(command), n_tasks=3, produced_by=f"variants/{VARIANT}/launch_hpc.py",
+                  recorded_after_launch=bool(a.job))
     print(f"slurm array {job}; outputs {out_root}; record in launch_record/{a.label}/")
 
 
