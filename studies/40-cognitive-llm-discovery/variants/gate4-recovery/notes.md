@@ -41,10 +41,16 @@ designs below).
 5. **Winner's curse:** the winner is chosen on the validation mice, so its score there is biased
    upward. The winner and the target are each scored once on the 24 held-out mice (`heldout.py`),
    and both numbers are reported. The pass is decided on validation, as written in step 4.
+6. **Mechanism recovery, reported but not part of the pass** (added 2026-11-04, before any pre-check
+   result): whether the winner has a slow reward trace and a choice kernel (its code and
+   `LATENT_NAMES`), and which island it came from.
 
 **What a pass shows.** The search can combine and extend simplified programs into a mechanism none
-of them has, on data where that mechanism clearly matters. It does not show that the search finds
-subtle mechanisms in real mice.
+of them has, on data where that mechanism clearly matters. The target is the two-timescale seed plus
+the choice-kernel seed, so a pass shows recombination under this evaluator. It does not show that
+the search finds subtle mechanisms in real mice. **If it fails,** first check whether proposals
+combined mechanisms across islands at all (migration every 10 proposals at rate 0.1 is slow) before
+concluding that Claude could not.
 
 **Steps.**
 1. `truths.sbatch` (with `SETTING`) writes the hand-set truths and simulates the three sets.
