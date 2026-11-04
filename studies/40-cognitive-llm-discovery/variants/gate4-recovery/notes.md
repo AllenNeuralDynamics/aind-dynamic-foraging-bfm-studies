@@ -44,6 +44,27 @@ it on 2026-11-04).
 2. Its exclusions go into `run.json`'s `library_exclude` in a new commit.
 3. `search.sbatch` runs the search and writes the launch record.
 
+**Pre-check result (2026-11-04).** SLURM 27609017, from studies 6e92764 and MEvolve cee79da, wrote
+`runs/gate4-recovery/precheck-6e92764/precheck.json`. The target, Hattori2019, scores 66.528, and its
+2-level fit did not fail. Margins below the target:
+
+| program | margin | | program | margin |
+|---|---|---|---|---|
+| Bari2019 | 0.301 | | Eckstein-BI (seed) | 1.266 |
+| Lebedeva-PR (seed) | 0.394 | | Beron-RFLR | 1.367 |
+| Miller-RHG (seed) | 0.453 | | Chen-RLCK | 1.378 |
+| Lopez-DoubleTrace (seed) | 0.502 | | Eckstein-RL | 1.402 |
+| CompareToThreshold | 0.651 | | FeedbackDependent-RL+Bias+CK1 | 2.261 |
+| Grossman-MetaLearning | 0.832 | | Alsio-DualRateSticky-RL | 3.077 |
+| Zid-HistoryKernel2-ForagingRL | 1.037 | | template | 3.575 |
+
+The other five programs are 4.7 to 13.6 below. The rule leaves out Bari2019 and Lebedeva-PR, and
+Lebedeva-PR is a seed, so the pre-registered stop fired and the choice went to Han. Two seeds sit at
+the rule's edge: Lebedeva-PR is inside by 0.006, and Miller-RHG is outside by 0.053, both within
+noise of the limit. The pre-check was run again from MEvolve 1c57149, which adds the stage fix
+(AllenNeuralDynamics/aind-dynamic-foraging-mevolve#49), so the search's seed scores come from the same
+code.
+
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `gate4-recovery@<launch_id>` in `NeuralDynamics/dfbfm-mevolve` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
 **Status.** Not launched.
