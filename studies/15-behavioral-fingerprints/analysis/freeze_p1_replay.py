@@ -161,9 +161,11 @@ def _wsls_job(args) -> dict:
 def _gate(rows: list[dict], regime: str) -> dict:
     """Per model and regime: how many subjects reproduce study 12, and the largest misses."""
     r = [row[regime] for row in rows]
-    differs = [abs(x["log_lik_diff"]) > TOL_LOG_LIK or not x["n_trials_equal"] for x in r]
+    differs = [not math.isfinite(x["log_lik_diff"]) or abs(x["log_lik_diff"]) > TOL_LOG_LIK
+               or not x["n_trials_equal"] for x in r]   # NaN never counts as reproduced
     out = {"n_subjects": len(r), "n_subjects_replay_differs": int(sum(differs)),
-           "max_abs_log_lik_diff": float(max(abs(x["log_lik_diff"]) for x in r)),
+           "max_abs_log_lik_diff": float(max(abs(x["log_lik_diff"]) if math.isfinite(x["log_lik_diff"])
+                                             else math.inf for x in r)),
            "subjects_replay_differs": sorted(row["subject_id"] for row, d in zip(rows, differs) if d)}
     if regime == "two_level_em":
         same = [x for x, d in zip(r, differs) if not d]

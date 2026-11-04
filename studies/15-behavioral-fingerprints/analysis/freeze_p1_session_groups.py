@@ -2,8 +2,9 @@
 """P1 input: the group of every score session of the 149 test subjects (ADR 0004, 0007).
 
 A session's group is ``warm-up`` (on every trial one side's reward probability is 0, or the
-probabilities are only 0 and 1; P0's rule) or else ``{stage_group}|{task}``, MEvolve's label
-(``final`` = STAGE_FINAL or GRADUATED, ``earlier``, ``unknown``). The warm-up flag needs the
+probabilities are only 0 and 1; P0's rule) or else ``{stage_group}|{task}``, with ``final`` =
+STAGE_FINAL or GRADUATED, ``unknown`` = no stage (missing, or the string "None", as P0 reads it;
+MEvolve's ``Session.stage_group`` takes the string for an earlier stage) and ``earlier`` otherwise. The warm-up flag needs the
 trials' reward probabilities, which only the database has; every later P1 and P2 step reads the
 groups from this file, so replay, rollouts and the animal tallies use the same labels. The
 warm-up count must equal P0's (r1).
@@ -32,11 +33,11 @@ from freeze_p0_task_checks import FREEZE, FREEZE_MANIFEST, SNAPSHOT, load_trials
 
 P0 = HERE / "p0_task_checks.json"
 OUT = HERE / "p1_session_groups.json"
-FINAL_STAGES = ("STAGE_FINAL", "GRADUATED")   # mevolve.data.Session.stage_group
+FINAL_STAGES = ("STAGE_FINAL", "GRADUATED")
 
 
 def stage_group(stage) -> str:
-    if stage is None or pd.isna(stage):
+    if stage is None or stage == "None" or pd.isna(stage):   # 543 score sessions record "None"
         return "unknown"
     return "final" if stage in FINAL_STAGES else "earlier"
 
