@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p1_replay.py",
-    "produced_at_pt": "2026-11-04T12:20:03-08:00",
-    "studies_git_sha": "d1e1178a924be64eb1291ea5b254990b78e14dc4",
+    "produced_at_pt": "2026-11-04T12:51:43-08:00",
+    "studies_git_sha": "99376f20c37c169aaed52b6592b566b158d6fe8d",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -34,7 +34,7 @@
     "inputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_session_groups.json",
-        "sha256": "1b34b10f8e1d7137d685654166bc21076f875be59c383354ba8f49e6d73dffee"
+        "sha256": "c45bdcafc3ac5aeedc5abe559aca102dde7a1ca387c218a83ef96b2e4b156108"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
