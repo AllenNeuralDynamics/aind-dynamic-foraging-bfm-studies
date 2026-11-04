@@ -2,6 +2,8 @@
 
 ## 2026-11-04
 
+- Cohorts (issue #103): the seed-0 draft is adopted as drawn and committed as `reference/cohorts_seed0.json`
+  (sha256 `cbe2cd02...c7cb`); ADR 0003's amendment records its checks against the test subjects.
 - Gate 3's numbers are regenerable (issue #97, review of #98): `make freeze-engine-smoke` freezes the
   engine-smoke ledgers, Shinka's program table and the hand-typed Console figures into
   `analysis/engine_smoke/`, and `make gate3` (in `all`) writes `analysis/gate3_engine_smoke.json`, which
