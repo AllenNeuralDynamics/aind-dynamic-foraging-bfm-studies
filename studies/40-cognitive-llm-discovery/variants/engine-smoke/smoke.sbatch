@@ -25,8 +25,10 @@ trap 'for e in medium high; do [ -d "$TMPDIR/$e" ] && cp -r "$TMPDIR/$e" "$MEVOL
 cd "$TMPDIR"                                     # no .env here for Shinka to load
 "$PY" -c "import mevolve, sys; assert mevolve.__file__.startswith('$MEVOLVE_SRC'), mevolve.__file__"
 echo "node $(hostname) cpus $(nproc) launch $LAUNCH_ID studies $STUDIES_SHA mevolve $MEVOLVE_SHA"
+status=0                                         # try both efforts and the report, then fail if any did
 for effort in medium high; do
-  "$PY" -m mevolve.search.run --config "$VARIANT_DIR/run_${effort}.json" || echo "run $effort failed"
+  "$PY" -m mevolve.search.run --config "$VARIANT_DIR/run_${effort}.json" || { echo "run $effort failed"; status=1; }
 done
 "$PY" -m mevolve.search.report "$MEVOLVE_LAUNCH_DIR/medium" "$MEVOLVE_LAUNCH_DIR/high" \
-  --out "$MEVOLVE_LAUNCH_DIR/comparison.md"
+  --out "$MEVOLVE_LAUNCH_DIR/comparison.md" || { echo "report failed"; status=1; }
+exit "$status"
