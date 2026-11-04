@@ -10,4 +10,7 @@ one's behaviour departs from the subjects', and whether the likelihood ranking h
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `literature-models@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Replay done (P1, [r2](../../analysis/reports/r2-replay-grid.md)), by freezes on a
+compute node, not a launch: study 12's parameters are replayed, and the GLM's 149 per-subject fits
+are deterministic scikit-learn fits (`freeze_p1_glm.py`), so nothing logs to W&B. Rollouts (P2)
+not started.

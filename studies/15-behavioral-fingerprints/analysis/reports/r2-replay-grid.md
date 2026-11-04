@@ -46,9 +46,61 @@ held-out score for that subject, so the grid describes the models study 12 ranke
 compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 0004).
 
 <!-- BEGIN result-1 -->
-TODO: written by the producer, never by hand.
+![replay grid](../fig_r2_replay_grid.svg)
+
+**a**, floor ratio (replay gap ÷ binomial floor, each averaged over the 149 test subjects) per model, regime and statistic, on the subjects' held-out sessions except warm-ups (set `non-warm-up`). 1 means as close as the subjects' own trials allow. \* the 2-level fit failed, so study 12 r3 places the model by its per-subject score; n.r., not reproduced (see the gates). **b**, p(switch) by the last trial's reward and the current run length (the hazard): the subjects' mean and four models' replayed predictions, over subjects that keep the bin (2-level EM where the model has it).
+
+| model | per subject: worst statistic | floor ratio | 2-level EM: worst statistic | floor ratio |
+|---|---|---|---|---|
+| Lebedeva-PR | hazard | 2.2 | last 1–3 trials | 1.4 |
+| Lopez-DoubleTrace | hazard | 2.0 | last 1–3 trials | 1.4 |
+| Bari2019 | hazard | 2.5 | last 1–3 trials | 1.6 |
+| Miller-RHG | last 1–3 trials | 2.7 | last 1–3 trials | 1.6 |
+| CompareToThreshold | last 1–3 trials | 1.9 | after a switch | 1.6 |
+| Hattori2019 | last 1–3 trials | 2.7 | last 1–3 trials | 2.0 |
+| Zid-HistoryKernel2-ForagingRL | losses | 2.3 | after a switch | 2.1 |
+| Eckstein-BI | hazard | 3.3 | hazard | 1.9 |
+| Beron-RFLR | hazard | 3.2 | hazard | 1.9 |
+| Chen-RLCK | last 1–3 trials | 2.8 | last 1–3 trials | 2.3 |
+| Eckstein-RL | hazard | 3.1 | hazard | 2.2 |
+| Grossman-MetaLearning \* | last 1–3 trials | 2.8 | last 1–3 trials | 3.5 |
+| FeedbackDependent-RL+Bias+CK1 | hazard | 5.9 | hazard | 3.4 |
+| Alsio-DualRateSticky-RL | hazard | 6.1 | hazard | 4.0 |
+| LossCounting \* | hazard | 9.2 | hazard | 9.5 |
+| ActorCritic | hazard | 11.0 | hazard | 6.1 |
+| FeedbackDependent-RL+Bias | last 1–3 trials | 29.5 | last 1–3 trials | 19.5 |
+| FeedbackDependent-RL | last 1–3 trials | 30.9 | last 1–3 trials | 24.4 |
+| Rescorla-Wagner \* | last 1–3 trials | 31.4 | — | — |
+| GLM-Su2022 | last 1–3 trials | 2.3 | — | — |
+| Win-Stay-Lose-Shift | losses | 43.9 | — | — |
+
+**Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (20 models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM), whose 2-level fit study 12 r3 marks failed; 2 subjects' typical values sit on a parameter bound with spreads up to e^10, so the stored values cannot rebuild the fit's draws. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169.
 <!-- END result-1 -->
 
 ## What it says
 
-TODO
+- **The best models come within 1.2 to 1.6 times the floor, as 2-level EM.** Lopez-DoubleTrace,
+  Lebedeva-PR, Bari2019, Miller-RHG and CompareToThreshold miss the subjects' p(switch) by about
+  0.013 to 0.018 per bin on the local statistics, against a floor of 0.009 to 0.012. No model
+  reaches the floor, so every statistic still has a measurable error to find.
+- **2-level EM lowers the ratio for almost every model,** typically from about 2 to 3 per subject
+  to 1.4 to 2. A 2-level replay lets each session have its own parameters, and the subjects'
+  switching changes from session to session. The exceptions are the fits study 12 r3 marks
+  failed (Grossman-MetaLearning, LossCounting).
+- **Per subject, CompareToThreshold is the closest (1.6 to 1.9, at or below every other model on
+  each statistic),** although study 12 r1 ranks it third by per-subject likelihood. The
+  per-subject GLM (1.9 to 2.3) is close to the best per-subject literature models (1.6 to 2.2),
+  which fits its held-out likelihood (0.7169, near study 12's best per-subject scores).
+- **The likelihood ranking holds at the extremes.** Models with poor likelihood also miss the
+  switching statistics by far: FeedbackDependent-RL and Rescorla-Wagner at 20 to 31 times the
+  floor, and Win-Stay-Lose-Shift at 35 to 44 times. Panel b shows the last: its hazard is far
+  from the subjects', while the good models follow it at every run length.
+- **"After a switch" separates the models least** (1.2 to 4.7 for all of them). Its bins hold
+  few trials, so its floor is about 4 times the others'.
+- **A floor ratio depends on how much data the subject has.** With more trials per bin the floor
+  shrinks and the same model error becomes a larger multiple: Lopez-DoubleTrace's 2-level
+  ratios on the three local statistics are 1.1 to 1.4 within single session groups and 1.3 to
+  1.4 when the groups are pooled (`r2_replay_grid.json`, `floor_ratio_by_set`). Compare models
+  within a column, not columns with each other.
+
+Rollouts (P2) test whether these per-trial errors add up over a session.

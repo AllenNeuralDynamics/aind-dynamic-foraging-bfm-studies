@@ -2,6 +2,11 @@
 
 ## 2026-11-04
 
+- P1 (r2, draft): replay fingerprints of study 12's 19 models (per subject and 2-level EM),
+  Win-Stay-Lose-Shift and a per-subject GLM (Su2022 design, fit here) on the 149 test subjects'
+  held-out sessions. Every replay reproduces study 12's stored held-out score (≤1.8e-11), except
+  Rescorla-Wagner's failed 2-level fit, which is left out. The best 2-level models sit 1.2–1.6×
+  the binomial floor. Tallies are stored per model in `analysis/p1_replay/` (ADR 0004).
 - ADR 0008 (decided with Han): replay uses a binomial noise floor, rollouts keep the split-half
   floor (foraging-models `binomial_floor`); CONTEXT names both floors.
 

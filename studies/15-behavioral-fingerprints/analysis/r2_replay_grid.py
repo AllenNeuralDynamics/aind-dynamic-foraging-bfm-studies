@@ -55,6 +55,7 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
     from matplotlib.colors import LogNorm
 
     head = gaps["headline_set"]
+    excluded = {(e["model"], e["regime"]) for e in gaps["excluded"]}
     cols = [(reg, s) for reg in REGIMES for s in STATS]
     grid = np.full((len(names), len(cols)), np.nan)
     for i, m in enumerate(names):
@@ -64,7 +65,7 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
                 grid[i, j] = cell["floor_ratio"]
 
     fig = plt.figure(figsize=fs.mm(183, 95))
-    ax = fig.add_axes([0.17, 0.14, 0.33, 0.72])
+    ax = fig.add_axes([0.215, 0.14, 0.30, 0.72])
     x = np.arange(len(cols)) + np.repeat([0.0, 0.4], len(STATS))
     norm = LogNorm(vmin=1, vmax=float(np.nanmax(grid)))
     cmap = plt.get_cmap("magma_r")
@@ -72,6 +73,8 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
         for j in range(len(cols)):
             v = grid[i, j]
             if not np.isfinite(v):
+                if (names[i], cols[j][0]) in excluded:
+                    ax.text(x[j], i, "n.r.", ha="center", va="center", fontsize=5, color="0.5")
                 continue
             shade = norm(max(v, 1.0))
             ax.add_patch(plt.Rectangle((x[j] - 0.5, i - 0.5), 1, 1, color=cmap(shade), lw=0))
@@ -90,7 +93,7 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
     for side in ("top", "right", "bottom", "left"):
         ax.spines[side].set_visible(False)
     fs.panel_label(ax, "a", dy_pt=18)
-    cax = fig.add_axes([0.515, 0.14, 0.008, 0.3])
+    cax = fig.add_axes([0.525, 0.14, 0.008, 0.3])
     cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax)
     cb.set_label("floor ratio")
     fs.plain_log_axis(cax, which="y")
@@ -99,7 +102,7 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
     runs = np.arange(1, half + 1)
     for k, (title, sl) in enumerate((("last trial unrewarded", slice(0, half)),
                                      ("last trial rewarded", slice(half, None)))):
-        axk = fig.add_axes([0.63 + k * 0.19, 0.2, 0.15, 0.56])
+        axk = fig.add_axes([0.645 + k * 0.19, 0.2, 0.145, 0.56])
         first = next(iter(CURVES))
         pb = gaps["models"][first][best_regime(gaps["models"][first])][head]["hazard"]["per_bin"]
         axk.plot(runs, _floats(pb["subject"][sl]), "o", color="black", ms=2.5, label="subjects",
@@ -116,8 +119,7 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
         if k == 0:
             axk.set_ylabel("p(switch)")
             fs.panel_label(axk, "b", dy_pt=18)
-        else:
-            axk.legend(frameon=False, loc="upper right")
+            axk.legend(frameon=False, loc="upper right", bbox_to_anchor=(1.0, 0.9))
     fs.save_figure(fig, FIG)
     plt.close(fig)
 
@@ -136,20 +138,23 @@ def summary(gaps: dict, names: list[str]) -> list[dict]:
     return rows
 
 
-def gate_summary(replay: dict, glm: dict) -> dict:
-    out = {"passed": replay["passed"] and glm["passed"],
-           "library_git_sha": replay["fingerprints_library"]["git_sha"],
+def gate_summary(replay: dict, glm: dict, gaps: dict) -> dict:
+    """The replay gates, over the cells the grid shows; a cell the gaps freeze left out (a failed
+    2-level fit that does not reproduce) is listed, not counted."""
+    skip = {(e["model"], e["regime"]) for e in gaps["excluded"]}
+    out = {"library_git_sha": replay["fingerprints_library"]["git_sha"],
            "mevolve_git_sha": replay["mevolve_git_sha"], "tolerance": replay["tolerance"],
            "n_models": len(replay["models"]), "n_subjects": replay["n_subjects"],
-           "max_abs_log_lik_diff": {}, "n_subjects_replay_differs": 0, "max_fingerprint_diff": 0.0,
+           "max_abs_log_lik_diff": {}, "max_fingerprint_diff": 0.0, "excluded": gaps["excluded"],
            "glm_max_abs_diff": glm["max_abs_diff_sklearn"],
            "glm_pooled_heldout_likelihood": glm["pooled_heldout_likelihood"]}
-    for regimes in replay["models"].values():
-        for reg, g in regimes.items():
-            out["max_abs_log_lik_diff"][reg] = max(out["max_abs_log_lik_diff"].get(reg, 0.0),
-                                                   g["max_abs_log_lik_diff"])
-            out["n_subjects_replay_differs"] += g["n_subjects_replay_differs"]
-            out["max_fingerprint_diff"] = max(out["max_fingerprint_diff"], g.get("max_fingerprint_diff", 0.0))
+    shown = [(m, reg, g) for m, regimes in replay["models"].items() for reg, g in regimes.items()
+             if (m, reg) not in skip]
+    out["passed"] = glm["passed"] and all(g["passed"] for _, _, g in shown)
+    for _, reg, g in shown:
+        out["max_abs_log_lik_diff"][reg] = max(out["max_abs_log_lik_diff"].get(reg, 0.0),
+                                               g["max_abs_log_lik_diff"])
+        out["max_fingerprint_diff"] = max(out["max_fingerprint_diff"], g.get("max_fingerprint_diff", 0.0))
     return out
 
 
@@ -162,7 +167,7 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str]) -> str:
         f"{len(gaps['subjects'])} test subjects) per model, regime and statistic, on the subjects' "
         f"held-out sessions except warm-ups (set `{head}`). 1 means as close as the subjects' own "
         "trials allow. \\* the 2-level fit failed, so study 12 r3 places the model by its "
-        "per-subject score. **b**, p(switch) by the last trial's reward and the current run length "
+        "per-subject score; n.r., not reproduced (see the gates). **b**, p(switch) by the last trial's reward and the current run length "
         "(the hazard): the subjects' mean and four models' replayed predictions, over subjects that "
         "keep the bin (2-level EM where the model has it).",
         "",
@@ -180,11 +185,15 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str]) -> str:
     lines += [
         "",
         f"**Gates** (library `{gates['library_git_sha'][:7]}`, MEvolve `{gates['mevolve_git_sha'][:7]}`). "
-        f"Every replay of the {gates['n_models']} models × {gates['n_subjects']} subjects "
+        f"Every replay shown ({gates['n_models']} models × {gates['n_subjects']} subjects) "
         "reproduces the held-out log likelihood study 12 stored for the subject: largest difference "
         + ", ".join(f"{REGIMES[k]} {v:.1e}" for k, v in gates["max_abs_log_lik_diff"].items())
-        + f" (tolerance {gates['tolerance']['log_lik']:.0e}; {gates['n_subjects_replay_differs']} "
-        "subjects differ). MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the "
+        + f" (tolerance {gates['tolerance']['log_lik']:.0e}). "
+        + "".join(f"Left out: {e['model']} ({REGIMES[e['regime']]}), whose 2-level fit study 12 r3 "
+                  f"marks failed; {e['n_subjects_replay_differs']} subjects' typical values sit on a "
+                  "parameter bound with spreads up to e^10, so the stored values cannot rebuild the "
+                  "fit's draws. " for e in gates["excluded"])
+        + "MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the "
         f"stored one to {gates['max_fingerprint_diff']:.1e}. The GLM's replay equals scikit-learn's "
         f"prediction to {gates['glm_max_abs_diff']:.1e}; its pooled held-out likelihood is "
         f"{gates['glm_pooled_heldout_likelihood']:.4f}.",
@@ -201,7 +210,7 @@ def _rewrite(text: str, block: str, body: str) -> str:
 
 def main() -> None:
     replay, glm, gaps = (json.loads(p.read_text()) for p in (REPLAY, GLM, GAPS))
-    gates = gate_summary(replay, glm)
+    gates = gate_summary(replay, glm, gaps)
     if not gates["passed"]:
         raise SystemExit("a P1 replay gate failed; fix it before rendering r2")
     names, failed = ordered_models(gaps)
