@@ -57,6 +57,26 @@ concluding that Claude could not.
 2. `precheck.sbatch` (with `SIM_DIR`, step 1's directory) writes `precheck.json` there.
 3. `search.sbatch` runs the search and the held-out check; the launch writes its record.
 
+**Pre-check result (2026-11-04): all three settings pass, so setting a is used.** SLURM 27614429 to
+27614434, from studies 1100041 and MEvolve ba95d5d; each setting's simulated mice are in
+`gate4/ttck_<setting>_1100041/` on scratch, and its result is `precheck_two_timescale_ck_<setting>.json`
+here. The three were run in parallel; the rule's order picks a. The target's own 2-level fit did not
+fail in any setting. Margins below the target, ×100:
+
+| program | shown to Claude | a | b | c |
+|---|---|---|---|---|
+| target `two_timescale_ck` (score) | no | 72.928 | 78.437 | 84.596 |
+| reference `one_timescale_ck` | no | 0.429 | 0.522 | 0.458 |
+| seed `two_timescale` | yes | 3.529 | 3.915 | 4.327 |
+| seed `q_learning` | yes | 4.645 | 5.973 | 7.639 |
+| seed `choice_kernel` | yes | 4.906 | 4.006 | 3.433 |
+| template | yes | 6.602 | 5.538 | 4.370 |
+
+The slow trace adds 0.43 in setting a: just over the rule's 0.4, so a program without it cannot pass
+(the pass needs the target − 0.2). The launch uses MEvolve with the review fix of
+AllenNeuralDynamics/aind-dynamic-foraging-mevolve#51, which changes only `search/precheck.py`: the
+evaluator digest, and so the cached seed scores, are the same.
+
 **Superseded second design: Hattori2019 plus satiety (2026-11-04).** The target was Hattori2019 whose
 softmax inverse temperature falls as rewards accumulate, β·exp(−satiety_rate × rewards so far)
 (`generator/hattori_satiety.py`), fitted by 2-level EM to each real template mouse. The real mice show

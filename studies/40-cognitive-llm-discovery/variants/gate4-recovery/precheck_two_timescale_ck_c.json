@@ -1,0 +1,64 @@
+{
+ "target": "two_timescale_ck",
+ "target_score": 84.59574293805372,
+ "tolerance": 0.2,
+ "exclude_within": 0.4,
+ "margins": {
+  "two_timescale_ck": 0.0,
+  "one_timescale_ck": 0.4578,
+  "choice_kernel": 3.4331,
+  "two_timescale": 4.327,
+  "template": 4.3698,
+  "q_learning": 7.6388
+ },
+ "library_exclude": [],
+ "stop": [],
+ "ok": true,
+ "mevolve_git_sha": "ba95d5d2bb7580d6b44eb675ca6bf2a37a417818",
+ "config": "/home/han.hou/code/wt/launch-studies-1100041/studies/40-cognitive-llm-discovery/variants/gate4-recovery/run.json",
+ "target_source": "/home/han.hou/code/wt/launch-studies-1100041/studies/40-cognitive-llm-discovery/variants/gate4-recovery/generator/two_timescale_ck.py",
+ "simulated": {
+  "generation": "/allen/aind/scratch/han.hou/mevolve/gate4/ttck_c_1100041/simulated_two_timescale_ck_generation.json.gz",
+  "validation": "/allen/aind/scratch/han.hou/mevolve/gate4/ttck_c_1100041/simulated_two_timescale_ck_validation.json.gz"
+ },
+ "max_em": 20,
+ "n_draws": 2048,
+ "programs": {
+  "template": {
+   "score": 80.22595844681749,
+   "two_level_failed": false,
+   "generation_score": 79.538,
+   "seconds": 67.90023469924927
+  },
+  "q_learning": {
+   "score": 76.95695260431765,
+   "two_level_failed": false,
+   "generation_score": 75.288,
+   "seconds": 86.77666807174683
+  },
+  "choice_kernel": {
+   "score": 81.16264628531424,
+   "two_level_failed": false,
+   "generation_score": 80.398,
+   "seconds": 77.76350021362305
+  },
+  "two_timescale": {
+   "score": 80.26875705150343,
+   "two_level_failed": false,
+   "generation_score": 79.377,
+   "seconds": 140.64317417144775
+  },
+  "one_timescale_ck": {
+   "score": 84.1379365727736,
+   "two_level_failed": false,
+   "generation_score": 83.253,
+   "seconds": 114.5262234210968
+  },
+  "two_timescale_ck": {
+   "score": 84.59574293805372,
+   "two_level_failed": false,
+   "generation_score": 83.773,
+   "seconds": 179.32955241203308
+  }
+ }
+}

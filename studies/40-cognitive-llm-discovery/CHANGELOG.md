@@ -2,6 +2,8 @@
 
 ## 2026-11-04
 
+- `gate4-recovery`: the pre-check passes for all three hand-set settings; setting a is used (target
+  72.928; the reference without the slow trace 0.429 below, the seeds 3.5 to 6.6 below).
 - `gate4-recovery`: a hand-set design, as simple as the engine smoke test (Han). The generating program
   has two reward timescales plus a choice kernel (`generator/two_timescale_ck.py`), with hand-set values
   (`make_truths.py`), not fits to mice; three simplified seeds (`seeds/`), the library off, and a

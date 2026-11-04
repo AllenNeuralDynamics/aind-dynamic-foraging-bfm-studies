@@ -17,7 +17,7 @@
 set -euo pipefail
 : "${VARIANT_DIR:?}" "${MEVOLVE_SRC:?}" "${LAUNCH_ID:?}" "${LAUNCH_LABEL:?}" "${STUDIES_SHA:?}" "${MEVOLVE_SHA:?}"
 PY=/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search/bin/python
-export SIM_DIR=TO_BE_SET_AFTER_THE_PRECHECK
+export SIM_DIR=/allen/aind/scratch/han.hou/mevolve/gate4/ttck_a_1100041   # setting a: the first whose pre-check passed
 HELDOUT="$SIM_DIR/simulated_two_timescale_ck_heldout.json.gz"
 export PYTHONPATH="$MEVOLVE_SRC" VARIANT_DIR
 export WANDB_GROUP="gate4-recovery@${LAUNCH_ID}"
