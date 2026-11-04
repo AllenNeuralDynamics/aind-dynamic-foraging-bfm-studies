@@ -50,6 +50,7 @@ vocabulary in [CONTEXT.md](CONTEXT.md).
 | variant | models |
 |---|---|
 | [`literature-models`](variants/literature-models/notes.md) | study 12's 19 ranked models, per subject and 2-level EM; a per-subject GLM (Su2022 design) |
+| [`gru-heldout-replay`](variants/gru-heldout-replay/notes.md) | study 01's v1 GRU at D = 614 (3 seeds), re-fine-tuned offline on the held-out subjects to save its per-trial predictions for replay |
 
 Later: the GRU (a new study 01 rollout at D = 614 after wrapper #60) and the GLM-HMM (study 14),
 with ignore statistics; MEvolve's pre-registered programs from study 40.
