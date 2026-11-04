@@ -40,14 +40,22 @@ the run, served on localhost for the length of one command.
 
 ## Result (2026-11-03)
 
+The measured numbers in this section are in [`analysis/gate3_engine_smoke.json`](../../analysis/gate3_engine_smoke.json)
+(`make -C studies/40-cognitive-llm-discovery gate3`), computed from the frozen ledgers, Shinka's program
+table and the Console figures in [`analysis/engine_smoke/`](../../analysis/engine_smoke/)
+(`make freeze-engine-smoke`).
+
 The engine works end to end with real Claude calls, and gate 3 passes. Ten proposals per run test the
 engine, not the science: the best program beats the best seed (Lebedeva-PR, 73.409) by only 0.04.
 
 **Calls.** 22 calls (2 preflight, 10 per run): no API errors, no refusals, no cut-off replies; every
 call ended with `end_turn`.
 
-**Ledger against the Console.** Token counts match. The Console figures are from Han's Console page for
-the workspace, data as of 2026-11-03 19:48 UTC, which held only these 22 calls.
+**Ledger against the Console.** Token counts match. The Console figures are from Han's Console for the
+workspace, typed in by hand from his screenshots (`analysis/engine_smoke/console.json`): the Cost page
+as of 2026-11-03 19:48 UTC, the Caching page as of 11:00 UTC. The Caching page counts in hourly buckets;
+the 22 calls ran 11:02–11:24 UTC, and its totals match all of them. The workspace held only these 22
+calls.
 
 | | ledger | Console |
 |---|---|---|
@@ -55,7 +63,7 @@ the workspace, data as of 2026-11-03 19:48 UTC, which held only these 22 calls.
 | cache writes | 57,480 (4 × 14,370) | 57.6K (259K ÷ 4.50 reads per write) |
 | uncached input | 51,092 | 51K |
 | all input | 367,232 | 367K |
-| cost at list price | $0.615 | $0.59 |
+| cost at list price | $0.616 | $0.59 |
 | cost billed | — | $0.29 |
 
 The ledger's cost is 4% above the Console's list price, inside the 5% test and on the safe side for a
@@ -66,12 +74,13 @@ of list price, after the organisation's discount: the ledger's cap and the PLAN'
 price, are about twice what is billed.
 
 **Caching.** The cache prefix (the task and the 19 literature programs, 14,370 tokens) was written 4
-times: once in the preflight, and by the first 3 calls of the medium run, which went out in the same
-second, before any cache existed. Every other call read it, including all 10 calls of the high run,
-which started 3 minutes after medium's last call while its cache was still warm. The longest gap between
-calls was 126 s, inside the 5-minute cache lifetime. The uncached input, 14% of all input tokens, is the
-part that changes with each call (the parent program and its feedback, about 2,500 tokens). Output is
-52% of all cost.
+times: once in the preflight, and by the first 3 calls of the medium run. Those 3 went out within 0.23 s
+of each other, before any of them had written the cache; the preflight's copy, written 532 s earlier, had
+expired. Every other call read it, including all 10 calls of the high run, which started 191 s (3
+minutes) after medium's last call while its cache was still warm. Within a run, the longest gap between
+calls was 126 s (start to start); it and the 191 s are inside the 5-minute cache lifetime. The uncached
+input, 14% of all input tokens, is the part that changes with each call (the parent program and its
+feedback, about 2,500 tokens). Output is 52% of all cost.
 
 **Islands.** Each literature seed is alone on its island and the template alone on island 0. Shinka's
 `island_idx` is where a program is now, after migrations: 7 programs sit on an island other than their
@@ -97,4 +106,5 @@ fewer parents. By the PLAN's rule (keep high only if clearly better per dollar) 
 The four large gains (+0.6 to +2.8) all came from editing the weak template or Eckstein-BI, the
 lowest-scoring seeds. The 2 edits that did not apply failed because Shinka's search text did not match
 the parent; the search allows one attempt per proposal (`max_patch_attempts` 1), so whether to allow one
-repair attempt is open.
+repair attempt is open. Two of high's programs (proposals 1 and 3) failed the 2-level fit on the
+validation mice and kept their per-subject score (`two_level_failed`); medium had none.

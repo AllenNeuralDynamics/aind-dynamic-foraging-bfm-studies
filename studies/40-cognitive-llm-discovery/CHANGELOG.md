@@ -1,5 +1,13 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-04
+
+- Gate 3's numbers are regenerable (issue #97, review of #98): `make freeze-engine-smoke` freezes the
+  engine-smoke ledgers, Shinka's program table and the hand-typed Console figures into
+  `analysis/engine_smoke/`, and `make gate3` (in `all`) writes `analysis/gate3_engine_smoke.json`, which
+  the notes' Result section now cites; the ledger's cost reads $0.616 (was $0.615), and the Console's
+  Caching page is dated 11:00 UTC, not 19:48.
+
 ## 2026-11-03
 
 - Variant `engine-smoke` (issue #97): gate 3's engine smoke, two 10-proposal ShinkaEvolve runs

@@ -1,0 +1,1576 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_engine_smoke.py",
+    "produced_at_pt": "2026-11-04T00:21:34-08:00",
+    "studies_git_sha": "5e55a976d2978a20e861a52e827fee91e4b8b17f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "engine-smoke@20261103-030341"
+    ],
+    "source_studies_git_shas": [
+      "f90b4b78e02c335975a9c806d507d76e75a02733"
+    ],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no dispatcher SHA in the launch record(s) of W&B group(s): engine-smoke@20261103-030341",
+      "no wrapper SHA in the launch record(s) of W&B group(s): engine-smoke@20261103-030341",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): engine-smoke@20261103-030341"
+    ],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/freeze_engine_smoke.py",
+        "sha256": "1fca829a59bca98de51f95390816f53350a9a79e64f3e58797d430c3fd1d7022"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/search-dev/preflight/ledger.jsonl",
+        "sha256": "1b6eacfbdbc48b5fcfdb086ccaa293724d21c66927a1214f0068e7670f713090"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/medium/ledger.jsonl",
+        "sha256": "743700efe406916a22ea90c9a0934900ba15830276dafc5d4b797df5377eb686"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/high/ledger.jsonl",
+        "sha256": "b5a00bba56178c43093a399c80432435f7831ba11de1d48ca33d9fbae214dc95"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/medium/run_config.json",
+        "sha256": "fea51a5a7a6c3a5c6282c6643cdf7cb15936f7cb7d3dcf777bb10282a0578349"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/medium/run_summary.json",
+        "sha256": "9aaf65b4b6c8ef8f6f9eb5e675b7bd439e078200de332ae6c6d4c4d19c4d4efe"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/medium/programs.sqlite",
+        "sha256": "571a1f99a4184b44feaf101b898d39deafef01a971bb02feeb1e1130690b9bb0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/high/run_config.json",
+        "sha256": "3beea2c000d83de0908921ee55f7c5e7a31443264df9f7d97c94fe2daa8165e0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/high/run_summary.json",
+        "sha256": "6a4a953cd4495430578d35498c7818f2f2e48c5a1ccd6eb2f699d1652f906a2f"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/high/programs.sqlite",
+        "sha256": "d8ee4cb764296be0afdc5c7e9c40354bd90544f1d517c20dd506ef1dba7fb614"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/programs.json",
+        "sha256": "d11ad75ccafffd06b1a587569ba26741eb8ce10790ee781b94ec68caa256b3d1"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/ledger_preflight.jsonl",
+        "sha256": "1b6eacfbdbc48b5fcfdb086ccaa293724d21c66927a1214f0068e7670f713090"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/ledger_medium.jsonl",
+        "sha256": "743700efe406916a22ea90c9a0934900ba15830276dafc5d4b797df5377eb686"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/ledger_high.jsonl",
+        "sha256": "b5a00bba56178c43093a399c80432435f7831ba11de1d48ca33d9fbae214dc95"
+      }
+    ]
+  },
+  "about": "Shinka's program table and failed edits for engine-smoke@20261103-030341, one entry per effort, read-only from programs.sqlite; the ledgers beside this file are byte-for-byte copies.",
+  "wandb_group": "engine-smoke@20261103-030341",
+  "run_dir": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341",
+  "ledgers": {
+    "preflight": "ledger_preflight.jsonl",
+    "medium": "ledger_medium.jsonl",
+    "high": "ledger_high.jsonl"
+  },
+  "runs": {
+    "medium": {
+      "run_config": {
+        "results_dir": "/scratch/fast/27586076/medium",
+        "out_dir": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/medium",
+        "freeze": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+        "cohorts": "/home/han.hou/code/wt/studies-launch-f90b4b78/studies/40-cognitive-llm-discovery/variants/engine-smoke/cohorts_smoke_seed0.json",
+        "generation": "smoke_generation",
+        "validation": "smoke_validation",
+        "workers": 16,
+        "max_em": 20,
+        "n_draws": 2048,
+        "model": "claude-sonnet-5-5",
+        "effort": "medium",
+        "max_usd": 3.5,
+        "max_tokens": 32000,
+        "n_proposals": 10,
+        "seeds": [
+          "Miller-RHG",
+          "Lopez-DoubleTrace",
+          "Lebedeva-PR",
+          "Eckstein-BI"
+        ],
+        "seed_cache": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/seed_cache",
+        "library_in_prompt": true,
+        "max_evaluation_jobs": 3,
+        "max_proposal_jobs": 3,
+        "migration_interval": 5,
+        "migration_rate": 0.1,
+        "archive_size": 40,
+        "eval_time": "02:00:00",
+        "patch_types": null,
+        "max_patch_resamples": 1,
+        "max_novelty_attempts": 1,
+        "wandb": {
+          "entity": "NeuralDynamics",
+          "project": "aind-dynamic-foraging-model",
+          "group": "engine-smoke@20261103-030341",
+          "name": "engine-smoke-medium",
+          "mode": "online",
+          "notes": "Gate 3 engine smoke: 10 proposals at this effort"
+        },
+        "launch": {
+          "label": "engine-smoke-1",
+          "launch_id": "20261103-030341",
+          "studies_sha": "f90b4b78e02c335975a9c806d507d76e75a02733",
+          "mevolve_sha": "e0d0c8611b40cb4d60a77ed5fc475da085be48f5"
+        }
+      },
+      "programs": [
+        {
+          "id": "seed-Miller-RHG-084562ac",
+          "generation": 0,
+          "island_idx": 1,
+          "parent_id": null,
+          "timestamp": 1793704208.4534109,
+          "combined_score": 73.34879744655723,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.349,
+            "generation_score": 73.743,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7334879744655722,
+              "two_level": 0.7334879744655722,
+              "per_subject": 0.7272963915229956,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7374315742902153,
+              "two_level": 0.7374315742902153,
+              "per_subject": 0.7327759657301688,
+              "two_level_failed": false
+            },
+            "seconds": 88.30884194374084,
+            "subject_seconds_max": 73.01209139823914,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Miller-RHG"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "seed-Lopez-DoubleTrace-9b6df627",
+          "generation": 0,
+          "island_idx": 2,
+          "parent_id": null,
+          "timestamp": 1793704208.4563258,
+          "combined_score": 73.31008244121617,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.31,
+            "generation_score": 73.715,
+            "two_level_failed": false,
+            "n_params": 6,
+            "n_latent": 6
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7331008244121617,
+              "two_level": 0.7331008244121617,
+              "per_subject": 0.727064787680481,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.737153277825714,
+              "two_level": 0.737153277825714,
+              "per_subject": 0.7328397563680406,
+              "two_level_failed": false
+            },
+            "seconds": 109.32488131523132,
+            "subject_seconds_max": 94.18895244598389,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Lopez-DoubleTrace"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "seed-Lebedeva-PR-ba7a4423",
+          "generation": 0,
+          "island_idx": 3,
+          "parent_id": null,
+          "timestamp": 1793704208.4586082,
+          "combined_score": 73.40877222407907,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.409,
+            "generation_score": 73.738,
+            "two_level_failed": false,
+            "n_params": 5,
+            "n_latent": 2
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7340877222407907,
+              "two_level": 0.7340877222407907,
+              "per_subject": 0.724746498442965,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7373797702182088,
+              "two_level": 0.7373797702182088,
+              "per_subject": 0.7309666866340407,
+              "two_level_failed": false
+            },
+            "seconds": 53.29851818084717,
+            "subject_seconds_max": 38.62120819091797,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Lebedeva-PR"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "seed-Eckstein-BI-e6f5a292",
+          "generation": 0,
+          "island_idx": 4,
+          "parent_id": null,
+          "timestamp": 1793704208.4605424,
+          "combined_score": 72.54986806070944,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 72.55,
+            "generation_score": 73.168,
+            "two_level_failed": false,
+            "n_params": 4,
+            "n_latent": 2
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7254986806070944,
+              "two_level": 0.7254986806070944,
+              "per_subject": 0.7175607144231968,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7316802451276706,
+              "two_level": 0.7316802451276706,
+              "per_subject": 0.7266070050200594,
+              "two_level_failed": false
+            },
+            "seconds": 74.45327544212341,
+            "subject_seconds_max": 60.96298098564148,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Eckstein-BI"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "8245b119-8ef5-4a22-a4b4-e47a5c0e8609",
+          "generation": 0,
+          "island_idx": 0,
+          "parent_id": null,
+          "timestamp": 1793704263.291803,
+          "combined_score": 70.6978952305186,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 70.698,
+            "generation_score": 71.301,
+            "two_level_failed": false,
+            "n_params": 2,
+            "n_latent": 1
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7069789523051859,
+              "two_level": 0.7069789523051859,
+              "per_subject": 0.6949785529970696,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7130078846002956,
+              "two_level": 0.7130078846002956,
+              "per_subject": 0.7044869910845731,
+              "two_level_failed": false
+            },
+            "seconds": 37.98980522155762,
+            "subject_seconds_max": 24.47990322113037,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "initial_program",
+            "patch_type": "init",
+            "api_costs": 0.0
+          },
+          "migration_history": []
+        },
+        {
+          "id": "c444ca8b-ff8e-4102-92e2-cf796b36c3c3",
+          "generation": 2,
+          "island_idx": 0,
+          "parent_id": "8245b119-8ef5-4a22-a4b4-e47a5c0e8609",
+          "timestamp": 1793704350.607272,
+          "combined_score": 73.44283572486523,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.443,
+            "generation_score": 73.774,
+            "two_level_failed": false,
+            "n_params": 6,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7344283572486523,
+              "two_level": 0.7344283572486523,
+              "per_subject": 0.7251208892197855,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.737737075493812,
+              "two_level": 0.737737075493812,
+              "per_subject": 0.7308027275089714,
+              "two_level_failed": false
+            },
+            "seconds": 76.35301446914673,
+            "subject_seconds_max": 63.723867416381836,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "sticky_trace_plus_reward_trace",
+            "patch_type": "full",
+            "api_costs": 0.046363
+          },
+          "migration_history": []
+        },
+        {
+          "id": "86fb3145-3fa3-4502-84b5-2896bff623a1",
+          "generation": 3,
+          "island_idx": 4,
+          "parent_id": "seed-Eckstein-BI-e6f5a292",
+          "timestamp": 1793704361.776687,
+          "combined_score": 73.17575682485995,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.176,
+            "generation_score": 73.57,
+            "two_level_failed": false,
+            "n_params": 5,
+            "n_latent": 2
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7317575682485994,
+              "two_level": 0.7317575682485994,
+              "per_subject": 0.7238126074022763,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7356992608827821,
+              "two_level": 0.7356992608827821,
+              "per_subject": 0.7303124850088176,
+              "two_level_failed": false
+            },
+            "seconds": 78.25895524024963,
+            "subject_seconds_max": 64.15696907043457,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "log_odds_belief_choice_trace",
+            "patch_type": "diff",
+            "api_costs": 0.061451
+          },
+          "migration_history": []
+        },
+        {
+          "id": "5f13e3b2-b50a-4d69-b9b1-80b793dcc462",
+          "generation": 4,
+          "island_idx": 0,
+          "parent_id": "8245b119-8ef5-4a22-a4b4-e47a5c0e8609",
+          "timestamp": 1793704367.868026,
+          "combined_score": 73.44865426916927,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.449,
+            "generation_score": 73.78,
+            "two_level_failed": false,
+            "n_params": 6,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7344865426916927,
+              "two_level": 0.7344865426916927,
+              "per_subject": 0.7251208892198383,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7378009002496625,
+              "two_level": 0.7378009002496625,
+              "per_subject": 0.730802727508958,
+              "two_level_failed": false
+            },
+            "seconds": 71.12007761001587,
+            "subject_seconds_max": 54.936129570007324,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "stickiness_plus_reward_trace",
+            "patch_type": "diff",
+            "api_costs": 0.016012
+          },
+          "migration_history": []
+        },
+        {
+          "id": "dbe6f837-ecb7-4fef-8f03-e2d32f7c0486",
+          "generation": 6,
+          "island_idx": 1,
+          "parent_id": "c444ca8b-ff8e-4102-92e2-cf796b36c3c3",
+          "timestamp": 1793704500.72314,
+          "combined_score": 73.43751553873686,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.438,
+            "generation_score": 73.762,
+            "two_level_failed": false,
+            "n_params": 8,
+            "n_latent": 4
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7343751553873686,
+              "two_level": 0.7343751553873686,
+              "per_subject": 0.7271795078480874,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.737620872898992,
+              "two_level": 0.737620872898992,
+              "per_subject": 0.7324359386356623,
+              "two_level_failed": false
+            },
+            "seconds": 125.17597270011902,
+            "subject_seconds_max": 107.0633897781372,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "split_win_loss_traces",
+            "patch_type": "diff",
+            "api_costs": 0.021464
+          },
+          "migration_history": [
+            {
+              "generation": 10,
+              "from": 0,
+              "to": 1,
+              "timestamp": 1793704604.888572
+            }
+          ]
+        },
+        {
+          "id": "1ed97a85-b573-4b26-9f01-4ceb2ae98c08",
+          "generation": 7,
+          "island_idx": 1,
+          "parent_id": "seed-Lebedeva-PR-ba7a4423",
+          "timestamp": 1793704487.227305,
+          "combined_score": 73.39011917806636,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.39,
+            "generation_score": 73.779,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7339011917806636,
+              "two_level": 0.7339011917806636,
+              "per_subject": 0.7267608974238291,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.737789202459989,
+              "two_level": 0.737789202459989,
+              "per_subject": 0.732806407290441,
+              "two_level_failed": false
+            },
+            "seconds": 109.03076601028442,
+            "subject_seconds_max": 86.7251443862915,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "slow_choice_trace",
+            "patch_type": "diff",
+            "api_costs": 0.016764
+          },
+          "migration_history": [
+            {
+              "generation": 10,
+              "from": 3,
+              "to": 1,
+              "timestamp": 1793704604.8888047
+            }
+          ]
+        },
+        {
+          "id": "e1705bf9-a9c5-4c81-b871-8db40d8d81a7",
+          "generation": 8,
+          "island_idx": 2,
+          "parent_id": "seed-Lopez-DoubleTrace-9b6df627",
+          "timestamp": 1793704493.92974,
+          "combined_score": 73.26697791377248,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.267,
+            "generation_score": 73.794,
+            "two_level_failed": false,
+            "n_params": 8,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7326697791377248,
+              "two_level": 0.7326697791377248,
+              "per_subject": 0.7272962830322098,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7379442342325265,
+              "two_level": 0.7379442342325265,
+              "per_subject": 0.7325921854884719,
+              "two_level_failed": false
+            },
+            "seconds": 114.57027506828308,
+            "subject_seconds_max": 90.77807474136353,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "bayesian_block_belief_plus_choice_traces",
+            "patch_type": "full",
+            "api_costs": 0.017502
+          },
+          "migration_history": []
+        },
+        {
+          "id": "bf756fe7-a158-45c6-a7f7-5a81fc5f0564",
+          "generation": 9,
+          "island_idx": 0,
+          "parent_id": "5f13e3b2-b50a-4d69-b9b1-80b793dcc462",
+          "timestamp": 1793704575.372059,
+          "combined_score": 73.43004797811668,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.43,
+            "generation_score": 73.761,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 4
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7343004797811667,
+              "two_level": 0.7343004797811667,
+              "per_subject": 0.7265694370828416,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7376094315066155,
+              "two_level": 0.7376094315066155,
+              "per_subject": 0.7321736309525233,
+              "two_level_failed": false
+            },
+            "seconds": 77.00926399230957,
+            "subject_seconds_max": 62.32051134109497,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "choice_trace_plus_outcome_split_traces",
+            "patch_type": "full",
+            "api_costs": 0.019824
+          },
+          "migration_history": []
+        },
+        {
+          "id": "d933886c-4d60-4d7b-8464-13299e84fca2",
+          "generation": 10,
+          "island_idx": 3,
+          "parent_id": "seed-Miller-RHG-084562ac",
+          "timestamp": 1793704604.871487,
+          "combined_score": 73.43147039126585,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.431,
+            "generation_score": 73.785,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7343147039126584,
+              "two_level": 0.7343147039126584,
+              "per_subject": 0.7276187996500614,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7378457329028645,
+              "two_level": 0.7378457329028645,
+              "per_subject": 0.7330128391816523,
+              "two_level_failed": false
+            },
+            "seconds": 99.51256227493286,
+            "subject_seconds_max": 83.58870649337769,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "per_side_reward_trace",
+            "patch_type": "diff",
+            "api_costs": 0.018026
+          },
+          "migration_history": [
+            {
+              "generation": 10,
+              "from": 1,
+              "to": 3,
+              "timestamp": 1793704604.8886783
+            }
+          ]
+        }
+      ],
+      "failed_attempts": [
+        {
+          "generation": 1,
+          "stage": "proposal",
+          "status": "failed",
+          "failure_class": "patch_apply_failed",
+          "failure_reason": "SEARCH text not found in editable regions",
+          "api_costs": 0.061357,
+          "created_at": 1793704276.4388204
+        },
+        {
+          "generation": 5,
+          "stage": "proposal",
+          "status": "failed",
+          "failure_class": "patch_apply_failed",
+          "failure_reason": "SEARCH text not found in editable regions",
+          "api_costs": 0.027464,
+          "created_at": 1793704361.9607985
+        }
+      ]
+    },
+    "high": {
+      "run_config": {
+        "results_dir": "/scratch/fast/27586076/high",
+        "out_dir": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/high",
+        "freeze": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+        "cohorts": "/home/han.hou/code/wt/studies-launch-f90b4b78/studies/40-cognitive-llm-discovery/variants/engine-smoke/cohorts_smoke_seed0.json",
+        "generation": "smoke_generation",
+        "validation": "smoke_validation",
+        "workers": 16,
+        "max_em": 20,
+        "n_draws": 2048,
+        "model": "claude-sonnet-5-5",
+        "effort": "high",
+        "max_usd": 3.5,
+        "max_tokens": 32000,
+        "n_proposals": 10,
+        "seeds": [
+          "Miller-RHG",
+          "Lopez-DoubleTrace",
+          "Lebedeva-PR",
+          "Eckstein-BI"
+        ],
+        "seed_cache": "/allen/aind/scratch/han.hou/mevolve/runs/engine-smoke/20261103-030341/seed_cache",
+        "library_in_prompt": true,
+        "max_evaluation_jobs": 3,
+        "max_proposal_jobs": 3,
+        "migration_interval": 5,
+        "migration_rate": 0.1,
+        "archive_size": 40,
+        "eval_time": "02:00:00",
+        "patch_types": null,
+        "max_patch_resamples": 1,
+        "max_novelty_attempts": 1,
+        "wandb": {
+          "entity": "NeuralDynamics",
+          "project": "aind-dynamic-foraging-model",
+          "group": "engine-smoke@20261103-030341",
+          "name": "engine-smoke-high",
+          "mode": "online",
+          "notes": "Gate 3 engine smoke: 10 proposals at this effort"
+        },
+        "launch": {
+          "label": "engine-smoke-1",
+          "launch_id": "20261103-030341",
+          "studies_sha": "f90b4b78e02c335975a9c806d507d76e75a02733",
+          "mevolve_sha": "e0d0c8611b40cb4d60a77ed5fc475da085be48f5"
+        }
+      },
+      "programs": [
+        {
+          "id": "seed-Miller-RHG-6c24e4ee",
+          "generation": 0,
+          "island_idx": 1,
+          "parent_id": null,
+          "timestamp": 1793704637.79355,
+          "combined_score": 73.34879744655723,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.349,
+            "generation_score": 73.743,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7334879744655722,
+              "two_level": 0.7334879744655722,
+              "per_subject": 0.7272963915229956,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7374315742902153,
+              "two_level": 0.7374315742902153,
+              "per_subject": 0.7327759657301688,
+              "two_level_failed": false
+            },
+            "seconds": 88.30884194374084,
+            "subject_seconds_max": 73.01209139823914,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Miller-RHG"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "seed-Lopez-DoubleTrace-03f3696c",
+          "generation": 0,
+          "island_idx": 2,
+          "parent_id": null,
+          "timestamp": 1793704637.796544,
+          "combined_score": 73.31008244121617,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.31,
+            "generation_score": 73.715,
+            "two_level_failed": false,
+            "n_params": 6,
+            "n_latent": 6
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7331008244121617,
+              "two_level": 0.7331008244121617,
+              "per_subject": 0.727064787680481,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.737153277825714,
+              "two_level": 0.737153277825714,
+              "per_subject": 0.7328397563680406,
+              "two_level_failed": false
+            },
+            "seconds": 109.32488131523132,
+            "subject_seconds_max": 94.18895244598389,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Lopez-DoubleTrace"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "seed-Lebedeva-PR-bc811e46",
+          "generation": 0,
+          "island_idx": 3,
+          "parent_id": null,
+          "timestamp": 1793704637.7988327,
+          "combined_score": 73.40877222407907,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.409,
+            "generation_score": 73.738,
+            "two_level_failed": false,
+            "n_params": 5,
+            "n_latent": 2
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7340877222407907,
+              "two_level": 0.7340877222407907,
+              "per_subject": 0.724746498442965,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7373797702182088,
+              "two_level": 0.7373797702182088,
+              "per_subject": 0.7309666866340407,
+              "two_level_failed": false
+            },
+            "seconds": 53.29851818084717,
+            "subject_seconds_max": 38.62120819091797,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Lebedeva-PR"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "seed-Eckstein-BI-6ba9587f",
+          "generation": 0,
+          "island_idx": 4,
+          "parent_id": null,
+          "timestamp": 1793704637.8007154,
+          "combined_score": 72.54986806070944,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 72.55,
+            "generation_score": 73.168,
+            "two_level_failed": false,
+            "n_params": 4,
+            "n_latent": 2
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7254986806070944,
+              "two_level": 0.7254986806070944,
+              "per_subject": 0.7175607144231968,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7316802451276706,
+              "two_level": 0.7316802451276706,
+              "per_subject": 0.7266070050200594,
+              "two_level_failed": false
+            },
+            "seconds": 74.45327544212341,
+            "subject_seconds_max": 60.96298098564148,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "mevolve_seed": "Eckstein-BI"
+          },
+          "migration_history": []
+        },
+        {
+          "id": "0b68f712-aba2-4d5a-973f-4736efcadbe8",
+          "generation": 0,
+          "island_idx": 0,
+          "parent_id": null,
+          "timestamp": 1793704684.919886,
+          "combined_score": 70.6978952305186,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 70.698,
+            "generation_score": 71.301,
+            "two_level_failed": false,
+            "n_params": 2,
+            "n_latent": 1
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7069789523051859,
+              "two_level": 0.7069789523051859,
+              "per_subject": 0.6949785529970696,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7130078846002956,
+              "two_level": 0.7130078846002956,
+              "per_subject": 0.7044869910845731,
+              "two_level_failed": false
+            },
+            "seconds": 36.830564737319946,
+            "subject_seconds_max": 25.063209056854248,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "initial_program",
+            "patch_type": "init",
+            "api_costs": 0.0
+          },
+          "migration_history": []
+        },
+        {
+          "id": "2b5ed974-8d7e-415c-989a-8e1dda4fa31d",
+          "generation": 1,
+          "island_idx": 2,
+          "parent_id": "seed-Lebedeva-PR-bc811e46",
+          "timestamp": 1793704886.065595,
+          "combined_score": 72.71263954016787,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 72.713,
+            "generation_score": 73.727,
+            "two_level_failed": true,
+            "n_params": 8,
+            "n_latent": 4
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7271263954016787,
+              "two_level": 0.7047508931703758,
+              "per_subject": 0.7271263954016787,
+              "two_level_failed": true
+            },
+            "generation": {
+              "score": 0.7372720014483024,
+              "two_level": 0.7372720014483024,
+              "per_subject": 0.7328332988879059,
+              "two_level_failed": false
+            },
+            "seconds": 184.4370276927948,
+            "subject_seconds_max": 159.80765223503113,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "dual_choice_trace_split_reward_trace",
+            "patch_type": "full",
+            "api_costs": 0.023228
+          },
+          "migration_history": [
+            {
+              "generation": 9,
+              "from": 3,
+              "to": 1,
+              "timestamp": 1793705095.3346546
+            },
+            {
+              "generation": 10,
+              "from": 1,
+              "to": 2,
+              "timestamp": 1793705155.2028096
+            }
+          ]
+        },
+        {
+          "id": "2b9be1b7-1deb-4858-a922-0caacd6078aa",
+          "generation": 2,
+          "island_idx": 3,
+          "parent_id": "seed-Lebedeva-PR-bc811e46",
+          "timestamp": 1793704811.003193,
+          "combined_score": 73.42685191755334,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.427,
+            "generation_score": 73.79,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7342685191755334,
+              "two_level": 0.7342685191755334,
+              "per_subject": 0.7274307920455314,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7378950202575836,
+              "two_level": 0.7378950202575836,
+              "per_subject": 0.732896390934731,
+              "two_level_failed": false
+            },
+            "seconds": 108.87626242637634,
+            "subject_seconds_max": 84.5862774848938,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "split_win_loss_traces",
+            "patch_type": "diff",
+            "api_costs": 0.026014
+          },
+          "migration_history": []
+        },
+        {
+          "id": "7b2f507b-1350-42fd-bf85-02c501195e48",
+          "generation": 3,
+          "island_idx": 2,
+          "parent_id": "seed-Lopez-DoubleTrace-03f3696c",
+          "timestamp": 1793704908.088915,
+          "combined_score": 72.78122953371886,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 72.781,
+            "generation_score": 73.319,
+            "two_level_failed": true,
+            "n_params": 8,
+            "n_latent": 6
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7278122953371886,
+              "two_level": 0.6695934273751435,
+              "per_subject": 0.7278122953371886,
+              "two_level_failed": true
+            },
+            "generation": {
+              "score": 0.7331901089471737,
+              "two_level": 0.706646851543426,
+              "per_subject": 0.7331901089471737,
+              "two_level_failed": true
+            },
+            "seconds": 208.82565641403198,
+            "subject_seconds_max": 190.06099653244019,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "unchosen_drift_toward_bait",
+            "patch_type": "diff",
+            "api_costs": 0.019122
+          },
+          "migration_history": []
+        },
+        {
+          "id": "15bfa862-3941-4ee5-af0e-9aed335125b2",
+          "generation": 4,
+          "island_idx": 4,
+          "parent_id": "2b9be1b7-1deb-4858-a922-0caacd6078aa",
+          "timestamp": 1793704896.565713,
+          "combined_score": 73.38960226553378,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.39,
+            "generation_score": 73.77,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7338960226553378,
+              "two_level": 0.7338960226553378,
+              "per_subject": 0.7270681044513607,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7377011028701331,
+              "two_level": 0.7377011028701331,
+              "per_subject": 0.7328064072900945,
+              "two_level_failed": false
+            },
+            "seconds": 67.52602171897888,
+            "subject_seconds_max": 52.617703914642334,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "double_choice_trace_reward_seeking",
+            "patch_type": "diff",
+            "api_costs": 0.02865
+          },
+          "migration_history": [
+            {
+              "generation": 10,
+              "from": 3,
+              "to": 4,
+              "timestamp": 1793705155.2036612
+            }
+          ]
+        },
+        {
+          "id": "a7dd502f-a046-461e-adc8-aae9b7c38fa3",
+          "generation": 5,
+          "island_idx": 1,
+          "parent_id": "seed-Miller-RHG-6c24e4ee",
+          "timestamp": 1793705095.312639,
+          "combined_score": 73.24030556194278,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.24,
+            "generation_score": 73.607,
+            "two_level_failed": false,
+            "n_params": 8,
+            "n_latent": 5
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7324030556194278,
+              "two_level": 0.7324030556194278,
+              "per_subject": 0.7264414657097216,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.736071651127059,
+              "two_level": 0.736071651127059,
+              "per_subject": 0.7326379043711508,
+              "two_level_failed": false
+            },
+            "seconds": 187.50387144088745,
+            "subject_seconds_max": 169.94052600860596,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "add_side_value_trace",
+            "patch_type": "diff",
+            "api_costs": 0.028356
+          },
+          "migration_history": []
+        },
+        {
+          "id": "e201f83d-78ad-423a-8f80-7dff0c335c76",
+          "generation": 6,
+          "island_idx": 4,
+          "parent_id": "0b68f712-aba2-4d5a-973f-4736efcadbe8",
+          "timestamp": 1793704984.082026,
+          "combined_score": 73.4023012918503,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.402,
+            "generation_score": 73.748,
+            "two_level_failed": false,
+            "n_params": 5,
+            "n_latent": 2
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.734023012918503,
+              "two_level": 0.734023012918503,
+              "per_subject": 0.7247464984429072,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.737478297088273,
+              "two_level": 0.737478297088273,
+              "per_subject": 0.7309666866340482,
+              "two_level_failed": false
+            },
+            "seconds": 75.0847749710083,
+            "subject_seconds_max": 56.04810571670532,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "leaky_choice_and_reward_traces",
+            "patch_type": "diff",
+            "api_costs": 0.017542
+          },
+          "migration_history": [
+            {
+              "generation": 9,
+              "from": 0,
+              "to": 4,
+              "timestamp": 1793705095.334417
+            }
+          ]
+        },
+        {
+          "id": "5b663e90-39d2-49f9-a42c-486cf4ddd898",
+          "generation": 7,
+          "island_idx": 1,
+          "parent_id": "seed-Miller-RHG-6c24e4ee",
+          "timestamp": 1793704938.068813,
+          "combined_score": 0.0,
+          "correct": false,
+          "public_metrics": {},
+          "private_metrics": {},
+          "metadata": {
+            "patch_name": "two_timescale_habit",
+            "patch_type": "diff",
+            "api_costs": 0.035766
+          },
+          "migration_history": [],
+          "text_feedback": "The program failed and was not scored: rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 26)"
+        },
+        {
+          "id": "5e4767d0-adaf-4a6d-9a40-7163b0876728",
+          "generation": 8,
+          "island_idx": 3,
+          "parent_id": "2b9be1b7-1deb-4858-a922-0caacd6078aa",
+          "timestamp": 1793705040.742451,
+          "combined_score": 73.3371152523772,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.337,
+            "generation_score": 73.702,
+            "two_level_failed": false,
+            "n_params": 6,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.733371152523772,
+              "two_level": 0.733371152523772,
+              "per_subject": 0.7247440836833275,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7370196990040901,
+              "two_level": 0.7370196990040901,
+              "per_subject": 0.7309166291553298,
+              "two_level_failed": false
+            },
+            "seconds": 80.38641619682312,
+            "subject_seconds_max": 65.2965497970581,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "bait_drift_q_plus_persev",
+            "patch_type": "diff",
+            "api_costs": 0.036308
+          },
+          "migration_history": []
+        },
+        {
+          "id": "69a2a421-5a34-4c5f-a486-0d7d380ba466",
+          "generation": 9,
+          "island_idx": 0,
+          "parent_id": "e201f83d-78ad-423a-8f80-7dff0c335c76",
+          "timestamp": 1793705080.238303,
+          "combined_score": 73.41654251393703,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.417,
+            "generation_score": 73.696,
+            "two_level_failed": false,
+            "n_params": 6,
+            "n_latent": 3
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7341654251393703,
+              "two_level": 0.7341654251393703,
+              "per_subject": 0.7263147639914684,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7369584876887458,
+              "two_level": 0.7369584876887458,
+              "per_subject": 0.7323055177306991,
+              "two_level_failed": false
+            },
+            "seconds": 79.01854014396667,
+            "subject_seconds_max": 62.16916036605835,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "split_win_loss_traces",
+            "patch_type": "diff",
+            "api_costs": 0.027616
+          },
+          "migration_history": []
+        },
+        {
+          "id": "7b18d02d-141e-4bb0-b40d-6f79423ec348",
+          "generation": 10,
+          "island_idx": 2,
+          "parent_id": "seed-Lopez-DoubleTrace-03f3696c",
+          "timestamp": 1793705155.183874,
+          "combined_score": 73.43039308412035,
+          "correct": true,
+          "public_metrics": {
+            "validation_score": 73.43,
+            "generation_score": 73.815,
+            "two_level_failed": false,
+            "n_params": 7,
+            "n_latent": 6
+          },
+          "private_metrics": {
+            "validation": {
+              "score": 0.7343039308412035,
+              "two_level": 0.7343039308412035,
+              "per_subject": 0.7272157256580634,
+              "two_level_failed": false
+            },
+            "generation": {
+              "score": 0.7381450327834524,
+              "two_level": 0.7381450327834524,
+              "per_subject": 0.7326813088884699,
+              "two_level_failed": false
+            },
+            "seconds": 96.16921544075012,
+            "subject_seconds_max": 82.87247657775879,
+            "max_em": 20,
+            "n_draws": 2048,
+            "cohorts": [
+              "smoke_generation",
+              "smoke_validation"
+            ],
+            "n_subjects": [
+              8,
+              8
+            ]
+          },
+          "metadata": {
+            "patch_name": "logit_weights_plus_bias",
+            "patch_type": "diff",
+            "api_costs": 0.02777
+          },
+          "migration_history": []
+        }
+      ],
+      "failed_attempts": []
+    }
+  }
+}
