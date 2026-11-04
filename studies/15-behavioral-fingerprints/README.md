@@ -43,13 +43,13 @@ vocabulary in [CONTEXT.md](CONTEXT.md).
 | Statistics | `fingerprints-v1`: p(switch) by the last 1 to 3 trials, by consecutive losses, by last reward × run length (the hazard), after a switch; run-length distributions; each by stage group × task variant (ADR 0004) |
 | Modes | replay and rollout for every model; a grid, never one score (ADR 0001) |
 | Rollouts | parameter-matched, in the gym, 10 per session; the headline uses uncoupled and final-stage sessions, because the gym cannot hold an early coupled block (ADR 0006); 2-level EM fits draw session parameters per rollout (ADR 0005) |
-| Comparison | per statistic, the subject-balanced gap as a multiple of a noise floor: binomial in replay, split-half in rollout, so a perfect model scores about 1 in both (ADR 0003, 0008) |
+| Comparison | per statistic, the subject-balanced gap as a multiple of a noise floor: binomial in replay, split-half in rollout, so a perfect model scores about 1 in both (ADR 0003, 0008); one fingerprint score per model and mode, the geometric mean of its floor ratios, for leaderboards (ADR 0009) |
 | Data | study 12's 149 test subjects, held-out (odd) sessions only; the 146 on the GRU's held-out list marked (ADR 0007) |
 | Code | one library in `aind-dynamic-foraging-models`, behind MEvolve's program protocol (ADR 0002) |
 
 | variant | models |
 |---|---|
-| [`literature-models`](variants/literature-models/notes.md) | study 12's 19 ranked models, per subject and 2-level EM; Win-Stay-Lose-Shift as a strawman; a per-subject GLM (Su2022 design) |
+| [`literature-models`](variants/literature-models/notes.md) | study 12's 19 ranked models, per subject and 2-level EM; a per-subject GLM (Su2022 design) |
 
 Later: the GRU (a new study 01 rollout at D = 614 after wrapper #60) and the GLM-HMM (study 14),
 with ignore statistics; MEvolve's pre-registered programs from study 40.
@@ -57,8 +57,8 @@ with ignore statistics; MEvolve's pre-registered programs from study 40.
 | phase | what | check |
 |---|---|---|
 | P0 | spec, library, golden tests; reward-pair pools; how often real coupled blocks run past `block_max` | reproduces the wrapper's statistics on study 05's cached RL rollout histories (r9's RL rows) and MEvolve's `replay_gap` on its gate-1b fits; done, [r1](analysis/reports/r1-p0-checks.md) |
-| P1 | replay fingerprints of `literature-models` | each adapter reproduces its model's own probabilities to 1e-6 |
-| P2 | rollout fingerprints of the same, and the noise floor; a sensitivity check with the coupled task's holds on and off (ADR 0006) | the holds move the fingerprints less than the noise floor, or a new ADR turns them on |
+| P1 | replay fingerprints of `literature-models` | each replay reproduces the held-out score study 12 stored for the subject (to 1e-6); done, [r2](analysis/reports/r2-replay-grid.md) |
+| P2 | rollout fingerprints of the same, and the noise floor, reported like r2 (the floor-ratio grid beside study 01 r9's per-bin scatter); a sensitivity check with the coupled task's holds on and off (ADR 0006) | the holds move the fingerprints less than the noise floor, or a new ADR turns them on |
 | P3 | GRU and GLM-HMM | |
 | P4 | MEvolve imports the library (a proposal to its sessions) | MEvolve's `replay_gap` unchanged |
 
