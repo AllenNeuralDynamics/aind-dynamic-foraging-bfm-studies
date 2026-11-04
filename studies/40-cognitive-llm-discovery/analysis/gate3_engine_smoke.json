@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/gate3_engine_smoke.py",
-    "produced_at_pt": "2026-11-04T00:23:49-08:00",
-    "studies_git_sha": "5e55a976d2978a20e861a52e827fee91e4b8b17f",
+    "produced_at_pt": "2026-11-04T00:29:20-08:00",
+    "studies_git_sha": "2a55eebc64eb2e0e07459dea1b647188ea266a74",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -42,11 +42,11 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/programs.json",
-        "sha256": "9bfb7992308c29aeb31b0a9f1dfd6937aa612422418793d4c895c99094017c96"
+        "sha256": "a85104dd5f0497c22d6827f9ca4df0fc2e1dfc643920d8aa96ffc7647c7d9283"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/engine_smoke/console.json",
-        "sha256": "edc116d5f0f9c5e830a7dc89e5dec69d2d4e3f6d7fce80d5818e6c730688ddd5"
+        "sha256": "0e0fcb6ab577e660a7dca19eacc65e95b5c69d7c9f64af556110290ccb66ff8c"
       }
     ],
     "outputs": [
