@@ -2,6 +2,10 @@
 
 ## 2026-11-04
 
+- `gate4-recovery`: Han chose a generating program in neither the seeds nor the library, Hattori2019
+  plus satiety (`generator/hattori_satiety.py`), after the Hattori2019 design's pre-check stopped on the
+  seed Lebedeva-PR; its parameters come from its own 2-level fit of the template mice
+  (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#51). The Hattori2019 attempt is kept as superseded.
 - Variant `gate4-recovery` (issue #105): gate 4's second half, a 100-proposal search on mice simulated from
   Hattori2019 with Hattori2019 left out of the prompt, pre-registered with a pre-check of every program
   Claude is shown; code in AllenNeuralDynamics/aind-dynamic-foraging-mevolve#48.

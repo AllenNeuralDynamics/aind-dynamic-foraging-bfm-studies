@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=56
 #SBATCH --mem=200G
 #SBATCH --time=12:00:00
-# Gate 4, second half, step 2 (notes.md): 100 proposals on the simulated mice, then the winner and
-# Hattori2019 scored once on the 24 held-out simulated mice. Run only after the pre-check passed and
+# Gate 4, second half, step 3 (notes.md): 100 proposals on the simulated mice, then the winner and
+# the generating program scored once on the 24 held-out simulated mice. Run only after the pre-check passed and
 # its exclusions are in run.json. Submitted from clean checkouts at pushed commits, with these exported:
 #   VARIANT_DIR   this directory in the studies checkout at STUDIES_SHA
 #   MEVOLVE_SRC   src/ of a MEvolve checkout at MEVOLVE_SHA
@@ -16,7 +16,7 @@
 set -euo pipefail
 : "${VARIANT_DIR:?}" "${MEVOLVE_SRC:?}" "${LAUNCH_ID:?}" "${LAUNCH_LABEL:?}" "${STUDIES_SHA:?}" "${MEVOLVE_SHA:?}"
 PY=/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search/bin/python
-HELDOUT=/allen/aind/scratch/han.hou/mevolve/gate4/second_half_cee79da/simulated_Hattori2019_heldout.json.gz
+HELDOUT=/allen/aind/scratch/han.hou/mevolve/gate4/satiety_8e38b20/simulated_hattori_satiety_heldout.json.gz
 export PYTHONPATH="$MEVOLVE_SRC"
 export WANDB_GROUP="gate4-recovery@${LAUNCH_ID}"
 export MEVOLVE_LAUNCH_DIR="/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/${LAUNCH_ID}"
@@ -33,6 +33,6 @@ search_ok=1
 "$PY" -m mevolve.search.report "$MEVOLVE_LAUNCH_DIR/search" || { echo "report failed"; status=1; }
 if [ "$search_ok" = 1 ]; then                    # the held-out mice are used once, on the finished search only
   "$PY" "$VARIANT_DIR/heldout.py" --run "$MEVOLVE_LAUNCH_DIR/search" --config "$VARIANT_DIR/run.json" \
-    --heldout "$HELDOUT" --target Hattori2019 --out "$MEVOLVE_LAUNCH_DIR/heldout" || { echo "held-out check failed"; status=1; }
+    --heldout "$HELDOUT" --target "$VARIANT_DIR/generator/hattori_satiety.py" --out "$MEVOLVE_LAUNCH_DIR/heldout" || { echo "held-out check failed"; status=1; }
 fi
 exit "$status"

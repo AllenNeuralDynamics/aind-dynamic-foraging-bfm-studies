@@ -5,7 +5,7 @@ The winner is picked on the simulated validation mice, so its validation score i
 the search's settings, shows how much (notes.md, pre-registered step 4).
 
     python heldout.py --run <search out_dir> --config run.json --heldout <simulated file> \
-        --target Hattori2019 --out <dir>
+        --target <literature name or program file> --out <dir>
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run", type=Path, required=True, help="the search's out_dir (programs.sqlite)")
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--heldout", type=Path, required=True)
-    parser.add_argument("--target", required=True)
+    parser.add_argument("--target", required=True, help="a literature program's name, or a program file")
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)
     config = load_config(args.config)
@@ -37,23 +37,26 @@ def main(argv: list[str] | None = None) -> int:
         "ORDER BY combined_score DESC LIMIT 1").fetchone()
     con.close()
     args.out.mkdir(parents=True, exist_ok=True)
-    programs = {"winner": args.out / "winner.py", "target": args.out / f"{args.target}.py"}
+    from_file = Path(args.target).is_file()
+    name = Path(args.target).stem if from_file else args.target
+    programs = {"winner": args.out / "winner.py", "target": args.out / f"{name}.py"}
     programs["winner"].write_text(code)
-    programs["target"].write_text(seeds.literature_source(args.target))
+    programs["target"].write_text(seeds.wrap(Path(args.target).read_text()) if from_file
+                                  else seeds.literature_source(args.target))
     generation_file = Path(config["simulated"]["generation"])
     workers = config["max_evaluation_jobs"] * config["workers"]
     scores = {}
-    for name, path in programs.items():
+    for role, path in programs.items():
         m = shinka_eval.evaluate_program(path, None, None, None, None, workers, config["max_em"], config["n_draws"],
                                          (generation_file, args.heldout))
-        scores[name] = {"heldout_score": m["combined_score"], "two_level_failed": m["public"]["two_level_failed"],
+        scores[role] = {"heldout_score": m["combined_score"], "two_level_failed": m["public"]["two_level_failed"],
                         "generation_score": m["public"]["generation_score"]}
-        print(f"{name}: held-out {m['combined_score']:.3f}", flush=True)
+        print(f"{role}: held-out {m['combined_score']:.3f}", flush=True)
     result = {"winner_id": pid, "winner_generation": generation, "winner_validation_score": score,
-              "target": args.target, "heldout_file": str(args.heldout), "scores": scores,
+              "target": name, "heldout_file": str(args.heldout), "scores": scores,
               "heldout_gap": scores["target"]["heldout_score"] - scores["winner"]["heldout_score"]}
     (args.out / "heldout.json").write_text(json.dumps(result, indent=1) + "\n")
-    print(f"winner {pid} (proposal {generation}): validation {score:.3f}; held-out gap to {args.target} "
+    print(f"winner {pid} (proposal {generation}): validation {score:.3f}; held-out gap to {name} "
           f"{result['heldout_gap']:+.3f}", flush=True)
     return 0
 

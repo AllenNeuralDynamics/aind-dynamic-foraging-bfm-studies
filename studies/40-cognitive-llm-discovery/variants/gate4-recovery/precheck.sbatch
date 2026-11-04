@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=56
 #SBATCH --mem=200G
 #SBATCH --time=03:00:00
-# Gate 4, second half, step 1 (notes.md): before any Claude call, score the template and all 19
-# library programs on the simulated mice with the search's settings, and apply the pre-registered
+# Gate 4, second half, step 2 (notes.md): before any Claude call, score the template and all 19
+# library programs and the target on the simulated mice with the search's settings, and apply the pre-registered
 # rule. The scores land in the seed cache the search reuses. No API key is exported.
 # Submitted from clean checkouts at pushed commits, with these exported:
 #   VARIANT_DIR   this directory in the studies checkout at STUDIES_SHA
@@ -22,4 +22,4 @@ mkdir -p "$OUT"
 cd "$TMPDIR"
 "$PY" -c "import mevolve, sys; assert mevolve.__file__.startswith('$MEVOLVE_SRC'), mevolve.__file__"
 echo "node $(hostname) cpus $(nproc) studies $STUDIES_SHA mevolve $MEVOLVE_SHA"
-"$PY" -m mevolve.search.precheck --config "$VARIANT_DIR/run.json" --target Hattori2019 --out "$OUT/precheck.json"
+"$PY" -m mevolve.search.precheck --config "$VARIANT_DIR/run.json" --target "$VARIANT_DIR/generator/hattori_satiety.py" --out "$OUT/precheck.json"

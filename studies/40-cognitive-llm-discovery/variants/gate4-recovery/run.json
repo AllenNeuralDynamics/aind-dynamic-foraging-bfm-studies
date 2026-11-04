@@ -2,10 +2,10 @@
  "results_dir": "$TMPDIR/search",
  "out_dir": "$MEVOLVE_LAUNCH_DIR/search",
  "simulated": {
-  "generation": "/allen/aind/scratch/han.hou/mevolve/gate4/run_85de84f/simulated_Hattori2019.json.gz",
-  "validation": "/allen/aind/scratch/han.hou/mevolve/gate4/second_half_cee79da/simulated_Hattori2019_validation.json.gz"
+  "generation": "/allen/aind/scratch/han.hou/mevolve/gate4/satiety_8e38b20/simulated_hattori_satiety_generation.json.gz",
+  "validation": "/allen/aind/scratch/han.hou/mevolve/gate4/satiety_8e38b20/simulated_hattori_satiety_validation.json.gz"
  },
- "library_exclude": ["Hattori2019"],
+ "library_exclude": [],
  "workers": 24,
  "max_evaluation_jobs": 2,
  "max_proposal_jobs": 3,
@@ -33,7 +33,7 @@
   "group": "$WANDB_GROUP",
   "name": "gate4-recovery-search",
   "mode": "online",
-  "notes": "Gate 4 second half: 100 proposals on mice simulated from Hattori2019, which the prompt leaves out"
+  "notes": "Gate 4 second half: 100 proposals on mice simulated from Hattori2019 plus satiety, a program in neither the seeds nor the library"
  },
  "launch": {
   "label": "$LAUNCH_LABEL",
