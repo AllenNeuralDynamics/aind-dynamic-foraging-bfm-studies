@@ -18,4 +18,6 @@ r2's stored value (`cross_study_literature.gru_per_subject`).
 `gru-heldout-replay@<launch_id>` (docs/adr/0001), here only a provenance key: the config keeps
 `wandb: {}`, so no W&B run is logged, and the outputs are the tasks' Beaker result datasets.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-04 12:01 PT as `gru-heldout-replay@20261104-120131`, Beaker
+experiment [`01M6M2E1FPKJ52128XK2K52B29`](https://beaker.org/ex/01M6M2E1FPKJ52128XK2K52B29)
+(3 tasks); record in `launch_record/gru-replay/`.
