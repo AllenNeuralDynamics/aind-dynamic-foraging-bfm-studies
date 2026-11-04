@@ -166,8 +166,13 @@ def main() -> None:
         print(model, {reg: {s: round(c[HEADLINE][s]["floor_ratio"], 3) for s in RATE_STATISTICS}
                       for reg, c in models[model].items()}, flush=True)
 
+    # Its only external input is the library's code, at the commit it ran (the reason this is a freeze).
+    library = {"type": "url", "state": f"git {models_sha}",
+               "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-models/tree/"
+                     f"{models_sha}/src/aind_dynamic_foraging_models/fingerprints"}
     meta = build_meta("analysis/freeze_p1_gaps.py", [], study_root=HERE.parent, kind="freeze",
-                      code=[__file__, HERE / "freeze_p0_golden_mevolve.py"], inputs=inputs)
+                      code=[__file__, HERE / "freeze_p0_golden_mevolve.py"], inputs=inputs,
+                      sources=[library])
     write_artifact(OUT, {
         "_meta": meta,
         "fingerprints_library": {"repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
