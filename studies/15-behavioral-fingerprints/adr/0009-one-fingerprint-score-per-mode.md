@@ -4,8 +4,9 @@
 
 Each model gets one number per mode, its fingerprint score: the geometric mean of its floor ratios
 over that mode's statistics. Replay uses the four rate statistics (losses, last 1–3 trials, hazard,
-after a switch); rollout adds the run-length distribution. 1 means as close as the subjects' data
-allow on every statistic. Replay and rollout keep separate scores, never one mixed score, because
+after a switch); rollout adds the run-length distribution. A score of 1 is the aggregate reference:
+what a model at the floor on every statistic would score. It does not show that each statistic is
+at its floor (ratios of 2 and 0.5 also give 1), which is why the grid stays beside it. Replay and rollout keep separate scores, never one mixed score, because
 they test different things and a model can pass one and fail the other (ADR 0001). A leaderboard
 can then plot held-out likelihood, replay score and rollout score side by side (decided with Han,
 2026-11-04).

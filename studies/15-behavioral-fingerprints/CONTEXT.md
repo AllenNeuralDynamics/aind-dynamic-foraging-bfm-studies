@@ -77,6 +77,6 @@ A gap divided by its noise floor; 1 means as good as the subject's data allows.
 
 **Fingerprint score**:
 One number per model and mode: the geometric mean of its floor ratios over that mode's
-statistics; 1 means as good as the data allow on every statistic. Replay and rollout each have
-their own.
+statistics. 1 is what a model at the floor on every statistic would score; the score alone does
+not show that each statistic is. Replay and rollout each have their own.
 _Avoid_: behavioural score, combined score
