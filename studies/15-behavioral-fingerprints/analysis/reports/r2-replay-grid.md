@@ -74,6 +74,10 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
 | GLM-Su2022 | last 1–3 trials | 2.3 | — | — |
 | Win-Stay-Lose-Shift | losses | 43.9 | — | — |
 
+![replay bins](../fig_r2_bins.svg)
+
+**a**, p(switch) by the count of consecutive unrewarded trials on the current side, and **b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent first): subjects and the same four models as above, over subjects that keep the bin. **c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's per-subject scores, re-pooled; the GLM's own) against its mean floor ratio over the losses, last 1–3 trials and hazard statistics, per regime; labels mark the four models of the curves in the regime drawn there. Off the axis: Win-Stay-Lose-Shift (per subject, likelihood 0.006, floor ratio 39).
+
 **Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (20 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169.
 <!-- END result-1 -->
 
@@ -95,6 +99,17 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
   switching statistics by far: FeedbackDependent-RL and Rescorla-Wagner at 20 to 31 times the
   floor, and Win-Stay-Lose-Shift at 35 to 44 times. Panel b shows the last: its hazard is far
   from the subjects', while the good models follow it at every run length.
+- **Behaviour tracks likelihood across models** (second figure, c): the floor ratio falls
+  steadily as held-out likelihood rises, over a 20-fold range. Near the top the relation
+  flattens, which is where the order differs (CompareToThreshold, above).
+- **The subjects do not switch more after more losses** (second figure, a). Their p(switch) is
+  0.15 to 0.17 after 1 to 6 or more consecutive losses, and the good models reproduce the flat
+  curve. Win-Stay-Lose-Shift, which switches after every loss, is far above it.
+- **The good models miss different histories right after a switch** (second figure, b). After a
+  switch that lost (`S-O+`), the subjects switch back at 0.48; CompareToThreshold predicts 0.39,
+  while Lebedeva-PR and the GLM get it. After a switch that won (`S+O+`), the subjects stay
+  (0.24); Lebedeva-PR and the GLM predict too many switches (0.31, 0.33), CompareToThreshold
+  does not.
 - **"After a switch" separates the models least** (1.2 to 4.7 for all of them). Its bins hold
   few trials, so its floor is about 4 times the others'.
 - **A floor ratio depends on how much data the subject has.** With more trials per bin the floor

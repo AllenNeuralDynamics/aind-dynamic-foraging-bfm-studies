@@ -7,6 +7,7 @@ study 12 r3's headline ranking. Writes the grid figure, ``r2_replay_grid.json`` 
 result block. Offline: reads committed files only.
 """
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -22,6 +23,10 @@ GLM = HERE / "p1_glm.json"
 GAPS = HERE / "p1_replay_gaps.json"
 REPORT = HERE / "reports" / "r2-replay-grid.md"
 FIG = HERE / "fig_r2_replay_grid.svg"
+FIG_BINS = HERE / "fig_r2_bins.svg"
+LOCAL = ("losses", "pattern", "hazard")   # the local switching statistics
+LABEL_OFFSETS = {"Lebedeva-PR": (-4, -5), "CompareToThreshold": (-4, 5)}   # panel c, points: pt
+C_MIN_LIKELIHOOD = 0.5   # panel c's x axis starts here; models below are named in the caption
 STATS = {"losses": "losses", "pattern": "last 1–3 trials", "hazard": "hazard",
          "post_switch": "after a switch"}
 REGIMES = {"per_subject": "per subject", "two_level_em": "2-level EM"}
@@ -124,6 +129,91 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
     plt.close(fig)
 
 
+def likelihoods(glm: dict) -> dict:
+    """Pooled held-out likelihood on the 149 test subjects per model and regime, re-pooled from
+    study 12's per-subject scores (and the GLM's own)."""
+    out = {}
+    for regime, table in (("per_subject", lit.literature_per_subject("heldout")),
+                          ("two_level_em", lit.two_level_em_per_subject("heldout"))):
+        for m, subjects in table.items():
+            ll = sum(v[0] for v in subjects.values())
+            n = sum(v[1] for v in subjects.values())
+            out.setdefault(m, {})[regime] = math.exp(ll / n)
+    out[glm["model"]] = {"per_subject": glm["pooled_heldout_likelihood"]}
+    return out
+
+
+def mean_local_ratio(cells: dict, head: str) -> float:
+    return sum(cells[head][s]["floor_ratio"] for s in LOCAL) / len(LOCAL)
+
+
+def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
+    """a, p(switch) by consecutive losses; b, by the last two trials; c, held-out likelihood
+    against the mean floor ratio of the local statistics, per model and regime."""
+    fs.apply_paper_style()
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    head = gaps["headline_set"]
+    fig = plt.figure(figsize=fs.mm(183, 62))
+    panels = [("losses", slice(0, len(gaps["bins"]["losses"])), "consecutive losses"),
+              ("pattern", slice(2, 10), "last two trials (most recent first)")]
+    lefts = (0.07, 0.33)
+    for k, ((stat, sl, xlabel), left) in enumerate(zip(panels, lefts)):
+        ax = fig.add_axes([left, 0.24, 0.2 if k == 0 else 0.25, 0.62])
+        labels = gaps["bins"][stat][sl]
+        xs = np.arange(len(labels))
+        first = next(iter(CURVES))
+        pb = gaps["models"][first][best_regime(gaps["models"][first])][head][stat]["per_bin"]
+        ax.plot(xs, _floats(pb["subject"][sl]), "o", color="black", ms=2.5, label="subjects", zorder=3)
+        for m, c in CURVES.items():
+            pb = gaps["models"][m][best_regime(gaps["models"][m])][head][stat]["per_bin"]
+            ax.plot(xs, _floats(pb["model"][sl]), "-" if stat == "losses" else "_", color=fs.OKABE_ITO[c],
+                    lw=1, ms=7, mew=1.2, label=m)
+        ax.set_xticks(xs)
+        ax.set_xticklabels(labels, rotation=0 if stat == "losses" else 60)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel("p(switch)")
+        ax.set_ylim(0, None)
+        ax.spines[["top", "right"]].set_visible(False)
+        fs.panel_label(ax, "ab"[k])
+        if k == 0:
+            ax.legend(frameon=False, loc="center left", bbox_to_anchor=(0.02, 0.6))
+
+    ax = fig.add_axes([0.70, 0.24, 0.27, 0.62])
+    points = []
+    for m in names:
+        for reg, cells in gaps["models"][m].items():
+            if m in lik and reg in lik[m]:
+                points.append({"model": m, "regime": reg, "likelihood": lik[m][reg],
+                               "mean_local_floor_ratio": mean_local_ratio(cells, head)})
+    shown = [p for p in points if p["likelihood"] >= C_MIN_LIKELIHOOD]
+    for reg, marker in (("per_subject", "o"), ("two_level_em", "s")):
+        pts = [p for p in shown if p["regime"] == reg]
+        ax.scatter([p["likelihood"] for p in pts], [p["mean_local_floor_ratio"] for p in pts], s=10,
+                   marker=marker, facecolors="none" if reg == "per_subject" else "0.3",
+                   edgecolors="0.3", lw=0.7, label=REGIMES[reg])
+    for p in shown:
+        if p["model"] in CURVES and p["regime"] == best_regime(gaps["models"][p["model"]]):
+            ax.annotate(p["model"], (p["likelihood"], p["mean_local_floor_ratio"]), fontsize=5,
+                        xytext=LABEL_OFFSETS.get(p["model"], (-4, 0)), textcoords="offset points",
+                        ha="right", va="center",
+                        color=fs.OKABE_ITO[CURVES[p["model"]]])
+    ax.set_yscale("log")
+    ax.set_yticks([1, 2, 5, 10, 20, 50])
+    ax.set_yticklabels(["1", "2", "5", "10", "20", "50"])
+    ax.minorticks_off()
+    ax.set_ylim(1, None)
+    ax.set_xlabel("held-out likelihood (149 test subjects)")
+    ax.set_ylabel("floor ratio, mean of local statistics")
+    ax.legend(frameon=False, loc="upper right")
+    ax.spines[["top", "right"]].set_visible(False)
+    fs.panel_label(ax, "c")
+    fs.save_figure(fig, FIG_BINS)
+    plt.close(fig)
+    return points
+
+
 def summary(gaps: dict, names: list[str]) -> list[dict]:
     """Per model and regime: the headline floor ratio of each statistic, and the worst one."""
     head = gaps["headline_set"]
@@ -158,7 +248,7 @@ def gate_summary(replay: dict, glm: dict, gaps: dict) -> dict:
     return out
 
 
-def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str]) -> str:
+def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis: list[dict]) -> str:
     head = gaps["headline_set"]
     lines = [
         f"![replay grid](../{FIG.name})",
@@ -183,6 +273,18 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str]) -> str:
                 cells += ["—", "—"]
         lines.append("| " + " | ".join(cells) + " |")
     lines += [
+        "",
+        f"![replay bins](../{FIG_BINS.name})",
+        "",
+        "**a**, p(switch) by the count of consecutive unrewarded trials on the current side, and "
+        "**b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent "
+        "first): subjects and the same four models as above, over subjects that keep the bin. "
+        "**c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's "
+        "per-subject scores, re-pooled; the GLM's own) against its mean floor ratio over the "
+        "losses, last 1–3 trials and hazard statistics, per regime; labels mark the four models of "
+        "the curves in the regime drawn there. Off the axis: "
+        + "; ".join(f"{p['model']} ({REGIMES[p['regime']]}, likelihood {p['likelihood']:.3f}, "
+                    f"floor ratio {p['mean_local_floor_ratio']:.0f})" for p in off_axis) + ".",
         "",
         f"**Gates** (library `{gates['library_git_sha'][:7]}`, MEvolve `{gates['mevolve_git_sha'][:7]}`). "
         f"Every replay shown ({gates['n_models']} of study 12's models × {gates['n_subjects']} subjects) "
@@ -213,18 +315,21 @@ def main() -> None:
         raise SystemExit("a P1 replay gate failed; fix it before rendering r2")
     names, failed = ordered_models(gaps)
     draw(gaps, names, failed)
+    points = draw_bins(gaps, names, likelihoods(glm))
     rows = summary(gaps, names)
-    REPORT.write_text(_rewrite(REPORT.read_text(), "result-1", render(gates, rows, gaps, failed)))
+    REPORT.write_text(_rewrite(REPORT.read_text(), "result-1", render(gates, rows, gaps, failed,
+                                       [p for p in points if p['likelihood'] < C_MIN_LIKELIHOOD])))
     by_set = {m: {reg: {name: {s: c["floor_ratio"] for s, c in cells.items()}
                         for name, cells in sets.items()}
                   for reg, sets in gaps["models"][m].items()} for m in names}
     meta = build_meta("analysis/r2_replay_grid.py", WANDB_GROUPS, study_root=HERE.parent,
-                      code=[__file__], inputs=[REPLAY, GLM, GAPS, lit.HEADLINE_SOURCE])
+                      code=[__file__], inputs=[REPLAY, GLM, GAPS, lit.HEADLINE_SOURCE, lit.LITERATURE_SOURCE,
+                              lit.TWO_LEVEL_EM_SOURCE])
     write_artifact(HERE / "r2_replay_grid.json",
                    {"_meta": meta, "gates": gates, "headline_set": gaps["headline_set"],
                     "order": names, "two_level_failed": sorted(failed), "rows": rows,
-                    "floor_ratio_by_set": by_set},
-                   outputs=[FIG, f"{REPORT}#result-1"])
+                    "floor_ratio_by_set": by_set, "likelihood_vs_floor_ratio": points},
+                   outputs=[FIG, FIG_BINS, f"{REPORT}#result-1"])
 
 
 if __name__ == "__main__":

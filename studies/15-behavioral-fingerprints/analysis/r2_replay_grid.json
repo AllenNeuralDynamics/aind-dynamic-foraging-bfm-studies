@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-04T09:17:07-08:00",
-    "studies_git_sha": "7d081f7e96a9dcd2b68399e9996227080c7c17ef",
+    "produced_at_pt": "2026-11-04T10:14:05-08:00",
+    "studies_git_sha": "c172cf544e99344f84caef8a0279a0e7779d5e0f",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
-        "sha256": "e3f0612163c20a9ad24504e5312243943f03666d3b18accaf2d6ebaa837063c3"
+        "sha256": "c91a3403765f5a175470066f15258a882f9f298680ef8958cb7d16d95f3bcc66"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -51,20 +51,32 @@
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
         "sha256": "7db7708473d23024670c879b6d732a7c6a38f359461fdd47c08c799bf6ff845c"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
       }
     ],
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.json",
-        "sha256": "e23643d1c4efb243643d6439d7019baa77fd39e434b3665f84a8b6967ac7199a"
+        "sha256": "5ddbc090b684f6358866f68c2130c35150a5081e457be6aeae0cdb7f977e61f8"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_replay_grid.svg",
         "sha256": "9d58bfa7e7722692736885118a6cfbcc9ac902f695e8b5bceb568bb974a18005"
       },
       {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_bins.svg",
+        "sha256": "6e71865a3c45ea059d49fcf02a7bd987f13e9efc716b78735348abc8dd13084e"
+      },
+      {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-1",
-        "sha256": "8d77aba2efea49e011570ab0335ea4f4d6520b42efe10ee8eba8abb98ef27c0f"
+        "sha256": "8594355ba5b00d62487a798ef6978b4607dfa5c6e4b55b672156f068f48739fd"
       }
     ]
   },
@@ -4170,5 +4182,241 @@
         }
       }
     }
-  }
+  },
+  "likelihood_vs_floor_ratio": [
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "likelihood": 0.7171973319366401,
+      "mean_local_floor_ratio": 2.068262515323806
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "likelihood": 0.7243196198605001,
+      "mean_local_floor_ratio": 1.4116915573021622
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "likelihood": 0.7187431466407855,
+      "mean_local_floor_ratio": 1.94571036649278
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "likelihood": 0.7239981986540848,
+      "mean_local_floor_ratio": 1.3749719998360534
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "likelihood": 0.7149126635108097,
+      "mean_local_floor_ratio": 2.410075520045572
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "likelihood": 0.7232846776236617,
+      "mean_local_floor_ratio": 1.4914891295409909
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "likelihood": 0.7160406831754967,
+      "mean_local_floor_ratio": 2.537671496646495
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "likelihood": 0.7225079050669331,
+      "mean_local_floor_ratio": 1.5133551612579363
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "likelihood": 0.7170395016451598,
+      "mean_local_floor_ratio": 1.744157559659196
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "likelihood": 0.7223356608700302,
+      "mean_local_floor_ratio": 1.446687686332852
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "likelihood": 0.7126671375129033,
+      "mean_local_floor_ratio": 2.610773152529875
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "likelihood": 0.7211022982880708,
+      "mean_local_floor_ratio": 1.9854465286220115
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "likelihood": 0.7162795768364534,
+      "mean_local_floor_ratio": 2.143802325383971
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "likelihood": 0.719725621112509,
+      "mean_local_floor_ratio": 1.8478543128308422
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "likelihood": 0.7100045263008289,
+      "mean_local_floor_ratio": 2.785433874852267
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "likelihood": 0.7180621901182492,
+      "mean_local_floor_ratio": 1.7104970390118375
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "likelihood": 0.711245554959155,
+      "mean_local_floor_ratio": 2.9090974383119708
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "likelihood": 0.7179081060555206,
+      "mean_local_floor_ratio": 1.7405754810406397
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "likelihood": 0.7124214430490011,
+      "mean_local_floor_ratio": 2.5465716274196057
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "likelihood": 0.7178095080576691,
+      "mean_local_floor_ratio": 2.029459740313942
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "likelihood": 0.7087833266986183,
+      "mean_local_floor_ratio": 2.663460222428017
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "likelihood": 0.7157979916647754,
+      "mean_local_floor_ratio": 1.8710906343436065
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "likelihood": 0.7127228483556,
+      "mean_local_floor_ratio": 2.6693572282092277
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "likelihood": 0.7095074763468017,
+      "mean_local_floor_ratio": 3.278061522340632
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "likelihood": 0.6969429647282196,
+      "mean_local_floor_ratio": 4.403701744176961
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "likelihood": 0.711796831198377,
+      "mean_local_floor_ratio": 2.672534908752525
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "likelihood": 0.6960685322698903,
+      "mean_local_floor_ratio": 4.460340491434658
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "likelihood": 0.7061490911325979,
+      "mean_local_floor_ratio": 3.021172444406813
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "likelihood": 0.6697554164316181,
+      "mean_local_floor_ratio": 7.672942730199405
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "likelihood": 0.665957637502634,
+      "mean_local_floor_ratio": 7.946285976290149
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "likelihood": 0.6272973110415319,
+      "mean_local_floor_ratio": 9.91591945636984
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "likelihood": 0.6662486743303208,
+      "mean_local_floor_ratio": 5.031004883040366
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "likelihood": 0.555762564109078,
+      "mean_local_floor_ratio": 27.92286644520894
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "likelihood": 0.6145271051521211,
+      "mean_local_floor_ratio": 18.484149675573587
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "likelihood": 0.548905204254559,
+      "mean_local_floor_ratio": 29.15835132455369
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "likelihood": 0.585532853013893,
+      "mean_local_floor_ratio": 22.89737512554325
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "likelihood": 0.5421764395178231,
+      "mean_local_floor_ratio": 29.168093510825955
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "likelihood": 0.7168649596421358,
+      "mean_local_floor_ratio": 2.1886498563257746
+    },
+    {
+      "model": "Win-Stay-Lose-Shift",
+      "regime": "per_subject",
+      "likelihood": 0.006154232269288227,
+      "mean_local_floor_ratio": 39.23883680359339
+    }
+  ]
 }
