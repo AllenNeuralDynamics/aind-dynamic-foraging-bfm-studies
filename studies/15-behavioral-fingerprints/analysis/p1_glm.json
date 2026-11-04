@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p1_glm.py",
-    "produced_at_pt": "2026-11-04T08:07:05-08:00",
-    "studies_git_sha": "7f22adc9adae9e5fdf774c2499eab87097e2c5e6",
+    "produced_at_pt": "2026-11-04T08:56:07-08:00",
+    "studies_git_sha": "7d081f7e96a9dcd2b68399e9996227080c7c17ef",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -24,7 +24,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_replay.py",
-        "sha256": "5840c5c911df278f92fdc49c661d61a03f061860125cdeb4998dfa56f5ede623"
+        "sha256": "d426e8307d4386b1cf23f618d4f1672572681bc0cf177dd9b5e47ccec48f74cc"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -38,7 +38,7 @@
     "inputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_session_groups.json",
-        "sha256": "dc57784545605e68ca12ff8e478214100854076bc193d0b90fc19c8f18e99ce9"
+        "sha256": "1b34b10f8e1d7137d685654166bc21076f875be59c383354ba8f49e6d73dffee"
       }
     ],
     "sources": [
@@ -55,7 +55,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/GLM-Su2022.json",
-        "sha256": "9108cf0421f7939a8421f6232aaec938805e26757650c2494837afcdc5c5a30c"
+        "sha256": "fff97bcaf623fc511c74dab60308d72b8577435f22c3ff87cb73ff9a18e48d8a"
       }
     ]
   },

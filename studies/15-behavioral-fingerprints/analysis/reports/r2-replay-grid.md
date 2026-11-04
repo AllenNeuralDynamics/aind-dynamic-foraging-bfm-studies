@@ -99,9 +99,9 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
   few trials, so its floor is about 4 times the others'.
 - **A floor ratio depends on how much data the subject has.** With more trials per bin the floor
   shrinks and the same model error becomes a larger multiple: Lopez-DoubleTrace's 2-level
-  ratios on the three local statistics are 1.1 to 1.4 within single session groups and 1.3 to
-  1.4 when the groups are pooled (`r2_replay_grid.json`, `floor_ratio_by_set`). Compare models
-  within a column, not columns with each other.
+  ratios on the three local statistics are 1.1 to 1.5 within single session groups (those with
+  at least 14 subjects) and 1.3 to 1.4 when the groups are pooled (`r2_replay_grid.json`,
+  `floor_ratio_by_set`). Compare models within a column, not columns with each other.
 - **Rescorla-Wagner's 2-level cell is left out.** Its 2-level fit diverged: for 11 of the 149
   test subjects a typical value sits on a parameter bound, with spreads up to e^10, and the
   stored values cannot rebuild the fit's draws. Two subjects miss the stored score; on subjects

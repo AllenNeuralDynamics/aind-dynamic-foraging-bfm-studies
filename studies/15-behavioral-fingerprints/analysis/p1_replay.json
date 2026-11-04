@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p1_replay.py",
-    "produced_at_pt": "2026-11-04T08:30:37-08:00",
-    "studies_git_sha": "7f22adc9adae9e5fdf774c2499eab87097e2c5e6",
+    "produced_at_pt": "2026-11-04T09:16:22-08:00",
+    "studies_git_sha": "7d081f7e96a9dcd2b68399e9996227080c7c17ef",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_replay.py",
-        "sha256": "5840c5c911df278f92fdc49c661d61a03f061860125cdeb4998dfa56f5ede623"
+        "sha256": "d426e8307d4386b1cf23f618d4f1672572681bc0cf177dd9b5e47ccec48f74cc"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
@@ -34,7 +34,7 @@
     "inputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_session_groups.json",
-        "sha256": "dc57784545605e68ca12ff8e478214100854076bc193d0b90fc19c8f18e99ce9"
+        "sha256": "1b34b10f8e1d7137d685654166bc21076f875be59c383354ba8f49e6d73dffee"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
@@ -162,87 +162,87 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Lopez-DoubleTrace.json",
-        "sha256": "528a747cae2401223f402ae6f651a66a73ce52df99dedad3635396e6f6e042bb"
+        "sha256": "8c1a69ac916daef02bc3a3da50c087f1530021e2190451461ce07ba60850ff1f"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Lebedeva-PR.json",
-        "sha256": "2f7a88923daa4de4ed62039f836add0cd2149b7f1464c95423e48715626a777a"
+        "sha256": "d3f68e67fba051ccac1b7aedc37d6ceb4ded98a0f8d5c0d1d13d63d881263901"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/CompareToThreshold.json",
-        "sha256": "cb2d7128853430afdc146cb1edc313d1f54ec8bde45576b1d7d052f3669f6c89"
+        "sha256": "a452f6e3164e7def3d637880eb2ecb0c67e17a20a8df819996e96bbede03b637"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Zid-HistoryKernel2-ForagingRL.json",
-        "sha256": "a8bea4434271ae04c6afc0b3ce6926984b0515bce36650cc48ab02e66d394abf"
+        "sha256": "a48b5dcc1291d8a1d4db21eaa954e2f6884bd34678269fd324419e4ad6959d20"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Miller-RHG.json",
-        "sha256": "610e930965c7b23226c6086a2e1350e70f39a8272006ce8cc3f67cf3b7e38bd9"
+        "sha256": "a1a47ae9c4e2a195d483f019620e7f28fb180d6fbcf3fe2213eb2aabca64db9e"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Bari2019.json",
-        "sha256": "2950793b3ada98b96f2b00a966495c927e28f8c7dd99e66088a10211ad5a6ef1"
+        "sha256": "c883a25825c257ff0bf5adc100db5897a08c21181108bd8452efe1a7bddff78e"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Grossman-MetaLearning.json",
-        "sha256": "0c56a72cff58403209a7c2d7550b8011ec4cfebe31232912cee0a4578c4ab25e"
+        "sha256": "5e67b801d5f822b6b31f0d7b34ce366c267c7f620ebf8bc7867f1279d90ba121"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Hattori2019.json",
-        "sha256": "c47d7f923131e8f3aaa03c9fa4d539267c2014e3bb3728fdfb8f92e8cf7b6fd8"
+        "sha256": "b83a87f52040cc8d05b7bc76e657fbd7a72903fcdc44eb23c56f594d45988e05"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Chen-RLCK.json",
-        "sha256": "85dce473e7288c53c091033bd7651ce18e4b99be3bad54a9398d34efa8c0d197"
+        "sha256": "55114c0c20b0e798238c6539798d0cb568ba4119ddea2e658842a9012b17e979"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Beron-RFLR.json",
-        "sha256": "02a46fdeaa4030411f3f2d055e7d5dcbf857c5522c0e041db94be44bd65b6a6e"
+        "sha256": "243d70e66af9a46205ced9d05610c548978f9180f8dde8ff8d219608051a0731"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Eckstein-BI.json",
-        "sha256": "6a98099bc3c03efaf268b478caaf36838e7c046326e9c8cfde43ce98b31dffff"
+        "sha256": "d955d7d9a91cd5d70d24fedd913dba3ef81abcbb44fe6b85ab6bf2c466d74efc"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Eckstein-RL.json",
-        "sha256": "2216815bd8691af055f4d951eb1cda53c73a2b43a6c00b83abd1be01b4457d6c"
+        "sha256": "5823df66a917636cb94de0c0b12c161f3a6220bd4b63df3a6d991e7da93f7472"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/FeedbackDependent-RL+Bias+CK1.json",
-        "sha256": "294a58bad1853178362b6abed06e789aa0e10cf37aaaf92389728f600206bfdf"
+        "sha256": "09ce31f21514a4f1c06845316816eaaa09b6128b6e47c99b8a0886e845df27f7"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Alsio-DualRateSticky-RL.json",
-        "sha256": "665e664f06ef0bd40c909ee486b7c4fee403ee2e7b72ce7de4252ae117e539c8"
+        "sha256": "e51d355a4cef233510447f0dbf20a2a9fb5dedbc2589064324a57a9607bcba49"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/LossCounting.json",
-        "sha256": "898e73ebdbc5695f9f84e9ce321c0d1e451669336a715cd2303c1044e27ca762"
+        "sha256": "c1409613c932aa4ca5f6a5d6006d16cc5df96f230d0a25f9e2be2ca16e1d63c2"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/ActorCritic.json",
-        "sha256": "22fe2941265507464b582774e3cfd3bf60ac7d437a7950b79b534c9021c0a7d7"
+        "sha256": "f55f894b46e345731a38f7ff993ac0169f406f6b8cb5343cb8d70bf732ead36f"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/FeedbackDependent-RL+Bias.json",
-        "sha256": "f22a997f2d71b1ee71b5b2490c80f53d953f6213889f8ee92e9a0cab8f1d6116"
+        "sha256": "a6cf27889f5d41fbee447868feb9fe119abeeb0a43d1bab2b0df35db91ee0440"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/FeedbackDependent-RL.json",
-        "sha256": "a35ef84e69cd3ef67c2739e889b2abe83bff998ad9698b1274c47666e7bb72ce"
+        "sha256": "2c7df20e8bdb0c22f3f67c548b510340a4bb460f54b783b36c56dd2f26b27031"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Rescorla-Wagner.json",
-        "sha256": "b8878a545e2f93705561aa5d62a8ba19fb0629291af3ecd19f0791e5e440b064"
+        "sha256": "3f14f02db515f21ecefc01c80c94b13ca6f3075a4bde3918c19a2dab67267a02"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Win-Stay-Lose-Shift.json",
-        "sha256": "49a7c353b6aef3b173f762709b17740a5ddf3e8c55ec813fd152215bbaba1846"
+        "sha256": "1d4637b41c6ed50869924e8508f90763d43fff3366e97b53bb9eea3bb43de51a"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/animal.json",
-        "sha256": "36b13e3db4b72737e7daf5cd7cf40c0f9fc5863336427ea0dc9303cc84f913a1"
+        "sha256": "5c0d1ba734030200801c281a4db8e59423ba389fde203d81b08c4ad7c1501191"
       }
     ]
   },
