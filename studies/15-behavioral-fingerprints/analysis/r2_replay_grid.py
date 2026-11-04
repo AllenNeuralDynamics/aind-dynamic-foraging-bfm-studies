@@ -72,7 +72,7 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
             cells = gaps["models"][m].get(reg)
             if cells is None:
                 continue
-            grid[i, j] = fingerprint_score(cells, head) if s == "score" else cells[head][s]["floor_ratio"]
+            grid[i, j] = fingerprint_score(gaps, m, reg) if s == "score" else cells[head][s]["floor_ratio"]
 
     fig = plt.figure(figsize=fs.mm(183, 95))
     ax = fig.add_axes([0.215, 0.14, 0.33, 0.72])
@@ -150,9 +150,10 @@ def likelihoods(glm: dict) -> dict:
     return out
 
 
-def fingerprint_score(cells: dict, head: str) -> float:
-    """ADR 0009: the geometric mean of the floor ratios over the replay statistics."""
-    return math.exp(sum(math.log(cells[head][s]["floor_ratio"]) for s in STATS) / len(STATS))
+def fingerprint_score(gaps: dict, model: str, regime: str) -> float:
+    """ADR 0009's replay fingerprint score of the headline set, as the gaps freeze computed it
+    with the library (``fingerprints.aggregate_subjects``)."""
+    return gaps["scores"][model][regime][gaps["headline_set"]]
 
 
 def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
@@ -194,7 +195,7 @@ def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
         for reg, cells in gaps["models"][m].items():
             if m in lik and reg in lik[m]:
                 points.append({"model": m, "regime": reg, "likelihood": lik[m][reg],
-                               "replay_score": fingerprint_score(cells, head)})
+                               "replay_score": fingerprint_score(gaps, m, reg)})
     shown = [p for p in points if p["likelihood"] >= C_MIN_LIKELIHOOD]
     for reg, marker in (("per_subject", "o"), ("two_level_em", "s")):
         pts = [p for p in shown if p["regime"] == reg]
@@ -296,7 +297,7 @@ def summary(gaps: dict, names: list[str]) -> list[dict]:
         for reg, cells in gaps["models"][m].items():
             ratios = {s: cells[head][s]["floor_ratio"] for s in STATS}
             row[reg] = {"floor_ratio": ratios, "worst": max(ratios, key=ratios.get),
-                        "score": fingerprint_score(cells, head),
+                        "score": fingerprint_score(gaps, m, reg),
                         "n_subjects": {s: cells[head][s]["n_subjects"] for s in STATS}}
         rows.append(row)
     return rows

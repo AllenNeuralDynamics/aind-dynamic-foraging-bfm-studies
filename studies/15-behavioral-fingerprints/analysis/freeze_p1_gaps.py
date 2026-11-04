@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """P1: replay gaps and binomial floors from the committed replay tallies (ADR 0003, 0008).
 
-For every model, regime, subject, session set and rate statistic: the replay gap
-(``fingerprints.replay_gap``) and the subject's binomial floor (``fingerprints.binomial_floor``),
-then per model, regime, set and statistic the subject-balanced gap, floor and floor ratio
-(``fingerprints.floor_ratio``), for every model of ``p1_replay.json`` and ``p1_glm.json``. A set sums the tallies of its session groups
+For every model, regime, subject, session set and rate statistic: the replay gap and the subject's
+binomial floor (``fingerprints.compare_replay``), then per model, regime, set and statistic the
+subject-balanced gap, floor and floor ratio, and per set the replay fingerprint score of ADR 0009
+(``fingerprints.aggregate_subjects``), for every model of ``p1_replay.json`` and ``p1_glm.json``. A set sums the tallies of its session groups
 (``p1_session_groups.json``): ``non-warm-up`` (the replay headline; ADR 0004 keeps warm-ups out),
 ``warm-up``, and each ``{stage_group}|{task}`` group alone. It reads only committed files, but it
 needs the fingerprint library, which CI does not install, so it is a freeze and r2 reads its output.
@@ -40,8 +40,8 @@ from _meta import build_meta, write_artifact  # noqa: E402
 from freeze_p0_golden_mevolve import _git_sha  # noqa: E402
 
 from aind_dynamic_foraging_models.fingerprints import (  # noqa: E402
-    BINS, MIN_TRIALS, OBS, PRED, SPEC_VERSION, N, add, binomial_floor, empty_tally, floor_ratio,
-    kept_bins, replay_gap, values)
+    BINS, MIN_TRIALS, OBS, PRED, SPEC_VERSION, N, add, aggregate_subjects, compare_replay, empty_tally,
+    kept_bins, values)
 from aind_dynamic_foraging_models.fingerprints.spec import RATE_STATISTICS  # noqa: E402
 
 REPLAY = HERE / "p1_replay.json"
@@ -119,15 +119,6 @@ def main() -> None:
     subjects = sorted(animal)
     sets = _sets(json.loads(GROUPS.read_text())["groups"].values())
 
-    floors = {}   # set -> stat -> subject -> floor
-    for name, groups in sets.items():
-        floors[name] = {}
-        for stat in RATE_STATISTICS:
-            floors[name][stat] = {}
-            for sid in subjects:
-                t = _summed(animal[sid], groups)
-                floors[name][stat][sid] = np.nan if t is None else binomial_floor(t, stat)
-
     glm = json.loads(GLM.read_text())
     assert glm["passed"], "the GLM replay gate failed; fix it before comparing"
     assert glm["spec"] == SPEC_VERSION
@@ -146,39 +137,41 @@ def main() -> None:
                                        "from the stored typical values does not reproduce the "
                                        "stored score"})
     skip = {(e["model"], e["regime"]) for e in excluded}
-    inputs, models = [REPLAY, GLM, GROUPS, animal_file, lit.HEADLINE_SOURCE], {}
+    inputs, models, scores = [REPLAY, GLM, GROUPS, animal_file, lit.HEADLINE_SOURCE], {}, {}
     for model in list(replay["models"]) + [glm["model"]]:
         path = TALLIES / f"{model}.parquet"
         inputs.append(path)
         gates = replay["models"].get(model, {"per_subject": {"subjects_replay_differs": []}})
-        models[model] = {}
+        models[model], scores[model] = {}, {}
         for regime, preds in _preds(path).items():
             if (model, regime) in skip:
                 continue
             flagged = set(gates[regime]["subjects_replay_differs"])
             tallies = {sid: _with_pred(animal[sid], preds[sid]) for sid in subjects}
+            # the library's one-call comparison per subject, then its subject-balanced aggregate
+            per_subject = [compare_replay(tallies[sid], sets) for sid in subjects]
+            agg = aggregate_subjects(per_subject)
             cells = {}
             for name, groups in sets.items():
                 cells[name] = {}
                 for stat in RATE_STATISTICS:
-                    gaps, fl = [], []
-                    for sid in subjects:
-                        t = _summed(tallies[sid], groups)
-                        gaps.append(np.nan if t is None else replay_gap(t, stat))
-                        fl.append(floors[name][stat][sid])
-                    g, f = np.asarray(gaps), np.asarray(fl)
+                    g = np.array([r[name]["statistics"][stat]["gap"] for r in per_subject])
+                    f = np.array([r[name]["statistics"][stat]["floor"] for r in per_subject])
                     ok = np.isfinite(g) & np.isfinite(f)
-                    cell = {"n_subjects": int(ok.sum()),
+                    a = agg[name]["statistics"][stat]
+                    cell = {"n_subjects": a["n_subjects"],
                             "n_subjects_replay_differs": int(sum(ok[i] for i, s in enumerate(subjects)
                                                                  if s in flagged)),
-                            "gap": float(g[ok].mean()) if ok.any() else None,
-                            "floor": float(f[ok].mean()) if ok.any() else None,
-                            "floor_ratio": floor_ratio(g, f) if ok.any() else None}
+                            "gap": a["gap"] if ok.any() else None,
+                            "floor": a["floor"] if ok.any() else None,
+                            "floor_ratio": a["floor_ratio"] if ok.any() else None}
                     if name == HEADLINE:
                         cell["per_subject"] = {"gap": [None if not np.isfinite(x) else float(x) for x in g],
                                                "floor": [None if not np.isfinite(x) else float(x) for x in f]}
                         cell["per_bin"] = _per_bin(tallies, subjects, groups, stat)
                     cells[name][stat] = cell
+            scores[model][regime] = {name: (agg[name]["score"] if np.isfinite(agg[name]["score"]) else None)
+                                     for name in sets}
             models[model][regime] = cells
         print(model, {reg: {s: round(c[HEADLINE][s]["floor_ratio"], 3) for s in RATE_STATISTICS}
                       for reg, c in models[model].items()}, flush=True)
@@ -202,6 +195,7 @@ def main() -> None:
         "subjects": subjects,
         "bins": {s: list(BINS[s]) for s in RATE_STATISTICS},
         "models": models,
+        "scores": scores,
     })
     print("->", OUT)
 
