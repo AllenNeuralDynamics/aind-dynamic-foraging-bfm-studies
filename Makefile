@@ -11,8 +11,9 @@ validate:
 
 .PHONY: new-study new-variant new-report
 # Start every study, variant and report here; the result passes `make validate`.
-#   make new-study   NAME=12-gru-foo QUESTION="Does ...?" PROJECT=gru_foo VARIANT=base MOTIVATED_BY=06/r2 \
-#                    MODEL=gru QUESTION_TYPE=scaling,comparison [ISSUE=...]
+#   make new-study   NAME=12-gru-foo QUESTION="Does ...?" PROJECT=dfbfm_12-gru-foo VARIANT=base MOTIVATED_BY=06/r2 \
+#                    MODEL=gru QUESTION_TYPE=scaling,comparison [ISSUE=...] [ENTITY=NeuralDynamics]
+#                    (PROJECT: in NeuralDynamics, the default entity, name it dfbfm_NN-name or dfbfm-name)
 #                    (MOTIVATED_BY: what this study follows up, comma-separated 05/r1, 05 or #23; `none` for a root study)
 #                    (MODEL, QUESTION_TYPE: comma-separated tags from schemas/tags.yaml)
 #   make new-variant STUDY=12-gru-foo NAME=wider
@@ -22,7 +23,7 @@ validate:
 arg = '$(subst ','\'',$(value $(1)))'
 new-study:
 	$(PY) scripts/scaffold.py study --name $(call arg,NAME) --question $(call arg,QUESTION) \
-	  --project $(call arg,PROJECT) --variant $(call arg,VARIANT) --issue $(call arg,ISSUE) \
+	  --project $(call arg,PROJECT) $(if $(ENTITY),--entity $(call arg,ENTITY)) --variant $(call arg,VARIANT) --issue $(call arg,ISSUE) \
 	  --motivated-by $(call arg,MOTIVATED_BY) --model $(call arg,MODEL) --question-type $(call arg,QUESTION_TYPE)
 new-variant:
 	$(PY) scripts/scaffold.py variant --study $(call arg,STUDY) --name $(call arg,NAME)

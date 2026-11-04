@@ -34,6 +34,10 @@ the links give detail, they do not replace the rules.
 
 - Every tracked change starts with an assigned GitHub issue on project 184
   (`AIND-behavior-fm`). File first, then work.
+- **One W&B project per study, in entity `NeuralDynamics`, named `dfbfm_NN-name`** (e.g.
+  `dfbfm_12-leaderboard`; a harness uses `dfbfm-name`, e.g. `dfbfm-mevolve`). Plain characters
+  only: no brackets or spaces, which Hydra and shell quoting break. Never put a new study in the
+  shared `aind-dynamic-foraging-model` project. Runs already logged elsewhere stay where they are.
 - One scientific question per `studies/NN-{model}-{purpose}/`; conditions are
   self-contained variants under `variants/<variant>/`, not new studies. `NN` is an
   accession number: never renumber or reuse one.
