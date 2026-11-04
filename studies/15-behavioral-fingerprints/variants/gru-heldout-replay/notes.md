@@ -20,4 +20,6 @@ r2's stored value (`cross_study_literature.gru_per_subject`).
 
 **Status.** Launched 2026-11-04 12:01 PT as `gru-heldout-replay@20261104-120131`, Beaker
 experiment [`01M6M2E1FPKJ52128XK2K52B29`](https://beaker.org/ex/01M6M2E1FPKJ52128XK2K52B29)
-(3 tasks); record in `launch_record/gru-replay/`.
+(3 tasks); record in `launch_record/gru-replay/`. The Beaker hubs were full (0 schedulable GPUs,
+37 queued on onprem-h200), so the same job also runs on the Allen HPC (`launch_hpc.py`,
+`run_hpc.sbatch`; Han, 2026-11-04): whichever finishes first feeds P1.
