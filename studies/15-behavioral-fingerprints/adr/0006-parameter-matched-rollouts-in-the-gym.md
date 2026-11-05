@@ -52,6 +52,7 @@ only 0 and 1, so a missing parameter never turns a warm-up into a foraging task.
   in `analysis/p2_task_specs.json`.
 - The sensitivity check tests `BlockMinReward` only, because it is the only hold that is recorded
   (Han). The recorded minimum is 0 in 224 of 258 coupled score sessions, and in every early-stage
-  one; the blocks P0 found held past `block_max` therefore come from `AdvancedBlockAuto`, which
-  this study cannot simulate. The check runs on the sessions with a positive minimum
+  one; the blocks P0 found held past `block_max` cannot come from `BlockMinReward`, so they come
+  from `AdvancedBlockAuto` or the manual next-block button, which this study cannot simulate.
+  The check runs on the sessions with a positive minimum
   (`analysis/p2_holds.json`).
