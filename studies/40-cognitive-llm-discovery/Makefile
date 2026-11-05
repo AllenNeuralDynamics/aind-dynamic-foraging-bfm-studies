@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all explainer gate3 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
-all: gate3
+all: gate3 r1
 
 # gate3 = gate 3's numbers for variants/engine-smoke/notes.md (Result), from analysis/engine_smoke/.
 gate3:

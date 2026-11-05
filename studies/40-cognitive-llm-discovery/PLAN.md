@@ -100,8 +100,8 @@ each); evaluator cost a few hundred to a thousand core-hours per search.
 
 | report | content |
 |---|---|
-| r1 | MEvolve's evaluator against the reference fits (gates 1a–1c), cited from study 12 and study 13 |
-| r2 | program recovery on simulated subjects |
+| r1 | program recovery on simulated subjects (gate 4), written first, so it took r1 (2026-11-04) |
+| r2 | MEvolve's evaluator against the reference fits (gates 1a–1c), cited from study 12 and study 13 |
 | r3 | search curve: best validation score against proposals and dollars, by island |
 | r4 | the four pre-registered programs on the test subjects: gap closed, fingerprints, both-regime test and ablations, fit-versus-complexity curve, example sessions |
 
