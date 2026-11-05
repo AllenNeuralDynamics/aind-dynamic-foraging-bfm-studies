@@ -9,6 +9,7 @@ MODELS ?= ../../../aind-dynamic-foraging-models
 MEVOLVE ?= /allen/aind/scratch/han.hou/tmp/s15/mevolve-30ae4f3
 MEVOLVE_PY ?= /allen/aind/scratch/han.hou/miniforge3/envs/mevolve/bin/python
 GRU_OUTPUTS ?= /allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009
+GRU_PRIOR ?= /allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/prior
 .PHONY: all freeze-p0-golden-mevolve freeze-p0-golden-wrapper freeze-p0-task-checks \
   freeze-p1-session-groups freeze-p1-replay freeze-p1-glm freeze-p1-gru freeze-p1-gaps
 
@@ -38,7 +39,8 @@ freeze-p1-glm:
 
 freeze-p1-gru:
 	PYTHONPATH=$(MODELS)/src:$(MEVOLVE)/src $(MEVOLVE_PY) analysis/freeze_p1_gru.py \
-	  --models-repo $(MODELS) --outputs $(GRU_OUTPUTS)
+	  --models-repo $(MODELS) --outputs $(GRU_OUTPUTS) \
+	  --prior-root $(GRU_PRIOR)
 
 freeze-p1-gaps:
 	PYTHONPATH=$(MODELS)/src:$(MEVOLVE)/src $(MEVOLVE_PY) analysis/freeze_p1_gaps.py --models-repo $(MODELS)

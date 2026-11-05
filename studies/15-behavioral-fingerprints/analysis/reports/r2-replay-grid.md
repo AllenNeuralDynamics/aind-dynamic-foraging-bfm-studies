@@ -90,7 +90,7 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
 
 Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): each point is one bin, the subjects' mean p(switch) against the model's replayed prediction, over subjects that keep the bin. Each panel prints r and RMSE over the bins and the model's floor ratio for that statistic (the first figure's cell): the floor ratio weights each bin by its trials and compares with what the subjects' data allow; r and RMSE count every bin once. Patterns are coloured by depth, hazard and after-a-switch bins by the last trial's reward.
 
-**Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (19 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169. The GRU (study 01's v1 GRU at D = 614, re-fine-tuned on the held-out subjects, launch `gru-heldout-replay@20261104-150009`, which logs no W&B runs) scores exactly the freeze's sessions and choices; on the 146 subjects study 01 r2 also scored, each seed's likelihood equals study 01's to 9.8e-06 (tolerance 1e-04; study 01 scored on GPUs, this re-fine-tune on CPUs). Its 3 other subjects (722683, 795395, 820243) have no study 01 value and count on their session and choice checks. Replay scores per seed: 1.39, 1.40, 1.40.
+**Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (19 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169. The GRU (study 01's v1 GRU at D = 614, re-fine-tuned on the held-out subjects, launch `gru-heldout-replay@20261104-150009`, which logs no W&B runs) scores exactly the freeze's sessions and choices; on the 146 subjects study 01 r2 also scored, each seed's likelihood equals study 01's to 9.8e-06 (tolerance 1e-04; study 01 scored on GPUs, this re-fine-tune on CPUs). Its 3 other subjects (722683, 795395, 820243) were among the 614 its checkpoint was trained on, so the GRU's numbers leave them out: its cells and score are over 146 subjects, every other model's over 149. Replay scores per seed: 1.39, 1.40, 1.40.
 <!-- END result-1 -->
 
 ## What it says
@@ -101,14 +101,15 @@ Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): ea
   Lebedeva-PR, Bari2019, Miller-RHG and CompareToThreshold miss the subjects' p(switch) by about
   0.013 to 0.018 per bin on the local statistics, against a floor of 0.009 to 0.012. No model
   reaches the floor, so every statistic still has a measurable error to find.
-- **The GRU is as close as the best 2-level models, and closest bin by bin.** Its replay score is
-  1.40 (seeds 1.39 to 1.40; floor ratios 1.2 to 1.5), beside 1.33 for Lopez-DoubleTrace and 1.39
-  for Lebedeva-PR as 2-level EM, and well below every per-subject fit (1.7 at best). On the
-  subject-mean curves it is the closest of all (third figure): RMSE 0.003 to 0.010 per statistic,
-  against 0.013 to 0.037 for Lebedeva-PR, and it gets both post-switch histories the literature
-  models split on (`S-O+` 0.47 against the subjects' 0.48, `S+O+` 0.25 against 0.24). So its
-  remaining gap is mostly within subjects, not in the average behaviour. It also has the best
-  held-out likelihood here (0.7274, the mean over seeds).
+- **The GRU is close to the best 2-level models, and closest bin by bin.** Over the 146 test
+  subjects it holds out (3 of the 149 trained its checkpoint), its replay score is 1.40 (seeds
+  1.39 to 1.40; floor ratios 1.2 to 1.5), beside 1.33 for Lopez-DoubleTrace and 1.39 for
+  Lebedeva-PR as 2-level EM (on all 149), and well below every per-subject fit (1.7 at best). On
+  the subject-mean curves it is the closest of all (third figure): RMSE 0.003 to 0.010 per
+  statistic, against 0.013 to 0.037 for Lebedeva-PR, and it gets both post-switch histories the
+  literature models split on (`S-O+` 0.47 against the subjects' 0.48, `S+O+` 0.25 against 0.24).
+  So its remaining gap is mostly within subjects, not in the average behaviour. It also has the
+  best held-out likelihood here (0.7268, the mean over seeds).
 - **2-level EM lowers the ratio for almost every model,** typically from about 2 to 3 per subject
   to 1.4 to 2. A 2-level replay lets each session have its own parameters, and the subjects'
   switching changes from session to session. The exceptions are the fits study 12 r3 marks

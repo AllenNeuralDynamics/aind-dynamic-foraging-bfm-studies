@@ -16,7 +16,10 @@ Before a subject's tallies count, per seed:
   Study 01 scored on GPUs and this fine-tune ran on CPUs, so the bound is not 1e-6.
 
 Study 01's held-out list differs from the freeze's 149 by 3 subjects each way (study 13 r2); those
-3 have no stored value to check against and are listed in ``subjects_unreferenced``.
+3 have no stored value to check against (``subjects_unreferenced``). They are among the 614
+subjects the source checkpoint was trained on (its ``subject_index_map.json``), so they are not
+held out for the GRU: ``subjects_in_training`` lists them, and the gaps freeze leaves them out of
+the GRU's numbers.
 
 Writes ``p1_gru.json`` (the gates) and ``p1_replay/GRU-D614.parquet`` (the PRED tallies in the
 format of ``freeze_p1_replay.py``, one regime per seed: ``seed0``, ``seed1``, ``seed2``).
@@ -25,7 +28,8 @@ Needs /allen and the mevolve env; on a compute node:
 
     sbatch -p aind --ntasks=1 --cpus-per-task=56 --mem=128G --time=01:00:00 --wrap \\
       "env PYTHONPATH=<foraging-models>/src:<mevolve>/src <mevolve env>/bin/python \\
-       analysis/freeze_p1_gru.py --models-repo <foraging-models> --outputs <launch outputs>"
+       analysis/freeze_p1_gru.py --models-repo <foraging-models> --outputs <launch outputs> \\
+       --prior-root <source runs>"
 """
 from __future__ import annotations
 
@@ -71,9 +75,16 @@ def _stored(seed: int) -> dict[str, tuple[float, int]]:
             if r["variant"] == "v1" and r["ratio"] == 1.0 and r["seed"] == str(seed)}
 
 
+def _trained_on(prior_root: Path, seed: int) -> tuple[Path, set[str]]:
+    """The subjects the source checkpoint of ``seed`` was trained on."""
+    found = sorted((prior_root / f"s{seed}" / "run").rglob("subject_index_map.json"))
+    assert len(found) == 1, f"seed {seed}: {found}"
+    return found[0], {str(k) for k in json.loads(found[0].read_text())["subject_id_to_index"]}
+
+
 def _subject_job(args) -> dict:
     """One subject, one seed: the session and likelihood checks, and the tallies."""
-    seed, sid, rows, sessions, labels, stored = args
+    seed, sid, rows, sessions, labels, stored, in_training = args
     from aind_dynamic_foraging_models.fingerprints import tally_groups
 
     order = list(dict.fromkeys(rows["source_ses_idx"]))
@@ -90,7 +101,8 @@ def _subject_job(args) -> dict:
         p_right.append(p1 / (p0 + p1))
     out = {"subject_id": sid, "seed": seed, "same_sessions": same_sessions,
            "same_choices": bool(same_choices), "max_self_diff": self_diff,
-           "likelihood": float(np.exp(rows["log_likelihood_nats"].mean())), "n_trials": int(len(rows))}
+           "likelihood": float(np.exp(rows["log_likelihood_nats"].mean())), "n_trials": int(len(rows)),
+           "in_training": in_training}
     if stored is not None:
         out["likelihood_diff"] = out["likelihood"] - stored[0]
         out["n_trials_equal"] = out["n_trials"] == stored[1]
@@ -112,6 +124,7 @@ def _gate(rows: list[dict]) -> dict:
     ref = [r for r in rows if "likelihood_diff" in r]
     out = {"n_subjects": len(rows), "n_subjects_referenced": len(ref),
            "subjects_unreferenced": sorted(r["subject_id"] for r in rows if "likelihood_diff" not in r),
+           "subjects_in_training": sorted(r["subject_id"] for r in rows if r["in_training"]),
            "max_abs_likelihood_diff": float(max(abs(r["likelihood_diff"]) for r in ref)),
            "median_abs_likelihood_diff": float(np.median([abs(r["likelihood_diff"]) for r in ref])),
            "max_self_diff": float(max(r["max_self_diff"] for r in rows)),
@@ -125,6 +138,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--models-repo", type=Path, required=True)
     ap.add_argument("--outputs", type=Path, required=True, help="the launch's output root")
+    ap.add_argument("--prior-root", type=Path, required=True, help="the source runs, s<seed>/run")
     ap.add_argument("--workers", type=int, default=56)
     a = ap.parse_args()
     import aind_dynamic_foraging_models
@@ -159,7 +173,10 @@ def main() -> None:
         assert set(df["subject_id"]) == set(subjects), f"seed {seed}: not the freeze's held-out subjects"
         per = dict(tuple(df.groupby("subject_id", sort=False)))
         stored = _stored(seed)
-        jobs = [(seed, sid, per[sid], sessions[sid], labels[sid], stored.get(sid)) for sid in subjects]
+        index, trained = _trained_on(a.prior_root, seed)
+        sources.append({"type": "file", "id": str(index), "sha256": _sha256(index)})
+        jobs = [(seed, sid, per[sid], sessions[sid], labels[sid], stored.get(sid), sid in trained)
+                for sid in subjects]
         with mp.get_context("spawn").Pool(min(a.workers, len(jobs))) as pool:
             rows = pool.map(_subject_job, jobs, chunksize=1)
         gates[f"seed{seed}"] = _gate(rows)
@@ -189,7 +206,8 @@ def main() -> None:
         "passed": passed,
         "seeds": gates,
         "subjects": [{"subject_id": r["subject_id"], "seed": r["seed"], "likelihood": r["likelihood"],
-                      "n_trials": r["n_trials"]} for rows in by_seed.values() for r in rows],
+                      "n_trials": r["n_trials"], "in_training": r["in_training"]}
+                     for rows in by_seed.values() for r in rows],
     }, outputs=outputs)
     print(f"{'PASS' if passed else 'FAIL'} -> {OUT}")
 

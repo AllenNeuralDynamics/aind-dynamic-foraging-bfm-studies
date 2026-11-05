@@ -5,7 +5,8 @@ For every model, regime, subject, session set and rate statistic: the replay gap
 binomial floor (``fingerprints.compare_replay``), then per model, regime, set and statistic the
 subject-balanced gap, floor and floor ratio, and per set the replay fingerprint score of ADR 0009
 (``fingerprints.aggregate_subjects``), for every model of ``p1_replay.json``, ``p1_glm.json`` and
-``p1_gru.json`` (the GRU's regimes are its seeds). A set sums the tallies of its session groups
+``p1_gru.json`` (the GRU's regimes are its seeds; the subjects its checkpoint was trained on are
+left out of its numbers). A set sums the tallies of its session groups
 (``p1_session_groups.json``): ``non-warm-up`` (the replay headline; ADR 0004 keeps warm-ups out),
 ``warm-up``, and each ``{stage_group}|{task}`` group alone. It reads only committed files, but it
 needs the fingerprint library, which CI does not install, so it is a freeze and r2 reads its output.
@@ -154,12 +155,15 @@ def main() -> None:
             if (model, regime) in skip:
                 continue
             flagged = set(gates[regime]["subjects_replay_differs"])
+            trained = set(gates[regime].get("subjects_in_training", []))   # not held out for the GRU
+            held = [sid for sid in subjects if sid not in trained]
             tallies = {sid: _with_pred(animal[sid], preds[sid]) for sid in subjects}
             # the library's one-call comparison per subject, then its subject-balanced aggregate
-            per_subject = [compare_replay(tallies[sid], sets) for sid in subjects]
+            per_subject = [_left_out(sets) if sid in trained else compare_replay(tallies[sid], sets)
+                           for sid in subjects]
             runs[regime] = per_subject
             models[model][regime] = _cells(per_subject, sets, subjects, flagged,
-                                           lambda groups, stat: _per_bin(tallies, subjects, groups, stat))
+                                           lambda groups, stat: _per_bin(tallies, held, groups, stat))
             scores[model][regime] = _scores(per_subject, sets)
         if model == gru["model"]:   # the mean over seeds, in the grid's per-subject column
             seeds = [models[model][r] for r in runs]
@@ -192,6 +196,13 @@ def main() -> None:
         "scores": scores,
     })
     print("->", OUT)
+
+
+def _left_out(sets: dict) -> dict:
+    """A subject a model does not count (NaN everywhere, so the aggregate skips it)."""
+    nan = float("nan")
+    return {name: {"statistics": {stat: {"gap": nan, "floor": nan, "floor_ratio": nan}
+                                  for stat in RATE_STATISTICS}, "score": nan} for name in sets}
 
 
 def _scores(per_subject: list[dict], sets: dict) -> dict:

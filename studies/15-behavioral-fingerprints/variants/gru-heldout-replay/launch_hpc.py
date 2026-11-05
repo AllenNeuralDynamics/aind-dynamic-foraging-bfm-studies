@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import re
+import shutil
 import subprocess
 import sys
 from datetime import datetime
@@ -47,6 +48,10 @@ def main() -> None:
     ap.add_argument("--launch-id", help="with --job: the launch id its outputs were written under")
     ap.add_argument("--studies-sha", help="with --job: the studies commit the job was submitted from")
     a = ap.parse_args()
+    a.wrapper, a.models, a.prior_root = (x.resolve() for x in (a.wrapper, a.models, a.prior_root))
+    record_dir = HERE / "launch_record" / a.label
+    if record_dir.exists() and not a.job:   # write_initial refuses a used label, after submission
+        raise SystemExit(f"launch_record/{a.label}/ exists: give this launch a new --label")
     studies = _studies_sha()
     if a.job:   # recorded after submission: name the commit it ran from; manifests come from git
         assert a.launch_id and a.studies_sha, "--job needs --launch-id and --studies-sha"
@@ -58,14 +63,18 @@ def main() -> None:
         assert (a.prior_root / f"s{seed}" / "run" / "outputs" / "checkpoints" / "index.json").exists(), seed
     launch_id = a.launch_id or datetime.now(ZoneInfo("America/Los_Angeles")).strftime("%Y%m%d-%H%M%S")
     out_root = OUT_BASE / launch_id
-    env = (f"ALL,WRAPPER={a.wrapper},MODELS={a.models},CONFIG={HERE / 'heldout_offline.yaml'},"
+    config = out_root / "heldout_offline.yaml"   # the tasks read this copy, fixed at submission
+    if not a.job:
+        out_root.mkdir(parents=True)
+        shutil.copyfile(HERE / "heldout_offline.yaml", config)
+    env = (f"ALL,WRAPPER={a.wrapper},MODELS={a.models},CONFIG={config},"
            f"PRIOR_ROOT={a.prior_root},OUT_ROOT={out_root},PATH={CONDA_ENV}/bin:/usr/bin:/bin")
     command = ["sbatch", "--parsable", f"--export={env}", "-J", "s15-gru-replay",
                "-o", str(LOGS / "gru_replay_%A_%a.log"), str(HERE / "run_hpc.sbatch")]
     job = a.job or _run(*command).strip().split(";")[0]
     assert re.fullmatch(r"\d+", job), job
     packages = _run(f"{CONDA_ENV}/bin/python", "-m", "pip", "list", "--format=freeze")
-    write_initial(HERE / "launch_record" / a.label / f"hpc_{launch_id}.json", platform="hpc",
+    write_initial(record_dir / f"hpc_{launch_id}.json", platform="hpc",
                   wandb_group=f"{VARIANT}@{launch_id}", study_root=STUDY, label=a.label, note=a.note,
                   job_refs=[{"type": "slurm_array_job", "id": job}], revisions=revisions,
                   manifests=["run_hpc.sbatch", "heldout_offline.yaml", "launch_hpc.py"], data=DATA,

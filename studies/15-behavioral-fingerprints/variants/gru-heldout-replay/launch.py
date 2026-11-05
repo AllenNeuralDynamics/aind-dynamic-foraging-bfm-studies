@@ -120,6 +120,8 @@ def main() -> None:
     ap.add_argument("--note", required=True)
     ap.add_argument("--no-submit", action="store_true")
     a = ap.parse_args()
+    if not a.no_submit and (HERE / "launch_record" / a.label).exists():   # write_initial refuses it, too late
+        raise SystemExit(f"launch_record/{a.label}/ exists: give this launch a new --label")
     studies = _studies_sha()
     refs = {k: _main_sha(r) for k, r in REPOS.items()}
     tasks = source_tasks()

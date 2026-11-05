@@ -140,7 +140,8 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
 
 def likelihoods(glm: dict, gru: dict) -> dict:
     """Pooled held-out likelihood on the 149 test subjects per model and regime, re-pooled from
-    study 12's per-subject scores (the GLM's own; the GRU's per seed, then the mean over seeds)."""
+    study 12's per-subject scores (the GLM's own; the GRU's per seed over the subjects it holds out,
+    then the mean over seeds)."""
     out = {}
     for regime, table in (("per_subject", lit.literature_per_subject("heldout")),
                           ("two_level_em", lit.two_level_em_per_subject("heldout"))):
@@ -151,6 +152,8 @@ def likelihoods(glm: dict, gru: dict) -> dict:
     out[glm["model"]] = {"per_subject": glm["pooled_heldout_likelihood"]}
     seeds = {}
     for r in gru["subjects"]:
+        if r["in_training"]:
+            continue
         ll, n = seeds.get(r["seed"], (0.0, 0))
         seeds[r["seed"]] = (ll + r["n_trials"] * math.log(r["likelihood"]), n + r["n_trials"])
     out[gru["model"]] = {"per_subject": sum(math.exp(ll / n) for ll, n in seeds.values()) / len(seeds)}
@@ -325,6 +328,7 @@ def gate_summary(replay: dict, glm: dict, gru: dict, gaps: dict) -> dict:
                    "n_seeds": len(gru["seeds"]),
                    "n_subjects_referenced": min(g["n_subjects_referenced"] for g in gru["seeds"].values()),
                    "subjects_unreferenced": gru["seeds"]["seed0"]["subjects_unreferenced"],
+                   "subjects_in_training": gru["seeds"]["seed0"]["subjects_in_training"],
                    "max_abs_likelihood_diff": max(g["max_abs_likelihood_diff"] for g in gru["seeds"].values()),
                    "seed_scores": {reg: fingerprint_score(gaps, gru["model"], reg) for reg in gru["seeds"]}}}
     shown = [(m, reg, g) for m, regimes in replay["models"].items() for reg, g in regimes.items()
@@ -405,9 +409,11 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         f"{gates['gru']['n_subjects_referenced']} subjects study 01 r2 also scored, each seed's "
         f"likelihood equals study 01's to {gates['gru']['max_abs_likelihood_diff']:.1e} (tolerance "
         f"{gates['gru']['tolerance']:.0e}; study 01 scored on GPUs, this re-fine-tune on CPUs). Its "
-        f"{len(gates['gru']['subjects_unreferenced'])} other subjects "
-        f"({', '.join(gates['gru']['subjects_unreferenced'])}) have no study 01 value and count on "
-        "their session and choice checks. Replay scores per seed: "
+        f"{len(gates['gru']['subjects_in_training'])} other subjects "
+        f"({', '.join(gates['gru']['subjects_in_training'])}) were among the 614 its checkpoint was "
+        f"trained on, so the GRU's numbers leave them out: its cells and score are over "
+        f"{len(gaps['subjects']) - len(gates['gru']['subjects_in_training'])} subjects, every other "
+        f"model's over {len(gaps['subjects'])}. Replay scores per seed: "
         + ", ".join(f"{v:.2f}" for v in gates["gru"]["seed_scores"].values()) + ".",
     ]
     return "\n".join(lines)
