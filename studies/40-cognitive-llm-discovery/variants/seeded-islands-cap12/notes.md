@@ -4,9 +4,9 @@
 instead of ADR 0005's 8 and 6 (issue #118; MEvolve's `max_params` and `max_latent`, AllenNeuralDynamics/aind-dynamic-foraging-mevolve#60).
 Everything else is the same: 100 proposals by Claude Sonnet 5.5 at effort medium, the same seed-0
 cohorts and freeze, the same five islands and seeds (`analysis/seed_choice.json`), the library in the
-prompt, $20 list. The evaluations run 16 at a time as Slurm steps of 56 CPUs, the CPUs of 8 nodes placed
-wherever 56 are free (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#59); each is the same 28-worker
-evaluation as before.
+prompt, $20 list. The evaluations run 16 at a time as Slurm steps of 24 CPUs placed wherever 24 are free
+(AllenNeuralDynamics/aind-dynamic-foraging-mevolve#59), each with 12 workers instead of the smoke run's 28;
+the worker count changes the time of an evaluation, not its score.
 
 **Deviation, on purpose.** ADR 0005 fixes 8 parameters and 6 latent variables for the study's programs.
 This variant is a test of those limits, not a change to them: whether `seeded-islands` searches with
@@ -28,13 +28,16 @@ and what for. It is also the first search on many nodes, so it measures their th
    the smoke run's steps were at or below the paired standard error between two programs on these
    mice (0.03 to 0.06, gate 2): a difference in the best score is one sample, not an effect of the
    limits.
-3. **Throughput:** proposals per hour and node-minutes per proposal, against the smoke run's 17 per
-   hour and 3.4 node-minutes on one node.
+3. **Throughput:** proposals per hour and CPU-minutes per proposal, against the smoke run's 17 per
+   hour and 3.4 node-minutes (380 CPU-minutes) on one node.
 4. As in the smoke run, the programs found here do not enter `seeded-islands`; only the seed scores
    in the shared `seed_cache` are reused.
 
-**Run.** `search.sbatch`: 16 tasks of 56 CPUs and 1,500 MB per CPU on `aind` nodes (a 28-worker
-evaluation peaked at 40 GB in the multi-node test). It is submitted to start only after the multi-node
+**Run.** `search.sbatch`: 16 tasks of 24 CPUs and 1,500 MB per CPU on `aind` CPU nodes. The size was
+chosen from the free-CPU landscape so the job ends earliest (Han, 2026-11-05): CPU-only jobs may not use
+GPU nodes, where most free CPUs were, and on the CPU nodes Slurm planned 16 slots of 56 CPUs for the next
+morning, while 16 slots of 24 CPUs could start at once (about 15 minutes per evaluation, 1¾ hours for
+100 proposals). It is submitted to start only after the multi-node
 runner's last $0 test passes (`--dependency=afterok`). MEvolve keeps Shinka's database on the first node's
 local disk; each evaluation's program and results pass through `stage/` in the launch directory on
 /allen. The exit trap copies only files `run.main` did not copy, so it cannot overwrite the archived run
