@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_rollout_grid.py",
-    "produced_at_pt": "2026-11-05T03:37:56-08:00",
-    "studies_git_sha": "735f713bb929a09e68fe5dd91d6ab9e609e9f46a",
+    "produced_at_pt": "2026-11-05T04:25:33-08:00",
+    "studies_git_sha": "f95c791466004f804f1b921d5e737764c842901b",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -42,15 +42,15 @@
     "inputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_rollouts.json",
-        "sha256": "3d324a262a24a4d211d08025fecf8aab9ce7f2e6e4aee9efc757e16e8da46a0f"
+        "sha256": "6b8c6625943b5967ea8fb2024a2b193ffce76a6479f98f9ed4a56bbd5d9c1b71"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_rollout_gaps.json",
-        "sha256": "c7523c7d10d7d05ab04c3590b20e341d95930bc522dcef2b991ac47c09fc0dcf"
+        "sha256": "aace9f8d85d9a6157c0223992e9896cd077863f1bcf3915cc65cdd7d473cb247"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_holds.json",
-        "sha256": "8ea34f8e3627d9036124f3a52fe07bad8810d1916d313c0712da7edcd8f61b61"
+        "sha256": "3d27b74ce7a7683e34e1ade4a4353d3955da0c5845ab02e95c5e7ad39272b7d3"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_task_specs.json",

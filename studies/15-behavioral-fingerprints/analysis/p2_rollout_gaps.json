@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p2_gaps.py",
-    "produced_at_pt": "2026-11-05T03:37:42-08:00",
-    "studies_git_sha": "735f713bb929a09e68fe5dd91d6ab9e609e9f46a",
+    "produced_at_pt": "2026-11-05T04:25:21-08:00",
+    "studies_git_sha": "f95c791466004f804f1b921d5e737764c842901b",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -26,7 +26,7 @@
     "inputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_rollouts.json",
-        "sha256": "3d324a262a24a4d211d08025fecf8aab9ce7f2e6e4aee9efc757e16e8da46a0f"
+        "sha256": "6b8c6625943b5967ea8fb2024a2b193ffce76a6479f98f9ed4a56bbd5d9c1b71"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_task_specs.json",

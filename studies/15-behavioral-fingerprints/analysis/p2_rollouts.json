@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p2_rollouts.py",
-    "produced_at_pt": "2026-11-05T03:35:15-08:00",
-    "studies_git_sha": "735f713bb929a09e68fe5dd91d6ab9e609e9f46a",
+    "produced_at_pt": "2026-11-05T04:22:46-08:00",
+    "studies_git_sha": "f95c791466004f804f1b921d5e737764c842901b",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_rollouts.py",
-        "sha256": "756c0694a43ced011905987a72fa1fbf87bdbdbb2c02c078ee08b9aaaa343e6e"
+        "sha256": "6e63387dd300933753b7dac8c158dfb983060a5470a42a34896c7f6f7b2d97c5"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_task.py",
@@ -50,7 +50,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_gru_contexts.json",
-        "sha256": "03853912e37f07f4270f7c0961053c246bcc1cd4228964360a84a31200282c1a"
+        "sha256": "57f06a67334c3717077231520652986bc2c6a821a545e9cf32ada137bd3b25a5"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_gru.json",
@@ -199,7 +199,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_rollouts.json",
-        "sha256": "8490ae44f80a97ca10b56987842805a38ddbc2c9fa4720ce8398cc62d5af8a95"
+        "sha256": "dfc9ff22c1e63991785de20e49709cd58ffa8c7041a03caa91d271a3345d8653"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_rollouts/Lopez-DoubleTrace.parquet",
@@ -310,7 +310,7 @@
     "Lopez-DoubleTrace": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -319,7 +319,7 @@
     "Lebedeva-PR": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -328,7 +328,7 @@
     "CompareToThreshold": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -337,7 +337,7 @@
     "Zid-HistoryKernel2-ForagingRL": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -346,7 +346,7 @@
     "Miller-RHG": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -355,7 +355,7 @@
     "Bari2019": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -364,7 +364,7 @@
     "Grossman-MetaLearning": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -373,7 +373,7 @@
     "Hattori2019": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -382,7 +382,7 @@
     "Chen-RLCK": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -391,7 +391,7 @@
     "Beron-RFLR": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -400,7 +400,7 @@
     "Eckstein-BI": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -409,7 +409,7 @@
     "Eckstein-RL": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -418,7 +418,7 @@
     "FeedbackDependent-RL+Bias+CK1": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -427,7 +427,7 @@
     "Alsio-DualRateSticky-RL": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -436,7 +436,7 @@
     "LossCounting": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -445,7 +445,7 @@
     "ActorCritic": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -454,7 +454,7 @@
     "FeedbackDependent-RL+Bias": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -463,7 +463,7 @@
     "FeedbackDependent-RL": {
       "n_subjects": 125,
       "max_self_diff": 0.0,
-      "n_rollout_sessions": 17650,
+      "n_rollout_sessions": 35300,
       "regimes": [
         "per_subject",
         "two_level_em"
@@ -490,7 +490,7 @@
       "max_self_diff": 0.0,
       "max_gate_diff": 7.331625125894803e-07,
       "tolerance_gate": 0.0001,
-      "n_rollout_sessions": 17170,
+      "n_rollout_sessions": 51510,
       "regimes": [
         "seed0",
         "seed1",
