@@ -4,9 +4,9 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
+.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
-all: gate3 seed-choice smoke-result r1
+all: gate3 seed-choice smoke-result cap12-result r1
 
 # seed-choice = the seeds of the seeded-islands searches by ADR 0006's rule, from study 12's committed
 # 2-level EM fits on the validation mice (analysis/seed_choice.json).
@@ -22,6 +22,17 @@ smoke-result:
 # key in ~/.config/mevolve/ and /allen); never part of `all`. Commit analysis/seeded_islands_smoke/.
 freeze-seeded-islands-smoke:
 	$(PY) analysis/freeze_seeded_islands_smoke.py
+
+# cap12-result = variants/seeded-islands-cap12's pre-registered numbers against seeded-islands-smoke
+# (analysis/seeded_islands_cap12.json, fig_seeded_islands_cap12.svg), from both runs' committed freezes.
+cap12-result:
+	$(PY) analysis/seeded_islands_cap12.py
+
+# freeze-seeded-islands-cap12 = the live read for cap12-result: the run's W&B archive and its Slurm
+# steps (needs the W&B key in ~/.config/mevolve/, /allen and sacct); never part of `all`. Commit
+# analysis/seeded_islands_cap12/.
+freeze-seeded-islands-cap12:
+	$(PY) analysis/freeze_seeded_islands_cap12.py
 
 # gate3 = gate 3's numbers for variants/engine-smoke/notes.md (Result), from analysis/engine_smoke/.
 gate3:
