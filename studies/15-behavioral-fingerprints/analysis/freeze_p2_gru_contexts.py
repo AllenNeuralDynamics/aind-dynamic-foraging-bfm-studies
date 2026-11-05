@@ -105,7 +105,7 @@ def main() -> None:
                          dtype={"subject_id": str})
         want = df.sort_values("trial").groupby("source_ses_idx").probability_choice_1.first()
         diff = np.abs(p_first - want.loc[[s["session_id"] for s in specs]].to_numpy())
-        worst = max(worst, float(diff.max()))
+        worst = max(worst, float(diff.max()) if np.all(np.isfinite(diff)) else np.inf)   # NaN fails
         out[f"seed{seed}"] = {"params": str(d / "params.json"), "params_sha256": _sha256(d / "params.json"),
                               "max_first_trial_diff": float(diff.max()),
                               "contexts": {s["session_id"]: [float(x) for x in ci] for s, ci in zip(specs, c)}}

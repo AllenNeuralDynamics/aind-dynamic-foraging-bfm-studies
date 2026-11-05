@@ -7,7 +7,7 @@ ADR 0006's rollouts have neither coupled hold. Only one is recorded: ``BlockMinR
 every coupled or warm-up score session that records a positive minimum, each
 model plays ``N_ROLLOUTS`` rollouts with the hold off and on (``p2_task.build_task(hold=...)``),
 with the same seeds, so the pair differs only by the hold. Models: the five literature models with
-the best 2-level EM likelihood (as 2-level EM; r2's scatter) and the GRU (seed 0).
+the best 2-level EM likelihood (as 2-level EM; r2's scatter models) and the GRU (seed 0).
 
 Per model, subject and statistic: the gap between the two rollouts' tallies, over the subject's
 kept bins (``rollout_gap``'s bins and weights), against the split-half floor of the subject's same sessions
@@ -42,7 +42,7 @@ from freeze_p0_golden_mevolve import FREEZE, FREEZE_MANIFEST, _git_sha, _sha256 
 from freeze_p2_rollouts import (CONTEXTS, GRU, GRU_MODEL, N_ROLLOUTS, SPECS, TWO_LEVEL_INDEX, GRUAgent,  # noqa: E402
                                 _gru_params, _program_agents, _streams)
 
-OUT, R2 = HERE / "p2_holds.json", HERE / "r2_replay_grid.json"
+OUT, REPLAY_GAPS = HERE / "p2_holds.json", HERE / "p1_replay_gaps.json"
 N_TOP = 5
 
 
@@ -121,8 +121,13 @@ def main() -> None:
         for s in ss:
             facts[s["session_id"]] = fitting.session_facts(xs[s["session_id"]])
             real[s["session_id"]] = (xs[s["session_id"]].choices, xs[s["session_id"]].rewards)
-    top = list(dict.fromkeys(c["model"] for c in json.loads(R2.read_text())["scatter"] if c["model"] != GRU_MODEL))
-    assert len(top) == N_TOP, top   # r2's scatter: the five best by 2-level EM likelihood, worst to best
+    # r2's scatter models, from the frozen inputs r2 picks them from: the five best by pooled 2-level EM
+    # likelihood whose 2-level fit did not fail (study 12 r3) and whose replay reproduced (P1)
+    failed = {r["literature_model"] for r in lit.literature_headline_ranking() if r["source"] != "2-level EM"}
+    skip = {e["model"] for e in json.loads(REPLAY_GAPS.read_text())["excluded"] if e["regime"] == "two_level_em"}
+    pooled = {m: sum(v[0] for v in t.values()) / sum(v[1] for v in t.values())
+              for m, t in lit.two_level_em_per_subject("heldout").items() if m not in failed | skip}
+    top = sorted(pooled, key=pooled.get)[-N_TOP:]   # worst to best
     index = {r["literature_model"]: r for r in json.loads(TWO_LEVEL_INDEX.read_text())["runs"]}
     sources = [{"type": "file", "id": str(FREEZE / "manifest.json"), "sha256": FREEZE_MANIFEST}]
     jobs = []
@@ -135,6 +140,8 @@ def main() -> None:
         jobs += [(_literature_job, (name, sid, ss, {s["session_id"]: facts[s["session_id"]] for s in ss}, params[sid],
                                     recs[sid], [real[s["session_id"]] for s in ss])) for sid, ss in by_subject.items()]
     ctx = json.loads(CONTEXTS.read_text())["seeds"]["seed0"]
+    assert _sha256(Path(ctx["params"])) == ctx["params_sha256"], "the GRU's seed-0 params differ"
+    sources.append({"type": "file", "id": ctx["params"], "sha256": ctx["params_sha256"]})
     trained = set(json.loads(GRU.read_text())["seeds"]["seed0"]["subjects_in_training"])
     jobs += [(_gru_job, (GRU_MODEL, sid, ss, {s["session_id"]: facts[s["session_id"]] for s in ss}, ctx["params"],
                          {s["session_id"]: ctx["contexts"][s["session_id"]] for s in ss}, [real[s["session_id"]] for s in ss]))
@@ -159,7 +166,8 @@ def main() -> None:
     meta = build_meta("analysis/freeze_p2_holds.py", [], study_root=HERE.parent, kind="freeze",
                       code=[__file__, HERE / "freeze_p2_rollouts.py", HERE / "p2_task.py",
                             HERE / "freeze_p0_golden_mevolve.py"],
-                      inputs=[SPECS, CONTEXTS, GRU, TWO_LEVEL_INDEX, R2, lit.LITERATURE_SOURCE], sources=sources)
+                      inputs=[SPECS, CONTEXTS, GRU, TWO_LEVEL_INDEX, REPLAY_GAPS, lit.TWO_LEVEL_EM_SOURCE,
+                              lit.HEADLINE_SOURCE, lit.LITERATURE_SOURCE], sources=sources)
     write_artifact(OUT, {
         "_meta": meta,
         "fingerprints_library": {"repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",

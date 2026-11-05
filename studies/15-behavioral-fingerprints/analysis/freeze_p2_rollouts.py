@@ -184,7 +184,7 @@ def _subject_job(args) -> dict:
                 c, r, p = rollout(agent, build_task(spec, task_seed), rng, session=facts)
                 if k == 0 and spec is specs[0]:   # the agent plays the model it replays
                     d = np.abs(replay(agent, c, r, session=facts) - p)
-                    self_diff = max(self_diff, float(np.max(d)))
+                    self_diff = max(self_diff, float(np.max(d)) if np.all(np.isfinite(d)) else np.inf)
                 choices.append(c)
                 rewards.append(r)
                 groups.append(spec["group"])
