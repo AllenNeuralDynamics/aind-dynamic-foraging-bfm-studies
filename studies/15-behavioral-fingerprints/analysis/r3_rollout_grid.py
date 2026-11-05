@@ -484,6 +484,39 @@ def render(result: dict, gaps: dict, cells: dict, failed: set[str]) -> dict[str,
     return blocks
 
 
+def _spearman(x, y) -> float:
+    """Spearman's rank correlation (average ranks for ties)."""
+    import numpy as np
+    from scipy.stats import rankdata
+
+    return float(np.corrcoef(rankdata(x), rankdata(y))[0, 1])
+
+
+def claims(points: list[dict], likelihood_cut: float = 0.70) -> dict:
+    """The numbers the report's prose quotes, computed here so they cannot go stale."""
+    rep = [p for p in points if p["replay_score"] is not None]
+    lik = [p for p in points if p["likelihood"] is not None]
+    good = [p for p in lik if p["likelihood"] > likelihood_cut]
+    both: dict = {}
+    for p in points:
+        both.setdefault(p["model"], {})[p["regime"]] = p
+    pairs = [v for v in both.values() if len(v) == 2 and all(q["replay_score"] for q in v.values())]
+    return {
+        "spearman_rollout_replay": _spearman([p["rollout_score"] for p in rep], [p["replay_score"] for p in rep]),
+        "spearman_rollout_likelihood": _spearman([p["rollout_score"] for p in lik], [p["likelihood"] for p in lik]),
+        "likelihood_cut": likelihood_cut, "n_cells_above_cut": len(good),
+        "spearman_rollout_likelihood_above_cut": _spearman([p["rollout_score"] for p in good],
+                                                           [p["likelihood"] for p in good]),
+        "n_models_both_regimes": len(pairs),
+        "two_level_better_in_replay": sum(v["two_level_em"]["replay_score"] < v["per_subject"]["replay_score"]
+                                          for v in pairs),
+        "two_level_better_in_rollout": sum(v["two_level_em"]["rollout_score"] < v["per_subject"]["rollout_score"]
+                                           for v in pairs),
+        "below_equal_line": {reg: [sum(p["rollout_score"] < p["replay_score"] for p in rep if p["regime"] == reg),
+                                   sum(p["regime"] == reg for p in rep)] for reg in REGIMES},
+    }
+
+
 def main() -> None:
     rolls, gaps, holds, specs, r2 = (json.loads(p.read_text()) for p in (ROLLOUTS, GAPS, HOLDS, SPECS, R2))
     glm, gru = json.loads(GLM.read_text()), json.loads(GRU.read_text())
@@ -506,6 +539,7 @@ def main() -> None:
     kept = {s["subject_id"] for s in specs["sessions"]}
     result = {
         "order": names, "headline_set": gaps["headline_set"], "points": points,
+        "claims": claims(points),
         "off_axis": [p for p in points if p["likelihood"] is not None and p["likelihood"] < C_MIN_LIKELIHOOD], "scatter": scatter, "sets": sets, "regime_curves": regime_curves,
         "gru_seed_scores": {s: gaps["models"][GRU_MODEL][s][gaps["headline_set"]]["score"]
                             for s in sorted(gaps["models"][GRU_MODEL])},
