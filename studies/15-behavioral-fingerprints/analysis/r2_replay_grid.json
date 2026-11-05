@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-05T00:26:00-08:00",
-    "studies_git_sha": "a7df9fcd808d2053e57df3cd41cb5dbc952c1bfa",
+    "produced_at_pt": "2026-11-05T08:53:15-08:00",
+    "studies_git_sha": "ef0e4f46a74ea06e848467900548e04a455b35e1",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,11 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
-        "sha256": "389aa07eb676baff751c8525f1f92b618c5f9cd6e837e9c7c01e2e41f33bf567"
+        "sha256": "f6fa4c7599a0276baddc74b8ff022503b0da460e3f69681f9bf439d79ad0a621"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/fingerprint_figures.py",
+        "sha256": "fddd1df3798006ea2f5a6e61ed903ef3a5997c58cc840a64a0a436a5a9b7e812"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -57,6 +61,10 @@
         "sha256": "7aada9ec7a0df6ea15dff4434fc9cf94e7ece7ce55306bc80c684ac91543adc8"
       },
       {
+        "path": "studies/15-behavioral-fingerprints/analysis/p2_rollout_gaps.json",
+        "sha256": "aace9f8d85d9a6157c0223992e9896cd077863f1bcf3915cc65cdd7d473cb247"
+      },
+      {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
         "sha256": "7db7708473d23024670c879b6d732a7c6a38f359461fdd47c08c799bf6ff845c"
       },
@@ -72,19 +80,31 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.json",
-        "sha256": "98a71a1f1949720ee49f73fb1fa0e55be593c51b7c2633ec0b52507155c6e734"
+        "sha256": "c3dfd64364f8126380ba7c8e5ea02020f99c3fb029aa899ca445627d2117fa65"
       },
       {
-        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_replay_grid.svg",
-        "sha256": "75f813d3ef1af9c3bdb273ea0fc446b3943242fe6f7ea25ebce2fb58bb85665b"
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_grid.svg",
+        "sha256": "f05569b88fc9430c2e20e75ef89bc1895572ae6dd401fcadf81274ddaa6964d6"
       },
       {
-        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_bins.svg",
-        "sha256": "aeef89862d23cdc7b2346ffd648f6662aa33d88ef20d6e3a2df9669b90980274"
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scores.svg",
+        "sha256": "c41c920289bea41ced901ecc0d8ee927f44a9c98e16c0f77b0109dee58bd056e"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_regimes.svg",
+        "sha256": "410223e672ad5b577367e7432b0f65dbbcfd8158c306280dcf1e9cf1ff6ee581"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_curves.svg",
+        "sha256": "b44431de85ca841c136e833248f18d019f0ccdd06fdb39eabae88f3a69a232e6"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scatter.svg",
-        "sha256": "9158b41bb7b4751a15f336f207155b81e433b8b81c679dbea7b52367275f7a36"
+        "sha256": "0a56ce44650ad8255038d00145337ea4b8a4a88a07c76534b47f3e7df82a0216"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_rmse.svg",
+        "sha256": "b907ade66a82e84532fd1ac2e3449e38cb90a7946f3dcd7ec4a935f1c58ccd1c"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_gru_errors.svg",
@@ -95,27 +115,47 @@
         "sha256": "01e1eea3c2e816dff847bdf8cca261dd76bb94331543d95165cc5d82f7e26ac8"
       },
       {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_sets.svg",
+        "sha256": "88a8495ff1f22a1a14967274ac30d41156b4e0d14de75882cbc2dfff5eaa8ae3"
+      },
+      {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-1",
-        "sha256": "a7f2dc87e3e1c52dc245729758613b6390b4344e25363d3f33ef155b326f0493"
+        "sha256": "607217d98b446b5c2ca741e453b55dc389b853ab283983851c16bf15e91c9888"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-2",
-        "sha256": "c66c9bba534394e09c0b30d0fecc972ab2d43798720aa3d2285e1502c237d0c3"
+        "sha256": "139a4ea7cce90eed27e736e7a137c9a73ed9af25a97a08424d664c00624a2714"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-3",
-        "sha256": "b2020a1b49f912dbceaa127783e06ff6f346e649ae347a2c8b2c8cabeb871de1"
+        "sha256": "62058ee2d6bfb4b4ac4e19424dc500f05f05c7908fc0f62ff22d13ff0f87dfd5"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-4",
-        "sha256": "43a2ca2188483a7f49e7cc5b84ac76739eccceb40b9d57441291e216c797e72b"
+        "sha256": "e3ec7f5d2272267c5cd984d7765ddaffcf4b84f360513ec678f4b74ebe5d2c9f"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-5",
-        "sha256": "92276d4d001b42cab97279b7cd093cf539d9b58c2f064b93b6a3d0994a6b30ec"
+        "sha256": "0da2c858c4826917994e474d8fd6bf351d3c161e88685252cf69827293e3b169"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-6",
+        "sha256": "0e559c08302a9249da489809be52be5463b6c0956abc82349448e09d4f68f95b"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-7",
+        "sha256": "03627e7e998933b095c9959d62ee4dbdefe48d333b6ccfb45c92fd946ca57537"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-8",
+        "sha256": "b90199e87d04444e85ff17ebdeb7e498875f296fe80258f46e749bedae41f154"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-9",
+        "sha256": "186a076bf5a0acfce3fda7e431dc664c2113562e9d646329e15c213c40aff6c6"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-11",
         "sha256": "4904b63d7f9a9792ccd4a9175e8b0abd41d2c1fcdc2afb33c1f43a29c503c6be"
       }
     ]
@@ -197,694 +237,31 @@
     "LossCounting",
     "Rescorla-Wagner"
   ],
-  "rows": [
-    {
-      "model": "Lebedeva-PR",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 1.991902089930144,
-          "pattern": 2.0292550446449726,
-          "hazard": 2.1836304113963023,
-          "post_switch": 1.7185425053396515
-        },
-        "worst": "hazard",
-        "score": 1.9734949002069926,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.3952387506537633,
-          "pattern": 1.4325259839336248,
-          "hazard": 1.407309937319099,
-          "post_switch": 1.3082118140648948
-        },
-        "worst": "pattern",
-        "score": 1.3850157583953246,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Lopez-DoubleTrace",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 1.8978814046866965,
-          "pattern": 1.944137159971818,
-          "hazard": 1.9951125348198255,
-          "post_switch": 1.6437807045859523
-        },
-        "worst": "hazard",
-        "score": 1.8650986676985968,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.4002061693223418,
-          "pattern": 1.424880992007749,
-          "hazard": 1.2998288381780694,
-          "post_switch": 1.213347372718063
-        },
-        "worst": "pattern",
-        "score": 1.331865825625266,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Bari2019",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.2652976566011485,
-          "pattern": 2.4816160320596037,
-          "hazard": 2.483312871475963,
-          "post_switch": 1.6459364439196642
-        },
-        "worst": "hazard",
-        "score": 2.1894049251369427,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.4058057481979696,
-          "pattern": 1.5541387811819287,
-          "hazard": 1.5145228592430744,
-          "post_switch": 1.37873956656847
-        },
-        "worst": "pattern",
-        "score": 1.4614814117875374,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Miller-RHG",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.2224604187773274,
-          "pattern": 2.729309598900247,
-          "hazard": 2.661244472261911,
-          "post_switch": 1.9017851321445312
-        },
-        "worst": "pattern",
-        "score": 2.353874285058226,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.466221288616905,
-          "pattern": 1.5862391483616558,
-          "hazard": 1.4876050467952473,
-          "post_switch": 1.2962869222371707
-        },
-        "worst": "pattern",
-        "score": 1.4552554751148827,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "CompareToThreshold",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 1.6083797190543037,
-          "pattern": 1.898597744370424,
-          "hazard": 1.725495215552861,
-          "post_switch": 1.5820744160569469
-        },
-        "worst": "pattern",
-        "score": 1.6991845632429858,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.3872217071530333,
-          "pattern": 1.5327190390583691,
-          "hazard": 1.4201223127871532,
-          "post_switch": 1.6010579679488253
-        },
-        "worst": "post_switch",
-        "score": 1.4828093261528315,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Hattori2019",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.5268295739768956,
-          "pattern": 2.722595622284781,
-          "hazard": 2.5828942613279486,
-          "post_switch": 1.8196939001029613
-        },
-        "worst": "pattern",
-        "score": 2.3846026098248863,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.98731315225559,
-          "pattern": 2.039110062578296,
-          "hazard": 1.9299163710321487,
-          "post_switch": 1.679373426099305
-        },
-        "worst": "pattern",
-        "score": 1.9036985774151116,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Zid-HistoryKernel2-ForagingRL",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.3063998841031106,
-          "pattern": 2.117292887038814,
-          "hazard": 2.0077142050099885,
-          "post_switch": 1.9567824316433262
-        },
-        "worst": "losses",
-        "score": 2.09285911820585,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.9719017803240142,
-          "pattern": 1.7795279966712572,
-          "hazard": 1.7921331614972555,
-          "post_switch": 2.1338830711468866
-        },
-        "worst": "post_switch",
-        "score": 1.9139595256318618,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Eckstein-BI",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.2479688022097375,
-          "pattern": 2.856004624676246,
-          "hazard": 3.252328197670818,
-          "post_switch": 1.938586127058545
-        },
-        "worst": "hazard",
-        "score": 2.522360534808197,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.4635086475459205,
-          "pattern": 1.7864859693960766,
-          "hazard": 1.881496500093515,
-          "post_switch": 1.630073186086082
-        },
-        "worst": "hazard",
-        "score": 1.6827761775710828,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Beron-RFLR",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.557469994901797,
-          "pattern": 2.9544032772852318,
-          "hazard": 3.2154190427488825,
-          "post_switch": 1.9334227734339384
-        },
-        "worst": "hazard",
-        "score": 2.6179490080694863,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.4972194951848825,
-          "pattern": 1.8112399157172858,
-          "hazard": 1.9132670322197503,
-          "post_switch": 1.714416970058238
-        },
-        "worst": "hazard",
-        "score": 1.726984241645271,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Chen-RLCK",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.3313048858774494,
-          "pattern": 2.8277338836467147,
-          "hazard": 2.480676112734652,
-          "post_switch": 1.910625994408426
-        },
-        "worst": "pattern",
-        "score": 2.364263290860948,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.9458361182791823,
-          "pattern": 2.278969068439424,
-          "hazard": 1.8635740342232194,
-          "post_switch": 1.4749934091183146
-        },
-        "worst": "pattern",
-        "score": 1.8685096941094366,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Eckstein-RL",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.0153705518697045,
-          "pattern": 2.8629670317627163,
-          "hazard": 3.1120430836516304,
-          "post_switch": 1.9258558531264884
-        },
-        "worst": "hazard",
-        "score": 2.424991152985285,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.4526900508153446,
-          "pattern": 1.9988533539768103,
-          "hazard": 2.1617284982386638,
-          "post_switch": 1.6888851951641979
-        },
-        "worst": "hazard",
-        "score": 1.8044248232270954,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Grossman-MetaLearning",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.744290915037242,
-          "pattern": 2.76407498643542,
-          "hazard": 2.499705783155021,
-          "post_switch": 1.8436035034077922
-        },
-        "worst": "pattern",
-        "score": 2.431554998109662,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 3.0518711675355448,
-          "pattern": 3.5121864499784055,
-          "hazard": 3.270126949507947,
-          "post_switch": 1.8964940212839076
-        },
-        "worst": "pattern",
-        "score": 2.8553868984623376,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "FeedbackDependent-RL+Bias+CK1",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.608903472075293,
-          "pattern": 4.681692390212286,
-          "hazard": 5.920509370243305,
-          "post_switch": 3.4170422164691243
-        },
-        "worst": "hazard",
-        "score": 3.9647661401198215,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.5975754619145774,
-          "pattern": 3.005590146816501,
-          "hazard": 3.4144391175264968,
-          "post_switch": 2.5511082595060413
-        },
-        "worst": "hazard",
-        "score": 2.5430789931095314,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Alsio-DualRateSticky-RL",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.5544233404866894,
-          "pattern": 4.740084891491854,
-          "hazard": 6.086513242325433,
-          "post_switch": 3.6488789994716218
-        },
-        "worst": "hazard",
-        "score": 4.04950329487887,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 1.7189245634179975,
-          "pattern": 3.3826075327020786,
-          "hazard": 3.961985237100364,
-          "post_switch": 3.052832954738417
-        },
-        "worst": "hazard",
-        "score": 2.895883463023477,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "LossCounting",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 6.242849939743966,
-          "pattern": 7.539425630705365,
-          "hazard": 9.236552620148885,
-          "post_switch": 4.192276391869152
-        },
-        "worst": "hazard",
-        "score": 6.533866299935723,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 6.375203122799004,
-          "pattern": 7.974382005525672,
-          "hazard": 9.489272800545772,
-          "post_switch": 4.077348185528524
-        },
-        "worst": "hazard",
-        "score": 6.6596353303891265,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "ActorCritic",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 8.239088922656011,
-          "pattern": 10.554842314174387,
-          "hazard": 10.95382713227912,
-          "post_switch": 4.674406023861225
-        },
-        "worst": "hazard",
-        "score": 8.168753929777537,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 4.082820530965795,
-          "pattern": 4.942290979026647,
-          "hazard": 6.0679031391286555,
-          "post_switch": 4.242609429375209
-        },
-        "worst": "hazard",
-        "score": 4.774084189442739,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "FeedbackDependent-RL+Bias",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 27.229446357053323,
-          "pattern": 29.465518208500477,
-          "hazard": 27.073634770073017,
-          "post_switch": 3.8707793181695607
-        },
-        "worst": "pattern",
-        "score": 17.02842449841181,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 17.999931043715236,
-          "pattern": 19.511497812569228,
-          "hazard": 17.9410201704363,
-          "post_switch": 4.066439589365213
-        },
-        "worst": "pattern",
-        "score": 12.651899328318208,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "FeedbackDependent-RL",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 28.186210974709123,
-          "pattern": 30.901558652971506,
-          "hazard": 28.38728434598043,
-          "post_switch": 3.960693084615653
-        },
-        "worst": "pattern",
-        "score": 17.690008046943046,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      },
-      "two_level_em": {
-        "floor_ratio": {
-          "losses": 21.851046137474597,
-          "pattern": 24.395257663427003,
-          "hazard": 22.445821575728154,
-          "post_switch": 4.160657838460686
-        },
-        "worst": "pattern",
-        "score": 14.937185967236367,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "Rescorla-Wagner",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 27.166952987376426,
-          "pattern": 31.437444325284677,
-          "hazard": 28.899883219816772,
-          "post_switch": 4.121953594749603
-        },
-        "worst": "pattern",
-        "score": 17.859604515971174,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "GLM-Su2022",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 2.0444570178233,
-          "pattern": 2.2706127200903263,
-          "hazard": 2.250879831063697,
-          "post_switch": 1.9088917699443015
-        },
-        "worst": "pattern",
-        "score": 2.1133122309001,
-        "n_subjects": {
-          "losses": 149,
-          "pattern": 149,
-          "hazard": 149,
-          "post_switch": 149
-        }
-      }
-    },
-    {
-      "model": "GRU-D614",
-      "per_subject": {
-        "floor_ratio": {
-          "losses": 1.3908676725805447,
-          "pattern": 1.5171822723177983,
-          "hazard": 1.4498610414416582,
-          "post_switch": 1.2476278846844335
-        },
-        "worst": "pattern",
-        "score": 1.3977636960534756,
-        "n_subjects": {
-          "losses": 146,
-          "pattern": 146,
-          "hazard": 146,
-          "post_switch": 146
-        }
-      }
-    }
+  "scatter_models": [
+    [
+      "CompareToThreshold",
+      "two_level_em"
+    ],
+    [
+      "Miller-RHG",
+      "two_level_em"
+    ],
+    [
+      "Bari2019",
+      "two_level_em"
+    ],
+    [
+      "Lopez-DoubleTrace",
+      "two_level_em"
+    ],
+    [
+      "Lebedeva-PR",
+      "two_level_em"
+    ],
+    [
+      "GRU-D614",
+      "per_subject"
+    ]
   ],
   "floor_ratio_by_set": {
     "Lebedeva-PR": {
@@ -4542,240 +3919,1096 @@
       }
     }
   },
-  "likelihood_vs_floor_ratio": [
+  "rows": [
+    {
+      "model": "Lebedeva-PR",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.991902089930144,
+          "pattern": 2.0292550446449726,
+          "hazard": 2.1836304113963023,
+          "post_switch": 1.7185425053396515
+        },
+        "score": 1.9734949002069926,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.3952387506537633,
+          "pattern": 1.4325259839336248,
+          "hazard": 1.407309937319099,
+          "post_switch": 1.3082118140648948
+        },
+        "score": 1.3850157583953246,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.8978814046866965,
+          "pattern": 1.944137159971818,
+          "hazard": 1.9951125348198255,
+          "post_switch": 1.6437807045859523
+        },
+        "score": 1.8650986676985968,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4002061693223418,
+          "pattern": 1.424880992007749,
+          "hazard": 1.2998288381780694,
+          "post_switch": 1.213347372718063
+        },
+        "score": 1.331865825625266,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Bari2019",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.2652976566011485,
+          "pattern": 2.4816160320596037,
+          "hazard": 2.483312871475963,
+          "post_switch": 1.6459364439196642
+        },
+        "score": 2.1894049251369427,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4058057481979696,
+          "pattern": 1.5541387811819287,
+          "hazard": 1.5145228592430744,
+          "post_switch": 1.37873956656847
+        },
+        "score": 1.4614814117875374,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Miller-RHG",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.2224604187773274,
+          "pattern": 2.729309598900247,
+          "hazard": 2.661244472261911,
+          "post_switch": 1.9017851321445312
+        },
+        "score": 2.353874285058226,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.466221288616905,
+          "pattern": 1.5862391483616558,
+          "hazard": 1.4876050467952473,
+          "post_switch": 1.2962869222371707
+        },
+        "score": 1.4552554751148827,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "CompareToThreshold",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.6083797190543037,
+          "pattern": 1.898597744370424,
+          "hazard": 1.725495215552861,
+          "post_switch": 1.5820744160569469
+        },
+        "score": 1.6991845632429858,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.3872217071530333,
+          "pattern": 1.5327190390583691,
+          "hazard": 1.4201223127871532,
+          "post_switch": 1.6010579679488253
+        },
+        "score": 1.4828093261528315,
+        "worst": "post_switch",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Hattori2019",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.5268295739768956,
+          "pattern": 2.722595622284781,
+          "hazard": 2.5828942613279486,
+          "post_switch": 1.8196939001029613
+        },
+        "score": 2.3846026098248863,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.98731315225559,
+          "pattern": 2.039110062578296,
+          "hazard": 1.9299163710321487,
+          "post_switch": 1.679373426099305
+        },
+        "score": 1.9036985774151116,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.3063998841031106,
+          "pattern": 2.117292887038814,
+          "hazard": 2.0077142050099885,
+          "post_switch": 1.9567824316433262
+        },
+        "score": 2.09285911820585,
+        "worst": "losses",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.9719017803240142,
+          "pattern": 1.7795279966712572,
+          "hazard": 1.7921331614972555,
+          "post_switch": 2.1338830711468866
+        },
+        "score": 1.9139595256318618,
+        "worst": "post_switch",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Eckstein-BI",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.2479688022097375,
+          "pattern": 2.856004624676246,
+          "hazard": 3.252328197670818,
+          "post_switch": 1.938586127058545
+        },
+        "score": 2.522360534808197,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4635086475459205,
+          "pattern": 1.7864859693960766,
+          "hazard": 1.881496500093515,
+          "post_switch": 1.630073186086082
+        },
+        "score": 1.6827761775710828,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Beron-RFLR",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.557469994901797,
+          "pattern": 2.9544032772852318,
+          "hazard": 3.2154190427488825,
+          "post_switch": 1.9334227734339384
+        },
+        "score": 2.6179490080694863,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4972194951848825,
+          "pattern": 1.8112399157172858,
+          "hazard": 1.9132670322197503,
+          "post_switch": 1.714416970058238
+        },
+        "score": 1.726984241645271,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Chen-RLCK",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.3313048858774494,
+          "pattern": 2.8277338836467147,
+          "hazard": 2.480676112734652,
+          "post_switch": 1.910625994408426
+        },
+        "score": 2.364263290860948,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.9458361182791823,
+          "pattern": 2.278969068439424,
+          "hazard": 1.8635740342232194,
+          "post_switch": 1.4749934091183146
+        },
+        "score": 1.8685096941094366,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Eckstein-RL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.0153705518697045,
+          "pattern": 2.8629670317627163,
+          "hazard": 3.1120430836516304,
+          "post_switch": 1.9258558531264884
+        },
+        "score": 2.424991152985285,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.4526900508153446,
+          "pattern": 1.9988533539768103,
+          "hazard": 2.1617284982386638,
+          "post_switch": 1.6888851951641979
+        },
+        "score": 1.8044248232270954,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.744290915037242,
+          "pattern": 2.76407498643542,
+          "hazard": 2.499705783155021,
+          "post_switch": 1.8436035034077922
+        },
+        "score": 2.431554998109662,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 3.0518711675355448,
+          "pattern": 3.5121864499784055,
+          "hazard": 3.270126949507947,
+          "post_switch": 1.8964940212839076
+        },
+        "score": 2.8553868984623376,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.608903472075293,
+          "pattern": 4.681692390212286,
+          "hazard": 5.920509370243305,
+          "post_switch": 3.4170422164691243
+        },
+        "score": 3.9647661401198215,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.5975754619145774,
+          "pattern": 3.005590146816501,
+          "hazard": 3.4144391175264968,
+          "post_switch": 2.5511082595060413
+        },
+        "score": 2.5430789931095314,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.5544233404866894,
+          "pattern": 4.740084891491854,
+          "hazard": 6.086513242325433,
+          "post_switch": 3.6488789994716218
+        },
+        "score": 4.04950329487887,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 1.7189245634179975,
+          "pattern": 3.3826075327020786,
+          "hazard": 3.961985237100364,
+          "post_switch": 3.052832954738417
+        },
+        "score": 2.895883463023477,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "LossCounting",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 6.242849939743966,
+          "pattern": 7.539425630705365,
+          "hazard": 9.236552620148885,
+          "post_switch": 4.192276391869152
+        },
+        "score": 6.533866299935723,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 6.375203122799004,
+          "pattern": 7.974382005525672,
+          "hazard": 9.489272800545772,
+          "post_switch": 4.077348185528524
+        },
+        "score": 6.6596353303891265,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "ActorCritic",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 8.239088922656011,
+          "pattern": 10.554842314174387,
+          "hazard": 10.95382713227912,
+          "post_switch": 4.674406023861225
+        },
+        "score": 8.168753929777537,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 4.082820530965795,
+          "pattern": 4.942290979026647,
+          "hazard": 6.0679031391286555,
+          "post_switch": 4.242609429375209
+        },
+        "score": 4.774084189442739,
+        "worst": "hazard",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 27.229446357053323,
+          "pattern": 29.465518208500477,
+          "hazard": 27.073634770073017,
+          "post_switch": 3.8707793181695607
+        },
+        "score": 17.02842449841181,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 17.999931043715236,
+          "pattern": 19.511497812569228,
+          "hazard": 17.9410201704363,
+          "post_switch": 4.066439589365213
+        },
+        "score": 12.651899328318208,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 28.186210974709123,
+          "pattern": 30.901558652971506,
+          "hazard": 28.38728434598043,
+          "post_switch": 3.960693084615653
+        },
+        "score": 17.690008046943046,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      },
+      "two_level_em": {
+        "floor_ratio": {
+          "losses": 21.851046137474597,
+          "pattern": 24.395257663427003,
+          "hazard": 22.445821575728154,
+          "post_switch": 4.160657838460686
+        },
+        "score": 14.937185967236367,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 27.166952987376426,
+          "pattern": 31.437444325284677,
+          "hazard": 28.899883219816772,
+          "post_switch": 4.121953594749603
+        },
+        "score": 17.859604515971174,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "GLM-Su2022",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 2.0444570178233,
+          "pattern": 2.2706127200903263,
+          "hazard": 2.250879831063697,
+          "post_switch": 1.9088917699443015
+        },
+        "score": 2.1133122309001,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 149,
+          "pattern": 149,
+          "hazard": 149,
+          "post_switch": 149
+        }
+      }
+    },
+    {
+      "model": "GRU-D614",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.3908676725805447,
+          "pattern": 1.5171822723177983,
+          "hazard": 1.4498610414416582,
+          "post_switch": 1.2476278846844335
+        },
+        "score": 1.3977636960534756,
+        "worst": "pattern",
+        "n_subjects": {
+          "losses": 146,
+          "pattern": 146,
+          "hazard": 146,
+          "post_switch": 146
+        }
+      }
+    }
+  ],
+  "points": [
     {
       "model": "Lebedeva-PR",
       "regime": "per_subject",
+      "score": 1.9734949002069926,
       "likelihood": 0.7171973319366401,
-      "replay_score": 1.9734949002069926
+      "other_score": 1.5183951022896218
     },
     {
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
+      "score": 1.3850157583953246,
       "likelihood": 0.7243196198605001,
-      "replay_score": 1.3850157583953246
+      "other_score": 1.5734786155456937
     },
     {
       "model": "Lopez-DoubleTrace",
       "regime": "per_subject",
+      "score": 1.8650986676985968,
       "likelihood": 0.7187431466407855,
-      "replay_score": 1.8650986676985968
+      "other_score": 1.4820823687612767
     },
     {
       "model": "Lopez-DoubleTrace",
       "regime": "two_level_em",
+      "score": 1.331865825625266,
       "likelihood": 0.7239981986540848,
-      "replay_score": 1.331865825625266
+      "other_score": 1.9139908547468338
     },
     {
       "model": "Bari2019",
       "regime": "per_subject",
+      "score": 2.1894049251369427,
       "likelihood": 0.7149126635108097,
-      "replay_score": 2.1894049251369427
+      "other_score": 1.5975158043858155
     },
     {
       "model": "Bari2019",
       "regime": "two_level_em",
+      "score": 1.4614814117875374,
       "likelihood": 0.7232846776236617,
-      "replay_score": 1.4614814117875374
+      "other_score": 1.4655076467147286
     },
     {
       "model": "Miller-RHG",
       "regime": "per_subject",
+      "score": 2.353874285058226,
       "likelihood": 0.7160406831754967,
-      "replay_score": 2.353874285058226
+      "other_score": 1.6805802014393902
     },
     {
       "model": "Miller-RHG",
       "regime": "two_level_em",
+      "score": 1.4552554751148827,
       "likelihood": 0.7225079050669331,
-      "replay_score": 1.4552554751148827
+      "other_score": 1.7900086752273148
     },
     {
       "model": "CompareToThreshold",
       "regime": "per_subject",
+      "score": 1.6991845632429858,
       "likelihood": 0.7170395016451598,
-      "replay_score": 1.6991845632429858
+      "other_score": 1.3887984225309016
     },
     {
       "model": "CompareToThreshold",
       "regime": "two_level_em",
+      "score": 1.4828093261528315,
       "likelihood": 0.7223356608700302,
-      "replay_score": 1.4828093261528315
+      "other_score": 1.7494412368938095
     },
     {
       "model": "Hattori2019",
       "regime": "per_subject",
+      "score": 2.3846026098248863,
       "likelihood": 0.7126671375129033,
-      "replay_score": 2.3846026098248863
+      "other_score": 1.572863585640452
     },
     {
       "model": "Hattori2019",
       "regime": "two_level_em",
+      "score": 1.9036985774151116,
       "likelihood": 0.7211022982880708,
-      "replay_score": 1.9036985774151116
+      "other_score": 1.7409722260963978
     },
     {
       "model": "Zid-HistoryKernel2-ForagingRL",
       "regime": "per_subject",
+      "score": 2.09285911820585,
       "likelihood": 0.7162795768364534,
-      "replay_score": 2.09285911820585
+      "other_score": 1.668787949562274
     },
     {
       "model": "Zid-HistoryKernel2-ForagingRL",
       "regime": "two_level_em",
+      "score": 1.9139595256318618,
       "likelihood": 0.719725621112509,
-      "replay_score": 1.9139595256318618
+      "other_score": 1.9913897911797462
     },
     {
       "model": "Eckstein-BI",
       "regime": "per_subject",
+      "score": 2.522360534808197,
       "likelihood": 0.7100045263008289,
-      "replay_score": 2.522360534808197
+      "other_score": 1.793800343430183
     },
     {
       "model": "Eckstein-BI",
       "regime": "two_level_em",
+      "score": 1.6827761775710828,
       "likelihood": 0.7180621901182492,
-      "replay_score": 1.6827761775710828
+      "other_score": 1.7570255994984503
     },
     {
       "model": "Beron-RFLR",
       "regime": "per_subject",
+      "score": 2.6179490080694863,
       "likelihood": 0.711245554959155,
-      "replay_score": 2.6179490080694863
+      "other_score": 1.8682653995645406
     },
     {
       "model": "Beron-RFLR",
       "regime": "two_level_em",
+      "score": 1.726984241645271,
       "likelihood": 0.7179081060555206,
-      "replay_score": 1.726984241645271
+      "other_score": 1.6853858766194727
     },
     {
       "model": "Chen-RLCK",
       "regime": "per_subject",
+      "score": 2.364263290860948,
       "likelihood": 0.7124214430490011,
-      "replay_score": 2.364263290860948
+      "other_score": 1.7798704149918552
     },
     {
       "model": "Chen-RLCK",
       "regime": "two_level_em",
+      "score": 1.8685096941094366,
       "likelihood": 0.7178095080576691,
-      "replay_score": 1.8685096941094366
+      "other_score": 1.815811211773991
     },
     {
       "model": "Eckstein-RL",
       "regime": "per_subject",
+      "score": 2.424991152985285,
       "likelihood": 0.7087833266986183,
-      "replay_score": 2.424991152985285
+      "other_score": 1.8236399045516685
     },
     {
       "model": "Eckstein-RL",
       "regime": "two_level_em",
+      "score": 1.8044248232270954,
       "likelihood": 0.7157979916647754,
-      "replay_score": 1.8044248232270954
+      "other_score": 1.80630246777936
     },
     {
       "model": "Grossman-MetaLearning",
       "regime": "per_subject",
+      "score": 2.431554998109662,
       "likelihood": 0.7127228483556,
-      "replay_score": 2.431554998109662
+      "other_score": 1.6298843871337287
     },
     {
       "model": "Grossman-MetaLearning",
       "regime": "two_level_em",
+      "score": 2.8553868984623376,
       "likelihood": 0.7095074763468017,
-      "replay_score": 2.8553868984623376
+      "other_score": 2.4064164442080838
     },
     {
       "model": "FeedbackDependent-RL+Bias+CK1",
       "regime": "per_subject",
+      "score": 3.9647661401198215,
       "likelihood": 0.6969429647282196,
-      "replay_score": 3.9647661401198215
+      "other_score": 2.847235139679556
     },
     {
       "model": "FeedbackDependent-RL+Bias+CK1",
       "regime": "two_level_em",
+      "score": 2.5430789931095314,
       "likelihood": 0.711796831198377,
-      "replay_score": 2.5430789931095314
+      "other_score": 2.167857196816697
     },
     {
       "model": "Alsio-DualRateSticky-RL",
       "regime": "per_subject",
+      "score": 4.04950329487887,
       "likelihood": 0.6960685322698903,
-      "replay_score": 4.04950329487887
+      "other_score": 2.9798680678348988
     },
     {
       "model": "Alsio-DualRateSticky-RL",
       "regime": "two_level_em",
+      "score": 2.895883463023477,
       "likelihood": 0.7061490911325979,
-      "replay_score": 2.895883463023477
+      "other_score": 2.3838103969233133
     },
     {
       "model": "LossCounting",
       "regime": "per_subject",
+      "score": 6.533866299935723,
       "likelihood": 0.6697554164316181,
-      "replay_score": 6.533866299935723
+      "other_score": 4.090144864257614
     },
     {
       "model": "LossCounting",
       "regime": "two_level_em",
+      "score": 6.6596353303891265,
       "likelihood": 0.665957637502634,
-      "replay_score": 6.6596353303891265
+      "other_score": 4.17639628664022
     },
     {
       "model": "ActorCritic",
       "regime": "per_subject",
+      "score": 8.168753929777537,
       "likelihood": 0.6272973110415319,
-      "replay_score": 8.168753929777537
+      "other_score": 5.276928699552345
     },
     {
       "model": "ActorCritic",
       "regime": "two_level_em",
+      "score": 4.774084189442739,
       "likelihood": 0.6662486743303208,
-      "replay_score": 4.774084189442739
+      "other_score": 4.181504659899478
     },
     {
       "model": "FeedbackDependent-RL+Bias",
       "regime": "per_subject",
+      "score": 17.02842449841181,
       "likelihood": 0.555762564109078,
-      "replay_score": 17.02842449841181
+      "other_score": 10.925461057901416
     },
     {
       "model": "FeedbackDependent-RL+Bias",
       "regime": "two_level_em",
+      "score": 12.651899328318208,
       "likelihood": 0.6145271051521211,
-      "replay_score": 12.651899328318208
+      "other_score": 6.903173743217728
     },
     {
       "model": "FeedbackDependent-RL",
       "regime": "per_subject",
+      "score": 17.690008046943046,
       "likelihood": 0.548905204254559,
-      "replay_score": 17.690008046943046
+      "other_score": 11.33874907358171
     },
     {
       "model": "FeedbackDependent-RL",
       "regime": "two_level_em",
+      "score": 14.937185967236367,
       "likelihood": 0.585532853013893,
-      "replay_score": 14.937185967236367
+      "other_score": 8.191520385572755
     },
     {
       "model": "Rescorla-Wagner",
       "regime": "per_subject",
+      "score": 17.859604515971174,
       "likelihood": 0.5421764395178231,
-      "replay_score": 17.859604515971174
+      "other_score": 11.718010285141643
     },
     {
       "model": "GLM-Su2022",
       "regime": "per_subject",
+      "score": 2.1133122309001,
       "likelihood": 0.7168649596421358,
-      "replay_score": 2.1133122309001
+      "other_score": 1.699913016147905
     },
     {
       "model": "GRU-D614",
       "regime": "per_subject",
+      "score": 1.3977636960534756,
       "likelihood": 0.7268257361145074,
-      "replay_score": 1.3977636960534756
+      "other_score": 1.4117331367812822
+    }
+  ],
+  "regime_curves": [
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "floor_ratio": 1.6083797190543037,
+      "model_curve": [
+        0.15914077128577306,
+        0.1570826646187193,
+        0.16134753952450082,
+        0.16590755247437364,
+        0.16942817063846627,
+        0.17566171203836245
+      ],
+      "subject_curve": [
+        0.15567430824194842,
+        0.14971555668598538,
+        0.15444178299603334,
+        0.15991764836074662,
+        0.1652684129583506,
+        0.17121568812788138
+      ]
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "floor_ratio": 1.3872217071530333,
+      "model_curve": [
+        0.157436233263354,
+        0.15795881068586645,
+        0.16157023272633922,
+        0.16313348784261486,
+        0.16314340352727866,
+        0.15363232054988968
+      ],
+      "subject_curve": [
+        0.15567430824194842,
+        0.14971555668598538,
+        0.15444178299603334,
+        0.15991764836074662,
+        0.1652684129583506,
+        0.17121568812788138
+      ]
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "floor_ratio": 1.8978814046866965,
+      "model_curve": [
+        0.1754413948993858,
+        0.16295590448096883,
+        0.16440592460730968,
+        0.16571771487477738,
+        0.16594041849783803,
+        0.16234985506465666
+      ],
+      "subject_curve": [
+        0.15567430824194842,
+        0.14971555668598538,
+        0.15444178299603334,
+        0.15991764836074662,
+        0.1652684129583506,
+        0.17121568812788138
+      ]
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "floor_ratio": 1.4002061693223418,
+      "model_curve": [
+        0.16215513692879105,
+        0.15347136388243626,
+        0.15514151183705444,
+        0.15481899242367836,
+        0.15306906305413182,
+        0.13699471229788615
+      ],
+      "subject_curve": [
+        0.15567430824194842,
+        0.14971555668598538,
+        0.15444178299603334,
+        0.15991764836074662,
+        0.1652684129583506,
+        0.17121568812788138
+      ]
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "floor_ratio": 2.2652976566011485,
+      "model_curve": [
+        0.1497557869346159,
+        0.15831191890704713,
+        0.1741294110699401,
+        0.18897747794191413,
+        0.20158190347845553,
+        0.2299367659686696
+      ],
+      "subject_curve": [
+        0.15567430824194842,
+        0.14971555668598538,
+        0.15444178299603334,
+        0.15991764836074662,
+        0.1652684129583506,
+        0.17121568812788138
+      ]
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "floor_ratio": 1.4058057481979696,
+      "model_curve": [
+        0.14974694163224958,
+        0.1535533468853273,
+        0.16223324279875057,
+        0.16849454259454524,
+        0.17245064529095974,
+        0.17195496045045378
+      ],
+      "subject_curve": [
+        0.15567430824194842,
+        0.14971555668598538,
+        0.15444178299603334,
+        0.15991764836074662,
+        0.1652684129583506,
+        0.17121568812788138
+      ]
     }
   ],
   "scatter": [
@@ -4784,8 +5017,8 @@
       "model": "CompareToThreshold",
       "regime": "two_level_em",
       "n_bins": 6,
-      "r": -0.1853242229752864,
-      "rmse": 0.008286858696345122,
+      "r": -0.22725995153834547,
+      "rmse": 0.008620735814333225,
       "floor_ratio": 1.3872217071530333
     },
     {
@@ -4793,8 +5026,8 @@
       "model": "Miller-RHG",
       "regime": "two_level_em",
       "n_bins": 6,
-      "r": -0.6595563674799986,
-      "rmse": 0.016313525950491875,
+      "r": -0.6668786451978347,
+      "rmse": 0.016368291003262717,
       "floor_ratio": 1.466221288616905
     },
     {
@@ -4802,8 +5035,8 @@
       "model": "Bari2019",
       "regime": "two_level_em",
       "n_bins": 6,
-      "r": 0.829944304683384,
-      "rmse": 0.006171679740677127,
+      "r": 0.8177333394002381,
+      "rmse": 0.0062751262130940665,
       "floor_ratio": 1.4058057481979696
     },
     {
@@ -4811,8 +5044,8 @@
       "model": "Lopez-DoubleTrace",
       "regime": "two_level_em",
       "n_bins": 6,
-      "r": -0.7151283586342405,
-      "rmse": 0.015071787215928863,
+      "r": -0.7268284754684596,
+      "rmse": 0.0152888437857116,
       "floor_ratio": 1.4002061693223418
     },
     {
@@ -4820,8 +5053,8 @@
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
       "n_bins": 6,
-      "r": -0.6493639520385253,
-      "rmse": 0.015084891327999929,
+      "r": -0.65002386061287,
+      "rmse": 0.015212384737458349,
       "floor_ratio": 1.3952387506537633
     },
     {
@@ -4838,8 +5071,8 @@
       "model": "CompareToThreshold",
       "regime": "two_level_em",
       "n_bins": 42,
-      "r": 0.918975684328378,
-      "rmse": 0.05582348983189514,
+      "r": 0.9201215626811938,
+      "rmse": 0.05540480395961559,
       "floor_ratio": 1.5327190390583691
     },
     {
@@ -4847,8 +5080,8 @@
       "model": "Miller-RHG",
       "regime": "two_level_em",
       "n_bins": 42,
-      "r": 0.9821608227898592,
-      "rmse": 0.029308160183187146,
+      "r": 0.9824930073487732,
+      "rmse": 0.02897946590729734,
       "floor_ratio": 1.5862391483616558
     },
     {
@@ -4856,8 +5089,8 @@
       "model": "Bari2019",
       "regime": "two_level_em",
       "n_bins": 42,
-      "r": 0.9846079915097341,
-      "rmse": 0.03493197463215951,
+      "r": 0.9848444585902136,
+      "rmse": 0.03467261444461776,
       "floor_ratio": 1.5541387811819287
     },
     {
@@ -4865,8 +5098,8 @@
       "model": "Lopez-DoubleTrace",
       "regime": "two_level_em",
       "n_bins": 42,
-      "r": 0.9847751045670438,
-      "rmse": 0.026984304922437734,
+      "r": 0.9849359121647964,
+      "rmse": 0.026694384600074186,
       "floor_ratio": 1.424880992007749
     },
     {
@@ -4874,8 +5107,8 @@
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
       "n_bins": 42,
-      "r": 0.9842593288309146,
-      "rmse": 0.03070633608134908,
+      "r": 0.9845546812339554,
+      "rmse": 0.030299474788807103,
       "floor_ratio": 1.4325259839336248
     },
     {
@@ -4892,8 +5125,8 @@
       "model": "CompareToThreshold",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9947630278248187,
-      "rmse": 0.010459678358104404,
+      "r": 0.9945288092833215,
+      "rmse": 0.010697147527424023,
       "floor_ratio": 1.4201223127871532
     },
     {
@@ -4901,8 +5134,8 @@
       "model": "Miller-RHG",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9950609106228427,
-      "rmse": 0.010801174874922556,
+      "r": 0.995043836864926,
+      "rmse": 0.010780281299394387,
       "floor_ratio": 1.4876050467952473
     },
     {
@@ -4910,8 +5143,8 @@
       "model": "Bari2019",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.989548899642783,
-      "rmse": 0.018948414301605383,
+      "r": 0.9893402745838662,
+      "rmse": 0.01890264221545884,
       "floor_ratio": 1.5145228592430744
     },
     {
@@ -4919,8 +5152,8 @@
       "model": "Lopez-DoubleTrace",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9989228269999842,
-      "rmse": 0.006404416856916445,
+      "r": 0.9988803936869695,
+      "rmse": 0.006397590583565396,
       "floor_ratio": 1.2998288381780694
     },
     {
@@ -4928,8 +5161,8 @@
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9950744309852597,
-      "rmse": 0.012950189969803355,
+      "r": 0.9951105717410784,
+      "rmse": 0.012846291331784146,
       "floor_ratio": 1.407309937319099
     },
     {
@@ -4946,8 +5179,8 @@
       "model": "CompareToThreshold",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9591735841074841,
-      "rmse": 0.04698273486494353,
+      "r": 0.9589562057721529,
+      "rmse": 0.04706866302690191,
       "floor_ratio": 1.6010579679488253
     },
     {
@@ -4955,8 +5188,8 @@
       "model": "Miller-RHG",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9898579259681304,
-      "rmse": 0.02907509826155363,
+      "r": 0.9901547448990038,
+      "rmse": 0.02850196767409137,
       "floor_ratio": 1.2962869222371707
     },
     {
@@ -4964,8 +5197,8 @@
       "model": "Bari2019",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.982590746496748,
-      "rmse": 0.048543950009514995,
+      "r": 0.9832974161696175,
+      "rmse": 0.048501101533826044,
       "floor_ratio": 1.37873956656847
     },
     {
@@ -4973,8 +5206,8 @@
       "model": "Lopez-DoubleTrace",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9876639650728468,
-      "rmse": 0.02121317140275155,
+      "r": 0.9881236127463969,
+      "rmse": 0.020406133769713487,
       "floor_ratio": 1.213347372718063
     },
     {
@@ -4982,8 +5215,8 @@
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.9890803197303402,
-      "rmse": 0.03645424576660562,
+      "r": 0.9896019496314973,
+      "rmse": 0.035359705373724626,
       "floor_ratio": 1.3082118140648948
     },
     {
@@ -4995,5 +5228,1427 @@
       "rmse": 0.008114524506209352,
       "floor_ratio": 1.2476278846844335
     }
-  ]
+  ],
+  "rmse": [
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.012257357412831097
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.011387302882462128
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.031905687342806896
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.009942249983353168
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.005581663169365695
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.03304219144383449
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.01866459124528851
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.026848445114643488
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.035979566093239566
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.028072313290145687
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.018880284324781848
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.03239954370229732
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.02576131445286892
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.021523221836608392
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.12544608384968975
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.07712629968174185
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.36557565929218977
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.37503481922433424
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.3572624941342938
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.013223522582626504
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.005622898767344369
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.015212384737458349
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.0152888437857116
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.0062751262130940665
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.016368291003262717
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.008620735814333225
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.021796834772907323
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.017442265402610315
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.006064463324429511
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.006835596744670692
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.033269788367375715
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.00695005172116313
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.033746448895199906
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.005945165566718782
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.010424858973375827
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.12938053915825068
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.03412706480134613
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.2399261702824187
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.285869565907128
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.042854520537239295
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.03625349888579878
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.045509932602611124
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.03655189572865402
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.05283437796541855
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.06644908456555197
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.06568171000782448
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.0473755960989318
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.05351644393544389
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.0574039619279077
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.0515768938402234
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.06462163104332368
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.11909682459052355
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.1261582644778278
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.16718116549803197
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.16334600547085237
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.24837227926884548
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.258196308828429
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.259757162958237
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.04043760179166949
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.010149206310478238
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.030299474788807103
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.026694384600074186
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.03467261444461776
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.02897946590729734
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.05540480395961559
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.06129709986937829
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.07338249504751153
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.042293456052143144
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.04680912858651881
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.050196723289826974
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.041962269853730236
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.06357097398075374
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.08896753654872537
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.10409569758036262
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.1629219274332731
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.1509809858967493
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.19234459645877308
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.22189516109723526
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.02299025626542437
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.017553749945247457
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.025139904050760567
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.01930954587026686
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.011553750948786908
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.04326295844708581
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.03281630832513677
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.02600973444741083
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.030262568778708254
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.024512225584387547
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.028498059568560715
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.04495426607570255
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.0739434828066621
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.07779398547735027
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.1014839942640144
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.145454562872985
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.2626315334858454
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.2720470371193358
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.27768270555595886
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.01986328450356765
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.002782321529976982
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.012846291331784146
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.006397590583565396
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.01890264221545884
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.010780281299394387
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.010697147527424023
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.04033102880798897
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.03443921802760617
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.02308446808365667
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.026336953171420277
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.017642113910951916
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.024233995177914462
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.04853115297766531
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.056036926286979
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.06422349699669333
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.10035861222473923
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.11489378458505606
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.20823049783892802
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.23954183614784058
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06930286234182494
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.05092950171253459
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06382224964906837
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.05209910708898724
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.04721039364616054
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.08202483821231334
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.052850653609787634
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06179815210965733
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.07365747535574745
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06011490273243808
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06558090368274332
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.07155826215284392
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.1825744886327648
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.19432822002795835
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.23770065795841425
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.1982537831056145
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.14447967576220844
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.14712786329837943
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.14901011415823465
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.0563810391529058
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.008114524506209352
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.035359705373724626
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.020406133769713487
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.048501101533826044
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.02850196767409137
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.04706866302690191
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.08354652391071545
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.0695834343293415
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.0603513681382628
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.06837176710970624
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.042826947608137725
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.05333066890206246
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.07396584534695347
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.13944663794228074
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.16308146327469833
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.23014576529595604
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.20787599234779514
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.1444213556154433
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.15034275224403199
+    }
+  ],
+  "sets": [
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "non-warm-up",
+      "score": 1.4828093261528315,
+      "n_subjects": 149
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Baiting",
+      "score": 1.328067883285278,
+      "n_subjects": 91
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Without Baiting",
+      "score": 1.3429060945605305,
+      "n_subjects": 25
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Baiting",
+      "score": 1.2463697383329595,
+      "n_subjects": 71
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Without Baiting",
+      "score": 1.1913762111012216,
+      "n_subjects": 20
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Baiting",
+      "score": 1.401923602687589,
+      "n_subjects": 92
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Without Baiting",
+      "score": 1.4664969235730514,
+      "n_subjects": 24
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "unknown|Coupled Baiting",
+      "score": 1.641019224382139,
+      "n_subjects": 30
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Baiting",
+      "score": 1.3400860605388958,
+      "n_subjects": 19
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Without Baiting",
+      "score": 1.418110403725341,
+      "n_subjects": 14
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "set": "warm-up",
+      "score": 1.365225287981617,
+      "n_subjects": 57
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "non-warm-up",
+      "score": 1.4552554751148827,
+      "n_subjects": 149
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Baiting",
+      "score": 1.275830152087741,
+      "n_subjects": 91
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Without Baiting",
+      "score": 1.1962639514627305,
+      "n_subjects": 25
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Baiting",
+      "score": 1.2703512534683576,
+      "n_subjects": 71
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Without Baiting",
+      "score": 1.1729071974491525,
+      "n_subjects": 20
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Baiting",
+      "score": 1.2959226657692091,
+      "n_subjects": 92
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Without Baiting",
+      "score": 1.2514229376243868,
+      "n_subjects": 24
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "unknown|Coupled Baiting",
+      "score": 1.4881116752961803,
+      "n_subjects": 30
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Baiting",
+      "score": 1.417069385835497,
+      "n_subjects": 19
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Without Baiting",
+      "score": 1.3415534637507738,
+      "n_subjects": 14
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "set": "warm-up",
+      "score": 1.2336809162382942,
+      "n_subjects": 57
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "non-warm-up",
+      "score": 1.4614814117875374,
+      "n_subjects": 149
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Baiting",
+      "score": 1.3002098218329512,
+      "n_subjects": 91
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Without Baiting",
+      "score": 1.2520943218725298,
+      "n_subjects": 25
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Baiting",
+      "score": 1.3005816292439445,
+      "n_subjects": 71
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Without Baiting",
+      "score": 1.2359204322066217,
+      "n_subjects": 20
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Baiting",
+      "score": 1.3351445830302806,
+      "n_subjects": 92
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Without Baiting",
+      "score": 1.502504365964831,
+      "n_subjects": 24
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "unknown|Coupled Baiting",
+      "score": 1.6483908646320011,
+      "n_subjects": 30
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Baiting",
+      "score": 1.292538450117702,
+      "n_subjects": 19
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Without Baiting",
+      "score": 1.629300970968227,
+      "n_subjects": 14
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "set": "warm-up",
+      "score": 1.340660498360304,
+      "n_subjects": 57
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "non-warm-up",
+      "score": 1.331865825625266,
+      "n_subjects": 149
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Baiting",
+      "score": 1.3250756044371688,
+      "n_subjects": 91
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Without Baiting",
+      "score": 1.2870463388919242,
+      "n_subjects": 25
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Baiting",
+      "score": 1.2621929449729055,
+      "n_subjects": 71
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Without Baiting",
+      "score": 1.1472278325247283,
+      "n_subjects": 20
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Baiting",
+      "score": 1.2607241002424328,
+      "n_subjects": 92
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Without Baiting",
+      "score": 1.2645444164651083,
+      "n_subjects": 24
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "unknown|Coupled Baiting",
+      "score": 1.3757542775351017,
+      "n_subjects": 30
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Baiting",
+      "score": 1.234621251840203,
+      "n_subjects": 19
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Without Baiting",
+      "score": 1.3083859764288088,
+      "n_subjects": 14
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "set": "warm-up",
+      "score": 1.3148414550104768,
+      "n_subjects": 57
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "non-warm-up",
+      "score": 1.3850157583953246,
+      "n_subjects": 149
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Baiting",
+      "score": 1.2914647681214597,
+      "n_subjects": 91
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "earlier|Coupled Without Baiting",
+      "score": 1.209166721457725,
+      "n_subjects": 25
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Baiting",
+      "score": 1.2922531925078606,
+      "n_subjects": 71
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "earlier|Uncoupled Without Baiting",
+      "score": 1.1848710607077513,
+      "n_subjects": 20
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Baiting",
+      "score": 1.3119646115368104,
+      "n_subjects": 92
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "final|Uncoupled Without Baiting",
+      "score": 1.2692471927232587,
+      "n_subjects": 24
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "unknown|Coupled Baiting",
+      "score": 1.4587060089901338,
+      "n_subjects": 30
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Baiting",
+      "score": 1.1683234070988044,
+      "n_subjects": 19
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "unknown|Uncoupled Without Baiting",
+      "score": 1.3566894280046355,
+      "n_subjects": 14
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "set": "warm-up",
+      "score": 1.2740925497496347,
+      "n_subjects": 57
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "non-warm-up",
+      "score": 1.3977636960534756,
+      "n_subjects": 146
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "earlier|Coupled Baiting",
+      "score": 1.3812953495427753,
+      "n_subjects": 88
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "earlier|Coupled Without Baiting",
+      "score": 1.2480651855846219,
+      "n_subjects": 25
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "earlier|Uncoupled Baiting",
+      "score": 1.3624514811596105,
+      "n_subjects": 68
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "earlier|Uncoupled Without Baiting",
+      "score": 1.167403887085117,
+      "n_subjects": 20
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "final|Uncoupled Baiting",
+      "score": 1.3765800250040174,
+      "n_subjects": 89
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "final|Uncoupled Without Baiting",
+      "score": 1.4232068571948302,
+      "n_subjects": 24
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "unknown|Coupled Baiting",
+      "score": 1.5228269971078514,
+      "n_subjects": 30
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "unknown|Uncoupled Baiting",
+      "score": 1.2286424423433517,
+      "n_subjects": 18
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "unknown|Uncoupled Without Baiting",
+      "score": 1.6149216132110966,
+      "n_subjects": 14
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "set": "warm-up",
+      "score": 1.3031194360280622,
+      "n_subjects": 56
+    }
+  ],
+  "claims": {
+    "spearman_score_other_mode": 0.78582995951417,
+    "spearman_score_likelihood": -0.9734817813765182,
+    "likelihood_cut": 0.7,
+    "n_cells_above_cut": 28,
+    "spearman_score_likelihood_above_cut": -0.9288451012588943,
+    "n_models_both_regimes": 18,
+    "two_level_better": 16,
+    "below_equal_line": {
+      "per_subject": [
+        1,
+        21
+      ],
+      "two_level_em": [
+        8,
+        18
+      ]
+    }
+  },
+  "off_axis": []
 }

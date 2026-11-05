@@ -1,0 +1,353 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_p2_holds.py",
+    "produced_at_pt": "2026-11-05T03:47:42-08:00",
+    "studies_git_sha": "f95c791466004f804f1b921d5e737764c842901b",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_holds.py",
+        "sha256": "a6003f91dc996d166051a811bd8645fdc0538f7421356a859ee7a63f0e77a84c"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_rollouts.py",
+        "sha256": "6e63387dd300933753b7dac8c158dfb983060a5470a42a34896c7f6f7b2d97c5"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p2_task.py",
+        "sha256": "13e2fde4de11914fb1b0cd759e02d6fa6989d37423a104bc10ee270d28562103"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
+        "sha256": "f59813c335951894ff95c46fa004d98d3e7e57b6d4200bfe02160cbec3408fed"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/cross_study_literature.py",
+        "sha256": "112514978d87c6d7fe15804ef570cbef9aa4de880ed7a75d8a5c5e95df52fb4e"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p2_task_specs.json",
+        "sha256": "df253ca28d0d41021c59b2953378ec9efb9784dda0174fb68ffe93f72ed49202"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p2_gru_contexts.json",
+        "sha256": "57f06a67334c3717077231520652986bc2c6a821a545e9cf32ada137bd3b25a5"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_gru.json",
+        "sha256": "d3c91c4e2d8b4021858e6a52ddc9669e640ebc6509a7cc28ca3c42986498a71e"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.json",
+        "sha256": "46e3e36c41cc317630ef6898dc85089bf43bc21c2f7388d2c0ae0fb31ccfb6bc"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay_gaps.json",
+        "sha256": "7fa83e5c7992adad714f2bf67c9b883a2304e9e77b450199f0c419b72d671eb5"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
+        "sha256": "7db7708473d23024670c879b6d732a7c6a38f359461fdd47c08c799bf6ff845c"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      }
+    ],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_CompareToThreshold.json",
+        "sha256": "f846c67eb4eb698b0a8c6d4a25cd0a8e63082084e3d0dc6aaa63ba340dd27b05"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Miller-RHG.json",
+        "sha256": "8b85f35352bb3e39c40ed7a6b0e48663f147104d135c99f006cb739e7b6db980"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Bari2019.json",
+        "sha256": "e720b8ab7d7acd8bfd9f2ee5037d25b92c2c4657f00f9418d31fb36e755b02de"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lopez-DoubleTrace.json",
+        "sha256": "f4e913f6f9c2e0c5902c30a0af11c2eb23792954a94f0756953acdc62efb4d0e"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lebedeva-PR.json",
+        "sha256": "b5118f3630ca6f1b99cdb9a6a2aab44d2786df80a83c73c65fd25daef12be273"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009/s0/heldout/run/best_eval_step_40000/heldout_Coupled_Baiting_Uncoupled_Baiting_Uncoupled_Without_Baiting_every5/outputs/params.json",
+        "sha256": "3057a80295bd13c5149ea0bcacd3f7b2be749d502335b4605732274b5c3c36d8"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p2_holds.json",
+        "sha256": "3f3b80d34d87b0d808efe46e1f333c7e0fff3a358deb7cfd9fdc048b23722551"
+      }
+    ]
+  },
+  "fingerprints_library": {
+    "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
+    "git_sha": "392c504406094b33407321b168173981b8af8291"
+  },
+  "n_rollouts": 10,
+  "n_sessions": 44,
+  "n_subjects": 9,
+  "sessions_by_group": {
+    "unknown|Coupled Baiting": 33,
+    "unknown|Coupled Without Baiting": 1,
+    "warm-up": 10
+  },
+  "n_sessions_by_minimum": {
+    "coupled|0": 224,
+    "coupled|1": 34,
+    "warm-up|0": 53,
+    "warm-up|1": 5,
+    "warm-up|10": 5
+  },
+  "models": {
+    "CompareToThreshold": {
+      "n_subjects": 9,
+      "statistics": {
+        "losses": {
+          "hold_gap": 0.006737931817347384,
+          "floor": 0.04083561267765336,
+          "ratio": 0.1650013646307947,
+          "n_subjects": 6
+        },
+        "pattern": {
+          "hold_gap": 0.0049045821362599185,
+          "floor": 0.021358407406932862,
+          "ratio": 0.22963238985074838,
+          "n_subjects": 6
+        },
+        "hazard": {
+          "hold_gap": 0.003304340861244906,
+          "floor": 0.026218833719339682,
+          "ratio": 0.1260292847735458,
+          "n_subjects": 6
+        },
+        "post_switch": {
+          "hold_gap": 0.00722841771310532,
+          "floor": 0.05975603069698097,
+          "ratio": 0.12096549300203968,
+          "n_subjects": 6
+        },
+        "run_length": {
+          "hold_gap": 0.0015299548861697166,
+          "floor": 0.028989194032185434,
+          "ratio": 0.05277673068354624,
+          "n_subjects": 6
+        }
+      }
+    },
+    "Miller-RHG": {
+      "n_subjects": 9,
+      "statistics": {
+        "losses": {
+          "hold_gap": 0.008977033015198975,
+          "floor": 0.04083561267765336,
+          "ratio": 0.21983343524343676,
+          "n_subjects": 6
+        },
+        "pattern": {
+          "hold_gap": 0.0080792933610622,
+          "floor": 0.021358407406932862,
+          "ratio": 0.37827227504049254,
+          "n_subjects": 6
+        },
+        "hazard": {
+          "hold_gap": 0.0054889168506529655,
+          "floor": 0.026218833719339682,
+          "ratio": 0.20935015300105436,
+          "n_subjects": 6
+        },
+        "post_switch": {
+          "hold_gap": 0.013146590524059351,
+          "floor": 0.05975603069698097,
+          "ratio": 0.22000441412725144,
+          "n_subjects": 6
+        },
+        "run_length": {
+          "hold_gap": 0.002877725012254964,
+          "floor": 0.028989194032185434,
+          "ratio": 0.09926888650508708,
+          "n_subjects": 6
+        }
+      }
+    },
+    "Bari2019": {
+      "n_subjects": 9,
+      "statistics": {
+        "losses": {
+          "hold_gap": 0.007761372648179166,
+          "floor": 0.04083561267765336,
+          "ratio": 0.19006382270900649,
+          "n_subjects": 6
+        },
+        "pattern": {
+          "hold_gap": 0.004797937247730384,
+          "floor": 0.021358407406932862,
+          "ratio": 0.22463927933938516,
+          "n_subjects": 6
+        },
+        "hazard": {
+          "hold_gap": 0.003705737920870472,
+          "floor": 0.026218833719339682,
+          "ratio": 0.14133877809130102,
+          "n_subjects": 6
+        },
+        "post_switch": {
+          "hold_gap": 0.014745061852865263,
+          "floor": 0.05975603069698097,
+          "ratio": 0.2467543724186858,
+          "n_subjects": 6
+        },
+        "run_length": {
+          "hold_gap": 0.0039609649933197945,
+          "floor": 0.028989194032185434,
+          "ratio": 0.13663591298613229,
+          "n_subjects": 6
+        }
+      }
+    },
+    "Lopez-DoubleTrace": {
+      "n_subjects": 9,
+      "statistics": {
+        "losses": {
+          "hold_gap": 0.012793730371436407,
+          "floor": 0.04083561267765336,
+          "ratio": 0.31329835730461747,
+          "n_subjects": 6
+        },
+        "pattern": {
+          "hold_gap": 0.007186633558347123,
+          "floor": 0.021358407406932862,
+          "ratio": 0.3364779696080883,
+          "n_subjects": 6
+        },
+        "hazard": {
+          "hold_gap": 0.0049623811564440306,
+          "floor": 0.026218833719339682,
+          "ratio": 0.18926780685838254,
+          "n_subjects": 6
+        },
+        "post_switch": {
+          "hold_gap": 0.011196914011160429,
+          "floor": 0.05975603069698097,
+          "ratio": 0.18737713801539577,
+          "n_subjects": 6
+        },
+        "run_length": {
+          "hold_gap": 0.0019009542745045064,
+          "floor": 0.028989194032185434,
+          "ratio": 0.06557458176981257,
+          "n_subjects": 6
+        }
+      }
+    },
+    "Lebedeva-PR": {
+      "n_subjects": 9,
+      "statistics": {
+        "losses": {
+          "hold_gap": 0.008725919102512058,
+          "floor": 0.04083561267765336,
+          "ratio": 0.21368405003231847,
+          "n_subjects": 6
+        },
+        "pattern": {
+          "hold_gap": 0.006125715976220113,
+          "floor": 0.021358407406932862,
+          "ratio": 0.28680583994440184,
+          "n_subjects": 6
+        },
+        "hazard": {
+          "hold_gap": 0.003176066219997498,
+          "floor": 0.026218833719339682,
+          "ratio": 0.12113682301798002,
+          "n_subjects": 6
+        },
+        "post_switch": {
+          "hold_gap": 0.007816096264213002,
+          "floor": 0.05975603069698097,
+          "ratio": 0.13080012465767563,
+          "n_subjects": 6
+        },
+        "run_length": {
+          "hold_gap": 0.0026284477689007663,
+          "floor": 0.028989194032185434,
+          "ratio": 0.09066991534785396,
+          "n_subjects": 6
+        }
+      }
+    },
+    "GRU-D614": {
+      "n_subjects": 9,
+      "statistics": {
+        "losses": {
+          "hold_gap": 0.010572248299014255,
+          "floor": 0.04083561267765336,
+          "ratio": 0.25889775139335064,
+          "n_subjects": 6
+        },
+        "pattern": {
+          "hold_gap": 0.009528322600806048,
+          "floor": 0.021358407406932862,
+          "ratio": 0.44611578097874416,
+          "n_subjects": 6
+        },
+        "hazard": {
+          "hold_gap": 0.007700225726853852,
+          "floor": 0.026218833719339682,
+          "ratio": 0.29369062748103736,
+          "n_subjects": 6
+        },
+        "post_switch": {
+          "hold_gap": 0.014464097224919509,
+          "floor": 0.05975603069698097,
+          "ratio": 0.2420525101184519,
+          "n_subjects": 6
+        },
+        "run_length": {
+          "hold_gap": 0.005344122633357234,
+          "floor": 0.028989194032185434,
+          "ratio": 0.1843487827713971,
+          "n_subjects": 6
+        }
+      }
+    }
+  },
+  "max_ratio": 0.44611578097874416,
+  "holds_move_less_than_floor": true
+}

@@ -59,7 +59,7 @@ study 40. The GRU joined P1 and P2 (Han, 2026-11-04).
 |---|---|---|
 | P0 | spec, library, golden tests; reward-pair pools; how often real coupled blocks run past `block_max` | reproduces the wrapper's statistics on study 05's cached RL rollout histories (r9's RL rows) and MEvolve's `replay_gap` on its gate-1b fits; done, [r1](analysis/reports/r1-p0-checks.md) |
 | P1 | replay fingerprints of `literature-models` and the GRU (`gru-heldout-replay`) | each replay reproduces the held-out score study 12 stored for the subject (to 1e-6), and the GRU's study 01 r2's (to 1e-4); done, [r2](analysis/reports/r2-replay-grid.md) |
-| P2 | rollout fingerprints of the same models and the GRU, and the noise floor, reported like r2 (the floor-ratio grid beside study 01 r9's per-bin scatter); a sensitivity check with the coupled task's holds on and off (ADR 0006) | the holds move the fingerprints less than the noise floor, or a new ADR turns them on |
+| P2 | rollout fingerprints of the same models and the GRU, and the noise floor, reported like r2 (the floor-ratio grid beside study 01 r9's per-bin scatter); a sensitivity check with the coupled task's holds on and off (ADR 0006) | the holds move the fingerprints less than the noise floor, or a new ADR turns them on; done (`BlockMinReward` ≤ 0.45 of the floor; ADR 0006 stands), [r3](analysis/reports/r3-rollout-grid.md) |
 | P3 | GLM-HMM | |
 | P4 | MEvolve imports the library (a proposal to its sessions) | MEvolve's `replay_gap` unchanged |
 

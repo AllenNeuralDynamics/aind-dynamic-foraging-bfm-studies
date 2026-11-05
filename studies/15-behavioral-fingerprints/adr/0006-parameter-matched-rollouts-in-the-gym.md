@@ -42,3 +42,17 @@ only 0 and 1, so a missing parameter never turns a warm-up into a foraging task.
   them for those stages, and 2 or 3 models rolled out with the holds on and off. If the
   fingerprints move less than the noise floor, this ADR stands; if they move more, the holds are
   turned on where they can be inferred, by a new ADR.
+
+## Amendment, 2026-11-05 (P2)
+
+- Each task has the session's engaged-trial count, because the agents never ignore a trial and
+  the floor is built from the subject's engaged trials (decided with Han). A session that records
+  no block parameters is left out (Han), and so is an uncoupled session with one reward
+  probability, which has no schedule to draw: 373 of 2,138 score sessions, listed with the reason
+  in `analysis/p2_task_specs.json`.
+- The sensitivity check tests `BlockMinReward` only, because it is the only hold that is recorded
+  (Han). The recorded minimum is 0 in 224 of 258 coupled score sessions, and in every early-stage
+  one; the blocks P0 found held past `block_max` cannot come from `BlockMinReward`, so they come
+  from `AdvancedBlockAuto` or the manual next-block button, which this study cannot simulate.
+  The check runs on the sessions with a positive minimum
+  (`analysis/p2_holds.json`).
