@@ -285,7 +285,7 @@ def novelty(runs: dict, nov: dict) -> tuple[str, dict]:
         later = [q for g in repeats for q in sorted(g, key=lambda q: q["timestamp"])[1:] if q["score"] is not None]
         out[arm] = {"proposals": len(pts), "median_similarity": float(np.median(x)), "repeat_groups": len(repeats),
                     "repeats_scored": len(later), "repeat_seconds": float(sum(q["evaluation_seconds"] or 0 for q in later)),
-                    "drops": {str(th): {"n": sum(q[0] > th for q in pts),
+                    "flagged": {str(th): {"n": sum(q[0] > th for q in pts),
                                         "new_bests": sorted(q[3] for q in pts if q[0] > th and q[2])} for th in THRESHOLDS}}
     axes[0].set_ylabel("score gain over parent (×100)"), axes[0].legend(frameon=False, loc="upper left", fontsize=5)
     fs.panel_label(axes[0], "a"), fs.panel_label(axes[1], "b")
@@ -294,18 +294,19 @@ def novelty(runs: dict, nov: dict) -> tuple[str, dict]:
     plt.close(fig)
     for th in THRESHOLDS:
         rows.append([f"> {th}" + (" (ShinkaEvolve's default)" if th == 0.99 else ""),
-                     *[f"{out[a]['drops'][str(th)]['n']} of {out[a]['proposals']} "
-                       f"({out[a]['drops'][str(th)]['n'] / out[a]['proposals']:.0%}); new bests lost: "
-                       f"{', '.join(map(str, out[a]['drops'][str(th)]['new_bests'])) or 'none'}" for a in runs]])
+                     *[f"{out[a]['flagged'][str(th)]['n']} of {out[a]['proposals']} "
+                       f"({out[a]['flagged'][str(th)]['n'] / out[a]['proposals']:.0%}); new bests among them: "
+                       f"{', '.join(map(str, out[a]['flagged'][str(th)]['new_bests'])) or 'none'}" for a in runs]])
     rows.append(["exact repeats (MEvolve's repeat key)",
                  *[f"{out[a]['repeats_scored']} scored repeats in {out[a]['repeat_groups']} groups, "
                    f"{out[a]['repeat_seconds'] / 60:.0f} min of fitting" for a in runs]])
     text = (f"![novelty](../fig_r1_novelty.svg)\n\nPost hoc. x: each proposal's highest code-embedding similarity "
             f"to the programs on its island just before it ({nov['embedding']['model']}); y: its gain over its "
-            "parent (failed or unscored at the bottom). ShinkaEvolve's novelty filter drops everything right of its "
-            "threshold (dashed 0.99, dotted 0.999). Median similarity: "
+            "parent (failed or unscored at the bottom). ShinkaEvolve flags everything right of its threshold (dashed "
+            "0.99, dotted 0.999) and asks an LLM novelty judge, an extra Claude call, whether to drop it; the table "
+            "counts the flagged proposals, the most the filter could drop. Median similarity: "
             + ", ".join(f"{ARMS[a]} {out[a]['median_similarity']:.3f}" for a in runs) + ".\n\n"
-            + table(["filter", *[ARMS[a] for a in runs]], rows))
+            + table(["flagged above", *[ARMS[a] for a in runs]], rows))
     return text, out
 
 

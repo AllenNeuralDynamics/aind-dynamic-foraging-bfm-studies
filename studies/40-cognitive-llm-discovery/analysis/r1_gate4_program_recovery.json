@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_gate4_program_recovery.py",
-    "produced_at_pt": "2026-11-04T20:39:30-08:00",
-    "studies_git_sha": "681772ccc1cb52a0c0cae705f9499a50b8b3f3f6",
+    "produced_at_pt": "2026-11-04T21:22:19-08:00",
+    "studies_git_sha": "5b7fde975fa1604bf83717fe7d0c84c91e66aa23",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r1_gate4_program_recovery.py",
-        "sha256": "b5c002fac7a03860ef626b82b972727043139e65220533d0ff79d2986b3f197a"
+        "sha256": "1f544d8fdc88587706b1800c13f0b485721c5994480c9119b8d7cd648862c34a"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -74,7 +74,7 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r1_gate4_program_recovery.json",
-        "sha256": "73c5e9d93ebe499d7dac501ba8b72e37c3ff46444cdfd92d1e76fdf867a74ce7"
+        "sha256": "3cb018d08c25e7bc775c7746ea7a419f292203f67e3ea27f2353af50def0d205"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r1_first_half.svg",
@@ -114,7 +114,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r1-gate4-program-recovery.md#result-5",
-        "sha256": "5b32a21adbd9c95c25b41cfa2b3c01552547daa06dbd018ca0e9caedfe15f203"
+        "sha256": "d814319a3e76a1082da2c2bcc273cba48c926f04b4d3121362ffc78243acd8dd"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r1-gate4-program-recovery.md#result-6",
@@ -299,7 +299,7 @@
       "repeat_groups": 4,
       "repeats_scored": 3,
       "repeat_seconds": 821.7585105895996,
-      "drops": {
+      "flagged": {
         "0.99": {
           "n": 52,
           "new_bests": []
@@ -320,7 +320,7 @@
       "repeat_groups": 6,
       "repeats_scored": 6,
       "repeat_seconds": 1289.9627697467804,
-      "drops": {
+      "flagged": {
         "0.99": {
           "n": 84,
           "new_bests": [

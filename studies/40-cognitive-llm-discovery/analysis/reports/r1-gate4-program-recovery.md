@@ -147,13 +147,13 @@ The starting programs and every program that set a new best score. Mechanisms re
 <!-- BEGIN result-5 -->
 ![novelty](../fig_r1_novelty.svg)
 
-Post hoc. x: each proposal's highest code-embedding similarity to the programs on its island just before it (Alibaba-NLP/gte-modernbert-base); y: its gain over its parent (failed or unscored at the bottom). ShinkaEvolve's novelty filter drops everything right of its threshold (dashed 0.99, dotted 0.999). Median similarity: seeded (4 islands) 0.991, no seeds (template only) 0.997.
+Post hoc. x: each proposal's highest code-embedding similarity to the programs on its island just before it (Alibaba-NLP/gte-modernbert-base); y: its gain over its parent (failed or unscored at the bottom). ShinkaEvolve flags everything right of its threshold (dashed 0.99, dotted 0.999) and asks an LLM novelty judge, an extra Claude call, whether to drop it; the table counts the flagged proposals, the most the filter could drop. Median similarity: seeded (4 islands) 0.991, no seeds (template only) 0.997.
 
-| filter | seeded (4 islands) | no seeds (template only) |
+| flagged above | seeded (4 islands) | no seeds (template only) |
 |---|---|---|
-| > 0.99 (ShinkaEvolve's default) | 52 of 99 (53%); new bests lost: none | 84 of 98 (86%); new bests lost: 12, 23, 75 |
-| > 0.995 | 27 of 99 (27%); new bests lost: none | 70 of 98 (71%); new bests lost: 23 |
-| > 0.999 | 2 of 99 (2%); new bests lost: none | 20 of 98 (20%); new bests lost: none |
+| > 0.99 (ShinkaEvolve's default) | 52 of 99 (53%); new bests among them: none | 84 of 98 (86%); new bests among them: 12, 23, 75 |
+| > 0.995 | 27 of 99 (27%); new bests among them: none | 70 of 98 (71%); new bests among them: 23 |
+| > 0.999 | 2 of 99 (2%); new bests among them: none | 20 of 98 (20%); new bests among them: none |
 | exact repeats (MEvolve's repeat key) | 3 scored repeats in 4 groups, 14 min of fitting | 6 scored repeats in 6 groups, 21 min of fitting |
 <!-- END result-5 -->
 
@@ -196,7 +196,9 @@ Measured per proposal (one 56-core job per run, two evaluations at a time, each 
    The simplification step and the readability checks (ADR 0005) are needed.
 6. **An embedding novelty filter would hurt this program family.** All programs share one skeleton,
    so a general text embedding rates them nearly identical, and real progress sits among trivial
-   edits. Exact repeats are safe to skip: MEvolve now reuses their score (the repeat cache,
+   edits: at ShinkaEvolve's default, more than half the proposals would go to an LLM novelty judge
+   (one extra Claude call each), and a wrong verdict would lose a new best. Exact repeats are safe
+   to skip: MEvolve now reuses their score (the repeat cache,
    AllenNeuralDynamics/aind-dynamic-foraging-mevolve#53).
 7. **Node time, not dollars, limits the main search.** At these rates the PLAN's $450 buys over
    20,000 proposals, about a month of one node. Real mice are slower: one 48 + 48 evaluation takes
