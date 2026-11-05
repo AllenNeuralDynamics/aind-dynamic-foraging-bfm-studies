@@ -4,8 +4,9 @@
 instead of ADR 0005's 8 and 6 (issue #118; MEvolve's `max_params` and `max_latent`, AllenNeuralDynamics/aind-dynamic-foraging-mevolve#60).
 Everything else is the same: 100 proposals by Claude Sonnet 5.5 at effort medium, the same seed-0
 cohorts and freeze, the same five islands and seeds (`analysis/seed_choice.json`), the library in the
-prompt, $20 list. The evaluations run on 8 nodes, 16 at a time, as Slurm steps
-(AllenNeuralDynamics/aind-dynamic-foraging-mevolve#59); each is the same 28-worker evaluation as before.
+prompt, $20 list. The evaluations run 16 at a time as Slurm steps of 56 CPUs, the CPUs of 8 nodes placed
+wherever 56 are free (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#59); each is the same 28-worker
+evaluation as before.
 
 **Deviation, on purpose.** ADR 0005 fixes 8 parameters and 6 latent variables for the study's programs.
 This variant is a test of those limits, not a change to them: whether `seeded-islands` searches with
@@ -32,7 +33,7 @@ and what for. It is also the first search on many nodes, so it measures their th
 4. As in the smoke run, the programs found here do not enter `seeded-islands`; only the seed scores
    in the shared `seed_cache` are reused.
 
-**Run.** `search.sbatch` on 8 full `aind` nodes. MEvolve keeps Shinka's database on the first node's
+**Run.** `search.sbatch`: 16 tasks of 56 CPUs on `aind` nodes. MEvolve keeps Shinka's database on the first node's
 local disk; each evaluation's program and results pass through `stage/` in the launch directory on
 /allen. The exit trap copies only files `run.main` did not copy, so it cannot overwrite the archived run
 (it did in `seeded-islands-smoke`).

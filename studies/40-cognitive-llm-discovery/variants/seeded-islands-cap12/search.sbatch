@@ -1,17 +1,16 @@
 #!/bin/bash
 #SBATCH --job-name=mevolve-seeded-islands-cap12
 #SBATCH --partition=aind
-#SBATCH --nodes=8
-#SBATCH --ntasks-per-node=2
+#SBATCH --ntasks=16
 #SBATCH --cpus-per-task=56
 #SBATCH --mem-per-cpu=3500M
-#SBATCH --exclusive
 #SBATCH --time=06:00:00
 # Study 40's cap test (notes.md): seeded-islands-smoke with program limits of 12 parameters and 8 latent
-# variables. 8 full nodes: each evaluation is an srun step of 56 CPUs (28 workers, one per core), 2 per
-# node, 16 at a time (MEvolve's eval_launch "srun"); the search, the embedding server and Claude run in
-# the batch step on the first node. --mem-per-cpu lets two steps share a node. Pass DRY=1 for the $0
-# dry run (embedding server, seeds scored into seed_cache, runner built; no Claude call, no W&B).
+# variables. 16 slots of 56 CPUs (the CPUs of 8 nodes, placed wherever 56 are free): each evaluation is an
+# srun step of 56 CPUs (28 workers, one per core), 16 at a time (MEvolve's eval_launch "srun"); the
+# search, the embedding server and Claude run in the batch step on the first node. --mem-per-cpu lets two
+# steps share a node. Pass DRY=1 for the $0 dry run (embedding server, seeds scored into seed_cache,
+# runner built; no Claude call, no W&B).
 # Submitted from clean checkouts at pushed commits, with these exported:
 #   VARIANT_DIR   this directory in the studies checkout at STUDIES_SHA
 #   MEVOLVE_SRC   src/ of a MEvolve checkout at MEVOLVE_SHA
