@@ -140,7 +140,10 @@ def example_session(example: dict) -> str:
     _, axes = plot_foraging_session(np.asarray(example["choices"], float), np.asarray(example["rewards"], float),
                                     np.asarray(example["p_reward"]), fitted_data=np.asarray(example["p_right"]),
                                     ax=fig.add_subplot(grid[0]))
-    for a in axes:
+    model = [ln for a in axes for ln in a.get_lines() if ln.get_label() == "model"]
+    assert len(model) == 1, model
+    model[0].set_xdata(np.asarray(model[0].get_xdata()) + 1)    # the utility draws fitted_data at trials 0..n-1,
+    for a in axes:                                               # the choices at 1..n; p_right[t] predicts choice t
         a.set_xlabel(""), a.tick_params(labelbottom=False)
         if a.get_legend():
             a.get_legend().remove()
