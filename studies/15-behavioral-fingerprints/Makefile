@@ -11,7 +11,7 @@ MEVOLVE_PY ?= /allen/aind/scratch/han.hou/miniforge3/envs/mevolve/bin/python
 GRU_OUTPUTS ?= /allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009
 GRU_PRIOR ?= /allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/prior
 .PHONY: all freeze-p0-golden-mevolve freeze-p0-golden-wrapper freeze-p0-task-checks \
-  freeze-p1-session-groups freeze-p1-replay freeze-p1-glm freeze-p1-gru freeze-p1-gaps
+  freeze-p1-session-groups freeze-p1-replay freeze-p1-glm freeze-p1-gru freeze-p1-gaps freeze-p1-gru-scratch
 
 all: r1 r2
 
@@ -44,6 +44,9 @@ freeze-p1-gru:
 
 freeze-p1-gaps:
 	PYTHONPATH=$(MODELS)/src:$(MEVOLVE)/src $(MEVOLVE_PY) analysis/freeze_p1_gaps.py --models-repo $(MODELS)
+
+freeze-p1-gru-scratch:
+	PYTHONPATH=$(MODELS)/src:$(MEVOLVE)/src $(MEVOLVE_PY) analysis/freeze_p1_gru_scratch.py --models-repo $(MODELS)
 
 # r1 = P0: the fingerprint library against the wrapper and MEvolve, and the task checks
 .PHONY: r1
