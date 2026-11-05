@@ -50,4 +50,7 @@ logged at the end of the run as the W&B artifact
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `seeded-islands-cap12@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Submitted 2026-11-05 at 10:02 PT as `seeded-islands-cap12-1`: Slurm job 27634299, W&B group
+`seeded-islands-cap12@20261105-100249` in [dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve),
+from studies b506d77 and MEvolve 8287dad. It waits on `--dependency=afterok:27634227`, the multi-node
+runner's $0 test, and starts only if that test passes.
