@@ -276,7 +276,7 @@ def draw_scatter(gaps: dict, cells: dict, shown: list[tuple[str, str]]) -> list[
             ax.set_xlim(low, lim)
             ax.set_ylim(low, lim)
             if low > 0:
-                ticks = np.arange(np.ceil(low * 50) / 50, lim + 1e-9, 0.02)
+                ticks = np.arange(np.ceil(low * 25) / 25, lim + 1e-9, 0.04)   # every 0.04: 0.02 overlaps
                 ax.set_xticks(ticks)
                 ax.set_yticks(ticks)
             ax.set_aspect("equal")
