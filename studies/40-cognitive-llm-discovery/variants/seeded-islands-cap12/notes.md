@@ -53,4 +53,6 @@ logged at the end of the run as the W&B artifact
 **Status.** Submitted 2026-11-05 at 10:02 PT as `seeded-islands-cap12-1`: Slurm job 27634299, W&B group
 `seeded-islands-cap12@20261105-100249` in [dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve),
 from studies b506d77 and MEvolve 8287dad. It waits on `--dependency=afterok:27634227`, the multi-node
-runner's $0 test, and starts only if that test passes.
+runner's $0 test, and starts only if that test passes. The test passed (Slurm job 27634227: 9 evaluation
+steps on 4 nodes, the template and 8 proposals scored in the copied database), and the run started at
+10:20 PT on 16 nodes.
