@@ -39,7 +39,7 @@
   "group": "$WANDB_GROUP",
   "name": "seeded-islands-cap12-search",
   "mode": "online",
-  "notes": "Study 40: the seeded-islands-smoke setup (100 proposals, real mice, 5 islands, library in the prompt, Claude Sonnet 5.5 at effort medium) with program limits of 12 parameters and 8 latent variables instead of 8 and 6, evaluated on 8 nodes"
+  "notes": "Study 40: the seeded-islands-smoke setup (100 proposals, real mice, 5 islands, library in the prompt, Claude Sonnet 5.5 at effort medium) with program limits of 12 parameters and 8 latent variables instead of 8 and 6, evaluated 16 at a time as Slurm steps of 24 CPUs"
  },
  "launch": {
   "label": "$LAUNCH_LABEL",
