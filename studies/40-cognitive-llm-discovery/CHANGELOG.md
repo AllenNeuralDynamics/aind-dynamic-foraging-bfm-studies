@@ -2,6 +2,9 @@
 
 ## 2026-11-05
 
+- Variant `seeded-islands-cap12` (issue #118): the `seeded-islands-smoke` setup with program limits of 12
+  parameters and 8 latent variables instead of ADR 0005's 8 and 6, a deliberate test of the limits that the
+  smoke run hit; the first search with evaluations on many nodes (8).
 - Variant `seeded-islands-smoke` (issue #115): PLAN step 5's 100-proposal search on real mice, in the
   `seeded-islands` configuration ($20 list), to measure node time and dollars per proposal on real mice
   and run the production configuration end to end. `analysis/seed_choice.py` (`make seed-choice`, in

@@ -1,0 +1,50 @@
+{
+ "results_dir": "$TMPDIR/search",
+ "out_dir": "$MEVOLVE_LAUNCH_DIR/search",
+ "freeze": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+ "cohorts": "$STUDY_DIR/reference/cohorts_seed0.json",
+ "generation": "generation",
+ "validation": "validation",
+ "workers": 28,
+ "max_evaluation_jobs": 16,
+ "max_proposal_jobs": 8,
+ "max_em": 20,
+ "n_draws": 2048,
+ "model": "claude-sonnet-5-5",
+ "effort": "medium",
+ "max_usd": 20.0,
+ "max_tokens": 32000,
+ "max_patch_attempts": 2,
+ "n_proposals": 100,
+ "max_params": 12,
+ "max_latent": 8,
+ "seeds": [
+  "Miller-RHG",
+  "Lopez-DoubleTrace",
+  "Lebedeva-PR",
+  "Eckstein-BI"
+ ],
+ "seed_cache": "/allen/aind/scratch/han.hou/mevolve/runs/seed_cache_cohorts_seed0",
+ "library_in_prompt": true,
+ "library_exclude": [],
+ "migration_interval": 10,
+ "migration_rate": 0.1,
+ "repeat_cache": true,
+ "embedding_python": "/allen/aind/scratch/han.hou/miniforge3/envs/mm-neuro/bin/python",
+ "eval_launch": "srun",
+ "stage_dir": "$MEVOLVE_LAUNCH_DIR/stage",
+ "wandb": {
+  "entity": "NeuralDynamics",
+  "project": "dfbfm-mevolve",
+  "group": "$WANDB_GROUP",
+  "name": "seeded-islands-cap12-search",
+  "mode": "online",
+  "notes": "Study 40: the seeded-islands-smoke setup (100 proposals, real mice, 5 islands, library in the prompt, Claude Sonnet 5.5 at effort medium) with program limits of 12 parameters and 8 latent variables instead of 8 and 6, evaluated on 8 nodes"
+ },
+ "launch": {
+  "label": "$LAUNCH_LABEL",
+  "launch_id": "$LAUNCH_ID",
+  "studies_sha": "$STUDIES_SHA",
+  "mevolve_sha": "$MEVOLVE_SHA"
+ }
+}
