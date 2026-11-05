@@ -4,14 +4,24 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all explainer gate3 seed-choice freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
+.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
-all: gate3 seed-choice r1
+all: gate3 seed-choice smoke-result r1
 
 # seed-choice = the seeds of the seeded-islands searches by ADR 0006's rule, from study 12's committed
 # 2-level EM fits on the validation mice (analysis/seed_choice.json).
 seed-choice:
 	$(PY) analysis/seed_choice.py
+
+# smoke-result = variants/seeded-islands-smoke's pre-registered numbers (analysis/seeded_islands_smoke.json),
+# from the committed freeze analysis/seeded_islands_smoke/run.json.
+smoke-result:
+	$(PY) analysis/seeded_islands_smoke.py
+
+# freeze-seeded-islands-smoke = the live read for smoke-result: the run's W&B archive (needs the W&B
+# key in ~/.config/mevolve/ and /allen); never part of `all`. Commit analysis/seeded_islands_smoke/.
+freeze-seeded-islands-smoke:
+	$(PY) analysis/freeze_seeded_islands_smoke.py
 
 # gate3 = gate 3's numbers for variants/engine-smoke/notes.md (Result), from analysis/engine_smoke/.
 gate3:

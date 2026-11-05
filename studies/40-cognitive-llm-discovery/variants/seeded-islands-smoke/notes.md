@@ -58,8 +58,11 @@ each, one seed at a time with all 56 workers; the search's own evaluations run t
 workers each), each seed got its code embedding, and the runner was built. No Claude call.
 The cached scores sit within 0.03 of study 12's (`seed_choice.json`), which used its own EM settings.
 
-**Result: pass.** Read by hand from the run directory: `run_summary.json`, `ledger.jsonl`,
-`proposals.csv`, Shinka's database and `gen_51/failure.json`. Launched 2026-11-05 at 01:18 PT as
+**Result: pass.** Every number below is in `analysis/seeded_islands_smoke.json` (`make smoke-result`),
+computed from `analysis/seeded_islands_smoke/run.json`, a freeze of the run's W&B archive
+(`make freeze-seeded-islands-smoke`). The archive is the record: the job's exit trap copied the
+node-local database over the archived one afterwards, so the bytes on /allen differ (same rows; SQLite
+had folded its log into the main file). Later job scripts copy only missing files. Launched 2026-11-05 at 01:18 PT as
 `seeded-islands-smoke-1` (Slurm job 27629852 on n297, W&B group `seeded-islands-smoke@20261105-011815` in
 [dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve)); the job completed at 06:57 PT.
 
