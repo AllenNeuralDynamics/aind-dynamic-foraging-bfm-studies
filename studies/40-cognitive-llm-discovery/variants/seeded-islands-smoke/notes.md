@@ -51,4 +51,12 @@ beside the files, with the artifact's digest.
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `seeded-islands-smoke@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Dry run (2026-11-05, 00:58 PT, $0).** Slurm job 27629696 on n297, from studies a6c3f29 and MEvolve
+02b9558: the embedding server started, the seeds were scored on the 48 validation mice and cached
+(Miller-RHG 72.608, Lopez-DoubleTrace 72.548, Lebedeva-PR 72.573, Eckstein-BI 71.780; 150 to 339 s
+each with 28 workers), each seed got its code embedding, and the runner was built. No Claude call.
+The cached scores sit within 0.03 of study 12's (`seed_choice.json`), which used its own EM settings.
+
+**Status.** Launched 2026-11-05 at 01:18 PT as `seeded-islands-smoke-1`: Slurm job 27629852 on n297, W&B
+group `seeded-islands-smoke@20261105-011815` in
+[dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve). Running.
