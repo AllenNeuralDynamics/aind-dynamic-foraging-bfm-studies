@@ -4,9 +4,14 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all explainer gate3 freeze-engine-smoke
+.PHONY: all explainer gate3 seed-choice freeze-engine-smoke
 
-all: gate3
+all: gate3 seed-choice
+
+# seed-choice = the seeds of the seeded-islands searches by ADR 0006's rule, from study 12's committed
+# 2-level EM fits on the validation mice (analysis/seed_choice.json).
+seed-choice:
+	$(PY) analysis/seed_choice.py
 
 # gate3 = gate 3's numbers for variants/engine-smoke/notes.md (Result), from analysis/engine_smoke/.
 gate3:
