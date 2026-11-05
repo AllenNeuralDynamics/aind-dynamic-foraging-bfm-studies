@@ -1,0 +1,186 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/seeded_islands_smoke.py",
+    "produced_at_pt": "2026-11-05T10:04:38-08:00",
+    "studies_git_sha": "3e5c5bdb9ecfc0ba9c21ff18611c7c86a749a769",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "seeded-islands-smoke@20261105-011815"
+    ],
+    "source_studies_git_shas": [
+      "a6c3f29cb6965174b0b5a0677770388929b336da"
+    ],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no dispatcher SHA in the launch record(s) of W&B group(s): seeded-islands-smoke@20261105-011815",
+      "no wrapper SHA in the launch record(s) of W&B group(s): seeded-islands-smoke@20261105-011815",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): seeded-islands-smoke@20261105-011815"
+    ],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_smoke.py",
+        "sha256": "e287cb26c4693dac5b6b54a36e8e1552c42eab7ab8f7032a35bc9ea0bb40c5ec"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_smoke/run.json",
+        "sha256": "b040c74a801cf50d35972264f8a3bc4342c297cc57596af47889d906a4caeae1"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_smoke.json",
+        "sha256": "694fbdf47f0c87757d6c7c0d13ecae4b6d40fa58d6617814b1a7bf595128e7ca"
+      }
+    ]
+  },
+  "about": "seeded-islands-smoke: the pre-registered numbers of its notes.",
+  "pass": {
+    "proposals": 100,
+    "cost_usd": 3.431225,
+    "hours": 5.614533659219742,
+    "api_errors": 0,
+    "stop_reasons": {
+      "end_turn": 104
+    },
+    "archive": {
+      "artifact": "NeuralDynamics/dfbfm-mevolve/run-seeded-islands-smoke-20261105-011815:v0",
+      "digest": "19f17a3875d4ea7c7dfe5507bccc6335",
+      "n_files": 1218,
+      "bytes": 20370300
+    },
+    "passed": true
+  },
+  "calls": {
+    "n": 104,
+    "repair_calls": 4,
+    "median_seconds": 7.191652417182922
+  },
+  "per_proposal": {
+    "usd_mean": 0.03431225,
+    "usd_median": 0.02507,
+    "node_minutes": 3.3687201955318447
+  },
+  "eval_seconds": {
+    "n": 90,
+    "median": 426.5,
+    "p10": 315.07000000000005,
+    "p90": 528.8800000000001,
+    "max": 1693.2
+  },
+  "outcomes": {
+    "fresh_fit": 90,
+    "repeat": 4,
+    "rejected_by_checks": [
+      {
+        "generation": 33,
+        "reason": "rejected by the static checks: syntax error: invalid syntax (<unknown>, line 35)"
+      },
+      {
+        "generation": 54,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 25)"
+      },
+      {
+        "generation": 60,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 26)"
+      },
+      {
+        "generation": 90,
+        "reason": "rejected by the static checks: 9 parameters; at most 8 are allowed"
+      },
+      {
+        "generation": 100,
+        "reason": "rejected by the static checks: update returns shape (3,), but N_LATENT is 4"
+      }
+    ],
+    "no_program": [
+      {
+        "generation": 51,
+        "failure_class": "patch_apply_failed",
+        "failure_stage": "proposal"
+      }
+    ]
+  },
+  "two_level_failed": 10,
+  "better_than_parent": 30,
+  "n_scored": 94,
+  "best": {
+    "generation": 93,
+    "score": 72.69021910426403,
+    "best_seed": 72.60789103582971,
+    "gain_over_best_seed": 0.08232806843432172,
+    "n_params": 8,
+    "n_latent": 6
+  },
+  "new_bests": [
+    {
+      "generation": 3,
+      "score": 72.65764414440923,
+      "gain": 0.049753108579523087
+    },
+    {
+      "generation": 20,
+      "score": 72.65895054520426,
+      "gain": 0.0013064007950305268
+    },
+    {
+      "generation": 31,
+      "score": 72.66742070222034,
+      "gain": 0.00847015701607745
+    },
+    {
+      "generation": 32,
+      "score": 72.66751277635262,
+      "gain": 9.207413228295991e-05
+    },
+    {
+      "generation": 35,
+      "score": 72.6764427525387,
+      "gain": 0.00892997618608149
+    },
+    {
+      "generation": 64,
+      "score": 72.68366866340857,
+      "gain": 0.007225910869863128
+    },
+    {
+      "generation": 93,
+      "score": 72.69021910426403,
+      "gain": 0.00655044085546308
+    }
+  ],
+  "lineages": {
+    "template": {
+      "proposals": 22,
+      "seed": 70.01983724758728,
+      "best": 72.69021910426403
+    },
+    "Miller-RHG": {
+      "proposals": 40,
+      "seed": 72.60789103582971,
+      "best": 72.67663778639356
+    },
+    "Lebedeva-PR": {
+      "proposals": 18,
+      "seed": 72.57282867286597,
+      "best": 72.66759884612351
+    },
+    "Lopez-DoubleTrace": {
+      "proposals": 9,
+      "seed": 72.5479347911504,
+      "best": 72.59114643596887
+    },
+    "Eckstein-BI": {
+      "proposals": 10,
+      "seed": 71.77990471201106,
+      "best": 72.60553711830458
+    }
+  },
+  "params_7_or_8": 90
+}

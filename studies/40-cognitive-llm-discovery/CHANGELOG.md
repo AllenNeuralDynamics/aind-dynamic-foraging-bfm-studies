@@ -1,5 +1,13 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-05
+
+- Variant `seeded-islands-smoke` (issue #115): PLAN step 5's 100-proposal search on real mice, in the
+  `seeded-islands` configuration ($20 list), to measure node time and dollars per proposal on real mice
+  and run the production configuration end to end. `analysis/seed_choice.py` (`make seed-choice`, in
+  `all`) applies ADR 0006's seed rule to study 12 r3's 2-level EM fits on the validation mice:
+  Miller-RHG, Lopez-DoubleTrace, Lebedeva-PR, then Eckstein-BI.
+
 ## 2026-11-04
 
 - r1 (draft): gate 4, program recovery on simulated mice: both halves, the seeded and no-seed searches,
