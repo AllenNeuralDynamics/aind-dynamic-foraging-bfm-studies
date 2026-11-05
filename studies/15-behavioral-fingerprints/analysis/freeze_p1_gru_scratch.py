@@ -61,20 +61,25 @@ def _errors(common: list[str], heads: set[str], min_trials: int) -> dict:
     for m, reg in MODELS:
         d = pd.read_parquet(TALLIES / f"{m}.parquet")
         d = d[d.group.isin(heads) & d.subject_id.isin(common) & d.statistic.isin(STATS)]
-        # the GRU's per-subject column is the mean over its seeds, as in the gaps freeze
+        # the GRU's per-subject column is the mean over its seeds, as in the gaps freeze: its gap
+        # is each seed's gap averaged; its mean curve averages the seeds' predictions (linear)
         d = d[d.regime.str.startswith("seed")] if m == "GRU-D614" else d[d.regime == reg]
-        pred = d.groupby(["regime", "subject_id", "statistic", "bin"]).pred.sum().groupby(
-            ["subject_id", "statistic", "bin"]).mean()
-        t = an.join(pred).reset_index()
-        t = t[t.n >= min_trials]
-        t["o"], t["p"] = t.obs / t.n, t.pred / t.n
+        pred = d.groupby(["regime", "subject_id", "statistic", "bin"]).pred.sum()
         out[m] = {}
         for st in STATS:
-            x = t[t.statistic == st]
-            gap = x.groupby("subject_id").apply(lambda s: float(np.sum(s.n * np.abs(s.p - s.o)) / s.n.sum()))
-            b = x.groupby("bin").agg(N=("n", "sum"), P=("p", "mean"), O=("o", "mean"))
+            gaps, curves = [], []
+            for regime, one in pred[pred.index.get_level_values("statistic") == st].groupby(level="regime"):
+                t = an.join(one.droplevel("regime")).reset_index()
+                t = t[(t.statistic == st) & (t.n >= min_trials)]
+                t["o"], t["p"] = t.obs / t.n, t.pred / t.n
+                gaps.append(t.groupby("subject_id").apply(
+                    lambda x: float(np.sum(x.n * np.abs(x.p - x.o)) / x.n.sum())))
+                curves.append(t.groupby("bin").agg(N=("n", "sum"), P=("p", "mean"), O=("o", "mean")))
+            gap = sum(gaps) / len(gaps)
+            b = curves[0].assign(P=sum(c.P for c in curves) / len(curves))
             out[m][st] = {"subject_mean_curve_error": float(np.sum(b.N * np.abs(b.P - b.O)) / b.N.sum()),
-                          "mean_subject_gap": float(gap.mean()), "n_subjects": int(gap.size)}
+                          "mean_subject_gap": float(gap.mean()), "n_subjects": int(gap.size),
+                          "n_regimes": len(gaps)}
     return out
 
 

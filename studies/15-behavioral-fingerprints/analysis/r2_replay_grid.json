@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-04T21:29:41-08:00",
-    "studies_git_sha": "85a3ca9994b6151fc1926854356746d2e75b9fc9",
+    "produced_at_pt": "2026-11-04T21:37:31-08:00",
+    "studies_git_sha": "5be50f029133ff9f8e9b4eb3740a458ca37b7b10",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -54,7 +54,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_gru_scratch.json",
-        "sha256": "f2b74a0d36c377f5130fcd49a6b3ef899538eed23954ee066ce41f5b58c7f7af"
+        "sha256": "7aada9ec7a0df6ea15dff4434fc9cf94e7ece7ce55306bc80c684ac91543adc8"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
@@ -88,7 +88,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scratch_errors.svg",
-        "sha256": "34aa01e82657ccf5f4d860e989821108bdcbb24ce33373dfaca63a89443e747c"
+        "sha256": "5a560d2635d2d8d728c86edc8cf8fb8ce40dd79b66f42e922169a423b38db54e"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scratch_spread.svg",
@@ -100,7 +100,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-2",
-        "sha256": "19702140b0649bd895e58f8c41fd1d80f8bd31c166d4c2f24c6e3a3a1bc21fd8"
+        "sha256": "1c543d6da70ac20e56ba68043e30a53f6270ab9f5abf4e9461113311fa9a7d9c"
       }
     ]
   },

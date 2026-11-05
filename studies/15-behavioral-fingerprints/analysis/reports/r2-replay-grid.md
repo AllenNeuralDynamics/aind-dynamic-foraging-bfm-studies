@@ -216,7 +216,7 @@ Per subject, the GRU's log gap ratio to Lopez-DoubleTrace (2-level), mean over t
 | GRU worse than Lopez-DoubleTrace 2L, per subject | 80 of 146 (sign test p = 0.28, Wilcoxon p = 0.15) |
 | median per-subject ratio, GRU / Lopez 2L | 1.05 [0.96, 1.12] |
 | subject-mean curve error, hazard: GRU, Lopez 2L | 0.0025, 0.0038 |
-| mean per-subject gap, hazard: GRU, Lopez 2L (floor 0.0101) | 0.0146, 0.0131 |
+| mean per-subject gap, hazard: GRU, Lopez 2L (floor 0.0101) | 0.0147, 0.0131 |
 | test: spread from the fit | ρ = +0.06 [-0.12, +0.22] |
 | test: spread from the data | ρ = +0.07 [-0.11, +0.25] |
 | test: trials, sessions | ρ = -0.03 [-0.20, +0.14]; ρ = -0.04 [-0.20, +0.13] |

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p1_gru_scratch.py",
-    "produced_at_pt": "2026-11-04T21:22:16-08:00",
-    "studies_git_sha": "9ae3bd853eac7b76fb055bdf04c002d26cd7a3c1",
+    "produced_at_pt": "2026-11-04T21:36:48-08:00",
+    "studies_git_sha": "5be50f029133ff9f8e9b4eb3740a458ca37b7b10",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_gru_scratch.py",
-        "sha256": "0ec430988f1b77ab890a4cb65cd92fab2de53335fc616163afc5d581238f6c36"
+        "sha256": "e69985655b93b0087173df2c29726b632f0b3a60de063ab63cd75ee43a9b3614"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
@@ -80,7 +80,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_gru_scratch.json",
-        "sha256": "2831a47eed95efebb4c07f68ae1b2f516b51e7936b8b3f4750d1897046404d41"
+        "sha256": "376a4c5c96cd8af427210b936d2ce30bacb34aed6f238ab2e4a3b3efe7c9361f"
       }
     ]
   },
@@ -114,112 +114,132 @@
   "errors": {
     "GRU-D614": {
       "losses": {
-        "subject_mean_curve_error": 0.0032238543419773795,
-        "mean_subject_gap": 0.016575970291828893,
-        "n_subjects": 146
+        "subject_mean_curve_error": 0.0032238543419773657,
+        "mean_subject_gap": 0.0166655957279494,
+        "n_subjects": 146,
+        "n_regimes": 3
       },
       "pattern": {
-        "subject_mean_curve_error": 0.0023811983385945983,
-        "mean_subject_gap": 0.014112924703212772,
-        "n_subjects": 146
+        "subject_mean_curve_error": 0.002381198338594596,
+        "mean_subject_gap": 0.014181878964654905,
+        "n_subjects": 146,
+        "n_regimes": 3
       },
       "hazard": {
-        "subject_mean_curve_error": 0.002452480064434276,
-        "mean_subject_gap": 0.014638683159596988,
-        "n_subjects": 146
+        "subject_mean_curve_error": 0.0024524800644342816,
+        "mean_subject_gap": 0.014714725991947354,
+        "n_subjects": 146,
+        "n_regimes": 3
       },
       "post_switch": {
-        "subject_mean_curve_error": 0.004513848653917856,
-        "mean_subject_gap": 0.05059764023853158,
-        "n_subjects": 146
+        "subject_mean_curve_error": 0.004513848653917865,
+        "mean_subject_gap": 0.05083196387803626,
+        "n_subjects": 146,
+        "n_regimes": 3
       }
     },
     "Lopez-DoubleTrace": {
       "losses": {
         "subject_mean_curve_error": 0.009168761585069206,
         "mean_subject_gap": 0.01665084226389039,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "pattern": {
         "subject_mean_curve_error": 0.005946573708344189,
         "mean_subject_gap": 0.013148745303411646,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "hazard": {
         "subject_mean_curve_error": 0.0038478625560406997,
         "mean_subject_gap": 0.013071685489977804,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "post_switch": {
         "subject_mean_curve_error": 0.01674730845071039,
         "mean_subject_gap": 0.049388687761587065,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       }
     },
     "Lebedeva-PR": {
       "losses": {
         "subject_mean_curve_error": 0.010746364242990369,
         "mean_subject_gap": 0.016583320155039556,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "pattern": {
         "subject_mean_curve_error": 0.007693582341463108,
         "mean_subject_gap": 0.013232057658250961,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "hazard": {
         "subject_mean_curve_error": 0.006569110050706573,
         "mean_subject_gap": 0.01417761337372491,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "post_switch": {
         "subject_mean_curve_error": 0.025625238395565398,
         "mean_subject_gap": 0.053170140714900754,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       }
     },
     "CompareToThreshold": {
       "losses": {
         "subject_mean_curve_error": 0.005014808190853742,
         "mean_subject_gap": 0.019265069962129247,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "pattern": {
         "subject_mean_curve_error": 0.009115257832396058,
         "mean_subject_gap": 0.017797941502694297,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "hazard": {
         "subject_mean_curve_error": 0.007637020571517392,
         "mean_subject_gap": 0.01759047055711261,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "post_switch": {
         "subject_mean_curve_error": 0.03225689673128307,
         "mean_subject_gap": 0.06448682902443013,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       }
     },
     "GLM-Su2022": {
       "losses": {
         "subject_mean_curve_error": 0.015547038760931836,
         "mean_subject_gap": 0.024747462012467844,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "pattern": {
         "subject_mean_curve_error": 0.01572980007707987,
         "mean_subject_gap": 0.021346233604922563,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "hazard": {
         "subject_mean_curve_error": 0.01684161352982472,
         "mean_subject_gap": 0.022969929526913586,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       },
       "post_switch": {
         "subject_mean_curve_error": 0.04373704187244268,
         "mean_subject_gap": 0.07783604253069955,
-        "n_subjects": 146
+        "n_subjects": 146,
+        "n_regimes": 1
       }
     }
   },
