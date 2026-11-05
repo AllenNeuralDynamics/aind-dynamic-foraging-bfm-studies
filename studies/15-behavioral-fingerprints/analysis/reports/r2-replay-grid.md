@@ -55,6 +55,21 @@ held-out score for that subject (study 01 r2's, for the GRU), so the grid descri
 those studies ranked. The gap is
 compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 0004).
 
+**The four statistics** (fingerprint spec v1, ADR 0004). Each scores whether trial *t* is a switch
+(its choice differs from trial *t* − 1's), binned by the history before *t*:
+
+- **losses**: the number of consecutive unrewarded trials on the current side just before *t*
+  (1 to 5, 6 or more); trials after a rewarded trial have no bin.
+- **last 1–3 trials** (`pattern`): the last 1, 2 and 3 trials, each coded relative to the last
+  choice as S (same side) or O (other side) and + or − (rewarded or not), most recent first:
+  2 + 8 + 32 bins, and every trial falls in one bin at each depth.
+- **hazard**: the last trial's reward by the length of the current same-side run (1 to 5,
+  6 or more), so 12 bins.
+- **after a switch** (`post_switch`): only trials right after a switch, by the switch trial's
+  reward and the length of the run before the switch (12 bins; study 01 r9's headline statistic,
+  with finer run bins).
+
+
 <!-- BEGIN result-1 -->
 ![replay grid](../fig_r2_replay_grid.svg)
 
@@ -165,6 +180,27 @@ Rollouts (P2) test whether these per-trial errors add up over a session.
 Exploratory analysis, not a headline result (asked 2026-11-04). The question: the GRU is closest on
 the subject-mean curves, so why is its floor ratio not the lowest? `freeze_p1_gru_scratch.py`
 computes the numbers.
+
+**Method.** For subject *s* and bin *b* of a statistic, take the subject's held-out trials outside
+warm-up sessions that fall in the bin. Let *n* be their count, *o* the observed switch rate
+(switches ÷ *n*), and *p* the model's replayed rate (the mean, over those trials, of the model's
+probability of switching, predicted from the real trials before each one). A subject keeps a bin
+with at least 5 such trials. Both errors use the same kept bins and weight each bin by its trials;
+they differ only in when the absolute value is taken.
+
+- **Population average (the subject-mean curve).** For each bin, average *p* over the subjects
+  that keep it, and average *o* the same way, so each subject counts once: *P*(b) and *O*(b). The
+  error is Σ_b N(b)·|*P*(b) − *O*(b)| ÷ Σ_b N(b), with N(b) the bin's trials summed over
+  subjects. The bin scatter above plots *O*(b) against *P*(b); its RMSE is the unweighted root
+  mean square of *P*(b) − *O*(b) over bins.
+- **Individual subjects (the gap).** For each subject, the gap is Σ_b *n*·|*p* − *o*| ÷ Σ_b *n*
+  over its kept bins (`replay_gap`); then average the gaps over subjects. The floor ratio divides
+  that mean gap by the mean binomial floor: per subject, Σ_b *n*·E|X/*n* − *o*| ÷ Σ_b *n* with X
+  binomial(*n*, *o*), the gap a model with the subject's own switch rates would still have
+  (ADR 0008).
+
+In the first, errors of opposite sign in different subjects cancel before the absolute value; in
+the second they cannot.
 
 <!-- BEGIN result-2 -->
 ![scratch errors](../fig_r2_scratch_errors.svg)
