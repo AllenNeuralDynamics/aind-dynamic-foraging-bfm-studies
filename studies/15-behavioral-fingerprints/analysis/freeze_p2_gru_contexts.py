@@ -32,7 +32,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
-from _meta import build_meta, write_artifact  # noqa: E402
+from _meta import _git_env, build_meta, write_artifact  # noqa: E402
 
 SPECS, GRU = HERE / "p2_task_specs.json", HERE / "p1_gru.json"
 LAUNCH_ID = "20261104-150009"
@@ -117,7 +117,7 @@ def main() -> None:
     import subprocess
 
     wrapper_sha = subprocess.run(["git", "-C", str(a.wrapper), "rev-parse", "HEAD"], capture_output=True,
-                                 text=True, check=True).stdout.strip()
+                                 text=True, check=True, env=_git_env(a.wrapper)).stdout.strip()
     meta = build_meta("analysis/freeze_p2_gru_contexts.py", [], study_root=HERE.parent, kind="freeze",
                       code=[__file__], inputs=[SPECS, GRU], sources=sources)
     write_artifact(OUT, {"_meta": meta, "wrapper_git_sha": wrapper_sha, "launch_id": LAUNCH_ID,

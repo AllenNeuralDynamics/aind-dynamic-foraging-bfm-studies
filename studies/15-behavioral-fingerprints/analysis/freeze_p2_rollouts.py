@@ -190,7 +190,7 @@ def _subject_job(args) -> dict:
                 groups.append(spec["group"])
         rows += _tally_rows(regime, sid, tally_groups(choices, rewards, groups))
     return {"subject_id": sid, "rows": rows, "max_self_diff": self_diff,
-            "n_rollout_sessions": len(specs) * N_ROLLOUTS}
+            "n_rollout_sessions": len(specs) * N_ROLLOUTS * len(agents)}   # every regime's rollouts
 
 
 def _program_agents(name, params, rec):
