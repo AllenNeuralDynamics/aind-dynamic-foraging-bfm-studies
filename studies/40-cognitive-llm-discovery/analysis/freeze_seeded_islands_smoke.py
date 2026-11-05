@@ -69,7 +69,8 @@ def main_with(RUN: Path, archive: dict) -> None:
             shutil.copy2(RUN / f"programs.sqlite{suffix}", Path(tmp) / f"programs.sqlite{suffix}")
         con = sqlite3.connect(Path(tmp) / "programs.sqlite")
         con.row_factory = sqlite3.Row
-        db = {r["id"]: r for r in con.execute("SELECT id, public_metrics, private_metrics, text_feedback, metadata FROM programs")}
+        db = {r["id"]: r for r in con.execute("SELECT id, combined_score, public_metrics, private_metrics, text_feedback, "
+                                              "metadata FROM programs")}
         programs = []
         for r in csv.DictReader((RUN / "proposals.csv").open()):
             row = db[r["id"]]
@@ -79,7 +80,7 @@ def main_with(RUN: Path, archive: dict) -> None:
             programs.append({
                 "generation": int(r["generation"]), "id": r["id"], "parent_id": r["parent_id"] or None,
                 "island": int(r["island"]), "seed": r["seed"] or None, "correct": correct,
-                "score": float(r["score"]) if correct else None,
+                "score": float(row["combined_score"]) if correct else None,     # full precision; the csv rounds
                 "validation_per_subject": _num(val.get("per_subject")), "validation_two_level": _num(val.get("two_level")),
                 "two_level_failed": val.get("two_level_failed"), "repeat_of": priv.get("repeat_of"),
                 "n_params": pub.get("n_params"), "n_latent": pub.get("n_latent"),

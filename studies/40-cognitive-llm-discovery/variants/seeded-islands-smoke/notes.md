@@ -74,7 +74,7 @@ had folded its log into the main file). Later job scripts copy only missing file
 | evaluation seconds per program | median 426 s, 10th to 90th percentile 315 to 529 s, longest 1,693 s (90 fresh fits, 28 workers each, two at a time) |
 | proposals by outcome | 90 scored by a fresh fit; 4 repeats, scored from the repeat cache; 5 rejected by the static checks (3 syntax errors, 1 with 9 parameters, 1 whose `update` returned the wrong shape); 1 edit that did not apply after its repair attempt (proposal 51) |
 | 2-level fits that failed | 10 of the 94 scored proposals kept their per-subject score (`two_level_failed`) |
-| best validation score against the best seed | 72.690 (proposal 93) against 72.608 (Miller-RHG), +0.082; 29 of 94 scored proposals beat their parent |
+| best validation score against the best seed | 72.690 (proposal 93) against 72.608 (Miller-RHG), +0.082; 30 of 94 scored proposals beat their parent |
 
 By lineage (the seed a program descends from), best score against the seed's own:
 
@@ -101,7 +101,7 @@ By lineage (the seed a program descends from), best score against the seed's own
    constant (0.15). Constants like this are tuned by the search on the validation mice, not fitted per
    mouse.
 4. **Most steps are within noise.** Proposal 3 beat the best seed by 0.050; after it, each new best adds
-   0.0001 to 0.009 to the previous one, below the paired standard error between two programs on these
+   0.0001 to 0.009 to the previous one (proposal 32 added 0.00009), below the paired standard error between two programs on these
    mice (0.03 to 0.06, gate 2).
 
 **Status.** Done.
