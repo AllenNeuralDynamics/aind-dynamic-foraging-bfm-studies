@@ -20,6 +20,10 @@ freeze-engine-smoke:
 
 # archive-gate4 = once per run: each gate 4 search's run directory to a W&B artifact in
 # NeuralDynamics/dfbfm-mevolve, recorded in analysis/gate4/archives.json; never part of `all`.
+# To freeze again after scratch is purged, download each artifact into <dir>/<variant>/<launch_id>,
+# the layout the freezes read (RUNS / variant / launch_id / "search"), e.g.
+#   wandb artifact get <artifact> --root <dir>/gate4-recovery/20261104-132600
+# then point RUNS in freeze_gate4.py at <dir>; the freezes check every file against archives.json.
 archive-gate4:
 	$(PY) analysis/archive_gate4_runs.py
 
