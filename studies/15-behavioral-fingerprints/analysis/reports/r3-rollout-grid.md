@@ -216,6 +216,8 @@ simulator stays as it is.
   rest on 8 to 23 subjects each (the headline on 118 to 121).
 - **Real blocks are longer than the gym's** (Gates): partly ignored trials, which the gym never
   plays, and partly held blocks.
+- **The gym's version is not in the freezes.** The rollouts ran with `aind-behavior-gym` 0.4.5
+  (the PyPI release, in the mevolve env); a later freeze should record it.
 - **The mechanism in Result 3 is a hypothesis.** The rollouts were frozen as per-subject tallies,
   not per session, so the spread test needs a new freeze.
 
