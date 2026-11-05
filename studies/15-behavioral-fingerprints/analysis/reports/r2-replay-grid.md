@@ -185,8 +185,10 @@ computes the numbers.
 warm-up sessions that fall in the bin. Let *n* be their count, *o* the observed switch rate
 (switches ÷ *n*), and *p* the model's replayed rate (the mean, over those trials, of the model's
 probability of switching, predicted from the real trials before each one). A subject keeps a bin
-with at least 5 such trials. Both errors use the same kept bins and weight each bin by its trials;
-they differ only in when the absolute value is taken.
+with at least 5 such trials. Both errors use the same kept bins and weight bins by trials. They
+differ mainly in when the absolute value is taken, and also in the weights: the curve error weights
+each bin by its trials pooled over subjects, the gap by each subject's own trials, with every
+subject then counting once.
 
 - **Population average (the subject-mean curve).** For each bin, average *p* over the subjects
   that keep it, and average *o* the same way, so each subject counts once: *P*(b) and *O*(b). The
@@ -200,7 +202,8 @@ they differ only in when the absolute value is taken.
   (ADR 0008).
 
 In the first, errors of opposite sign in different subjects cancel before the absolute value; in
-the second they cannot.
+the second they cannot. The different weights also move the two numbers, so the gap between them
+is not cancellation alone.
 
 <!-- BEGIN result-2 -->
 ![scratch errors](../fig_r2_scratch_errors.svg)
