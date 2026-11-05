@@ -93,11 +93,12 @@ By lineage (the seed a program descends from), best score against the seed's own
    (72.658, above every seed). The best program adds one task-specific idea, a per-side value that
    grows while the side is not chosen ("bait"), but its fitted weight is negative for most mice, so it
    acts as stickiness that grows with run length.
-3. **The search hits the program limits.** 91 of 94 scored proposals use 7 or 8 parameters, and the
+3. **The search hits the program limits.** 90 of 94 scored proposals use 7 or 8 parameters, and the
    best program uses all 8 parameters and all 6 latent variables, with its bait rate written in as a
    constant (0.15). Constants like this are tuned by the search on the validation mice, not fitted per
    mouse.
-4. **Most steps are within noise.** After proposal 3, each new best adds 0.001 to 0.05, at or below the
-   paired standard error between two programs on these mice (0.03 to 0.06, gate 2).
+4. **Most steps are within noise.** Proposal 3 beat the best seed by 0.050; after it, each new best adds
+   0.0001 to 0.009 to the previous one, below the paired standard error between two programs on these
+   mice (0.03 to 0.06, gate 2).
 
 **Status.** Done.
