@@ -101,7 +101,7 @@ By lineage (the seed a program descends from), best score against the seed's own
    constant (0.15). Constants like this are tuned by the search on the validation mice, not fitted per
    mouse.
 4. **Most steps are within noise.** Proposal 3 beat the best seed by 0.050; after it, each new best adds
-   0.0001 to 0.009 to the previous one (proposal 32 added 0.00009), below the paired standard error between two programs on these
+   0.00009 to 0.009 to the previous one, below the paired standard error between two programs on these
    mice (0.03 to 0.06, gate 2).
 
 **Status.** Done.
