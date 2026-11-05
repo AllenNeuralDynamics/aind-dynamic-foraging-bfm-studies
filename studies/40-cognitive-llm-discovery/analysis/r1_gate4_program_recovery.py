@@ -123,7 +123,12 @@ def first_half(first: dict) -> tuple[str, dict]:
             "at most the per-subject fit's on the same data (criterion amended 2026-11-03), a parameter on a bound "
             "is recovered within 0.05 of its range, and the median spread ratio is within [1/2, 2].\n\n"
             + table(["model", "parameter", "subjects off bound", "2-level error", "per-subject error",
-                     "spread ratio", "criteria"], rows))
+                     "spread ratio", "criteria"], rows)
+            + "\n\nPooled held-out likelihood ×100 on the same simulated subjects, and the share of subjects whose "
+            "2-level fit converged:\n\n"
+            + table(["model", "2-level", "per subject", "converged"],
+                    [[m, fs.num(100 * d["score"]["two_level"], ".2f"), fs.num(100 * d["score"]["per_subject"], ".2f"),
+                      f"{d['converged']:.0%}"] for m, d in models.items()]))
     return text, out
 
 

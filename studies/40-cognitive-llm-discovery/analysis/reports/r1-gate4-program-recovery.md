@@ -61,6 +61,14 @@ True against recovered typical values of 24 simulated subjects per model, 2-leve
 | Rescorla-Wagner | learn_rate | 24 | 0.519 | 0.407 | 586.53 | fail |
 | Rescorla-Wagner | biasL | 24 | 0.047 | 0.115 | 570.61 | fail |
 | Rescorla-Wagner | epsilon | 24 | 0.489 | 0.671 | 492.97 | fail |
+
+Pooled held-out likelihood ×100 on the same simulated subjects, and the share of subjects whose 2-level fit converged:
+
+| model | 2-level | per subject | converged |
+|---|---|---|---|
+| Hattori2019 | 64.27 | 63.09 | 92% |
+| ActorCritic | 70.88 | 68.98 | 25% |
+| Rescorla-Wagner | 51.10 | 50.40 | 0% |
 <!-- END result-1 -->
 
 ## The test bed: a hand-set generating program
@@ -167,8 +175,9 @@ Measured per proposal (one 56-core job per run, two evaluations at a time, each 
 1. **Gate 4 passes.** The fitter recovers Hattori2019's typical values and spreads; its one failing
    parameter, biasL, differs from the per-subject fit by noise (accepted 2026-11-04,
    AllenNeuralDynamics/aind-dynamic-foraging-mevolve#36). ActorCritic (actor rate × temperature not
-   identifiable) and Rescorla-Wagner (stepped likelihood, spreads diverge) are known limits; their
-   scores were never worse than per-subject. Both searches reach the planted program's score within
+   identifiable) and Rescorla-Wagner (stepped likelihood, spreads diverge) are known limits: their
+   parameters are not recovered and most of their fits do not converge, but their 2-level scores are
+   still at least the per-subject fit's (the score table under the first half). Both searches reach the planted program's score within
    the tolerance, and the held-out check shows no winner's curse at this size.
 2. **A recovery test needs a mechanism that clearly matters.** Two earlier designs failed this:
    with Hattori2019 as the target, a seed was within the stop rule; with Hattori2019 plus satiety
