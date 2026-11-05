@@ -113,4 +113,21 @@ seeds nor the library: the satiety design, then the hand-set one.
 
 **Status.** Launched 2026-11-04 13:26 PT as `gate4-recovery-1` (SLURM 27614671, studies b429728,
 MEvolve 59adafd), W&B group `gate4-recovery@20261104-132600` in
-[NeuralDynamics/dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve).
+[NeuralDynamics/dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve). Finished 17:18 PT (3 h 52 min); 103 Claude calls, $1.93.
+
+**Result: pass.** Read from the run's database and `heldout/heldout.json` in
+`runs/gate4-recovery/20261104-132600/` on scratch.
+
+| pre-registered item | result |
+|---|---|
+| 4. pass: best validation ≥ 72.728 | **72.910**, proposal 3 (target 72.928) |
+| 5. winner's curse: held-out, 24 mice | winner 72.632, target 72.634 (gap +0.003) |
+| 6. mechanism recovery | yes: fast and slow reward traces per side plus a choice trace per side (the difference of the two choice traces follows the generator's kernel update exactly) |
+| 6. island | 3, a child of the `two_timescale` seed: Claude added the choice kernel in one edit |
+
+Every island's best program ended with the same mechanism (72.90 to 72.91), but the slow reward
+trace came only from the `two_timescale` seed: island 0's best took it from a slow-trace program
+shown as an inspiration (proposal 35 was shown proposal 19), and islands 1 and 2 descend from the
+seed's line by migration. The one proposal that wrote two timescales with no such program in view
+(proposal 12, island 0) made them choice traces, not reward traces, and scored 72.529. Whether
+Claude invents the slow reward trace without the seed is `gate4-noseed`'s question.
