@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_rollout_grid.py",
-    "produced_at_pt": "2026-11-05T04:36:47-08:00",
-    "studies_git_sha": "88d3fe65860f00d3369569c50c0e38f9b89f9096",
+    "produced_at_pt": "2026-11-05T07:33:27-08:00",
+    "studies_git_sha": "b53127d5ec7f99f6e48f38c7b2e7dbab00949a21",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r3_rollout_grid.py",
-        "sha256": "74de038923a3e99b34fa4bd0fbf2fa0e594881ce7daba18c3f94423e22080db1"
+        "sha256": "655408239ce6a6c1744f6774314b22378417164f02d36cbe18583851ae7950b1"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
@@ -107,6 +107,10 @@
         "sha256": "c5f62df43588b4f5797386b2e3b257d3e2020bc1913a26c7311aafbbba1a8c43"
       },
       {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r3_curves.svg",
+        "sha256": "77acc0a271513f0f2dd3fb92c99ceb9af625f343ef6c46ca19482d1620db5b76"
+      },
+      {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-1",
         "sha256": "ec6fe3aab06b3a951ab62ba4ab36a76c9abb3956fb5fb9a986e36dd3bbd8b395"
       },
@@ -116,15 +120,15 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-3",
-        "sha256": "d26f25f7870df3aad6cf37ccf3f9481dfe54314f5265cce922862c8b7b12bab0"
+        "sha256": "5f10f0a5140b24ccab4f41ee40c78e464b80eb8f08cb5ba42f503a0b1330b61d"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-4",
-        "sha256": "bc0c3b8ef8f53cbdd969c991766a287988ca12656dd920e7a98cabcb45822032"
+        "sha256": "55ebef20ddba98d4148386b4d669c06da779f0361f5a922c55a0a022557134e5"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-5",
-        "sha256": "e7e46883fea83747eaf759f55c4911973aa797892890e0d89060998913da8970"
+        "sha256": "e0ba938da079ede1273c9b7f051d8dfa4581733fc935b84b16d26002967a6bc4"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-6",
@@ -133,6 +137,10 @@
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-7",
         "sha256": "fe21cbca3c848ce596c52d6cdc10e3e298a997da2310fe9cfc0d8c633ff50d7a"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-8",
+        "sha256": "9daeee7a2134eff1010636a1957425f9a8ef8d0324b54abb7a3917dfe3450d08"
       }
     ]
   },

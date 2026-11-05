@@ -55,10 +55,11 @@ it follows them only weakly, because the fit that wins replay often loses rollou
 2-level EM, so that each session draws its own parameters, improves replay for 16 of 18 models
 but improves rollout for only 9. For the best models it bends the losses curve the wrong way:
 after more consecutive losses, the mice switch more, but the 2-level models switch less
-(Figure 3). The GRU follows the mice's curve (Figure 4). Two limits of the simulator do not
+(Figure 3), and several also switch back too often right after a switch (Figure 4). The GRU
+follows the mice's curves (Figures 4 and 5). Two limits of the simulator do not
 explain these results. The early coupled stages, where the gym cannot hold a block, score like
-the headline sessions (Figure 5). Where the real task records a minimum-reward hold, turning it
-on moves the fingerprints by less than half the floor (Figure 6).
+the headline sessions (Figure 6). Where the real task records a minimum-reward hold, turning it
+on moves the fingerprints by less than half the floor (Figure 7).
 
 ## Question
 
@@ -166,12 +167,23 @@ bins over-sample those sessions. The mice have session-to-session change too, bu
 suggests the fitted 2-level spread is larger than theirs, or of a different shape. The test is to
 compare the spread of per-session switch rates between the rollouts and the mice.
 
+<!-- BEGIN result-8 -->
+![curves](../fig_r3_curves.svg)
+
+**Figure 4.** The four switch statistics as curves, in rollout: the subjects' mean (dots), the five models of Figure 5 as 2-level EM (thin) and the GRU (thick, the mean of its three seeds), over the subjects every model holds out that keep the bin. **a**, by consecutive losses; **b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent first); **c**, **d**, the hazard, by the current run's length after an unrewarded or a rewarded trial; **e**, **f**, right after a switch, by the length of the run before it and the switch trial's reward.
+<!-- END result-8 -->
+
+The losses are not the only miss. Right after a switch (Figure 4e, f), Lopez-DoubleTrace,
+Lebedeva-PR and Miller-RHG as 2-level EM switch back too often, by about 0.05 to 0.08, and
+CompareToThreshold stays flat where the mice rise with the length of the run before the switch.
+On the hazard and the last two trials (Figure 4b–d), every model is close to the mice.
+
 ### 4. The GRU is as close as the best cognitive model, and follows the mice's losses curve
 
 <!-- BEGIN result-3 -->
 ![scatter](../fig_r3_scatter.svg)
 
-**Figure 4.** Study 01 r9's view, in rollout, for each statistic (rows **a** to **e**): each point is one bin, the subjects' mean against the mean of the model's rollouts, over the subjects every model holds out that keep the bin. Columns as in r2 Figure 3: the five literature models with the best 2-level EM likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each panel prints r and RMSE over the bins (each bin once) and the model's floor ratio for the statistic (its cell in Figure 1a, trial-weighted). Run lengths are shares of runs, not p(switch).
+**Figure 5.** Study 01 r9's view, in rollout, for each statistic (rows **a** to **e**): each point is one bin, the subjects' mean against the mean of the model's rollouts, over the subjects every model holds out that keep the bin. Columns as in r2 Figure 3: the five literature models with the best 2-level EM likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each panel prints r and RMSE over the bins (each bin once) and the model's floor ratio for the statistic (its cell in Figure 1a, trial-weighted). Run lengths are shares of runs, not p(switch).
 <!-- END result-3 -->
 
 In rollout, the GRU (score 1.41; seeds 1.38 to 1.43) ties the best literature cell
@@ -185,23 +197,23 @@ it is the only one of the six whose curve rises with the mice's (r = 0.96).
 <!-- BEGIN result-4 -->
 ![sets](../fig_r3_sets.svg)
 
-**Figure 5.** Rollout fingerprint score per session group, for the models of Figure 4, on groups where at least 8 subjects have a floor (in brackets: the GRU's count; a floor needs two sessions of the group). Left of the line: the headline and its groups. Right: the early coupled stages and the warm-ups, where the gym does not hold a block as the real task's `AdvancedBlockAuto` does (ADR 0006).
+**Figure 6.** Rollout fingerprint score per session group, for the models of Figure 5, on groups where at least 8 subjects have a floor (in brackets: the GRU's count; a floor needs two sessions of the group). Left of the line: the headline and its groups. Right: the early coupled stages and the warm-ups, where the gym does not hold a block as the real task's `AdvancedBlockAuto` does (ADR 0006).
 <!-- END result-4 -->
 
 The gym cannot hold an early coupled block until the mouse follows the better side
 (`AdvancedBlockAuto`), so ADR 0006 kept those stages out of the headline. Yet they score like the
-headline groups (Figure 5): no model is clearly worse there. The warm-ups score worse for every
+headline groups (Figure 6): no model is clearly worse there. The warm-ups score worse for every
 model, around 2.
 
 <!-- BEGIN result-5 -->
 ![holds](../fig_r3_holds.svg)
 
-**Figure 6.** The `BlockMinReward` check, on the 44 score sessions of 9 subjects that record a positive minimum. The other coupled and warm-up sessions record 0 (coupled with minimum 0: 224, coupled with minimum 1: 34, warm-up with minimum 0: 53, warm-up with minimum 1: 5, warm-up with minimum 10: 5). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over the subjects' bins, as a multiple of the subjects' split-half floor on those sessions. Largest: 0.45.
+**Figure 7.** The `BlockMinReward` check, on the 44 score sessions of 9 subjects that record a positive minimum. The other coupled and warm-up sessions record 0 (coupled with minimum 0: 224, coupled with minimum 1: 34, warm-up with minimum 0: 53, warm-up with minimum 1: 5, warm-up with minimum 10: 5). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over the subjects' bins, as a multiple of the subjects' split-half floor on those sessions. Largest: 0.45.
 <!-- END result-5 -->
 
 The one hold the real task records, `BlockMinReward`, is off (0) in 224 of 258 coupled score
 sessions, and in every early-stage one. Where it is on, turning it on in the gym moves every
-model's fingerprints by at most 0.45 of the floor (Figure 6). So ADR 0006 stands, and the
+model's fingerprints by at most 0.45 of the floor (Figure 7). So ADR 0006 stands, and the
 simulator stays as it is.
 
 ## Caveats
@@ -212,7 +224,7 @@ simulator stays as it is.
   manual next-block button, which are not recorded. The check also compares a nearly noiseless
   difference (paired rollouts with the same seeds) with a floor that contains real session
   change, so it passes any small effect.
-- **Coverage.** 125 of the 149 test subjects have a gym task, and the per-group panels of Figure 5
+- **Coverage.** 125 of the 149 test subjects have a gym task, and the per-group panels of Figure 6
   rest on 8 to 23 subjects each (the headline on 118 to 121).
 - **Real blocks are longer than the gym's** (Gates): partly ignored trials, which the gym never
   plays, and partly held blocks.
