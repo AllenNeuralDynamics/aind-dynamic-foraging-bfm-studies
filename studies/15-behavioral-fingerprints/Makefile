@@ -13,7 +13,8 @@ GRU_PRIOR ?= /allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/prio
 WRAPPER ?= ../../../aind-dynamic-foraging-bfm-wrapper
 .PHONY: all freeze-p0-golden-mevolve freeze-p0-golden-wrapper freeze-p0-task-checks \
   freeze-p1-session-groups freeze-p1-replay freeze-p1-glm freeze-p1-gru freeze-p1-gaps freeze-p1-gru-scratch \
-  freeze-p2-tasks freeze-p2-gru-contexts freeze-p2-rollouts freeze-p2-holds freeze-p2-gaps
+  freeze-p2-tasks freeze-p2-gru-contexts freeze-p2-rollouts freeze-p2-holds freeze-p2-gaps \
+  freeze-p2-gru-scratch
 
 all: r1 r2 r3
 
@@ -67,6 +68,9 @@ freeze-p2-holds:
 
 freeze-p2-gaps:
 	PYTHONPATH=$(MODELS)/src $(MEVOLVE_PY) analysis/freeze_p2_gaps.py --models-repo $(MODELS)
+
+freeze-p2-gru-scratch:
+	PYTHONPATH=$(MODELS)/src $(MEVOLVE_PY) analysis/freeze_p2_gru_scratch.py --models-repo $(MODELS)
 
 # r1 = P0: the fingerprint library against the wrapper and MEvolve, and the task checks
 .PHONY: r1
