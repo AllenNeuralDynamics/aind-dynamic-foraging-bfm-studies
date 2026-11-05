@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_seeded_islands_smoke.py",
-    "produced_at_pt": "2026-11-05T09:04:02-08:00",
-    "studies_git_sha": "c80e2754504e89d19eeb364f1cffeb9c8d493a04",
+    "produced_at_pt": "2026-11-05T09:30:54-08:00",
+    "studies_git_sha": "1ba9294b8cb1040297af7b1fd68ff945ba708ed7",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -24,7 +24,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/freeze_seeded_islands_smoke.py",
-        "sha256": "f272e7491e6efb946ac48ce6b7f48059d7a07568248f42b810b48abe0c7739b7"
+        "sha256": "bc84eefd33c0a5ddce29db7973e023aa2e295dab86972108ace265e3c3b13da2"
       }
     ],
     "inputs": [],
@@ -72,7 +72,7 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_smoke/run.json",
-        "sha256": "ad91d15f9e764f447ea91d142c87d10167eeca1e6b986d8d365be502a36f8ef7"
+        "sha256": "cb3385187ff123efe523d41337fd223e67bc7012938e89cbce6678277d5cf949"
       }
     ]
   },
@@ -1146,7 +1146,7 @@
       "correct": true,
       "score": 72.0567,
       "validation_per_subject": 0.7205672880630918,
-      "validation_two_level": NaN,
+      "validation_two_level": null,
       "two_level_failed": true,
       "repeat_of": null,
       "n_params": 8,
@@ -1260,7 +1260,7 @@
       "correct": true,
       "score": 72.0167,
       "validation_per_subject": 0.7201672188829865,
-      "validation_two_level": NaN,
+      "validation_two_level": null,
       "two_level_failed": true,
       "repeat_of": null,
       "n_params": 7,
@@ -1678,7 +1678,7 @@
       "correct": true,
       "score": 72.1135,
       "validation_per_subject": 0.721135308483854,
-      "validation_two_level": NaN,
+      "validation_two_level": null,
       "two_level_failed": true,
       "repeat_of": null,
       "n_params": 8,

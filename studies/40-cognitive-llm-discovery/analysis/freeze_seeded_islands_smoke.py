@@ -20,6 +20,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import math
 import shutil
 import sqlite3
 import sys
@@ -41,7 +42,8 @@ def _sha256(path: Path) -> str:
 
 
 def _num(x):
-    return float(x) if isinstance(x, (int, float)) else None
+    """A finite number, else None (JSON null): a failed 2-level fit can leave NaN."""
+    return float(x) if isinstance(x, (int, float)) and math.isfinite(x) else None
 
 
 def main() -> None:

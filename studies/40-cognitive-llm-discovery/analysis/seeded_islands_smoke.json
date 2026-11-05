@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/seeded_islands_smoke.py",
-    "produced_at_pt": "2026-11-05T09:04:40-08:00",
-    "studies_git_sha": "c80e2754504e89d19eeb364f1cffeb9c8d493a04",
+    "produced_at_pt": "2026-11-05T09:30:58-08:00",
+    "studies_git_sha": "1ba9294b8cb1040297af7b1fd68ff945ba708ed7",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -30,7 +30,7 @@
     "inputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_smoke/run.json",
-        "sha256": "e177d68f90847fb42c2717b661aca0b4a2f592ef3afee6e96579b0c4ec1524ad"
+        "sha256": "d318534a4ffe014586ff53fd19ecf7d89070f83e84e5ef8178a1d98d602c37a0"
       }
     ],
     "outputs": [
