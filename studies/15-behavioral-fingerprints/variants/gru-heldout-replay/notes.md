@@ -33,3 +33,7 @@ a dry run of the selection with them gives exactly the freeze's 149. Relaunched 
 `gru-heldout-replay@20261104-150009` (array 27621304, record in `launch_record/gru-replay-hpc-snap/`).
 The Beaker launch (`01M6M2E1FPKJ52128XK2K52B29`) was submitted with the old config and has the same
 flaw.
+
+**Beaker launch cancelled (2026-11-04 19:40 PT).** Its three tasks had not been scheduled. It was
+submitted with the first config, which re-selects the held-out cohort from the live database, so it
+would have repeated the first HPC launch's flaw (Han asked for the cancellation). No results.

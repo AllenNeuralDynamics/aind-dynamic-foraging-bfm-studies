@@ -52,15 +52,15 @@ vocabulary in [CONTEXT.md](CONTEXT.md).
 | [`literature-models`](variants/literature-models/notes.md) | study 12's 19 ranked models, per subject and 2-level EM; a per-subject GLM (Su2022 design) |
 | [`gru-heldout-replay`](variants/gru-heldout-replay/notes.md) | study 01's v1 GRU at D = 614 (3 seeds), re-fine-tuned offline on the held-out subjects to save its per-trial predictions for replay |
 
-Later: the GRU (a new study 01 rollout at D = 614 after wrapper #60) and the GLM-HMM (study 14),
-with ignore statistics; MEvolve's pre-registered programs from study 40.
+Later: the GLM-HMM (study 14), with ignore statistics; MEvolve's pre-registered programs from
+study 40. The GRU joined P1 and P2 (Han, 2026-11-04).
 
 | phase | what | check |
 |---|---|---|
 | P0 | spec, library, golden tests; reward-pair pools; how often real coupled blocks run past `block_max` | reproduces the wrapper's statistics on study 05's cached RL rollout histories (r9's RL rows) and MEvolve's `replay_gap` on its gate-1b fits; done, [r1](analysis/reports/r1-p0-checks.md) |
-| P1 | replay fingerprints of `literature-models` | each replay reproduces the held-out score study 12 stored for the subject (to 1e-6); done, [r2](analysis/reports/r2-replay-grid.md) |
-| P2 | rollout fingerprints of the same, and the noise floor, reported like r2 (the floor-ratio grid beside study 01 r9's per-bin scatter); a sensitivity check with the coupled task's holds on and off (ADR 0006) | the holds move the fingerprints less than the noise floor, or a new ADR turns them on |
-| P3 | GRU and GLM-HMM | |
+| P1 | replay fingerprints of `literature-models` and the GRU (`gru-heldout-replay`) | each replay reproduces the held-out score study 12 stored for the subject (to 1e-6), and the GRU's study 01 r2's (to 1e-4); done, [r2](analysis/reports/r2-replay-grid.md) |
+| P2 | rollout fingerprints of the same models and the GRU, and the noise floor, reported like r2 (the floor-ratio grid beside study 01 r9's per-bin scatter); a sensitivity check with the coupled task's holds on and off (ADR 0006) | the holds move the fingerprints less than the noise floor, or a new ADR turns them on |
+| P3 | GLM-HMM | |
 | P4 | MEvolve imports the library (a proposal to its sessions) | MEvolve's `replay_gap` unchanged |
 
 ## Deviations from study-conventions
