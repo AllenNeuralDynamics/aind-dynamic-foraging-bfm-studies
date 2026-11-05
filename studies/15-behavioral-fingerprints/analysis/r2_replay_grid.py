@@ -222,7 +222,7 @@ def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
     ax.set_yticklabels(["1", "2", "5", "10", "20", "50"])
     ax.minorticks_off()
     ax.set_ylim(1, None)
-    ax.set_xlabel("held-out likelihood (149 test subjects)")
+    ax.set_xlabel("held-out likelihood (test subjects)")
     ax.set_ylabel("replay fingerprint score")
     ax.legend(frameon=False, loc="upper right")
     ax.spines[["top", "right"]].set_visible(False)
@@ -377,7 +377,7 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         "**b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent "
         "first): subjects and the same four models as above, over the same subjects. "
         "**c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's "
-        "per-subject scores, re-pooled; the GLM's own; the GRU's mean over seeds) against its replay fingerprint score (the "
+        "per-subject scores, re-pooled; the GLM's own; the GRU's mean over seeds, on its 146) against its replay fingerprint score (the "
         "geometric mean of its four floor ratios, ADR 0009), per regime; the models of the curves are "
         "coloured as in **a**, in the regime drawn there."
         + ("" if not off_axis else " Off the axis: " + "; ".join(
