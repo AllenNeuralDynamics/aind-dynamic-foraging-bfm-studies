@@ -58,6 +58,46 @@ each, one seed at a time with all 56 workers; the search's own evaluations run t
 workers each), each seed got its code embedding, and the runner was built. No Claude call.
 The cached scores sit within 0.03 of study 12's (`seed_choice.json`), which used its own EM settings.
 
-**Status.** Launched 2026-11-05 at 01:18 PT as `seeded-islands-smoke-1`: Slurm job 27629852 on n297, W&B
-group `seeded-islands-smoke@20261105-011815` in
-[dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve). Running.
+**Result: pass.** Read by hand from the run directory: `run_summary.json`, `ledger.jsonl`,
+`proposals.csv`, Shinka's database and `gen_51/failure.json`. Launched 2026-11-05 at 01:18 PT as
+`seeded-islands-smoke-1` (Slurm job 27629852 on n297, W&B group `seeded-islands-smoke@20261105-011815` in
+[dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve)); the job completed at 06:57 PT.
+
+| pre-registered | result |
+|---|---|
+| 1. 100 proposals within $20 and 12 hours, no API errors, archive logged | pass: 100 proposals, $3.43 list, 5 h 37 min of the run; 104 Claude calls (100 + 4 repair attempts), all `end_turn`, none failed; archive `NeuralDynamics/dfbfm-mevolve/run-seeded-islands-smoke-20261105-011815:v0`, digest `19f17a3875d4ea7c7dfe5507bccc6335`, 1,218 files, 20.4 MB |
+| dollars per proposal | $0.034 list (median $0.025); a Claude call takes a median 7 s |
+| node-minutes per proposal | 3.4 (20,212 s of the run over 100 proposals, one full node) |
+| evaluation seconds per program | median 426 s, 10th to 90th percentile 315 to 529 s, longest 1,693 s (90 fresh fits, 28 workers each, two at a time) |
+| proposals by outcome | 90 scored by a fresh fit; 4 repeats, scored from the repeat cache; 5 rejected by the static checks (3 syntax errors, 1 with 9 parameters, 1 whose `update` returned the wrong shape); 1 edit that did not apply after its repair attempt (proposal 51) |
+| 2-level fits that failed | 10 of the 94 scored proposals kept their per-subject score (`two_level_failed`) |
+| best validation score against the best seed | 72.690 (proposal 93) against 72.608 (Miller-RHG), +0.082; 29 of 94 scored proposals beat their parent |
+
+By lineage (the seed a program descends from), best score against the seed's own:
+
+| lineage | proposals | seed | best | gain |
+|---|---|---|---|---|
+| template | 22 | 70.020 | 72.690 | +2.670 |
+| Miller-RHG | 40 | 72.608 | 72.677 | +0.069 |
+| Lebedeva-PR | 18 | 72.573 | 72.668 | +0.095 |
+| Lopez-DoubleTrace | 9 | 72.548 | 72.591 | +0.043 |
+| Eckstein-BI | 10 | 71.780 | 72.606 | +0.826 |
+
+**What it teaches.**
+
+1. **Evaluation, not Claude, limits the search.** Proposals waited for the two evaluation slots;
+   Claude answered in seconds. At 3.4 node-minutes per proposal, the stopping rule's minimum of 2,000
+   proposals takes about 5 days of one node, so `seeded-islands` needs evaluations on many nodes
+   (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#59).
+2. **The template's lineage won.** Proposal 3 rebuilt a literature-level model from the template
+   (72.658, above every seed). The best program adds one task-specific idea, a per-side value that
+   grows while the side is not chosen ("bait"), but its fitted weight is negative for most mice, so it
+   acts as stickiness that grows with run length.
+3. **The search hits the program limits.** 91 of 94 scored proposals use 7 or 8 parameters, and the
+   best program uses all 8 parameters and all 6 latent variables, with its bait rate written in as a
+   constant (0.15). Constants like this are tuned by the search on the validation mice, not fitted per
+   mouse.
+4. **Most steps are within noise.** After proposal 3, each new best adds 0.001 to 0.05, at or below the
+   paired standard error between two programs on these mice (0.03 to 0.06, gate 2).
+
+**Status.** Done.
