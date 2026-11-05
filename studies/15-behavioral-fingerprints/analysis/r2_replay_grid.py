@@ -268,7 +268,11 @@ def draw_scatter(gaps: dict, cells_shown: list[tuple[str, str]]) -> list[dict]:
         labels = gaps["bins"][stat]
         cells = [gaps["models"][m][reg][head][stat] for m, reg in cells_shown]
         top = max(np.nanmax(_floats(c["per_bin"][k])) for c in cells for k in ("model", "subject"))
+        bottom = min(np.nanmin(_floats(c["per_bin"][k])) for c in cells for k in ("model", "subject"))
         lim = float(np.ceil(top * 10.5) / 10)
+        low = 0.0
+        if bottom > 0.5 * top:   # a narrow band (the losses): zoom to it, axes still equal
+            low, lim = float(np.floor(bottom * 100 - 1) / 100), float(np.ceil(top * 100 + 1) / 100)
         for col, ((m, reg), cell) in enumerate(zip(cells_shown, cells)):
             ax = axes[row, col]
             x, y = np.array(_floats(cell["per_bin"]["subject"])), np.array(_floats(cell["per_bin"]["model"]))
@@ -277,7 +281,7 @@ def draw_scatter(gaps: dict, cells_shown: list[tuple[str, str]]) -> list[dict]:
             rmse = float(np.sqrt(np.mean((y[ok] - x[ok]) ** 2)))
             out.append({"statistic": stat, "model": m, "regime": reg, "n_bins": int(ok.sum()), "r": r,
                         "rmse": rmse, "floor_ratio": cell["floor_ratio"]})
-            ax.plot([0, lim], [0, lim], color="0.7", lw=0.5, zorder=0)
+            ax.plot([low, lim], [low, lim], color="0.7", lw=0.5, zorder=0)
             for name, c, idx in _bin_groups(stat, labels):
                 sel = np.zeros(len(x), bool)
                 sel[idx] = True
@@ -286,8 +290,12 @@ def draw_scatter(gaps: dict, cells_shown: list[tuple[str, str]]) -> list[dict]:
             ax.text(0.98, 0.03, f"r = {r:.3f}\nRMSE = {rmse:.3f}\nfloor ratio = {cell['floor_ratio']:.1f}",
                     transform=ax.transAxes, ha="right", va="bottom", fontsize=5,
                     bbox={"facecolor": "white", "edgecolor": "none", "pad": 0.5}, zorder=4)
-            ax.set_xlim(0, lim)
-            ax.set_ylim(0, lim)
+            ax.set_xlim(low, lim)
+            ax.set_ylim(low, lim)
+            if low > 0:   # the zoomed row: the same ticks on both axes
+                ticks = np.arange(np.ceil(low * 50) / 50, lim + 1e-9, 0.02)
+                ax.set_xticks(ticks)
+                ax.set_yticks(ticks)
             ax.set_aspect("equal")
             ax.spines[["top", "right"]].set_visible(False)
             if row == 0:

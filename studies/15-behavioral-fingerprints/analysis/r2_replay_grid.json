@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-04T21:25:17-08:00",
-    "studies_git_sha": "9ae3bd853eac7b76fb055bdf04c002d26cd7a3c1",
+    "produced_at_pt": "2026-11-04T21:29:41-08:00",
+    "studies_git_sha": "85a3ca9994b6151fc1926854356746d2e75b9fc9",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
-        "sha256": "9dad14211c098945ff22c4256ba4600b96c17815e96563e9aff5a7bdaa7f444c"
+        "sha256": "a868ca955dbfc7745c66f2fad8345fa20b2444da4c76c1c34205bf84aba523b3"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -84,7 +84,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scatter.svg",
-        "sha256": "cb91a6d3847f1f8808fd1d8a5f75a13ac152b6841541cab8e0f3c0477b801b3e"
+        "sha256": "9158b41bb7b4751a15f336f207155b81e433b8b81c679dbea7b52367275f7a36"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scratch_errors.svg",
