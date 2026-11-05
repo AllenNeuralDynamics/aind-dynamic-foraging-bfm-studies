@@ -2,6 +2,9 @@
 
 ## 2026-11-04
 
+- r1 (draft): gate 4, program recovery on simulated mice: both halves, the seeded and no-seed searches,
+  repeats and the novelty filter, and compute for the main search. Both runs are archived as W&B artifacts;
+  the freeze keeps one row per program. The PLAN's report table is renumbered (recovery is r1).
 - Variant `gate4-noseed` (issue #110): gate 4's control arm, the `gate4-recovery` search with no seed
   programs, on the same simulated mice.
 - `gate4-recovery`: the pre-check passes for all three hand-set settings; setting a is used (target
