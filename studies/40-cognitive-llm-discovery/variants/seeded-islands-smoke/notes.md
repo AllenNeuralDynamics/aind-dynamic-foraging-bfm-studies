@@ -54,7 +54,8 @@ beside the files, with the artifact's digest.
 **Dry run (2026-11-05, 00:58 PT, $0).** Slurm job 27629696 on n297, from studies a6c3f29 and MEvolve
 02b9558: the embedding server started, the seeds were scored on the 48 validation mice and cached
 (Miller-RHG 72.608, Lopez-DoubleTrace 72.548, Lebedeva-PR 72.573, Eckstein-BI 71.780; 150 to 339 s
-each with 28 workers), each seed got its code embedding, and the runner was built. No Claude call.
+each, one seed at a time with all 56 workers; the search's own evaluations run two at a time with 28
+workers each), each seed got its code embedding, and the runner was built. No Claude call.
 The cached scores sit within 0.03 of study 12's (`seed_choice.json`), which used its own EM settings.
 
 **Status.** Launched 2026-11-05 at 01:18 PT as `seeded-islands-smoke-1`: Slurm job 27629852 on n297, W&B
