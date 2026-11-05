@@ -9,8 +9,10 @@ summary, logs and one folder per proposal) and ``heldout/``, without ``search/wa
 database's ``-shm``. It writes ``analysis/gate4/archives.json``: each artifact's name, version and
 digest (the immutable key) and the sha256 of the files the freezes read, which they check.
 
-To read a run after scratch is purged: ``wandb artifact get <artifact> --root <dir>``, then point
-the freezes' ``RUNS`` at that directory. Needs the W&B SDK and the key in ``~/.config/mevolve/``.
+To read a run after scratch is purged, download each artifact into ``<dir>/<variant>/<launch_id>``
+(the layout the freezes read: ``RUNS / variant / launch_id / "search"``), e.g.
+``wandb artifact get <artifact> --root <dir>/gate4-recovery/20261104-132600``, then point the
+freezes' ``RUNS`` at ``<dir>``. Needs the W&B SDK and the key in ``~/.config/mevolve/``.
 """
 from __future__ import annotations
 

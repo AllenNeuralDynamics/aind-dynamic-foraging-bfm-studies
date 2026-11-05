@@ -154,7 +154,7 @@ Post hoc. x: each proposal's highest code-embedding similarity to the programs o
 | > 0.99 (ShinkaEvolve's default) | 52 of 99 (53%); new bests among them: none | 84 of 98 (86%); new bests among them: 12, 23, 75 |
 | > 0.995 | 27 of 99 (27%); new bests among them: none | 70 of 98 (71%); new bests among them: 23 |
 | > 0.999 | 2 of 99 (2%); new bests among them: none | 20 of 98 (20%); new bests among them: none |
-| exact repeats (MEvolve's repeat key) | 3 scored repeats in 4 groups, 14 min of fitting | 6 scored repeats in 6 groups, 21 min of fitting |
+| exact repeats (MEvolve's repeat key) | 3 scored repeats in 3 groups, 14 min of fitting | 6 scored repeats in 6 groups, 21 min of fitting |
 <!-- END result-5 -->
 
 ## Compute for the main search

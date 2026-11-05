@@ -280,7 +280,8 @@ def novelty(runs: dict, nov: dict) -> tuple[str, dict]:
         ax.set_xlabel("highest similarity to its island (cosine)")
         groups = {}
         for r in nov["arms"][arm]:
-            groups.setdefault(r["repeat_key"], []).append(by_id[r["id"]])
+            if r["repeat_key"] is not None:         # None: the code does not parse, so it has no identity
+                groups.setdefault(r["repeat_key"], []).append(by_id[r["id"]])
         repeats = [g for g in groups.values() if len(g) > 1]
         later = [q for g in repeats for q in sorted(g, key=lambda q: q["timestamp"])[1:] if q["score"] is not None]
         out[arm] = {"proposals": len(pts), "median_similarity": float(np.median(x)), "repeat_groups": len(repeats),
