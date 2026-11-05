@@ -37,6 +37,8 @@ FIG_SETS = HERE / "fig_r3_sets.svg"
 FIG_HOLDS = HERE / "fig_r3_holds.svg"
 FIG_REG = HERE / "fig_r3_regimes.svg"
 FIG_CURVES = HERE / "fig_r3_curves.svg"
+FIG_REPLAY_CURVES = HERE / "fig_r3_replay_curves.svg"
+REPLAY_GAPS = HERE / "p1_replay_gaps.json"
 CURVE_PANELS = [("losses", slice(0, 6), "consecutive losses", "losses"),
                 ("pattern", slice(2, 10), "last two trials (most recent first)", "last 1–3 trials (depth 2)"),
                 ("hazard", slice(0, 6), "run length", "hazard: last trial unrewarded"),
@@ -50,7 +52,7 @@ STATS = {"losses": "losses", "pattern": "last 1–3 trials", "hazard": "hazard",
 LOW_COVERAGE = 0.95   # a cell whose rollouts visit less of the subjects' bin weight is marked
 MODEL_COLORS = {"CompareToThreshold": "blue", "Miller-RHG": "orange", "Bari2019": "sky",
                 "Lopez-DoubleTrace": "green", "Lebedeva-PR": "vermillion", GRU_MODEL: "purple"}
-MIN_GROUP_SUBJECTS = 8   # Figure 6 shows a session group only if this many subjects have a floor in it
+MIN_GROUP_SUBJECTS = 8   # Figure 7 shows a session group only if this many subjects have a floor in it
 
 
 def _mean(xs):
@@ -380,20 +382,20 @@ def draw_regimes(gaps: dict, cells: dict) -> list[dict]:
     return out
 
 
-def draw_curves(gaps: dict, cells: dict, shown: list[tuple[str, str]]) -> None:
+def draw_curves(bins: dict, per_bin, shown: list[tuple[str, str]], path: Path) -> None:
     """The four rate statistics as curves: the subjects, the five scatter models as 2-level EM
-    (thin) and the GRU (thick, mean of its seeds), over the subjects every model holds out."""
+    (thin) and the GRU (thick, mean of its seeds), over the subjects every model holds out.
+    ``per_bin(model, regime, stat)`` returns that cell's ``per_bin_common``."""
     fs.apply_paper_style()
     import matplotlib.pyplot as plt
     import numpy as np
 
-    head = gaps["headline_set"]
     fig, axes = plt.subplots(2, 3, figsize=fs.mm(183, 110))
     for k, (ax, (st, sl, xlabel, title)) in enumerate(zip(axes.flat, CURVE_PANELS)):
-        labels = gaps["bins"][st][sl]
+        labels = bins[st][sl]
         xs = np.arange(len(labels))
         for m, reg in shown:
-            pb = cells[m][reg][head]["statistics"][st]["per_bin_common"]
+            pb = per_bin(m, reg, st)
             gru = m == GRU_MODEL
             ax.plot(xs, _floats(pb["model"])[sl], "-", color=fs.OKABE_ITO[MODEL_COLORS[m]], lw=1.6 if gru else 0.8,
                     label=m if gru else f"{m} (2-level EM)", zorder=3 if gru else 2)
@@ -409,7 +411,7 @@ def draw_curves(gaps: dict, cells: dict, shown: list[tuple[str, str]]) -> None:
     fig.tight_layout(rect=(0, 0.07, 1, 1))
     handles, labels = axes.flat[0].get_legend_handles_labels()
     fig.legend(handles, labels, frameon=False, loc="lower center", ncol=4)
-    fs.save_figure(fig, FIG_CURVES)
+    fs.save_figure(fig, path)
     plt.close(fig)
 
 
@@ -479,7 +481,7 @@ def render(result: dict, gaps: dict, cells: dict, failed: set[str]) -> dict[str,
             f"{p['rollout_score']:.0f})" for p in result["off_axis"]) + ".")])
     blocks["result-3"] = "\n".join([
         f"![scatter](../{FIG_CORR.name})", "",
-        "**Figure 5.** Study 01 r9's view, in rollout, for each statistic (rows **a** to **e**): each point is "
+        "**Figure 6.** Study 01 r9's view, in rollout, for each statistic (rows **a** to **e**): each point is "
         "one bin, the subjects' mean against the mean of the model's rollouts, over the subjects every model "
         "holds out that keep the bin. Columns as in r2 Figure 3: the five literature models with the best "
         "2-level EM likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each "
@@ -487,7 +489,7 @@ def render(result: dict, gaps: dict, cells: dict, failed: set[str]) -> dict[str,
         "(its cell in Figure 1a, trial-weighted). Run lengths are shares of runs, not p(switch)."])
     blocks["result-4"] = "\n".join([
         f"![sets](../{FIG_SETS.name})", "",
-        "**Figure 6.** Rollout fingerprint score per session group, for the models of Figure 5, on groups "
+        "**Figure 7.** Rollout fingerprint score per session group, for the models of Figure 6, on groups "
         f"where at least {MIN_GROUP_SUBJECTS} subjects have a floor (in brackets: the GRU's count; a floor "
         "needs two sessions of the group). Left of the line: the headline and its groups. Right: the early "
         "coupled stages and the warm-ups, where the gym does not hold a block as the real task's "
@@ -503,15 +505,20 @@ def render(result: dict, gaps: dict, cells: dict, failed: set[str]) -> dict[str,
     blocks["result-8"] = "\n".join([
         f"![curves](../{FIG_CURVES.name})", "",
         "**Figure 4.** The four switch statistics as curves, in rollout: the subjects' mean (dots), the five "
-        "models of Figure 5 as 2-level EM (thin) and the GRU (thick, the mean of its three seeds), over the "
+        "models of Figure 6 as 2-level EM (thin) and the GRU (thick, the mean of its three seeds), over the "
         "subjects every model holds out that keep the bin. **a**, by consecutive losses; **b**, by the last "
         "two trials (S same side, O other side, + rewarded, − not; most recent first); **c**, **d**, the "
         "hazard, by the current run's length after an unrewarded or a rewarded trial; **e**, **f**, right "
         "after a switch, by the length of the run before it and the switch trial's reward."])
+    blocks["result-9"] = "\n".join([
+        f"![replay curves](../{FIG_REPLAY_CURVES.name})", "",
+        "**Figure 5.** The same curves as Figure 4, in replay (r2): each model predicts every trial from the "
+        "subject's real history. r2's sessions (all but the warm-ups) and its subjects (the 146 every model "
+        "holds out), so the subjects' dots differ from Figure 4's."])
     h = result["holds"]
     blocks["result-5"] = "\n".join([
         f"![holds](../{FIG_HOLDS.name})", "",
-        f"**Figure 7.** The `BlockMinReward` check, on the {h['n_sessions']} score sessions of {h['n_subjects']} "
+        f"**Figure 8.** The `BlockMinReward` check, on the {h['n_sessions']} score sessions of {h['n_subjects']} "
         "subjects that record a positive minimum. The other coupled and warm-up sessions record 0 ("
         + ", ".join(f"{k.split('|')[0]} with minimum {k.split('|')[1]}: {v}" for k, v in h["n_sessions_by_minimum"].items())
         + "). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over "
@@ -584,7 +591,12 @@ def main() -> None:
     sets = draw_sets(gaps, cells, shown)
     draw_holds(holds)
     regime_curves = draw_regimes(gaps, cells)
-    draw_curves(gaps, cells, shown)
+    head = gaps["headline_set"]
+    draw_curves(gaps["bins"], lambda m, reg, st: cells[m][reg][head]["statistics"][st]["per_bin_common"],
+                shown, FIG_CURVES)
+    rg = json.loads(REPLAY_GAPS.read_text())   # r2's replay cells; the GRU's per_subject is its seed mean
+    draw_curves(rg["bins"], lambda m, reg, st: rg["models"][m][reg][rg["headline_set"]][st]["per_bin_common"],
+                shown, FIG_REPLAY_CURVES)
     kept = {s["subject_id"] for s in specs["sessions"]}
     result = {
         "order": names, "headline_set": gaps["headline_set"], "points": points,
@@ -605,11 +617,11 @@ def main() -> None:
     REPORT.write_text(text)
     meta = build_meta("analysis/r3_rollout_grid.py", WANDB_GROUPS, study_root=HERE.parent,
                       code=[__file__, HERE / "r2_replay_grid.py"],
-                      inputs=[ROLLOUTS, GAPS, HOLDS, SPECS, R2, GLM, GRU, lit.LITERATURE_SOURCE,
+                      inputs=[ROLLOUTS, GAPS, HOLDS, SPECS, R2, REPLAY_GAPS, GLM, GRU, lit.LITERATURE_SOURCE,
                               lit.TWO_LEVEL_EM_SOURCE])
     write_artifact(HERE / "r3_rollout_grid.json", {"_meta": meta, **result},
                    outputs=[FIG, FIG_VS, FIG_CORR, FIG_SETS, FIG_HOLDS, FIG_REG, FIG_CURVES,
-                            *(f"{REPORT}#result-{k}" for k in range(1, 9))])
+                            FIG_REPLAY_CURVES, *(f"{REPORT}#result-{k}" for k in range(1, 10))])
 
 
 if __name__ == "__main__":

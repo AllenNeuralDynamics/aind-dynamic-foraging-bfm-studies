@@ -7,7 +7,8 @@
   parameters left out, the holds check on `BlockMinReward` only). 125 of the 149 test subjects
   have a task. No model reaches the split-half floor; the best (CompareToThreshold per subject,
   the GRU, Bari2019 2-level) score about 1.4. 2-level fits, better in replay for 16 of 18 models,
-  are better in rollout for 9; their losses curve falls where the mice's rises. The
+  are better in rollout for 9; their losses curve falls where the mice's rises, a miss already
+  present, smaller, in replay. The
   `BlockMinReward` hold moves the fingerprints by at most 0.45 of the floor, so ADR 0006 stands.
   Tallies are stored per model in `analysis/p2_rollouts/`.
 

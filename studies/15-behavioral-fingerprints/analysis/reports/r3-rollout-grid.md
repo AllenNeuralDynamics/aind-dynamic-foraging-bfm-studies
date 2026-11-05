@@ -23,6 +23,7 @@ inputs:
   - analysis/p2_rollout_gaps.json
   - analysis/p2_holds.json
   - analysis/r2_replay_grid.json
+  - analysis/p1_replay_gaps.json
   - analysis/p1_glm.json
   - analysis/p1_gru.json
   figure: analysis/fig_r3_rollout_grid.svg
@@ -55,11 +56,12 @@ it follows them only weakly, because the fit that wins replay often loses rollou
 2-level EM, so that each session draws its own parameters, improves replay for 16 of 18 models
 but improves rollout for only 9. For the best models it bends the losses curve the wrong way:
 after more consecutive losses, the mice switch more, but the 2-level models switch less
-(Figure 3), and several also switch back too often right after a switch (Figure 4). The GRU
-follows the mice's curves (Figures 4 and 5). Two limits of the simulator do not
-explain these results. The early coupled stages, where the gym cannot hold a block, score like
-the headline sessions (Figure 6). Where the real task records a minimum-reward hold, turning it
-on moves the fingerprints by less than half the floor (Figure 7).
+(Figure 3), and several also switch back too often right after a switch (Figure 4). These misses
+are already in replay, smaller (Figure 5): rollout makes them larger, while the per-subject fits
+look the same in both. The GRU follows the mice's curves in both (Figures 4 to 6). Two limits of
+the simulator do not explain these results. The early coupled stages, where the gym cannot hold a
+block, score like the headline sessions (Figure 7). Where the real task records a minimum-reward
+hold, turning it on moves the fingerprints by less than half the floor (Figure 8).
 
 ## Question
 
@@ -148,7 +150,7 @@ regime. Below the grey line in panel b, a model's rollout score is better than i
 20 of 21 per-subject cells sit there, against 10 of 18 2-level cells. So a 2-level fit gains much
 less from replay to rollout, and for the best models it loses its replay lead.
 
-### 3. Drawing parameters per session bends the losses curve the wrong way
+### 3. 2-level EM's misses are already in replay; rollout makes them larger
 
 <!-- BEGIN result-7 -->
 ![regimes](../fig_r3_regimes.svg)
@@ -156,21 +158,17 @@ less from replay to rollout, and for the best models it loses its replay lead.
 **Figure 3.** p(switch) by the count of consecutive unrewarded trials on the current side, in rollout: the subjects' mean (dots), three literature models with their per-subject parameters (dashed) and as 2-level EM, each session drawing its own parameters (solid), and the GRU, over the subjects every model holds out that keep the bin. Floor ratios of this statistic: CompareToThreshold per subject 1.4; CompareToThreshold 2-level EM 2.1; Lopez-DoubleTrace per subject 1.5; Lopez-DoubleTrace 2-level EM 2.4; Bari2019 per subject 1.6; Bari2019 2-level EM 1.6.
 <!-- END result-7 -->
 
-The mice switch a little more after each further loss, from 0.135 after one loss to 0.16 after
-five or more. With per-subject parameters, the three models rise too (CompareToThreshold a little
-above the mice, Bari2019 too steeply). As 2-level EM, CompareToThreshold falls instead, and
-Lopez-DoubleTrace falls from 0.19 to 0.09; their floor ratios on this statistic grow from 1.4 to
-2.1 and from 1.5 to 2.4. Bari2019's 2-level curve rises up to five losses, and its ratio does not
-grow. One explanation, not yet tested: a long run
-of losses is most likely in a rollout session that drew low switching parameters, so the long-loss
-bins over-sample those sessions. The mice have session-to-session change too, but this result
-suggests the fitted 2-level spread is larger than theirs, or of a different shape. The test is to
-compare the spread of per-session switch rates between the rollouts and the mice.
+In the rollout sessions, the mice switch a little more after each further loss, from 0.135 after
+one loss to 0.16 after five or more. With per-subject parameters, the three models rise too
+(CompareToThreshold a little above the mice, Bari2019 too steeply). As 2-level EM,
+CompareToThreshold falls instead, and Lopez-DoubleTrace falls from 0.19 to 0.09; their floor ratios
+on this statistic grow from 1.4 to 2.1 and from 1.5 to 2.4. Bari2019's 2-level curve rises up to
+five losses, and its ratio does not grow.
 
 <!-- BEGIN result-8 -->
 ![curves](../fig_r3_curves.svg)
 
-**Figure 4.** The four switch statistics as curves, in rollout: the subjects' mean (dots), the five models of Figure 5 as 2-level EM (thin) and the GRU (thick, the mean of its three seeds), over the subjects every model holds out that keep the bin. **a**, by consecutive losses; **b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent first); **c**, **d**, the hazard, by the current run's length after an unrewarded or a rewarded trial; **e**, **f**, right after a switch, by the length of the run before it and the switch trial's reward.
+**Figure 4.** The four switch statistics as curves, in rollout: the subjects' mean (dots), the five models of Figure 6 as 2-level EM (thin) and the GRU (thick, the mean of its three seeds), over the subjects every model holds out that keep the bin. **a**, by consecutive losses; **b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent first); **c**, **d**, the hazard, by the current run's length after an unrewarded or a rewarded trial; **e**, **f**, right after a switch, by the length of the run before it and the switch trial's reward.
 <!-- END result-8 -->
 
 The losses are not the only miss. Right after a switch (Figure 4e, f), Lopez-DoubleTrace,
@@ -178,12 +176,34 @@ Lebedeva-PR and Miller-RHG as 2-level EM switch back too often, by about 0.05 to
 CompareToThreshold stays flat where the mice rise with the length of the run before the switch.
 On the hazard and the last two trials (Figure 4b–d), every model is close to the mice.
 
+<!-- BEGIN result-9 -->
+![replay curves](../fig_r3_replay_curves.svg)
+
+**Figure 5.** The same curves as Figure 4, in replay (r2): each model predicts every trial from the subject's real history. r2's sessions (all but the warm-ups) and its subjects (the 146 every model holds out), so the subjects' dots differ from Figure 4's.
+<!-- END result-9 -->
+
+Replay shows the same misses, smaller. As 2-level EM, the losses curves are flat and dip only at
+six or more losses (Lopez-DoubleTrace from 0.162 to 0.137, where the mice rise from 0.156 to
+0.171), and Lebedeva-PR and Miller-RHG already switch back too often after a switch. The
+per-subject curves, by contrast, are nearly the same in replay and rollout, though the two use
+different sessions and subjects (Lopez-DoubleTrace's
+losses curve within 0.013 in every bin). So what changes between the two modes comes with the
+session-to-session spread of parameters, which only 2-level EM has. In replay that spread enters
+through the session marginal, which follows the mouse's real trials; in rollout each session draws
+its parameters and then makes its own history.
+
+One explanation, not yet tested: a long run of losses is most likely in a rollout session that
+drew low switching parameters, so the long-loss bins over-sample those sessions, and the short
+ones over-sample the high switchers. The mice have session-to-session change too, but the result
+suggests the fitted 2-level spread is larger than theirs, or of a different shape. The test is to
+compare the spread of per-session switch rates between the rollouts and the mice.
+
 ### 4. The GRU is as close as the best cognitive model, and follows the mice's losses curve
 
 <!-- BEGIN result-3 -->
 ![scatter](../fig_r3_scatter.svg)
 
-**Figure 5.** Study 01 r9's view, in rollout, for each statistic (rows **a** to **e**): each point is one bin, the subjects' mean against the mean of the model's rollouts, over the subjects every model holds out that keep the bin. Columns as in r2 Figure 3: the five literature models with the best 2-level EM likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each panel prints r and RMSE over the bins (each bin once) and the model's floor ratio for the statistic (its cell in Figure 1a, trial-weighted). Run lengths are shares of runs, not p(switch).
+**Figure 6.** Study 01 r9's view, in rollout, for each statistic (rows **a** to **e**): each point is one bin, the subjects' mean against the mean of the model's rollouts, over the subjects every model holds out that keep the bin. Columns as in r2 Figure 3: the five literature models with the best 2-level EM likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each panel prints r and RMSE over the bins (each bin once) and the model's floor ratio for the statistic (its cell in Figure 1a, trial-weighted). Run lengths are shares of runs, not p(switch).
 <!-- END result-3 -->
 
 In rollout, the GRU (score 1.41; seeds 1.38 to 1.43) ties the best literature cell
@@ -197,23 +217,23 @@ it is the only one of the six whose curve rises with the mice's (r = 0.96).
 <!-- BEGIN result-4 -->
 ![sets](../fig_r3_sets.svg)
 
-**Figure 6.** Rollout fingerprint score per session group, for the models of Figure 5, on groups where at least 8 subjects have a floor (in brackets: the GRU's count; a floor needs two sessions of the group). Left of the line: the headline and its groups. Right: the early coupled stages and the warm-ups, where the gym does not hold a block as the real task's `AdvancedBlockAuto` does (ADR 0006).
+**Figure 7.** Rollout fingerprint score per session group, for the models of Figure 6, on groups where at least 8 subjects have a floor (in brackets: the GRU's count; a floor needs two sessions of the group). Left of the line: the headline and its groups. Right: the early coupled stages and the warm-ups, where the gym does not hold a block as the real task's `AdvancedBlockAuto` does (ADR 0006).
 <!-- END result-4 -->
 
 The gym cannot hold an early coupled block until the mouse follows the better side
 (`AdvancedBlockAuto`), so ADR 0006 kept those stages out of the headline. Yet they score like the
-headline groups (Figure 6): no model is clearly worse there. The warm-ups score worse for every
+headline groups (Figure 7): no model is clearly worse there. The warm-ups score worse for every
 model, around 2.
 
 <!-- BEGIN result-5 -->
 ![holds](../fig_r3_holds.svg)
 
-**Figure 7.** The `BlockMinReward` check, on the 44 score sessions of 9 subjects that record a positive minimum. The other coupled and warm-up sessions record 0 (coupled with minimum 0: 224, coupled with minimum 1: 34, warm-up with minimum 0: 53, warm-up with minimum 1: 5, warm-up with minimum 10: 5). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over the subjects' bins, as a multiple of the subjects' split-half floor on those sessions. Largest: 0.45.
+**Figure 8.** The `BlockMinReward` check, on the 44 score sessions of 9 subjects that record a positive minimum. The other coupled and warm-up sessions record 0 (coupled with minimum 0: 224, coupled with minimum 1: 34, warm-up with minimum 0: 53, warm-up with minimum 1: 5, warm-up with minimum 10: 5). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over the subjects' bins, as a multiple of the subjects' split-half floor on those sessions. Largest: 0.45.
 <!-- END result-5 -->
 
 The one hold the real task records, `BlockMinReward`, is off (0) in 224 of 258 coupled score
 sessions, and in every early-stage one. Where it is on, turning it on in the gym moves every
-model's fingerprints by at most 0.45 of the floor (Figure 7). So ADR 0006 stands, and the
+model's fingerprints by at most 0.45 of the floor (Figure 8). So ADR 0006 stands, and the
 simulator stays as it is.
 
 ## Caveats
@@ -224,7 +244,7 @@ simulator stays as it is.
   manual next-block button, which are not recorded. The check also compares a nearly noiseless
   difference (paired rollouts with the same seeds) with a floor that contains real session
   change, so it passes any small effect.
-- **Coverage.** 125 of the 149 test subjects have a gym task, and the per-group panels of Figure 6
+- **Coverage.** 125 of the 149 test subjects have a gym task, and the per-group panels of Figure 7
   rest on 8 to 23 subjects each (the headline on 118 to 121).
 - **Real blocks are longer than the gym's** (Gates): partly ignored trials, which the gym never
   plays, and partly held blocks.
