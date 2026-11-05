@@ -42,4 +42,25 @@ proposals.
 **Status.** Launched 2026-11-04 14:15 PT as `gate4-noseed-1` (SLURM 27615169, studies 92ee0ae,
 MEvolve 59adafd), W&B group `gate4-noseed@20261104-141503` in
 [NeuralDynamics/dfbfm-mevolve](https://wandb.ai/NeuralDynamics/dfbfm-mevolve). A dry run with no Claude
-call (SLURM 27615125) built the runner with no seeds first.
+call (SLURM 27615125) built the runner with no seeds first. Finished 18:02 PT (3 h 47 min); 109 Claude calls, $2.10.
+
+**Result: pass, by invention.** Read from the run's database and `heldout/heldout.json` in
+`runs/gate4-noseed/20261104-141503/` on scratch.
+
+| pre-registered item | `gate4-noseed` (no seeds) | `gate4-recovery` (seeded) |
+|---|---|---|
+| 1. best validation (pass ≥ 72.728) | **72.847**, proposal 75 | 72.910, proposal 3 |
+| 2. first proposal at or above the pass mark | **71** | 3 |
+| 3. mechanism in the best program | fast and slow reward values per side, a choice kernel, plus an extra slow choice trace the generator does not have; 8 parameters | the generator's mechanism exactly; 7 parameters |
+| 4. held-out, 24 mice (target 72.634) | winner 72.615 (gap +0.020) | winner 72.632 (gap +0.003) |
+| cost | $2.10 | $1.93 |
+
+With no seed and the library off, nothing Claude was shown had a slow reward trace. From proposal 1
+the search sat at one-timescale Q-learning plus a choice trace (72.48 to 72.56, the level of the
+pre-check's reference, 72.499); proposal 7 added a slow *choice* trace (72.549). Proposal 71 added
+slow reward values learned on the chosen side (72.823), the first working program with two reward
+timescales (proposal 18 tried one but failed to evaluate). The winner's docstring still describes
+the template: Claude never updated it.
+
+One run per arm, so "71 against 3 proposals" is one sample each, not an estimate.
+
