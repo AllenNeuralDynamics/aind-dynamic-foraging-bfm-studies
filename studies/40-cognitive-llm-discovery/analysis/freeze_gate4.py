@@ -104,6 +104,7 @@ def _programs(db: Path) -> tuple[list[dict], list[dict]]:
             "correct": bool(r["correct"]), "score": r["combined_score"] if r["correct"] else None,
             "public": {k: public.get(k) for k in ("validation_score", "generation_score", "n_params", "n_latent")},
             "evaluation_seconds": private.get("seconds"),
+            "checked_at": meta.get("sampling_finished_at"),   # the novelty check's time: code written, not yet scored
             "patch_description": meta.get("patch_description"), "code": r["code"],
         })
     return programs, [{k: f.get(k) for k in ("generation", "stage", "reason", "error") if k in f} for f in failed]
@@ -119,10 +120,13 @@ def freeze_runs() -> tuple[dict, list[dict]]:
         archived = archives[arm]["sha256"]
         assert before == {db: archived["search/programs.sqlite"], Path(f"{db}-wal"): archived["search/programs.sqlite-wal"]}, \
             f"{db} is not the archived database ({archives[arm]['artifact']})"
-        config = json.loads((d / "search" / "run_config.json").read_text())
-        summary = json.loads((d / "search" / "run_summary.json").read_text())
-        ledger = [json.loads(line) for line in (d / "search" / "ledger.jsonl").read_text().splitlines()]
-        heldout = json.loads((d / "heldout" / "heldout.json").read_text())
+        data = {}
+        for name in ("search/run_config.json", "search/run_summary.json", "search/ledger.jsonl", "heldout/heldout.json"):
+            data[name] = (d / name).read_bytes()          # parsed from the bytes whose hash matches the archive
+            assert _sha256(data[name]) == archived[name], f"{d / name} is not the archived file"
+        config, summary = json.loads(data["search/run_config.json"]), json.loads(data["search/run_summary.json"])
+        ledger = [json.loads(line) for line in data["search/ledger.jsonl"].decode().splitlines()]
+        heldout = json.loads(data["heldout/heldout.json"])
         programs, failed = _programs(db)
         assert {p: _sha256(p.read_bytes()) for p in before} == before, f"{db} changed while it was read"
         assert config["wandb"]["group"] == group, (arm, config["wandb"]["group"])
@@ -223,7 +227,8 @@ def main() -> None:
                  "log spreads (probit scale) of 24 simulated subjects per model, and gate4.json's criteria.",
         **first_half})
     write_artifact(OUT / "example_session.json", {
-        "_meta": build_meta("analysis/freeze_gate4.py", [], study_root=STUDY, kind="freeze", code=[__file__],
+        "_meta": build_meta("analysis/freeze_gate4.py", [], study_root=STUDY, kind="freeze",
+                            code=[__file__, GENERATOR.parents[1] / "make_truths.py"], inputs=[GENERATOR],
                             sources=[{"type": "file", "id": str(GENERATOR), "sha256": example["generator_sha256"]}]),
         "about": "One session simulated from the committed generator at its typical values (no session "
                  "spread), on the coupled block task with baiting.", **example})

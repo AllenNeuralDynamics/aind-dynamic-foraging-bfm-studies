@@ -5,9 +5,11 @@ Reads the committed ``analysis/gate4/runs.json`` (islands, times, parents) and e
 database for the code (checked against ``archives.json``), and writes ``analysis/gate4/novelty.json``:
 
 * per proposal, the highest cosine similarity of its code's embedding to every program on its
-  island just before it was proposed (island membership follows the migrations), as ShinkaEvolve's
-  novelty check computes it (``compute_similarity``: every program on the island, the parent
-  included), its similarity to its parent, and its exact-repeat key;
+  island when its novelty check would run, as ShinkaEvolve computes it (``compute_similarity``:
+  every program on the island, the parent included). The check runs once the code is written and
+  before it is scored (``checked_at``, Shinka's ``sampling_finished_at``); a program is on the
+  island then if its row was written before (``timestamp``, set after scoring), and island
+  membership follows the migrations. Also its similarity to its parent and its exact-repeat key;
 * the embedding model and revision, and the MEvolve commit whose ``code_key`` defines a repeat.
 
 The embedding is a free local model, Alibaba-NLP/gte-modernbert-base at a pinned revision: the
@@ -85,9 +87,12 @@ def main() -> None:
         index = {p["id"]: k for k, p in enumerate(P)}
         rows = []
         for k, p in enumerate(P):
-            prior = [j for j in range(k) if island_at(P[j], p["timestamp"]) == island_at(p, p["timestamp"])]
+            t = p["checked_at"] if p["checked_at"] is not None else p["timestamp"]     # generation 0: placed, not checked
+            prior = [j for j, q in enumerate(P) if j != k and q["timestamp"] < t
+                     and island_at(q, t) == p["island_proposed"]]
             parent = index.get(p["parent_id"]) if p["generation"] > 0 else None
-            rows.append({"generation": p["generation"], "id": p["id"], "island": island_at(p, p["timestamp"]),
+            rows.append({"generation": p["generation"], "id": p["id"], "island": p["island_proposed"],
+                         "n_compared": len(prior),
                          "max_similarity": float(max(X[k] @ X[j] for j in prior)) if prior else None,
                          "parent_similarity": float(X[k] @ X[parent]) if parent is not None else None,
                          "repeat_key": shinka_eval.code_key(code[p["id"]])})

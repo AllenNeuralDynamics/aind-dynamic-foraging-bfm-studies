@@ -151,9 +151,9 @@ Post hoc. x: each proposal's highest code-embedding similarity to the programs o
 
 | filter | seeded (4 islands) | no seeds (template only) |
 |---|---|---|
-| > 0.99 (ShinkaEvolve's default) | 53 of 99 (54%); new bests lost: none | 85 of 98 (87%); new bests lost: 12, 23, 75 |
-| > 0.995 | 29 of 99 (29%); new bests lost: none | 71 of 98 (72%); new bests lost: 23 |
-| > 0.999 | 3 of 99 (3%); new bests lost: none | 20 of 98 (20%); new bests lost: none |
+| > 0.99 (ShinkaEvolve's default) | 52 of 99 (53%); new bests lost: none | 84 of 98 (86%); new bests lost: 12, 23, 75 |
+| > 0.995 | 27 of 99 (27%); new bests lost: none | 70 of 98 (71%); new bests lost: 23 |
+| > 0.999 | 2 of 99 (2%); new bests lost: none | 20 of 98 (20%); new bests lost: none |
 | exact repeats (MEvolve's repeat key) | 3 scored repeats in 4 groups, 14 min of fitting | 6 scored repeats in 6 groups, 21 min of fitting |
 <!-- END result-5 -->
 

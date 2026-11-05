@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_gate4_program_recovery.py",
-    "produced_at_pt": "2026-11-04T20:12:46-08:00",
-    "studies_git_sha": "04ee85b762dca7517977eb495a40265470398916",
+    "produced_at_pt": "2026-11-04T20:39:30-08:00",
+    "studies_git_sha": "681772ccc1cb52a0c0cae705f9499a50b8b3f3f6",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r1_gate4_program_recovery.py",
-        "sha256": "d4c51f4e25f36d48f47b6d19d4e012e56376e99ab0051e35853937550fd3cddc"
+        "sha256": "b5c002fac7a03860ef626b82b972727043139e65220533d0ff79d2986b3f197a"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -40,19 +40,19 @@
     "inputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/gate4/runs.json",
-        "sha256": "4dd1ee2c66e92660255976d8a8551d927e85c973face92f0ce3f961c92d310b5"
+        "sha256": "79403a190afba29986751c7738fd661d373bb4f57ba4bbaa4d818e595d051502"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/gate4/first_half.json",
-        "sha256": "868bb203f2684e970a1319bca8eaa4c9ea73986b8e07984357a78375a2c292e2"
+        "sha256": "db49c17f0eb507bebcc4b7026970b3442082487961977a5e69802f4210a15eed"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/gate4/example_session.json",
-        "sha256": "387b5bd00ab1a03ddbf49ec133e75e4fafa4d24f8461ad6697554c5af1093e2a"
+        "sha256": "0a5695cc9afbd3d7cd81195314fbc3a9ec86eedad4f81c183dc0e7f8e98fba4c"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/gate4/novelty.json",
-        "sha256": "62cf7ac4a5452249688f4c7c840c5c522c48158f8c601b822ea96107e42fc426"
+        "sha256": "484a6bdf42b9e5c77f29b4c740df5872bf05ddbe18761492745530bdb5b9d2e6"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/gate4/archives.json",
@@ -74,7 +74,7 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r1_gate4_program_recovery.json",
-        "sha256": "e648eb48c1f69f6979ed0b84db91d50ceb5819832a25b4714e1e8112bd189795"
+        "sha256": "73c5e9d93ebe499d7dac501ba8b72e37c3ff46444cdfd92d1e76fdf867a74ce7"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r1_first_half.svg",
@@ -82,7 +82,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r1_example_session.svg",
-        "sha256": "0592c8e01b342cd05ecee79ef8f72ea4687eee8d3d8b0e8d72f33c5c6be80405"
+        "sha256": "1f6ba1c3685d304eb2c638e3f955d3c9762ff24d5cf02e0bb8d6607eea370fc3"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r1_precheck.svg",
@@ -94,7 +94,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r1_novelty.svg",
-        "sha256": "0066e137655d691bca7b457134900c40955e16e2fc5b3c91e5bab7d0123dd553"
+        "sha256": "d86b455a95761ab1bdaac85a016d738e7f7011aed85c1f4f36997a536b996774"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r1-gate4-program-recovery.md#result-1",
@@ -114,7 +114,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r1-gate4-program-recovery.md#result-5",
-        "sha256": "cd9c2ada894fa7149345debf397d18d2394be0ea4b82dec1ad0d3d0262e8c21f"
+        "sha256": "5b32a21adbd9c95c25b41cfa2b3c01552547daa06dbd018ca0e9caedfe15f203"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r1-gate4-program-recovery.md#result-6",
@@ -295,21 +295,21 @@
   "novelty": {
     "seeded": {
       "proposals": 99,
-      "median_similarity": 0.9908367395401001,
+      "median_similarity": 0.9906212687492371,
       "repeat_groups": 4,
       "repeats_scored": 3,
       "repeat_seconds": 821.7585105895996,
       "drops": {
         "0.99": {
-          "n": 53,
+          "n": 52,
           "new_bests": []
         },
         "0.995": {
-          "n": 29,
+          "n": 27,
           "new_bests": []
         },
         "0.999": {
-          "n": 3,
+          "n": 2,
           "new_bests": []
         }
       }
@@ -322,7 +322,7 @@
       "repeat_seconds": 1289.9627697467804,
       "drops": {
         "0.99": {
-          "n": 85,
+          "n": 84,
           "new_bests": [
             12,
             23,
@@ -330,7 +330,7 @@
           ]
         },
         "0.995": {
-          "n": 71,
+          "n": 70,
           "new_bests": [
             23
           ]

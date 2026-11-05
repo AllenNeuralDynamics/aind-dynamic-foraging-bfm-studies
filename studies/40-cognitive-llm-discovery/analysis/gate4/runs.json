@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_gate4.py",
-    "produced_at_pt": "2026-11-04T19:51:46-08:00",
-    "studies_git_sha": "2a16adce9d7cf1d4932ee99ac971d7235419dfb7",
+    "produced_at_pt": "2026-11-04T20:35:54-08:00",
+    "studies_git_sha": "681772ccc1cb52a0c0cae705f9499a50b8b3f3f6",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/freeze_gate4.py",
-        "sha256": "3f2224853bc25d808cacdcea113a057ec9d2555bc02d0b18ed7d7b8ea444a685"
+        "sha256": "91d584871e2fe1d881f577d987dd44d071374b7dcd08cd87e974ba83c9d7dad4"
       }
     ],
     "inputs": [
@@ -108,7 +108,7 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/gate4/runs.json",
-        "sha256": "0ed96ad66dd6f1fbbdfd4b23015c475a4fac6424735150249311444002af6133"
+        "sha256": "92b15ffe99ad357c2cebd045f8fcc40cd2f7e794234dc2ee3a0eb0839606d00a"
       }
     ]
   },
@@ -1182,6 +1182,7 @@
             "n_latent": 2
           },
           "evaluation_seconds": 92.95529294013977,
+          "checked_at": null,
           "patch_description": null,
           "code": "# EVOLVE-BLOCK-START\n\"\"\"Q-learning: one value for each side, learned from reward on the chosen side, and a side bias.\"\"\"\nimport jax\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"learn_rate\": (0.0, 1.0),        # how far the chosen side's value moves toward the reward\n    \"beta\": (0.0, 20.0),             # logits per unit of value\n    \"bias_right\": (-3.0, 3.0),\n}\nN_LATENT = 2\nLATENT_NAMES = (\"q_left\", \"q_right\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(2)\n\n\ndef predict(latents, p):\n    return p[\"beta\"] * latents + jnp.array([0.0, p[\"bias_right\"]])\n\n\ndef update(latents, choice, reward, p):\n    chosen = jax.nn.one_hot(choice, 2)\n    return latents + chosen * p[\"learn_rate\"] * (reward - latents)\n# EVOLVE-BLOCK-END\n"
         },
@@ -1207,6 +1208,7 @@
             "n_latent": 1
           },
           "evaluation_seconds": 90.71021223068237,
+          "checked_at": null,
           "patch_description": null,
           "code": "# EVOLVE-BLOCK-START\n\"\"\"Choice kernel: a decaying trace of past choices pulls toward recently chosen sides; no learning\nfrom reward.\"\"\"\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"kernel_rate\": (0.0, 1.0),       # how fast the kernel follows the last choices\n    \"kernel_weight\": (-5.0, 5.0),    # logits toward the side the kernel favours\n    \"bias_right\": (-3.0, 3.0),\n}\nN_LATENT = 1\nLATENT_NAMES = (\"kernel\",)           # +1 after many right choices, -1 after many left ones\n\n\ndef init_latents(p, session):\n    return jnp.zeros(1)\n\n\ndef predict(latents, p):\n    return jnp.array([0.0, p[\"kernel_weight\"] * latents[0] + p[\"bias_right\"]])\n\n\ndef update(latents, choice, reward, p):\n    return latents + p[\"kernel_rate\"] * (2.0 * choice - 1.0 - latents)\n# EVOLVE-BLOCK-END\n"
         },
@@ -1232,6 +1234,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 140.44297242164612,
+          "checked_at": null,
           "patch_description": null,
           "code": "# EVOLVE-BLOCK-START\n\"\"\"Reward history at two timescales: a fast and a slow reward trace for each side, learned on the\nchosen side, and a side bias.\"\"\"\nimport jax\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"rate_fast\": (0.2, 1.0),         # the fast trace's learning rate\n    \"rate_slow\": (0.0, 0.2),         # the slow trace's learning rate\n    \"weight_fast\": (0.0, 20.0),      # logits per unit of the fast trace\n    \"weight_slow\": (0.0, 20.0),      # logits per unit of the slow trace\n    \"bias_right\": (-3.0, 3.0),\n}\nN_LATENT = 4\nLATENT_NAMES = (\"fast_left\", \"fast_right\", \"slow_left\", \"slow_right\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(4)\n\n\ndef predict(latents, p):\n    return p[\"weight_fast\"] * latents[0:2] + p[\"weight_slow\"] * latents[2:4] + jnp.array([0.0, p[\"bias_right\"]])\n\n\ndef update(latents, choice, reward, p):\n    chosen = jax.nn.one_hot(choice, 2)\n    fast = latents[0:2] + chosen * p[\"rate_fast\"] * (reward - latents[0:2])\n    slow = latents[2:4] + chosen * p[\"rate_slow\"] * (reward - latents[2:4])\n    return jnp.concatenate([fast, slow])\n# EVOLVE-BLOCK-END\n"
         },
@@ -1257,6 +1260,7 @@
             "n_latent": 1
           },
           "evaluation_seconds": 74.39920020103455,
+          "checked_at": 1793827672.2843294,
           "patch_description": "Initial program setup",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-5.0, 5.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-5.0, 5.0),       # a pull towards repeating the last choice, in logits\n}\nN_LATENT = 1\nLATENT_NAMES = (\"last_choice_signed\",)    # +1 after a right choice, -1 after a left one, 0 at the start\n\n\ndef init_latents(p, session):\n    return jnp.zeros(1)\n\n\ndef predict(latents, p):\n    return jnp.array([0.0, p[\"side_bias\"] + p[\"stickiness\"] * latents[0]])\n\n\ndef update(latents, choice, reward, p):\n    return jnp.array([2.0 * choice - 1.0])\n# EVOLVE-BLOCK-END\n"
         },
@@ -1287,6 +1291,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 161.60748195648193,
+          "checked_at": 1793827762.3513293,
           "patch_description": "Hypothesis: mice combine reward-driven value learning (a Q-value per side, with forgetting of the unchosen side) with a choice-history bias. The current model has only a repeat tendency. I add two Q-values updated by a delta rule and a decaying choice trace in place of the single last choice. The logit is beta*(qR-qL) + stickiness*trace + side_bias. The Q-values are bounded by the reward range 0 to 1, and the trace is an exponential average of signed choices. The unchosen Q decays toward 0 at the same rate as the learning rate, which is a simple forgetting mechanism that suits baited tasks.\n\nLatents: q_left, q_right, and the trace.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-3.0, 3.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-1.0, 6.0),       # weight of the choice trace, in logits\n    \"learn_rate\": (0.0, 1.0),        # value learning rate (also forgetting of unchosen side)\n    \"beta\": (0.0, 10.0),             # inverse temperature on value difference\n    \"trace_decay\": (0.0, 1.0),       # update rate of the choice trace\n}\nN_LATENT = 3\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(3)\n\n\ndef predict(latents, p):\n    z = (p[\"side_bias\"] + p[\"beta\"] * (latents[1] - latents[0])\n         + p[\"stickiness\"] * latents[2])\n    return jnp.array([0.0, z])\n\n\ndef update(latents, choice, reward, p):\n    a = p[\"learn_rate\"]\n    ql = jnp.where(choice == 0, latents[0] + a * (reward - latents[0]), latents[0] * (1.0 - a))\n    qr = jnp.where(choice == 1, latents[1] + a * (reward - latents[1]), latents[1] * (1.0 - a))\n    d = p[\"trace_decay\"]\n    tr = latents[2] + d * ((2.0 * choice - 1.0) - latents[2])\n    return jnp.array([ql, qr, tr])\n# EVOLVE-BLOCK-END"
         },
@@ -1317,6 +1322,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 164.27014589309692,
+          "checked_at": 1793827762.9073687,
           "patch_description": "Adds reward-driven Q-learning, with forgetting of the unchosen side's value, to a decaying choice trace and a side bias. The choice trace generalizes last-choice stickiness to an exponentially weighted history of recent choices. Together these let the model capture both perseveration and reward-dependent switching.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"learn_rate\": (0.0, 1.0),     # value update rate for chosen side\n    \"beta\": (0.0, 10.0),          # sensitivity to value difference\n    \"forget\": (0.0, 1.0),         # decay of unchosen side's value\n    \"stick\": (-3.0, 6.0),         # weight of choice trace, logits\n    \"trace_rate\": (0.0, 1.0),     # update rate of choice trace\n    \"side_bias\": (-3.0, 3.0),     # fixed right preference, logits\n}\nN_LATENT = 3\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(3)\n\n\ndef predict(latents, p):\n    logit = (p[\"beta\"] * (latents[1] - latents[0])\n             + p[\"stick\"] * latents[2] + p[\"side_bias\"])\n    return jnp.array([0.0, logit])\n\n\ndef update(latents, choice, reward, p):\n    ql, qr, c = latents[0], latents[1], latents[2]\n    a = p[\"learn_rate\"]\n    f = p[\"forget\"]\n    is_r = choice == 1\n    new_qr = jnp.where(is_r, qr + a * (reward - qr), qr * (1.0 - f))\n    new_ql = jnp.where(is_r, ql * (1.0 - f), ql + a * (reward - ql))\n    s = 2.0 * choice - 1.0\n    new_c = c + p[\"trace_rate\"] * (s - c)\n    return jnp.array([new_ql, new_qr, new_c])\n# EVOLVE-BLOCK-END\n"
         },
@@ -1347,6 +1353,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 168.0010507106781,
+          "checked_at": 1793827941.5106487,
           "patch_description": null,
           "code": null
         },
@@ -1372,6 +1379,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 259.3947093486786,
+          "checked_at": 1793827937.9074678,
           "patch_description": "Hypothesis: mice combine reward-history values on two timescales with a choice-perseveration trace, so repeating a side is driven by past choices as well as by rewards. The current model has no such trace, and its switching errors by run length suggest it is missing one.\n\nChanges:\n- The fast and slow reward traces are kept.\n- Two latents are added: a fast-decaying choice trace for each side, with its own rate and weight. The trace is signed, so a positive weight gives stickiness and a negative one gives alternation.\n- The slow trace is also updated for the unchosen side, with a small forgetting term toward 0.5, so the two sides' slow values are not frozen when one side is neglected.\n- That forgetting term is not included. The model keeps the original chosen-side-only update to stay close to the fitted structure.\n\nThe result has 7 parameters and 6 latents.",
           "code": "# EVOLVE-BLOCK-START\n\"\"\"Fast and slow reward traces per side plus a choice-perseveration trace and side bias.\"\"\"\nimport jax\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"rate_fast\": (0.2, 1.0),\n    \"rate_slow\": (0.0, 0.2),\n    \"weight_fast\": (0.0, 20.0),\n    \"weight_slow\": (0.0, 20.0),\n    \"bias_right\": (-3.0, 3.0),\n    \"rate_choice\": (0.05, 1.0),      # choice trace update rate\n    \"weight_choice\": (-3.0, 5.0),    # logits per unit of choice trace (stickiness)\n}\nN_LATENT = 6\nLATENT_NAMES = (\"fast_left\", \"fast_right\", \"slow_left\", \"slow_right\", \"choice_left\", \"choice_right\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(6)\n\n\ndef predict(latents, p):\n    return (p[\"weight_fast\"] * latents[0:2] + p[\"weight_slow\"] * latents[2:4]\n            + p[\"weight_choice\"] * latents[4:6] + jnp.array([0.0, p[\"bias_right\"]]))\n\n\ndef update(latents, choice, reward, p):\n    chosen = jax.nn.one_hot(choice, 2)\n    fast = latents[0:2] + chosen * p[\"rate_fast\"] * (reward - latents[0:2])\n    slow = latents[2:4] + chosen * p[\"rate_slow\"] * (reward - latents[2:4])\n    ch = latents[4:6] + p[\"rate_choice\"] * (chosen - latents[4:6])\n    return jnp.concatenate([fast, slow, ch])\n# EVOLVE-BLOCK-END\n"
         },
@@ -1402,6 +1410,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 221.51699042320251,
+          "checked_at": 1793828123.187276,
           "patch_description": null,
           "code": null
         },
@@ -1440,6 +1449,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 156.69772505760193,
+          "checked_at": 1793828212.0153491,
           "patch_description": null,
           "code": null
         },
@@ -1477,6 +1487,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 277.9660325050354,
+          "checked_at": 1793828383.1990643,
           "patch_description": null,
           "code": null
         },
@@ -1513,6 +1524,7 @@
             "n_latent": 2
           },
           "evaluation_seconds": 337.48521304130554,
+          "checked_at": 1793828361.4695528,
           "patch_description": null,
           "code": null
         },
@@ -1549,6 +1561,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 291.9760551452637,
+          "checked_at": 1793828676.9614675,
           "patch_description": null,
           "code": null
         },
@@ -1582,6 +1595,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 338.05437541007996,
+          "checked_at": 1793828713.4021144,
           "patch_description": null,
           "code": null
         },
@@ -1619,6 +1633,7 @@
             "n_latent": 2
           },
           "evaluation_seconds": 132.55113625526428,
+          "checked_at": 1793828985.1954544,
           "patch_description": null,
           "code": null
         },
@@ -1652,6 +1667,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 287.3233435153961,
+          "checked_at": 1793829064.4190083,
           "patch_description": null,
           "code": null
         },
@@ -1685,6 +1701,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 247.87771725654602,
+          "checked_at": 1793829131.398828,
           "patch_description": null,
           "code": null
         },
@@ -1713,6 +1730,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 199.48953795433044,
+          "checked_at": 1793829393.257697,
           "patch_description": null,
           "code": null
         },
@@ -1741,6 +1759,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 273.39790177345276,
+          "checked_at": 1793829371.1225433,
           "patch_description": null,
           "code": null
         },
@@ -1778,6 +1797,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 294.6010739803314,
+          "checked_at": 1793829608.2802324,
           "patch_description": null,
           "code": null
         },
@@ -1811,6 +1831,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 268.5117087364197,
+          "checked_at": 1793829658.6435058,
           "patch_description": null,
           "code": null
         },
@@ -1839,6 +1860,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 286.0726389884949,
+          "checked_at": 1793829920.0777416,
           "patch_description": null,
           "code": null
         },
@@ -1876,6 +1898,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 281.79025292396545,
+          "checked_at": 1793829939.3368497,
           "patch_description": null,
           "code": null
         },
@@ -1904,6 +1927,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 284.39731431007385,
+          "checked_at": 1793830242.2910469,
           "patch_description": null,
           "code": null
         },
@@ -1932,6 +1956,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 342.0879967212677,
+          "checked_at": 1793830226.3756645,
           "patch_description": null,
           "code": null
         },
@@ -1965,6 +1990,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 200.20521926879883,
+          "checked_at": 1793830582.778065,
           "patch_description": null,
           "code": null
         },
@@ -1993,6 +2019,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 287.0698480606079,
+          "checked_at": 1793830541.924204,
           "patch_description": null,
           "code": null
         },
@@ -2026,6 +2053,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 291.74076414108276,
+          "checked_at": 1793830798.1137109,
           "patch_description": null,
           "code": null
         },
@@ -2054,6 +2082,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 255.79554772377014,
+          "checked_at": 1793830844.7242146,
           "patch_description": null,
           "code": null
         },
@@ -2082,6 +2111,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793831105.14068,
           "patch_description": null,
           "code": null
         },
@@ -2110,6 +2140,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793831117.9843717,
           "patch_description": null,
           "code": null
         },
@@ -2143,6 +2174,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 269.19599318504333,
+          "checked_at": 1793831113.8966625,
           "patch_description": null,
           "code": null
         },
@@ -2171,6 +2203,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 259.9163875579834,
+          "checked_at": 1793831132.1965473,
           "patch_description": null,
           "code": null
         },
@@ -2204,6 +2237,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 322.53937554359436,
+          "checked_at": 1793831405.2656226,
           "patch_description": null,
           "code": null
         },
@@ -2232,6 +2266,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 418.32140588760376,
+          "checked_at": 1793831395.571421,
           "patch_description": null,
           "code": null
         },
@@ -2260,6 +2295,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 306.97745275497437,
+          "checked_at": 1793831745.055914,
           "patch_description": null,
           "code": null
         },
@@ -2293,6 +2329,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 239.5616261959076,
+          "checked_at": 1793831826.6413114,
           "patch_description": null,
           "code": null
         },
@@ -2321,6 +2358,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 232.4410891532898,
+          "checked_at": 1793832082.4655461,
           "patch_description": null,
           "code": null
         },
@@ -2349,6 +2387,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 277.29748821258545,
+          "checked_at": 1793832080.2741249,
           "patch_description": null,
           "code": null
         },
@@ -2390,6 +2429,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 279.43907856941223,
+          "checked_at": 1793832324.043505,
           "patch_description": null,
           "code": null
         },
@@ -2418,6 +2458,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 435.3128581047058,
+          "checked_at": 1793832369.0635128,
           "patch_description": null,
           "code": null
         },
@@ -2455,6 +2496,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 221.67447423934937,
+          "checked_at": 1793832618.6012137,
           "patch_description": null,
           "code": null
         },
@@ -2488,6 +2530,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 277.0471532344818,
+          "checked_at": 1793832821.7860475,
           "patch_description": null,
           "code": null
         },
@@ -2516,6 +2559,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 255.15316128730774,
+          "checked_at": 1793832854.5720487,
           "patch_description": null,
           "code": null
         },
@@ -2553,6 +2597,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 314.17017889022827,
+          "checked_at": 1793833113.2153146,
           "patch_description": null,
           "code": null
         },
@@ -2581,6 +2626,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 337.3086082935333,
+          "checked_at": 1793833118.902807,
           "patch_description": null,
           "code": null
         },
@@ -2609,6 +2655,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 264.145388841629,
+          "checked_at": 1793833472.324843,
           "patch_description": null,
           "code": null
         },
@@ -2642,6 +2689,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 467.35911440849304,
+          "checked_at": 1793833440.5202596,
           "patch_description": null,
           "code": null
         },
@@ -2670,6 +2718,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 362.91311717033386,
+          "checked_at": 1793833751.7342243,
           "patch_description": null,
           "code": null
         },
@@ -2703,6 +2752,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 238.23002362251282,
+          "checked_at": 1793833919.1996965,
           "patch_description": null,
           "code": null
         },
@@ -2731,6 +2781,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 278.20827054977417,
+          "checked_at": 1793834127.7995563,
           "patch_description": null,
           "code": null
         },
@@ -2764,6 +2815,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 244.43356847763062,
+          "checked_at": 1793834175.9583778,
           "patch_description": null,
           "code": null
         },
@@ -2792,6 +2844,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793834432.3882713,
           "patch_description": null,
           "code": null
         },
@@ -2820,6 +2873,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 291.09956455230713,
+          "checked_at": 1793834419.2438571,
           "patch_description": null,
           "code": null
         },
@@ -2848,6 +2902,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 274.1420874595642,
+          "checked_at": 1793834451.5235894,
           "patch_description": null,
           "code": null
         },
@@ -2876,6 +2931,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 228.70841884613037,
+          "checked_at": 1793834736.9911118,
           "patch_description": null,
           "code": null
         },
@@ -2904,6 +2960,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 253.8726167678833,
+          "checked_at": 1793834723.927657,
           "patch_description": null,
           "code": null
         },
@@ -2937,6 +2994,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 267.784628868103,
+          "checked_at": 1793834981.6350734,
           "patch_description": null,
           "code": null
         },
@@ -2970,6 +3028,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 275.2929491996765,
+          "checked_at": 1793834989.78127,
           "patch_description": null,
           "code": null
         },
@@ -2998,6 +3057,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 289.8404848575592,
+          "checked_at": 1793835259.964539,
           "patch_description": null,
           "code": null
         },
@@ -3026,6 +3086,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 279.69669675827026,
+          "checked_at": 1793835282.260315,
           "patch_description": null,
           "code": null
         },
@@ -3054,6 +3115,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 248.35128378868103,
+          "checked_at": 1793835577.2835476,
           "patch_description": null,
           "code": null
         },
@@ -3082,6 +3144,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 268.0603415966034,
+          "checked_at": 1793835562.5444603,
           "patch_description": null,
           "code": null
         },
@@ -3110,6 +3173,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793835845.0758822,
           "patch_description": null,
           "code": null
         },
@@ -3143,6 +3207,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 263.39349699020386,
+          "checked_at": 1793835838.4252422,
           "patch_description": null,
           "code": null
         },
@@ -3171,6 +3236,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 267.55573177337646,
+          "checked_at": 1793835858.0548563,
           "patch_description": null,
           "code": null
         },
@@ -3204,6 +3270,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 286.1713984012604,
+          "checked_at": 1793836113.8968685,
           "patch_description": null,
           "code": null
         },
@@ -3232,6 +3299,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 287.183269739151,
+          "checked_at": 1793836141.2390485,
           "patch_description": null,
           "code": null
         },
@@ -3260,6 +3328,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793836438.613244,
           "patch_description": null,
           "code": null
         },
@@ -3293,6 +3362,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 252.5811686515808,
+          "checked_at": 1793836411.429982,
           "patch_description": null,
           "code": null
         },
@@ -3321,6 +3391,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793836677.7003243,
           "patch_description": null,
           "code": null
         },
@@ -3349,6 +3420,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 287.1046416759491,
+          "checked_at": 1793836460.000659,
           "patch_description": null,
           "code": null
         },
@@ -3377,6 +3449,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 295.7727496623993,
+          "checked_at": 1793836692.2780895,
           "patch_description": null,
           "code": null
         },
@@ -3405,6 +3478,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 257.3041696548462,
+          "checked_at": 1793836763.3163078,
           "patch_description": null,
           "code": null
         },
@@ -3438,6 +3512,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 298.3896062374115,
+          "checked_at": 1793837002.8418956,
           "patch_description": null,
           "code": null
         },
@@ -3466,6 +3541,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 274.2106981277466,
+          "checked_at": 1793837032.5344265,
           "patch_description": null,
           "code": null
         },
@@ -3494,6 +3570,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 280.6190595626831,
+          "checked_at": 1793837318.1282654,
           "patch_description": null,
           "code": null
         },
@@ -3527,6 +3604,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 296.1325454711914,
+          "checked_at": 1793837314.818733,
           "patch_description": null,
           "code": null
         },
@@ -3560,6 +3638,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 277.26056718826294,
+          "checked_at": 1793837608.9454956,
           "patch_description": null,
           "code": null
         },
@@ -3588,6 +3667,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 292.8465440273285,
+          "checked_at": 1793837624.3258321,
           "patch_description": null,
           "code": null
         },
@@ -3616,6 +3696,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 310.138685464859,
+          "checked_at": 1793837902.3353646,
           "patch_description": null,
           "code": null
         },
@@ -3644,6 +3725,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 289.6885886192322,
+          "checked_at": 1793837935.6006541,
           "patch_description": null,
           "code": null
         },
@@ -3677,6 +3759,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 225.57692646980286,
+          "checked_at": 1793838240.2395234,
           "patch_description": null,
           "code": null
         },
@@ -3705,6 +3788,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 243.74179983139038,
+          "checked_at": 1793838226.1731865,
           "patch_description": null,
           "code": null
         },
@@ -3733,6 +3817,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 293.9450659751892,
+          "checked_at": 1793838481.3159497,
           "patch_description": null,
           "code": null
         },
@@ -3761,6 +3846,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 401.81446599960327,
+          "checked_at": 1793838481.971189,
           "patch_description": null,
           "code": null
         },
@@ -3789,6 +3875,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 264.0584194660187,
+          "checked_at": 1793838795.9378119,
           "patch_description": null,
           "code": null
         },
@@ -3817,6 +3904,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 379.66087913513184,
+          "checked_at": 1793838894.4975262,
           "patch_description": null,
           "code": null
         },
@@ -3845,6 +3933,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 234.8795886039734,
+          "checked_at": 1793839072.690385,
           "patch_description": null,
           "code": null
         },
@@ -3873,6 +3962,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 267.9730327129364,
+          "checked_at": 1793839286.7189531,
           "patch_description": null,
           "code": null
         },
@@ -3901,6 +3991,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793839566.5640109,
           "patch_description": null,
           "code": null
         },
@@ -3934,6 +4025,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 257.3606946468353,
+          "checked_at": 1793839321.373078,
           "patch_description": null,
           "code": null
         },
@@ -3962,6 +4054,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 269.4027497768402,
+          "checked_at": 1793839590.7871544,
           "patch_description": null,
           "code": null
         },
@@ -3990,6 +4083,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 339.11164593696594,
+          "checked_at": 1793839579.6220474,
           "patch_description": null,
           "code": null
         },
@@ -4018,6 +4112,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 260.71550607681274,
+          "checked_at": 1793839878.1890264,
           "patch_description": null,
           "code": null
         },
@@ -4046,6 +4141,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793840153.933768,
           "patch_description": null,
           "code": null
         },
@@ -4074,6 +4170,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 257.20159578323364,
+          "checked_at": 1793839931.705213,
           "patch_description": null,
           "code": null
         },
@@ -4102,6 +4199,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 281.8678603172302,
+          "checked_at": 1793840204.5866952,
           "patch_description": null,
           "code": null
         },
@@ -4130,6 +4228,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 336.60772013664246,
+          "checked_at": 1793840165.6396968,
           "patch_description": null,
           "code": null
         },
@@ -4158,6 +4257,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793840506.5843363,
           "patch_description": null,
           "code": null
         },
@@ -4186,6 +4286,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 285.2017698287964,
+          "checked_at": 1793840517.6447098,
           "patch_description": null,
           "code": null
         },
@@ -4214,6 +4315,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 297.99337792396545,
+          "checked_at": 1793840524.2336328,
           "patch_description": null,
           "code": null
         },
@@ -4247,6 +4349,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 208.771253824234,
+          "checked_at": 1793840818.2108767,
           "patch_description": null,
           "code": null
         }
@@ -5355,6 +5458,7 @@
             "n_latent": 1
           },
           "evaluation_seconds": 68.46823740005493,
+          "checked_at": 1793830582.7990994,
           "patch_description": "Initial program setup",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-5.0, 5.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-5.0, 5.0),       # a pull towards repeating the last choice, in logits\n}\nN_LATENT = 1\nLATENT_NAMES = (\"last_choice_signed\",)    # +1 after a right choice, -1 after a left one, 0 at the start\n\n\ndef init_latents(p, session):\n    return jnp.zeros(1)\n\n\ndef predict(latents, p):\n    return jnp.array([0.0, p[\"side_bias\"] + p[\"stickiness\"] * latents[0]])\n\n\ndef update(latents, choice, reward, p):\n    return jnp.array([2.0 * choice - 1.0])\n# EVOLVE-BLOCK-END\n"
         },
@@ -5380,6 +5484,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 157.66684818267822,
+          "checked_at": 1793830665.354439,
           "patch_description": "Hypothesis: mice combine reward-driven value learning (a Q-value per side, with forgetting of the unchosen side) with a choice-perseveration trace. The current program only repeats the last choice and ignores rewards. I add two Q-values that are updated for the chosen side only (the unchosen side decays toward 0), scaled by an inverse temperature, and I replace the binary last-choice term with an exponentially decaying choice trace. The program keeps its side bias.\n\nLatents: q_left, q_right, choice_trace (signed, decaying).\nParams: learn_rate, beta, forget (unchosen decay), side_bias, stickiness, trace_decay.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-3.0, 3.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-1.0, 5.0),       # weight on the choice trace, in logits\n    \"learn_rate\": (0.0, 1.0),        # value learning rate for the chosen side\n    \"beta\": (0.0, 10.0),             # inverse temperature on value difference\n    \"forget\": (0.0, 1.0),            # decay of the unchosen side's value\n    \"trace_decay\": (0.0, 1.0),       # decay of the choice trace per trial\n}\nN_LATENT = 3\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(3)\n\n\ndef predict(latents, p):\n    d = p[\"beta\"] * (latents[1] - latents[0])\n    return jnp.array([0.0, p[\"side_bias\"] + d + p[\"stickiness\"] * latents[2]])\n\n\ndef update(latents, choice, reward, p):\n    ql, qr, tr = latents[0], latents[1], latents[2]\n    lr = p[\"learn_rate\"]\n    f = 1.0 - p[\"forget\"]\n    new_ql = jnp.where(choice == 0, ql + lr * (reward - ql), ql * f)\n    new_qr = jnp.where(choice == 1, qr + lr * (reward - qr), qr * f)\n    new_tr = p[\"trace_decay\"] * tr + (1.0 - p[\"trace_decay\"]) * (2.0 * choice - 1.0)\n    return jnp.array([new_ql, new_qr, new_tr])\n# EVOLVE-BLOCK-END"
         },
@@ -5405,6 +5510,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 156.0241219997406,
+          "checked_at": 1793830671.1075704,
           "patch_description": null,
           "code": null
         },
@@ -5432,6 +5538,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 158.89647340774536,
+          "checked_at": 1793830834.2945065,
           "patch_description": null,
           "code": null
         },
@@ -5460,6 +5567,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 136.03028297424316,
+          "checked_at": 1793831005.3916607,
           "patch_description": null,
           "code": null
         },
@@ -5488,6 +5596,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 328.84238481521606,
+          "checked_at": 1793830841.7339725,
           "patch_description": null,
           "code": null
         },
@@ -5516,6 +5625,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 205.1916000843048,
+          "checked_at": 1793831152.242758,
           "patch_description": null,
           "code": null
         },
@@ -5544,6 +5654,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 177.2245545387268,
+          "checked_at": 1793831185.207552,
           "patch_description": "Hypothesis: choice perseveration has fast and slow components. A second slow choice trace, with its own weight, is added next to the existing fast trace. The unrewarded learning rate is dropped because it was nearly equal to the rewarded one.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-3.0, 3.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-1.0, 5.0),       # weight on the choice trace, in logits\n    \"learn_rate\": (0.0, 1.0),        # learning rate after a rewarded trial\n    \"beta\": (0.0, 10.0),             # inverse temperature on value difference\n    \"slow_stick\": (-2.0, 4.0),       # weight on the slow choice trace, in logits\n    \"trace_decay\": (0.0, 1.0),       # decay of the choice trace per trial\n}\nN_LATENT = 4\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\", \"slow_trace\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(4)\n\n\ndef predict(latents, p):\n    d = p[\"beta\"] * (latents[1] - latents[0])\n    return jnp.array([0.0, p[\"side_bias\"] + d + p[\"stickiness\"] * latents[2]\n                      + p[\"slow_stick\"] * latents[3]])\n\n\ndef update(latents, choice, reward, p):\n    ql, qr, tr = latents[0], latents[1], latents[2]\n    lr = p[\"learn_rate\"]\n    new_ql = jnp.where(choice == 0, ql + lr * (reward - ql), ql)\n    new_qr = jnp.where(choice == 1, qr + lr * (reward - qr), qr)\n    new_tr = p[\"trace_decay\"] * tr + (1.0 - p[\"trace_decay\"]) * (2.0 * choice - 1.0)\n    new_slow = 0.97 * latents[3] + 0.03 * (2.0 * choice - 1.0)\n    return jnp.array([new_ql, new_qr, new_tr, new_slow])\n# EVOLVE-BLOCK-END"
         },
@@ -5572,6 +5683,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 233.48543238639832,
+          "checked_at": 1793831371.745628,
           "patch_description": null,
           "code": null
         },
@@ -5600,6 +5712,7 @@
             "n_latent": 3
           },
           "evaluation_seconds": 356.17083406448364,
+          "checked_at": 1793831369.354252,
           "patch_description": null,
           "code": null
         },
@@ -5628,6 +5741,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 194.92294812202454,
+          "checked_at": 1793831620.159629,
           "patch_description": null,
           "code": null
         },
@@ -5656,6 +5770,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 170.24256587028503,
+          "checked_at": 1793831735.9330673,
           "patch_description": null,
           "code": null
         },
@@ -5684,6 +5799,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 210.56017231941223,
+          "checked_at": 1793831825.2162368,
           "patch_description": "Hypothesis: the unchosen option's value decays toward zero (forgetting), not upward drift as in the baiting model. This replaces the unused bait_drift with a forgetting rate, a standard mechanism in mouse foraging models.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-3.0, 3.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-1.0, 5.0),       # weight on the choice trace, in logits\n    \"learn_rate\": (0.0, 1.0),        # learning rate after a rewarded trial\n    \"bait_drift\": (0.0, 0.5),        # forgetting rate: decay of the unchosen side's value toward 0\n    \"beta\": (0.0, 10.0),             # inverse temperature on value difference\n    \"slow_stick\": (-2.0, 4.0),       # weight on the slow choice trace, in logits\n    \"trace_decay\": (0.0, 1.0),       # decay of the choice trace per trial\n}\nN_LATENT = 4\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\", \"slow_trace\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(4)\n\n\ndef predict(latents, p):\n    d = p[\"beta\"] * (latents[1] - latents[0])\n    return jnp.array([0.0, p[\"side_bias\"] + d + p[\"stickiness\"] * latents[2]\n                      + p[\"slow_stick\"] * latents[3]])\n\n\ndef update(latents, choice, reward, p):\n    ql, qr, tr = latents[0], latents[1], latents[2]\n    lr = p[\"learn_rate\"]\n    bd = p[\"bait_drift\"]\n    new_ql = jnp.where(choice == 0, ql + lr * (reward - ql), ql * (1.0 - bd))\n    new_qr = jnp.where(choice == 1, qr + lr * (reward - qr), qr * (1.0 - bd))\n    new_tr = p[\"trace_decay\"] * tr + (1.0 - p[\"trace_decay\"]) * (2.0 * choice - 1.0)\n    new_slow = 0.97 * latents[3] + 0.03 * (2.0 * choice - 1.0)\n    return jnp.array([new_ql, new_qr, new_tr, new_slow])\n# EVOLVE-BLOCK-END"
         },
@@ -5712,6 +5828,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 198.52269387245178,
+          "checked_at": 1793831916.6015062,
           "patch_description": null,
           "code": null
         },
@@ -5740,6 +5857,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 210.33634543418884,
+          "checked_at": 1793832044.7012813,
           "patch_description": null,
           "code": null
         },
@@ -5768,6 +5886,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 204.3887219429016,
+          "checked_at": 1793832127.7051795,
           "patch_description": null,
           "code": null
         },
@@ -5796,6 +5915,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 205.23901438713074,
+          "checked_at": 1793832265.323551,
           "patch_description": null,
           "code": null
         },
@@ -5824,6 +5944,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793832482.510375,
           "patch_description": null,
           "code": null
         },
@@ -5852,6 +5973,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 190.40321707725525,
+          "checked_at": 1793832342.8614447,
           "patch_description": null,
           "code": null
         },
@@ -5880,6 +6002,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 212.84971117973328,
+          "checked_at": 1793832492.411856,
           "patch_description": null,
           "code": null
         },
@@ -5908,6 +6031,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 283.61033821105957,
+          "checked_at": 1793832547.109365,
           "patch_description": null,
           "code": null
         },
@@ -5936,6 +6060,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 176.66603255271912,
+          "checked_at": 1793832714.9528673,
           "patch_description": null,
           "code": null
         },
@@ -5964,6 +6089,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 169.7374701499939,
+          "checked_at": 1793832902.9827778,
           "patch_description": "Hypothesis: choices combine reward-driven value learning with two choice traces (fast and slow), and the unchosen side's value forgets slowly. This crosses the current program with the bait_drift variant. The drift is small and fitted near 0.02, so it is fixed here as a constant rather than a free parameter. That keeps the model at 6 parameters, and the weak forgetting still gives the unchosen side a mild pull toward 0. It also makes the slow trace's decay a learnable parameter. This is a small change with a plausible gain. Fixing the drift avoids a weakly identified parameter, and the slow-trace time constant stays at 0.97.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-3.0, 3.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-1.0, 5.0),       # weight on the choice trace, in logits\n    \"learn_rate\": (0.0, 1.0),        # value learning rate for the chosen side\n    \"beta\": (0.0, 10.0),             # inverse temperature on value difference\n    \"slow_stick\": (-2.0, 4.0),       # weight on the slow choice trace, in logits\n    \"trace_decay\": (0.0, 1.0),       # decay of the choice trace per trial\n}\nN_LATENT = 4\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\", \"slow_trace\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(4)\n\n\ndef predict(latents, p):\n    d = p[\"beta\"] * (latents[1] - latents[0])\n    return jnp.array([0.0, p[\"side_bias\"] + d + p[\"stickiness\"] * latents[2]\n                      + p[\"slow_stick\"] * latents[3]])\n\n\ndef update(latents, choice, reward, p):\n    ql, qr, tr = latents[0], latents[1], latents[2]\n    lr = p[\"learn_rate\"]\n    bd = 0.02\n    new_ql = jnp.where(choice == 0, ql + lr * (reward - ql), ql * (1.0 - bd))\n    new_qr = jnp.where(choice == 1, qr + lr * (reward - qr), qr * (1.0 - bd))\n    new_tr = p[\"trace_decay\"] * tr + (1.0 - p[\"trace_decay\"]) * (2.0 * choice - 1.0)\n    new_slow = 0.97 * latents[3] + 0.03 * (2.0 * choice - 1.0)\n    return jnp.array([new_ql, new_qr, new_tr, new_slow])\n# EVOLVE-BLOCK-END"
         },
@@ -5992,6 +6118,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 245.4786376953125,
+          "checked_at": 1793832839.9813862,
           "patch_description": null,
           "code": null
         },
@@ -6020,6 +6147,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 204.21292066574097,
+          "checked_at": 1793833094.6550279,
           "patch_description": null,
           "code": null
         },
@@ -6048,6 +6176,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 240.76859068870544,
+          "checked_at": 1793833085.6120088,
           "patch_description": null,
           "code": null
         },
@@ -6076,6 +6205,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 205.19808316230774,
+          "checked_at": 1793833312.6709988,
           "patch_description": "Hypothesis: mice combine value learning with a choice kernel whose influence depends on the outcome. A reward-dependent \"win-stay\" kernel is kept separate from the generic choice trace, so the outcome of the last trial (win vs. loss) shifts the repeat tendency directly. The value update is also simplified: one learning rate, with forgetting of the unchosen side. A fast choice trace and a slow trace are retained. A latent holds the signed last choice multiplied by last reward (win-stay signal), weighted by the parameter win_stay. This gives a direct and interpretable route for the win-stay/lose-shift asymmetry that the earlier variants tried to capture through separate learning rates.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-3.0, 3.0),        # fixed preference for the right side, in logits\n    \"stickiness\": (-1.0, 5.0),       # weight on the fast choice trace, in logits\n    \"learn_rate\": (0.0, 1.0),        # value learning rate for the chosen side\n    \"beta\": (0.0, 10.0),             # inverse temperature on value difference\n    \"slow_stick\": (-2.0, 4.0),       # weight on the slow choice trace, in logits\n    \"trace_decay\": (0.0, 1.0),       # decay of the fast choice trace per trial\n    \"win_stay\": (-2.0, 4.0),         # extra logit to repeat the last choice if it was rewarded\n}\nN_LATENT = 5\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\", \"slow_trace\", \"last_win\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(5)\n\n\ndef predict(latents, p):\n    d = p[\"beta\"] * (latents[1] - latents[0])\n    return jnp.array([0.0, p[\"side_bias\"] + d + p[\"stickiness\"] * latents[2]\n                      + p[\"slow_stick\"] * latents[3] + p[\"win_stay\"] * latents[4]])\n\n\ndef update(latents, choice, reward, p):\n    ql, qr, tr = latents[0], latents[1], latents[2]\n    lr = p[\"learn_rate\"]\n    bd = 0.02\n    new_ql = jnp.where(choice == 0, ql + lr * (reward - ql), ql * (1.0 - bd))\n    new_qr = jnp.where(choice == 1, qr + lr * (reward - qr), qr * (1.0 - bd))\n    s = 2.0 * choice - 1.0\n    new_tr = p[\"trace_decay\"] * tr + (1.0 - p[\"trace_decay\"]) * s\n    new_slow = 0.97 * latents[3] + 0.03 * s\n    new_win = s * reward\n    return jnp.array([new_ql, new_qr, new_tr, new_slow, new_win])\n# EVOLVE-BLOCK-END"
         },
@@ -6104,6 +6234,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 186.22144842147827,
+          "checked_at": 1793833335.562859,
           "patch_description": null,
           "code": null
         },
@@ -6132,6 +6263,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 241.84849548339844,
+          "checked_at": 1793833528.0362897,
           "patch_description": null,
           "code": null
         },
@@ -6160,6 +6292,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 333.3294508457184,
+          "checked_at": 1793833531.877171,
           "patch_description": null,
           "code": null
         },
@@ -6188,6 +6321,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 165.55411624908447,
+          "checked_at": 1793833876.2690578,
           "patch_description": null,
           "code": null
         },
@@ -6216,6 +6350,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 269.9687623977661,
+          "checked_at": 1793833783.475536,
           "patch_description": null,
           "code": null
         },
@@ -6244,6 +6379,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 219.57715487480164,
+          "checked_at": 1793834063.314814,
           "patch_description": null,
           "code": null
         },
@@ -6272,6 +6408,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 252.27605628967285,
+          "checked_at": 1793834051.3342938,
           "patch_description": null,
           "code": null
         },
@@ -6300,6 +6437,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 241.81122183799744,
+          "checked_at": 1793834294.624818,
           "patch_description": null,
           "code": null
         },
@@ -6328,6 +6466,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 387.12711358070374,
+          "checked_at": 1793834312.8281906,
           "patch_description": null,
           "code": null
         },
@@ -6356,6 +6495,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 158.25426411628723,
+          "checked_at": 1793834547.3616574,
           "patch_description": null,
           "code": null
         },
@@ -6384,6 +6524,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 213.8315269947052,
+          "checked_at": 1793834716.0971823,
           "patch_description": null,
           "code": null
         },
@@ -6412,6 +6553,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 180.63980197906494,
+          "checked_at": 1793834940.9834926,
           "patch_description": null,
           "code": null
         },
@@ -6440,6 +6582,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 508.30411553382874,
+          "checked_at": 1793834715.9230337,
           "patch_description": null,
           "code": null
         },
@@ -6468,6 +6611,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 252.0043067932129,
+          "checked_at": 1793835134.9468105,
           "patch_description": null,
           "code": null
         },
@@ -6496,6 +6640,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 176.15796637535095,
+          "checked_at": 1793835395.5733423,
           "patch_description": null,
           "code": null
         },
@@ -6524,6 +6669,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 458.9944398403168,
+          "checked_at": 1793835234.7357812,
           "patch_description": null,
           "code": null
         },
@@ -6552,6 +6698,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 166.6380970478058,
+          "checked_at": 1793835585.329972,
           "patch_description": null,
           "code": null
         },
@@ -6580,6 +6727,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 246.55601048469543,
+          "checked_at": 1793835703.3169749,
           "patch_description": null,
           "code": null
         },
@@ -6608,6 +6756,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 256.98915672302246,
+          "checked_at": 1793835763.276052,
           "patch_description": null,
           "code": null
         },
@@ -6636,6 +6785,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 202.6019003391266,
+          "checked_at": 1793835959.0863419,
           "patch_description": null,
           "code": null
         },
@@ -6664,6 +6814,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 372.8341979980469,
+          "checked_at": 1793836029.0560012,
           "patch_description": null,
           "code": null
         },
@@ -6692,6 +6843,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 257.1845989227295,
+          "checked_at": 1793836173.3245716,
           "patch_description": null,
           "code": null
         },
@@ -6720,6 +6872,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 216.82160639762878,
+          "checked_at": 1793836412.7475262,
           "patch_description": null,
           "code": null
         },
@@ -6748,6 +6901,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 208.66586470603943,
+          "checked_at": 1793836442.2127526,
           "patch_description": null,
           "code": null
         },
@@ -6776,6 +6930,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 213.29827451705933,
+          "checked_at": 1793836666.314585,
           "patch_description": null,
           "code": null
         },
@@ -6804,6 +6959,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 271.5986361503601,
+          "checked_at": 1793836643.157471,
           "patch_description": null,
           "code": null
         },
@@ -6832,6 +6988,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 298.6478374004364,
+          "checked_at": 1793836893.0501814,
           "patch_description": null,
           "code": null
         },
@@ -6860,6 +7017,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 396.80780696868896,
+          "checked_at": 1793836928.553424,
           "patch_description": null,
           "code": null
         },
@@ -6888,6 +7046,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 298.8514311313629,
+          "checked_at": 1793837202.1794302,
           "patch_description": null,
           "code": null
         },
@@ -6916,6 +7075,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 167.86685013771057,
+          "checked_at": 1793837336.654339,
           "patch_description": null,
           "code": null
         },
@@ -6944,6 +7104,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 274.49180483818054,
+          "checked_at": 1793837510.9335175,
           "patch_description": null,
           "code": null
         },
@@ -6972,6 +7133,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 277.33599853515625,
+          "checked_at": 1793837513.4625254,
           "patch_description": null,
           "code": null
         },
@@ -7000,6 +7162,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 230.37515687942505,
+          "checked_at": 1793837795.0812948,
           "patch_description": null,
           "code": null
         },
@@ -7028,6 +7191,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 252.39786529541016,
+          "checked_at": 1793837800.9553108,
           "patch_description": null,
           "code": null
         },
@@ -7056,6 +7220,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 268.3006145954132,
+          "checked_at": 1793838034.6276143,
           "patch_description": null,
           "code": null
         },
@@ -7084,6 +7249,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 253.578284740448,
+          "checked_at": 1793838068.2013063,
           "patch_description": null,
           "code": null
         },
@@ -7112,6 +7278,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 268.6371784210205,
+          "checked_at": 1793838316.1932065,
           "patch_description": null,
           "code": null
         },
@@ -7140,6 +7307,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 261.86699628829956,
+          "checked_at": 1793838348.1498454,
           "patch_description": null,
           "code": null
         },
@@ -7168,6 +7336,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 210.36269521713257,
+          "checked_at": 1793838634.831926,
           "patch_description": null,
           "code": null
         },
@@ -7196,6 +7365,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 361.01581358909607,
+          "checked_at": 1793838594.7180643,
           "patch_description": null,
           "code": null
         },
@@ -7224,6 +7394,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 250.5972604751587,
+          "checked_at": 1793838854.5135689,
           "patch_description": null,
           "code": null
         },
@@ -7252,6 +7423,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 504.42204213142395,
+          "checked_at": 1793838966.0196922,
           "patch_description": null,
           "code": null
         },
@@ -7280,6 +7452,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 421.82510566711426,
+          "checked_at": 1793839117.7511637,
           "patch_description": null,
           "code": null
         },
@@ -7308,6 +7481,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 266.5775828361511,
+          "checked_at": 1793839485.5010872,
           "patch_description": "Hypothesis: mice combine a fast and a slow reward-learning system. Both track the value difference between the sides, each with its own learning rate and weight, and the fast one also drives win-stay behaviour. This replaces the poorly identified forget and bait_level parameters, which sat at bounds, with a second value timescale. The remaining terms are a fast choice trace, a slow choice trace and a side bias. The values are stored as a single signed difference for each timescale. Chosen-side learning is relative to the previous estimate: q moves toward the reward-signed target. The unchosen side is left unchanged.\n\nImplementation: I keep two value pairs (fast and slow) plus the two choice traces, which makes six latents. The latents are q_fast_l, q_fast_r, q_slow_l, q_slow_r, trace and slow_trace. The logit is the sum of beta_fast*(dQfast) + beta_slow*(dQslow) + stickiness*trace + slow_stick*slow_trace + side_bias. The traces use fixed or fitted decays.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-2.0, 2.0),        # fixed preference for right, logits\n    \"stickiness\": (-1.0, 5.0),       # weight on fast choice trace\n    \"slow_stick\": (-2.0, 4.0),       # weight on slow choice trace\n    \"trace_decay\": (0.0, 1.0),       # decay of fast choice trace\n    \"lr_fast\": (0.0, 1.0),           # fast value learning rate\n    \"lr_slow\": (0.0, 0.3),           # slow value learning rate\n    \"beta_fast\": (0.0, 10.0),        # weight on fast value difference\n    \"beta_slow\": (0.0, 10.0),        # weight on slow value difference\n}\nN_LATENT = 6\nLATENT_NAMES = (\"qf_left\", \"qf_right\", \"qs_left\", \"qs_right\", \"choice_trace\", \"slow_trace\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(6)\n\n\ndef predict(latents, p):\n    d = (p[\"beta_fast\"] * (latents[1] - latents[0])\n         + p[\"beta_slow\"] * (latents[3] - latents[2]))\n    return jnp.array([0.0, p[\"side_bias\"] + d + p[\"stickiness\"] * latents[4]\n                      + p[\"slow_stick\"] * latents[5]])\n\n\ndef update(latents, choice, reward, p):\n    lf, lsw = p[\"lr_fast\"], p[\"lr_slow\"]\n    qfl, qfr, qsl, qsr = latents[0], latents[1], latents[2], latents[3]\n    nfl = jnp.where(choice == 0, qfl + lf * (reward - qfl), qfl * 0.98)\n    nfr = jnp.where(choice == 1, qfr + lf * (reward - qfr), qfr * 0.98)\n    nsl = jnp.where(choice == 0, qsl + lsw * (reward - qsl), qsl)\n    nsr = jnp.where(choice == 1, qsr + lsw * (reward - qsr), qsr)\n    s = 2.0 * choice - 1.0\n    ntr = p[\"trace_decay\"] * latents[4] + (1.0 - p[\"trace_decay\"]) * s\n    nslow = 0.97 * latents[5] + 0.03 * s\n    return jnp.array([nfl, nfr, nsl, nsr, ntr, nslow])\n# EVOLVE-BLOCK-END"
         },
@@ -7336,6 +7510,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 230.1778736114502,
+          "checked_at": 1793839566.9556453,
           "patch_description": null,
           "code": null
         },
@@ -7364,6 +7539,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 269.5010392665863,
+          "checked_at": 1793839765.0058851,
           "patch_description": null,
           "code": null
         },
@@ -7392,6 +7568,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 272.6313602924347,
+          "checked_at": 1793839812.919443,
           "patch_description": "Hypothesis: mice track reward rates on two timescales, a fast learner for recent outcomes and a slow learner for block-level reward history. Both contribute to the choice logit. This replaces the barely used bait_level/forget drift, which fit at a bound for most mice, with a fixed small decay of the unchosen fast value and a slow value pair with its own learning rate and weight.",
           "code": "\"\"\"Template: a side bias and a tendency to repeat the last choice; no learning from reward.\"\"\"\n# EVOLVE-BLOCK-START\nimport jax.numpy as jnp\n\nPARAMS = {\n    \"side_bias\": (-3.0, 3.0),        # a fixed preference for the right side, in logits\n    \"stickiness\": (-1.0, 5.0),       # weight on the choice trace, in logits\n    \"learn_rate\": (0.0, 1.0),        # value learning rate for the chosen side\n    \"beta\": (0.0, 10.0),             # inverse temperature on value difference\n    \"lr_slow\": (0.0, 0.3),           # slow value learning rate\n    \"beta_slow\": (0.0, 10.0),        # weight on slow value difference\n    \"trace_decay\": (0.0, 1.0),       # decay of the choice trace per trial\n    \"slow_stick\": (-2.0, 4.0),       # weight on the slow choice trace, in logits\n}\nN_LATENT = 6\nLATENT_NAMES = (\"q_left\", \"q_right\", \"choice_trace\", \"slow_trace\", \"qs_left\", \"qs_right\")\n\n\ndef init_latents(p, session):\n    return jnp.zeros(6)\n\n\ndef predict(latents, p):\n    d = p[\"beta\"] * (latents[1] - latents[0]) + p[\"beta_slow\"] * (latents[5] - latents[4])\n    return jnp.array([0.0, p[\"side_bias\"] + d + p[\"stickiness\"] * latents[2]\n                      + p[\"slow_stick\"] * latents[3]])\n\n\ndef update(latents, choice, reward, p):\n    ql, qr, tr = latents[0], latents[1], latents[2]\n    lr = p[\"learn_rate\"]\n    ls = p[\"lr_slow\"]\n    new_ql = jnp.where(choice == 0, ql + lr * (reward - ql), ql * 0.98)\n    new_qr = jnp.where(choice == 1, qr + lr * (reward - qr), qr * 0.98)\n    new_sl = jnp.where(choice == 0, latents[4] + ls * (reward - latents[4]), latents[4])\n    new_sr = jnp.where(choice == 1, latents[5] + ls * (reward - latents[5]), latents[5])\n    new_tr = p[\"trace_decay\"] * tr + (1.0 - p[\"trace_decay\"]) * (2.0 * choice - 1.0)\n    new_slow = 0.97 * latents[3] + 0.03 * (2.0 * choice - 1.0)\n    return jnp.array([new_ql, new_qr, new_tr, new_slow, new_sl, new_sr])\n# EVOLVE-BLOCK-END"
         },
@@ -7420,6 +7597,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 189.48226237297058,
+          "checked_at": 1793840041.9617677,
           "patch_description": null,
           "code": null
         },
@@ -7448,6 +7626,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 293.83503580093384,
+          "checked_at": 1793840096.6479964,
           "patch_description": null,
           "code": null
         },
@@ -7476,6 +7655,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 234.66360354423523,
+          "checked_at": 1793840240.1328013,
           "patch_description": null,
           "code": null
         },
@@ -7504,6 +7684,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 276.29258584976196,
+          "checked_at": 1793840401.1480978,
           "patch_description": null,
           "code": null
         },
@@ -7532,6 +7713,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 248.10648345947266,
+          "checked_at": 1793840692.689518,
           "patch_description": null,
           "code": null
         },
@@ -7560,6 +7742,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793840950.8985336,
           "patch_description": null,
           "code": null
         },
@@ -7588,6 +7771,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 566.343398809433,
+          "checked_at": 1793840485.657193,
           "patch_description": null,
           "code": null
         },
@@ -7616,6 +7800,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 186.5276837348938,
+          "checked_at": 1793840972.4418523,
           "patch_description": null,
           "code": null
         },
@@ -7644,6 +7829,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 275.1020231246948,
+          "checked_at": 1793841064.6286108,
           "patch_description": null,
           "code": null
         },
@@ -7672,6 +7858,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 245.95355319976807,
+          "checked_at": 1793841169.2408416,
           "patch_description": null,
           "code": null
         },
@@ -7700,6 +7887,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 174.17543411254883,
+          "checked_at": 1793841437.6538198,
           "patch_description": null,
           "code": null
         },
@@ -7728,6 +7916,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 264.0597867965698,
+          "checked_at": 1793841350.3288743,
           "patch_description": null,
           "code": null
         },
@@ -7756,6 +7945,7 @@
             "n_latent": null
           },
           "evaluation_seconds": null,
+          "checked_at": 1793841625.6022577,
           "patch_description": null,
           "code": null
         },
@@ -7784,6 +7974,7 @@
             "n_latent": 4
           },
           "evaluation_seconds": 211.15734457969666,
+          "checked_at": 1793841639.602162,
           "patch_description": null,
           "code": null
         },
@@ -7812,6 +8003,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 274.89241099357605,
+          "checked_at": 1793841625.4332628,
           "patch_description": null,
           "code": null
         },
@@ -7840,6 +8032,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 356.35244822502136,
+          "checked_at": 1793841863.9017744,
           "patch_description": null,
           "code": null
         },
@@ -7868,6 +8061,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 528.4025340080261,
+          "checked_at": 1793841912.9365976,
           "patch_description": null,
           "code": null
         },
@@ -7896,6 +8090,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 264.42276215553284,
+          "checked_at": 1793842234.985013,
           "patch_description": null,
           "code": null
         },
@@ -7924,6 +8119,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 296.8147666454315,
+          "checked_at": 1793842450.0481007,
           "patch_description": null,
           "code": null
         },
@@ -7952,6 +8148,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 292.6367838382721,
+          "checked_at": 1793842509.6431637,
           "patch_description": null,
           "code": null
         },
@@ -7980,6 +8177,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 294.2513430118561,
+          "checked_at": 1793842756.6651316,
           "patch_description": null,
           "code": null
         },
@@ -8008,6 +8206,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 259.5514554977417,
+          "checked_at": 1793842812.2778502,
           "patch_description": null,
           "code": null
         },
@@ -8036,6 +8235,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 303.6740086078644,
+          "checked_at": 1793843061.2310195,
           "patch_description": null,
           "code": null
         },
@@ -8064,6 +8264,7 @@
             "n_latent": 5
           },
           "evaluation_seconds": 521.3331582546234,
+          "checked_at": 1793843083.1814058,
           "patch_description": null,
           "code": null
         },
@@ -8092,6 +8293,7 @@
             "n_latent": 6
           },
           "evaluation_seconds": 272.8186459541321,
+          "checked_at": 1793843375.4679005,
           "patch_description": null,
           "code": null
         }

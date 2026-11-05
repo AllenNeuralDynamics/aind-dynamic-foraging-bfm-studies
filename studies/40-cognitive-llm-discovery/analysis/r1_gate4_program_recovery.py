@@ -148,8 +148,9 @@ def example_session(example: dict) -> str:
     lat = np.asarray(example["latents"])
     styles = {"fast_left": ("r", "-"), "fast_right": ("b", "-"), "slow_left": ("r", "--"), "slow_right": ("b", "--"),
               "kernel": ("0.4", "-")}
+    trials = np.arange(1, len(lat) + 1)          # the session plot numbers trials from 1
     for k, nm in enumerate(example["latent_names"]):
-        ax.plot(lat[:, k], color=styles[nm][0], ls=styles[nm][1], lw=0.6, label=nm.replace("_", " "))
+        ax.plot(trials, lat[:, k], color=styles[nm][0], ls=styles[nm][1], lw=0.6, label=nm.replace("_", " "))
     ax.set_xlim(axes[0].get_xlim()), ax.set_xlabel("trial"), ax.set_ylabel("latent variable")
     ax.legend(frameon=False, ncol=5, fontsize=5, loc="lower left", bbox_to_anchor=(0, 1.0))
     p0, p1 = axes[0].get_position(), ax.get_position()
