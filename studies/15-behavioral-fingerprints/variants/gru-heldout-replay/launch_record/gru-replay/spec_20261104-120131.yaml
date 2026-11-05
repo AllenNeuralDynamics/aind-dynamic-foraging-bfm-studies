@@ -1,0 +1,103 @@
+version: v2
+description: 'gru-heldout-replay: study 01 v1 D=614 GRU, offline held-out fine-tune
+  per seed'
+tasks:
+- name: gru-heldout-replay-s0
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - bash
+  - -lc
+  - python -c "import base64;open('/tmp/heldout.yaml','wb').write(base64.b64decode('IyBTdHVkeSAwMSdzIG9mZmxpbmUgaGVsZC1vdXQgY29uZmlnIChzdHVkaWVzLzAxLWdydS1zY2FsaW5nLWxhdy9oZWxkb3V0X29mZmxpbmUueWFtbCksIHVuY2hhbmdlZCwKIyBzbyB0aGUgZmluZS10dW5lIHJlcHJvZHVjZXMgaXRzIGhlbGQtb3V0IG51bWJlcnM7IHN0dWR5IDE1IHJlYWRzIHRoZSBwZXItdHJpYWwgcHJlZGljdGlvbnMgdGhhdAojIGN1cnJlbnQgd3JhcHBlciBtYWluIGFsc28gd3JpdGVzICh0ZXN0X3RyaWFsX3ByZWRpY3Rpb25zLmNzdikuIFcmQiBzdGF5cyBvZmYgKGB3YW5kYjoge31gKS4KIwojIE9mZmxpbmUgaGVsZC1vdXQgZmluZS10dW5lK3Rlc3QgY29uZmlnICh0aGUgc3R1ZHkgeS1heGlzKSwgcmV1c2FibGUgYWNyb3NzIGFsbCBydW5zLgojIEVhY2ggb2ZmbGluZSBqb2IgbW91bnRzIE9ORSB0cmFpbmluZyBydW4ncyByZXN1bHQgZGF0YXNldCBhdCAvcHJpb3IsIHNvIG1vZGVsX2RpciBpcwojIGNvbnN0YW50LiBNYXRjaGVzIHRoZSBpbmxpbmUgYXV0b19oZWxkb3V0X2ZpbmV0dW5lIHBhcmFtcyAobl9zdGVwcz01MDAsIGxyPTFlLTMpIHNvCiMgb2ZmbGluZSBudW1iZXJzIGFyZSBjb21wYXJhYmxlLiBIZWxkLW91dCBzdWJqZWN0IHNldCBpcyBpbmhlcml0ZWQgZnJvbSB0aGUgc291cmNlCiMgcnVuJ3MgaW5wdXRzLnlhbWwgKGV2ZXJ5LTV0aC1yYW5rZWQgcmVzZXJ2ZWQgY29ob3J0LCB+MTUzIG1pY2UpIOKAlCBzYW1lIGZvciBldmVyeSBydW4uCnNvdXJjZV9ydW46CiAgbW9kZWxfZGlyOiAvcHJpb3IvcnVuCiAgY2hlY2twb2ludF9wb2xpY3k6IGJlc3RfZXZhbAoKaGVsZG91dF9zdWJqZWN0czoKICB0ZXN0X3N1YmplY3RfaWRzOiBudWxsICAgICAjIGluaGVyaXQgdGhlIHJlc2VydmVkIGhlbGQtb3V0IHNldCBmcm9tIHRoZSBzb3VyY2UgcnVuCiAgY3VycmljdWxhOiBudWxsCiAgbWluX3Nlc3Npb25zOiBudWxsCiAgaGVsZG91dF9ldmVyeV9uOiBudWxsCiAgbWF0dXJlX29ubHk6IG51bGwKICBjb2xzX3RvX3JldGFpbjogbnVsbAoKaGVsZG91dF9maW5ldHVuaW5nOgogIG5fc3RlcHM6IDUwMAogIGxyOiAxZS0zCiAgY2hlY2twb2ludF9ldmVyeV9uX3N0ZXBzOiAxMDAKICBiYXRjaF9zaXplOiBudWxsCiAgYmF0Y2hfbW9kZTogc2luZ2xlCiAgZXhhbXBsZV9tYXhfc3ViamVjdHM6IDEKICBza2lwX3N1YmplY3RzX3dpdGhfaW5zdWZmaWNpZW50X3Nlc3Npb25zOiB0cnVlCiAga2VlcF9tZWRpYV9maWxlczogZmFsc2UKCm91dHB1dDoKICBvdXRwdXRfcm9vdDogL3Jlc3VsdHMvaGVsZG91dAogIHJ1bl9uYW1lX3N1ZmZpeDogbnVsbAoKd2FuZGI6IHt9CnNlZWQ6IDAK'))"
+    && python -m run_analysis finetune --config /tmp/heldout.yaml
+  context:
+    priority: low
+    preemptible: true
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 12
+    memory: 90GiB
+  datasets:
+  - mountPath: /prior
+    source:
+      beaker: 01KVQ7EKECRXB4YVWQKK0N73KM
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64
+  - name: FORAGING_MODELS_REF
+    value: 286692dd076fe6203c0fcf096c06fe37552e49da
+  result:
+    path: /results
+- name: gru-heldout-replay-s1
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - bash
+  - -lc
+  - python -c "import base64;open('/tmp/heldout.yaml','wb').write(base64.b64decode('IyBTdHVkeSAwMSdzIG9mZmxpbmUgaGVsZC1vdXQgY29uZmlnIChzdHVkaWVzLzAxLWdydS1zY2FsaW5nLWxhdy9oZWxkb3V0X29mZmxpbmUueWFtbCksIHVuY2hhbmdlZCwKIyBzbyB0aGUgZmluZS10dW5lIHJlcHJvZHVjZXMgaXRzIGhlbGQtb3V0IG51bWJlcnM7IHN0dWR5IDE1IHJlYWRzIHRoZSBwZXItdHJpYWwgcHJlZGljdGlvbnMgdGhhdAojIGN1cnJlbnQgd3JhcHBlciBtYWluIGFsc28gd3JpdGVzICh0ZXN0X3RyaWFsX3ByZWRpY3Rpb25zLmNzdikuIFcmQiBzdGF5cyBvZmYgKGB3YW5kYjoge31gKS4KIwojIE9mZmxpbmUgaGVsZC1vdXQgZmluZS10dW5lK3Rlc3QgY29uZmlnICh0aGUgc3R1ZHkgeS1heGlzKSwgcmV1c2FibGUgYWNyb3NzIGFsbCBydW5zLgojIEVhY2ggb2ZmbGluZSBqb2IgbW91bnRzIE9ORSB0cmFpbmluZyBydW4ncyByZXN1bHQgZGF0YXNldCBhdCAvcHJpb3IsIHNvIG1vZGVsX2RpciBpcwojIGNvbnN0YW50LiBNYXRjaGVzIHRoZSBpbmxpbmUgYXV0b19oZWxkb3V0X2ZpbmV0dW5lIHBhcmFtcyAobl9zdGVwcz01MDAsIGxyPTFlLTMpIHNvCiMgb2ZmbGluZSBudW1iZXJzIGFyZSBjb21wYXJhYmxlLiBIZWxkLW91dCBzdWJqZWN0IHNldCBpcyBpbmhlcml0ZWQgZnJvbSB0aGUgc291cmNlCiMgcnVuJ3MgaW5wdXRzLnlhbWwgKGV2ZXJ5LTV0aC1yYW5rZWQgcmVzZXJ2ZWQgY29ob3J0LCB+MTUzIG1pY2UpIOKAlCBzYW1lIGZvciBldmVyeSBydW4uCnNvdXJjZV9ydW46CiAgbW9kZWxfZGlyOiAvcHJpb3IvcnVuCiAgY2hlY2twb2ludF9wb2xpY3k6IGJlc3RfZXZhbAoKaGVsZG91dF9zdWJqZWN0czoKICB0ZXN0X3N1YmplY3RfaWRzOiBudWxsICAgICAjIGluaGVyaXQgdGhlIHJlc2VydmVkIGhlbGQtb3V0IHNldCBmcm9tIHRoZSBzb3VyY2UgcnVuCiAgY3VycmljdWxhOiBudWxsCiAgbWluX3Nlc3Npb25zOiBudWxsCiAgaGVsZG91dF9ldmVyeV9uOiBudWxsCiAgbWF0dXJlX29ubHk6IG51bGwKICBjb2xzX3RvX3JldGFpbjogbnVsbAoKaGVsZG91dF9maW5ldHVuaW5nOgogIG5fc3RlcHM6IDUwMAogIGxyOiAxZS0zCiAgY2hlY2twb2ludF9ldmVyeV9uX3N0ZXBzOiAxMDAKICBiYXRjaF9zaXplOiBudWxsCiAgYmF0Y2hfbW9kZTogc2luZ2xlCiAgZXhhbXBsZV9tYXhfc3ViamVjdHM6IDEKICBza2lwX3N1YmplY3RzX3dpdGhfaW5zdWZmaWNpZW50X3Nlc3Npb25zOiB0cnVlCiAga2VlcF9tZWRpYV9maWxlczogZmFsc2UKCm91dHB1dDoKICBvdXRwdXRfcm9vdDogL3Jlc3VsdHMvaGVsZG91dAogIHJ1bl9uYW1lX3N1ZmZpeDogbnVsbAoKd2FuZGI6IHt9CnNlZWQ6IDAK'))"
+    && python -m run_analysis finetune --config /tmp/heldout.yaml
+  context:
+    priority: low
+    preemptible: true
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 12
+    memory: 90GiB
+  datasets:
+  - mountPath: /prior
+    source:
+      beaker: 01KVQ7EKHRKM0D51VAV1FDV42J
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64
+  - name: FORAGING_MODELS_REF
+    value: 286692dd076fe6203c0fcf096c06fe37552e49da
+  result:
+    path: /results
+- name: gru-heldout-replay-s2
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - bash
+  - -lc
+  - python -c "import base64;open('/tmp/heldout.yaml','wb').write(base64.b64decode('IyBTdHVkeSAwMSdzIG9mZmxpbmUgaGVsZC1vdXQgY29uZmlnIChzdHVkaWVzLzAxLWdydS1zY2FsaW5nLWxhdy9oZWxkb3V0X29mZmxpbmUueWFtbCksIHVuY2hhbmdlZCwKIyBzbyB0aGUgZmluZS10dW5lIHJlcHJvZHVjZXMgaXRzIGhlbGQtb3V0IG51bWJlcnM7IHN0dWR5IDE1IHJlYWRzIHRoZSBwZXItdHJpYWwgcHJlZGljdGlvbnMgdGhhdAojIGN1cnJlbnQgd3JhcHBlciBtYWluIGFsc28gd3JpdGVzICh0ZXN0X3RyaWFsX3ByZWRpY3Rpb25zLmNzdikuIFcmQiBzdGF5cyBvZmYgKGB3YW5kYjoge31gKS4KIwojIE9mZmxpbmUgaGVsZC1vdXQgZmluZS10dW5lK3Rlc3QgY29uZmlnICh0aGUgc3R1ZHkgeS1heGlzKSwgcmV1c2FibGUgYWNyb3NzIGFsbCBydW5zLgojIEVhY2ggb2ZmbGluZSBqb2IgbW91bnRzIE9ORSB0cmFpbmluZyBydW4ncyByZXN1bHQgZGF0YXNldCBhdCAvcHJpb3IsIHNvIG1vZGVsX2RpciBpcwojIGNvbnN0YW50LiBNYXRjaGVzIHRoZSBpbmxpbmUgYXV0b19oZWxkb3V0X2ZpbmV0dW5lIHBhcmFtcyAobl9zdGVwcz01MDAsIGxyPTFlLTMpIHNvCiMgb2ZmbGluZSBudW1iZXJzIGFyZSBjb21wYXJhYmxlLiBIZWxkLW91dCBzdWJqZWN0IHNldCBpcyBpbmhlcml0ZWQgZnJvbSB0aGUgc291cmNlCiMgcnVuJ3MgaW5wdXRzLnlhbWwgKGV2ZXJ5LTV0aC1yYW5rZWQgcmVzZXJ2ZWQgY29ob3J0LCB+MTUzIG1pY2UpIOKAlCBzYW1lIGZvciBldmVyeSBydW4uCnNvdXJjZV9ydW46CiAgbW9kZWxfZGlyOiAvcHJpb3IvcnVuCiAgY2hlY2twb2ludF9wb2xpY3k6IGJlc3RfZXZhbAoKaGVsZG91dF9zdWJqZWN0czoKICB0ZXN0X3N1YmplY3RfaWRzOiBudWxsICAgICAjIGluaGVyaXQgdGhlIHJlc2VydmVkIGhlbGQtb3V0IHNldCBmcm9tIHRoZSBzb3VyY2UgcnVuCiAgY3VycmljdWxhOiBudWxsCiAgbWluX3Nlc3Npb25zOiBudWxsCiAgaGVsZG91dF9ldmVyeV9uOiBudWxsCiAgbWF0dXJlX29ubHk6IG51bGwKICBjb2xzX3RvX3JldGFpbjogbnVsbAoKaGVsZG91dF9maW5ldHVuaW5nOgogIG5fc3RlcHM6IDUwMAogIGxyOiAxZS0zCiAgY2hlY2twb2ludF9ldmVyeV9uX3N0ZXBzOiAxMDAKICBiYXRjaF9zaXplOiBudWxsCiAgYmF0Y2hfbW9kZTogc2luZ2xlCiAgZXhhbXBsZV9tYXhfc3ViamVjdHM6IDEKICBza2lwX3N1YmplY3RzX3dpdGhfaW5zdWZmaWNpZW50X3Nlc3Npb25zOiB0cnVlCiAga2VlcF9tZWRpYV9maWxlczogZmFsc2UKCm91dHB1dDoKICBvdXRwdXRfcm9vdDogL3Jlc3VsdHMvaGVsZG91dAogIHJ1bl9uYW1lX3N1ZmZpeDogbnVsbAoKd2FuZGI6IHt9CnNlZWQ6IDAK'))"
+    && python -m run_analysis finetune --config /tmp/heldout.yaml
+  context:
+    priority: low
+    preemptible: true
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 12
+    memory: 90GiB
+  datasets:
+  - mountPath: /prior
+    source:
+      beaker: 01KVQ7EKN1RA2AF39FG91QJK76
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64
+  - name: FORAGING_MODELS_REF
+    value: 286692dd076fe6203c0fcf096c06fe37552e49da
+  result:
+    path: /results

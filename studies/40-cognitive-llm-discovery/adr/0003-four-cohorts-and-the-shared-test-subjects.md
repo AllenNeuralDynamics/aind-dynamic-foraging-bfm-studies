@@ -20,6 +20,29 @@ the test set only measures (decided with Han, 2026-10-31).
   cohorts, so the final programs can also be scored on the GRU's own 149 test subjects (decided
   2026-11-01).
 
+## Amendment (2026-11-04): the seed-0 draft is adopted
+
+The cohorts are the seed-0 draft, adopted as drawn: generation 48, validation 48, selection 100
+(Han, 2026-11-04, after a second opinion; issue #103). The lists are in
+[`reference/cohorts_seed0.json`](../reference/cohorts_seed0.json), sha256
+`cbe2cd029611a713043afdd4312aedd5fa31d10473b04e9402134cb994c4d7cb`, the file gate 2 timed. It was
+drawn by `mevolve.cohorts --seed 0` from the MEvolve freeze whose manifest has sha256
+`cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0`, and MEvolve at 2d2e406 redraws the
+same lists. They are never redrawn, so that no result can choose its own subjects. The seed order of
+ADR 0006, ranked on these validation subjects, is final with them.
+
+| check | result |
+|---|---|
+| composition against the 149 test subjects | curriculum shares within 2 points; sessions per subject (medians 26 to 28, test 27), choices per subject and task mix alike |
+| size | the gap from HB-CTT to the GRU (`analysis/explainers/explainer_refs.json`) is about ten times the paired standard error between two models on the 48 validation subjects at gate 2 |
+| difficulty | literature models score slightly higher on the validation subjects than on the test subjects, and rank the same |
+| unknown stage | 34% of validation sessions have no recorded stage, against 26% of test sessions. Stage is not a stratum, and 19% of 1,000 random 48-subject draws are as high. A program that uses the stage input gets slightly less credit on validation than it would on test. |
+
+Timing does not depend on these lists. One evaluation of the 96 generation and validation subjects
+takes about 3 minutes for literature models with the current fitter (MEvolve ADR 0004, corrected
+2026-11-04), and longer for the largest programs; EM iterations and workers set the pace, not the
+cohorts.
+
 ## Considered options
 
 - **Both fit directions, averaged**, as CogFunSearch did: less noise at twice the cost. Revisited only

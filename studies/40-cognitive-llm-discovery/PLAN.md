@@ -23,7 +23,7 @@ test subjects, its complexity, and its replay and rollout fingerprints beside th
 | objective | maximize pooled held-out likelihood on the validation subjects; behaviour never enters the score | ADR 0001 |
 | behaviour | replay fingerprints for every program, in the feedback; rollout fingerprints at pre-registration; both gate pre-registration against the best literature model | ADR 0001, 0007 |
 | fitting | the 2-level model (each session's parameters around the subject's typical values, no population level), fitted as 2-level EM (Laplace-EM), session facts as program inputs, every score split by stage group and task variant; fallback to one parameter set per subject | ADR 0002 |
-| cohorts | generation and validation (48 each, resized at gate 2), about 100 selection subjects, test = 149 held-out subjects with the headline on the 146 shared ones; one fit direction; stratified draws that exclude the GRU's three extra test subjects | ADR 0003 |
+| cohorts | generation and validation (48 each), 100 selection subjects (the seed-0 draft, adopted 2026-11-04), test = 149 held-out subjects with the headline on the 146 shared ones; one fit direction; stratified draws that exclude the GRU's three extra test subjects | ADR 0003 |
 | parity | gates 1a, 1b, 1c with fixed tolerances | ADR 0004 |
 | interpretable | at most 8 parameters and 6 latent variables, static checks, Halstead effort, floors at 90%, 75% and 50% of the gain over the best literature model | ADR 0005 |
 | search | one search, 5 islands (template, top 3 literature models, Eckstein's Bayesian-inference model or the 4th), seed library = the literature models study 12 ranks | ADR 0006 |
