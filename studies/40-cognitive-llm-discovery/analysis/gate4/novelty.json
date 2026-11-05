@@ -1,0 +1,1678 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_gate4_novelty.py",
+    "produced_at_pt": "2026-11-04T19:39:56-08:00",
+    "studies_git_sha": "28db7d09976c9e475af4b785c8007ed0ed429463",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/freeze_gate4_novelty.py",
+        "sha256": "65a60be85ad5c475123080f886ba850afd8da9c7ab5a3c58c94f9b6561055674"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/gate4/runs.json",
+        "sha256": "f84fefd02525aa9fd043217d34c2e74ac7ca16cc408ba59aae8d82b1d685ca36"
+      }
+    ],
+    "sources": [
+      {
+        "type": "url",
+        "id": "https://huggingface.co/Alibaba-NLP/gte-modernbert-base/tree/e7f32e3c00f91d699e8c43b53106206bcc72bb22"
+      },
+      {
+        "type": "url",
+        "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/blob/a4b7a507f50d5210cf55376483ec249907aae37d/src/mevolve/search/shinka_eval.py"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/gate4/novelty.json",
+        "sha256": "865c03080d43c2a237935eb0602f4e22bc778e27140f14c5fc6c26eaab5ed306"
+      }
+    ]
+  },
+  "about": "Post hoc: each program's highest code-embedding similarity to the programs on its island just before it (ShinkaEvolve's novelty check), its similarity to its parent, and MEvolve's repeat key.",
+  "embedding": {
+    "model": "Alibaba-NLP/gte-modernbert-base",
+    "revision": "e7f32e3c00f91d699e8c43b53106206bcc72bb22",
+    "max_chars": 10000,
+    "vector": "CLS, L2-normalised"
+  },
+  "repeat_key": {
+    "function": "mevolve.search.shinka_eval.code_key",
+    "mevolve_git_sha": "a4b7a507f50d5210cf55376483ec249907aae37d"
+  },
+  "arms": {
+    "seeded": [
+      {
+        "generation": 0,
+        "id": "seed-q_learning-c51c1e37",
+        "island": 1,
+        "max_similarity": null,
+        "parent_similarity": null,
+        "repeat_key": "0575d2cd6ee127c21ec68806e934c7320c6477ba064864e1a8f1258350060fb3"
+      },
+      {
+        "generation": 0,
+        "id": "seed-choice_kernel-472ed001",
+        "island": 2,
+        "max_similarity": null,
+        "parent_similarity": null,
+        "repeat_key": "93f2e5fd0de49650ce0b69128780d1866a93352e45cbc703123d66dbdd74f28e"
+      },
+      {
+        "generation": 0,
+        "id": "seed-two_timescale-eedd89d6",
+        "island": 3,
+        "max_similarity": null,
+        "parent_similarity": null,
+        "repeat_key": "c30204f98873e0ba8e88b4b3800a19df7cfd156a275e3e6a98555ac3022b7c8e"
+      },
+      {
+        "generation": 0,
+        "id": "dc3e4d3e-6b18-4046-9d73-b226e41131b4",
+        "island": 0,
+        "max_similarity": null,
+        "parent_similarity": null,
+        "repeat_key": "81c47dea5dfe9853a174fed304f381d39a8b092422ec7f5eb9f1b2d4126edc82"
+      },
+      {
+        "generation": 1,
+        "id": "d2334d84-c27c-45f3-9eda-4990d1a27dda",
+        "island": 0,
+        "max_similarity": 0.9691479802131653,
+        "parent_similarity": 0.9691479802131653,
+        "repeat_key": "599a57102470e2f0a83405214fa1e173465da524e028a20c243af02783be1ba6"
+      },
+      {
+        "generation": 2,
+        "id": "f19b8f0e-d977-4d27-abed-c5ba86ff0506",
+        "island": 0,
+        "max_similarity": 0.9833092093467712,
+        "parent_similarity": 0.9522009491920471,
+        "repeat_key": "987ec55ab5a19f0470a951d297175cdc46221bf486fb687a53d6d0de6d2a75fc"
+      },
+      {
+        "generation": 4,
+        "id": "04719e6e-b031-4c63-a674-1289b95beb7e",
+        "island": 2,
+        "max_similarity": 0.9806643724441528,
+        "parent_similarity": 0.9806643724441528,
+        "repeat_key": "5757b9d97e5c3062a857bd208631d32500fde5b7bc6a041f1dad7979f881567c"
+      },
+      {
+        "generation": 3,
+        "id": "554cd6ce-0965-443b-ba95-d6d2a51469c9",
+        "island": 3,
+        "max_similarity": 0.9460949897766113,
+        "parent_similarity": 0.9460949897766113,
+        "repeat_key": "c82fc05cb2bd38beb1449a1a1f7a496064dceb10fe052b0c2f890ce328ffc419"
+      },
+      {
+        "generation": 5,
+        "id": "e4210a93-3bb3-4d0f-9b58-933f9bb6430a",
+        "island": 3,
+        "max_similarity": 0.9578350782394409,
+        "parent_similarity": 0.9578350782394409,
+        "repeat_key": "a789fd63f1b509c159d53b3ae0ed5232cfc130e973d6967c129e849b04c4621d"
+      },
+      {
+        "generation": 6,
+        "id": "fb0576ed-4b45-45d2-805f-06355d24340f",
+        "island": 1,
+        "max_similarity": 0.9231098890304565,
+        "parent_similarity": 0.9231098890304565,
+        "repeat_key": "ce6cfa112b63921187bcfe0ee6e79de0350f5fa082c7803850e5ed9e089b3ab2"
+      },
+      {
+        "generation": 8,
+        "id": "32390f44-b16f-40c1-bf1a-b11f3ec1bd66",
+        "island": 3,
+        "max_similarity": 0.9916794896125793,
+        "parent_similarity": 0.9916794896125793,
+        "repeat_key": "9d863c6bb8912e7cc38897eca5d542ad47367aa163280cb9a439f9d382dd10dd"
+      },
+      {
+        "generation": 7,
+        "id": "ec68e1ac-7736-42f1-a548-290040d38914",
+        "island": 2,
+        "max_similarity": 0.8792822360992432,
+        "parent_similarity": 0.8792822360992432,
+        "repeat_key": "90883717e0b5601b641f8273b2ad0f37748f09d1763c8003ea646944ea97523b"
+      },
+      {
+        "generation": 9,
+        "id": "8b171c64-dbb8-4b46-8036-3ddecd9126c9",
+        "island": 1,
+        "max_similarity": 0.9831247925758362,
+        "parent_similarity": 0.9831247925758362,
+        "repeat_key": "2ef2c0a4ef6b715c36d4e14f9e2f8e32873d296261e658dded9559f2cba803c3"
+      },
+      {
+        "generation": 10,
+        "id": "6d9574b1-de2a-4901-9444-0cf84ae6e46c",
+        "island": 2,
+        "max_similarity": 0.978805422782898,
+        "parent_similarity": 0.978805422782898,
+        "repeat_key": "d0c165614030ae64597a500f9dfd2d3dd07c3a6c986c6d3edb36db101fe5856b"
+      },
+      {
+        "generation": 11,
+        "id": "9d2e323f-5977-4e25-a297-66e14192a6f2",
+        "island": 0,
+        "max_similarity": 0.9726835489273071,
+        "parent_similarity": 0.9726835489273071,
+        "repeat_key": "cc1ce479f7f9e660cc8d1fb60d7bef7e2a361ad8e16b27eb3ab541232beda973"
+      },
+      {
+        "generation": 12,
+        "id": "04ec666e-7e13-4ea6-b598-d34eed6efd82",
+        "island": 1,
+        "max_similarity": 0.9321544766426086,
+        "parent_similarity": 0.9321544766426086,
+        "repeat_key": "87e8e1a92eb81341308c26395e9f6b3c1c991d0ff73997c747d556accad1491c"
+      },
+      {
+        "generation": 13,
+        "id": "283582d8-87f0-4108-8c36-0f7da1232503",
+        "island": 3,
+        "max_similarity": 0.9913316965103149,
+        "parent_similarity": 0.9913316965103149,
+        "repeat_key": "223409cc9fbf2ba91848619ae9249572e89aaf24e0907f0ab53cce714d6fa043"
+      },
+      {
+        "generation": 15,
+        "id": "1080a137-69c0-4b7a-ae0c-f5306cf1e79e",
+        "island": 2,
+        "max_similarity": 0.9694046974182129,
+        "parent_similarity": 0.9000816941261292,
+        "repeat_key": "01e141d347e61bdba6deb89fd905cb380ca2682eb877065f57ae7a1524cacf21"
+      },
+      {
+        "generation": 14,
+        "id": "1bc76f77-4946-4996-bdf9-81c0bd7b5e98",
+        "island": 1,
+        "max_similarity": 0.9661281704902649,
+        "parent_similarity": 0.9577702283859253,
+        "repeat_key": "1958b9806b1463ce1c6b54f0bedfe6a12f245ab5c16f69c4957deb34c326da2d"
+      },
+      {
+        "generation": 16,
+        "id": "28f2a034-1ad6-496b-aa4f-c1ab0b4c27d3",
+        "island": 1,
+        "max_similarity": 0.9494291543960571,
+        "parent_similarity": 0.9494291543960571,
+        "repeat_key": "c66281f211c2001833d9dfc8c937c4630452b2ce0ba7383b2317e3dc809ec684"
+      },
+      {
+        "generation": 17,
+        "id": "e40f8556-4d3b-4a54-978f-0cf3afcd8512",
+        "island": 2,
+        "max_similarity": 0.9960407018661499,
+        "parent_similarity": 0.9960407018661499,
+        "repeat_key": "fd3964eaadcc90bedc26d40a12fa7bc721e944c60e29b6b0f60ff881056bda52"
+      },
+      {
+        "generation": 18,
+        "id": "4bda287b-3cb0-4119-8abf-5e7cfd4ebfa7",
+        "island": 2,
+        "max_similarity": 0.9952373504638672,
+        "parent_similarity": 0.9921107888221741,
+        "repeat_key": "9d863c6bb8912e7cc38897eca5d542ad47367aa163280cb9a439f9d382dd10dd"
+      },
+      {
+        "generation": 19,
+        "id": "bfbb7d3d-9d43-42cd-a131-d118e43f63b0",
+        "island": 3,
+        "max_similarity": 0.9929774403572083,
+        "parent_similarity": 0.9928436279296875,
+        "repeat_key": "040d8fb96a04d9b1d9594f2699a0db72d9f33aa7a61b968588aac13ce4ad74cf"
+      },
+      {
+        "generation": 21,
+        "id": "275c26c4-ed0b-41e2-8e48-97528e01102a",
+        "island": 2,
+        "max_similarity": 0.9949079155921936,
+        "parent_similarity": 0.9949079155921936,
+        "repeat_key": "e648ef2b640f109058ed606f412408410120df79fd16580ab7fc9aa6604670a0"
+      },
+      {
+        "generation": 20,
+        "id": "366ffa12-fdcc-49a6-b125-4ee4c0d3d12f",
+        "island": 1,
+        "max_similarity": 0.9718649983406067,
+        "parent_similarity": 0.9718649983406067,
+        "repeat_key": "1decf5b26ff56d6e6ea536bb110b78f010d75dc96d43bd4accae5d979415f299"
+      },
+      {
+        "generation": 23,
+        "id": "4369502a-a2ea-43e9-a271-57af24352100",
+        "island": 0,
+        "max_similarity": 0.9966441988945007,
+        "parent_similarity": 0.9966441988945007,
+        "repeat_key": "68d32f2119ac9c0e8b4f2a181d99ee322151c7ebfadbb256070da2dcdc60e004"
+      },
+      {
+        "generation": 22,
+        "id": "c968d788-6be4-4468-ba96-99da91b4daa4",
+        "island": 2,
+        "max_similarity": 0.9910966753959656,
+        "parent_similarity": 0.9910966753959656,
+        "repeat_key": "a8ef82a36792bd4d95b4ce41fc4a74be2a83a49a8dc5cf6663533a0ead27ce05"
+      },
+      {
+        "generation": 24,
+        "id": "2e16a5a1-3280-4915-b505-05416279874a",
+        "island": 1,
+        "max_similarity": 0.953028678894043,
+        "parent_similarity": 0.953028678894043,
+        "repeat_key": "be89f22cc61ca2cb368164da41a691cba91388850052f54d44a15a5c5736eadb"
+      },
+      {
+        "generation": 25,
+        "id": "bc2fd003-88e2-42e3-ab1d-1b00bf5899b8",
+        "island": 0,
+        "max_similarity": 0.9425265192985535,
+        "parent_similarity": 0.9425265192985535,
+        "repeat_key": "4c62d76d8b4eb803125175d1dc3f88c3f203285fbec4ab89401a94a37099dcde"
+      },
+      {
+        "generation": 26,
+        "id": "ae31d428-0bf6-4581-957e-034708b4d12f",
+        "island": 1,
+        "max_similarity": 0.9850665330886841,
+        "parent_similarity": 0.9850665330886841,
+        "repeat_key": null
+      },
+      {
+        "generation": 28,
+        "id": "7523d411-3163-4f20-9863-e0759285d792",
+        "island": 1,
+        "max_similarity": 0.9913002252578735,
+        "parent_similarity": 0.9913002252578735,
+        "repeat_key": "8d901efc1b32cd6019f3138bf78afc70e368bb4f3392b4477e9d3ad897bd1aab"
+      },
+      {
+        "generation": 27,
+        "id": "81e223a2-fcdd-4c26-8123-d6eb483d77c3",
+        "island": 0,
+        "max_similarity": 0.973876953125,
+        "parent_similarity": 0.973876953125,
+        "repeat_key": "affdd04db19f38aed6d1b9b38fe80da1e8d7878fddf5d622c039f3015631168d"
+      },
+      {
+        "generation": 29,
+        "id": "da94d093-e3c1-468d-90be-3b3c15033189",
+        "island": 2,
+        "max_similarity": 0.9510481953620911,
+        "parent_similarity": 0.8935432434082031,
+        "repeat_key": "d162ddf2e274ada22cee77c25a4b9de45f793af12f487a0e2fc1571bbd9c0f83"
+      },
+      {
+        "generation": 31,
+        "id": "5818b938-86f7-4db6-a02f-fcd72929f87f",
+        "island": 1,
+        "max_similarity": 0.9970556497573853,
+        "parent_similarity": 0.9970556497573853,
+        "repeat_key": "f5b6d4d3e570f73a21bc46a5a75cd6a8f940caca829b3f7a7b9026cd458a7a32"
+      },
+      {
+        "generation": 30,
+        "id": "becd8f40-026a-4116-851b-ec81a36bf5cf",
+        "island": 3,
+        "max_similarity": 0.9939077496528625,
+        "parent_similarity": 0.9903100728988647,
+        "repeat_key": "9e4075df463034d75adf5af790cc4dcc054908255d357945b59d85a0ffd8a18d"
+      },
+      {
+        "generation": 32,
+        "id": "98c3083d-8750-4821-a6d5-b0f9c3fc83ef",
+        "island": 2,
+        "max_similarity": 0.9650771617889404,
+        "parent_similarity": 0.9627662301063538,
+        "repeat_key": "fd3964eaadcc90bedc26d40a12fa7bc721e944c60e29b6b0f60ff881056bda52"
+      },
+      {
+        "generation": 33,
+        "id": "1d9e69a7-6d40-4a97-9fb2-6715ed631cf7",
+        "island": 3,
+        "max_similarity": 0.9744282960891724,
+        "parent_similarity": 0.960889995098114,
+        "repeat_key": "9b59977a8be1272cb5131dd2269bcfcfb08b1849ca913ab544f5404d4f65f19f"
+      },
+      {
+        "generation": 36,
+        "id": "7b7db570-dff2-44ef-959f-5ef4fc2faf07",
+        "island": 0,
+        "max_similarity": 0.9977768063545227,
+        "parent_similarity": 0.9974981546401978,
+        "repeat_key": "904bdd27a6fd5c1e48bc114a43eeb542749f39b008b8d4ac46c473166dae5511"
+      },
+      {
+        "generation": 35,
+        "id": "0665ba59-5499-4981-b45d-5aa5787ca853",
+        "island": 0,
+        "max_similarity": 0.9558194279670715,
+        "parent_similarity": 0.9466811418533325,
+        "repeat_key": "1062dc3dcd31be41126499d3fa57725e6e107eb8a74d21d428d24640c8ab4b0f"
+      },
+      {
+        "generation": 37,
+        "id": "c597d303-cbee-46c4-86e7-e32345b4b026",
+        "island": 0,
+        "max_similarity": 0.9968733787536621,
+        "parent_similarity": 0.9968733787536621,
+        "repeat_key": "84e9e52096f5e899324c2139d4d102a854ce7ba4446dd7d0363fee9d71cdee2b"
+      },
+      {
+        "generation": 38,
+        "id": "e3881eac-3d73-41c1-bf26-1e2a6c97e726",
+        "island": 1,
+        "max_similarity": 0.9962047338485718,
+        "parent_similarity": 0.9962047338485718,
+        "repeat_key": "21c1efa9acf15dc2ada894f727664f1e5232db2cb858567b32c109c6d26876cc"
+      },
+      {
+        "generation": 39,
+        "id": "d0903a4f-fbc9-4f58-9b85-26ff5ea1cc0f",
+        "island": 3,
+        "max_similarity": 0.9940750598907471,
+        "parent_similarity": 0.9911465048789978,
+        "repeat_key": "62c2f1820b9ef0c8f67521588d252dd994b7d04ad1f0b66840922668fd2dc60c"
+      },
+      {
+        "generation": 40,
+        "id": "bcf6c90d-cf5a-4cd8-a1c4-f55ed8825c05",
+        "island": 3,
+        "max_similarity": 0.9969171285629272,
+        "parent_similarity": 0.99095219373703,
+        "repeat_key": "64592429a085799040cfb95526d5722227267cbc9eb0f17f96aeb576aefac3ad"
+      },
+      {
+        "generation": 41,
+        "id": "dca4a953-3775-44e7-96a9-1909f92b3dfe",
+        "island": 0,
+        "max_similarity": 0.887269139289856,
+        "parent_similarity": 0.8632306456565857,
+        "repeat_key": "4048fe6c5fb0935fd97cfd46c475c97d6da6c393eaec4642f7cffabac90a5661"
+      },
+      {
+        "generation": 42,
+        "id": "d427163d-0f28-4933-9585-733c351e160d",
+        "island": 1,
+        "max_similarity": 0.9977591037750244,
+        "parent_similarity": 0.9946587085723877,
+        "repeat_key": "74957cd29bb41ef9914811cf20fabb4f58fcd30966b6f538b0e596f068df000a"
+      },
+      {
+        "generation": 43,
+        "id": "c727068c-3cf9-4d52-9792-debe342679d8",
+        "island": 0,
+        "max_similarity": 0.9965291619300842,
+        "parent_similarity": 0.9965291619300842,
+        "repeat_key": "c279968a503a519ad45e60f38588fd885506a5c38a96335ba4f3843c7d510dd4"
+      },
+      {
+        "generation": 45,
+        "id": "4fa247be-7fe5-4db8-bd93-e1f7474f23a4",
+        "island": 0,
+        "max_similarity": 0.9754643440246582,
+        "parent_similarity": 0.9754643440246582,
+        "repeat_key": "bb9c06cf5b7cc5d03c61792cd503b0825ba2c08ae360099ed9826693fff8f97f"
+      },
+      {
+        "generation": 44,
+        "id": "fe42d952-d90d-4687-a791-c8f3d348dbad",
+        "island": 1,
+        "max_similarity": 0.990898609161377,
+        "parent_similarity": 0.990898609161377,
+        "repeat_key": "c6a525be8b7d6f59f9fe1f20b7665ad8f5d176a108e219599c11bd23359970bd"
+      },
+      {
+        "generation": 46,
+        "id": "63a18615-2bce-493e-9a49-1f36d2fe49e8",
+        "island": 1,
+        "max_similarity": 0.9364261627197266,
+        "parent_similarity": 0.9216891527175903,
+        "repeat_key": "7dbb93daee9b9fd41808f290d64cc02f1e789a229122c1198fed68d9c20ff2b1"
+      },
+      {
+        "generation": 47,
+        "id": "13f8a2ac-c59e-4293-8d01-86d1f1f9d5d3",
+        "island": 3,
+        "max_similarity": 0.9926838278770447,
+        "parent_similarity": 0.9926838278770447,
+        "repeat_key": "8f606b23df1ba2f73ceef134346c47eba012faa02b433755b8fccb3ed93b296b"
+      },
+      {
+        "generation": 48,
+        "id": "b58c7ebc-c0a0-44bb-909b-c7635e901ea7",
+        "island": 3,
+        "max_similarity": 0.9997560977935791,
+        "parent_similarity": 0.9928413033485413,
+        "repeat_key": "6c373179051cac3796c9149ecbd0b11df491e3a2cb4ff73e3b57f19380fc165d"
+      },
+      {
+        "generation": 49,
+        "id": "6653cece-1cd9-49b2-b81e-d12430d32e0f",
+        "island": 2,
+        "max_similarity": 0.9982701539993286,
+        "parent_similarity": 0.9982701539993286,
+        "repeat_key": "27f36bd8d37d4a6aeee81052de8fc671aa0f4544b73894c01eb5bb9f60f0b73b"
+      },
+      {
+        "generation": 51,
+        "id": "56922ec9-4b57-4b16-b581-d0fcd6563634",
+        "island": 0,
+        "max_similarity": 0.993416428565979,
+        "parent_similarity": 0.9918522238731384,
+        "repeat_key": "fdf2133369999e9a6bfbbb40b1824601697930e92d8b87995e0c0607249f6880"
+      },
+      {
+        "generation": 50,
+        "id": "c7ccc054-fca7-4a7f-9217-818d8aaee82c",
+        "island": 1,
+        "max_similarity": 0.9314620494842529,
+        "parent_similarity": 0.9224786162376404,
+        "repeat_key": "33bff7f25f2d6ac004b3be1cf76dd4a102af478e8de3430a8c6d9f200a9768c3"
+      },
+      {
+        "generation": 52,
+        "id": "7957cc87-9dba-4aa7-92cb-cee721f9c237",
+        "island": 1,
+        "max_similarity": 0.995469331741333,
+        "parent_similarity": 0.995469331741333,
+        "repeat_key": "97eccd409584627831259d5dc76df67a90269ce0d734d10fd6601ea28940b449"
+      },
+      {
+        "generation": 54,
+        "id": "e7a96ed0-2d26-4cf7-b5f2-6059a1f4f954",
+        "island": 3,
+        "max_similarity": 0.9853688478469849,
+        "parent_similarity": 0.9809112548828125,
+        "repeat_key": "c82fc05cb2bd38beb1449a1a1f7a496064dceb10fe052b0c2f890ce328ffc419"
+      },
+      {
+        "generation": 53,
+        "id": "c2cd8a7e-c513-4895-b544-e1634d6c0a50",
+        "island": 0,
+        "max_similarity": 0.9933184385299683,
+        "parent_similarity": 0.9933184385299683,
+        "repeat_key": "22c867305b9b637736a5804ab45f65bc23f5db33e5ac0919771cf064662fbfc5"
+      },
+      {
+        "generation": 55,
+        "id": "fed7b8d5-542c-4e56-bf72-240e274e52df",
+        "island": 1,
+        "max_similarity": 0.9836796522140503,
+        "parent_similarity": 0.8948388695716858,
+        "repeat_key": "64570fdc6e2f35d0a1b606f74675b640fd74025d2a66222f50c9235d2b8e7869"
+      },
+      {
+        "generation": 56,
+        "id": "2a83f773-54df-40cf-a714-1125b234b162",
+        "island": 1,
+        "max_similarity": 0.9961552619934082,
+        "parent_similarity": 0.9961552619934082,
+        "repeat_key": "1c3804e6c3aa3aa8899336c57e983d7bf889eefe1cdd6c12154ff4c14c51fb18"
+      },
+      {
+        "generation": 57,
+        "id": "b7c582e7-f0f4-45af-83a5-2b94450f8ef4",
+        "island": 1,
+        "max_similarity": 0.9962837100028992,
+        "parent_similarity": 0.9962837100028992,
+        "repeat_key": "39e6383182fcb1fbaf05322ec8ee33799db0d4495891ecb0c82ccc4ee91bdb0d"
+      },
+      {
+        "generation": 58,
+        "id": "0a33f8a7-fc68-4dad-9832-e0904e988ee4",
+        "island": 1,
+        "max_similarity": 0.9973576664924622,
+        "parent_similarity": 0.9973576664924622,
+        "repeat_key": "dce3d66486aa1461fb9068ca65112a85040a0e607d99e9109ddeb2e28d13875d"
+      },
+      {
+        "generation": 60,
+        "id": "9103c165-468a-485b-903a-53950a676248",
+        "island": 0,
+        "max_similarity": 0.9870232343673706,
+        "parent_similarity": 0.9870232343673706,
+        "repeat_key": "50cdada86a19413e66849f8367e62f6085158bfed28ece0535f7aeadad5985fb"
+      },
+      {
+        "generation": 59,
+        "id": "7cd26ace-f80f-4990-a430-96dce2c0f44b",
+        "island": 1,
+        "max_similarity": 0.9851080179214478,
+        "parent_similarity": 0.982398271560669,
+        "repeat_key": "91b716d24546c5cb7d87a1dd8f0704f92428a69d885aa0aa7015b13178cdff17"
+      },
+      {
+        "generation": 62,
+        "id": "874aa5be-8e74-48d1-a4d6-0884c23eca53",
+        "island": 1,
+        "max_similarity": 0.9576312303543091,
+        "parent_similarity": 0.956415057182312,
+        "repeat_key": null
+      },
+      {
+        "generation": 61,
+        "id": "87e96a5b-d582-437c-ab11-dc8020772b35",
+        "island": 1,
+        "max_similarity": 0.9958961009979248,
+        "parent_similarity": 0.9958961009979248,
+        "repeat_key": "96de9e5a94fb586d3695ab6e3b4903dcb150cf4f4401b0a6f745dd82c46d63cf"
+      },
+      {
+        "generation": 63,
+        "id": "b1c153c4-fa1b-430e-ad44-5386adf17d2d",
+        "island": 0,
+        "max_similarity": 0.9972957372665405,
+        "parent_similarity": 0.9972957372665405,
+        "repeat_key": "3588c0d468966c2a9b4cef53033b93cbf078db585cb6fa7ea30307eaf7558e1b"
+      },
+      {
+        "generation": 64,
+        "id": "f2b55e4c-3717-4925-b839-44feb963611c",
+        "island": 0,
+        "max_similarity": 0.9798420667648315,
+        "parent_similarity": 0.9766594171524048,
+        "repeat_key": "aeeb2d991ef5a32e6777ac7ea0968b4f4d4607a99b57f883e2b92f44bf9c1989"
+      },
+      {
+        "generation": 65,
+        "id": "7cd5d665-3a91-4dd2-8671-e27f2e89c91a",
+        "island": 1,
+        "max_similarity": 0.9494462013244629,
+        "parent_similarity": 0.9263491034507751,
+        "repeat_key": "72463fe7cfb068d0c7c093a0a558157cd328939ec78702e47be7f49eaf7fa0e1"
+      },
+      {
+        "generation": 67,
+        "id": "d944f386-58c6-43b7-8d3f-5ca17b6f90dd",
+        "island": 1,
+        "max_similarity": 0.9911160469055176,
+        "parent_similarity": 0.9896535277366638,
+        "repeat_key": "ad16b361a07efb90eed91205f2228c4b257ec1b294613604b67cb1ba8caa8517"
+      },
+      {
+        "generation": 66,
+        "id": "131a6590-239b-4f50-ab6e-1bf59c8a17d6",
+        "island": 3,
+        "max_similarity": 0.9906212687492371,
+        "parent_similarity": 0.9906212687492371,
+        "repeat_key": "6471bd6eaeac6668b513d3faf194c4767f89763fc597ef006577522cb8c33bc6"
+      },
+      {
+        "generation": 69,
+        "id": "dcfacbf6-254c-4fc8-a1b7-83289b374a82",
+        "island": 2,
+        "max_similarity": 0.9953387975692749,
+        "parent_similarity": 0.9953387975692749,
+        "repeat_key": "4e499c7c3535ecf5acf32ad1d50bebf1f27fee759906a253b60a970bc39fc29b"
+      },
+      {
+        "generation": 68,
+        "id": "d2d7cb69-0414-4259-9e25-bbf853742cf1",
+        "island": 2,
+        "max_similarity": 0.9894759058952332,
+        "parent_similarity": 0.9894759058952332,
+        "repeat_key": "458fdadf708faacd56ac2ff43dab6089d0d62ef321dd299c49e263bde75663ba"
+      },
+      {
+        "generation": 70,
+        "id": "13c76590-3b98-4a20-bfc4-445463309575",
+        "island": 2,
+        "max_similarity": 0.9990582466125488,
+        "parent_similarity": 0.9990582466125488,
+        "repeat_key": "96bfa6ac025cd4b0330673cfbbfa0c4d7e69e38f3698e5ac713fee29ff6b8bc7"
+      },
+      {
+        "generation": 71,
+        "id": "a4d90b57-eeef-4ed8-ab39-6760dc919bfc",
+        "island": 2,
+        "max_similarity": 0.9912171363830566,
+        "parent_similarity": 0.9912171363830566,
+        "repeat_key": "8fdcd6e6a362f8e35a8860a9bd50e88677587f42b750e934cf881b69faded62d"
+      },
+      {
+        "generation": 72,
+        "id": "abc81915-5498-4220-b990-dfcb316ce9ed",
+        "island": 1,
+        "max_similarity": 0.9697165489196777,
+        "parent_similarity": 0.9639177322387695,
+        "repeat_key": "c6890e83bf9f5bb1cd6a83ea1267be3e7574da74ff839b944cd5dd051809bd5b"
+      },
+      {
+        "generation": 73,
+        "id": "86d83fcc-34d9-4409-b001-c9fdcea8829e",
+        "island": 0,
+        "max_similarity": 0.9970418214797974,
+        "parent_similarity": 0.9970418214797974,
+        "repeat_key": "491f10239fe4d074217d38e757ec17ef6cbf9e026fd085c64e93dfcc9d536f99"
+      },
+      {
+        "generation": 75,
+        "id": "5d658ea5-1cb0-46ed-9739-62c2d383100e",
+        "island": 1,
+        "max_similarity": 0.976911187171936,
+        "parent_similarity": 0.949937641620636,
+        "repeat_key": "f62225e3e78f39dd7183951115d0ba22a2e6311f98e86f3a61a51ca84014ac34"
+      },
+      {
+        "generation": 74,
+        "id": "cdcd0dd6-47c2-4c40-9559-d855e83fc80c",
+        "island": 3,
+        "max_similarity": 0.9910449981689453,
+        "parent_similarity": 0.9910449981689453,
+        "repeat_key": "f48e3aaf2c08ddbfc8f55d75182842324fbacb5b8517aefc4e28e4088fd379f9"
+      },
+      {
+        "generation": 76,
+        "id": "8f14f154-f266-48aa-8d34-e7a290f0f047",
+        "island": 2,
+        "max_similarity": 0.9955469369888306,
+        "parent_similarity": 0.9955469369888306,
+        "repeat_key": "a2450bbf88b5457892ebf45943459e063af56e459a57dbf2ff45979343051fbb"
+      },
+      {
+        "generation": 77,
+        "id": "fdef7eed-5025-43d1-8672-ac69483d7548",
+        "island": 0,
+        "max_similarity": 0.9899269342422485,
+        "parent_similarity": 0.9853941202163696,
+        "repeat_key": "a5ac020e701b7909d43e024d4498c52a1b7cf04354f25d651aa6859e892809ab"
+      },
+      {
+        "generation": 78,
+        "id": "8edb6971-3589-493c-b193-65c4aa7ba9af",
+        "island": 3,
+        "max_similarity": 0.982646107673645,
+        "parent_similarity": 0.9759625792503357,
+        "repeat_key": "b370c1d86ee5c685f54f290af29c1250c81aabae4798eb88d701ed6325dbee6a"
+      },
+      {
+        "generation": 79,
+        "id": "b46c90ed-2c2e-4971-899b-197b7f774b76",
+        "island": 3,
+        "max_similarity": 0.9935916066169739,
+        "parent_similarity": 0.9935916066169739,
+        "repeat_key": "695fb557171f4c16bf23eedbca3f0aed92b2fe362bbe584e66ad45d3034df6b1"
+      },
+      {
+        "generation": 81,
+        "id": "70bb4d31-fbb9-463b-a271-903f47a321a6",
+        "island": 1,
+        "max_similarity": 0.9999775290489197,
+        "parent_similarity": 0.9999775290489197,
+        "repeat_key": "6c59613918588db5e3079c19b4929353f7a20622c688879f3233a0d06c376b99"
+      },
+      {
+        "generation": 80,
+        "id": "59d7278a-c806-4ee4-ad75-0b48dfb1fa67",
+        "island": 3,
+        "max_similarity": 0.9908367395401001,
+        "parent_similarity": 0.9829981327056885,
+        "repeat_key": "9d5e77f2da3705061318bc0102ceca2141241ad40e81c8a000ffd4fcd63dc85d"
+      },
+      {
+        "generation": 83,
+        "id": "5dd3fe7b-1ee8-41b0-806a-f30c3e0eec87",
+        "island": 3,
+        "max_similarity": 0.9887480139732361,
+        "parent_similarity": 0.9871689677238464,
+        "repeat_key": "845f27207e15e3141e9c4a32ecb67145a9de33314570b6044f6eaa9dfd490ce0"
+      },
+      {
+        "generation": 82,
+        "id": "8903e11d-5393-45d6-bfc7-d146cec3bb0b",
+        "island": 3,
+        "max_similarity": 0.998591423034668,
+        "parent_similarity": 0.9926505088806152,
+        "repeat_key": "6560e9d9d77da7924b0026fa2c147eed439f5d954dfb2a7af4332b5dc71e18ec"
+      },
+      {
+        "generation": 84,
+        "id": "6def4f48-a5d9-4821-b2f3-41c1a8d5c2dc",
+        "island": 0,
+        "max_similarity": 0.9946955442428589,
+        "parent_similarity": 0.9946955442428589,
+        "repeat_key": "2ee4cc7ead639f622085a8dfb2d639476b62371f1cec8d6a7834917ee89b142f"
+      },
+      {
+        "generation": 85,
+        "id": "c14af88b-7c27-4876-9ab3-eb0ea350849f",
+        "island": 3,
+        "max_similarity": 0.9986807703971863,
+        "parent_similarity": 0.986195981502533,
+        "repeat_key": "dc9283767f8059931225a299484771d0ae95eaabbdac45826c2db8a48649ccf4"
+      },
+      {
+        "generation": 86,
+        "id": "10466e7e-10f9-47a8-aaa0-2ac43f921c23",
+        "island": 2,
+        "max_similarity": 0.9821096658706665,
+        "parent_similarity": 0.9696511030197144,
+        "repeat_key": "939ee7cc7f604ab026a29a98401761bdb8cb00a1b15522c50dc4b78b0beda99a"
+      },
+      {
+        "generation": 87,
+        "id": "dc9bd15b-963e-4e75-b610-8498fd070eac",
+        "island": 3,
+        "max_similarity": 0.9986346960067749,
+        "parent_similarity": 0.9986346960067749,
+        "repeat_key": "1d1ed07d66515b358bb898487a2121d1c469ad25045f79521d2d174e2b2e6a37"
+      },
+      {
+        "generation": 89,
+        "id": "81f8e2d4-4e41-459d-b10f-9518766fde7e",
+        "island": 0,
+        "max_similarity": 0.9929633140563965,
+        "parent_similarity": 0.9929633140563965,
+        "repeat_key": null
+      },
+      {
+        "generation": 88,
+        "id": "67a79df0-81f9-41ff-baaa-f8d0a19578d6",
+        "island": 0,
+        "max_similarity": 0.9965247511863708,
+        "parent_similarity": 0.9946988224983215,
+        "repeat_key": "d565e2dc75b03d956e8957aec5152bd5cce81dd53b6500686f944c44c4d79a81"
+      },
+      {
+        "generation": 91,
+        "id": "373ce1c3-94b5-4e6f-9a71-0770aa52f9cc",
+        "island": 3,
+        "max_similarity": 0.9924052357673645,
+        "parent_similarity": 0.9778415560722351,
+        "repeat_key": "0a0e94650b7af269be928f72b73da6684677271abee7bc3d2af36ec9878f9fd0"
+      },
+      {
+        "generation": 90,
+        "id": "0cd57121-8334-4e13-998f-e640f74b8946",
+        "island": 3,
+        "max_similarity": 0.9904882907867432,
+        "parent_similarity": 0.9900425672531128,
+        "repeat_key": "13a75e5fbadd24329304e3cebce70f60d9b2ac166abb55d5376bf632204ae955"
+      },
+      {
+        "generation": 92,
+        "id": "5739e20b-be36-447d-9d89-2f553bc636a5",
+        "island": 0,
+        "max_similarity": 0.9964783191680908,
+        "parent_similarity": 0.9964783191680908,
+        "repeat_key": "772f9cbbfbccd64810a208548c0eedd7092a7d3b0974ceec7984fd0c1afc7d48"
+      },
+      {
+        "generation": 94,
+        "id": "d034e5ea-9758-4d30-b5be-0f93da0fa570",
+        "island": 0,
+        "max_similarity": 0.9959167242050171,
+        "parent_similarity": 0.9959167242050171,
+        "repeat_key": "1deb7e9b9c6f5466e769bf715056a349910288ed2d53784200c96823090a8fda"
+      },
+      {
+        "generation": 93,
+        "id": "3f4103fd-08f4-4d85-a07d-0fe878236f87",
+        "island": 2,
+        "max_similarity": 0.9615148305892944,
+        "parent_similarity": 0.9615148305892944,
+        "repeat_key": "33cce717df6caa248275b60a42427f1b6c12be45451db4844791d95e6621d15e"
+      },
+      {
+        "generation": 96,
+        "id": "0ba6ad16-8b99-4c06-9376-983fe3bb3eca",
+        "island": 2,
+        "max_similarity": 0.9902828931808472,
+        "parent_similarity": 0.9713900089263916,
+        "repeat_key": "3645e45fc4fa8261c6f3f273cb08f873b50528ff399d1b9f243103c333c9ebef"
+      },
+      {
+        "generation": 95,
+        "id": "994716e1-97fe-4e94-b0e7-49cabe48bf11",
+        "island": 3,
+        "max_similarity": 0.9941754937171936,
+        "parent_similarity": 0.9898228049278259,
+        "repeat_key": "da4184cda6b60a73b25464f4736844dc64942cf485e400baad9550976d307db9"
+      },
+      {
+        "generation": 97,
+        "id": "cefea066-32cf-4aaf-a2b5-64b5cbf3bffc",
+        "island": 1,
+        "max_similarity": 0.9814096689224243,
+        "parent_similarity": 0.9814096689224243,
+        "repeat_key": null
+      },
+      {
+        "generation": 98,
+        "id": "306a2a81-e63b-4805-97c4-98cf2b8e542c",
+        "island": 2,
+        "max_similarity": 0.9830201268196106,
+        "parent_similarity": 0.9637356996536255,
+        "repeat_key": "676e2c8c9a4c230436b5d3b41c91b0594f637578154849952300953aff230a4c"
+      },
+      {
+        "generation": 99,
+        "id": "1b037501-18db-4378-9a17-6d2a9f8472cb",
+        "island": 0,
+        "max_similarity": 0.988081693649292,
+        "parent_similarity": 0.9788088202476501,
+        "repeat_key": "aff6bb44c8440d1ec05a439227844543f29cd327fef6e62b4797d057e4b85332"
+      },
+      {
+        "generation": 100,
+        "id": "1ce566e1-1272-4591-80c7-8a56044d6d32",
+        "island": 0,
+        "max_similarity": 0.9869098663330078,
+        "parent_similarity": 0.9732805490493774,
+        "repeat_key": "e58b27a01a151175e00758b38eb5d42a779fd135eeb33e618d608b1e9c4d68ec"
+      }
+    ],
+    "noseed": [
+      {
+        "generation": 0,
+        "id": "22fafd91-ddb5-4e84-8d65-17f6894168e8",
+        "island": 0,
+        "max_similarity": null,
+        "parent_similarity": null,
+        "repeat_key": "81c47dea5dfe9853a174fed304f381d39a8b092422ec7f5eb9f1b2d4126edc82"
+      },
+      {
+        "generation": 1,
+        "id": "4fd5db75-c9df-44b0-85c8-b14b9d619e12",
+        "island": 0,
+        "max_similarity": 0.9625452756881714,
+        "parent_similarity": 0.9625452756881714,
+        "repeat_key": "6f09ce231167da5e40172a664e1378f90bbf07da43fd83e4e6c79789af9faa6d"
+      },
+      {
+        "generation": 2,
+        "id": "d9cd3bd1-4815-4f1e-95f1-818dfc2d1e86",
+        "island": 0,
+        "max_similarity": 0.9900199174880981,
+        "parent_similarity": 0.950120210647583,
+        "repeat_key": "bed0054eec31bf5b287b0eb06243b22e152e035990955630e2edb93d24939872"
+      },
+      {
+        "generation": 3,
+        "id": "7b9fcd42-e7d7-481c-997c-2cdc6fc66c81",
+        "island": 0,
+        "max_similarity": 0.9967211484909058,
+        "parent_similarity": 0.9967211484909058,
+        "repeat_key": "98006627bbe9be7026ce751a1d33eb9ff1714c66f7199536c70ebce758fc2d03"
+      },
+      {
+        "generation": 5,
+        "id": "c5afbe17-033f-4f62-b931-6346ff0631c8",
+        "island": 0,
+        "max_similarity": 0.9955539703369141,
+        "parent_similarity": 0.994585394859314,
+        "repeat_key": "efa4931ea41487d04deeac9f424ab4d8eb4cd99169cd4ad2513890436fea9e15"
+      },
+      {
+        "generation": 4,
+        "id": "0aae5a1c-9b82-40f8-9285-b70a059c3b87",
+        "island": 0,
+        "max_similarity": 0.9959074258804321,
+        "parent_similarity": 0.9945352673530579,
+        "repeat_key": "5f16d2877ac029a6c89d3fe41f5944526afa9c48da6edf77c5e6d3ee3909403b"
+      },
+      {
+        "generation": 6,
+        "id": "ccc3a2bb-5d01-44ef-a1bf-fc8abbd5dc02",
+        "island": 0,
+        "max_similarity": 0.9972304105758667,
+        "parent_similarity": 0.9945021271705627,
+        "repeat_key": "19e230126aa643673800877511e6ddde12d4e9aacf7970a2d9a2578a9d6cab4c"
+      },
+      {
+        "generation": 7,
+        "id": "336bddfe-99e8-4f84-a3a8-528a9dc39476",
+        "island": 0,
+        "max_similarity": 0.9855411052703857,
+        "parent_similarity": 0.9855411052703857,
+        "repeat_key": "374f605bd4c958e5c1e097716f024fc043d02aeb0bcb0d52d27f6463f7b309f0"
+      },
+      {
+        "generation": 9,
+        "id": "0f81d520-9f77-4708-8074-4e5955a0dba7",
+        "island": 0,
+        "max_similarity": 0.9982935190200806,
+        "parent_similarity": 0.9982935190200806,
+        "repeat_key": "42c2a332b7d2646a3161f4ab8635776c8fe2663748d9966a813bc70ed1e259c3"
+      },
+      {
+        "generation": 8,
+        "id": "51ecf79a-6073-4736-993c-33de997883dc",
+        "island": 0,
+        "max_similarity": 0.994339108467102,
+        "parent_similarity": 0.9930003881454468,
+        "repeat_key": "0e414772a95b88613be1ce8e6a2df0c9e673c2122c071a8de70dd387a261798e"
+      },
+      {
+        "generation": 10,
+        "id": "e56d3473-c557-4d84-8c32-5a92c3dcdfd6",
+        "island": 0,
+        "max_similarity": 0.985114336013794,
+        "parent_similarity": 0.985114336013794,
+        "repeat_key": "07bf75f0f44f2fa8a22f6a79b6536b20e2211c1ef081bd75c81dc443ae284fc1"
+      },
+      {
+        "generation": 11,
+        "id": "dde5cd72-c6a9-4f1c-9cca-b01f8df2bb72",
+        "island": 0,
+        "max_similarity": 0.9983820915222168,
+        "parent_similarity": 0.9867194890975952,
+        "repeat_key": "374f605bd4c958e5c1e097716f024fc043d02aeb0bcb0d52d27f6463f7b309f0"
+      },
+      {
+        "generation": 12,
+        "id": "b1b56027-9773-4e73-911e-0b25a6d14612",
+        "island": 0,
+        "max_similarity": 0.9928964376449585,
+        "parent_similarity": 0.991156816482544,
+        "repeat_key": "98f69ca3b0a0b10f314a8c49d3b27251b984b7909952c85ca51b860a69aa6305"
+      },
+      {
+        "generation": 13,
+        "id": "db4b0890-8637-438b-8b1d-c1af753741e8",
+        "island": 0,
+        "max_similarity": 0.9996783137321472,
+        "parent_similarity": 0.984067440032959,
+        "repeat_key": "0976d316612c1898ef58fda886a4ddacb9edec4758ba57136d50044e6de67613"
+      },
+      {
+        "generation": 14,
+        "id": "d7f32a33-e9e3-470c-8be0-60927cb1b068",
+        "island": 0,
+        "max_similarity": 0.9994124174118042,
+        "parent_similarity": 0.9960806369781494,
+        "repeat_key": "a4535cf79d1d361ada198cd3fc4ade3964266dde8350e3b161b494ea32c4f03d"
+      },
+      {
+        "generation": 15,
+        "id": "b8d3c503-957d-442c-b4ef-64ea8b2fa6ef",
+        "island": 0,
+        "max_similarity": 0.9818118214607239,
+        "parent_similarity": 0.980699360370636,
+        "repeat_key": "36a75f434f3e54cdad1c588b8b770cb41c34e0fe6d9481dd06512856f728e326"
+      },
+      {
+        "generation": 16,
+        "id": "c26f8791-e99e-40aa-81b4-fb47439742b9",
+        "island": 0,
+        "max_similarity": 0.9941654801368713,
+        "parent_similarity": 0.9937759041786194,
+        "repeat_key": "b16d3ccd8054c52f2062cb1c68619509ab670984a47692af8683847a37354436"
+      },
+      {
+        "generation": 18,
+        "id": "0a226d33-4fc0-4307-a22c-9bf39e350e30",
+        "island": 0,
+        "max_similarity": 0.9799159169197083,
+        "parent_similarity": 0.9799159169197083,
+        "repeat_key": null
+      },
+      {
+        "generation": 17,
+        "id": "bf9cc233-0606-47f1-ab73-4540e48e1182",
+        "island": 0,
+        "max_similarity": 0.9982163906097412,
+        "parent_similarity": 0.9873126745223999,
+        "repeat_key": "2c4fc7019bc4fb416dd70f3d3bb3c3fbea4d1bd4d23b96197bb3a0c19a4d3632"
+      },
+      {
+        "generation": 19,
+        "id": "4a2367c2-055a-4e4d-8a88-179d4bd3238f",
+        "island": 0,
+        "max_similarity": 0.9993658065795898,
+        "parent_similarity": 0.9936627149581909,
+        "repeat_key": "2c644a08313518bf79d9e2b649991d3c0113fafd0fca88429b0cfd6d63359651"
+      },
+      {
+        "generation": 20,
+        "id": "99f27b59-51fc-4cde-a5b1-9a5869570bb5",
+        "island": 0,
+        "max_similarity": 0.9954749345779419,
+        "parent_similarity": 0.9845871925354004,
+        "repeat_key": "df81b039cc0d1d075ccf9bd4b4ec6c0383afc0fac7cae3341c911264ad2275d1"
+      },
+      {
+        "generation": 21,
+        "id": "560d47a6-4b93-43cc-b459-bff2a24e21c0",
+        "island": 0,
+        "max_similarity": 0.9975653290748596,
+        "parent_similarity": 0.9907407760620117,
+        "repeat_key": "c8d8b63d7f0591985f3fcae443936d576083fbd689d4d0a34f0ac8b54d472a82"
+      },
+      {
+        "generation": 23,
+        "id": "0616db81-feb9-4fda-a681-189d674b6e17",
+        "island": 0,
+        "max_similarity": 0.9987911581993103,
+        "parent_similarity": 0.9972935914993286,
+        "repeat_key": "5cd0863edf9b25155bfefe99568555e086d1deb5d620c9be2793efc9f5bc47bb"
+      },
+      {
+        "generation": 22,
+        "id": "9f9b97b8-4b60-421f-836f-0a3b574ac6e2",
+        "island": 0,
+        "max_similarity": 0.9976550340652466,
+        "parent_similarity": 0.9855276346206665,
+        "repeat_key": "144919b039ff68b89f1d1029cdd2b48fe84cb9c31580288566dc262e94433100"
+      },
+      {
+        "generation": 25,
+        "id": "092328fb-2b4a-4629-8230-b37435a9001f",
+        "island": 0,
+        "max_similarity": 0.9983943700790405,
+        "parent_similarity": 0.9958845376968384,
+        "repeat_key": "d829dd52148f6ba03e2e8bf92bfc0ed10a169731b3c257f73da20fe876c79216"
+      },
+      {
+        "generation": 24,
+        "id": "28551e18-0524-49c0-9427-b1dd5892b838",
+        "island": 0,
+        "max_similarity": 0.9975416660308838,
+        "parent_similarity": 0.9878848195075989,
+        "repeat_key": "ddbbfe7e7b58b99182d36980245541648b537c978ce851091953201f3348ef97"
+      },
+      {
+        "generation": 26,
+        "id": "efcf4fe7-6c5e-4c6b-9064-888511fc0613",
+        "island": 0,
+        "max_similarity": 0.9888271689414978,
+        "parent_similarity": 0.9781326055526733,
+        "repeat_key": "10b21ca4110eb49ffb9e3252c17b855546090d467b5b5f31ffa35a3f85b6a70e"
+      },
+      {
+        "generation": 27,
+        "id": "5e925655-4cda-4ea0-8ba7-b7803225a284",
+        "island": 0,
+        "max_similarity": 0.9989252090454102,
+        "parent_similarity": 0.9844285249710083,
+        "repeat_key": "5d576725873c2344c33d778ab00b825d970f9ecf2ebcf5bc98d832908a62cfeb"
+      },
+      {
+        "generation": 28,
+        "id": "ef5e586b-434e-467d-bf97-7a8aed947bb3",
+        "island": 0,
+        "max_similarity": 0.995707094669342,
+        "parent_similarity": 0.992141842842102,
+        "repeat_key": "65323a34817b494cf4fab8f0d23313e7c22c027712a393c5b327c3205606b22e"
+      },
+      {
+        "generation": 29,
+        "id": "dc6d3474-78f6-4cc6-940e-e836a8430d1b",
+        "island": 0,
+        "max_similarity": 0.9934316277503967,
+        "parent_similarity": 0.9875250458717346,
+        "repeat_key": "ab6d54a931ac3ff8eb5e2efa307901c3351c50ab6f75bce5e1676b8f9dc1d2ef"
+      },
+      {
+        "generation": 31,
+        "id": "e46652c0-706d-4ea1-b196-b44fce975f35",
+        "island": 0,
+        "max_similarity": 0.9968855381011963,
+        "parent_similarity": 0.9798951148986816,
+        "repeat_key": "78add9049d33dec8efc9f594fe1505627db5cba0b8deaaa523b7d3dba569bf15"
+      },
+      {
+        "generation": 30,
+        "id": "d96cb9f0-c879-42ac-a3ed-6e1813c6d436",
+        "island": 0,
+        "max_similarity": 0.9861891269683838,
+        "parent_similarity": 0.9776077270507812,
+        "repeat_key": "36683a3bc8cd89fe99c74677d37ae70191db80a11429d4edc4a0270d1e09a558"
+      },
+      {
+        "generation": 33,
+        "id": "08743257-48bf-4e3e-b1b6-7ce161033586",
+        "island": 0,
+        "max_similarity": 0.9990760087966919,
+        "parent_similarity": 0.9862043261528015,
+        "repeat_key": "65323a34817b494cf4fab8f0d23313e7c22c027712a393c5b327c3205606b22e"
+      },
+      {
+        "generation": 32,
+        "id": "29bd5322-f6d2-4c31-9cd3-10251f9fb879",
+        "island": 0,
+        "max_similarity": 0.9966540932655334,
+        "parent_similarity": 0.9861364960670471,
+        "repeat_key": "27f90d44c28453a8f14b75414f081ca515b150957e2e4d84c661411533621f3e"
+      },
+      {
+        "generation": 34,
+        "id": "d1ca0b18-cf8e-4235-8b41-853cc7ecc593",
+        "island": 0,
+        "max_similarity": 0.9984374046325684,
+        "parent_similarity": 0.9840240478515625,
+        "repeat_key": "a824f9f1aecef10c8556ff8a085801e089cc3a40595fb6b6bb578ca73e7affae"
+      },
+      {
+        "generation": 35,
+        "id": "a28682da-b429-4720-b6d3-5212dbaf1b63",
+        "island": 0,
+        "max_similarity": 0.9949142932891846,
+        "parent_similarity": 0.9877063035964966,
+        "repeat_key": "537106d5d70146639b995acfcba11b3d3eb77f3c99033ce42ad417542fde1524"
+      },
+      {
+        "generation": 36,
+        "id": "fb66cbb8-f629-429b-9820-9ef496de8cdc",
+        "island": 0,
+        "max_similarity": 0.9979226589202881,
+        "parent_similarity": 0.9979226589202881,
+        "repeat_key": "5ad30bd9453dbf6079b68d3d21176a3c368a7017f1e05c4a692b74cf24262786"
+      },
+      {
+        "generation": 38,
+        "id": "a7efc292-2178-48ec-96f9-b70ab743028e",
+        "island": 0,
+        "max_similarity": 0.9989248514175415,
+        "parent_similarity": 0.9951483607292175,
+        "repeat_key": "65098bc9853ec4b90752feea8cbf42e9dca75e295d746ac395a0f877d70cd5d0"
+      },
+      {
+        "generation": 39,
+        "id": "5e198790-10a0-477f-b4f4-e11ee2dd73e0",
+        "island": 0,
+        "max_similarity": 0.9988777041435242,
+        "parent_similarity": 0.9930185079574585,
+        "repeat_key": "43724d6dc6fe5b78c7e43d14351495bde1ab58d87245ef7dc041840713ed2bf9"
+      },
+      {
+        "generation": 37,
+        "id": "bff9723f-fab2-48c5-93f8-a55600650a50",
+        "island": 0,
+        "max_similarity": 0.9951486587524414,
+        "parent_similarity": 0.9951486587524414,
+        "repeat_key": "0bd48ea9b18d2c41d3d632f38efd2c2688f8202ce1556bb0bee9639145e9850e"
+      },
+      {
+        "generation": 40,
+        "id": "3c8a1225-f894-4576-9553-c2851388d0af",
+        "island": 0,
+        "max_similarity": 0.9991034269332886,
+        "parent_similarity": 0.9862939119338989,
+        "repeat_key": "e120d433624c7554fa14ebaf52fb286f0ac807c514cad292050ab9fceadadc0e"
+      },
+      {
+        "generation": 42,
+        "id": "2f860a0b-5fc7-47b7-85ef-f22061417b9d",
+        "island": 0,
+        "max_similarity": 0.998623251914978,
+        "parent_similarity": 0.998623251914978,
+        "repeat_key": "6704a2e4efa5e5d29a4eb581e4916a4c9e4e02fcdae5d25bc1495160cc7e6807"
+      },
+      {
+        "generation": 41,
+        "id": "85a67a0c-a2f0-4bf2-84fb-8977dc412356",
+        "island": 0,
+        "max_similarity": 0.9924144148826599,
+        "parent_similarity": 0.9867485761642456,
+        "repeat_key": "b5fc22e38c33d2d008c9e0f1e137dcf19f78d83bb056f1f63180654cebb9da6b"
+      },
+      {
+        "generation": 43,
+        "id": "6161104b-2fda-41b2-9f45-9f6703d40159",
+        "island": 0,
+        "max_similarity": 0.9993181228637695,
+        "parent_similarity": 0.9938162565231323,
+        "repeat_key": "d04a45a3e2295eb6f397a966dae266b186911c93f27521a0cc5f0d9079675881"
+      },
+      {
+        "generation": 44,
+        "id": "1dad1336-9e1a-4a5b-9418-97ef35e1bc32",
+        "island": 0,
+        "max_similarity": 0.9982821941375732,
+        "parent_similarity": 0.990686297416687,
+        "repeat_key": "39317cd1ac466f10e54919275f9ef4a17ab4a5983b550316698aa7b3cc82afea"
+      },
+      {
+        "generation": 45,
+        "id": "4eff3773-8c71-4588-bd2e-922d94683326",
+        "island": 0,
+        "max_similarity": 0.9969596862792969,
+        "parent_similarity": 0.9965984225273132,
+        "repeat_key": "e77b5f9e596f12648141a75c2d9187061196fc6777645fffb55ad44ca35a51a2"
+      },
+      {
+        "generation": 46,
+        "id": "32419064-b568-4da7-a9a7-f840b767d64d",
+        "island": 0,
+        "max_similarity": 0.9987305402755737,
+        "parent_similarity": 0.9968125820159912,
+        "repeat_key": "5c7ad59913e5ab4429aff7d2fa7d8b5c57442aed3cb250ab2d5acf990bbcf949"
+      },
+      {
+        "generation": 47,
+        "id": "b612509c-e494-4e4a-9149-ecaf9a98d677",
+        "island": 0,
+        "max_similarity": 0.9965161085128784,
+        "parent_similarity": 0.9877458810806274,
+        "repeat_key": "6e65627143a3b8579e6d44c7cc754095340363badf7e96a2960a16118ef32438"
+      },
+      {
+        "generation": 48,
+        "id": "9d27cd56-2993-427f-b464-7897c62233cb",
+        "island": 0,
+        "max_similarity": 0.9879589676856995,
+        "parent_similarity": 0.9757699966430664,
+        "repeat_key": "d750ca99815bd65b3cdf05bc6dddc32049eb9c199b22a70853b0d1864a2e863f"
+      },
+      {
+        "generation": 49,
+        "id": "83a57021-3ce4-4039-89c1-1e375e07c0bc",
+        "island": 0,
+        "max_similarity": 1.0000001192092896,
+        "parent_similarity": 0.9779723882675171,
+        "repeat_key": "10b21ca4110eb49ffb9e3252c17b855546090d467b5b5f31ffa35a3f85b6a70e"
+      },
+      {
+        "generation": 50,
+        "id": "cf8c6481-b421-4237-8371-f979f755b698",
+        "island": 0,
+        "max_similarity": 0.9976696968078613,
+        "parent_similarity": 0.9947115778923035,
+        "repeat_key": "f6a71d57faa9762dc06ebf0b6976299015c6b5c8516ccf070761ce77bb431363"
+      },
+      {
+        "generation": 52,
+        "id": "034ebe95-5634-47af-a52c-281a48d6891a",
+        "island": 0,
+        "max_similarity": 0.9979676008224487,
+        "parent_similarity": 0.9968226552009583,
+        "repeat_key": "279fa1d3d5333d6cec98b4d5460b0bd37f01e3bbf770cfe34e9faf0ecf5eb6d6"
+      },
+      {
+        "generation": 51,
+        "id": "a23e99a8-040f-4082-a2d1-7fa40a30f91a",
+        "island": 0,
+        "max_similarity": 0.9960790872573853,
+        "parent_similarity": 0.9960790872573853,
+        "repeat_key": "2a2607dd43a439f6bce690c27ee589c24fbb8278dbbf1af2d4731d196f666d13"
+      },
+      {
+        "generation": 53,
+        "id": "6f6c5f8f-ca22-48ae-93c7-d02982c78500",
+        "island": 0,
+        "max_similarity": 0.9948902726173401,
+        "parent_similarity": 0.9930601119995117,
+        "repeat_key": "10b714916ad82d593494eb298a17d54865e920ef383ba2a37f23e0bd45bd68e2"
+      },
+      {
+        "generation": 54,
+        "id": "e10fc198-1ece-4172-86b1-3c19b029e31a",
+        "island": 0,
+        "max_similarity": 0.9768885374069214,
+        "parent_similarity": 0.9560390710830688,
+        "repeat_key": "ecb2677b580a1a721ac283c7164daef08548a422dd3b00b3b536997e2d53cdc7"
+      },
+      {
+        "generation": 55,
+        "id": "5a0dec51-f4a4-47ff-bd14-3c30c2c23571",
+        "island": 0,
+        "max_similarity": 0.9957352876663208,
+        "parent_similarity": 0.9883908629417419,
+        "repeat_key": "509cf89405257032b0a3bc64cc3d2b9ac2b562913ce8e68a589d4dc07350c604"
+      },
+      {
+        "generation": 56,
+        "id": "8b774502-f3a8-49ff-a94c-1403bce77a56",
+        "island": 0,
+        "max_similarity": 0.9988515377044678,
+        "parent_similarity": 0.9970811605453491,
+        "repeat_key": "f6a71d57faa9762dc06ebf0b6976299015c6b5c8516ccf070761ce77bb431363"
+      },
+      {
+        "generation": 57,
+        "id": "1a9ce93a-ef70-4ba5-8f0d-4832d45ea39d",
+        "island": 0,
+        "max_similarity": 0.9971827864646912,
+        "parent_similarity": 0.9910503029823303,
+        "repeat_key": "f9148494ef2ee1e91824bf75552dff49d6743b6669cc7f283a3ad79403e5c1dc"
+      },
+      {
+        "generation": 58,
+        "id": "62ae5dbb-8af7-4400-a86b-4c24b6d2d7be",
+        "island": 0,
+        "max_similarity": 0.9978796243667603,
+        "parent_similarity": 0.9978796243667603,
+        "repeat_key": "ac100d700759f99ba052c9370acd962a1ee7e2ab2d8c5a9c4dd0b0bed1759945"
+      },
+      {
+        "generation": 59,
+        "id": "6ff53284-5eb1-4ecd-8931-65cf7b17d9ca",
+        "island": 0,
+        "max_similarity": 0.9964209794998169,
+        "parent_similarity": 0.9880875945091248,
+        "repeat_key": "b6aaec3ed94c35554258ebe36c412a0e0f72b4fb0a75d04b2b92e22e3c720015"
+      },
+      {
+        "generation": 60,
+        "id": "9951800b-12fc-4d6a-835c-2e9e8ab9d312",
+        "island": 0,
+        "max_similarity": 0.9966542720794678,
+        "parent_similarity": 0.9800142049789429,
+        "repeat_key": "8f8909410a3e15a25d62e04616a255f3db01f71b6c6e88d04a0dbaa482d88c47"
+      },
+      {
+        "generation": 61,
+        "id": "a8c9baf4-c480-489d-b7e2-3ff938d4b43b",
+        "island": 0,
+        "max_similarity": 0.9957616925239563,
+        "parent_similarity": 0.9948287010192871,
+        "repeat_key": "19e53d6bf6737734beac9a76c42393eb10572f6a2c0423d419069d014ae0b1c4"
+      },
+      {
+        "generation": 62,
+        "id": "6237e10a-479a-4f68-b32f-8d0cc2ba95eb",
+        "island": 0,
+        "max_similarity": 0.9984821677207947,
+        "parent_similarity": 0.9767265319824219,
+        "repeat_key": "9c3da9a39c36e442a84c81923676734c949cffd1387e2b4dccf07491ad51fcf7"
+      },
+      {
+        "generation": 63,
+        "id": "43937f4d-c812-4fc3-94d1-db4797e0514d",
+        "island": 0,
+        "max_similarity": 0.9984274506568909,
+        "parent_similarity": 0.9800944328308105,
+        "repeat_key": "0937adf67e075571ed19d1b633dbbee6f854ab5c8965cdb4fe6d638d9b449ced"
+      },
+      {
+        "generation": 64,
+        "id": "7a914709-fed3-493b-b8c0-204ecf36b3ce",
+        "island": 0,
+        "max_similarity": 0.9999839663505554,
+        "parent_similarity": 0.9999839663505554,
+        "repeat_key": "35c8d7cc85416d87c32b1fd094da3c794f228bb95f7263f73bbc0775e63e90ce"
+      },
+      {
+        "generation": 67,
+        "id": "81c0a562-2e9b-4d91-a2bd-0b223178a199",
+        "island": 0,
+        "max_similarity": 0.9993417263031006,
+        "parent_similarity": 0.9932981729507446,
+        "repeat_key": "ac1098456275ffff4d642090cea02851e6b8d4314f22690c8feb65ff6f076215"
+      },
+      {
+        "generation": 65,
+        "id": "932777e6-3213-47a8-a626-5e6e9deac440",
+        "island": 0,
+        "max_similarity": 0.9981328845024109,
+        "parent_similarity": 0.9981328845024109,
+        "repeat_key": "df62d174752cc05d9ad4cc28a0ea0c72fcad26cdbdff6712fcc4a795d9d319dc"
+      },
+      {
+        "generation": 68,
+        "id": "14a198ce-6cca-4e18-a7e9-e405842dfeb6",
+        "island": 0,
+        "max_similarity": 0.9984343647956848,
+        "parent_similarity": 0.9984089136123657,
+        "repeat_key": "7628aa37cd27be935407ac20bc35d2adb4b5697103642c833d2f1b6609e064d8"
+      },
+      {
+        "generation": 69,
+        "id": "bd840756-8404-44fa-87c9-e4931cb42e7f",
+        "island": 0,
+        "max_similarity": 0.9906502962112427,
+        "parent_similarity": 0.9906502962112427,
+        "repeat_key": "b6285b6baff5f5ed7229f1f9e71b2e826bf03dd2b112c22aa6b8ee802d6d93a2"
+      },
+      {
+        "generation": 70,
+        "id": "6c847ba8-868b-49ce-b34a-74b8ee85369e",
+        "island": 0,
+        "max_similarity": 0.9972848892211914,
+        "parent_similarity": 0.9972848892211914,
+        "repeat_key": "f898ac421830d89865bedd9e6f8f5f4b6165dc22d16666c89e14db43d3680f71"
+      },
+      {
+        "generation": 71,
+        "id": "c9b958e1-3a67-4e1a-bae9-5f6e78df47ce",
+        "island": 0,
+        "max_similarity": 0.988553524017334,
+        "parent_similarity": 0.97557532787323,
+        "repeat_key": "38e719993bc4dcdc4682c8679160cbd6c739544b89d93b0da6d104da5b8d27d6"
+      },
+      {
+        "generation": 73,
+        "id": "bc2d9263-3685-40c9-a963-1e13da38c0eb",
+        "island": 0,
+        "max_similarity": 0.994948148727417,
+        "parent_similarity": 0.9875461459159851,
+        "repeat_key": "14a02cd4b0e74dc6915874545ff5bb15559486272e1c8ca06954598d6cc377b5"
+      },
+      {
+        "generation": 74,
+        "id": "612ec40b-c900-4d09-b80e-7b390247b59d",
+        "island": 0,
+        "max_similarity": 0.9999998211860657,
+        "parent_similarity": 0.9793636202812195,
+        "repeat_key": "38e719993bc4dcdc4682c8679160cbd6c739544b89d93b0da6d104da5b8d27d6"
+      },
+      {
+        "generation": 75,
+        "id": "1087581c-8677-4969-8ca1-7720a2186c72",
+        "island": 0,
+        "max_similarity": 0.9919905066490173,
+        "parent_similarity": 0.9801635146141052,
+        "repeat_key": "687f8bf82dd2dced73144f978cc1fbf91452b0c3be01e6440949a68c56d7e45d"
+      },
+      {
+        "generation": 76,
+        "id": "b0a26ebc-60b3-40bd-9d0e-105557d16e0b",
+        "island": 0,
+        "max_similarity": 0.9988110065460205,
+        "parent_similarity": 0.9952466487884521,
+        "repeat_key": "7ce394e0671bc531023a4f9eff341e651865c7c56521c3ea4c64c9973a832aa4"
+      },
+      {
+        "generation": 77,
+        "id": "43c7c2dc-bf36-43df-a866-32e3e4f0bc67",
+        "island": 0,
+        "max_similarity": 0.9994159936904907,
+        "parent_similarity": 0.9836866855621338,
+        "repeat_key": "4aa6b430bf02d1b0a7b078314278381afcd9f27f99c7eb05ff7f92b30c733a90"
+      },
+      {
+        "generation": 78,
+        "id": "a64c25bc-8473-4d17-80f6-cbec5b837c32",
+        "island": 0,
+        "max_similarity": 0.9994817972183228,
+        "parent_similarity": 0.9994817972183228,
+        "repeat_key": "f5a335face65bdc2fec116a16aed84a6623f8ede1b99afb935f9330b54ca9c9c"
+      },
+      {
+        "generation": 79,
+        "id": "836f2a74-2c5e-4ee9-a11c-9af230999eee",
+        "island": 0,
+        "max_similarity": 0.9992628693580627,
+        "parent_similarity": 0.9821761846542358,
+        "repeat_key": "b612010e9362243e09b74947514ccdda564395451e1e4902054487ce2f53c078"
+      },
+      {
+        "generation": 81,
+        "id": "a6b22398-9ea4-4d36-9255-26f3492f5f6a",
+        "island": 0,
+        "max_similarity": 0.9999988675117493,
+        "parent_similarity": 0.9994805455207825,
+        "repeat_key": "46e4e5c9a6b69a6c35b7957cc7622ddf19dbec99fc8928d183a8326951c0df2c"
+      },
+      {
+        "generation": 82,
+        "id": "573df62f-cebd-4951-bd4e-d662a57e3baf",
+        "island": 0,
+        "max_similarity": 0.998211145401001,
+        "parent_similarity": 0.998211145401001,
+        "repeat_key": "7c28a19c348aee5901904c41df101fa99dad28705a92356740ef843573c4f596"
+      },
+      {
+        "generation": 80,
+        "id": "8bc28551-c3ea-4170-893c-f07fc64d512e",
+        "island": 0,
+        "max_similarity": 0.9916732311248779,
+        "parent_similarity": 0.9907798171043396,
+        "repeat_key": "58045c72868ae7048a508864a70e8a733df8cbcefc3deec0ea7859a9b78166c9"
+      },
+      {
+        "generation": 83,
+        "id": "0b781318-65e9-4059-9658-e4b635176fdf",
+        "island": 0,
+        "max_similarity": 0.9999817609786987,
+        "parent_similarity": 0.9999817609786987,
+        "repeat_key": "31c397b5b9f807d4277d1d455cc8a0b8d7bf18321791796deae26e06b1950631"
+      },
+      {
+        "generation": 84,
+        "id": "f9a6e5c6-affa-4112-bb1e-73219a907c61",
+        "island": 0,
+        "max_similarity": 0.9998027086257935,
+        "parent_similarity": 0.9829320907592773,
+        "repeat_key": "5a5298657b749df0d809664f7a0ac356736a8053114379557fa95b620df5aad0"
+      },
+      {
+        "generation": 85,
+        "id": "445f2866-d098-48a3-97dd-ef96e773ac15",
+        "island": 0,
+        "max_similarity": 0.9984434843063354,
+        "parent_similarity": 0.9805731177330017,
+        "repeat_key": "687f8bf82dd2dced73144f978cc1fbf91452b0c3be01e6440949a68c56d7e45d"
+      },
+      {
+        "generation": 87,
+        "id": "d84d057a-e8ba-4ba7-898b-d85536a37ec7",
+        "island": 0,
+        "max_similarity": 0.9998494982719421,
+        "parent_similarity": 0.9998494982719421,
+        "repeat_key": "35b760bdf6220f4a3225aacb0d058518cccfe39869c741f4a63a516e41f604e1"
+      },
+      {
+        "generation": 86,
+        "id": "9f36aaba-dc09-4444-a27a-622e5e04231b",
+        "island": 0,
+        "max_similarity": 0.9981038570404053,
+        "parent_similarity": 0.9815124869346619,
+        "repeat_key": "5fe6252cc019b2a677bb7bc7049b6f1748a9362fbc01544d9985ae04f8708ddf"
+      },
+      {
+        "generation": 88,
+        "id": "1dfa876e-c3af-45ab-b77d-28d9c4cf5172",
+        "island": 0,
+        "max_similarity": 0.9679502248764038,
+        "parent_similarity": 0.9392968416213989,
+        "repeat_key": "6216756d3c8c134abb814768f355a30ca27810948fb94b7cddeba0e66bc13835"
+      },
+      {
+        "generation": 90,
+        "id": "39165772-b8f3-4d45-890a-79fe4136a927",
+        "island": 0,
+        "max_similarity": 0.9893172979354858,
+        "parent_similarity": 0.9598723649978638,
+        "repeat_key": "4ff6037ec055f8b9dcfec45e4c0300349185844a3b6bb1f33474b1ff83ec116d"
+      },
+      {
+        "generation": 89,
+        "id": "c3ba8009-fa80-4160-8abb-cb77f1b02a31",
+        "island": 0,
+        "max_similarity": 0.9971641898155212,
+        "parent_similarity": 0.9971555471420288,
+        "repeat_key": "c579a01334d22de73aee835ee3d41a9c2a7493f22db0dbb0ac81c663590b7e93"
+      },
+      {
+        "generation": 91,
+        "id": "b35da2fa-bde1-4aa1-b8ea-5d6d59af46f8",
+        "island": 0,
+        "max_similarity": 0.9935300350189209,
+        "parent_similarity": 0.9916428327560425,
+        "repeat_key": "d73f7ec85c4a9db10d8bbee747725a60e3b8446bc7de8505eaa78912ff7a29f9"
+      },
+      {
+        "generation": 92,
+        "id": "891dfca0-44c2-4408-bb1b-57cb03ad00c0",
+        "island": 0,
+        "max_similarity": 0.9968533515930176,
+        "parent_similarity": 0.9929156303405762,
+        "repeat_key": "71058a32a06cb1db42cf049b3c8d6010a459ebf8b036b3891f2aa59c87bba920"
+      },
+      {
+        "generation": 93,
+        "id": "5952ba04-8c3e-4c64-af60-971bf7bbcf36",
+        "island": 0,
+        "max_similarity": 0.9962149262428284,
+        "parent_similarity": 0.9932451844215393,
+        "repeat_key": "4496d98826e3f8fa77e2d57424beae9bb1242632f6b92a6cdfae3d764e54ce60"
+      },
+      {
+        "generation": 94,
+        "id": "9d96463d-e989-4f9e-b4cb-c851d8c584f6",
+        "island": 0,
+        "max_similarity": 0.9995411038398743,
+        "parent_similarity": 0.9995411038398743,
+        "repeat_key": "eaf783084cf6bc0a67859365e21bf8eb999ddd2b9842cea7bcbf52a5ebadf07a"
+      },
+      {
+        "generation": 95,
+        "id": "518bf4dc-e823-4570-9d4b-8f62ec9277a6",
+        "island": 0,
+        "max_similarity": 0.9968203902244568,
+        "parent_similarity": 0.9968203902244568,
+        "repeat_key": "cf485b3ced982a6e206829ad512077a729345028dd904b33398f4c52a7bda445"
+      },
+      {
+        "generation": 96,
+        "id": "7b2d1fa3-4826-4c4d-8e4c-96bfa23d6e5b",
+        "island": 0,
+        "max_similarity": 0.9895864129066467,
+        "parent_similarity": 0.9852181077003479,
+        "repeat_key": "a2a896014b9379747aa084fc5ef69f5296f56277e2abd45ea6bb30bc13d01c2f"
+      },
+      {
+        "generation": 97,
+        "id": "3a660aa7-6cb5-4d54-ae66-3e983c711b81",
+        "island": 0,
+        "max_similarity": 0.9982206225395203,
+        "parent_similarity": 0.9969303607940674,
+        "repeat_key": "bc73cc2a351a897b8a85125034ba2d50b2019ce94910025fa177770c9412a7d8"
+      },
+      {
+        "generation": 98,
+        "id": "5bf5cc7b-d06f-4cad-aebc-60b1f0459791",
+        "island": 0,
+        "max_similarity": 0.9999969005584717,
+        "parent_similarity": 0.9798204302787781,
+        "repeat_key": "64b32ea43ed42b83cdb952047d0861347936a9381e4dae3ab4a825cea8dcc713"
+      },
+      {
+        "generation": 99,
+        "id": "83a4d915-3c99-4a4c-988d-5afaa7441d90",
+        "island": 0,
+        "max_similarity": 0.9905468225479126,
+        "parent_similarity": 0.9774101972579956,
+        "repeat_key": "3bc76153a2c4bb71bcb2f2f50716cc14030a1d76d9ee612894af9712d28516da"
+      },
+      {
+        "generation": 100,
+        "id": "812fc6e3-df43-406e-82da-3b19ebda8698",
+        "island": 0,
+        "max_similarity": 0.9991133213043213,
+        "parent_similarity": 0.9939627647399902,
+        "repeat_key": "fd8a2d99436a840e7f7c6afc47a65d6f95b312ad67bc7db23017109be4ac0fe0"
+      }
+    ]
+  }
+}
