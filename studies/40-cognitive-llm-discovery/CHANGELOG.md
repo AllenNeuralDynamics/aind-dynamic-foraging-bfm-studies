@@ -2,6 +2,22 @@
 
 ## 2026-11-04
 
+- Variant `gate4-noseed` (issue #110): gate 4's control arm, the `gate4-recovery` search with no seed
+  programs, on the same simulated mice.
+- `gate4-recovery`: the pre-check passes for all three hand-set settings; setting a is used (target
+  72.928; the reference without the slow trace 0.429 below, the seeds 3.5 to 6.6 below).
+- `gate4-recovery`: a hand-set design, as simple as the engine smoke test (Han). The generating program
+  has two reward timescales plus a choice kernel (`generator/two_timescale_ck.py`), with hand-set values
+  (`make_truths.py`), not fits to mice; three simplified seeds (`seeds/`), the library off, and a
+  reference without the slow trace that the target must beat by 0.4. The satiety design is kept as
+  superseded: the mice showed almost no satiety (0.015 above Hattori2019).
+- `gate4-recovery`: Han chose a generating program in neither the seeds nor the library, Hattori2019
+  plus satiety (`generator/hattori_satiety.py`), after the Hattori2019 design's pre-check stopped on the
+  seed Lebedeva-PR; its parameters come from its own 2-level fit of the template mice
+  (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#51). The Hattori2019 attempt is kept as superseded.
+- Variant `gate4-recovery` (issue #105): gate 4's second half, a 100-proposal search on mice simulated from
+  Hattori2019 with Hattori2019 left out of the prompt, pre-registered with a pre-check of every program
+  Claude is shown; code in AllenNeuralDynamics/aind-dynamic-foraging-mevolve#48.
 - Cohorts (issue #103): the seed-0 draft is adopted as drawn and committed as `reference/cohorts_seed0.json`
   (sha256 `cbe2cd02...c7cb`); ADR 0003's amendment records its checks against the test subjects.
 - Gate 3's numbers are regenerable (issue #97, review of #98): `make freeze-engine-smoke` freezes the

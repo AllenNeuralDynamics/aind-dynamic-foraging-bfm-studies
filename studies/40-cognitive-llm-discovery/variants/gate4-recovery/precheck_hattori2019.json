@@ -1,0 +1,167 @@
+{
+ "target": "Hattori2019",
+ "target_score": 66.5279611767218,
+ "tolerance": 0.2,
+ "exclude_within": 0.4,
+ "margins": {
+  "Hattori2019": 0.0,
+  "Bari2019": 0.3012,
+  "Lebedeva-PR": 0.3937,
+  "Miller-RHG": 0.4533,
+  "Lopez-DoubleTrace": 0.5023,
+  "CompareToThreshold": 0.6507,
+  "Grossman-MetaLearning": 0.832,
+  "Zid-HistoryKernel2-ForagingRL": 1.0369,
+  "Eckstein-BI": 1.2661,
+  "Beron-RFLR": 1.3672,
+  "Chen-RLCK": 1.3777,
+  "Eckstein-RL": 1.4022,
+  "FeedbackDependent-RL+Bias+CK1": 2.2607,
+  "Alsio-DualRateSticky-RL": 3.0774,
+  "template": 3.5754,
+  "ActorCritic": 4.6711,
+  "LossCounting": 6.4065,
+  "FeedbackDependent-RL+Bias": 7.6082,
+  "FeedbackDependent-RL": 11.0807,
+  "Rescorla-Wagner": 13.6211
+ },
+ "library_exclude": [
+  "Bari2019",
+  "Hattori2019",
+  "Lebedeva-PR"
+ ],
+ "stop": [
+  "the rule would leave out seeds: ['Lebedeva-PR']"
+ ],
+ "ok": false,
+ "mevolve_git_sha": "1c571491fac3a2528e8c7494faa1f7e9fb92b80a",
+ "config": "/home/han.hou/code/wt/studies-launch-1f1371a/studies/40-cognitive-llm-discovery/variants/gate4-recovery/run.json",
+ "simulated": {
+  "generation": "/allen/aind/scratch/han.hou/mevolve/gate4/run_85de84f/simulated_Hattori2019.json.gz",
+  "validation": "/allen/aind/scratch/han.hou/mevolve/gate4/second_half_cee79da/simulated_Hattori2019_validation.json.gz"
+ },
+ "max_em": 20,
+ "n_draws": 2048,
+ "programs": {
+  "template": {
+   "score": 62.95253256313424,
+   "two_level_failed": false,
+   "generation_score": 61.068,
+   "seconds": 86.2064516544342
+  },
+  "ActorCritic": {
+   "score": 61.8568281210225,
+   "two_level_failed": false,
+   "generation_score": 60.177,
+   "seconds": 227.09442782402039
+  },
+  "Alsio-DualRateSticky-RL": {
+   "score": 63.45052112979537,
+   "two_level_failed": false,
+   "generation_score": 61.387,
+   "seconds": 101.25030159950256
+  },
+  "Bari2019": {
+   "score": 66.2267852171856,
+   "two_level_failed": false,
+   "generation_score": 63.893,
+   "seconds": 125.02214527130127
+  },
+  "Beron-RFLR": {
+   "score": 65.1607890013866,
+   "two_level_failed": false,
+   "generation_score": 62.922,
+   "seconds": 92.72573232650757
+  },
+  "Chen-RLCK": {
+   "score": 65.15023938062131,
+   "two_level_failed": false,
+   "generation_score": 63.098,
+   "seconds": 100.4091317653656
+  },
+  "CompareToThreshold": {
+   "score": 65.87730662237813,
+   "two_level_failed": false,
+   "generation_score": 63.521,
+   "seconds": 152.74192690849304
+  },
+  "Eckstein-BI": {
+   "score": 65.26188154899056,
+   "two_level_failed": false,
+   "generation_score": 63.009,
+   "seconds": 192.64499425888062
+  },
+  "Eckstein-RL": {
+   "score": 65.12575923758503,
+   "two_level_failed": false,
+   "generation_score": 62.945,
+   "seconds": 128.50270223617554
+  },
+  "FeedbackDependent-RL": {
+   "score": 55.44724647156526,
+   "two_level_failed": false,
+   "generation_score": 54.833,
+   "seconds": 97.34863829612732
+  },
+  "FeedbackDependent-RL+Bias": {
+   "score": 58.919726633726185,
+   "two_level_failed": false,
+   "generation_score": 57.414,
+   "seconds": 92.30436730384827
+  },
+  "FeedbackDependent-RL+Bias+CK1": {
+   "score": 64.26726772010662,
+   "two_level_failed": false,
+   "generation_score": 62.276,
+   "seconds": 127.3431007862091
+  },
+  "Grossman-MetaLearning": {
+   "score": 65.6960015206415,
+   "two_level_failed": false,
+   "generation_score": 63.214,
+   "seconds": 705.5922503471375
+  },
+  "Hattori2019": {
+   "score": 66.5279611767218,
+   "two_level_failed": false,
+   "generation_score": 64.256,
+   "seconds": 119.0262291431427
+  },
+  "Lebedeva-PR": {
+   "score": 66.13428277852961,
+   "two_level_failed": false,
+   "generation_score": 63.904,
+   "seconds": 122.43628644943237
+  },
+  "Lopez-DoubleTrace": {
+   "score": 66.02570726111178,
+   "two_level_failed": false,
+   "generation_score": 63.822,
+   "seconds": 315.902526140213
+  },
+  "LossCounting": {
+   "score": 60.12147636031583,
+   "two_level_failed": false,
+   "generation_score": 58.013,
+   "seconds": 362.6954884529114
+  },
+  "Miller-RHG": {
+   "score": 66.07468760618274,
+   "two_level_failed": false,
+   "generation_score": 63.84,
+   "seconds": 236.84156441688538
+  },
+  "Rescorla-Wagner": {
+   "score": 52.90688752952987,
+   "two_level_failed": false,
+   "generation_score": 53.278,
+   "seconds": 599.447404384613
+  },
+  "Zid-HistoryKernel2-ForagingRL": {
+   "score": 65.49104679770416,
+   "two_level_failed": false,
+   "generation_score": 63.133,
+   "seconds": 148.0161736011505
+  }
+ }
+}

@@ -49,6 +49,8 @@ out in the task simulator to compare their behaviour with the mice's.
 |---|---|
 | [`seeded-islands`](variants/seeded-islands/notes.md) | one search, a different seed on each island: a near-empty template and literature models from the seed library |
 | [`engine-smoke`](variants/engine-smoke/notes.md) | gate 3: the first ShinkaEvolve runs, 10 proposals each at effort medium and high, on a small separate cohort; tests the engine, not the science |
+| [`gate4-recovery`](variants/gate4-recovery/notes.md) | gate 4, second half: 100 proposals on mice simulated from a hand-set program (two reward timescales plus a choice kernel), seeded with simplified programs, library off; the search must reach its own score |
+| [`gate4-noseed`](variants/gate4-noseed/notes.md) | gate 4 control: the same search with no seed programs (template only, one island); does Claude invent the slow reward trace? |
 
 The answer is the fraction of the gap from HB-CTT to the GRU that the best program closes on the
 test subjects, with its behavioural fingerprints and closed-loop match beside it.
