@@ -147,11 +147,11 @@ def main() -> None:
         rows = [r for r in res if r["model"] == m]
         models[m] = {"n_subjects": len(rows), "statistics": {}}
         for st in STATISTICS:
-            g = [r["statistics"][st]["gap"] for r in rows]
-            f = [r["statistics"][st]["floor"] for r in rows]
-            models[m]["statistics"][st] = {"hold_gap": float(np.nanmean(g)), "floor": float(np.nanmean(f)),
-                                           "ratio": floor_ratio(g, f),
-                                           "n_subjects": int(np.sum(np.isfinite(g) & np.isfinite(f)))}
+            g = np.array([r["statistics"][st]["gap"] for r in rows], float)
+            f = np.array([r["statistics"][st]["floor"] for r in rows], float)
+            ok = np.isfinite(g) & np.isfinite(f)   # the subjects floor_ratio uses, for the means too
+            models[m]["statistics"][st] = {"hold_gap": float(g[ok].mean()), "floor": float(f[ok].mean()),
+                                           "ratio": floor_ratio(g, f), "n_subjects": int(ok.sum())}
         print(m, {st: round(c["ratio"], 2) for st, c in models[m]["statistics"].items()}, flush=True)
     worst = max(c["ratio"] for m in models.values() for c in m["statistics"].values())
     if a.subjects:
