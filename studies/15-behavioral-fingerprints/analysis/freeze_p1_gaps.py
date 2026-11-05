@@ -143,6 +143,10 @@ def main() -> None:
                                        "from the stored typical values does not reproduce the "
                                        "stored score"})
     skip = {(e["model"], e["regime"]) for e in excluded}
+    # the subjects every model holds out (the GRU's checkpoint trained on 3 of the 149): the
+    # per-bin curves drawn side by side use these, so every curve is over the same subjects
+    not_held = {sid for g in gru["seeds"].values() for sid in g["subjects_in_training"]}
+    common = [sid for sid in subjects if sid not in not_held]
     inputs, models, scores = [REPLAY, GLM, GRU, GROUPS, animal_file, lit.HEADLINE_SOURCE], {}, {}
     for model in list(replay["models"]) + [glm["model"], gru["model"]]:
         path = TALLIES / f"{model}.parquet"
@@ -162,14 +166,17 @@ def main() -> None:
             per_subject = [_left_out(sets) if sid in trained else compare_replay(tallies[sid], sets)
                            for sid in subjects]
             runs[regime] = per_subject
-            models[model][regime] = _cells(per_subject, sets, subjects, flagged,
-                                           lambda groups, stat: _per_bin(tallies, held, groups, stat))
+            models[model][regime] = _cells(
+                per_subject, sets, subjects, flagged,
+                lambda groups, stat: {"per_bin": _per_bin(tallies, held, groups, stat),
+                                      "per_bin_common": _per_bin(tallies, common, groups, stat)})
             scores[model][regime] = _scores(per_subject, sets)
         if model == gru["model"]:   # the mean over seeds, in the grid's per-subject column
             seeds = [models[model][r] for r in runs]
             per_subject = _seed_mean(list(runs.values()), sets)
-            models[model]["per_subject"] = _cells(per_subject, sets, subjects, set(),
-                                                  lambda groups, stat: _mean_per_bin(seeds, groups, stat))
+            models[model]["per_subject"] = _cells(
+                per_subject, sets, subjects, set(),
+                lambda groups, stat: {k: _mean_per_bin(seeds, stat, k) for k in ("per_bin", "per_bin_common")})
             scores[model]["per_subject"] = _scores(per_subject, sets)
         print(model, {reg: {s: round(c[HEADLINE][s]["floor_ratio"], 3) for s in RATE_STATISTICS}
                       for reg, c in models[model].items()}, flush=True)
@@ -212,7 +219,8 @@ def _scores(per_subject: list[dict], sets: dict) -> dict:
 
 def _cells(per_subject: list[dict], sets: dict, subjects: list[str], flagged: set[str], per_bin) -> dict:
     """Per set and rate statistic: the subject-balanced aggregate, and for the headline set each
-    subject's gap and floor and the per-bin subject means (``per_bin(groups, stat)``)."""
+    subject's gap and floor and the per-bin subject means (``per_bin(groups, stat)``: over the
+    subjects the model counts, and over the subjects every model holds out)."""
     agg = aggregate_subjects(per_subject)
     cells = {}
     for name, groups in sets.items():
@@ -231,7 +239,7 @@ def _cells(per_subject: list[dict], sets: dict, subjects: list[str], flagged: se
             if name == HEADLINE:
                 cell["per_subject"] = {"gap": [None if not np.isfinite(x) else float(x) for x in g],
                                        "floor": [None if not np.isfinite(x) else float(x) for x in f]}
-                cell["per_bin"] = per_bin(groups, stat)
+                cell.update(per_bin(groups, stat))
             cells[name][stat] = cell
     return cells
 
@@ -248,9 +256,9 @@ def _seed_mean(runs: list[list[dict]], sets: dict) -> list[dict]:
     return out
 
 
-def _mean_per_bin(seeds: list[dict], groups, stat: str) -> dict:
+def _mean_per_bin(seeds: list[dict], stat: str, key: str) -> dict:
     """The headline per-bin curves averaged over seeds (the subjects' own curve is shared)."""
-    curves = [cells[HEADLINE][stat]["per_bin"] for cells in seeds]
+    curves = [cells[HEADLINE][stat][key] for cells in seeds]
     model = np.array([_nan(c["model"]) for c in curves]).mean(axis=0)
     return {"n_subjects": curves[0]["n_subjects"],
             "model": [None if not np.isfinite(x) else float(x) for x in model],

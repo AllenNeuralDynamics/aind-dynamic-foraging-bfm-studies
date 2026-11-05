@@ -48,6 +48,8 @@ def main() -> None:
     ap.add_argument("--launch-id", help="with --job: the launch id its outputs were written under")
     ap.add_argument("--studies-sha", help="with --job: the studies commit the job was submitted from")
     a = ap.parse_args()
+    if len(a.note.strip()) < 10:   # write_initial's rule, checked before anything is submitted
+        raise SystemExit("--note must say why this launch exists (at least 10 characters)")
     a.wrapper, a.models, a.prior_root = (x.resolve() for x in (a.wrapper, a.models, a.prior_root))
     record_dir = HERE / "launch_record" / a.label
     if record_dir.exists() and not a.job:   # write_initial refuses a used label, after submission
@@ -63,7 +65,9 @@ def main() -> None:
         assert (a.prior_root / f"s{seed}" / "run" / "outputs" / "checkpoints" / "index.json").exists(), seed
     launch_id = a.launch_id or datetime.now(ZoneInfo("America/Los_Angeles")).strftime("%Y%m%d-%H%M%S")
     out_root = OUT_BASE / launch_id
-    config = out_root / "heldout_offline.yaml"   # the tasks read this copy, fixed at submission
+    # the tasks read a copy fixed at submission; an array recorded with --job, submitted by the
+    # earlier launcher, read the variant's own file
+    config = HERE / "heldout_offline.yaml" if a.job else out_root / "heldout_offline.yaml"
     if not a.job:
         out_root.mkdir(parents=True)
         shutil.copyfile(HERE / "heldout_offline.yaml", config)

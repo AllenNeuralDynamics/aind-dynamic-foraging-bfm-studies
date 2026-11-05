@@ -120,6 +120,8 @@ def main() -> None:
     ap.add_argument("--note", required=True)
     ap.add_argument("--no-submit", action="store_true")
     a = ap.parse_args()
+    if len(a.note.strip()) < 10:   # write_initial's rule, checked before anything is submitted
+        raise SystemExit("--note must say why this launch exists (at least 10 characters)")
     if not a.no_submit and (HERE / "launch_record" / a.label).exists():   # write_initial refuses it, too late
         raise SystemExit(f"launch_record/{a.label}/ exists: give this launch a new --label")
     studies = _studies_sha()
