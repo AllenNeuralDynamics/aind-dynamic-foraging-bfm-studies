@@ -33,7 +33,9 @@ and what for. It is also the first search on many nodes, so it measures their th
 4. As in the smoke run, the programs found here do not enter `seeded-islands`; only the seed scores
    in the shared `seed_cache` are reused.
 
-**Run.** `search.sbatch`: 16 tasks of 56 CPUs on `aind` nodes. MEvolve keeps Shinka's database on the first node's
+**Run.** `search.sbatch`: 16 tasks of 56 CPUs and 1,500 MB per CPU on `aind` nodes (a 28-worker
+evaluation peaked at 40 GB in the multi-node test). It is submitted to start only after the multi-node
+runner's last $0 test passes (`--dependency=afterok`). MEvolve keeps Shinka's database on the first node's
 local disk; each evaluation's program and results pass through `stage/` in the launch directory on
 /allen. The exit trap copies only files `run.main` did not copy, so it cannot overwrite the archived run
 (it did in `seeded-islands-smoke`).
