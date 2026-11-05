@@ -1,0 +1,147 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/archive_gate4_runs.py",
+    "produced_at_pt": "2026-11-04T19:50:27-08:00",
+    "studies_git_sha": "2a16adce9d7cf1d4932ee99ac971d7235419dfb7",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "gate4-recovery@20261104-132600",
+      "gate4-noseed@20261104-141503"
+    ],
+    "source_studies_git_shas": [
+      "92ee0ae8fbbdefb0a550445d73a7f090ef11aeca",
+      "b429728e29cd0135163c42843c41f07f836c78da"
+    ],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no dispatcher SHA in the launch record(s) of W&B group(s): gate4-noseed@20261104-141503, gate4-recovery@20261104-132600",
+      "no wrapper SHA in the launch record(s) of W&B group(s): gate4-noseed@20261104-141503, gate4-recovery@20261104-132600",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): gate4-noseed@20261104-141503, gate4-recovery@20261104-132600"
+    ],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/archive_gate4_runs.py",
+        "sha256": "3d28bd427fe434f1d0f95c16a6f1fea9e1b2b4c77ffb7892955fb0dcfc115aa7"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "url",
+        "id": "wandb-artifact://NeuralDynamics/dfbfm-mevolve/run-gate4-recovery-20261104-132600:v0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/search/programs.sqlite",
+        "sha256": "8e77855995936632b5a4ea70c0914e3481b71d3717b20ec2c465a53c29b52331"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/search/programs.sqlite-wal",
+        "sha256": "d15b7be0ae576732710c04c99eeb557760b884258bda55cab767d573233fd066"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/search/ledger.jsonl",
+        "sha256": "74199589806a86d9c6703bd566151fff158df0125c80cf8c45e5a7f6d8f5c99a"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/search/run_config.json",
+        "sha256": "c38e9b088c8877a99aa6b9514e44ac7084974dcfcd977723ea0c10817c14d3aa"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/search/run_summary.json",
+        "sha256": "90255661f76ebe0ae527bdeda223f5a98f312da1e6fdbabc0ad8c4a6cec78cf6"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/heldout/heldout.json",
+        "sha256": "8dc111abf559ffa40492a0ae129d99fa703c9247f1e338bc137964d3e0b59402"
+      },
+      {
+        "type": "url",
+        "id": "wandb-artifact://NeuralDynamics/dfbfm-mevolve/run-gate4-noseed-20261104-141503:v0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/search/programs.sqlite",
+        "sha256": "bf8be36937043b1a5ff15b50f71bad376e790607127f6df6275657955c30319b"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/search/programs.sqlite-wal",
+        "sha256": "789323ff74e12d503029707c84879ac79b9a4f939de6da5dafd19b16220a4500"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/search/ledger.jsonl",
+        "sha256": "7fa82551033bef33d52567f4809dc541319e756b05cd9fa4acc1174c835c31bf"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/search/run_config.json",
+        "sha256": "de4207a28a2123290911221d8ca98d2ed719f6439b9560ef40c57bf4786c257d"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/search/run_summary.json",
+        "sha256": "8bfa4e7bb1ffccc3f9dd5aba643a46acf3e608408ea4dad0427ac6b17871d182"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/heldout/heldout.json",
+        "sha256": "54de36acc3264190b5a264b9fd43fc835e3e8d1535bf8da8153de59eb60db373"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/gate4/archives.json",
+        "sha256": "3225428067e8d3baf8ff5a923f5414c024c355bb91f44070c0969e8521a4fd61"
+      }
+    ]
+  },
+  "about": "W&B artifacts holding gate 4's two run directories; the digest is the immutable key and sha256 covers the files the freezes read.",
+  "archives": {
+    "seeded": {
+      "wandb_group": "gate4-recovery@20261104-132600",
+      "artifact": "NeuralDynamics/dfbfm-mevolve/run-gate4-recovery-20261104-132600:v0",
+      "digest": "fc7aa68e6cbabd3e8130a94451d162c2",
+      "n_files": 1129,
+      "bytes": 10802996,
+      "run_dir": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600",
+      "archive_run": "https://forge.coreweave.com/wandb/NeuralDynamics/dfbfm-mevolve/runs/5j8sxtv7",
+      "sha256": {
+        "search/programs.sqlite": "8e77855995936632b5a4ea70c0914e3481b71d3717b20ec2c465a53c29b52331",
+        "search/programs.sqlite-wal": "d15b7be0ae576732710c04c99eeb557760b884258bda55cab767d573233fd066",
+        "search/ledger.jsonl": "74199589806a86d9c6703bd566151fff158df0125c80cf8c45e5a7f6d8f5c99a",
+        "search/run_config.json": "c38e9b088c8877a99aa6b9514e44ac7084974dcfcd977723ea0c10817c14d3aa",
+        "search/run_summary.json": "90255661f76ebe0ae527bdeda223f5a98f312da1e6fdbabc0ad8c4a6cec78cf6",
+        "heldout/heldout.json": "8dc111abf559ffa40492a0ae129d99fa703c9247f1e338bc137964d3e0b59402"
+      }
+    },
+    "noseed": {
+      "wandb_group": "gate4-noseed@20261104-141503",
+      "artifact": "NeuralDynamics/dfbfm-mevolve/run-gate4-noseed-20261104-141503:v0",
+      "digest": "2f93969227496d022e93973980589299",
+      "n_files": 1134,
+      "bytes": 11109983,
+      "run_dir": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503",
+      "archive_run": "https://forge.coreweave.com/wandb/NeuralDynamics/dfbfm-mevolve/runs/o4w038gw",
+      "sha256": {
+        "search/programs.sqlite": "bf8be36937043b1a5ff15b50f71bad376e790607127f6df6275657955c30319b",
+        "search/programs.sqlite-wal": "789323ff74e12d503029707c84879ac79b9a4f939de6da5dafd19b16220a4500",
+        "search/ledger.jsonl": "7fa82551033bef33d52567f4809dc541319e756b05cd9fa4acc1174c835c31bf",
+        "search/run_config.json": "de4207a28a2123290911221d8ca98d2ed719f6439b9560ef40c57bf4786c257d",
+        "search/run_summary.json": "8bfa4e7bb1ffccc3f9dd5aba643a46acf3e608408ea4dad0427ac6b17871d182",
+        "heldout/heldout.json": "54de36acc3264190b5a264b9fd43fc835e3e8d1535bf8da8153de59eb60db373"
+      }
+    }
+  }
+}
