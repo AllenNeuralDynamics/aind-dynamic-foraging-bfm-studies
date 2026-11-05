@@ -15,7 +15,7 @@ WRAPPER ?= ../../../aind-dynamic-foraging-bfm-wrapper
   freeze-p1-session-groups freeze-p1-replay freeze-p1-glm freeze-p1-gru freeze-p1-gaps freeze-p1-gru-scratch \
   freeze-p2-tasks freeze-p2-gru-contexts freeze-p2-rollouts freeze-p2-holds freeze-p2-gaps
 
-all: r1 r2
+all: r1 r2 r3
 
 freeze-p0-golden-mevolve:
 	PYTHONPATH=$(MODELS)/src:$(MEVOLVE)/src $(MEVOLVE_PY) analysis/freeze_p0_golden_mevolve.py \
@@ -77,3 +77,8 @@ r1:
 .PHONY: r2
 r2:
 	$(PY) analysis/r2_replay_grid.py
+
+# r3 = P2: rollout fingerprints of the literature models, the GLM and the GRU
+.PHONY: r3
+r3:
+	$(PY) analysis/r3_rollout_grid.py

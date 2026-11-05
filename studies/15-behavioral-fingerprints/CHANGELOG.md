@@ -1,5 +1,16 @@
 # Changelog — 15-behavioral-fingerprints
 
+## 2026-11-05
+
+- P2 (r3, draft): rollout fingerprints of the same models on gym tasks built from each score
+  session (ADR 0006; amended with Han's decisions: engaged trials, sessions without block
+  parameters left out, the holds check on `BlockMinReward` only). 125 of the 149 test subjects
+  have a task. No model reaches the split-half floor; the best (CompareToThreshold per subject,
+  the GRU, Bari2019 2-level) score about 1.4. 2-level fits, better in replay for 16 of 18 models,
+  are better in rollout for 9; their losses curve falls where the mice's rises. The
+  `BlockMinReward` hold moves the fingerprints by at most 0.45 of the floor, so ADR 0006 stands.
+  Tallies are stored per model in `analysis/p2_rollouts/`.
+
 ## 2026-11-04
 
 - ADR 0009 (decided with Han): one fingerprint score per model and mode, the geometric mean of
