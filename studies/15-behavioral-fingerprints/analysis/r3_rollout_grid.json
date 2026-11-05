@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_rollout_grid.py",
-    "produced_at_pt": "2026-11-05T07:57:04-08:00",
-    "studies_git_sha": "1c254d60ba4febf95c93680b4e74286a011e2898",
+    "produced_at_pt": "2026-11-05T08:03:21-08:00",
+    "studies_git_sha": "725c41aa8204b3108c6c8c3f8e8dedb9318dab16",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r3_rollout_grid.py",
-        "sha256": "5972b19c654c7c1b699c013876fd5f87896ccc39c6639fa2860ab438fc134915"
+        "sha256": "7ad7cb2ebb0806079dbfb7826c8bff3eb1a59d479277d934cec1addb8c2a7128"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
@@ -84,7 +84,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r3_rollout_grid.json",
-        "sha256": "ef5622bf84055a8dc00cf2dbfc6f1eb8676556fa199df3d569f4269cab0655cb"
+        "sha256": "9ed79819d19d1dde63d15db5c03d0d27759249992b89e2c3792a81ab0d8f1c89"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r3_rollout_grid.svg",
@@ -119,6 +119,10 @@
         "sha256": "b44431de85ca841c136e833248f18d019f0ccdd06fdb39eabae88f3a69a232e6"
       },
       {
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r3_rmse.svg",
+        "sha256": "458281dab405383b38a69257eec535efed8ebb687045ca7b5c794eb3c5b6d3d1"
+      },
+      {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-1",
         "sha256": "ec6fe3aab06b3a951ab62ba4ab36a76c9abb3956fb5fb9a986e36dd3bbd8b395"
       },
@@ -132,11 +136,11 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-4",
-        "sha256": "d4185d2a5bf288aaf190e45033b6b7907f17dd6b7f77e1c5b115c23bd31c84af"
+        "sha256": "6cb135ae61d4d43afc8097aef238f1c201b71de1c88fc31426d33f5df77c0823"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-5",
-        "sha256": "95d4f8c922f33f75e21c87dca1daf7f2c490e82f009fa23dc65f79aa25170387"
+        "sha256": "9a10805c003c53f8d895e5f3e0ac26861309417558fe26075c9ada69c40c6b06"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-6",
@@ -153,6 +157,10 @@
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-9",
         "sha256": "b48a558688d8ebd2ba14e3112e230fc5cdc19f8ccad81df9d69999b13fdd61e0"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r3-rollout-grid.md#result-10",
+        "sha256": "50fd68745871e6e03cc43321839101400398a0818dd1bc6cae6067f1f01e6c39"
       }
     ]
   },
@@ -1212,6 +1220,1178 @@
         0.1606980188502611,
         0.15966567000866091
       ]
+    }
+  ],
+  "rmse": [
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.01429248968973988
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.014693185567344691
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.033338540893644956
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.011456510636111666
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.012921083305536566
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.019519880854986224
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.022817572401053223
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.025336636648098487
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.0372085173952819
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.03132102746104518
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.010240617006313842
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.02099393186446489
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.013939202451741956
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.01608392742670173
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.09092248646760959
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.058710381604187796
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.3342467636312895
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.3573215106627961
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.34235787037169524
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.020200914952479738
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "losses",
+      "rmse": 0.010570212884522876
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.027337767320443792
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.04017830440783747
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.018407981182783903
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.03995331000022993
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.029097068737873794
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.026408543331611124
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.032472620205488384
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.01836301677610699
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.01599626201861609
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.0364499648379166
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.020603341174283255
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.03621458146585968
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.022088260256406825
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.02063725392376947
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.09445434703538273
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.09263478099287041
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.17166778191679866
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "losses",
+      "rmse": 0.23651654935138405
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.042301286836784614
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.03427560741443448
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.04439265808845092
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.03420744505176627
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.04920461476004945
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.07032798828868429
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.0685904475149851
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.048338391916471
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.05251380627831443
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.05193249156307129
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.05754144328880827
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.06683402646568762
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.12200764435309039
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.12776460974286422
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.16533477728366341
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.12911854720001445
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.2473711418146722
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.2610202294198043
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.2616205173049478
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.03868981607178763
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "pattern",
+      "rmse": 0.01724531298216167
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.042070872372778935
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.05564934019827359
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.025891446416735745
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.04556480163258009
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.06151129756323532
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.06426458226331556
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.08460202238542003
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.03798411713225541
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.03559246623663908
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.055865484752894524
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.0469046252331342
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.07294500994762997
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.07023945493755834
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.07851972758228963
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.1601580235297987
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.13447887423907287
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.1725767289907311
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "pattern",
+      "rmse": 0.20681252922095478
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.02007357362548046
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.01577064790151921
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.023574465618572953
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.015755019688611493
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.010774655389774394
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.03949611479661212
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.034940967689966566
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.022493194271803834
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.02751248475816924
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.02344138737488506
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.025763781680947034
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.038472583988087734
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.07208401505906963
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.07576445798347843
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.09802600353577202
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.07853153133832842
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.23889674144593526
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.25733812698364
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.25639771157974656
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.01798275292625752
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "hazard",
+      "rmse": 0.009304044646739238
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.02018610144809425
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.03664827298836631
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.021373005979272098
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.026685550723984888
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.03276771768555583
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.040980543499412846
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.04665851537604447
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.03197325005370925
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.02681779697927681
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.024258287697732382
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.030488387169806116
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.05324211338672077
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.04836551303493865
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.04808735363775221
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.0960918928608497
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.08106289956326006
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.15531004843124271
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "hazard",
+      "rmse": 0.20079568032778827
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06482935667634011
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.04457379254051922
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06183873524839285
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.04320312164626353
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.0400842184161472
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.09104932431184386
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.058563307807583856
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06286232818712682
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.07378281846290562
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.0605184782851248
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.06862762601787853
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.07528323396988693
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.18280888191745492
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.19080637610893195
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.23731729350712166
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.24254871198954397
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.2072075421492366
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.1968502671831441
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.21088180538928492
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.05191512824530704
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "post_switch",
+      "rmse": 0.02084256313775705
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.05286161705927678
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.0596303517079413
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.026008327573590673
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.04984678162054599
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.04368383237532923
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.09362809553901875
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.0853790752403429
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.03452105371384428
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.036617353281496984
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.06266655077160148
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.02613538648740812
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.09325957726570695
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.10120584867476028
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.11844039348554601
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.23056181795178937
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.2590007454432698
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.20684486842343908
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "post_switch",
+      "rmse": 0.18375742845310383
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.015868418731648952
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.013555024672229576
+    },
+    {
+      "model": "Bari2019",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.016585322363332433
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.015722500515348452
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.007895258786712071
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.012754101387396658
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.019393056930817425
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.024715283617159998
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.024705480632635914
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.020041175297837128
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.02662421183841065
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.020455956105703593
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.05842402379129441
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.06310299311189384
+    },
+    {
+      "model": "LossCounting",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.07856668789808191
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.06392402337932195
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.09479224570116197
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.09700057713530943
+    },
+    {
+      "model": "Rescorla-Wagner",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.09576551733452043
+    },
+    {
+      "model": "GLM-Su2022",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.01799465570254252
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "statistic": "run_length",
+      "rmse": 0.008074854196744535
+    },
+    {
+      "model": "Lebedeva-PR",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.01624979408376813
+    },
+    {
+      "model": "Lopez-DoubleTrace",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.026675756928111846
+    },
+    {
+      "model": "Bari2019",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.014263505788481425
+    },
+    {
+      "model": "Miller-RHG",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.01955403015036634
+    },
+    {
+      "model": "CompareToThreshold",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.020231785520071793
+    },
+    {
+      "model": "Hattori2019",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.021074549956593514
+    },
+    {
+      "model": "Zid-HistoryKernel2-ForagingRL",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.028141868757362166
+    },
+    {
+      "model": "Eckstein-BI",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.020108355275943707
+    },
+    {
+      "model": "Beron-RFLR",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.017367389456219785
+    },
+    {
+      "model": "Chen-RLCK",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.021574367806952096
+    },
+    {
+      "model": "Eckstein-RL",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.019647279833146472
+    },
+    {
+      "model": "Grossman-MetaLearning",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.032121162915898005
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias+CK1",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.03316251509695199
+    },
+    {
+      "model": "Alsio-DualRateSticky-RL",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.03691330241714438
+    },
+    {
+      "model": "LossCounting",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.07593587268051803
+    },
+    {
+      "model": "ActorCritic",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.06784434533072259
+    },
+    {
+      "model": "FeedbackDependent-RL+Bias",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.08085998070257304
+    },
+    {
+      "model": "FeedbackDependent-RL",
+      "regime": "two_level_em",
+      "statistic": "run_length",
+      "rmse": 0.0893250421205753
     }
   ],
   "gru_seed_scores": {

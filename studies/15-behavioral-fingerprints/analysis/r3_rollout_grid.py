@@ -39,6 +39,8 @@ FIG_REG = HERE / "fig_r3_regimes.svg"
 FIG_CURVES = HERE / "fig_r3_curves.svg"
 FIG_REPLAY_CURVES = HERE / "fig_r3_replay_curves.svg"
 REPLAY_GAPS = HERE / "p1_replay_gaps.json"
+FIG_RMSE = HERE / "fig_r3_rmse.svg"
+RMSE_MAX = 0.10   # Figure 7's axis; longer bars are cut and labelled
 CURVE_PANELS = [("losses", slice(0, 6), "consecutive losses", "losses"),
                 ("pattern", slice(2, 10), "last two trials (most recent first)", "last 1–3 trials (depth 2)"),
                 ("hazard", slice(0, 6), "run length", "hazard: last trial unrewarded"),
@@ -52,7 +54,7 @@ STATS = {"losses": "losses", "pattern": "last 1–3 trials", "hazard": "hazard",
 LOW_COVERAGE = 0.95   # a cell whose rollouts visit less of the subjects' bin weight is marked
 MODEL_COLORS = {"CompareToThreshold": "blue", "Miller-RHG": "orange", "Bari2019": "sky",
                 "Lopez-DoubleTrace": "green", "Lebedeva-PR": "vermillion", GRU_MODEL: "purple"}
-MIN_GROUP_SUBJECTS = 8   # Figure 7 shows a session group only if this many subjects have a floor in it
+MIN_GROUP_SUBJECTS = 8   # Figure 8 shows a session group only if this many subjects have a floor in it
 
 
 def _mean(xs):
@@ -382,6 +384,58 @@ def draw_regimes(gaps: dict, cells: dict) -> list[dict]:
     return out
 
 
+def _rmse(pb: dict) -> float:
+    """Figure 6's RMSE: over the bins where both subject means are finite, each bin once."""
+    import numpy as np
+
+    x, y = np.array(_floats(pb["subject"])), np.array(_floats(pb["model"]))
+    ok = np.isfinite(x) & np.isfinite(y)
+    return float(np.sqrt(np.mean((y[ok] - x[ok]) ** 2)))
+
+
+def draw_rmse(gaps: dict, names: list[str], cells: dict) -> list[dict]:
+    """Figure 6's per-bin RMSE for every model and regime, one panel per statistic."""
+    fs.apply_paper_style()
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    head = gaps["headline_set"]
+    rows = []
+    fig, axes = plt.subplots(1, len(STATS), figsize=fs.mm(183, 118), sharey=True)
+    ys = np.arange(len(names))
+    for k, (ax, st) in enumerate(zip(axes, STATS)):
+        for off, reg in ((-0.2, "per_subject"), (0.2, "two_level_em")):
+            for i, m in enumerate(names):
+                c = cells[m].get(reg, {}).get(head)
+                if c is None:
+                    continue
+                v = _rmse(c["statistics"][st]["per_bin_common"])
+                rows.append({"model": m, "regime": reg, "statistic": st, "rmse": v})
+                color = (fs.OKABE_ITO["purple"] if m == GRU_MODEL else fs.OKABE_ITO["green"] if m == "GLM-Su2022"
+                         else "0.65" if reg == "per_subject" else "0.25")
+                ax.barh(i + off, min(v, RMSE_MAX), height=0.38, color=color, lw=0,
+                        label=REGIMES[reg] if i == 0 and k == 0 else None)
+                if v > RMSE_MAX:
+                    ax.text(RMSE_MAX * 0.98, i + off, f"{v:.2f}", ha="right", va="center", fontsize=5, color="white")
+        gru = [r["rmse"] for r in rows if r["model"] == GRU_MODEL and r["statistic"] == st][0]
+        ax.axvline(gru, color=fs.OKABE_ITO["purple"], lw=0.5, ls="--", zorder=0)
+        ax.set_xlim(0, RMSE_MAX)
+        ax.set_xticks([0, 0.05, 0.1])
+        ax.set_xlabel("RMSE")
+        ax.set_title(STATS[st])
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.tick_params(axis="y", length=0)
+        fs.panel_label(ax, "abcde"[k], dx_pt=-6 if k else -24)
+    axes[0].set_yticks(ys)
+    axes[0].set_yticklabels(names)
+    axes[0].set_ylim(len(names) - 0.5, -0.5)
+    fig.legend(*axes[0].get_legend_handles_labels(), frameon=False, loc="lower center", ncol=2)
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    fs.save_figure(fig, FIG_RMSE)
+    plt.close(fig)
+    return rows
+
+
 def draw_curves(bins: dict, per_bin, shown: list[tuple[str, str]], path: Path) -> None:
     """The four rate statistics as curves: the subjects, the five scatter models as 2-level EM
     (thin) and the GRU (thick, mean of its seeds), over the subjects every model holds out.
@@ -489,7 +543,7 @@ def render(result: dict, gaps: dict, cells: dict, failed: set[str]) -> dict[str,
         "(its cell in Figure 1a, trial-weighted). Run lengths are shares of runs, not p(switch)."])
     blocks["result-4"] = "\n".join([
         f"![sets](../{FIG_SETS.name})", "",
-        "**Figure 7.** Rollout fingerprint score per session group, for the models of Figure 6, on groups "
+        "**Figure 8.** Rollout fingerprint score per session group, for the models of Figure 6, on groups "
         f"where at least {MIN_GROUP_SUBJECTS} subjects have a floor (in brackets: the GRU's count; a floor "
         "needs two sessions of the group). Left of the line: the headline and its groups. Right: the early "
         "coupled stages and the warm-ups, where the gym does not hold a block as the real task's "
@@ -510,6 +564,12 @@ def render(result: dict, gaps: dict, cells: dict, failed: set[str]) -> dict[str,
         "two trials (S same side, O other side, + rewarded, − not; most recent first); **c**, **d**, the "
         "hazard, by the current run's length after an unrewarded or a rewarded trial; **e**, **f**, right "
         "after a switch, by the length of the run before it and the switch trial's reward."])
+    blocks["result-10"] = "\n".join([
+        f"![rmse](../{FIG_RMSE.name})", "",
+        "**Figure 7.** Figure 6's per-bin RMSE (subjects' mean against the rollouts' mean, each bin once) for "
+        "every model and statistic: per subject (light) and as 2-level EM (dark); the GLM in green and the GRU "
+        f"in purple (dashed line: the GRU's value). The axis stops at {RMSE_MAX:g}; a longer bar is cut and "
+        "labelled. Models in r2's order."])
     blocks["result-9"] = "\n".join([
         f"![replay curves](../{FIG_REPLAY_CURVES.name})", "",
         "**Figure 5.** The same curves as Figure 4, in replay (r2): each model predicts every trial from the "
@@ -518,7 +578,7 @@ def render(result: dict, gaps: dict, cells: dict, failed: set[str]) -> dict[str,
     h = result["holds"]
     blocks["result-5"] = "\n".join([
         f"![holds](../{FIG_HOLDS.name})", "",
-        f"**Figure 8.** The `BlockMinReward` check, on the {h['n_sessions']} score sessions of {h['n_subjects']} "
+        f"**Figure 9.** The `BlockMinReward` check, on the {h['n_sessions']} score sessions of {h['n_subjects']} "
         "subjects that record a positive minimum. The other coupled and warm-up sessions record 0 ("
         + ", ".join(f"{k.split('|')[0]} with minimum {k.split('|')[1]}: {v}" for k, v in h["n_sessions_by_minimum"].items())
         + "). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over "
@@ -591,6 +651,7 @@ def main() -> None:
     sets = draw_sets(gaps, cells, shown)
     draw_holds(holds)
     regime_curves = draw_regimes(gaps, cells)
+    rmse = draw_rmse(gaps, names, cells)
     head = gaps["headline_set"]
     draw_curves(gaps["bins"], lambda m, reg, st: cells[m][reg][head]["statistics"][st]["per_bin_common"],
                 shown, FIG_CURVES)
@@ -601,7 +662,7 @@ def main() -> None:
     result = {
         "order": names, "headline_set": gaps["headline_set"], "points": points,
         "claims": claims(points),
-        "off_axis": [p for p in points if p["likelihood"] is not None and p["likelihood"] < C_MIN_LIKELIHOOD], "scatter": scatter, "sets": sets, "regime_curves": regime_curves,
+        "off_axis": [p for p in points if p["likelihood"] is not None and p["likelihood"] < C_MIN_LIKELIHOOD], "scatter": scatter, "sets": sets, "regime_curves": regime_curves, "rmse": rmse,
         "gru_seed_scores": {s: gaps["models"][GRU_MODEL][s][gaps["headline_set"]]["score"]
                             for s in sorted(gaps["models"][GRU_MODEL])},
         "holds": {k: holds[k] for k in ("n_sessions", "n_subjects", "max_ratio", "holds_move_less_than_floor",
@@ -621,7 +682,7 @@ def main() -> None:
                               lit.TWO_LEVEL_EM_SOURCE])
     write_artifact(HERE / "r3_rollout_grid.json", {"_meta": meta, **result},
                    outputs=[FIG, FIG_VS, FIG_CORR, FIG_SETS, FIG_HOLDS, FIG_REG, FIG_CURVES,
-                            FIG_REPLAY_CURVES, *(f"{REPORT}#result-{k}" for k in range(1, 10))])
+                            FIG_REPLAY_CURVES, FIG_RMSE, *(f"{REPORT}#result-{k}" for k in range(1, 11))])
 
 
 if __name__ == "__main__":

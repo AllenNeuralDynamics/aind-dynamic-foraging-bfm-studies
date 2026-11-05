@@ -58,10 +58,10 @@ but improves rollout for only 9. For the best models it bends the losses curve t
 after more consecutive losses, the mice switch more, but the 2-level models switch less
 (Figure 3), and several also switch back too often right after a switch (Figure 4). These misses
 are already in replay, smaller (Figure 5): rollout makes them larger, while the per-subject fits
-look the same in both. The GRU follows the mice's curves in both (Figures 4 to 6). Two limits of
+look the same in both. The GRU follows the mice's curves in both (Figures 4 to 7). Two limits of
 the simulator do not explain these results. The early coupled stages, where the gym cannot hold a
-block, score like the headline sessions (Figure 7). Where the real task records a minimum-reward
-hold, turning it on moves the fingerprints by less than half the floor (Figure 8).
+block, score like the headline sessions (Figure 8). Where the real task records a minimum-reward
+hold, turning it on moves the fingerprints by less than half the floor (Figure 9).
 
 ## Question
 
@@ -206,6 +206,19 @@ compare the spread of per-session switch rates between the rollouts and the mice
 **Figure 6.** Study 01 r9's view, in rollout, for each statistic (rows **a** to **e**): each point is one bin, the subjects' mean against the mean of the model's rollouts, over the subjects every model holds out that keep the bin. Columns as in r2 Figure 3: the five literature models with the best 2-level EM likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each panel prints r and RMSE over the bins (each bin once) and the model's floor ratio for the statistic (its cell in Figure 1a, trial-weighted). Run lengths are shares of runs, not p(switch).
 <!-- END result-3 -->
 
+<!-- BEGIN result-10 -->
+![rmse](../fig_r3_rmse.svg)
+
+**Figure 7.** Figure 6's per-bin RMSE (subjects' mean against the rollouts' mean, each bin once) for every model and statistic: per subject (light) and as 2-level EM (dark); the GLM in green and the GRU in purple (dashed line: the GRU's value). The axis stops at 0.1; a longer bar is cut and labelled. Models in r2's order.
+<!-- END result-10 -->
+
+Over all 39 model cells (Figure 7), the GRU has the smallest RMSE on three statistics (last 1–3
+trials, hazard, after a switch) and ties the best on the other two: Eckstein-RL per subject on the
+losses (0.010 against 0.011) and CompareToThreshold per subject on run lengths (0.008 for both).
+Its lead is largest on the last trials and after a switch, where the next best (Bari2019 as
+2-level EM) has 1.25 to 1.5 times its error. The bars also show the regime split of Result 3
+across all models: the per-subject fit has the smaller losses error for 13 of the 18 models with both.
+
 In rollout, the GRU (score 1.41; seeds 1.38 to 1.43) ties the best literature cell
 (CompareToThreshold per subject, 1.39), as it tied the best 2-level models in replay (r2).
 Its bin-level curves are the closest of the six in every statistic (smallest RMSE; highest r in
@@ -217,23 +230,23 @@ it is the only one of the six whose curve rises with the mice's (r = 0.96).
 <!-- BEGIN result-4 -->
 ![sets](../fig_r3_sets.svg)
 
-**Figure 7.** Rollout fingerprint score per session group, for the models of Figure 6, on groups where at least 8 subjects have a floor (in brackets: the GRU's count; a floor needs two sessions of the group). Left of the line: the headline and its groups. Right: the early coupled stages and the warm-ups, where the gym does not hold a block as the real task's `AdvancedBlockAuto` does (ADR 0006).
+**Figure 8.** Rollout fingerprint score per session group, for the models of Figure 6, on groups where at least 8 subjects have a floor (in brackets: the GRU's count; a floor needs two sessions of the group). Left of the line: the headline and its groups. Right: the early coupled stages and the warm-ups, where the gym does not hold a block as the real task's `AdvancedBlockAuto` does (ADR 0006).
 <!-- END result-4 -->
 
 The gym cannot hold an early coupled block until the mouse follows the better side
 (`AdvancedBlockAuto`), so ADR 0006 kept those stages out of the headline. Yet they score like the
-headline groups (Figure 7): no model is clearly worse there. The warm-ups score worse for every
+headline groups (Figure 8): no model is clearly worse there. The warm-ups score worse for every
 model, around 2.
 
 <!-- BEGIN result-5 -->
 ![holds](../fig_r3_holds.svg)
 
-**Figure 8.** The `BlockMinReward` check, on the 44 score sessions of 9 subjects that record a positive minimum. The other coupled and warm-up sessions record 0 (coupled with minimum 0: 224, coupled with minimum 1: 34, warm-up with minimum 0: 53, warm-up with minimum 1: 5, warm-up with minimum 10: 5). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over the subjects' bins, as a multiple of the subjects' split-half floor on those sessions. Largest: 0.45.
+**Figure 9.** The `BlockMinReward` check, on the 44 score sessions of 9 subjects that record a positive minimum. The other coupled and warm-up sessions record 0 (coupled with minimum 0: 224, coupled with minimum 1: 34, warm-up with minimum 0: 53, warm-up with minimum 1: 5, warm-up with minimum 10: 5). Per model and statistic: the gap between rollouts with the hold on and off (same seeds), over the subjects' bins, as a multiple of the subjects' split-half floor on those sessions. Largest: 0.45.
 <!-- END result-5 -->
 
 The one hold the real task records, `BlockMinReward`, is off (0) in 224 of 258 coupled score
 sessions, and in every early-stage one. Where it is on, turning it on in the gym moves every
-model's fingerprints by at most 0.45 of the floor (Figure 8). So ADR 0006 stands, and the
+model's fingerprints by at most 0.45 of the floor (Figure 9). So ADR 0006 stands, and the
 simulator stays as it is.
 
 ## Caveats
@@ -244,7 +257,7 @@ simulator stays as it is.
   manual next-block button, which are not recorded. The check also compares a nearly noiseless
   difference (paired rollouts with the same seeds) with a floor that contains real session
   change, so it passes any small effect.
-- **Coverage.** 125 of the 149 test subjects have a gym task, and the per-group panels of Figure 7
+- **Coverage.** 125 of the 149 test subjects have a gym task, and the per-group panels of Figure 8
   rest on 8 to 23 subjects each (the headline on 118 to 121).
 - **Real blocks are longer than the gym's** (Gates): partly ignored trials, which the gym never
   plays, and partly held blocks.
