@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "variants/gru-heldout-replay/launch_hpc.py",
+    "produced_at_pt": "2026-11-04T12:42:34-08:00",
+    "studies_git_sha": "ce9621e55e2851434ecaf834590dc66dc6f008da",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "gru-heldout-replay@20261104-124134"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): gru-heldout-replay@20261104-124134"
+    ],
+    "recorded_after_launch": true
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "gru-heldout-replay@20261104-124134",
+  "label": "gru-replay-hpc",
+  "note": "Study 15 P1: the GRU held-out replay (study 01 v1 D=614, 3 seeds) on the Allen HPC too, because the Beaker hubs are full; same config and code SHAs as the Beaker launch, to save per-trial held-out predictions.",
+  "revisions": {
+    "studies": "ea5fef182490e0bfdc590f2061c00f8240f210b9",
+    "dispatcher": "68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "286692dd076fe6203c0fcf096c06fe37552e49da"
+  },
+  "manifests": [
+    "run_hpc.sbatch",
+    "heldout_offline.yaml",
+    "launch_hpc.py"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_array_job",
+      "id": "27614186"
+    }
+  ],
+  "command": "sbatch --parsable --export=ALL,WRAPPER=/home/han.hou/code/wt/wrapper-5affee5,MODELS=/home/han.hou/code/wt/models-fp-main,CONFIG=/home/han.hou/code/wt/studies-15-gru/studies/15-behavioral-fingerprints/variants/gru-heldout-replay/heldout_offline.yaml,PRIOR_ROOT=/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/prior,OUT_ROOT=/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-124134,PATH=/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu/bin:/usr/bin:/bin -J s15-gru-replay -o /allen/aind/scratch/han.hou/tmp/s15/logs/gru_replay_%A_%a.log /home/han.hou/code/wt/studies-15-gru/studies/15-behavioral-fingerprints/variants/gru-heldout-replay/run_hpc.sbatch",
+  "n_tasks": 3,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e54987cb7fc9803db018af3f77ca9be62b4cbdaa7b3517c1cc525a6f509d9e56"
+  }
+}

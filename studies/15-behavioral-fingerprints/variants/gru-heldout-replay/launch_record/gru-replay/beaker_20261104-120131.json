@@ -1,0 +1,56 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "variants/gru-heldout-replay/launch.py",
+    "produced_at_pt": "2026-11-04T12:01:32-08:00",
+    "studies_git_sha": "7017290bae946e594584e9fe6c2b48cee4f2d2e5",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "gru-heldout-replay@20261104-120131"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): gru-heldout-replay@20261104-120131"
+    ]
+  },
+  "kind": "initial",
+  "platform": "beaker",
+  "wandb_group": "gru-heldout-replay@20261104-120131",
+  "label": "gru-replay",
+  "note": "Study 15 P1: save study 01's v1 D=614 GRU per-trial held-out predictions (3 seeds) by re-running its offline held-out fine-tune on current wrapper main, so the GRU can be replayed beside the literature models; each subject must reproduce study 01 r2's stored likelihood.",
+  "revisions": {
+    "studies": "7017290bae946e594584e9fe6c2b48cee4f2d2e5",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "dispatcher": "68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64",
+    "foraging_models": "286692dd076fe6203c0fcf096c06fe37552e49da"
+  },
+  "manifests": [
+    "launch.py",
+    "heldout_offline.yaml"
+  ],
+  "job_refs": [
+    {
+      "type": "beaker_experiment",
+      "id": "01M6M2E1FPKJ52128XK2K52B29"
+    }
+  ],
+  "command": "studies/15-behavioral-fingerprints/variants/gru-heldout-replay/launch.py --label gru-replay --note Study 15 P1: save study 01's v1 D=614 GRU per-trial held-out predictions (3 seeds) by re-running its offline held-out fine-tune on current wrapper main, so the GRU can be replayed beside the literature models; each subject must reproduce study 01 r2's stored likelihood.",
+  "n_tasks": 3,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
+  },
+  "image": {
+    "platform": "beaker",
+    "name": "han-hou/dynamic-foraging-bfm-wrapper-main-20260902",
+    "id": "01M1JHDCQEEMRMH4EHQGEX7QY8"
+  }
+}
