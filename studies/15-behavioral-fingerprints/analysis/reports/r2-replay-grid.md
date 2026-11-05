@@ -19,6 +19,7 @@ inputs:
   - analysis/p1_replay.json
   - analysis/p1_glm.json
   - analysis/p1_gru.json
+  - analysis/p1_gru_scratch.json
   - analysis/p1_replay_gaps.json
   figure: analysis/fig_r2_replay_grid.svg
   freezes:
@@ -26,6 +27,7 @@ inputs:
   - analysis/freeze_p1_replay.py
   - analysis/freeze_p1_glm.py
   - analysis/freeze_p1_gru.py
+  - analysis/freeze_p1_gru_scratch.py
   - analysis/freeze_p1_gaps.py
 upstream:
 - study: 01-gru-scaling-law
@@ -88,7 +90,7 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
 
 ![scatter](../fig_r2_scatter.svg)
 
-Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): each point is one bin, the subjects' mean p(switch) against the model's replayed prediction, over subjects that keep the bin. Each panel prints r and RMSE over the bins and the model's floor ratio for that statistic (the first figure's cell): the floor ratio weights each bin by its trials and compares with what the subjects' data allow; r and RMSE count every bin once. Patterns are coloured by depth, hazard and after-a-switch bins by the last trial's reward.
+Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): each point is one bin, the subjects' mean p(switch) against the model's replayed prediction, over subjects that keep the bin. Columns: the five literature models with the best 2-level EM likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each panel prints r and RMSE over the bins and the model's floor ratio for that statistic (the first figure's cell): the floor ratio weights each bin by its trials and compares with what the subjects' data allow; r and RMSE count every bin once. Patterns are coloured by depth, hazard and after-a-switch bins by the last trial's reward.
 
 **Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (19 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169. The GRU (study 01's v1 GRU at D = 614, re-fine-tuned on the held-out subjects, launch `gru-heldout-replay@20261104-150009`, which logs no W&B runs) scores exactly the freeze's sessions and choices; on the 146 subjects study 01 r2 also scored, each seed's likelihood equals study 01's to 9.8e-06 (tolerance 1e-04; study 01 scored on GPUs, this re-fine-tune on CPUs). Its 3 other subjects (722683, 795395, 820243) were among the 614 its checkpoint was trained on, so the GRU's numbers leave them out: its cells and score are over 146 subjects, every other model's over 149. Replay scores per seed: 1.39, 1.40, 1.40.
 <!-- END result-1 -->
@@ -101,14 +103,14 @@ Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): ea
   Lebedeva-PR, Bari2019, Miller-RHG and CompareToThreshold miss the subjects' p(switch) by about
   0.013 to 0.018 per bin on the local statistics, against a floor of 0.009 to 0.012. No model
   reaches the floor, so every statistic still has a measurable error to find.
-- **The GRU is close to the best 2-level models, and the closest bin by bin on most statistics.** Over the 146 test
+- **The GRU is close to the best 2-level models, and the closest bin by bin.** Over the 146 test
   subjects it holds out (3 of the 149 trained its checkpoint), its replay score is 1.40 (seeds
   1.39 to 1.40; floor ratios 1.2 to 1.5), beside 1.33 for Lopez-DoubleTrace and 1.39 for
   Lebedeva-PR as 2-level EM (on all 149), and well below every per-subject fit (1.7 at best). On
-  the subject-mean curves (third figure) it has the lowest RMSE of the six models shown on three of
-  the four statistics (0.003 to 0.010, against 0.013 to 0.037 for Lebedeva-PR); on the losses
-  CompareToThreshold is as close (0.005 against 0.006). The GRU also gets both post-switch
-  histories the literature models split on (`S-O+` 0.47 against the subjects' 0.48, `S+O+` 0.25 against 0.24).
+  the subject-mean curves (third figure) it has the lowest RMSE on every statistic of the six
+  models shown, the five best by 2-level likelihood and the GRU: 0.003 to 0.010, against 0.006
+  to 0.056 for the others. The GRU also gets both post-switch histories the literature models
+  split on (`S-O+` 0.47 against the subjects' 0.48, `S+O+` 0.25 against 0.24).
   So its remaining gap is mostly within subjects, not in the average behaviour. It also has the
   best held-out likelihood here (0.7268, the mean over seeds).
 - **2-level EM lowers the ratio for almost every model,** typically from about 2 to 3 per subject
@@ -137,12 +139,12 @@ Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): ea
 - **Correlation over bins, study 01 r9's measure, can mislead** (third figure). Where the
   subjects' rates barely vary across bins, r says nothing: on consecutive losses (subjects 0.15
   to 0.17) Lebedeva-PR has r = −0.65 with RMSE 0.015 and a floor ratio of 1.4. Where they vary
-  a lot, r is high for any model that orders the bins: after a switch, Hattori2019 has the
-  highest r (0.992) and the largest RMSE (0.083), because it overshoots every bin that follows
-  an unrewarded trial by about the same amount. The floor ratio has neither problem, which is
+  a lot, r is high for any model that orders the bins: after a switch every model shown has r of
+  0.95 or more, yet Bari2019's RMSE (0.049) is six times the GRU's, because it undershoots every
+  bin that follows an unrewarded trial by about the same amount. The floor ratio has neither problem, which is
   why the grid uses it (ADR 0003). The scatter still shows what the ratio hides:
-  CompareToThreshold flattens at p(switch) 0.40 on the last 1–3 trials and after a switch, the
-  saturation r9 found in rollouts.
+  CompareToThreshold, even as 2-level EM, flattens at p(switch) 0.40 on the last 1–3 trials and
+  after a switch, the saturation r9 found in rollouts.
 - **"After a switch" separates the models least** (1.2 to 4.7 for all of them). Its bins hold
   few trials, so its floor is about 4 times the others'.
 - **A floor ratio depends on how much data the subject has.** With more trials per bin the floor
@@ -157,3 +159,46 @@ Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): ea
   (`p1_replay.json`). Study 12 r3 already ranks the model by its per-subject score.
 
 Rollouts (P2) test whether these per-trial errors add up over a session.
+
+## Scratch (exploratory): why the GRU leads on the mean curves but not on the floor ratio
+
+Exploratory analysis, not a headline result (asked 2026-11-04). The question: the GRU is closest on
+the subject-mean curves, so why is its floor ratio not the lowest? `freeze_p1_gru_scratch.py`
+computes the numbers.
+
+<!-- BEGIN result-2 -->
+![scratch errors](../fig_r2_scratch_errors.svg)
+
+On the 146 test subjects every model holds out. **a**, **b**, each subject's replay floor ratio, the GRU against Lopez-DoubleTrace as 2-level EM. **c**, **d**, two errors per model, both trial-weighted over the same kept bins: of the subject-mean curve (light; what the scatter above compares) and of each subject, then averaged (dark; the gap the floor ratio divides). The dashed line is the binomial floor.
+
+![scratch spread](../fig_r2_scratch_spread.svg)
+
+Per subject, the GRU's log gap ratio to Lopez-DoubleTrace (2-level), mean over the four rate statistics, against **a**, the subject's session spread from Lopez-DoubleTrace's 2-level fit (mean log σ), and **b**, from the data (log of the split-half floor, which includes the differences between sessions, over the binomial floor, which does not). **c**, control: the same spread against Lopez-DoubleTrace's own gain from per-session parameters (log per-subject gap over 2-level gap).
+
+| | value |
+|---|---|
+| GRU worse than Lopez-DoubleTrace 2L, per subject | 80 of 146 (sign test p = 0.28, Wilcoxon p = 0.15) |
+| median per-subject ratio, GRU / Lopez 2L | 1.05 [0.96, 1.12] |
+| subject-mean curve error, hazard: GRU, Lopez 2L | 0.0025, 0.0038 |
+| mean per-subject gap, hazard: GRU, Lopez 2L (floor 0.0101) | 0.0146, 0.0131 |
+| test: spread from the fit | ρ = +0.06 [-0.12, +0.22] |
+| test: spread from the data | ρ = +0.07 [-0.11, +0.25] |
+| test: trials, sessions | ρ = -0.03 [-0.20, +0.14]; ρ = -0.04 [-0.20, +0.13] |
+| control: spread from the fit, from the data | ρ = +0.20 [+0.02, +0.36]; ρ = +0.12 [-0.05, +0.29] |
+| the two spread measures, against each other | ρ = +0.14 [-0.03, +0.31] |
+| control: median gain of 2-level over per-subject | 1.37 |
+<!-- END result-2 -->
+
+- **The two measures average in a different order.** The scatter averages each bin over
+  subjects first, so a model's errors in opposite directions in different subjects cancel. The
+  floor ratio measures each subject's own error, then averages, so nothing cancels. On the
+  subject-mean curve the GRU has the smallest error of all; per subject it is no better than the
+  best 2-level models.
+- **Per subject, the GRU and Lopez-DoubleTrace (2-level) are tied within the noise.** The paired
+  test does not separate them, and the median per-subject ratio's interval includes 1. The grid's
+  1.40 against 1.32 is small next to the spread between subjects.
+- **Session-to-session spread does not explain the GRU's per-subject error**, but the test is
+  weak. Neither spread measure predicts the GRU's ratio to Lopez-DoubleTrace. In the control,
+  per-session parameters help Lopez-DoubleTrace on almost every subject, yet the fitted spread
+  predicts that gain only weakly, and the two spread measures barely agree. Per-subject spread is
+  measured too noisily here to rule the idea in or out.
