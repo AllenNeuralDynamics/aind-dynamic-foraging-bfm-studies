@@ -7,7 +7,7 @@
   `analysis/seeded_islands_cap12.py` (`make cap12-result`, in `all`) writes the pre-registered numbers
   against the smoke run and `fig_seeded_islands_cap12.svg`. 37 of 89 scored proposals used the extra
   room, nearly all of it parameters; the best score is within noise of the smoke run's; 16 slots ran
-  3.3 times faster at the same CPU cost per proposal.
+  3.3 times faster at about the same CPU cost per proposal.
 - Variant `seeded-islands-cap12` (issue #118): the `seeded-islands-smoke` setup with program limits of 12
   parameters and 8 latent variables instead of ADR 0005's 8 and 6, a deliberate test of the limits that the
   smoke run hit; the first search with evaluations on many nodes, as 16 slots of 24 CPUs chosen from the

@@ -6,7 +6,9 @@ Writes ``analysis/seeded_islands_cap12.json`` and ``analysis/fig_seeded_islands_
 checks (proposals, dollars, hours, API errors, evaluation steps, archive); against the smoke run, the
 use of the extra room (scored proposals above 8 parameters or 6 latent variables), the best program's
 counts and the numbers written into its code, the best score and the best by lineage, and throughput
-(proposals per hour, CPU-minutes per proposal; CPUs from each variant's ``search.sbatch``).
+(proposals per hour, CPU-minutes per proposal; CPUs from each launch record's ``search.sbatch``). CPU-minutes
+use the search's own time, the only time both freezes hold; cap12's are also given over its whole Slurm
+allocation, which adds startup and the end-of-run archive.
 """
 from __future__ import annotations
 
@@ -26,7 +28,8 @@ import figure_style as fs  # noqa: E402
 from _meta import build_meta, write_artifact  # noqa: E402
 
 RUNS = {"smoke": HERE / "seeded_islands_smoke" / "run.json", "cap12": HERE / "seeded_islands_cap12" / "run.json"}
-SBATCH = {k: STUDY / "variants" / f"seeded-islands-{k}" / "search.sbatch" for k in RUNS}
+SBATCH = {k: STUDY / "variants" / f"seeded-islands-{k}" / "launch_record" / f"seeded-islands-{k}-1" / "search.sbatch"
+          for k in RUNS}                                 # as launched, not the live variant
 OUT, FIG = HERE / "seeded_islands_cap12.json", HERE / "fig_seeded_islands_cap12.svg"
 GROUPS = ["seeded-islands-smoke@20261105-011815", "seeded-islands-cap12@20261105-100249"]
 N_PROPOSALS, MAX_USD, MAX_HOURS = 100, 20.0, 6.0      # notes.md, pre-registered
@@ -81,7 +84,9 @@ def summarize(run: dict, n_cpus: int) -> dict:
         "proposals": len(proposals) + len(run["no_program"]), "cost_usd": run["summary"]["cost_usd"], "hours": hours,
         "api_errors": len(run["summary"]["errors"]), "n_scored": len(scored),
         "throughput": {"cpus": n_cpus, "proposals_per_hour": N_PROPOSALS / hours,
-                       "cpu_minutes_per_proposal": n_cpus * hours * 60 / N_PROPOSALS},
+                       "search_cpu_minutes_per_proposal": n_cpus * hours * 60 / N_PROPOSALS,
+                       "allocation_cpu_minutes_per_proposal": (n_cpus * run["slurm"]["seconds"] / 60 / N_PROPOSALS
+                                                               if "slurm" in run else None)},
         "above_old_limits": {"params": sum(p["n_params"] > OLD_PARAMS for p in scored),
                              "latent": sum(p["n_latent"] > OLD_LATENT for p in scored),
                              "either": sum(p["n_params"] > OLD_PARAMS or p["n_latent"] > OLD_LATENT for p in scored)},

@@ -67,10 +67,10 @@ at 12:06 PT.
 | pre-registered | result |
 |---|---|
 | 1. 100 proposals within $20 and 6 hours, no API errors, every evaluation step starts, archive logged | pass: 100 proposals, $2.55 list, 1 h 42 min of the run; 103 Claude calls (100 + 3 repair attempts), all `end_turn`; 101 evaluation steps (100 proposals and the template; the seeds come from the seed cache) on 16 nodes, all `COMPLETED`, none failed for a Slurm reason; archive `NeuralDynamics/dfbfm-mevolve/run-seeded-islands-cap12-20261105-100249:v0`, digest `29d56803e288f29c602f339c5358f214`, 1,134 files, 20.0 MB |
-| 2. scored proposals above 8 parameters or 6 latent variables | 37 of 89 (smoke: 0 of 94): 36 above 8 parameters, 2 above 6 latent variables |
+| 2. scored proposals above 8 parameters or 6 latent variables | 37 of 89 (smoke: 0 of 94): 36 above 8 parameters, 2 above 6 latent variables; at the new limits, 1 with 12 parameters and 1 with 8 latent variables |
 | 2. the best program | proposal 96, 72.700 (smoke: 72.690, proposal 93), +0.092 over the best seed; 11 parameters, 6 latent variables (smoke: 8 and 6) |
 | 2. numbers written into its code | one tuned constant: a loss streak capped at 8 (`jnp.minimum(count, 8.0)`); the others are structure (`jnp.zeros(6)` for its 6 latent variables, `one_hot(choice, 2)` for two sides, `2.0 * choice - 1.0` for a signed choice) |
-| 3. throughput | 58.9 proposals per hour (smoke: 17.8), 391 CPU-minutes per proposal (smoke: 377); 384 CPUs (16 × 24) against 112; an evaluation step took a median 875 s with 12 workers |
+| 3. throughput | 58.9 proposals per hour (smoke: 17.8); 391 CPU-minutes per proposal over the search's own time (smoke: 377), 406 over the whole Slurm allocation, which adds startup and the end-of-run archive (not frozen for the smoke run); 384 CPUs (16 × 24) against 112; an evaluation step took a median 875 s with 12 workers |
 | other | 36 of 89 scored proposals beat their parent (smoke: 30 of 94); 2 repeats; 11 rejected by the static checks, 9 of them syntax errors (smoke: 5, 3 of them syntax errors); 2-level fits failed for 20 of 89 (smoke: 10 of 94): 10 of the 36 above 8 parameters, 10 of the 53 at 8 or fewer |
 
 By lineage (the seed a program descends from), best score against the seed's own and the smoke run's:
@@ -85,12 +85,14 @@ By lineage (the seed a program descends from), best score against the seed's own
 
 **What it teaches.**
 
-1. **Many nodes work, at the same CPU cost.** Sixteen 24-CPU slots ran the search 3.3 times faster than
-   one 112-CPU node, for about the same CPU-minutes per proposal (391 against 377). At 59 proposals per
+1. **Many nodes work, at about the same CPU cost.** Sixteen 24-CPU slots ran the search 3.3 times faster
+   than one 112-CPU node, for about the same CPU-minutes per proposal over the search's time (391 against
+   377; 406 over cap12's whole allocation). At 59 proposals per
    hour, the stopping rule's minimum of 2,000 proposals takes about 34 hours on 16 slots.
 2. **Claude uses the extra parameters, rarely the extra latent variables.** 36 of 89 scored proposals
-   have 9 to 12 parameters; only 2 have more than 6 latent variables. The parameter limit binds; the
-   latent limit almost never does.
+   have 9 to 12 parameters; only 2 have more than 6 latent variables. So ADR 0005's parameter limit of 8
+   bound the smoke run, and its latent limit of 6 rarely did. The new limits hardly bind: 1 proposal has
+   12 parameters, 1 has 8 latent variables, and the best has 11 and 6.
 3. **The best program fits what the smoke run's best wrote in.** It keeps the smoke best's idea of a
    per-side value that grows while a side is not chosen ("bait"), but its growth rate is now a fitted
    parameter (`neglect_rate`), where the smoke best had a constant (0.15). It adds a slow choice trace

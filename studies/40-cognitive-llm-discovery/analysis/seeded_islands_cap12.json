@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/seeded_islands_cap12.py",
-    "produced_at_pt": "2026-11-05T12:10:19-08:00",
-    "studies_git_sha": "58c1fd94f8b489f04f304dfd30bb29a43004b461",
+    "produced_at_pt": "2026-11-05T12:22:19-08:00",
+    "studies_git_sha": "090bfdd7aecaf078077049d6a268d41258e13c4c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_cap12.py",
-        "sha256": "539e13625f72def3cf90e93dd39a97c12c8948ba3d4bd8e844dc7f61e0bc8408"
+        "sha256": "0801becf4168b47fb981c2a8d11c8161199c0129b0399e527991b34d0b5623ef"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -47,18 +47,18 @@
         "sha256": "ecc41d3688127e2fb857262f1cd5b3c25a41550a067ea235c341d356ba07091d"
       },
       {
-        "path": "studies/40-cognitive-llm-discovery/variants/seeded-islands-smoke/search.sbatch",
+        "path": "studies/40-cognitive-llm-discovery/variants/seeded-islands-smoke/launch_record/seeded-islands-smoke-1/search.sbatch",
         "sha256": "1194663aa4eab86a74f57e7d2e552301a24bf2194184eb820faeb34b43dda46e"
       },
       {
-        "path": "studies/40-cognitive-llm-discovery/variants/seeded-islands-cap12/search.sbatch",
+        "path": "studies/40-cognitive-llm-discovery/variants/seeded-islands-cap12/launch_record/seeded-islands-cap12-1/search.sbatch",
         "sha256": "eaaf143b7da6ca9cdfd61d228a600aed8fc1d771868386be80df32bc528bf64f"
       }
     ],
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_cap12.json",
-        "sha256": "83c3d06d8a87d1e2ca2fbd7dc9f9b11967f08b6325cb457a6b7f2fa264a3f2e5"
+        "sha256": "13cc9a2c347cae64964fbb4c5cfc45ec3fc53d8b794e306b7e99c0669b4180c3"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_seeded_islands_cap12.svg",
@@ -128,7 +128,8 @@
     "throughput": {
       "cpus": 112,
       "proposals_per_hour": 17.810918247108187,
-      "cpu_minutes_per_proposal": 377.29666189956663
+      "search_cpu_minutes_per_proposal": 377.29666189956663,
+      "allocation_cpu_minutes_per_proposal": null
     },
     "above_old_limits": {
       "params": 0,
@@ -644,7 +645,8 @@
     "throughput": {
       "cpus": 384,
       "proposals_per_hour": 58.92875287701576,
-      "cpu_minutes_per_proposal": 390.9806143035889
+      "search_cpu_minutes_per_proposal": 390.9806143035889,
+      "allocation_cpu_minutes_per_proposal": 405.63199999999995
     },
     "above_old_limits": {
       "params": 36,
