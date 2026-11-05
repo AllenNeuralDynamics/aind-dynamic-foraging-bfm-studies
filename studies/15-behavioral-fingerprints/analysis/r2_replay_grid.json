@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-04T21:37:31-08:00",
-    "studies_git_sha": "5be50f029133ff9f8e9b4eb3740a458ca37b7b10",
+    "produced_at_pt": "2026-11-05T00:26:00-08:00",
+    "studies_git_sha": "a7df9fcd808d2053e57df3cd41cb5dbc952c1bfa",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
-        "sha256": "a868ca955dbfc7745c66f2fad8345fa20b2444da4c76c1c34205bf84aba523b3"
+        "sha256": "389aa07eb676baff751c8525f1f92b618c5f9cd6e837e9c7c01e2e41f33bf567"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -87,20 +87,36 @@
         "sha256": "9158b41bb7b4751a15f336f207155b81e433b8b81c679dbea7b52367275f7a36"
       },
       {
-        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scratch_errors.svg",
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_gru_errors.svg",
         "sha256": "5a560d2635d2d8d728c86edc8cf8fb8ce40dd79b66f42e922169a423b38db54e"
       },
       {
-        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scratch_spread.svg",
+        "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_gru_spread.svg",
         "sha256": "01e1eea3c2e816dff847bdf8cca261dd76bb94331543d95165cc5d82f7e26ac8"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-1",
-        "sha256": "fad6b6364ae8bc8b86a01304e4b36ed18406450fe4f39c50a064544a5e97902a"
+        "sha256": "a7f2dc87e3e1c52dc245729758613b6390b4344e25363d3f33ef155b326f0493"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-2",
-        "sha256": "1c543d6da70ac20e56ba68043e30a53f6270ab9f5abf4e9461113311fa9a7d9c"
+        "sha256": "c66c9bba534394e09c0b30d0fecc972ab2d43798720aa3d2285e1502c237d0c3"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-3",
+        "sha256": "b2020a1b49f912dbceaa127783e06ff6f346e649ae347a2c8b2c8cabeb871de1"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-4",
+        "sha256": "43a2ca2188483a7f49e7cc5b84ac76739eccceb40b9d57441291e216c797e72b"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-5",
+        "sha256": "92276d4d001b42cab97279b7cd093cf539d9b58c2f064b93b6a3d0994a6b30ec"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-6",
+        "sha256": "4904b63d7f9a9792ccd4a9175e8b0abd41d2c1fcdc2afb33c1f43a29c503c6be"
       }
     ]
   },

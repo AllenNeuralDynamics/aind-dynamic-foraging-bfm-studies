@@ -28,8 +28,8 @@ REPORT = HERE / "reports" / "r2-replay-grid.md"
 FIG = HERE / "fig_r2_replay_grid.svg"
 FIG_BINS = HERE / "fig_r2_bins.svg"
 FIG_CORR = HERE / "fig_r2_scatter.svg"
-FIG_ERR = HERE / "fig_r2_scratch_errors.svg"
-FIG_SPREAD = HERE / "fig_r2_scratch_spread.svg"
+FIG_ERR = HERE / "fig_r2_gru_errors.svg"
+FIG_SPREAD = HERE / "fig_r2_gru_spread.svg"
 N_SCATTER = 5   # the scatter: the top cognitive models by 2-level EM likelihood, worst to best, then the GRU
 DEPTH_COLORS = {1: "black", 2: "blue", 3: "orange"}
 C_MIN_LIKELIHOOD = 0.5   # panel c's x axis starts here; models below are named in the caption
@@ -319,8 +319,8 @@ SCRATCH_LABELS = {"GRU-D614": ("GRU", "purple"), "Lopez-DoubleTrace": ("Lopez-DT
                   "GLM-Su2022": ("GLM", "green")}
 
 
-def draw_scratch(sc: dict, gaps: dict) -> None:
-    """Scratch figures: the GRU's per-subject floor ratio against Lopez-DoubleTrace's (2-level) and
+def draw_gru(sc: dict, gaps: dict) -> None:
+    """Figures 4 and 5: the GRU's per-subject floor ratio against Lopez-DoubleTrace's (2-level) and
     the two errors per model; then the session-spread test and its control."""
     fs.apply_paper_style()
     import matplotlib.pyplot as plt
@@ -417,49 +417,63 @@ def draw_scratch(sc: dict, gaps: dict) -> None:
     plt.close(fig)
 
 
-def render_scratch(sc: dict) -> str:
+def render_gru(sc: dict) -> dict[str, str]:
+    """Figure 4 (the two errors and the paired test) and Figure 5 (the session-spread test)."""
     p, sp = sc["paired"], sc["spread"]
     e = sc["errors"]
 
     def rho(d):
-        return f"ρ = {d['spearman_rho']:+.2f} [{d['ci95'][0]:+.2f}, {d['ci95'][1]:+.2f}]"
+        return f"ρ = {fs.num(d['spearman_rho'], '+.2f')} [{fs.num(d['ci95'][0], '+.2f')}, {fs.num(d['ci95'][1], '+.2f')}]"
 
-    return "\n".join([
-        f"![scratch errors](../{FIG_ERR.name})",
+    def err(m, st, key):
+        return f"{e[m][st][key]:.4f}"
+
+    errors = "\n".join([
+        f"![two errors](../{FIG_ERR.name})",
         "",
-        f"On the {sc['n_subjects']} test subjects every model holds out. **a**, **b**, each subject's "
-        "replay floor ratio, the GRU against Lopez-DoubleTrace as 2-level EM. **c**, **d**, two "
-        "errors per model, both trial-weighted over the same kept bins: of the subject-mean curve "
-        "(light; what the scatter above compares) and of each subject, then averaged (dark; the gap "
-        "the floor ratio divides). The dashed line is the binomial floor.",
+        f"**Figure 4.** On the {sc['n_subjects']} test subjects every model holds out. **a**, **b**, each "
+        "subject's floor ratio, the GRU against Lopez-DoubleTrace as 2-level EM (the diagonal is a "
+        "tie). **c**, **d**, two errors per model, both trial-weighted over the same kept bins: of the "
+        "subject-mean curve (light; what Figure 3 compares) and of each subject, then averaged (dark; "
+        "the gap the floor ratio divides). The dashed line is the binomial floor.",
         "",
-        f"![scratch spread](../{FIG_SPREAD.name})",
-        "",
-        "Per subject, the GRU's log gap ratio to Lopez-DoubleTrace (2-level), mean over the four rate "
-        "statistics, against **a**, the subject's session spread from Lopez-DoubleTrace's 2-level fit "
-        "(mean log σ), and **b**, from the data (log of the split-half floor, which includes the "
-        "differences between sessions, over the binomial floor, which does not). **c**, control: the "
-        "same spread against Lopez-DoubleTrace's own gain from per-session parameters (log per-subject "
-        "gap over 2-level gap).",
-        "",
-        "| | value |",
-        "|---|---|",
-        f"| GRU worse than Lopez-DoubleTrace 2L, per subject | {p['n_gru_worse']} of {p['n_subjects']} "
-        f"(sign test p = {p['sign_test_p']:.2f}, Wilcoxon p = {p['wilcoxon_p']:.2f}) |",
-        f"| median per-subject ratio, GRU / Lopez 2L | {p['median_ratio']:.2f} "
-        f"[{p['median_ratio_ci95'][0]:.2f}, {p['median_ratio_ci95'][1]:.2f}] |",
-        f"| subject-mean curve error, hazard: GRU, Lopez 2L | {e['GRU-D614']['hazard']['subject_mean_curve_error']:.4f}, "
-        f"{e['Lopez-DoubleTrace']['hazard']['subject_mean_curve_error']:.4f} |",
-        f"| mean per-subject gap, hazard: GRU, Lopez 2L (floor {sc['binomial_floor']['hazard']:.4f}) | "
-        f"{e['GRU-D614']['hazard']['mean_subject_gap']:.4f}, {e['Lopez-DoubleTrace']['hazard']['mean_subject_gap']:.4f} |",
-        f"| test: spread from the fit | {rho(sp['test']['lopez_mean_log_sigma'])} |",
-        f"| test: spread from the data | {rho(sp['test']['log_split_over_binomial_floor'])} |",
-        f"| test: trials, sessions | {rho(sp['test']['n_trials'])}; {rho(sp['test']['n_sessions'])} |",
-        f"| control: spread from the fit, from the data | {rho(sp['control']['lopez_mean_log_sigma'])}; "
-        f"{rho(sp['control']['log_split_over_binomial_floor'])} |",
-        f"| the two spread measures, against each other | {rho(sp['measures_agree'])} |",
-        f"| control: median gain of 2-level over per-subject | {sp['control_median_ratio']:.2f} |",
+        "| | GRU | Lopez-DoubleTrace 2L |",
+        "|---|---|---|",
+        f"| subject-mean curve error: last 1–3 trials, hazard | {err('GRU-D614', 'pattern', 'subject_mean_curve_error')}, "
+        f"{err('GRU-D614', 'hazard', 'subject_mean_curve_error')} | {err('Lopez-DoubleTrace', 'pattern', 'subject_mean_curve_error')}, "
+        f"{err('Lopez-DoubleTrace', 'hazard', 'subject_mean_curve_error')} |",
+        f"| mean per-subject gap: last 1–3 trials, hazard (floors {sc['binomial_floor']['pattern']:.4f}, "
+        f"{sc['binomial_floor']['hazard']:.4f}) | {err('GRU-D614', 'pattern', 'mean_subject_gap')}, "
+        f"{err('GRU-D614', 'hazard', 'mean_subject_gap')} | {err('Lopez-DoubleTrace', 'pattern', 'mean_subject_gap')}, "
+        f"{err('Lopez-DoubleTrace', 'hazard', 'mean_subject_gap')} |",
+        f"| subjects where the GRU's gap is larger (four statistics) | {p['n_gru_worse']} of {p['n_subjects']} "
+        f"(sign test p = {p['sign_test_p']:.2f}; Wilcoxon p = {p['wilcoxon_p']:.2f}) | |",
+        f"| median per-subject gap ratio, GRU ÷ Lopez 2L | {p['median_ratio']:.2f} "
+        f"[{p['median_ratio_ci95'][0]:.2f}, {p['median_ratio_ci95'][1]:.2f}] | |",
     ])
+    spread = "\n".join([
+        f"![session spread](../{FIG_SPREAD.name})",
+        "",
+        "**Figure 5.** Per subject, the GRU's log gap ratio to Lopez-DoubleTrace (2-level), mean over "
+        "the four statistics, against **a**, the subject's session spread from Lopez-DoubleTrace's "
+        "2-level fit (mean log σ), and **b**, from the data (log of the split-half floor, which "
+        "includes the differences between sessions, over the binomial floor, which does not). **c**, "
+        "control: the same spread against Lopez-DoubleTrace's own gain from per-session parameters "
+        "(log per-subject gap over 2-level gap). Spearman ρ with 95% bootstrap intervals:",
+        "",
+        "| | ρ |",
+        "|---|---|",
+        f"| GRU's ratio to Lopez 2L vs spread from the fit (a) | {rho(sp['test']['lopez_mean_log_sigma'])} |",
+        f"| GRU's ratio to Lopez 2L vs spread from the data (b) | {rho(sp['test']['log_split_over_binomial_floor'])} |",
+        f"| GRU's ratio to Lopez 2L vs trials; vs sessions | {rho(sp['test']['n_trials'])}; {rho(sp['test']['n_sessions'])} |",
+        f"| control: Lopez's 2-level gain vs spread from the fit (c); from the data | "
+        f"{rho(sp['control']['lopez_mean_log_sigma'])}; {rho(sp['control']['log_split_over_binomial_floor'])} |",
+        f"| the two spread measures, against each other | {rho(sp['measures_agree'])} |",
+        "",
+        f"Lopez-DoubleTrace's median gain from per-session parameters: its per-subject gap is "
+        f"{sp['control_median_ratio']:.2f} times its 2-level gap.",
+    ])
+    return {"result-4": errors, "result-5": spread}
 
 
 def summary(gaps: dict, names: list[str]) -> list[dict]:
@@ -507,12 +521,13 @@ def gate_summary(replay: dict, glm: dict, gru: dict, gaps: dict) -> dict:
 
 
 def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis: list[dict],
-           scatter: list[dict]) -> str:
+           scatter: list[dict]) -> dict[str, str]:
+    """The report's generated blocks: Figure 1 and its table, Figures 2 and 3, and the gates."""
     head = gaps["headline_set"]
     lines = [
         f"![replay grid](../{FIG.name})",
         "",
-        f"**a**, floor ratio (replay gap ÷ binomial floor, each averaged over the "
+        f"**Figure 1.** **a**, floor ratio (replay gap ÷ binomial floor, each averaged over the "
         f"{len(gaps['subjects'])} test subjects) per model, regime and statistic, on the subjects' "
         f"held-out sessions except warm-ups (set `{head}`). 1 means as close as the subjects' own "
         "trials allow. **score** is the replay fingerprint score, the geometric mean of the four "
@@ -534,13 +549,13 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
             else:
                 cells += ["—", "—", "—"]
         lines.append("| " + " | ".join(cells) + " |")
-    lines += [
-        "",
+    blocks = {"result-1": "\n".join(lines)}
+    blocks["result-2"] = "\n".join([
         f"![replay bins](../{FIG_BINS.name})",
         "",
-        "**a**, p(switch) by the count of consecutive unrewarded trials on the current side, and "
+        "**Figure 2.** **a**, p(switch) by the count of consecutive unrewarded trials on the current side, and "
         "**b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent "
-        "first): subjects and the same four models as above, over the same subjects. "
+        "first): subjects and the four models of Figure 1b, over the same subjects. "
         "**c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's "
         "per-subject scores, re-pooled; the GLM's own; the GRU's mean over seeds, on its 146) against its replay fingerprint score (the "
         "geometric mean of its four floor ratios, ADR 0009), per regime; the models of the curves are "
@@ -548,18 +563,20 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         + ("" if not off_axis else " Off the axis: " + "; ".join(
             f"{p['model']} ({REGIMES[p['regime']]}, likelihood {p['likelihood']:.3f}, "
             f"replay score {p['replay_score']:.0f})" for p in off_axis) + "."),
-        "",
+    ])
+    blocks["result-3"] = "\n".join([
         f"![scatter](../{FIG_CORR.name})",
         "",
-        "Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): each point is "
+        "**Figure 3.** Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): each point is "
         "one bin, the subjects' mean p(switch) against the model's replayed prediction, over "
         "subjects that keep the bin. Columns: the five literature models with the best 2-level EM "
         "likelihood, as 2-level EM, from the lowest likelihood to the highest, then the GRU. Each panel prints r and RMSE over the bins and the model's "
-        "floor ratio for that statistic (the first figure's cell): the floor ratio weights each bin "
+        "floor ratio for that statistic (its cell in Figure 1a): the floor ratio weights each bin "
         "by its trials and compares with what the subjects' data allow; r and RMSE count every bin "
         "once. Patterns are coloured by depth, hazard and after-a-switch bins by the last trial's "
         "reward.",
-        "",
+    ])
+    blocks["result-6"] = "\n".join([
         f"**Gates** (library `{gates['library_git_sha'][:7]}`, MEvolve `{gates['mevolve_git_sha'][:7]}`). "
         f"Every replay shown ({gates['n_models']} of study 12's models × {gates['n_subjects']} subjects) "
         "reproduces the held-out log likelihood study 12 stored for the subject: largest difference "
@@ -582,8 +599,8 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         f"{len(gaps['subjects']) - len(gates['gru']['subjects_in_training'])} subjects, every other "
         f"model's over {len(gaps['subjects'])}. Replay scores per seed: "
         + ", ".join(f"{v:.2f}" for v in gates["gru"]["seed_scores"].values()) + ".",
-    ]
-    return "\n".join(lines)
+    ])
+    return blocks
 
 
 def _rewrite(text: str, block: str, body: str) -> str:
@@ -605,10 +622,14 @@ def main() -> None:
     scatter = draw_scatter(gaps, scatter_cells(gaps, lik, failed))
     rows = summary(gaps, names)
     scratch = json.loads(SCRATCH.read_text())
-    draw_scratch(scratch, gaps)
-    text = _rewrite(REPORT.read_text(), "result-1", render(gates, rows, gaps, failed,
-                                       [p for p in points if p['likelihood'] < C_MIN_LIKELIHOOD], scatter))
-    REPORT.write_text(_rewrite(text, "result-2", render_scratch(scratch)))
+    draw_gru(scratch, gaps)
+    blocks = render(gates, rows, gaps, failed, [p for p in points if p["likelihood"] < C_MIN_LIKELIHOOD],
+                    scatter)
+    blocks.update(render_gru(scratch))
+    text = REPORT.read_text()
+    for name in sorted(blocks):
+        text = _rewrite(text, name, blocks[name])
+    REPORT.write_text(text)
     by_set = {m: {reg: {name: {s: c["floor_ratio"] for s, c in cells.items()}
                         for name, cells in sets.items()}
                   for reg, sets in gaps["models"][m].items()} for m in names}
@@ -620,8 +641,8 @@ def main() -> None:
                     "order": names, "two_level_failed": sorted(failed), "rows": rows,
                     "floor_ratio_by_set": by_set, "likelihood_vs_floor_ratio": points,
                     "scatter": scatter},
-                   outputs=[FIG, FIG_BINS, FIG_CORR, FIG_ERR, FIG_SPREAD, f"{REPORT}#result-1",
-                            f"{REPORT}#result-2"])
+                   outputs=[FIG, FIG_BINS, FIG_CORR, FIG_ERR, FIG_SPREAD,
+                            *(f"{REPORT}#result-{k}" for k in range(1, 7))])
 
 
 if __name__ == "__main__":
