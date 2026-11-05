@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p2_rollouts.py",
-    "produced_at_pt": "2026-11-05T02:00:53-08:00",
-    "studies_git_sha": "e72f7d6ef3802db78105d1c9ae00d761f0a8e4b7",
+    "produced_at_pt": "2026-11-05T03:35:15-08:00",
+    "studies_git_sha": "735f713bb929a09e68fe5dd91d6ab9e609e9f46a",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_rollouts.py",
-        "sha256": "9e798fe5eec78477ce4688ad64a731ef09c37b489291fb40ff575c73bd546209"
+        "sha256": "756c0694a43ced011905987a72fa1fbf87bdbdbb2c02c078ee08b9aaaa343e6e"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_task.py",
@@ -50,7 +50,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_gru_contexts.json",
-        "sha256": "16a2b5cf37b90562aae513c618310e1137b76803bbbabc92cd25a4b168b7895b"
+        "sha256": "03853912e37f07f4270f7c0961053c246bcc1cd4228964360a84a31200282c1a"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_gru.json",

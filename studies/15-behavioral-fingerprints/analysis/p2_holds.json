@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p2_holds.py",
-    "produced_at_pt": "2026-11-05T02:46:51-08:00",
-    "studies_git_sha": "4e6d90ce10f7b6b40be0ab4cf5d020ec3c9b1a3d",
+    "produced_at_pt": "2026-11-05T02:59:57-08:00",
+    "studies_git_sha": "735f713bb929a09e68fe5dd91d6ab9e609e9f46a",
     "studies_git_dirty": false,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,11 +16,11 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_holds.py",
-        "sha256": "fe801b80a0d42746015c7a499a2288fd77b957925533e4f0ee6c2892da0b1645"
+        "sha256": "a6003f91dc996d166051a811bd8645fdc0538f7421356a859ee7a63f0e77a84c"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_rollouts.py",
-        "sha256": "9e798fe5eec78477ce4688ad64a731ef09c37b489291fb40ff575c73bd546209"
+        "sha256": "756c0694a43ced011905987a72fa1fbf87bdbdbb2c02c078ee08b9aaaa343e6e"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_task.py",
@@ -46,7 +46,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_gru_contexts.json",
-        "sha256": "16a2b5cf37b90562aae513c618310e1137b76803bbbabc92cd25a4b168b7895b"
+        "sha256": "03853912e37f07f4270f7c0961053c246bcc1cd4228964360a84a31200282c1a"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_gru.json",
@@ -57,8 +57,16 @@
         "sha256": "46e3e36c41cc317630ef6898dc85089bf43bc21c2f7388d2c0ae0fb31ccfb6bc"
       },
       {
-        "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.json",
-        "sha256": "9cdb7b536eaccedc6ed6e68630bd5a3111dada8cc337fc29bbf6d16188c7e869"
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay_gaps.json",
+        "sha256": "7fa83e5c7992adad714f2bf67c9b883a2304e9e77b450199f0c419b72d671eb5"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
+        "sha256": "7db7708473d23024670c879b6d732a7c6a38f359461fdd47c08c799bf6ff845c"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
@@ -95,6 +103,11 @@
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lebedeva-PR.json",
         "sha256": "b5118f3630ca6f1b99cdb9a6a2aab44d2786df80a83c73c65fd25daef12be273"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009/s0/heldout/run/best_eval_step_40000/heldout_Coupled_Baiting_Uncoupled_Baiting_Uncoupled_Without_Baiting_every5/outputs/params.json",
+        "sha256": "3057a80295bd13c5149ea0bcacd3f7b2be749d502335b4605732274b5c3c36d8"
       }
     ],
     "outputs": [
