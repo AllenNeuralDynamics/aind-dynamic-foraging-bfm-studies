@@ -2,6 +2,10 @@
 
 ## 2026-11-05
 
+- Screenshots of Shinka's portal (program tree, score trace, the best program's ancestors) in r1, for
+  both gate 4 searches, and in the `seeded-islands-smoke` notes, from each run's W&B archive
+  (`analysis/screenshots/`, with its README). Screenshots of a tool are PNG; the SVG rule covers figures
+  drawn by code (`scripts/check_figures.py` skips `screenshots/`).
 - Variant `seeded-islands-smoke` (issue #115): PLAN step 5's 100-proposal search on real mice, in the
   `seeded-islands` configuration ($20 list), to measure node time and dollars per proposal on real mice
   and run the production configuration end to end. `analysis/seed_choice.py` (`make seed-choice`, in

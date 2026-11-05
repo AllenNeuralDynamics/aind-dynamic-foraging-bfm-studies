@@ -86,6 +86,28 @@ By lineage (the seed a program descends from), best score against the seed's own
 | Lopez-DoubleTrace | 9 | 72.548 | 72.591 | +0.043 |
 | Eckstein-BI | 10 | 71.780 | 72.606 | +0.826 |
 
+**In Shinka's portal.** Screenshots of ShinkaEvolve's web portal for the run's W&B archive
+([how they were made](../../analysis/screenshots/README.md)). Islands: I0 the template, I1 Miller-RHG,
+I2 Lopez-DoubleTrace, I3 Lebedeva-PR, I4 Eckstein-BI. In the tree, each node is a program and each edge
+goes from parent to child; colour is the score, the badge names the island, and the orange line runs to
+the best program. The best program (proposal 93) descends from the template through proposals 3, 12,
+64 and 83, moving from island I0 to I3 and then I4 on the way. Not every ancestor beat its parent: 12
+and 83 scored below theirs, and their children recovered.
+
+![smoke: tree](../../analysis/screenshots/smoke_tree.png)
+
+In the score trace, red dots are single proposals, blue is the best so far, green the mean so far, and
+orange the best program's ancestors.
+
+![smoke: score trace](../../analysis/screenshots/smoke_score.png)
+
+<details>
+<summary>The best program's ancestors, with Claude's hypothesis for each edit</summary>
+
+![smoke: best path](../../analysis/screenshots/smoke_path.png)
+
+</details>
+
 **What it teaches.**
 
 1. **Evaluation, not Claude, limits the search.** Proposals waited for the two evaluation slots;
