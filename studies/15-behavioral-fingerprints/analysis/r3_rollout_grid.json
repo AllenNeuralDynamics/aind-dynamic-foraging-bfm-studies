@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_rollout_grid.py",
-    "produced_at_pt": "2026-11-05T02:09:06-08:00",
-    "studies_git_sha": "e72f7d6ef3802db78105d1c9ae00d761f0a8e4b7",
+    "produced_at_pt": "2026-11-05T02:47:26-08:00",
+    "studies_git_sha": "4e6d90ce10f7b6b40be0ab4cf5d020ec3c9b1a3d",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -50,7 +50,7 @@
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_holds.json",
-        "sha256": "6be01e9183b0a88a6675c513edc43cd309c4ee276a4a8250ecbfd0fb40b6cfcb"
+        "sha256": "6b4abf64a3dbd8a7c2a7ad2d3d9adb0c02f659a71e476aaf4923e15922a1e630"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_task_specs.json",

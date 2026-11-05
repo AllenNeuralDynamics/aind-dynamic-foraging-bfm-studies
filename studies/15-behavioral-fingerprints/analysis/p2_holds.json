@@ -3,9 +3,9 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_p2_holds.py",
-    "produced_at_pt": "2026-11-05T01:23:51-08:00",
-    "studies_git_sha": "2cd768170c2f575e53e29b87603a7c14cb110231",
-    "studies_git_dirty": true,
+    "produced_at_pt": "2026-11-05T02:46:51-08:00",
+    "studies_git_sha": "4e6d90ce10f7b6b40be0ab4cf5d020ec3c9b1a3d",
+    "studies_git_dirty": false,
     "wrapper_git_sha": null,
     "wandb_groups": [],
     "source_studies_git_shas": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_holds.py",
-        "sha256": "c95c145c58e45f79f2bab39de376a9cdde8d6cac2c3be6abe9dddac9fae24495"
+        "sha256": "fe801b80a0d42746015c7a499a2288fd77b957925533e4f0ee6c2892da0b1645"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/freeze_p2_rollouts.py",
@@ -100,7 +100,7 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_holds.json",
-        "sha256": "817abb565f92d63dac934a2697ddbce69c49a19089c81f6046c0ef3807ac4c29"
+        "sha256": "3f3b80d34d87b0d808efe46e1f333c7e0fff3a358deb7cfd9fdc048b23722551"
       }
     ]
   },
@@ -128,31 +128,31 @@
       "n_subjects": 9,
       "statistics": {
         "losses": {
-          "hold_gap": 0.009008984619184264,
+          "hold_gap": 0.006737931817347384,
           "floor": 0.04083561267765336,
           "ratio": 0.1650013646307947,
           "n_subjects": 6
         },
         "pattern": {
-          "hold_gap": 0.005784691579309637,
+          "hold_gap": 0.0049045821362599185,
           "floor": 0.021358407406932862,
           "ratio": 0.22963238985074838,
           "n_subjects": 6
         },
         "hazard": {
-          "hold_gap": 0.005006681932264918,
+          "hold_gap": 0.003304340861244906,
           "floor": 0.026218833719339682,
           "ratio": 0.1260292847735458,
           "n_subjects": 6
         },
         "post_switch": {
-          "hold_gap": 0.00994765516023625,
-          "floor": 0.059756030696980954,
+          "hold_gap": 0.00722841771310532,
+          "floor": 0.05975603069698097,
           "ratio": 0.12096549300203968,
           "n_subjects": 6
         },
         "run_length": {
-          "hold_gap": 0.003185174713940661,
+          "hold_gap": 0.0015299548861697166,
           "floor": 0.028989194032185434,
           "ratio": 0.05277673068354624,
           "n_subjects": 6
@@ -163,31 +163,31 @@
       "n_subjects": 9,
       "statistics": {
         "losses": {
-          "hold_gap": 0.011558656522757465,
+          "hold_gap": 0.008977033015198975,
           "floor": 0.04083561267765336,
           "ratio": 0.21983343524343676,
           "n_subjects": 6
         },
         "pattern": {
-          "hold_gap": 0.009744831562079006,
+          "hold_gap": 0.0080792933610622,
           "floor": 0.021358407406932862,
           "ratio": 0.37827227504049254,
           "n_subjects": 6
         },
         "hazard": {
-          "hold_gap": 0.007420213921368268,
+          "hold_gap": 0.0054889168506529655,
           "floor": 0.026218833719339682,
           "ratio": 0.20935015300105436,
           "n_subjects": 6
         },
         "post_switch": {
-          "hold_gap": 0.018184513798813737,
-          "floor": 0.059756030696980954,
+          "hold_gap": 0.013146590524059351,
+          "floor": 0.05975603069698097,
           "ratio": 0.22000441412725144,
           "n_subjects": 6
         },
         "run_length": {
-          "hold_gap": 0.00599803729252326,
+          "hold_gap": 0.002877725012254964,
           "floor": 0.028989194032185434,
           "ratio": 0.09926888650508708,
           "n_subjects": 6
@@ -198,31 +198,31 @@
       "n_subjects": 9,
       "statistics": {
         "losses": {
-          "hold_gap": 0.00894905791950069,
+          "hold_gap": 0.007761372648179166,
           "floor": 0.04083561267765336,
           "ratio": 0.19006382270900649,
           "n_subjects": 6
         },
         "pattern": {
-          "hold_gap": 0.00590779672241359,
+          "hold_gap": 0.004797937247730384,
           "floor": 0.021358407406932862,
           "ratio": 0.22463927933938516,
           "n_subjects": 6
         },
         "hazard": {
-          "hold_gap": 0.0051958908659167245,
+          "hold_gap": 0.003705737920870472,
           "floor": 0.026218833719339682,
           "ratio": 0.14133877809130102,
           "n_subjects": 6
         },
         "post_switch": {
-          "hold_gap": 0.022647273096845638,
-          "floor": 0.059756030696980954,
+          "hold_gap": 0.014745061852865263,
+          "floor": 0.05975603069698097,
           "ratio": 0.2467543724186858,
           "n_subjects": 6
         },
         "run_length": {
-          "hold_gap": 0.008220192870060268,
+          "hold_gap": 0.0039609649933197945,
           "floor": 0.028989194032185434,
           "ratio": 0.13663591298613229,
           "n_subjects": 6
@@ -233,31 +233,31 @@
       "n_subjects": 9,
       "statistics": {
         "losses": {
-          "hold_gap": 0.01514656461524012,
+          "hold_gap": 0.012793730371436407,
           "floor": 0.04083561267765336,
           "ratio": 0.31329835730461747,
           "n_subjects": 6
         },
         "pattern": {
-          "hold_gap": 0.009124532419903556,
+          "hold_gap": 0.007186633558347123,
           "floor": 0.021358407406932862,
           "ratio": 0.3364779696080883,
           "n_subjects": 6
         },
         "hazard": {
-          "hold_gap": 0.006845346049629157,
+          "hold_gap": 0.0049623811564440306,
           "floor": 0.026218833719339682,
           "ratio": 0.18926780685838254,
           "n_subjects": 6
         },
         "post_switch": {
-          "hold_gap": 0.019887428422885073,
-          "floor": 0.059756030696980954,
+          "hold_gap": 0.011196914011160429,
+          "floor": 0.05975603069698097,
           "ratio": 0.18737713801539577,
           "n_subjects": 6
         },
         "run_length": {
-          "hold_gap": 0.00605267109785621,
+          "hold_gap": 0.0019009542745045064,
           "floor": 0.028989194032185434,
           "ratio": 0.06557458176981257,
           "n_subjects": 6
@@ -268,31 +268,31 @@
       "n_subjects": 9,
       "statistics": {
         "losses": {
-          "hold_gap": 0.01031858843010211,
+          "hold_gap": 0.008725919102512058,
           "floor": 0.04083561267765336,
           "ratio": 0.21368405003231847,
           "n_subjects": 6
         },
         "pattern": {
-          "hold_gap": 0.00836761157807386,
+          "hold_gap": 0.006125715976220113,
           "floor": 0.021358407406932862,
           "ratio": 0.28680583994440184,
           "n_subjects": 6
         },
         "hazard": {
-          "hold_gap": 0.0061012259998973134,
+          "hold_gap": 0.003176066219997498,
           "floor": 0.026218833719339682,
           "ratio": 0.12113682301798002,
           "n_subjects": 6
         },
         "post_switch": {
-          "hold_gap": 0.027735151757166173,
-          "floor": 0.059756030696980954,
+          "hold_gap": 0.007816096264213002,
+          "floor": 0.05975603069698097,
           "ratio": 0.13080012465767563,
           "n_subjects": 6
         },
         "run_length": {
-          "hold_gap": 0.00578746568157057,
+          "hold_gap": 0.0026284477689007663,
           "floor": 0.028989194032185434,
           "ratio": 0.09066991534785396,
           "n_subjects": 6
@@ -303,31 +303,31 @@
       "n_subjects": 9,
       "statistics": {
         "losses": {
-          "hold_gap": 0.010800493911112301,
+          "hold_gap": 0.010572248299014255,
           "floor": 0.04083561267765336,
           "ratio": 0.25889775139335064,
           "n_subjects": 6
         },
         "pattern": {
-          "hold_gap": 0.008786443153157946,
+          "hold_gap": 0.009528322600806048,
           "floor": 0.021358407406932862,
           "ratio": 0.44611578097874416,
           "n_subjects": 6
         },
         "hazard": {
-          "hold_gap": 0.007296569221645551,
+          "hold_gap": 0.007700225726853852,
           "floor": 0.026218833719339682,
           "ratio": 0.29369062748103736,
           "n_subjects": 6
         },
         "post_switch": {
-          "hold_gap": 0.015699345004836933,
-          "floor": 0.059756030696980954,
+          "hold_gap": 0.014464097224919509,
+          "floor": 0.05975603069698097,
           "ratio": 0.2420525101184519,
           "n_subjects": 6
         },
         "run_length": {
-          "hold_gap": 0.005333545010035737,
+          "hold_gap": 0.005344122633357234,
           "floor": 0.028989194032185434,
           "ratio": 0.1843487827713971,
           "n_subjects": 6
