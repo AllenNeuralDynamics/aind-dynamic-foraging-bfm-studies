@@ -1,0 +1,2831 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_p1_gru.py",
+    "produced_at_pt": "2026-11-04T17:32:13-08:00",
+    "studies_git_sha": "5f3e75c8e70ef924d4edbe759fe47031c00f9ead",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_gru.py",
+        "sha256": "f51f0626eb82ce84d42cbbda3c2b1e6198a39e0baedabe76ea37884a33326bdd"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
+        "sha256": "f59813c335951894ff95c46fa004d98d3e7e57b6d4200bfe02160cbec3408fed"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_replay.py",
+        "sha256": "fa770742af34904e892053daa40f904a8423c4737426ea15132bbf7475ff7a3d"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/cross_study_literature.py",
+        "sha256": "112514978d87c6d7fe15804ef570cbef9aa4de880ed7a75d8a5c5e95df52fb4e"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_session_groups.json",
+        "sha256": "c45bdcafc3ac5aeedc5abe559aca102dde7a1ca387c218a83ef96b2e4b156108"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/variants/gru-heldout-replay/launch_record/gru-replay-hpc-snap/hpc_20261104-150009.json",
+        "sha256": "64c182f2017f0b12c6a5ab7b6a2f0658ccfdaa33d69d838a15f18bfe15172b8d"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
+        "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      }
+    ],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009/s0/heldout/run/best_eval_step_40000/heldout_Coupled_Baiting_Uncoupled_Baiting_Uncoupled_Without_Baiting_every5/outputs/test_trial_predictions.csv",
+        "sha256": "fed183607ad10658e0948af80a82d7fc44ba5938d1f3d7a470824f07cd991c87"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009/s1/heldout/run/best_eval_step_40000/heldout_Coupled_Baiting_Uncoupled_Baiting_Uncoupled_Without_Baiting_every5/outputs/test_trial_predictions.csv",
+        "sha256": "9ada298c4d63ee5a9a1340b8144ab7cc5c136183b2b98505907b52903a67e0d7"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009/s2/heldout/run/best_eval_step_40000/heldout_Coupled_Baiting_Uncoupled_Baiting_Uncoupled_Without_Baiting_every5/outputs/test_trial_predictions.csv",
+        "sha256": "f5ea21800917ca11982cd3a0623acf860fca67572ce024d46d2bcbf4f9bca030"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_gru.json",
+        "sha256": "fedb508521b7390da642950c5050b095feae292607b627b8de39a80546a9fc88"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/GRU-D614.parquet",
+        "sha256": "8fc517c8a1b8ed82a00e2e2e064eb5de95e37adf9a17b996ff2639bc33b01c09"
+      }
+    ]
+  },
+  "fingerprints_library": {
+    "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
+    "git_sha": "35d535f4a4fe099d4b4ea472496b99bdc233f06c"
+  },
+  "spec": "fingerprints-v1",
+  "model": "GRU-D614",
+  "launch": {
+    "wandb_group": "gru-heldout-replay@20261104-150009",
+    "launch_id": "20261104-150009"
+  },
+  "tolerance": {
+    "likelihood": 0.0001,
+    "self": 1e-06
+  },
+  "passed": true,
+  "seeds": {
+    "seed0": {
+      "n_subjects": 149,
+      "n_subjects_referenced": 146,
+      "subjects_unreferenced": [
+        "722683",
+        "795395",
+        "820243"
+      ],
+      "max_abs_likelihood_diff": 9.84236572698638e-06,
+      "median_abs_likelihood_diff": 1.1950933914706141e-06,
+      "max_self_diff": 4.529709940470639e-14,
+      "subjects_replay_differs": [],
+      "n_subjects_replay_differs": 0,
+      "passed": true
+    },
+    "seed1": {
+      "n_subjects": 149,
+      "n_subjects_referenced": 146,
+      "subjects_unreferenced": [
+        "722683",
+        "795395",
+        "820243"
+      ],
+      "max_abs_likelihood_diff": 9.046486483366145e-06,
+      "median_abs_likelihood_diff": 1.5705270167698515e-06,
+      "max_self_diff": 3.108624468950438e-14,
+      "subjects_replay_differs": [],
+      "n_subjects_replay_differs": 0,
+      "passed": true
+    },
+    "seed2": {
+      "n_subjects": 149,
+      "n_subjects_referenced": 146,
+      "subjects_unreferenced": [
+        "722683",
+        "795395",
+        "820243"
+      ],
+      "max_abs_likelihood_diff": 7.594402445132431e-06,
+      "median_abs_likelihood_diff": 1.4979012472049469e-06,
+      "max_self_diff": 5.5067062021407764e-14,
+      "subjects_replay_differs": [],
+      "n_subjects_replay_differs": 0,
+      "passed": true
+    }
+  },
+  "subjects": [
+    {
+      "subject_id": "452275",
+      "seed": 0,
+      "likelihood": 0.5446479120714947,
+      "n_trials": 15105
+    },
+    {
+      "subject_id": "700708",
+      "seed": 0,
+      "likelihood": 0.7068165269349517,
+      "n_trials": 9794
+    },
+    {
+      "subject_id": "455525",
+      "seed": 0,
+      "likelihood": 0.6011103151964868,
+      "n_trials": 12888
+    },
+    {
+      "subject_id": "656489",
+      "seed": 0,
+      "likelihood": 0.6639535958746384,
+      "n_trials": 19109
+    },
+    {
+      "subject_id": "641494",
+      "seed": 0,
+      "likelihood": 0.702524565856133,
+      "n_trials": 17536
+    },
+    {
+      "subject_id": "639875",
+      "seed": 0,
+      "likelihood": 0.7335391294579259,
+      "n_trials": 14822
+    },
+    {
+      "subject_id": "472184",
+      "seed": 0,
+      "likelihood": 0.583462498129314,
+      "n_trials": 16372
+    },
+    {
+      "subject_id": "643773",
+      "seed": 0,
+      "likelihood": 0.657297847547968,
+      "n_trials": 16103
+    },
+    {
+      "subject_id": "659778",
+      "seed": 0,
+      "likelihood": 0.6304752272583153,
+      "n_trials": 7508
+    },
+    {
+      "subject_id": "627042",
+      "seed": 0,
+      "likelihood": 0.6434978004343582,
+      "n_trials": 11816
+    },
+    {
+      "subject_id": "684039",
+      "seed": 0,
+      "likelihood": 0.7468144558847631,
+      "n_trials": 4466
+    },
+    {
+      "subject_id": "453476",
+      "seed": 0,
+      "likelihood": 0.6041146352954117,
+      "n_trials": 8433
+    },
+    {
+      "subject_id": "453478",
+      "seed": 0,
+      "likelihood": 0.6237598909997609,
+      "n_trials": 6232
+    },
+    {
+      "subject_id": "699982",
+      "seed": 0,
+      "likelihood": 0.7917448703108214,
+      "n_trials": 4747
+    },
+    {
+      "subject_id": "663373",
+      "seed": 0,
+      "likelihood": 0.7702708126679012,
+      "n_trials": 7292
+    },
+    {
+      "subject_id": "616134",
+      "seed": 0,
+      "likelihood": 0.6161244571061694,
+      "n_trials": 5885
+    },
+    {
+      "subject_id": "722989",
+      "seed": 0,
+      "likelihood": 0.6171391482657409,
+      "n_trials": 3818
+    },
+    {
+      "subject_id": "494693",
+      "seed": 0,
+      "likelihood": 0.5760085607228929,
+      "n_trials": 4633
+    },
+    {
+      "subject_id": "673396",
+      "seed": 0,
+      "likelihood": 0.6570308708462129,
+      "n_trials": 4336
+    },
+    {
+      "subject_id": "648586",
+      "seed": 0,
+      "likelihood": 0.7661972296660243,
+      "n_trials": 6423
+    },
+    {
+      "subject_id": "682342",
+      "seed": 0,
+      "likelihood": 0.7097098717909037,
+      "n_trials": 2152
+    },
+    {
+      "subject_id": "697929",
+      "seed": 0,
+      "likelihood": 0.6331058943082053,
+      "n_trials": 3263
+    },
+    {
+      "subject_id": "671245",
+      "seed": 0,
+      "likelihood": 0.7144964572019964,
+      "n_trials": 1874
+    },
+    {
+      "subject_id": "697930",
+      "seed": 0,
+      "likelihood": 0.76602797029628,
+      "n_trials": 1441
+    },
+    {
+      "subject_id": "637701",
+      "seed": 0,
+      "likelihood": 0.5705540131205312,
+      "n_trials": 4197
+    },
+    {
+      "subject_id": "710414",
+      "seed": 0,
+      "likelihood": 0.7802431654832074,
+      "n_trials": 2770
+    },
+    {
+      "subject_id": "655100",
+      "seed": 0,
+      "likelihood": 0.6431219644306738,
+      "n_trials": 2031
+    },
+    {
+      "subject_id": "652743",
+      "seed": 0,
+      "likelihood": 0.7090263345002696,
+      "n_trials": 3315
+    },
+    {
+      "subject_id": "713379",
+      "seed": 0,
+      "likelihood": 0.6228059769179366,
+      "n_trials": 14940
+    },
+    {
+      "subject_id": "791174",
+      "seed": 0,
+      "likelihood": 0.7132399739482199,
+      "n_trials": 17414
+    },
+    {
+      "subject_id": "765365",
+      "seed": 0,
+      "likelihood": 0.7635028137910097,
+      "n_trials": 9736
+    },
+    {
+      "subject_id": "808584",
+      "seed": 0,
+      "likelihood": 0.7226853229279376,
+      "n_trials": 9454
+    },
+    {
+      "subject_id": "813992",
+      "seed": 0,
+      "likelihood": 0.7909376416522869,
+      "n_trials": 8630
+    },
+    {
+      "subject_id": "823166",
+      "seed": 0,
+      "likelihood": 0.6890576147450478,
+      "n_trials": 11818
+    },
+    {
+      "subject_id": "780621",
+      "seed": 0,
+      "likelihood": 0.7620488616630615,
+      "n_trials": 9680
+    },
+    {
+      "subject_id": "815334",
+      "seed": 0,
+      "likelihood": 0.6812952057222988,
+      "n_trials": 8891
+    },
+    {
+      "subject_id": "788733",
+      "seed": 0,
+      "likelihood": 0.8005975026599569,
+      "n_trials": 8903
+    },
+    {
+      "subject_id": "810756",
+      "seed": 0,
+      "likelihood": 0.7454504180186045,
+      "n_trials": 10320
+    },
+    {
+      "subject_id": "829489",
+      "seed": 0,
+      "likelihood": 0.6799893880986851,
+      "n_trials": 8190
+    },
+    {
+      "subject_id": "821576",
+      "seed": 0,
+      "likelihood": 0.7543858146920163,
+      "n_trials": 9932
+    },
+    {
+      "subject_id": "818908",
+      "seed": 0,
+      "likelihood": 0.6397411566135374,
+      "n_trials": 6148
+    },
+    {
+      "subject_id": "766998",
+      "seed": 0,
+      "likelihood": 0.7361194070002243,
+      "n_trials": 9319
+    },
+    {
+      "subject_id": "788732",
+      "seed": 0,
+      "likelihood": 0.8260698419396222,
+      "n_trials": 10471
+    },
+    {
+      "subject_id": "813167",
+      "seed": 0,
+      "likelihood": 0.8009066084321217,
+      "n_trials": 7256
+    },
+    {
+      "subject_id": "767463",
+      "seed": 0,
+      "likelihood": 0.7121089365738318,
+      "n_trials": 7958
+    },
+    {
+      "subject_id": "793397",
+      "seed": 0,
+      "likelihood": 0.7437291601699648,
+      "n_trials": 9399
+    },
+    {
+      "subject_id": "809488",
+      "seed": 0,
+      "likelihood": 0.7388111488249137,
+      "n_trials": 7631
+    },
+    {
+      "subject_id": "721403",
+      "seed": 0,
+      "likelihood": 0.777340959774121,
+      "n_trials": 6251
+    },
+    {
+      "subject_id": "781897",
+      "seed": 0,
+      "likelihood": 0.7068973455514534,
+      "n_trials": 7821
+    },
+    {
+      "subject_id": "800175",
+      "seed": 0,
+      "likelihood": 0.7394518682910797,
+      "n_trials": 8720
+    },
+    {
+      "subject_id": "818585",
+      "seed": 0,
+      "likelihood": 0.7922509609279456,
+      "n_trials": 8742
+    },
+    {
+      "subject_id": "784956",
+      "seed": 0,
+      "likelihood": 0.7761782413805558,
+      "n_trials": 6589
+    },
+    {
+      "subject_id": "765232",
+      "seed": 0,
+      "likelihood": 0.6656920484730301,
+      "n_trials": 7208
+    },
+    {
+      "subject_id": "797673",
+      "seed": 0,
+      "likelihood": 0.706819492008488,
+      "n_trials": 5448
+    },
+    {
+      "subject_id": "813171",
+      "seed": 0,
+      "likelihood": 0.7466621999837445,
+      "n_trials": 5443
+    },
+    {
+      "subject_id": "722683",
+      "seed": 0,
+      "likelihood": 0.6769881119925226,
+      "n_trials": 4062
+    },
+    {
+      "subject_id": "795395",
+      "seed": 0,
+      "likelihood": 0.7678926242574126,
+      "n_trials": 9134
+    },
+    {
+      "subject_id": "820243",
+      "seed": 0,
+      "likelihood": 0.8041581031497259,
+      "n_trials": 5882
+    },
+    {
+      "subject_id": "763704",
+      "seed": 0,
+      "likelihood": 0.5832684942569113,
+      "n_trials": 6562
+    },
+    {
+      "subject_id": "778103",
+      "seed": 0,
+      "likelihood": 0.6874832007843301,
+      "n_trials": 6208
+    },
+    {
+      "subject_id": "812307",
+      "seed": 0,
+      "likelihood": 0.764599545579102,
+      "n_trials": 8261
+    },
+    {
+      "subject_id": "726649",
+      "seed": 0,
+      "likelihood": 0.7034497294162807,
+      "n_trials": 4097
+    },
+    {
+      "subject_id": "757214",
+      "seed": 0,
+      "likelihood": 0.6598461160986325,
+      "n_trials": 5987
+    },
+    {
+      "subject_id": "814147",
+      "seed": 0,
+      "likelihood": 0.7633298491476556,
+      "n_trials": 5947
+    },
+    {
+      "subject_id": "841356",
+      "seed": 0,
+      "likelihood": 0.7218559692721322,
+      "n_trials": 7456
+    },
+    {
+      "subject_id": "781896",
+      "seed": 0,
+      "likelihood": 0.7946649525398586,
+      "n_trials": 7995
+    },
+    {
+      "subject_id": "841599",
+      "seed": 0,
+      "likelihood": 0.7863978664385097,
+      "n_trials": 7082
+    },
+    {
+      "subject_id": "745505",
+      "seed": 0,
+      "likelihood": 0.6855143908914266,
+      "n_trials": 5686
+    },
+    {
+      "subject_id": "764693",
+      "seed": 0,
+      "likelihood": 0.6464109203616815,
+      "n_trials": 6538
+    },
+    {
+      "subject_id": "777098",
+      "seed": 0,
+      "likelihood": 0.7312364643095194,
+      "n_trials": 4717
+    },
+    {
+      "subject_id": "807885",
+      "seed": 0,
+      "likelihood": 0.6936215570246171,
+      "n_trials": 5589
+    },
+    {
+      "subject_id": "841363",
+      "seed": 0,
+      "likelihood": 0.7396580312537536,
+      "n_trials": 6966
+    },
+    {
+      "subject_id": "769359",
+      "seed": 0,
+      "likelihood": 0.8064359252148864,
+      "n_trials": 4962
+    },
+    {
+      "subject_id": "802292",
+      "seed": 0,
+      "likelihood": 0.7318372053456274,
+      "n_trials": 7885
+    },
+    {
+      "subject_id": "835178",
+      "seed": 0,
+      "likelihood": 0.7439251243036632,
+      "n_trials": 3968
+    },
+    {
+      "subject_id": "770803",
+      "seed": 0,
+      "likelihood": 0.6885596784796539,
+      "n_trials": 6626
+    },
+    {
+      "subject_id": "790584",
+      "seed": 0,
+      "likelihood": 0.7766322206299572,
+      "n_trials": 7492
+    },
+    {
+      "subject_id": "810758",
+      "seed": 0,
+      "likelihood": 0.8120255348196365,
+      "n_trials": 6453
+    },
+    {
+      "subject_id": "839483",
+      "seed": 0,
+      "likelihood": 0.737397259100393,
+      "n_trials": 6628
+    },
+    {
+      "subject_id": "798520",
+      "seed": 0,
+      "likelihood": 0.7283771689188208,
+      "n_trials": 5980
+    },
+    {
+      "subject_id": "832634",
+      "seed": 0,
+      "likelihood": 0.7431650099827642,
+      "n_trials": 4690
+    },
+    {
+      "subject_id": "767462",
+      "seed": 0,
+      "likelihood": 0.787781350586895,
+      "n_trials": 7048
+    },
+    {
+      "subject_id": "777027",
+      "seed": 0,
+      "likelihood": 0.6420925058561358,
+      "n_trials": 5490
+    },
+    {
+      "subject_id": "813165",
+      "seed": 0,
+      "likelihood": 0.7466798238462152,
+      "n_trials": 5287
+    },
+    {
+      "subject_id": "823161",
+      "seed": 0,
+      "likelihood": 0.7792274382870011,
+      "n_trials": 6478
+    },
+    {
+      "subject_id": "711254",
+      "seed": 0,
+      "likelihood": 0.8240173524961381,
+      "n_trials": 4229
+    },
+    {
+      "subject_id": "802953",
+      "seed": 0,
+      "likelihood": 0.7752407951527522,
+      "n_trials": 4247
+    },
+    {
+      "subject_id": "823163",
+      "seed": 0,
+      "likelihood": 0.7361005816074692,
+      "n_trials": 6765
+    },
+    {
+      "subject_id": "838332",
+      "seed": 0,
+      "likelihood": 0.815949726435058,
+      "n_trials": 6039
+    },
+    {
+      "subject_id": "736198",
+      "seed": 0,
+      "likelihood": 0.7059818650375645,
+      "n_trials": 5224
+    },
+    {
+      "subject_id": "787625",
+      "seed": 0,
+      "likelihood": 0.7249872040070846,
+      "n_trials": 3903
+    },
+    {
+      "subject_id": "805496",
+      "seed": 0,
+      "likelihood": 0.6925829658997226,
+      "n_trials": 5469
+    },
+    {
+      "subject_id": "829569",
+      "seed": 0,
+      "likelihood": 0.6582966676638681,
+      "n_trials": 5000
+    },
+    {
+      "subject_id": "753122",
+      "seed": 0,
+      "likelihood": 0.7945293982298197,
+      "n_trials": 5025
+    },
+    {
+      "subject_id": "780618",
+      "seed": 0,
+      "likelihood": 0.7526155526245513,
+      "n_trials": 5662
+    },
+    {
+      "subject_id": "812305",
+      "seed": 0,
+      "likelihood": 0.7719707840067848,
+      "n_trials": 5920
+    },
+    {
+      "subject_id": "835444",
+      "seed": 0,
+      "likelihood": 0.7864193731809694,
+      "n_trials": 6054
+    },
+    {
+      "subject_id": "766556",
+      "seed": 0,
+      "likelihood": 0.7675286661221867,
+      "n_trials": 5549
+    },
+    {
+      "subject_id": "798664",
+      "seed": 0,
+      "likelihood": 0.7516675978569258,
+      "n_trials": 4335
+    },
+    {
+      "subject_id": "819169",
+      "seed": 0,
+      "likelihood": 0.7105220138596241,
+      "n_trials": 5085
+    },
+    {
+      "subject_id": "712031",
+      "seed": 0,
+      "likelihood": 0.7142355309482032,
+      "n_trials": 3618
+    },
+    {
+      "subject_id": "838101",
+      "seed": 0,
+      "likelihood": 0.7136704991420061,
+      "n_trials": 5821
+    },
+    {
+      "subject_id": "736199",
+      "seed": 0,
+      "likelihood": 0.6995626947995408,
+      "n_trials": 4427
+    },
+    {
+      "subject_id": "765373",
+      "seed": 0,
+      "likelihood": 0.7527817269844638,
+      "n_trials": 4582
+    },
+    {
+      "subject_id": "777271",
+      "seed": 0,
+      "likelihood": 0.732984949079987,
+      "n_trials": 3901
+    },
+    {
+      "subject_id": "790726",
+      "seed": 0,
+      "likelihood": 0.7595150722685845,
+      "n_trials": 4051
+    },
+    {
+      "subject_id": "829048",
+      "seed": 0,
+      "likelihood": 0.7173442342489942,
+      "n_trials": 2891
+    },
+    {
+      "subject_id": "756567",
+      "seed": 0,
+      "likelihood": 0.7226827294540032,
+      "n_trials": 3980
+    },
+    {
+      "subject_id": "778336",
+      "seed": 0,
+      "likelihood": 0.8006424926510881,
+      "n_trials": 4919
+    },
+    {
+      "subject_id": "826160",
+      "seed": 0,
+      "likelihood": 0.8105365043905043,
+      "n_trials": 3849
+    },
+    {
+      "subject_id": "762611",
+      "seed": 0,
+      "likelihood": 0.738429497692483,
+      "n_trials": 3709
+    },
+    {
+      "subject_id": "837689",
+      "seed": 0,
+      "likelihood": 0.7637524717465832,
+      "n_trials": 3201
+    },
+    {
+      "subject_id": "850597",
+      "seed": 0,
+      "likelihood": 0.7417482174280263,
+      "n_trials": 3155
+    },
+    {
+      "subject_id": "751920",
+      "seed": 0,
+      "likelihood": 0.6942256043136928,
+      "n_trials": 2862
+    },
+    {
+      "subject_id": "774826",
+      "seed": 0,
+      "likelihood": 0.6529479871602109,
+      "n_trials": 3019
+    },
+    {
+      "subject_id": "818020",
+      "seed": 0,
+      "likelihood": 0.7331345715252257,
+      "n_trials": 2884
+    },
+    {
+      "subject_id": "747886",
+      "seed": 0,
+      "likelihood": 0.7325279218911928,
+      "n_trials": 3397
+    },
+    {
+      "subject_id": "845710",
+      "seed": 0,
+      "likelihood": 0.7770224671301844,
+      "n_trials": 3522
+    },
+    {
+      "subject_id": "751153",
+      "seed": 0,
+      "likelihood": 0.7345797562309141,
+      "n_trials": 2404
+    },
+    {
+      "subject_id": "776259",
+      "seed": 0,
+      "likelihood": 0.7209021159957022,
+      "n_trials": 3149
+    },
+    {
+      "subject_id": "814196",
+      "seed": 0,
+      "likelihood": 0.7094681486999717,
+      "n_trials": 2498
+    },
+    {
+      "subject_id": "668551",
+      "seed": 0,
+      "likelihood": 0.8536234035642073,
+      "n_trials": 13355
+    },
+    {
+      "subject_id": "790768",
+      "seed": 0,
+      "likelihood": 0.7729453821883402,
+      "n_trials": 13983
+    },
+    {
+      "subject_id": "746346",
+      "seed": 0,
+      "likelihood": 0.8183102012202849,
+      "n_trials": 9150
+    },
+    {
+      "subject_id": "727456",
+      "seed": 0,
+      "likelihood": 0.7698036481148243,
+      "n_trials": 9974
+    },
+    {
+      "subject_id": "775741",
+      "seed": 0,
+      "likelihood": 0.797792252300857,
+      "n_trials": 9805
+    },
+    {
+      "subject_id": "651554",
+      "seed": 0,
+      "likelihood": 0.7915466459218478,
+      "n_trials": 11741
+    },
+    {
+      "subject_id": "708299",
+      "seed": 0,
+      "likelihood": 0.8028956495532117,
+      "n_trials": 6721
+    },
+    {
+      "subject_id": "651475",
+      "seed": 0,
+      "likelihood": 0.8780496420652533,
+      "n_trials": 14268
+    },
+    {
+      "subject_id": "781162",
+      "seed": 0,
+      "likelihood": 0.7542168420053387,
+      "n_trials": 9002
+    },
+    {
+      "subject_id": "751765",
+      "seed": 0,
+      "likelihood": 0.6688828199244622,
+      "n_trials": 9589
+    },
+    {
+      "subject_id": "713862",
+      "seed": 0,
+      "likelihood": 0.7832211769969563,
+      "n_trials": 8382
+    },
+    {
+      "subject_id": "716324",
+      "seed": 0,
+      "likelihood": 0.7246710799241564,
+      "n_trials": 5932
+    },
+    {
+      "subject_id": "711041",
+      "seed": 0,
+      "likelihood": 0.8007877231475751,
+      "n_trials": 8076
+    },
+    {
+      "subject_id": "786234",
+      "seed": 0,
+      "likelihood": 0.7827455349994952,
+      "n_trials": 6201
+    },
+    {
+      "subject_id": "775745",
+      "seed": 0,
+      "likelihood": 0.7787186759477911,
+      "n_trials": 7881
+    },
+    {
+      "subject_id": "781369",
+      "seed": 0,
+      "likelihood": 0.8090554377295002,
+      "n_trials": 7625
+    },
+    {
+      "subject_id": "711281",
+      "seed": 0,
+      "likelihood": 0.8174546720526611,
+      "n_trials": 5144
+    },
+    {
+      "subject_id": "711039",
+      "seed": 0,
+      "likelihood": 0.788038661605922,
+      "n_trials": 6988
+    },
+    {
+      "subject_id": "761406",
+      "seed": 0,
+      "likelihood": 0.771489511197231,
+      "n_trials": 6154
+    },
+    {
+      "subject_id": "744779",
+      "seed": 0,
+      "likelihood": 0.8179986742996894,
+      "n_trials": 5981
+    },
+    {
+      "subject_id": "785951",
+      "seed": 0,
+      "likelihood": 0.7891244856924762,
+      "n_trials": 4448
+    },
+    {
+      "subject_id": "782394",
+      "seed": 0,
+      "likelihood": 0.7842671126439102,
+      "n_trials": 5624
+    },
+    {
+      "subject_id": "801996",
+      "seed": 0,
+      "likelihood": 0.7840925302232721,
+      "n_trials": 4674
+    },
+    {
+      "subject_id": "765861",
+      "seed": 0,
+      "likelihood": 0.7916174894154501,
+      "n_trials": 3882
+    },
+    {
+      "subject_id": "836657",
+      "seed": 0,
+      "likelihood": 0.8088029845094458,
+      "n_trials": 5065
+    },
+    {
+      "subject_id": "749472",
+      "seed": 0,
+      "likelihood": 0.79773285034599,
+      "n_trials": 5035
+    },
+    {
+      "subject_id": "754372",
+      "seed": 0,
+      "likelihood": 0.8149508544810691,
+      "n_trials": 2934
+    },
+    {
+      "subject_id": "836656",
+      "seed": 0,
+      "likelihood": 0.774399286507764,
+      "n_trials": 3384
+    },
+    {
+      "subject_id": "452275",
+      "seed": 1,
+      "likelihood": 0.5442237198016822,
+      "n_trials": 15105
+    },
+    {
+      "subject_id": "700708",
+      "seed": 1,
+      "likelihood": 0.7068486731575963,
+      "n_trials": 9794
+    },
+    {
+      "subject_id": "455525",
+      "seed": 1,
+      "likelihood": 0.6007987396162349,
+      "n_trials": 12888
+    },
+    {
+      "subject_id": "656489",
+      "seed": 1,
+      "likelihood": 0.6650564371176111,
+      "n_trials": 19109
+    },
+    {
+      "subject_id": "641494",
+      "seed": 1,
+      "likelihood": 0.7028588900590995,
+      "n_trials": 17536
+    },
+    {
+      "subject_id": "639875",
+      "seed": 1,
+      "likelihood": 0.7335749040155314,
+      "n_trials": 14822
+    },
+    {
+      "subject_id": "472184",
+      "seed": 1,
+      "likelihood": 0.5838953706409129,
+      "n_trials": 16372
+    },
+    {
+      "subject_id": "643773",
+      "seed": 1,
+      "likelihood": 0.6583450164756574,
+      "n_trials": 16103
+    },
+    {
+      "subject_id": "659778",
+      "seed": 1,
+      "likelihood": 0.6302583921301425,
+      "n_trials": 7508
+    },
+    {
+      "subject_id": "627042",
+      "seed": 1,
+      "likelihood": 0.6441119256644141,
+      "n_trials": 11816
+    },
+    {
+      "subject_id": "684039",
+      "seed": 1,
+      "likelihood": 0.7482945818129856,
+      "n_trials": 4466
+    },
+    {
+      "subject_id": "453476",
+      "seed": 1,
+      "likelihood": 0.6041604373693548,
+      "n_trials": 8433
+    },
+    {
+      "subject_id": "453478",
+      "seed": 1,
+      "likelihood": 0.6241347544648244,
+      "n_trials": 6232
+    },
+    {
+      "subject_id": "699982",
+      "seed": 1,
+      "likelihood": 0.7922538688515159,
+      "n_trials": 4747
+    },
+    {
+      "subject_id": "663373",
+      "seed": 1,
+      "likelihood": 0.7696831546987971,
+      "n_trials": 7292
+    },
+    {
+      "subject_id": "616134",
+      "seed": 1,
+      "likelihood": 0.6156857356000796,
+      "n_trials": 5885
+    },
+    {
+      "subject_id": "722989",
+      "seed": 1,
+      "likelihood": 0.6171774523431794,
+      "n_trials": 3818
+    },
+    {
+      "subject_id": "494693",
+      "seed": 1,
+      "likelihood": 0.5775286868465949,
+      "n_trials": 4633
+    },
+    {
+      "subject_id": "673396",
+      "seed": 1,
+      "likelihood": 0.6572400893681449,
+      "n_trials": 4336
+    },
+    {
+      "subject_id": "648586",
+      "seed": 1,
+      "likelihood": 0.7670292359453481,
+      "n_trials": 6423
+    },
+    {
+      "subject_id": "682342",
+      "seed": 1,
+      "likelihood": 0.7092309221916168,
+      "n_trials": 2152
+    },
+    {
+      "subject_id": "697929",
+      "seed": 1,
+      "likelihood": 0.6319851818032638,
+      "n_trials": 3263
+    },
+    {
+      "subject_id": "671245",
+      "seed": 1,
+      "likelihood": 0.7135021672077273,
+      "n_trials": 1874
+    },
+    {
+      "subject_id": "697930",
+      "seed": 1,
+      "likelihood": 0.7658211028523316,
+      "n_trials": 1441
+    },
+    {
+      "subject_id": "637701",
+      "seed": 1,
+      "likelihood": 0.5704939221117482,
+      "n_trials": 4197
+    },
+    {
+      "subject_id": "710414",
+      "seed": 1,
+      "likelihood": 0.7792656241548036,
+      "n_trials": 2770
+    },
+    {
+      "subject_id": "655100",
+      "seed": 1,
+      "likelihood": 0.6429479627605671,
+      "n_trials": 2031
+    },
+    {
+      "subject_id": "652743",
+      "seed": 1,
+      "likelihood": 0.7098814182174799,
+      "n_trials": 3315
+    },
+    {
+      "subject_id": "713379",
+      "seed": 1,
+      "likelihood": 0.6234405538067648,
+      "n_trials": 14940
+    },
+    {
+      "subject_id": "791174",
+      "seed": 1,
+      "likelihood": 0.7129896253771313,
+      "n_trials": 17414
+    },
+    {
+      "subject_id": "765365",
+      "seed": 1,
+      "likelihood": 0.7640354622498844,
+      "n_trials": 9736
+    },
+    {
+      "subject_id": "808584",
+      "seed": 1,
+      "likelihood": 0.7223157168764539,
+      "n_trials": 9454
+    },
+    {
+      "subject_id": "813992",
+      "seed": 1,
+      "likelihood": 0.7907012366301321,
+      "n_trials": 8630
+    },
+    {
+      "subject_id": "823166",
+      "seed": 1,
+      "likelihood": 0.6898441297108608,
+      "n_trials": 11818
+    },
+    {
+      "subject_id": "780621",
+      "seed": 1,
+      "likelihood": 0.7619035747809642,
+      "n_trials": 9680
+    },
+    {
+      "subject_id": "815334",
+      "seed": 1,
+      "likelihood": 0.6810168128180363,
+      "n_trials": 8891
+    },
+    {
+      "subject_id": "788733",
+      "seed": 1,
+      "likelihood": 0.8005927280050638,
+      "n_trials": 8903
+    },
+    {
+      "subject_id": "810756",
+      "seed": 1,
+      "likelihood": 0.7454474057059537,
+      "n_trials": 10320
+    },
+    {
+      "subject_id": "829489",
+      "seed": 1,
+      "likelihood": 0.6794058928433662,
+      "n_trials": 8190
+    },
+    {
+      "subject_id": "821576",
+      "seed": 1,
+      "likelihood": 0.7541145309598662,
+      "n_trials": 9932
+    },
+    {
+      "subject_id": "818908",
+      "seed": 1,
+      "likelihood": 0.6402896192624977,
+      "n_trials": 6148
+    },
+    {
+      "subject_id": "766998",
+      "seed": 1,
+      "likelihood": 0.7360551804593592,
+      "n_trials": 9319
+    },
+    {
+      "subject_id": "788732",
+      "seed": 1,
+      "likelihood": 0.8252985538531068,
+      "n_trials": 10471
+    },
+    {
+      "subject_id": "813167",
+      "seed": 1,
+      "likelihood": 0.800933406583583,
+      "n_trials": 7256
+    },
+    {
+      "subject_id": "767463",
+      "seed": 1,
+      "likelihood": 0.7120309234113983,
+      "n_trials": 7958
+    },
+    {
+      "subject_id": "793397",
+      "seed": 1,
+      "likelihood": 0.7444185866513761,
+      "n_trials": 9399
+    },
+    {
+      "subject_id": "809488",
+      "seed": 1,
+      "likelihood": 0.7391760826979111,
+      "n_trials": 7631
+    },
+    {
+      "subject_id": "721403",
+      "seed": 1,
+      "likelihood": 0.7782048913483642,
+      "n_trials": 6251
+    },
+    {
+      "subject_id": "781897",
+      "seed": 1,
+      "likelihood": 0.7065369887754216,
+      "n_trials": 7821
+    },
+    {
+      "subject_id": "800175",
+      "seed": 1,
+      "likelihood": 0.7397895918901042,
+      "n_trials": 8720
+    },
+    {
+      "subject_id": "818585",
+      "seed": 1,
+      "likelihood": 0.7918858866717061,
+      "n_trials": 8742
+    },
+    {
+      "subject_id": "784956",
+      "seed": 1,
+      "likelihood": 0.7761567194809693,
+      "n_trials": 6589
+    },
+    {
+      "subject_id": "765232",
+      "seed": 1,
+      "likelihood": 0.6657741378855194,
+      "n_trials": 7208
+    },
+    {
+      "subject_id": "797673",
+      "seed": 1,
+      "likelihood": 0.706631856465046,
+      "n_trials": 5448
+    },
+    {
+      "subject_id": "813171",
+      "seed": 1,
+      "likelihood": 0.7467300263571738,
+      "n_trials": 5443
+    },
+    {
+      "subject_id": "722683",
+      "seed": 1,
+      "likelihood": 0.6763039287487688,
+      "n_trials": 4062
+    },
+    {
+      "subject_id": "795395",
+      "seed": 1,
+      "likelihood": 0.7677007599305951,
+      "n_trials": 9134
+    },
+    {
+      "subject_id": "820243",
+      "seed": 1,
+      "likelihood": 0.8044419880375813,
+      "n_trials": 5882
+    },
+    {
+      "subject_id": "763704",
+      "seed": 1,
+      "likelihood": 0.584461537207635,
+      "n_trials": 6562
+    },
+    {
+      "subject_id": "778103",
+      "seed": 1,
+      "likelihood": 0.687638391113383,
+      "n_trials": 6208
+    },
+    {
+      "subject_id": "812307",
+      "seed": 1,
+      "likelihood": 0.7644233661031751,
+      "n_trials": 8261
+    },
+    {
+      "subject_id": "726649",
+      "seed": 1,
+      "likelihood": 0.7048956027393175,
+      "n_trials": 4097
+    },
+    {
+      "subject_id": "757214",
+      "seed": 1,
+      "likelihood": 0.6598201041114834,
+      "n_trials": 5987
+    },
+    {
+      "subject_id": "814147",
+      "seed": 1,
+      "likelihood": 0.7630774481588659,
+      "n_trials": 5947
+    },
+    {
+      "subject_id": "841356",
+      "seed": 1,
+      "likelihood": 0.7217865235276143,
+      "n_trials": 7456
+    },
+    {
+      "subject_id": "781896",
+      "seed": 1,
+      "likelihood": 0.7947680727377685,
+      "n_trials": 7995
+    },
+    {
+      "subject_id": "841599",
+      "seed": 1,
+      "likelihood": 0.7856734889606682,
+      "n_trials": 7082
+    },
+    {
+      "subject_id": "745505",
+      "seed": 1,
+      "likelihood": 0.6851375797777289,
+      "n_trials": 5686
+    },
+    {
+      "subject_id": "764693",
+      "seed": 1,
+      "likelihood": 0.6461221765162789,
+      "n_trials": 6538
+    },
+    {
+      "subject_id": "777098",
+      "seed": 1,
+      "likelihood": 0.7310277300734596,
+      "n_trials": 4717
+    },
+    {
+      "subject_id": "807885",
+      "seed": 1,
+      "likelihood": 0.6932827071878718,
+      "n_trials": 5589
+    },
+    {
+      "subject_id": "841363",
+      "seed": 1,
+      "likelihood": 0.739903286348862,
+      "n_trials": 6966
+    },
+    {
+      "subject_id": "769359",
+      "seed": 1,
+      "likelihood": 0.8054003010591705,
+      "n_trials": 4962
+    },
+    {
+      "subject_id": "802292",
+      "seed": 1,
+      "likelihood": 0.730918445944547,
+      "n_trials": 7885
+    },
+    {
+      "subject_id": "835178",
+      "seed": 1,
+      "likelihood": 0.7438176482648192,
+      "n_trials": 3968
+    },
+    {
+      "subject_id": "770803",
+      "seed": 1,
+      "likelihood": 0.6891654137657348,
+      "n_trials": 6626
+    },
+    {
+      "subject_id": "790584",
+      "seed": 1,
+      "likelihood": 0.7767914977366629,
+      "n_trials": 7492
+    },
+    {
+      "subject_id": "810758",
+      "seed": 1,
+      "likelihood": 0.811147505715652,
+      "n_trials": 6453
+    },
+    {
+      "subject_id": "839483",
+      "seed": 1,
+      "likelihood": 0.7372933516896282,
+      "n_trials": 6628
+    },
+    {
+      "subject_id": "798520",
+      "seed": 1,
+      "likelihood": 0.7286473234690645,
+      "n_trials": 5980
+    },
+    {
+      "subject_id": "832634",
+      "seed": 1,
+      "likelihood": 0.7433811378622358,
+      "n_trials": 4690
+    },
+    {
+      "subject_id": "767462",
+      "seed": 1,
+      "likelihood": 0.7866368125313514,
+      "n_trials": 7048
+    },
+    {
+      "subject_id": "777027",
+      "seed": 1,
+      "likelihood": 0.6423529159192607,
+      "n_trials": 5490
+    },
+    {
+      "subject_id": "813165",
+      "seed": 1,
+      "likelihood": 0.7456018761812604,
+      "n_trials": 5287
+    },
+    {
+      "subject_id": "823161",
+      "seed": 1,
+      "likelihood": 0.7801567377815097,
+      "n_trials": 6478
+    },
+    {
+      "subject_id": "711254",
+      "seed": 1,
+      "likelihood": 0.823493507433975,
+      "n_trials": 4229
+    },
+    {
+      "subject_id": "802953",
+      "seed": 1,
+      "likelihood": 0.7751406974407733,
+      "n_trials": 4247
+    },
+    {
+      "subject_id": "823163",
+      "seed": 1,
+      "likelihood": 0.7361928167734059,
+      "n_trials": 6765
+    },
+    {
+      "subject_id": "838332",
+      "seed": 1,
+      "likelihood": 0.816238987701734,
+      "n_trials": 6039
+    },
+    {
+      "subject_id": "736198",
+      "seed": 1,
+      "likelihood": 0.7054991106153191,
+      "n_trials": 5224
+    },
+    {
+      "subject_id": "787625",
+      "seed": 1,
+      "likelihood": 0.7237908808412922,
+      "n_trials": 3903
+    },
+    {
+      "subject_id": "805496",
+      "seed": 1,
+      "likelihood": 0.6929062781920138,
+      "n_trials": 5469
+    },
+    {
+      "subject_id": "829569",
+      "seed": 1,
+      "likelihood": 0.6579647423308552,
+      "n_trials": 5000
+    },
+    {
+      "subject_id": "753122",
+      "seed": 1,
+      "likelihood": 0.7940745658346796,
+      "n_trials": 5025
+    },
+    {
+      "subject_id": "780618",
+      "seed": 1,
+      "likelihood": 0.7525053116364334,
+      "n_trials": 5662
+    },
+    {
+      "subject_id": "812305",
+      "seed": 1,
+      "likelihood": 0.7723739605330879,
+      "n_trials": 5920
+    },
+    {
+      "subject_id": "835444",
+      "seed": 1,
+      "likelihood": 0.7872397953253764,
+      "n_trials": 6054
+    },
+    {
+      "subject_id": "766556",
+      "seed": 1,
+      "likelihood": 0.7673306688694428,
+      "n_trials": 5549
+    },
+    {
+      "subject_id": "798664",
+      "seed": 1,
+      "likelihood": 0.7529308075691548,
+      "n_trials": 4335
+    },
+    {
+      "subject_id": "819169",
+      "seed": 1,
+      "likelihood": 0.71073757424797,
+      "n_trials": 5085
+    },
+    {
+      "subject_id": "712031",
+      "seed": 1,
+      "likelihood": 0.7140822657481158,
+      "n_trials": 3618
+    },
+    {
+      "subject_id": "838101",
+      "seed": 1,
+      "likelihood": 0.7113068554836693,
+      "n_trials": 5821
+    },
+    {
+      "subject_id": "736199",
+      "seed": 1,
+      "likelihood": 0.6989642182643717,
+      "n_trials": 4427
+    },
+    {
+      "subject_id": "765373",
+      "seed": 1,
+      "likelihood": 0.7531434405805141,
+      "n_trials": 4582
+    },
+    {
+      "subject_id": "777271",
+      "seed": 1,
+      "likelihood": 0.7319847568202289,
+      "n_trials": 3901
+    },
+    {
+      "subject_id": "790726",
+      "seed": 1,
+      "likelihood": 0.7593187102240745,
+      "n_trials": 4051
+    },
+    {
+      "subject_id": "829048",
+      "seed": 1,
+      "likelihood": 0.7177093439243871,
+      "n_trials": 2891
+    },
+    {
+      "subject_id": "756567",
+      "seed": 1,
+      "likelihood": 0.722339441677997,
+      "n_trials": 3980
+    },
+    {
+      "subject_id": "778336",
+      "seed": 1,
+      "likelihood": 0.8009995339615393,
+      "n_trials": 4919
+    },
+    {
+      "subject_id": "826160",
+      "seed": 1,
+      "likelihood": 0.8105822975027299,
+      "n_trials": 3849
+    },
+    {
+      "subject_id": "762611",
+      "seed": 1,
+      "likelihood": 0.7393950253454611,
+      "n_trials": 3709
+    },
+    {
+      "subject_id": "837689",
+      "seed": 1,
+      "likelihood": 0.7640789045758645,
+      "n_trials": 3201
+    },
+    {
+      "subject_id": "850597",
+      "seed": 1,
+      "likelihood": 0.7413789257511227,
+      "n_trials": 3155
+    },
+    {
+      "subject_id": "751920",
+      "seed": 1,
+      "likelihood": 0.6927314854061024,
+      "n_trials": 2862
+    },
+    {
+      "subject_id": "774826",
+      "seed": 1,
+      "likelihood": 0.6534585669507883,
+      "n_trials": 3019
+    },
+    {
+      "subject_id": "818020",
+      "seed": 1,
+      "likelihood": 0.7335619849120988,
+      "n_trials": 2884
+    },
+    {
+      "subject_id": "747886",
+      "seed": 1,
+      "likelihood": 0.7325347299100268,
+      "n_trials": 3397
+    },
+    {
+      "subject_id": "845710",
+      "seed": 1,
+      "likelihood": 0.7773040717177196,
+      "n_trials": 3522
+    },
+    {
+      "subject_id": "751153",
+      "seed": 1,
+      "likelihood": 0.735334822078414,
+      "n_trials": 2404
+    },
+    {
+      "subject_id": "776259",
+      "seed": 1,
+      "likelihood": 0.7201915453171535,
+      "n_trials": 3149
+    },
+    {
+      "subject_id": "814196",
+      "seed": 1,
+      "likelihood": 0.7096498316592265,
+      "n_trials": 2498
+    },
+    {
+      "subject_id": "668551",
+      "seed": 1,
+      "likelihood": 0.8539692267612906,
+      "n_trials": 13355
+    },
+    {
+      "subject_id": "790768",
+      "seed": 1,
+      "likelihood": 0.7729014594854914,
+      "n_trials": 13983
+    },
+    {
+      "subject_id": "746346",
+      "seed": 1,
+      "likelihood": 0.8182759575511768,
+      "n_trials": 9150
+    },
+    {
+      "subject_id": "727456",
+      "seed": 1,
+      "likelihood": 0.7692716756629637,
+      "n_trials": 9974
+    },
+    {
+      "subject_id": "775741",
+      "seed": 1,
+      "likelihood": 0.7979221039673214,
+      "n_trials": 9805
+    },
+    {
+      "subject_id": "651554",
+      "seed": 1,
+      "likelihood": 0.7918311752265006,
+      "n_trials": 11741
+    },
+    {
+      "subject_id": "708299",
+      "seed": 1,
+      "likelihood": 0.803172765784404,
+      "n_trials": 6721
+    },
+    {
+      "subject_id": "651475",
+      "seed": 1,
+      "likelihood": 0.8792311376078079,
+      "n_trials": 14268
+    },
+    {
+      "subject_id": "781162",
+      "seed": 1,
+      "likelihood": 0.754326423490994,
+      "n_trials": 9002
+    },
+    {
+      "subject_id": "751765",
+      "seed": 1,
+      "likelihood": 0.6692202105380936,
+      "n_trials": 9589
+    },
+    {
+      "subject_id": "713862",
+      "seed": 1,
+      "likelihood": 0.7821125003537387,
+      "n_trials": 8382
+    },
+    {
+      "subject_id": "716324",
+      "seed": 1,
+      "likelihood": 0.7248618365422805,
+      "n_trials": 5932
+    },
+    {
+      "subject_id": "711041",
+      "seed": 1,
+      "likelihood": 0.8003117194263262,
+      "n_trials": 8076
+    },
+    {
+      "subject_id": "786234",
+      "seed": 1,
+      "likelihood": 0.7833007238842371,
+      "n_trials": 6201
+    },
+    {
+      "subject_id": "775745",
+      "seed": 1,
+      "likelihood": 0.7789805747625664,
+      "n_trials": 7881
+    },
+    {
+      "subject_id": "781369",
+      "seed": 1,
+      "likelihood": 0.8088543637358419,
+      "n_trials": 7625
+    },
+    {
+      "subject_id": "711281",
+      "seed": 1,
+      "likelihood": 0.8172024021143537,
+      "n_trials": 5144
+    },
+    {
+      "subject_id": "711039",
+      "seed": 1,
+      "likelihood": 0.7880088731456093,
+      "n_trials": 6988
+    },
+    {
+      "subject_id": "761406",
+      "seed": 1,
+      "likelihood": 0.7715636909441778,
+      "n_trials": 6154
+    },
+    {
+      "subject_id": "744779",
+      "seed": 1,
+      "likelihood": 0.8178465516399935,
+      "n_trials": 5981
+    },
+    {
+      "subject_id": "785951",
+      "seed": 1,
+      "likelihood": 0.7890475182081955,
+      "n_trials": 4448
+    },
+    {
+      "subject_id": "782394",
+      "seed": 1,
+      "likelihood": 0.7849966660371375,
+      "n_trials": 5624
+    },
+    {
+      "subject_id": "801996",
+      "seed": 1,
+      "likelihood": 0.7832684106047386,
+      "n_trials": 4674
+    },
+    {
+      "subject_id": "765861",
+      "seed": 1,
+      "likelihood": 0.7929582562052769,
+      "n_trials": 3882
+    },
+    {
+      "subject_id": "836657",
+      "seed": 1,
+      "likelihood": 0.8089366029315584,
+      "n_trials": 5065
+    },
+    {
+      "subject_id": "749472",
+      "seed": 1,
+      "likelihood": 0.7970185453086747,
+      "n_trials": 5035
+    },
+    {
+      "subject_id": "754372",
+      "seed": 1,
+      "likelihood": 0.8141163889665438,
+      "n_trials": 2934
+    },
+    {
+      "subject_id": "836656",
+      "seed": 1,
+      "likelihood": 0.7743272844819258,
+      "n_trials": 3384
+    },
+    {
+      "subject_id": "452275",
+      "seed": 2,
+      "likelihood": 0.5446181212138538,
+      "n_trials": 15105
+    },
+    {
+      "subject_id": "700708",
+      "seed": 2,
+      "likelihood": 0.7064084425837783,
+      "n_trials": 9794
+    },
+    {
+      "subject_id": "455525",
+      "seed": 2,
+      "likelihood": 0.6002122993227613,
+      "n_trials": 12888
+    },
+    {
+      "subject_id": "656489",
+      "seed": 2,
+      "likelihood": 0.6639631035466292,
+      "n_trials": 19109
+    },
+    {
+      "subject_id": "641494",
+      "seed": 2,
+      "likelihood": 0.7016833526799778,
+      "n_trials": 17536
+    },
+    {
+      "subject_id": "639875",
+      "seed": 2,
+      "likelihood": 0.734135498863835,
+      "n_trials": 14822
+    },
+    {
+      "subject_id": "472184",
+      "seed": 2,
+      "likelihood": 0.5831927226297527,
+      "n_trials": 16372
+    },
+    {
+      "subject_id": "643773",
+      "seed": 2,
+      "likelihood": 0.6578196168748133,
+      "n_trials": 16103
+    },
+    {
+      "subject_id": "659778",
+      "seed": 2,
+      "likelihood": 0.6305107547836657,
+      "n_trials": 7508
+    },
+    {
+      "subject_id": "627042",
+      "seed": 2,
+      "likelihood": 0.6424568928638337,
+      "n_trials": 11816
+    },
+    {
+      "subject_id": "684039",
+      "seed": 2,
+      "likelihood": 0.7470347708493361,
+      "n_trials": 4466
+    },
+    {
+      "subject_id": "453476",
+      "seed": 2,
+      "likelihood": 0.6046535138460892,
+      "n_trials": 8433
+    },
+    {
+      "subject_id": "453478",
+      "seed": 2,
+      "likelihood": 0.6243227282506099,
+      "n_trials": 6232
+    },
+    {
+      "subject_id": "699982",
+      "seed": 2,
+      "likelihood": 0.7924106291931334,
+      "n_trials": 4747
+    },
+    {
+      "subject_id": "663373",
+      "seed": 2,
+      "likelihood": 0.7704941149421516,
+      "n_trials": 7292
+    },
+    {
+      "subject_id": "616134",
+      "seed": 2,
+      "likelihood": 0.6150777912653793,
+      "n_trials": 5885
+    },
+    {
+      "subject_id": "722989",
+      "seed": 2,
+      "likelihood": 0.615800007702442,
+      "n_trials": 3818
+    },
+    {
+      "subject_id": "494693",
+      "seed": 2,
+      "likelihood": 0.5769142415004904,
+      "n_trials": 4633
+    },
+    {
+      "subject_id": "673396",
+      "seed": 2,
+      "likelihood": 0.6568302182105586,
+      "n_trials": 4336
+    },
+    {
+      "subject_id": "648586",
+      "seed": 2,
+      "likelihood": 0.7670608601089628,
+      "n_trials": 6423
+    },
+    {
+      "subject_id": "682342",
+      "seed": 2,
+      "likelihood": 0.7099409210087629,
+      "n_trials": 2152
+    },
+    {
+      "subject_id": "697929",
+      "seed": 2,
+      "likelihood": 0.6312444767683845,
+      "n_trials": 3263
+    },
+    {
+      "subject_id": "671245",
+      "seed": 2,
+      "likelihood": 0.7145013117468798,
+      "n_trials": 1874
+    },
+    {
+      "subject_id": "697930",
+      "seed": 2,
+      "likelihood": 0.7646729523343889,
+      "n_trials": 1441
+    },
+    {
+      "subject_id": "637701",
+      "seed": 2,
+      "likelihood": 0.5707677194895505,
+      "n_trials": 4197
+    },
+    {
+      "subject_id": "710414",
+      "seed": 2,
+      "likelihood": 0.7799265686838588,
+      "n_trials": 2770
+    },
+    {
+      "subject_id": "655100",
+      "seed": 2,
+      "likelihood": 0.6442505337545059,
+      "n_trials": 2031
+    },
+    {
+      "subject_id": "652743",
+      "seed": 2,
+      "likelihood": 0.7088767677519264,
+      "n_trials": 3315
+    },
+    {
+      "subject_id": "713379",
+      "seed": 2,
+      "likelihood": 0.6229150227401734,
+      "n_trials": 14940
+    },
+    {
+      "subject_id": "791174",
+      "seed": 2,
+      "likelihood": 0.7126167649332602,
+      "n_trials": 17414
+    },
+    {
+      "subject_id": "765365",
+      "seed": 2,
+      "likelihood": 0.7640960696832169,
+      "n_trials": 9736
+    },
+    {
+      "subject_id": "808584",
+      "seed": 2,
+      "likelihood": 0.7222736666502861,
+      "n_trials": 9454
+    },
+    {
+      "subject_id": "813992",
+      "seed": 2,
+      "likelihood": 0.7904028463577009,
+      "n_trials": 8630
+    },
+    {
+      "subject_id": "823166",
+      "seed": 2,
+      "likelihood": 0.688844448680212,
+      "n_trials": 11818
+    },
+    {
+      "subject_id": "780621",
+      "seed": 2,
+      "likelihood": 0.7614477568277365,
+      "n_trials": 9680
+    },
+    {
+      "subject_id": "815334",
+      "seed": 2,
+      "likelihood": 0.681585720373269,
+      "n_trials": 8891
+    },
+    {
+      "subject_id": "788733",
+      "seed": 2,
+      "likelihood": 0.8005458557344675,
+      "n_trials": 8903
+    },
+    {
+      "subject_id": "810756",
+      "seed": 2,
+      "likelihood": 0.7453582820082569,
+      "n_trials": 10320
+    },
+    {
+      "subject_id": "829489",
+      "seed": 2,
+      "likelihood": 0.6793295824236705,
+      "n_trials": 8190
+    },
+    {
+      "subject_id": "821576",
+      "seed": 2,
+      "likelihood": 0.7541832216258644,
+      "n_trials": 9932
+    },
+    {
+      "subject_id": "818908",
+      "seed": 2,
+      "likelihood": 0.6395006864781968,
+      "n_trials": 6148
+    },
+    {
+      "subject_id": "766998",
+      "seed": 2,
+      "likelihood": 0.7355408620029293,
+      "n_trials": 9319
+    },
+    {
+      "subject_id": "788732",
+      "seed": 2,
+      "likelihood": 0.8255496994847538,
+      "n_trials": 10471
+    },
+    {
+      "subject_id": "813167",
+      "seed": 2,
+      "likelihood": 0.8006846303577606,
+      "n_trials": 7256
+    },
+    {
+      "subject_id": "767463",
+      "seed": 2,
+      "likelihood": 0.7125589975235228,
+      "n_trials": 7958
+    },
+    {
+      "subject_id": "793397",
+      "seed": 2,
+      "likelihood": 0.7435330603538717,
+      "n_trials": 9399
+    },
+    {
+      "subject_id": "809488",
+      "seed": 2,
+      "likelihood": 0.7383412641993593,
+      "n_trials": 7631
+    },
+    {
+      "subject_id": "721403",
+      "seed": 2,
+      "likelihood": 0.7772463154828956,
+      "n_trials": 6251
+    },
+    {
+      "subject_id": "781897",
+      "seed": 2,
+      "likelihood": 0.7063662533084035,
+      "n_trials": 7821
+    },
+    {
+      "subject_id": "800175",
+      "seed": 2,
+      "likelihood": 0.7393950512997824,
+      "n_trials": 8720
+    },
+    {
+      "subject_id": "818585",
+      "seed": 2,
+      "likelihood": 0.7916041706296101,
+      "n_trials": 8742
+    },
+    {
+      "subject_id": "784956",
+      "seed": 2,
+      "likelihood": 0.7752846535721902,
+      "n_trials": 6589
+    },
+    {
+      "subject_id": "765232",
+      "seed": 2,
+      "likelihood": 0.6660680250572661,
+      "n_trials": 7208
+    },
+    {
+      "subject_id": "797673",
+      "seed": 2,
+      "likelihood": 0.7064945816745491,
+      "n_trials": 5448
+    },
+    {
+      "subject_id": "813171",
+      "seed": 2,
+      "likelihood": 0.7462572517050396,
+      "n_trials": 5443
+    },
+    {
+      "subject_id": "722683",
+      "seed": 2,
+      "likelihood": 0.6750734257395891,
+      "n_trials": 4062
+    },
+    {
+      "subject_id": "795395",
+      "seed": 2,
+      "likelihood": 0.7675686255175446,
+      "n_trials": 9134
+    },
+    {
+      "subject_id": "820243",
+      "seed": 2,
+      "likelihood": 0.8042844901220392,
+      "n_trials": 5882
+    },
+    {
+      "subject_id": "763704",
+      "seed": 2,
+      "likelihood": 0.5844925995793651,
+      "n_trials": 6562
+    },
+    {
+      "subject_id": "778103",
+      "seed": 2,
+      "likelihood": 0.6874799648766067,
+      "n_trials": 6208
+    },
+    {
+      "subject_id": "812307",
+      "seed": 2,
+      "likelihood": 0.7646345564858881,
+      "n_trials": 8261
+    },
+    {
+      "subject_id": "726649",
+      "seed": 2,
+      "likelihood": 0.7047604051525651,
+      "n_trials": 4097
+    },
+    {
+      "subject_id": "757214",
+      "seed": 2,
+      "likelihood": 0.6599480696572748,
+      "n_trials": 5987
+    },
+    {
+      "subject_id": "814147",
+      "seed": 2,
+      "likelihood": 0.7634931708846445,
+      "n_trials": 5947
+    },
+    {
+      "subject_id": "841356",
+      "seed": 2,
+      "likelihood": 0.7214803133415844,
+      "n_trials": 7456
+    },
+    {
+      "subject_id": "781896",
+      "seed": 2,
+      "likelihood": 0.7941445418169658,
+      "n_trials": 7995
+    },
+    {
+      "subject_id": "841599",
+      "seed": 2,
+      "likelihood": 0.7853514398668857,
+      "n_trials": 7082
+    },
+    {
+      "subject_id": "745505",
+      "seed": 2,
+      "likelihood": 0.684506342549198,
+      "n_trials": 5686
+    },
+    {
+      "subject_id": "764693",
+      "seed": 2,
+      "likelihood": 0.6465714260087398,
+      "n_trials": 6538
+    },
+    {
+      "subject_id": "777098",
+      "seed": 2,
+      "likelihood": 0.7308226763929866,
+      "n_trials": 4717
+    },
+    {
+      "subject_id": "807885",
+      "seed": 2,
+      "likelihood": 0.693816011176157,
+      "n_trials": 5589
+    },
+    {
+      "subject_id": "841363",
+      "seed": 2,
+      "likelihood": 0.7400244869595125,
+      "n_trials": 6966
+    },
+    {
+      "subject_id": "769359",
+      "seed": 2,
+      "likelihood": 0.805831188618057,
+      "n_trials": 4962
+    },
+    {
+      "subject_id": "802292",
+      "seed": 2,
+      "likelihood": 0.7309129119994474,
+      "n_trials": 7885
+    },
+    {
+      "subject_id": "835178",
+      "seed": 2,
+      "likelihood": 0.7428349324669672,
+      "n_trials": 3968
+    },
+    {
+      "subject_id": "770803",
+      "seed": 2,
+      "likelihood": 0.6874261809281784,
+      "n_trials": 6626
+    },
+    {
+      "subject_id": "790584",
+      "seed": 2,
+      "likelihood": 0.7769887167513578,
+      "n_trials": 7492
+    },
+    {
+      "subject_id": "810758",
+      "seed": 2,
+      "likelihood": 0.8117036102230913,
+      "n_trials": 6453
+    },
+    {
+      "subject_id": "839483",
+      "seed": 2,
+      "likelihood": 0.7378318428885157,
+      "n_trials": 6628
+    },
+    {
+      "subject_id": "798520",
+      "seed": 2,
+      "likelihood": 0.7281285570708596,
+      "n_trials": 5980
+    },
+    {
+      "subject_id": "832634",
+      "seed": 2,
+      "likelihood": 0.7423964286602632,
+      "n_trials": 4690
+    },
+    {
+      "subject_id": "767462",
+      "seed": 2,
+      "likelihood": 0.7880811810540862,
+      "n_trials": 7048
+    },
+    {
+      "subject_id": "777027",
+      "seed": 2,
+      "likelihood": 0.6429434157028767,
+      "n_trials": 5490
+    },
+    {
+      "subject_id": "813165",
+      "seed": 2,
+      "likelihood": 0.7458687178903344,
+      "n_trials": 5287
+    },
+    {
+      "subject_id": "823161",
+      "seed": 2,
+      "likelihood": 0.7786586310118044,
+      "n_trials": 6478
+    },
+    {
+      "subject_id": "711254",
+      "seed": 2,
+      "likelihood": 0.8242102098837102,
+      "n_trials": 4229
+    },
+    {
+      "subject_id": "802953",
+      "seed": 2,
+      "likelihood": 0.7752785608043672,
+      "n_trials": 4247
+    },
+    {
+      "subject_id": "823163",
+      "seed": 2,
+      "likelihood": 0.7362488206265843,
+      "n_trials": 6765
+    },
+    {
+      "subject_id": "838332",
+      "seed": 2,
+      "likelihood": 0.81593480925452,
+      "n_trials": 6039
+    },
+    {
+      "subject_id": "736198",
+      "seed": 2,
+      "likelihood": 0.7059194851285466,
+      "n_trials": 5224
+    },
+    {
+      "subject_id": "787625",
+      "seed": 2,
+      "likelihood": 0.7243879928294767,
+      "n_trials": 3903
+    },
+    {
+      "subject_id": "805496",
+      "seed": 2,
+      "likelihood": 0.6929900176321866,
+      "n_trials": 5469
+    },
+    {
+      "subject_id": "829569",
+      "seed": 2,
+      "likelihood": 0.658339866127493,
+      "n_trials": 5000
+    },
+    {
+      "subject_id": "753122",
+      "seed": 2,
+      "likelihood": 0.7934466078647139,
+      "n_trials": 5025
+    },
+    {
+      "subject_id": "780618",
+      "seed": 2,
+      "likelihood": 0.7517039820625476,
+      "n_trials": 5662
+    },
+    {
+      "subject_id": "812305",
+      "seed": 2,
+      "likelihood": 0.7723024180963395,
+      "n_trials": 5920
+    },
+    {
+      "subject_id": "835444",
+      "seed": 2,
+      "likelihood": 0.7869829212185689,
+      "n_trials": 6054
+    },
+    {
+      "subject_id": "766556",
+      "seed": 2,
+      "likelihood": 0.7667655735250493,
+      "n_trials": 5549
+    },
+    {
+      "subject_id": "798664",
+      "seed": 2,
+      "likelihood": 0.7519805433560403,
+      "n_trials": 4335
+    },
+    {
+      "subject_id": "819169",
+      "seed": 2,
+      "likelihood": 0.7087155454598287,
+      "n_trials": 5085
+    },
+    {
+      "subject_id": "712031",
+      "seed": 2,
+      "likelihood": 0.7149272481358854,
+      "n_trials": 3618
+    },
+    {
+      "subject_id": "838101",
+      "seed": 2,
+      "likelihood": 0.7116575606461596,
+      "n_trials": 5821
+    },
+    {
+      "subject_id": "736199",
+      "seed": 2,
+      "likelihood": 0.6996271442993043,
+      "n_trials": 4427
+    },
+    {
+      "subject_id": "765373",
+      "seed": 2,
+      "likelihood": 0.7528997253973464,
+      "n_trials": 4582
+    },
+    {
+      "subject_id": "777271",
+      "seed": 2,
+      "likelihood": 0.7319023238905864,
+      "n_trials": 3901
+    },
+    {
+      "subject_id": "790726",
+      "seed": 2,
+      "likelihood": 0.7592926425874004,
+      "n_trials": 4051
+    },
+    {
+      "subject_id": "829048",
+      "seed": 2,
+      "likelihood": 0.7182512404821446,
+      "n_trials": 2891
+    },
+    {
+      "subject_id": "756567",
+      "seed": 2,
+      "likelihood": 0.7225380573176188,
+      "n_trials": 3980
+    },
+    {
+      "subject_id": "778336",
+      "seed": 2,
+      "likelihood": 0.8013786192768421,
+      "n_trials": 4919
+    },
+    {
+      "subject_id": "826160",
+      "seed": 2,
+      "likelihood": 0.8102264158413269,
+      "n_trials": 3849
+    },
+    {
+      "subject_id": "762611",
+      "seed": 2,
+      "likelihood": 0.7390946377875335,
+      "n_trials": 3709
+    },
+    {
+      "subject_id": "837689",
+      "seed": 2,
+      "likelihood": 0.7641850428349886,
+      "n_trials": 3201
+    },
+    {
+      "subject_id": "850597",
+      "seed": 2,
+      "likelihood": 0.7413526779522644,
+      "n_trials": 3155
+    },
+    {
+      "subject_id": "751920",
+      "seed": 2,
+      "likelihood": 0.6935770926065845,
+      "n_trials": 2862
+    },
+    {
+      "subject_id": "774826",
+      "seed": 2,
+      "likelihood": 0.6533013909308208,
+      "n_trials": 3019
+    },
+    {
+      "subject_id": "818020",
+      "seed": 2,
+      "likelihood": 0.7327806348233012,
+      "n_trials": 2884
+    },
+    {
+      "subject_id": "747886",
+      "seed": 2,
+      "likelihood": 0.7336613319320565,
+      "n_trials": 3397
+    },
+    {
+      "subject_id": "845710",
+      "seed": 2,
+      "likelihood": 0.7763015329108488,
+      "n_trials": 3522
+    },
+    {
+      "subject_id": "751153",
+      "seed": 2,
+      "likelihood": 0.7353670843276935,
+      "n_trials": 2404
+    },
+    {
+      "subject_id": "776259",
+      "seed": 2,
+      "likelihood": 0.7198214699355555,
+      "n_trials": 3149
+    },
+    {
+      "subject_id": "814196",
+      "seed": 2,
+      "likelihood": 0.7090925193474777,
+      "n_trials": 2498
+    },
+    {
+      "subject_id": "668551",
+      "seed": 2,
+      "likelihood": 0.8530776902126312,
+      "n_trials": 13355
+    },
+    {
+      "subject_id": "790768",
+      "seed": 2,
+      "likelihood": 0.7725511779569832,
+      "n_trials": 13983
+    },
+    {
+      "subject_id": "746346",
+      "seed": 2,
+      "likelihood": 0.8183024064248134,
+      "n_trials": 9150
+    },
+    {
+      "subject_id": "727456",
+      "seed": 2,
+      "likelihood": 0.7690932926980854,
+      "n_trials": 9974
+    },
+    {
+      "subject_id": "775741",
+      "seed": 2,
+      "likelihood": 0.7975678872829249,
+      "n_trials": 9805
+    },
+    {
+      "subject_id": "651554",
+      "seed": 2,
+      "likelihood": 0.7915933624611451,
+      "n_trials": 11741
+    },
+    {
+      "subject_id": "708299",
+      "seed": 2,
+      "likelihood": 0.8030878094892725,
+      "n_trials": 6721
+    },
+    {
+      "subject_id": "651475",
+      "seed": 2,
+      "likelihood": 0.8793499534588065,
+      "n_trials": 14268
+    },
+    {
+      "subject_id": "781162",
+      "seed": 2,
+      "likelihood": 0.754355434757921,
+      "n_trials": 9002
+    },
+    {
+      "subject_id": "751765",
+      "seed": 2,
+      "likelihood": 0.669004831728453,
+      "n_trials": 9589
+    },
+    {
+      "subject_id": "713862",
+      "seed": 2,
+      "likelihood": 0.7826396781876573,
+      "n_trials": 8382
+    },
+    {
+      "subject_id": "716324",
+      "seed": 2,
+      "likelihood": 0.7245365755861146,
+      "n_trials": 5932
+    },
+    {
+      "subject_id": "711041",
+      "seed": 2,
+      "likelihood": 0.8009411954672686,
+      "n_trials": 8076
+    },
+    {
+      "subject_id": "786234",
+      "seed": 2,
+      "likelihood": 0.783603565302603,
+      "n_trials": 6201
+    },
+    {
+      "subject_id": "775745",
+      "seed": 2,
+      "likelihood": 0.7783196350513393,
+      "n_trials": 7881
+    },
+    {
+      "subject_id": "781369",
+      "seed": 2,
+      "likelihood": 0.8089446717510119,
+      "n_trials": 7625
+    },
+    {
+      "subject_id": "711281",
+      "seed": 2,
+      "likelihood": 0.8159430774196998,
+      "n_trials": 5144
+    },
+    {
+      "subject_id": "711039",
+      "seed": 2,
+      "likelihood": 0.7884269806613106,
+      "n_trials": 6988
+    },
+    {
+      "subject_id": "761406",
+      "seed": 2,
+      "likelihood": 0.7717257866514688,
+      "n_trials": 6154
+    },
+    {
+      "subject_id": "744779",
+      "seed": 2,
+      "likelihood": 0.8171443926791117,
+      "n_trials": 5981
+    },
+    {
+      "subject_id": "785951",
+      "seed": 2,
+      "likelihood": 0.7890399228214056,
+      "n_trials": 4448
+    },
+    {
+      "subject_id": "782394",
+      "seed": 2,
+      "likelihood": 0.7839521705640863,
+      "n_trials": 5624
+    },
+    {
+      "subject_id": "801996",
+      "seed": 2,
+      "likelihood": 0.7833520559665056,
+      "n_trials": 4674
+    },
+    {
+      "subject_id": "765861",
+      "seed": 2,
+      "likelihood": 0.7931027082612514,
+      "n_trials": 3882
+    },
+    {
+      "subject_id": "836657",
+      "seed": 2,
+      "likelihood": 0.80832087650322,
+      "n_trials": 5065
+    },
+    {
+      "subject_id": "749472",
+      "seed": 2,
+      "likelihood": 0.7974090565114816,
+      "n_trials": 5035
+    },
+    {
+      "subject_id": "754372",
+      "seed": 2,
+      "likelihood": 0.8133539542443511,
+      "n_trials": 2934
+    },
+    {
+      "subject_id": "836656",
+      "seed": 2,
+      "likelihood": 0.7747167958050177,
+      "n_trials": 3384
+    }
+  ]
+}

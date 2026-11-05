@@ -4,7 +4,8 @@
 For every model, regime, subject, session set and rate statistic: the replay gap and the subject's
 binomial floor (``fingerprints.compare_replay``), then per model, regime, set and statistic the
 subject-balanced gap, floor and floor ratio, and per set the replay fingerprint score of ADR 0009
-(``fingerprints.aggregate_subjects``), for every model of ``p1_replay.json`` and ``p1_glm.json``. A set sums the tallies of its session groups
+(``fingerprints.aggregate_subjects``), for every model of ``p1_replay.json``, ``p1_glm.json`` and
+``p1_gru.json`` (the GRU's regimes are its seeds). A set sums the tallies of its session groups
 (``p1_session_groups.json``): ``non-warm-up`` (the replay headline; ADR 0004 keeps warm-ups out),
 ``warm-up``, and each ``{stage_group}|{task}`` group alone. It reads only committed files, but it
 needs the fingerprint library, which CI does not install, so it is a freeze and r2 reads its output.
@@ -46,6 +47,7 @@ from aind_dynamic_foraging_models.fingerprints.spec import RATE_STATISTICS  # no
 
 REPLAY = HERE / "p1_replay.json"
 GLM = HERE / "p1_glm.json"
+GRU = HERE / "p1_gru.json"
 TALLIES = HERE / "p1_replay"
 GROUPS = HERE / "p1_session_groups.json"
 HEADLINE = "non-warm-up"
@@ -122,6 +124,9 @@ def main() -> None:
     glm = json.loads(GLM.read_text())
     assert glm["passed"], "the GLM replay gate failed; fix it before comparing"
     assert glm["spec"] == SPEC_VERSION
+    gru = json.loads(GRU.read_text())
+    assert gru["passed"], "the GRU replay gate failed; fix it before comparing"
+    assert gru["spec"] == SPEC_VERSION
     failed_fits = {r["literature_model"] for r in lit.literature_headline_ranking()
                    if r["source"] != "2-level EM"}
     excluded = []
@@ -137,12 +142,14 @@ def main() -> None:
                                        "from the stored typical values does not reproduce the "
                                        "stored score"})
     skip = {(e["model"], e["regime"]) for e in excluded}
-    inputs, models, scores = [REPLAY, GLM, GROUPS, animal_file, lit.HEADLINE_SOURCE], {}, {}
-    for model in list(replay["models"]) + [glm["model"]]:
+    inputs, models, scores = [REPLAY, GLM, GRU, GROUPS, animal_file, lit.HEADLINE_SOURCE], {}, {}
+    for model in list(replay["models"]) + [glm["model"], gru["model"]]:
         path = TALLIES / f"{model}.parquet"
         inputs.append(path)
-        gates = replay["models"].get(model, {"per_subject": {"subjects_replay_differs": []}})
+        gates = (gru["seeds"] if model == gru["model"] else   # one regime per GRU seed
+                 replay["models"].get(model, {"per_subject": {"subjects_replay_differs": []}}))
         models[model], scores[model] = {}, {}
+        runs = {}
         for regime, preds in _preds(path).items():
             if (model, regime) in skip:
                 continue
@@ -150,29 +157,16 @@ def main() -> None:
             tallies = {sid: _with_pred(animal[sid], preds[sid]) for sid in subjects}
             # the library's one-call comparison per subject, then its subject-balanced aggregate
             per_subject = [compare_replay(tallies[sid], sets) for sid in subjects]
-            agg = aggregate_subjects(per_subject)
-            cells = {}
-            for name, groups in sets.items():
-                cells[name] = {}
-                for stat in RATE_STATISTICS:
-                    g = np.array([r[name]["statistics"][stat]["gap"] for r in per_subject])
-                    f = np.array([r[name]["statistics"][stat]["floor"] for r in per_subject])
-                    ok = np.isfinite(g) & np.isfinite(f)
-                    a = agg[name]["statistics"][stat]
-                    cell = {"n_subjects": a["n_subjects"],
-                            "n_subjects_replay_differs": int(sum(ok[i] for i, s in enumerate(subjects)
-                                                                 if s in flagged)),
-                            "gap": a["gap"] if ok.any() else None,
-                            "floor": a["floor"] if ok.any() else None,
-                            "floor_ratio": a["floor_ratio"] if ok.any() else None}
-                    if name == HEADLINE:
-                        cell["per_subject"] = {"gap": [None if not np.isfinite(x) else float(x) for x in g],
-                                               "floor": [None if not np.isfinite(x) else float(x) for x in f]}
-                        cell["per_bin"] = _per_bin(tallies, subjects, groups, stat)
-                    cells[name][stat] = cell
-            scores[model][regime] = {name: (agg[name]["score"] if np.isfinite(agg[name]["score"]) else None)
-                                     for name in sets}
-            models[model][regime] = cells
+            runs[regime] = per_subject
+            models[model][regime] = _cells(per_subject, sets, subjects, flagged,
+                                           lambda groups, stat: _per_bin(tallies, subjects, groups, stat))
+            scores[model][regime] = _scores(per_subject, sets)
+        if model == gru["model"]:   # the mean over seeds, in the grid's per-subject column
+            seeds = [models[model][r] for r in runs]
+            per_subject = _seed_mean(list(runs.values()), sets)
+            models[model]["per_subject"] = _cells(per_subject, sets, subjects, set(),
+                                                  lambda groups, stat: _mean_per_bin(seeds, groups, stat))
+            scores[model]["per_subject"] = _scores(per_subject, sets)
         print(model, {reg: {s: round(c[HEADLINE][s]["floor_ratio"], 3) for s in RATE_STATISTICS}
                       for reg, c in models[model].items()}, flush=True)
 
@@ -198,6 +192,62 @@ def main() -> None:
         "scores": scores,
     })
     print("->", OUT)
+
+
+def _scores(per_subject: list[dict], sets: dict) -> dict:
+    agg = aggregate_subjects(per_subject)
+    return {name: (agg[name]["score"] if np.isfinite(agg[name]["score"]) else None) for name in sets}
+
+
+def _cells(per_subject: list[dict], sets: dict, subjects: list[str], flagged: set[str], per_bin) -> dict:
+    """Per set and rate statistic: the subject-balanced aggregate, and for the headline set each
+    subject's gap and floor and the per-bin subject means (``per_bin(groups, stat)``)."""
+    agg = aggregate_subjects(per_subject)
+    cells = {}
+    for name, groups in sets.items():
+        cells[name] = {}
+        for stat in RATE_STATISTICS:
+            g = np.array([r[name]["statistics"][stat]["gap"] for r in per_subject])
+            f = np.array([r[name]["statistics"][stat]["floor"] for r in per_subject])
+            ok = np.isfinite(g) & np.isfinite(f)
+            a = agg[name]["statistics"][stat]
+            cell = {"n_subjects": a["n_subjects"],
+                    "n_subjects_replay_differs": int(sum(ok[i] for i, s in enumerate(subjects)
+                                                         if s in flagged)),
+                    "gap": a["gap"] if ok.any() else None,
+                    "floor": a["floor"] if ok.any() else None,
+                    "floor_ratio": a["floor_ratio"] if ok.any() else None}
+            if name == HEADLINE:
+                cell["per_subject"] = {"gap": [None if not np.isfinite(x) else float(x) for x in g],
+                                       "floor": [None if not np.isfinite(x) else float(x) for x in f]}
+                cell["per_bin"] = per_bin(groups, stat)
+            cells[name][stat] = cell
+    return cells
+
+
+def _seed_mean(runs: list[list[dict]], sets: dict) -> list[dict]:
+    """Per subject, set and statistic: the mean gap over a model's seeds (a typical seed, as study
+    01 averages seeds), with the subject's floor, which is the same for every seed."""
+    out = []
+    for i in range(len(runs[0])):
+        out.append({name: {"statistics": {stat: {
+            "gap": float(np.mean([run[i][name]["statistics"][stat]["gap"] for run in runs])),
+            "floor": runs[0][i][name]["statistics"][stat]["floor"]} for stat in RATE_STATISTICS}}
+            for name in sets})
+    return out
+
+
+def _mean_per_bin(seeds: list[dict], groups, stat: str) -> dict:
+    """The headline per-bin curves averaged over seeds (the subjects' own curve is shared)."""
+    curves = [cells[HEADLINE][stat]["per_bin"] for cells in seeds]
+    model = np.array([_nan(c["model"]) for c in curves]).mean(axis=0)
+    return {"n_subjects": curves[0]["n_subjects"],
+            "model": [None if not np.isfinite(x) else float(x) for x in model],
+            "subject": curves[0]["subject"]}
+
+
+def _nan(values) -> list[float]:
+    return [np.nan if v is None else v for v in values]
 
 
 def _per_bin(tallies: dict, subjects: list[str], groups: set[str], stat: str) -> dict:
