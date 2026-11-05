@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r2_replay_grid.py",
-    "produced_at_pt": "2026-11-04T13:51:07-08:00",
-    "studies_git_sha": "23a21d007652f46a364cfe403ddde2614ee2856b",
+    "produced_at_pt": "2026-11-04T18:15:00-08:00",
+    "studies_git_sha": "78535aa28a0a93417f174b69e80d2de904994976",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.py",
-        "sha256": "9cfea2e2b6411f508f72f85073e040e198da52f8bfaa7348bad63c1abc03e815"
+        "sha256": "e0465d407fd9a9a8c8f0fbeb995d255fd18e2ba9e36b16e303a4a3b3ca02ba55"
       },
       {
         "path": "studies/util/cross_study.py",
@@ -45,8 +45,12 @@
         "sha256": "1b25d1427a004119a77a975797e0897f4a9da48db0aeef8c6f72abd794dd0131"
       },
       {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_gru.json",
+        "sha256": "d3c91c4e2d8b4021858e6a52ddc9669e640ebc6509a7cc28ca3c42986498a71e"
+      },
+      {
         "path": "studies/15-behavioral-fingerprints/analysis/p1_replay_gaps.json",
-        "sha256": "e4dc5c54a58375945266030ad3d894042bc49faf402ff552a66b05933ccce6ca"
+        "sha256": "7fa83e5c7992adad714f2bf67c9b883a2304e9e77b450199f0c419b72d671eb5"
       },
       {
         "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
@@ -64,23 +68,23 @@
     "outputs": [
       {
         "path": "studies/15-behavioral-fingerprints/analysis/r2_replay_grid.json",
-        "sha256": "a3b7612405da07b48006658e250e588cf4c8219417656e76ff70874297bb26f4"
+        "sha256": "3b36b3dce56487d8e7a5bee407afb52b02de59253d25b0d3e67d02f96d3753b6"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_replay_grid.svg",
-        "sha256": "d10d1e8b84ccb2c351ae72f0a9880ca2841187022256ec6497d8a288dd7aedcf"
+        "sha256": "75f813d3ef1af9c3bdb273ea0fc446b3943242fe6f7ea25ebce2fb58bb85665b"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_bins.svg",
-        "sha256": "59baf7fec9ef9806e65f9818b82c8a18d6c02d9b65e36a687daa9a52956c553c"
+        "sha256": "aeef89862d23cdc7b2346ffd648f6662aa33d88ef20d6e3a2df9669b90980274"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/fig_r2_scatter.svg",
-        "sha256": "5662f9aa4878a2a6b42e5c6e4a843486c6e7ffb68df18d96be6e577d7827a1a7"
+        "sha256": "f06f6a815923ce25e431483fe72f284ef146f39abe2df061f4fdd6749e948eab"
       },
       {
         "path": "studies/15-behavioral-fingerprints/analysis/reports/r2-replay-grid.md#result-1",
-        "sha256": "0df2ecf520b0faa82dae6d4420eeeda9562e7ad1066584aa76c91b7be25bac30"
+        "sha256": "05d5258839d6ba5c805b91f40d00e50a71f33ff470ba1d5e7b87f95d6003d1ad"
       }
     ]
   },
@@ -108,6 +112,28 @@
     ],
     "glm_max_abs_diff": 2.220446049250313e-16,
     "glm_pooled_heldout_likelihood": 0.7168649596421358,
+    "gru": {
+      "wandb_group": "gru-heldout-replay@20261104-150009",
+      "tolerance": 0.0001,
+      "n_seeds": 3,
+      "n_subjects_referenced": 146,
+      "subjects_unreferenced": [
+        "722683",
+        "795395",
+        "820243"
+      ],
+      "subjects_in_training": [
+        "722683",
+        "795395",
+        "820243"
+      ],
+      "max_abs_likelihood_diff": 9.84236572698638e-06,
+      "seed_scores": {
+        "seed0": 1.389428980618297,
+        "seed1": 1.4037253436179755,
+        "seed2": 1.4000598358821914
+      }
+    },
     "passed": true
   },
   "headline_set": "non-warm-up",
@@ -131,7 +157,8 @@
     "FeedbackDependent-RL+Bias",
     "FeedbackDependent-RL",
     "Rescorla-Wagner",
-    "GLM-Su2022"
+    "GLM-Su2022",
+    "GRU-D614"
   ],
   "two_level_failed": [
     "Grossman-MetaLearning",
@@ -145,7 +172,7 @@
         "floor_ratio": {
           "losses": 1.991902089930144,
           "pattern": 2.0292550446449726,
-          "hazard": 2.183630411396302,
+          "hazard": 2.1836304113963023,
           "post_switch": 1.7185425053396515
         },
         "worst": "hazard",
@@ -160,8 +187,8 @@
       "two_level_em": {
         "floor_ratio": {
           "losses": 1.3952387506537633,
-          "pattern": 1.4325259839336246,
-          "hazard": 1.4073099373190985,
+          "pattern": 1.4325259839336248,
+          "hazard": 1.407309937319099,
           "post_switch": 1.3082118140648948
         },
         "worst": "pattern",
@@ -195,7 +222,7 @@
       "two_level_em": {
         "floor_ratio": {
           "losses": 1.4002061693223418,
-          "pattern": 1.4248809920077492,
+          "pattern": 1.424880992007749,
           "hazard": 1.2998288381780694,
           "post_switch": 1.213347372718063
         },
@@ -230,7 +257,7 @@
       "two_level_em": {
         "floor_ratio": {
           "losses": 1.4058057481979696,
-          "pattern": 1.5541387811819285,
+          "pattern": 1.5541387811819287,
           "hazard": 1.5145228592430744,
           "post_switch": 1.37873956656847
         },
@@ -251,7 +278,7 @@
           "losses": 2.2224604187773274,
           "pattern": 2.729309598900247,
           "hazard": 2.661244472261911,
-          "post_switch": 1.901785132144531
+          "post_switch": 1.9017851321445312
         },
         "worst": "pattern",
         "score": 2.353874285058226,
@@ -318,9 +345,9 @@
       "model": "Hattori2019",
       "per_subject": {
         "floor_ratio": {
-          "losses": 2.526829573976895,
+          "losses": 2.5268295739768956,
           "pattern": 2.722595622284781,
-          "hazard": 2.582894261327949,
+          "hazard": 2.5828942613279486,
           "post_switch": 1.8196939001029613
         },
         "worst": "pattern",
@@ -355,7 +382,7 @@
         "floor_ratio": {
           "losses": 2.3063998841031106,
           "pattern": 2.117292887038814,
-          "hazard": 2.007714205009989,
+          "hazard": 2.0077142050099885,
           "post_switch": 1.9567824316433262
         },
         "worst": "losses",
@@ -370,12 +397,12 @@
       "two_level_em": {
         "floor_ratio": {
           "losses": 1.9719017803240142,
-          "pattern": 1.7795279966712576,
-          "hazard": 1.792133161497256,
+          "pattern": 1.7795279966712572,
+          "hazard": 1.7921331614972555,
           "post_switch": 2.1338830711468866
         },
         "worst": "post_switch",
-        "score": 1.913959525631862,
+        "score": 1.9139595256318618,
         "n_subjects": {
           "losses": 149,
           "pattern": 149,
@@ -440,7 +467,7 @@
       "two_level_em": {
         "floor_ratio": {
           "losses": 1.4972194951848825,
-          "pattern": 1.811239915717286,
+          "pattern": 1.8112399157172858,
           "hazard": 1.9132670322197503,
           "post_switch": 1.714416970058238
         },
@@ -474,13 +501,13 @@
       },
       "two_level_em": {
         "floor_ratio": {
-          "losses": 1.9458361182791828,
+          "losses": 1.9458361182791823,
           "pattern": 2.278969068439424,
-          "hazard": 1.863574034223219,
-          "post_switch": 1.474993409118315
+          "hazard": 1.8635740342232194,
+          "post_switch": 1.4749934091183146
         },
         "worst": "pattern",
-        "score": 1.868509694109437,
+        "score": 1.8685096941094366,
         "n_subjects": {
           "losses": 149,
           "pattern": 149,
@@ -510,7 +537,7 @@
       "two_level_em": {
         "floor_ratio": {
           "losses": 1.4526900508153446,
-          "pattern": 1.9988533539768107,
+          "pattern": 1.9988533539768103,
           "hazard": 2.1617284982386638,
           "post_switch": 1.6888851951641979
         },
@@ -581,7 +608,7 @@
         "floor_ratio": {
           "losses": 1.5975754619145774,
           "pattern": 3.005590146816501,
-          "hazard": 3.414439117526497,
+          "hazard": 3.4144391175264968,
           "post_switch": 2.5511082595060413
         },
         "worst": "hazard",
@@ -598,7 +625,7 @@
       "model": "Alsio-DualRateSticky-RL",
       "per_subject": {
         "floor_ratio": {
-          "losses": 2.5544233404866885,
+          "losses": 2.5544233404866894,
           "pattern": 4.740084891491854,
           "hazard": 6.086513242325433,
           "post_switch": 3.6488789994716218
@@ -685,7 +712,7 @@
       "two_level_em": {
         "floor_ratio": {
           "losses": 4.082820530965795,
-          "pattern": 4.942290979026646,
+          "pattern": 4.942290979026647,
           "hazard": 6.0679031391286555,
           "post_switch": 4.242609429375209
         },
@@ -741,7 +768,7 @@
           "losses": 28.186210974709123,
           "pattern": 30.901558652971506,
           "hazard": 28.38728434598043,
-          "post_switch": 3.960693084615654
+          "post_switch": 3.960693084615653
         },
         "worst": "pattern",
         "score": 17.690008046943046,
@@ -757,7 +784,7 @@
           "losses": 21.851046137474597,
           "pattern": 24.395257663427003,
           "hazard": 22.445821575728154,
-          "post_switch": 4.160657838460685
+          "post_switch": 4.160657838460686
         },
         "worst": "pattern",
         "score": 14.937185967236367,
@@ -792,7 +819,7 @@
       "model": "GLM-Su2022",
       "per_subject": {
         "floor_ratio": {
-          "losses": 2.0444570178232997,
+          "losses": 2.0444570178233,
           "pattern": 2.2706127200903263,
           "hazard": 2.250879831063697,
           "post_switch": 1.9088917699443015
@@ -806,6 +833,25 @@
           "post_switch": 149
         }
       }
+    },
+    {
+      "model": "GRU-D614",
+      "per_subject": {
+        "floor_ratio": {
+          "losses": 1.3908676725805447,
+          "pattern": 1.5171822723177983,
+          "hazard": 1.4498610414416582,
+          "post_switch": 1.2476278846844335
+        },
+        "worst": "pattern",
+        "score": 1.3977636960534756,
+        "n_subjects": {
+          "losses": 146,
+          "pattern": 146,
+          "hazard": 146,
+          "post_switch": 146
+        }
+      }
     }
   ],
   "floor_ratio_by_set": {
@@ -814,7 +860,7 @@
         "non-warm-up": {
           "losses": 1.991902089930144,
           "pattern": 2.0292550446449726,
-          "hazard": 2.183630411396302,
+          "hazard": 2.1836304113963023,
           "post_switch": 1.7185425053396515
         },
         "earlier|Coupled Baiting": {
@@ -899,8 +945,8 @@
       "two_level_em": {
         "non-warm-up": {
           "losses": 1.3952387506537633,
-          "pattern": 1.4325259839336246,
-          "hazard": 1.4073099373190985,
+          "pattern": 1.4325259839336248,
+          "hazard": 1.407309937319099,
           "post_switch": 1.3082118140648948
         },
         "earlier|Coupled Baiting": {
@@ -1073,7 +1119,7 @@
       "two_level_em": {
         "non-warm-up": {
           "losses": 1.4002061693223418,
-          "pattern": 1.4248809920077492,
+          "pattern": 1.424880992007749,
           "hazard": 1.2998288381780694,
           "post_switch": 1.213347372718063
         },
@@ -1247,7 +1293,7 @@
       "two_level_em": {
         "non-warm-up": {
           "losses": 1.4058057481979696,
-          "pattern": 1.5541387811819285,
+          "pattern": 1.5541387811819287,
           "hazard": 1.5145228592430744,
           "post_switch": 1.37873956656847
         },
@@ -1337,7 +1383,7 @@
           "losses": 2.2224604187773274,
           "pattern": 2.729309598900247,
           "hazard": 2.661244472261911,
-          "post_switch": 1.901785132144531
+          "post_switch": 1.9017851321445312
         },
         "earlier|Coupled Baiting": {
           "losses": 1.6298917303948899,
@@ -1682,9 +1728,9 @@
     "Hattori2019": {
       "per_subject": {
         "non-warm-up": {
-          "losses": 2.526829573976895,
+          "losses": 2.5268295739768956,
           "pattern": 2.722595622284781,
-          "hazard": 2.582894261327949,
+          "hazard": 2.5828942613279486,
           "post_switch": 1.8196939001029613
         },
         "earlier|Coupled Baiting": {
@@ -1858,7 +1904,7 @@
         "non-warm-up": {
           "losses": 2.3063998841031106,
           "pattern": 2.117292887038814,
-          "hazard": 2.007714205009989,
+          "hazard": 2.0077142050099885,
           "post_switch": 1.9567824316433262
         },
         "earlier|Coupled Baiting": {
@@ -1943,8 +1989,8 @@
       "two_level_em": {
         "non-warm-up": {
           "losses": 1.9719017803240142,
-          "pattern": 1.7795279966712576,
-          "hazard": 1.792133161497256,
+          "pattern": 1.7795279966712572,
+          "hazard": 1.7921331614972555,
           "post_switch": 2.1338830711468866
         },
         "earlier|Coupled Baiting": {
@@ -2291,7 +2337,7 @@
       "two_level_em": {
         "non-warm-up": {
           "losses": 1.4972194951848825,
-          "pattern": 1.811239915717286,
+          "pattern": 1.8112399157172858,
           "hazard": 1.9132670322197503,
           "post_switch": 1.714416970058238
         },
@@ -2464,10 +2510,10 @@
       },
       "two_level_em": {
         "non-warm-up": {
-          "losses": 1.9458361182791828,
+          "losses": 1.9458361182791823,
           "pattern": 2.278969068439424,
-          "hazard": 1.863574034223219,
-          "post_switch": 1.474993409118315
+          "hazard": 1.8635740342232194,
+          "post_switch": 1.4749934091183146
         },
         "earlier|Coupled Baiting": {
           "losses": 1.3654729334404452,
@@ -2639,7 +2685,7 @@
       "two_level_em": {
         "non-warm-up": {
           "losses": 1.4526900508153446,
-          "pattern": 1.9988533539768107,
+          "pattern": 1.9988533539768103,
           "hazard": 2.1617284982386638,
           "post_switch": 1.6888851951641979
         },
@@ -2988,7 +3034,7 @@
         "non-warm-up": {
           "losses": 1.5975754619145774,
           "pattern": 3.005590146816501,
-          "hazard": 3.414439117526497,
+          "hazard": 3.4144391175264968,
           "post_switch": 2.5511082595060413
         },
         "earlier|Coupled Baiting": {
@@ -3074,7 +3120,7 @@
     "Alsio-DualRateSticky-RL": {
       "per_subject": {
         "non-warm-up": {
-          "losses": 2.5544233404866885,
+          "losses": 2.5544233404866894,
           "pattern": 4.740084891491854,
           "hazard": 6.086513242325433,
           "post_switch": 3.6488789994716218
@@ -3509,7 +3555,7 @@
       "two_level_em": {
         "non-warm-up": {
           "losses": 4.082820530965795,
-          "pattern": 4.942290979026646,
+          "pattern": 4.942290979026647,
           "hazard": 6.0679031391286555,
           "post_switch": 4.242609429375209
         },
@@ -3773,7 +3819,7 @@
           "losses": 28.186210974709123,
           "pattern": 30.901558652971506,
           "hazard": 28.38728434598043,
-          "post_switch": 3.960693084615654
+          "post_switch": 3.960693084615653
         },
         "earlier|Coupled Baiting": {
           "losses": 8.835993273912546,
@@ -3859,7 +3905,7 @@
           "losses": 21.851046137474597,
           "pattern": 24.395257663427003,
           "hazard": 22.445821575728154,
-          "post_switch": 4.160657838460685
+          "post_switch": 4.160657838460686
         },
         "earlier|Coupled Baiting": {
           "losses": 7.611743940936711,
@@ -4032,7 +4078,7 @@
     "GLM-Su2022": {
       "per_subject": {
         "non-warm-up": {
-          "losses": 2.0444570178232997,
+          "losses": 2.0444570178233,
           "pattern": 2.2706127200903263,
           "hazard": 2.250879831063697,
           "post_switch": 1.9088917699443015
@@ -4114,6 +4160,352 @@
           "pattern": 2.094659128665163,
           "hazard": 1.6705846158661266,
           "post_switch": 1.6995405329079005
+        }
+      }
+    },
+    "GRU-D614": {
+      "seed0": {
+        "non-warm-up": {
+          "losses": 1.3723263206866314,
+          "pattern": 1.5002798234258994,
+          "hazard": 1.439476698112062,
+          "post_switch": 1.2575090282785828
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1552349829756705,
+          "pattern": 1.330965568662783,
+          "hazard": 1.3314636113682807,
+          "post_switch": 1.6939892345198966
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.1000618773782307,
+          "pattern": 1.3350513140025215,
+          "hazard": 1.356523302621766,
+          "post_switch": 1.197878164031012
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.164808502124248,
+          "pattern": 1.4055573803723087,
+          "hazard": 1.3731351591075425,
+          "post_switch": 1.5018415812590913
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.0108313766701822,
+          "pattern": 1.2285156810892974,
+          "hazard": 1.2774368456044283,
+          "post_switch": 1.2263359823524425
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.0714666994174848,
+          "pattern": 1.1883033791957662,
+          "hazard": 1.1463215017450703,
+          "post_switch": 1.3951100379605403
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.341764854349674,
+          "pattern": 1.4635442961250116,
+          "hazard": 1.3777457328149176,
+          "post_switch": 1.2791318917216798
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.4510782952842296,
+          "pattern": 1.5092042068862601,
+          "hazard": 1.4386904165986183,
+          "post_switch": 1.2820711630006552
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.4868004911105872,
+          "pattern": 1.6096745951861167,
+          "hazard": 1.621114908817368,
+          "post_switch": 1.3364134478643186
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.1037638726926235,
+          "pattern": 0.7853892933893121,
+          "hazard": 1.1890234306625973,
+          "post_switch": 1.2356291309197407
+        },
+        "unknown|Random Walk": {
+          "losses": 0.9676511006300198,
+          "pattern": 0.956365230230711,
+          "hazard": 0.9933999141497852,
+          "post_switch": 0.2238369381705062
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.0835731178091348,
+          "pattern": 1.2978013684033747,
+          "hazard": 1.3187692570377867,
+          "post_switch": 1.1592235612716062
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.3902061288060228,
+          "pattern": 1.6865508185939726,
+          "hazard": 1.7360528596530205,
+          "post_switch": 1.8278956122764671
+        },
+        "warm-up": {
+          "losses": 1.2487559393550773,
+          "pattern": 1.3944883700620887,
+          "hazard": 1.2355093705731166,
+          "post_switch": 1.3321544917999446
+        }
+      },
+      "seed1": {
+        "non-warm-up": {
+          "losses": 1.3989068716457806,
+          "pattern": 1.525493632918066,
+          "hazard": 1.4589134902867975,
+          "post_switch": 1.2470958123703537
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1704237698022366,
+          "pattern": 1.363121478200514,
+          "hazard": 1.3534352119087893,
+          "post_switch": 1.7495681748195127
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.098206008973524,
+          "pattern": 1.3309432808161825,
+          "hazard": 1.3804853948652962,
+          "post_switch": 1.23504892390615
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.188589990246495,
+          "pattern": 1.4204044034233547,
+          "hazard": 1.3874828914286412,
+          "post_switch": 1.4961438097597108
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.0197864830047711,
+          "pattern": 1.2096221019014555,
+          "hazard": 1.2646078427193492,
+          "post_switch": 1.2145201864336794
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.1223529543170032,
+          "pattern": 1.2947285785560352,
+          "hazard": 1.2542886004463043,
+          "post_switch": 1.4451156814001853
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.363793629093358,
+          "pattern": 1.4876500356325648,
+          "hazard": 1.3924511512309725,
+          "post_switch": 1.3055903002848053
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.4609491253432463,
+          "pattern": 1.5227363628717008,
+          "hazard": 1.4424753736171056,
+          "post_switch": 1.3053831534310616
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.5178057785518397,
+          "pattern": 1.6545809120242996,
+          "hazard": 1.652344378158263,
+          "post_switch": 1.3341437921253116
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.0259677372760003,
+          "pattern": 0.7131489903127883,
+          "hazard": 1.0999635884379129,
+          "post_switch": 1.1718875662558212
+        },
+        "unknown|Random Walk": {
+          "losses": 0.9968094295694134,
+          "pattern": 1.0985561833777346,
+          "hazard": 1.0831403558146462,
+          "post_switch": 0.12027359467333383
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.0841221704209254,
+          "pattern": 1.3152369279762077,
+          "hazard": 1.3525728459105073,
+          "post_switch": 1.195375654965497
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.2894455388437305,
+          "pattern": 1.6135034771744186,
+          "hazard": 1.6503780417609402,
+          "post_switch": 1.812520584711962
+        },
+        "warm-up": {
+          "losses": 1.2441157995408687,
+          "pattern": 1.410298839539629,
+          "hazard": 1.2366710930656868,
+          "post_switch": 1.3488282658652515
+        }
+      },
+      "seed2": {
+        "non-warm-up": {
+          "losses": 1.4013698254092217,
+          "pattern": 1.5257733606094301,
+          "hazard": 1.451192935926115,
+          "post_switch": 1.238278813404364
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1774378093181554,
+          "pattern": 1.3700494506331555,
+          "hazard": 1.3587167015575978,
+          "post_switch": 1.6784590279270712
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.0750094025527162,
+          "pattern": 1.3406644899525553,
+          "hazard": 1.3662162616768947,
+          "post_switch": 1.2191806270087724
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.184635888253955,
+          "pattern": 1.4272549554224438,
+          "hazard": 1.3791495745605962,
+          "post_switch": 1.482382470410261
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 0.9811790783539187,
+          "pattern": 1.1941634123800877,
+          "hazard": 1.2636298638048395,
+          "post_switch": 1.1726630739753514
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.0998309764838574,
+          "pattern": 1.2781348383147326,
+          "hazard": 1.214757902612884,
+          "post_switch": 1.4068290858133272
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.3654700477438384,
+          "pattern": 1.4728188958978732,
+          "hazard": 1.3892582109211742,
+          "post_switch": 1.2979781098070442
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.4382806613109858,
+          "pattern": 1.52557243188083,
+          "hazard": 1.4555532401335498,
+          "post_switch": 1.2775315757992767
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.569158367533744,
+          "pattern": 1.658399387489487,
+          "hazard": 1.6125895774236845,
+          "post_switch": 1.2890880243213487
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.0694793085810916,
+          "pattern": 0.7160867406237972,
+          "hazard": 1.0526275111030847,
+          "post_switch": 1.1592261176818714
+        },
+        "unknown|Random Walk": {
+          "losses": 0.9293814285017968,
+          "pattern": 1.3925965130037912,
+          "hazard": 1.32849019955693,
+          "post_switch": 0.1736957952292535
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.092673313895934,
+          "pattern": 1.3396053978091584,
+          "hazard": 1.3574983325063295,
+          "post_switch": 1.2005074564568812
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.343753841767517,
+          "pattern": 1.6495207406384433,
+          "hazard": 1.6874036317566357,
+          "post_switch": 1.8120475629947994
+        },
+        "warm-up": {
+          "losses": 1.2556879164095927,
+          "pattern": 1.4081011958261813,
+          "hazard": 1.2259443838269084,
+          "post_switch": 1.3184275125976634
+        }
+      },
+      "per_subject": {
+        "non-warm-up": {
+          "losses": 1.3908676725805447,
+          "pattern": 1.5171822723177983,
+          "hazard": 1.4498610414416582,
+          "post_switch": 1.2476278846844335
+        },
+        "earlier|Coupled Baiting": {
+          "losses": 1.1676988540320208,
+          "pattern": 1.3547121658321508,
+          "hazard": 1.347871841611556,
+          "post_switch": 1.7073388124221598
+        },
+        "earlier|Coupled Without Baiting": {
+          "losses": 1.0910924296348234,
+          "pattern": 1.3355530282570864,
+          "hazard": 1.3677416530546525,
+          "post_switch": 1.2173692383153116
+        },
+        "earlier|Uncoupled Baiting": {
+          "losses": 1.179344793541566,
+          "pattern": 1.4177389130727025,
+          "hazard": 1.3799225416989267,
+          "post_switch": 1.4934559538096879
+        },
+        "earlier|Uncoupled Without Baiting": {
+          "losses": 1.0039323126762907,
+          "pattern": 1.2107670651236135,
+          "hazard": 1.2685581840428723,
+          "post_switch": 1.2045064142538244
+        },
+        "final|Coupled Baiting": {
+          "losses": 1.0978835434061152,
+          "pattern": 1.2537222653555113,
+          "hazard": 1.2051226682680862,
+          "post_switch": 1.4156849350580174
+        },
+        "final|Uncoupled Baiting": {
+          "losses": 1.3570095103956232,
+          "pattern": 1.4746710758851502,
+          "hazard": 1.386485031655688,
+          "post_switch": 1.2942334339378434
+        },
+        "final|Uncoupled Without Baiting": {
+          "losses": 1.4501026939794872,
+          "pattern": 1.5191710005462635,
+          "hazard": 1.4455730101164248,
+          "post_switch": 1.2883286307436645
+        },
+        "unknown|Coupled Baiting": {
+          "losses": 1.5245882123987238,
+          "pattern": 1.6408849648999677,
+          "hazard": 1.6286829547997712,
+          "post_switch": 1.3198817547703263
+        },
+        "unknown|Coupled Without Baiting": {
+          "losses": 1.066403639516572,
+          "pattern": 0.738208341441966,
+          "hazard": 1.113871510067865,
+          "post_switch": 1.1889142716191445
+        },
+        "unknown|Random Walk": {
+          "losses": 0.9646139862337433,
+          "pattern": 1.149172642204079,
+          "hazard": 1.1350101565071204,
+          "post_switch": 0.17260210935769782
+        },
+        "unknown|Uncoupled Baiting": {
+          "losses": 1.086789534041998,
+          "pattern": 1.3175478980629138,
+          "hazard": 1.3429468118182075,
+          "post_switch": 1.1850355575646612
+        },
+        "unknown|Uncoupled Without Baiting": {
+          "losses": 1.3411351698057565,
+          "pattern": 1.6498583454689446,
+          "hazard": 1.6912781777235322,
+          "post_switch": 1.8174879199944096
+        },
+        "warm-up": {
+          "losses": 1.2495198851018463,
+          "pattern": 1.4042961351426329,
+          "hazard": 1.2327082824885705,
+          "post_switch": 1.3331367567542864
         }
       }
     }
@@ -4201,7 +4593,7 @@
       "model": "Zid-HistoryKernel2-ForagingRL",
       "regime": "two_level_em",
       "likelihood": 0.719725621112509,
-      "replay_score": 1.913959525631862
+      "replay_score": 1.9139595256318618
     },
     {
       "model": "Eckstein-BI",
@@ -4237,7 +4629,7 @@
       "model": "Chen-RLCK",
       "regime": "two_level_em",
       "likelihood": 0.7178095080576691,
-      "replay_score": 1.868509694109437
+      "replay_score": 1.8685096941094366
     },
     {
       "model": "Eckstein-RL",
@@ -4346,6 +4738,12 @@
       "regime": "per_subject",
       "likelihood": 0.7168649596421358,
       "replay_score": 2.1133122309001
+    },
+    {
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "likelihood": 0.7268257361145074,
+      "replay_score": 1.3977636960534756
     }
   ],
   "scatter": [
@@ -4354,8 +4752,8 @@
       "model": "CompareToThreshold",
       "regime": "per_subject",
       "n_bins": 6,
-      "r": 0.9827361438980569,
-      "rmse": 0.005260947518145109,
+      "r": 0.982736143898057,
+      "rmse": 0.005260947518145113,
       "floor_ratio": 1.6083797190543037
     },
     {
@@ -4373,8 +4771,8 @@
       "regime": "per_subject",
       "n_bins": 6,
       "r": 0.9331031279595063,
-      "rmse": 0.03263702741388845,
-      "floor_ratio": 2.526829573976895
+      "rmse": 0.03263702741388844,
+      "floor_ratio": 2.5268295739768956
     },
     {
       "statistic": "losses",
@@ -4392,7 +4790,16 @@
       "n_bins": 6,
       "r": 0.13681074861482853,
       "rmse": 0.012853072012286157,
-      "floor_ratio": 2.0444570178232997
+      "floor_ratio": 2.0444570178233
+    },
+    {
+      "statistic": "losses",
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "n_bins": 6,
+      "r": 0.864202463217469,
+      "rmse": 0.005622898767344369,
+      "floor_ratio": 1.3908676725805447
     },
     {
       "statistic": "pattern",
@@ -4400,7 +4807,7 @@
       "regime": "per_subject",
       "n_bins": 42,
       "r": 0.9293092137963734,
-      "rmse": 0.053160450031361314,
+      "rmse": 0.05316045003136132,
       "floor_ratio": 1.898597744370424
     },
     {
@@ -4426,18 +4833,27 @@
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
       "n_bins": 42,
-      "r": 0.9842593288309148,
-      "rmse": 0.030706336081349088,
-      "floor_ratio": 1.4325259839336246
+      "r": 0.9842593288309146,
+      "rmse": 0.03070633608134908,
+      "floor_ratio": 1.4325259839336248
     },
     {
       "statistic": "pattern",
       "model": "GLM-Su2022",
       "regime": "per_subject",
       "n_bins": 42,
-      "r": 0.9770668744935523,
+      "r": 0.9770668744935521,
       "rmse": 0.04041354177022089,
       "floor_ratio": 2.2706127200903263
+    },
+    {
+      "statistic": "pattern",
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "n_bins": 42,
+      "r": 0.9975484937714927,
+      "rmse": 0.010149206310478238,
+      "floor_ratio": 1.5171822723177983
     },
     {
       "statistic": "hazard",
@@ -4463,8 +4879,8 @@
       "regime": "per_subject",
       "n_bins": 12,
       "r": 0.9898767559635936,
-      "rmse": 0.04299217247671315,
-      "floor_ratio": 2.582894261327949
+      "rmse": 0.04299217247671316,
+      "floor_ratio": 2.5828942613279486
     },
     {
       "statistic": "hazard",
@@ -4473,7 +4889,7 @@
       "n_bins": 12,
       "r": 0.9950744309852597,
       "rmse": 0.012950189969803355,
-      "floor_ratio": 1.4073099373190985
+      "floor_ratio": 1.407309937319099
     },
     {
       "statistic": "hazard",
@@ -4483,6 +4899,15 @@
       "r": 0.9927733357006897,
       "rmse": 0.019571347030275032,
       "floor_ratio": 2.250879831063697
+    },
+    {
+      "statistic": "hazard",
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9998556638061578,
+      "rmse": 0.002782321529976982,
+      "floor_ratio": 1.4498610414416582
     },
     {
       "statistic": "post_switch",
@@ -4516,8 +4941,8 @@
       "model": "Lebedeva-PR",
       "regime": "two_level_em",
       "n_bins": 12,
-      "r": 0.98908031973034,
-      "rmse": 0.036454245766605636,
+      "r": 0.9890803197303402,
+      "rmse": 0.03645424576660562,
       "floor_ratio": 1.3082118140648948
     },
     {
@@ -4528,6 +4953,15 @@
       "r": 0.9597407658158411,
       "rmse": 0.0565572048370731,
       "floor_ratio": 1.9088917699443015
+    },
+    {
+      "statistic": "post_switch",
+      "model": "GRU-D614",
+      "regime": "per_subject",
+      "n_bins": 12,
+      "r": 0.9983634503655142,
+      "rmse": 0.008114524506209352,
+      "floor_ratio": 1.2476278846844335
     }
   ]
 }

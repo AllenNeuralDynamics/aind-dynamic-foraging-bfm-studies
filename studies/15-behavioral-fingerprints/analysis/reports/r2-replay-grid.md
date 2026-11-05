@@ -9,6 +9,7 @@ issue: 94
 tags:
   model:
   - cognitive
+  - gru
   question:
   - comparison
 wandb_groups: []
@@ -17,21 +18,25 @@ inputs:
   data:
   - analysis/p1_replay.json
   - analysis/p1_glm.json
+  - analysis/p1_gru.json
   - analysis/p1_replay_gaps.json
   figure: analysis/fig_r2_replay_grid.svg
   freezes:
   - analysis/freeze_p1_session_groups.py
   - analysis/freeze_p1_replay.py
   - analysis/freeze_p1_glm.py
+  - analysis/freeze_p1_gru.py
   - analysis/freeze_p1_gaps.py
 upstream:
+- study: 01-gru-scaling-law
+  report: r2
 - study: 12-cognitive-literature-leaderboard
   report: r1
 - study: 12-cognitive-literature-leaderboard
   report: r3
 reproduce: make -C studies/15-behavioral-fingerprints r2
 ---
-# r2 — P1: replay fingerprints of the literature models
+# r2 — P1: replay fingerprints of the literature models and the GRU
 
 **Question.** When each literature model predicts the subjects' own held-out trials, how close
 are its switch probabilities to the subjects' in each history bin, as a multiple of what the
@@ -39,16 +44,19 @@ subjects' finite trials allow?
 
 **Design.** Study 12's 19 ranked models, with its fitted parameters per subject (r1) and as
 2-level EM (r3), plus a per-subject GLM with
-the Su2022 design (fit here on the even sessions; `freeze_p1_glm.py`). Each model replays the
+the Su2022 design (fit here on the even sessions; `freeze_p1_glm.py`), and study 01's v1 GRU at
+D = 614 (three seeds), re-fine-tuned on the test subjects' even sessions with study 01's held-out
+config (variant `gru-heldout-replay`; `freeze_p1_gru.py`). Each model replays the
 held-out (odd) sessions of the 149 test subjects (ADR 0007); a 2-level model replays with the
 session marginal's predictions (ADR 0005). Each replay first reproduces study 12's stored
-held-out score for that subject, so the grid describes the models study 12 ranked. The gap is
+held-out score for that subject (study 01 r2's, for the GRU), so the grid describes the models
+those studies ranked. The gap is
 compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 0004).
 
 <!-- BEGIN result-1 -->
 ![replay grid](../fig_r2_replay_grid.svg)
 
-**a**, floor ratio (replay gap ÷ binomial floor, each averaged over the 149 test subjects) per model, regime and statistic, on the subjects' held-out sessions except warm-ups (set `non-warm-up`). 1 means as close as the subjects' own trials allow. **score** is the replay fingerprint score, the geometric mean of the four ratios (ADR 0009). \* the 2-level fit failed, so study 12 r3 places the model by its per-subject score; n.r., not reproduced (see the gates). **b**, p(switch) by the last trial's reward and the current run length (the hazard): the subjects' mean and three models' replayed predictions, over subjects that keep the bin (2-level EM where the model has it).
+**a**, floor ratio (replay gap ÷ binomial floor, each averaged over the 149 test subjects) per model, regime and statistic, on the subjects' held-out sessions except warm-ups (set `non-warm-up`). 1 means as close as the subjects' own trials allow. **score** is the replay fingerprint score, the geometric mean of the four ratios (ADR 0009). The GRU's row is the mean over its three seeds. \* the 2-level fit failed, so study 12 r3 places the model by its per-subject score; n.r., not reproduced (see the gates). **b**, p(switch) by the last trial's reward and the current run length (the hazard): the subjects' mean and four models' replayed predictions, over the 146 subjects every model holds out that keep the bin (2-level EM where the model has it).
 
 | model | per subject: score | worst statistic | its floor ratio | 2-level EM: score | worst statistic | its floor ratio |
 |---|---|---|---|---|---|---|
@@ -72,16 +80,17 @@ compared with the binomial floor (ADR 0008). Warm-up sessions are left out (ADR 
 | FeedbackDependent-RL | **17.7** | last 1–3 trials | 30.9 | **14.9** | last 1–3 trials | 24.4 |
 | Rescorla-Wagner \* | **17.9** | last 1–3 trials | 31.4 | — | — | — |
 | GLM-Su2022 | **2.1** | last 1–3 trials | 2.3 | — | — | — |
+| GRU-D614 | **1.4** | last 1–3 trials | 1.5 | — | — | — |
 
 ![replay bins](../fig_r2_bins.svg)
 
-**a**, p(switch) by the count of consecutive unrewarded trials on the current side, and **b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent first): subjects and the same three models as above, over subjects that keep the bin. **c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's per-subject scores, re-pooled; the GLM's own) against its replay fingerprint score (the geometric mean of its four floor ratios, ADR 0009), per regime; labels mark the three models of the curves in the regime drawn there.
+**a**, p(switch) by the count of consecutive unrewarded trials on the current side, and **b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent first): subjects and the same four models as above, over the same subjects. **c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's per-subject scores, re-pooled; the GLM's own; the GRU's mean over seeds, on its 146) against its replay fingerprint score (the geometric mean of its four floor ratios, ADR 0009), per regime; the models of the curves are coloured as in **a**, in the regime drawn there.
 
 ![scatter](../fig_r2_scatter.svg)
 
 Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): each point is one bin, the subjects' mean p(switch) against the model's replayed prediction, over subjects that keep the bin. Each panel prints r and RMSE over the bins and the model's floor ratio for that statistic (the first figure's cell): the floor ratio weights each bin by its trials and compares with what the subjects' data allow; r and RMSE count every bin once. Patterns are coloured by depth, hazard and after-a-switch bins by the last trial's reward.
 
-**Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (19 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169.
+**Gates** (library `286692d`, MEvolve `30ae4f3`). Every replay shown (19 of study 12's models × 149 subjects) reproduces the held-out log likelihood study 12 stored for the subject: largest difference per subject 1.8e-11, 2-level EM 3.6e-12 (tolerance 1e-06). Left out: Rescorla-Wagner (2-level EM; 2 subjects differ): study 12 r3 marks this 2-level fit failed, and its replay from the stored typical values does not reproduce the stored score. MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the stored one to 1.1e-14. The GLM's replay equals scikit-learn's prediction to 2.2e-16; its pooled held-out likelihood is 0.7169. The GRU (study 01's v1 GRU at D = 614, re-fine-tuned on the held-out subjects, launch `gru-heldout-replay@20261104-150009`, which logs no W&B runs) scores exactly the freeze's sessions and choices; on the 146 subjects study 01 r2 also scored, each seed's likelihood equals study 01's to 9.8e-06 (tolerance 1e-04; study 01 scored on GPUs, this re-fine-tune on CPUs). Its 3 other subjects (722683, 795395, 820243) were among the 614 its checkpoint was trained on, so the GRU's numbers leave them out: its cells and score are over 146 subjects, every other model's over 149. Replay scores per seed: 1.39, 1.40, 1.40.
 <!-- END result-1 -->
 
 ## What it says
@@ -92,6 +101,16 @@ Study 01 r9's view, here in replay, for each statistic (rows **a** to **d**): ea
   Lebedeva-PR, Bari2019, Miller-RHG and CompareToThreshold miss the subjects' p(switch) by about
   0.013 to 0.018 per bin on the local statistics, against a floor of 0.009 to 0.012. No model
   reaches the floor, so every statistic still has a measurable error to find.
+- **The GRU is close to the best 2-level models, and the closest bin by bin on most statistics.** Over the 146 test
+  subjects it holds out (3 of the 149 trained its checkpoint), its replay score is 1.40 (seeds
+  1.39 to 1.40; floor ratios 1.2 to 1.5), beside 1.33 for Lopez-DoubleTrace and 1.39 for
+  Lebedeva-PR as 2-level EM (on all 149), and well below every per-subject fit (1.7 at best). On
+  the subject-mean curves (third figure) it has the lowest RMSE of the six models shown on three of
+  the four statistics (0.003 to 0.010, against 0.013 to 0.037 for Lebedeva-PR); on the losses
+  CompareToThreshold is as close (0.005 against 0.006). The GRU also gets both post-switch
+  histories the literature models split on (`S-O+` 0.47 against the subjects' 0.48, `S+O+` 0.25 against 0.24).
+  So its remaining gap is mostly within subjects, not in the average behaviour. It also has the
+  best held-out likelihood here (0.7268, the mean over seeds).
 - **2-level EM lowers the ratio for almost every model,** typically from about 2 to 3 per subject
   to 1.4 to 2. A 2-level replay lets each session have its own parameters, and the subjects'
   switching changes from session to session. The exceptions are the fits study 12 r3 marks

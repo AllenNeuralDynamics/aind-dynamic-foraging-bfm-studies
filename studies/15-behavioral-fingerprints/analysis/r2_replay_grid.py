@@ -1,9 +1,10 @@
-"""Producer for r2: replay fingerprints of the literature models and the GLM.
+"""Producer for r2: replay fingerprints of the literature models, the GLM and the GRU.
 
-Reads the committed P1 freezes: ``p1_replay.json`` and ``p1_glm.json`` (the gates) and
+Reads the committed P1 freezes: ``p1_replay.json``, ``p1_glm.json`` and ``p1_gru.json`` (the gates) and
 ``p1_replay_gaps.json`` (per model, regime, session set and rate statistic: the subject-balanced
 replay gap, binomial floor and floor ratio, and the per-bin subject means). Models are ordered by
-study 12 r3's headline ranking. Writes the grid figure, ``r2_replay_grid.json`` and the report's
+study 12 r3's headline ranking, then the GLM and the GRU; the GRU's per-subject column is the
+mean over its three seeds, which the gaps freeze also keeps one by one. Writes the grid figure, ``r2_replay_grid.json`` and the report's
 result block. Offline: reads committed files only.
 """
 import json
@@ -20,6 +21,7 @@ from _meta import build_meta, write_artifact  # noqa: E402
 WANDB_GROUPS: list[str] = []
 REPLAY = HERE / "p1_replay.json"
 GLM = HERE / "p1_glm.json"
+GRU = HERE / "p1_gru.json"
 GAPS = HERE / "p1_replay_gaps.json"
 REPORT = HERE / "reports" / "r2-replay-grid.md"
 FIG = HERE / "fig_r2_replay_grid.svg"
@@ -28,19 +30,19 @@ FIG_CORR = HERE / "fig_r2_scatter.svg"
 # study 01 r9 rolled out the per-subject CompareToThreshold, Bari2019 and Hattori2019; then the best
 # 2-level model and the GLM
 SCATTER = [("CompareToThreshold", "per_subject"), ("Bari2019", "per_subject"), ("Hattori2019", "per_subject"),
-           ("Lebedeva-PR", "two_level_em"), ("GLM-Su2022", "per_subject")]
+           ("Lebedeva-PR", "two_level_em"), ("GLM-Su2022", "per_subject"), ("GRU-D614", "per_subject")]
 DEPTH_COLORS = {1: "black", 2: "blue", 3: "orange"}
-LABEL_OFFSETS = {"Lebedeva-PR": (-4, -5), "CompareToThreshold": (-4, 5)}   # panel c, points: pt
 C_MIN_LIKELIHOOD = 0.5   # panel c's x axis starts here; models below are named in the caption
 STATS = {"losses": "losses", "pattern": "last 1–3 trials", "hazard": "hazard",
          "post_switch": "after a switch"}
 REGIMES = {"per_subject": "per subject", "two_level_em": "2-level EM"}
-EXTRA = ["GLM-Su2022"]
-CURVES = {"Lebedeva-PR": "vermillion", "CompareToThreshold": "blue", "GLM-Su2022": "green"}
+EXTRA = ["GLM-Su2022", "GRU-D614"]
+CURVES = {"Lebedeva-PR": "vermillion", "CompareToThreshold": "blue", "GLM-Su2022": "green",
+          "GRU-D614": "purple"}
 
 
 def ordered_models(gaps: dict) -> tuple[list[str], set[str]]:
-    """Study 12 r3's headline order, then the GLM; and the models whose
+    """Study 12 r3's headline order, then the GLM and the GRU; and the models whose
     2-level fit failed (r3 places them by their per-subject score)."""
     headline = lit.literature_headline_ranking()
     names = [r["literature_model"] for r in headline] + EXTRA
@@ -115,11 +117,11 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
                                      ("last trial rewarded", slice(half, None)))):
         axk = fig.add_axes([0.665 + k * 0.175, 0.2, 0.135, 0.56])
         first = next(iter(CURVES))
-        pb = gaps["models"][first][best_regime(gaps["models"][first])][head]["hazard"]["per_bin"]
+        pb = gaps["models"][first][best_regime(gaps["models"][first])][head]["hazard"]["per_bin_common"]
         axk.plot(runs, _floats(pb["subject"][sl]), "o", color="black", ms=2.5, label="subjects",
                  zorder=3)
         for m, c in CURVES.items():
-            pb = gaps["models"][m][best_regime(gaps["models"][m])][head]["hazard"]["per_bin"]
+            pb = gaps["models"][m][best_regime(gaps["models"][m])][head]["hazard"]["per_bin_common"]
             axk.plot(runs, _floats(pb["model"][sl]), "-", color=fs.OKABE_ITO[c], lw=1, label=m)
         axk.set_xticks(runs)
         axk.set_xticklabels([str(r) for r in runs[:-1]] + [f"{runs[-1]}+"])
@@ -136,9 +138,10 @@ def draw(gaps: dict, names: list[str], failed: set[str]) -> None:
     plt.close(fig)
 
 
-def likelihoods(glm: dict) -> dict:
+def likelihoods(glm: dict, gru: dict) -> dict:
     """Pooled held-out likelihood on the 149 test subjects per model and regime, re-pooled from
-    study 12's per-subject scores (and the GLM's own)."""
+    study 12's per-subject scores (the GLM's own; the GRU's per seed over the subjects it holds out,
+    then the mean over seeds)."""
     out = {}
     for regime, table in (("per_subject", lit.literature_per_subject("heldout")),
                           ("two_level_em", lit.two_level_em_per_subject("heldout"))):
@@ -147,6 +150,13 @@ def likelihoods(glm: dict) -> dict:
             n = sum(v[1] for v in subjects.values())
             out.setdefault(m, {})[regime] = math.exp(ll / n)
     out[glm["model"]] = {"per_subject": glm["pooled_heldout_likelihood"]}
+    seeds = {}
+    for r in gru["subjects"]:
+        if r["in_training"]:
+            continue
+        ll, n = seeds.get(r["seed"], (0.0, 0))
+        seeds[r["seed"]] = (ll + r["n_trials"] * math.log(r["likelihood"]), n + r["n_trials"])
+    out[gru["model"]] = {"per_subject": sum(math.exp(ll / n) for ll, n in seeds.values()) / len(seeds)}
     return out
 
 
@@ -173,10 +183,10 @@ def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
         labels = gaps["bins"][stat][sl]
         xs = np.arange(len(labels))
         first = next(iter(CURVES))
-        pb = gaps["models"][first][best_regime(gaps["models"][first])][head][stat]["per_bin"]
+        pb = gaps["models"][first][best_regime(gaps["models"][first])][head][stat]["per_bin_common"]
         ax.plot(xs, _floats(pb["subject"][sl]), "o", color="black", ms=2.5, label="subjects", zorder=3)
         for m, c in CURVES.items():
-            pb = gaps["models"][m][best_regime(gaps["models"][m])][head][stat]["per_bin"]
+            pb = gaps["models"][m][best_regime(gaps["models"][m])][head][stat]["per_bin_common"]
             ax.plot(xs, _floats(pb["model"][sl]), "-" if stat == "losses" else "_", color=fs.OKABE_ITO[c],
                     lw=1, ms=7, mew=1.2, label=m)
         ax.set_xticks(xs)
@@ -192,8 +202,8 @@ def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
     ax = fig.add_axes([0.70, 0.24, 0.27, 0.62])
     points = []
     for m in names:
-        for reg, cells in gaps["models"][m].items():
-            if m in lik and reg in lik[m]:
+        for reg in REGIMES:
+            if reg in gaps["models"][m] and m in lik and reg in lik[m]:
                 points.append({"model": m, "regime": reg, "likelihood": lik[m][reg],
                                "replay_score": fingerprint_score(gaps, m, reg)})
     shown = [p for p in points if p["likelihood"] >= C_MIN_LIKELIHOOD]
@@ -202,18 +212,17 @@ def draw_bins(gaps: dict, names: list[str], lik: dict) -> list[dict]:
         ax.scatter([p["likelihood"] for p in pts], [p["replay_score"] for p in pts], s=10,
                    marker=marker, facecolors="none" if reg == "per_subject" else "0.3",
                    edgecolors="0.3", lw=0.7, label=REGIMES[reg])
-    for p in shown:
+    for p in shown:   # the curves' models, in their colours (panel a's legend)
         if p["model"] in CURVES and p["regime"] == best_regime(gaps["models"][p["model"]]):
-            ax.annotate(p["model"], (p["likelihood"], p["replay_score"]), fontsize=5,
-                        xytext=LABEL_OFFSETS.get(p["model"], (-4, 0)), textcoords="offset points",
-                        ha="right", va="center",
-                        color=fs.OKABE_ITO[CURVES[p["model"]]])
+            ax.scatter([p["likelihood"]], [p["replay_score"]], s=14, zorder=3,
+                       marker="o" if p["regime"] == "per_subject" else "s",
+                       color=fs.OKABE_ITO[CURVES[p["model"]]], edgecolors="white", lw=0.4)
     ax.set_yscale("log")
     ax.set_yticks([1, 2, 5, 10, 20, 50])
     ax.set_yticklabels(["1", "2", "5", "10", "20", "50"])
     ax.minorticks_off()
     ax.set_ylim(1, None)
-    ax.set_xlabel("held-out likelihood (149 test subjects)")
+    ax.set_xlabel("held-out likelihood (test subjects)")
     ax.set_ylabel("replay fingerprint score")
     ax.legend(frameon=False, loc="upper right")
     ax.spines[["top", "right"]].set_visible(False)
@@ -295,6 +304,8 @@ def summary(gaps: dict, names: list[str]) -> list[dict]:
     for m in names:
         row = {"model": m}
         for reg, cells in gaps["models"][m].items():
+            if reg not in REGIMES:   # a GRU seed; its mean is the per-subject column
+                continue
             ratios = {s: cells[head][s]["floor_ratio"] for s in STATS}
             row[reg] = {"floor_ratio": ratios, "worst": max(ratios, key=ratios.get),
                         "score": fingerprint_score(gaps, m, reg),
@@ -303,7 +314,7 @@ def summary(gaps: dict, names: list[str]) -> list[dict]:
     return rows
 
 
-def gate_summary(replay: dict, glm: dict, gaps: dict) -> dict:
+def gate_summary(replay: dict, glm: dict, gru: dict, gaps: dict) -> dict:
     """The replay gates, over the cells the grid shows; a cell the gaps freeze left out (a failed
     2-level fit that does not reproduce) is listed, not counted."""
     skip = {(e["model"], e["regime"]) for e in gaps["excluded"]}
@@ -312,10 +323,17 @@ def gate_summary(replay: dict, glm: dict, gaps: dict) -> dict:
            "n_models": len(replay["models"]), "n_subjects": replay["n_subjects"],
            "max_abs_log_lik_diff": {}, "max_fingerprint_diff": 0.0, "excluded": gaps["excluded"],
            "glm_max_abs_diff": glm["max_abs_diff_sklearn"],
-           "glm_pooled_heldout_likelihood": glm["pooled_heldout_likelihood"]}
+           "glm_pooled_heldout_likelihood": glm["pooled_heldout_likelihood"],
+           "gru": {"wandb_group": gru["launch"]["wandb_group"], "tolerance": gru["tolerance"]["likelihood"],
+                   "n_seeds": len(gru["seeds"]),
+                   "n_subjects_referenced": min(g["n_subjects_referenced"] for g in gru["seeds"].values()),
+                   "subjects_unreferenced": gru["seeds"]["seed0"]["subjects_unreferenced"],
+                   "subjects_in_training": gru["seeds"]["seed0"]["subjects_in_training"],
+                   "max_abs_likelihood_diff": max(g["max_abs_likelihood_diff"] for g in gru["seeds"].values()),
+                   "seed_scores": {reg: fingerprint_score(gaps, gru["model"], reg) for reg in gru["seeds"]}}}
     shown = [(m, reg, g) for m, regimes in replay["models"].items() for reg, g in regimes.items()
              if (m, reg) not in skip]
-    out["passed"] = glm["passed"] and all(g["passed"] for _, _, g in shown)
+    out["passed"] = glm["passed"] and gru["passed"] and all(g["passed"] for _, _, g in shown)
     for _, reg, g in shown:
         out["max_abs_log_lik_diff"][reg] = max(out["max_abs_log_lik_diff"].get(reg, 0.0),
                                                g["max_abs_log_lik_diff"])
@@ -333,10 +351,11 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         f"{len(gaps['subjects'])} test subjects) per model, regime and statistic, on the subjects' "
         f"held-out sessions except warm-ups (set `{head}`). 1 means as close as the subjects' own "
         "trials allow. **score** is the replay fingerprint score, the geometric mean of the four "
-        "ratios (ADR 0009). \\* the 2-level fit failed, so study 12 r3 places the model by its "
+        "ratios (ADR 0009). The GRU's row is the mean over its three seeds. \\* the 2-level fit failed, so study 12 r3 places the model by its "
         "per-subject score; n.r., not reproduced (see the gates). **b**, p(switch) by the last trial's reward and the current run length "
-        "(the hazard): the subjects' mean and three models' replayed predictions, over subjects that "
-        "keep the bin (2-level EM where the model has it).",
+        "(the hazard): the subjects' mean and four models' replayed predictions, over the "
+        f"{len(gaps['subjects']) - len(gates['gru']['subjects_in_training'])} subjects every model "
+        "holds out that keep the bin (2-level EM where the model has it).",
         "",
         "| model | per subject: score | worst statistic | its floor ratio | 2-level EM: score | worst statistic | its floor ratio |",
         "|---|---|---|---|---|---|---|",
@@ -356,11 +375,11 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         "",
         "**a**, p(switch) by the count of consecutive unrewarded trials on the current side, and "
         "**b**, by the last two trials (S same side, O other side, + rewarded, − not; most recent "
-        "first): subjects and the same three models as above, over subjects that keep the bin. "
+        "first): subjects and the same four models as above, over the same subjects. "
         "**c**, each model's pooled held-out likelihood on the 149 test subjects (study 12's "
-        "per-subject scores, re-pooled; the GLM's own) against its replay fingerprint score (the "
-        "geometric mean of its four floor ratios, ADR 0009), per regime; labels mark the three models of "
-        "the curves in the regime drawn there."
+        "per-subject scores, re-pooled; the GLM's own; the GRU's mean over seeds, on its 146) against its replay fingerprint score (the "
+        "geometric mean of its four floor ratios, ADR 0009), per regime; the models of the curves are "
+        "coloured as in **a**, in the regime drawn there."
         + ("" if not off_axis else " Off the axis: " + "; ".join(
             f"{p['model']} ({REGIMES[p['regime']]}, likelihood {p['likelihood']:.3f}, "
             f"replay score {p['replay_score']:.0f})" for p in off_axis) + "."),
@@ -385,7 +404,18 @@ def render(gates: dict, rows: list[dict], gaps: dict, failed: set[str], off_axis
         + "MEvolve's `replay_gap`, rebuilt from the 2-level tallies, equals the "
         f"stored one to {gates['max_fingerprint_diff']:.1e}. The GLM's replay equals scikit-learn's "
         f"prediction to {gates['glm_max_abs_diff']:.1e}; its pooled held-out likelihood is "
-        f"{gates['glm_pooled_heldout_likelihood']:.4f}.",
+        f"{gates['glm_pooled_heldout_likelihood']:.4f}. "
+        f"The GRU (study 01's v1 GRU at D = 614, re-fine-tuned on the held-out subjects, launch "
+        f"`{gates['gru']['wandb_group']}`, which logs no W&B runs) scores exactly the freeze's sessions and choices; on the "
+        f"{gates['gru']['n_subjects_referenced']} subjects study 01 r2 also scored, each seed's "
+        f"likelihood equals study 01's to {gates['gru']['max_abs_likelihood_diff']:.1e} (tolerance "
+        f"{gates['gru']['tolerance']:.0e}; study 01 scored on GPUs, this re-fine-tune on CPUs). Its "
+        f"{len(gates['gru']['subjects_in_training'])} other subjects "
+        f"({', '.join(gates['gru']['subjects_in_training'])}) were among the 614 its checkpoint was "
+        f"trained on, so the GRU's numbers leave them out: its cells and score are over "
+        f"{len(gaps['subjects']) - len(gates['gru']['subjects_in_training'])} subjects, every other "
+        f"model's over {len(gaps['subjects'])}. Replay scores per seed: "
+        + ", ".join(f"{v:.2f}" for v in gates["gru"]["seed_scores"].values()) + ".",
     ]
     return "\n".join(lines)
 
@@ -398,13 +428,13 @@ def _rewrite(text: str, block: str, body: str) -> str:
 
 
 def main() -> None:
-    replay, glm, gaps = (json.loads(p.read_text()) for p in (REPLAY, GLM, GAPS))
-    gates = gate_summary(replay, glm, gaps)
+    replay, glm, gru, gaps = (json.loads(p.read_text()) for p in (REPLAY, GLM, GRU, GAPS))
+    gates = gate_summary(replay, glm, gru, gaps)
     if not gates["passed"]:
         raise SystemExit("a P1 replay gate failed; fix it before rendering r2")
     names, failed = ordered_models(gaps)
     draw(gaps, names, failed)
-    points = draw_bins(gaps, names, likelihoods(glm))
+    points = draw_bins(gaps, names, likelihoods(glm, gru))
     scatter = draw_scatter(gaps)
     rows = summary(gaps, names)
     REPORT.write_text(_rewrite(REPORT.read_text(), "result-1", render(gates, rows, gaps, failed,
@@ -413,7 +443,7 @@ def main() -> None:
                         for name, cells in sets.items()}
                   for reg, sets in gaps["models"][m].items()} for m in names}
     meta = build_meta("analysis/r2_replay_grid.py", WANDB_GROUPS, study_root=HERE.parent,
-                      code=[__file__], inputs=[REPLAY, GLM, GAPS, lit.HEADLINE_SOURCE, lit.LITERATURE_SOURCE,
+                      code=[__file__], inputs=[REPLAY, GLM, GRU, GAPS, lit.HEADLINE_SOURCE, lit.LITERATURE_SOURCE,
                               lit.TWO_LEVEL_EM_SOURCE])
     write_artifact(HERE / "r2_replay_grid.json",
                    {"_meta": meta, "gates": gates, "headline_set": gaps["headline_set"],
