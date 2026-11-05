@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_gate4_novelty.py",
-    "produced_at_pt": "2026-11-04T19:39:56-08:00",
-    "studies_git_sha": "28db7d09976c9e475af4b785c8007ed0ed429463",
+    "produced_at_pt": "2026-11-04T19:57:20-08:00",
+    "studies_git_sha": "2a16adce9d7cf1d4932ee99ac971d7235419dfb7",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,16 +16,52 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/freeze_gate4_novelty.py",
-        "sha256": "65a60be85ad5c475123080f886ba850afd8da9c7ab5a3c58c94f9b6561055674"
+        "sha256": "6a2a7a933f534a7498c28cb5375dabdcf3ccaf4a74aaf3de456fa6c7afacf3f3"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/freeze_gate4.py",
+        "sha256": "3f2224853bc25d808cacdcea113a057ec9d2555bc02d0b18ed7d7b8ea444a685"
       }
     ],
     "inputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/gate4/runs.json",
-        "sha256": "f84fefd02525aa9fd043217d34c2e74ac7ca16cc408ba59aae8d82b1d685ca36"
+        "sha256": "4dd1ee2c66e92660255976d8a8551d927e85c973face92f0ce3f961c92d310b5"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/gate4/archives.json",
+        "sha256": "bb1f2419b0d99505243405befbfcdaed5558503d356c7325bd84d95e54669661"
       }
     ],
     "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/search/programs.sqlite",
+        "sha256": "8e77855995936632b5a4ea70c0914e3481b71d3717b20ec2c465a53c29b52331"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/20261104-132600/search/programs.sqlite-wal",
+        "sha256": "d15b7be0ae576732710c04c99eeb557760b884258bda55cab767d573233fd066"
+      },
+      {
+        "type": "url",
+        "id": "wandb-artifact://NeuralDynamics/dfbfm-mevolve/run-gate4-recovery-20261104-132600:v0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/search/programs.sqlite",
+        "sha256": "bf8be36937043b1a5ff15b50f71bad376e790607127f6df6275657955c30319b"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-noseed/20261104-141503/search/programs.sqlite-wal",
+        "sha256": "789323ff74e12d503029707c84879ac79b9a4f939de6da5dafd19b16220a4500"
+      },
+      {
+        "type": "url",
+        "id": "wandb-artifact://NeuralDynamics/dfbfm-mevolve/run-gate4-noseed-20261104-141503:v0"
+      },
       {
         "type": "url",
         "id": "https://huggingface.co/Alibaba-NLP/gte-modernbert-base/tree/e7f32e3c00f91d699e8c43b53106206bcc72bb22"

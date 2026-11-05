@@ -4,7 +4,7 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all explainer gate3 freeze-engine-smoke freeze-gate4 freeze-gate4-novelty
+.PHONY: all explainer gate3 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
 all: gate3
 
@@ -17,6 +17,11 @@ gate3:
 # part of `all`. Run on a compute node, commit analysis/engine_smoke/, then run `make gate3`.
 freeze-engine-smoke:
 	$(PY) analysis/freeze_engine_smoke.py
+
+# archive-gate4 = once per run: each gate 4 search's run directory to a W&B artifact in
+# NeuralDynamics/dfbfm-mevolve, recorded in analysis/gate4/archives.json; never part of `all`.
+archive-gate4:
+	$(PY) analysis/archive_gate4_runs.py
 
 # freeze-gate4 = the live read for r1: both gate 4 searches' run directories, the first half's
 # gate4.json and simulated subjects on /allen (read-only), and an example session from the committed
