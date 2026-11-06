@@ -4,7 +4,7 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
+.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-stop-se freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
 all: gate3 seed-choice smoke-result cap12-result r1
 
@@ -33,6 +33,12 @@ cap12-result:
 # analysis/seeded_islands_cap12/.
 freeze-seeded-islands-cap12:
 	$(PY) analysis/freeze_seeded_islands_cap12.py
+
+# freeze-stop-se = the live read for the stopping rule's standard error: re-evaluates the new bests of
+# seeded-islands-smoke and -cap12 from their W&B archives (needs W&B, /allen and MEvolve on PYTHONPATH;
+# a full compute node, about an hour); never part of `all`. Commit analysis/stop_se/.
+freeze-stop-se:
+	$(PY) analysis/freeze_stop_se.py
 
 # gate3 = gate 3's numbers for variants/engine-smoke/notes.md (Result), from analysis/engine_smoke/.
 gate3:
