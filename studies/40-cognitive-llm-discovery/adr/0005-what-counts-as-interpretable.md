@@ -22,3 +22,16 @@ first planned.
   lines: Halstead effort, as DataDIVER used, combines size and difficulty in one deterministic number.
 - **An LLM ranking pairs of programs by readability**, as CogFunSearch also tried: not deterministic;
   deferred.
+
+## Amendment (2026-11-05): 12 parameters during search; latent variables stay at 6
+
+`seeded-islands` searches with at most 12 parameters and 6 latent variables (Han, 2026-11-05). The test
+variant `seeded-islands-cap12` raised both limits, to 12 and 8, for 100 proposals on real mice
+([its notes](../variants/seeded-islands-cap12/notes.md), `analysis/seeded_islands_cap12.json`). Claude went
+past 8 parameters in 36 of 89 scored proposals and past 6 latent variables in 2; the best program used
+11 parameters and fitted as a parameter the rate the 8-parameter run's best had written in as a
+constant. So the parameter limit of 8 bound and the latent limit of 6 rarely did. The best score did not
+differ beyond noise (one run each way), so this is a choice about readability, not fit: 12 parameters
+let a program fit what it would otherwise hard-code, which the search would then tune on the validation
+mice. The simplification stage and the floors are unchanged, so the reported programs can still be as
+small as before.

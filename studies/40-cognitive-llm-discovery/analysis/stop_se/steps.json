@@ -1,0 +1,3956 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_stop_se.py",
+    "produced_at_pt": "2026-11-06T02:59:53-08:00",
+    "studies_git_sha": "65c0380ca07790f90ae96dfd1a78e141bd71e1f8",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "seeded-islands-smoke@20261105-011815",
+      "seeded-islands-cap12@20261105-100249"
+    ],
+    "source_studies_git_shas": [
+      "a6c3f29cb6965174b0b5a0677770388929b336da",
+      "b506d776205ea3909c6e1383b5f79f0ce431a4a5"
+    ],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no dispatcher SHA in the launch record(s) of W&B group(s): seeded-islands-cap12@20261105-100249, seeded-islands-smoke@20261105-011815",
+      "no wrapper SHA in the launch record(s) of W&B group(s): seeded-islands-cap12@20261105-100249, seeded-islands-smoke@20261105-011815",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): seeded-islands-cap12@20261105-100249, seeded-islands-smoke@20261105-011815"
+    ],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/freeze_stop_se.py",
+        "sha256": "00206d2900b21b4dd337536a918a36cffed0b783cc4064d9028909dee88fa306"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_smoke/run.json",
+        "sha256": "b040c74a801cf50d35972264f8a3bc4342c297cc57596af47889d906a4caeae1"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_cap12/run.json",
+        "sha256": "ecc41d3688127e2fb857262f1cd5b3c25a41550a067ea235c341d356ba07091d"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/reference/cohorts_seed0.json",
+        "sha256": "cbe2cd029611a713043afdd4312aedd5fa31d10473b04e9402134cb994c4d7cb"
+      }
+    ],
+    "sources": [
+      {
+        "type": "url",
+        "id": "wandb-artifact://NeuralDynamics/dfbfm-mevolve/run-seeded-islands-smoke-20261105-011815:v0"
+      },
+      {
+        "type": "url",
+        "id": "wandb-artifact://NeuralDynamics/dfbfm-mevolve/run-seeded-islands-cap12-20261105-100249:v0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/stop_se/steps.json",
+        "sha256": "6854f3dcfe11f234f02840523b49a92a38747a1d7e1d1d51221f7e1374935b63"
+      }
+    ]
+  },
+  "about": "Paired standard errors (x100) between consecutive new bests of seeded-islands-smoke and seeded-islands-cap12, from programs re-evaluated as in the search.",
+  "mevolve_git_sha": "8287dad9e0907e04c22ba864a9bf1e31ece02eac",
+  "runs": {
+    "smoke": {
+      "archive": {
+        "artifact": "NeuralDynamics/dfbfm-mevolve/run-seeded-islands-smoke-20261105-011815:v0",
+        "digest": "19f17a3875d4ea7c7dfe5507bccc6335",
+        "n_files": 1218,
+        "bytes": 20370300
+      },
+      "max_em": 20,
+      "n_draws": 2048,
+      "programs": [
+        {
+          "generation": 0,
+          "id": "seed-Miller-RHG-80251e73",
+          "seed": "Miller-RHG",
+          "score": 72.60789103582971,
+          "two_level_failed": false,
+          "code_sha256": "59312a91bacf4c2d686f8b92ae105d8a83ff8ebdfe3c45533d307db253f8a4d7",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1744.7943356675714,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1202.146206810032,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -860.3308761538142,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1670.6232333312128,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3053.5300835594094,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3088.2122628377515,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2985.26548801175,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5290.9141549848855,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3493.6860997416125,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4868.180241487954,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -621.8242710044324,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -918.8905388430583,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1672.7442921945271,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1552.4225779043825,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1249.438730381793,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -620.8055609997989,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1221.8124675033573,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1060.172442583894,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1137.5177358386177,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1731.9752072837796,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2047.488496445297,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1732.2625187175825,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2488.0460991618274,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1771.2194012485184,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2037.1730912697496,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1375.6941172592255,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1718.3607707637575,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2209.339702880452,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2765.3628671988345,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1749.2481522700916,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3884.855021979281,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3517.949849446548,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2849.521753516145,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2829.662939506417,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1749.4284065079116,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3385.3581984586394,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3807.7815265051895,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4154.8264400308935,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2221.101485511124,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -797.6835883953927,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -420.03498360093636,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1199.2074532636811,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2308.6132413605887,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1410.106746863086,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1365.2344882883542,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3033.1804243259767,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2243.97379519406,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2265.8301412391475,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 3,
+          "id": "be7ea232-e438-4760-bb98-8cf847eaf0df",
+          "seed": null,
+          "score": 72.65764414440923,
+          "two_level_failed": false,
+          "code_sha256": "7c222b4c92009975049ba0736adf1752036f0f8f992aa6d67cb8461d13faeb18",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1730.694958953885,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1195.5139156789182,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -859.34463228763,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1669.5008107881501,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3033.129563984066,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3063.619138538262,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2975.5437321562913,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5289.229099242614,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3491.295169730494,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4872.114343083974,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -616.1295369225387,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -912.7413124775115,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1679.9250325673993,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1552.1441514934425,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1245.1037356824772,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -618.5501303830057,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1223.4608094037321,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1066.3871876087205,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1129.9235595509056,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1723.127122403227,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2038.3784045841996,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1727.4530420304116,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2469.085575342296,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1769.888790229074,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2037.0329762623376,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1373.6518167723939,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1710.095825446881,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2218.0299372713707,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2741.4363249650373,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1724.5517476791783,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3870.3268709543236,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3517.7920631334773,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2824.5173143190977,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2811.8797304326863,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1716.9296367451705,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3396.903209980025,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3804.9547742567315,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4196.570503177832,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2231.685460830149,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -805.6683869309977,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -414.63419966167794,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1186.5023432677024,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2307.895570040855,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1401.6909450010914,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1370.5539547765823,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3044.029587274278,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2241.382240887647,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2261.5955790097696,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 20,
+          "id": "e06cb89b-ed6d-420e-a4af-136c34be8265",
+          "seed": null,
+          "score": 72.65895054520426,
+          "two_level_failed": false,
+          "code_sha256": "098a9ac9addface0e51c69e24eb933726aa73dcfcb30188cfdd51236147c7d3a",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1736.0225623635292,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1219.555723058978,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -855.592876784194,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1675.3357044377208,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3047.8066593321646,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3082.0882969885997,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2978.0744115811995,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5285.321578742434,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3492.182074946552,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4860.139220386811,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -618.6859730430057,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -905.1765008731468,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1674.1943296379973,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1552.0806348496697,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1245.9053319545544,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -620.3471208840787,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1223.2553256394306,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1059.9065267342971,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1132.8015902114093,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1728.8283622519668,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2036.2691991480028,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1737.422756211262,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2476.466512363093,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1773.6292377676218,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2040.6833263872004,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1364.5510570415522,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1714.9756539247003,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2212.0314668186,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2748.679881723361,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1731.000035720257,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3879.3128263402596,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3506.6291026519148,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2833.2694432766834,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2835.7684220970264,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1732.3298740419516,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3376.1862796738797,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3802.174500567481,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4155.54058134165,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2220.534423138518,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -779.6215579143152,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -418.3905471087505,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1193.0712625669278,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2298.336987051376,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1402.0019613257493,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1358.563576141877,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3032.44290917269,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2239.911182753941,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2263.692238281321,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 31,
+          "id": "30dccb0f-c6ad-487a-ba1c-5458ae817861",
+          "seed": null,
+          "score": 72.66742070222034,
+          "two_level_failed": false,
+          "code_sha256": "c3f2ba755482cd55fc9b43a5d41d9ef2e7fbe2ec0a65d8a62c22feeacebd76b7",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1732.6446933614584,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1197.4596210236834,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -853.6662956559601,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1672.3700335747326,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3042.5868478260154,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3080.8983560362008,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2978.5653651282346,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5287.072408021001,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3491.0208441408085,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4869.6955020053465,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -617.2313129111933,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -903.1963219546697,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1678.3668928921143,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1549.8669053505691,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1242.9779350770764,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -618.9221235194343,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1222.354908898314,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1058.036100460512,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1128.9074507832345,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1726.7424249781493,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2034.896200461657,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1729.1556346369582,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2478.7903948543767,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1770.8397335075033,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2041.0650873618572,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1366.2967920611727,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1711.8133486962734,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2207.469628601277,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2744.5217324921464,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1729.6819268260845,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3879.0240940326166,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3511.89347784418,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2840.03085785125,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2832.0084474889627,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1728.5042781674092,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3374.8778024807507,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3801.801732834504,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4156.684516272109,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2220.223036504939,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -762.9510078758015,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -419.4194158121463,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1196.2280757314163,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2296.9431943348827,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1406.494395235601,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1380.520738435594,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3041.226159565294,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2239.819827280485,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2263.3751451788394,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 32,
+          "id": "c13d2512-982a-486f-9c94-9cc83552d9c7",
+          "seed": null,
+          "score": 72.66751277635262,
+          "reproduced_score": 72.66751277635262,
+          "two_level_failed": false,
+          "code_sha256": "55da33e002920a8ddd8813223410942796820883c50863517f8c731047fe3805",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1734.122735562359,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1198.3397365908575,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -853.913069499806,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1672.0760548766084,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3045.7377879794335,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3074.536079652674,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2977.998156604947,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5289.249936560032,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3493.268884550534,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4868.033824948639,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -615.9578117147053,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -901.682794822501,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1673.170890040337,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1549.9894234858011,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1242.742805316423,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -619.9906385590132,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1227.4096397683159,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1060.624333403852,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1132.135139400058,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1732.4335765615617,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2034.430385591859,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1735.1753391118693,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2479.015159098792,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1768.2209819957432,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2041.100275093304,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1363.6326043213237,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1711.6468638373126,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2209.9083519012147,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2744.1998854963995,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1740.9215617472323,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3878.2176526570283,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3509.0468603898244,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2840.4222323489357,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2834.16785769504,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1725.4627045756074,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3372.985998703096,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3803.912701316622,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4157.306684457015,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2219.8696364304506,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -759.6258741954242,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -420.07334824252274,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1193.7564813364993,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2295.0763355666113,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1404.7985337655036,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1380.0946130508457,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3031.1426883407967,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2238.5696417442787,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2262.535220652067,
+              "n_trials": 8979
+            }
+          ]
+        },
+        {
+          "generation": 35,
+          "id": "5adfda67-a518-4635-9d39-2b8e1f9c305a",
+          "seed": null,
+          "score": 72.6764427525387,
+          "two_level_failed": false,
+          "code_sha256": "56aea9f4e47d8ca22ae99ca9db1ad4108321729086a4a1a569ca15edecdd551d",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1732.217500825062,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1197.4329783897501,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -854.2057847153249,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1672.026320749805,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3044.913456436646,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3076.8553749687812,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2979.3792698511297,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5287.965029876669,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3491.018070524211,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4868.5581357066985,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -617.0710319938801,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -903.1997462906694,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1673.6699285907068,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1544.7430308664989,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1246.8190929394068,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -619.0584752233112,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1223.0833523610706,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1058.124422282451,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1127.612097288041,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1725.9793452786053,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2035.0358160558185,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1734.603739811855,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2468.6948911349227,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1769.5278605139877,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2041.6766048702507,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1371.1670845941499,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1708.7479985801433,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2210.1757920475115,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2739.1090446504436,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1735.3368174788613,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3879.013769024722,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3511.674471417271,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2841.1893447425805,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2823.327659424549,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1720.6565992412277,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3374.9688997340068,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3808.1451088923254,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4156.791363975576,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2231.7367908455903,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -764.9244329547626,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -420.9639555328381,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1194.1953037085825,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2293.983154802714,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1404.3709065346452,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1353.4272858018053,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3035.842559170015,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2238.307222032884,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2267.51526320803,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 64,
+          "id": "02b25dde-6b7a-4f1a-8cf1-026c87832439",
+          "seed": null,
+          "score": 72.68366866340857,
+          "two_level_failed": false,
+          "code_sha256": "f01f111c15a61c34685daaae7c0478678ec921fd9d34fdf7ed745512823c0eda",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1731.4562649983943,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1195.6170432413774,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -856.9959717812279,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1662.918983871948,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3031.9717672240445,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3090.3490146524377,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2975.153093515447,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5294.774089764494,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3486.641797924461,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4846.241637579369,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -617.2486318726468,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -909.2331189962849,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1681.629572974437,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1548.8190014999886,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1244.1944353587107,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -616.330864958373,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1223.043456411496,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1056.5245490399252,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1129.304605026529,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1724.939283606695,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2030.0001241689838,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1726.2645782985094,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2464.3120549462865,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1771.670074987104,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2035.6154940585263,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1378.5871051320792,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1709.9677910797666,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2216.35243240786,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2738.038851771618,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1738.4806687087512,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3862.192442652632,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3504.471959329666,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2824.527889937384,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2813.122382962174,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1717.031020255882,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3381.313693434259,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3807.6211185619545,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4167.580166283619,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2226.5811774598114,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -805.4465721717463,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -418.827179075274,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1184.4956503994301,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2295.6498989239094,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1401.9566021411374,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1362.3375066189199,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3041.7032196361765,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2235.1583001402696,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2264.2384075207356,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 93,
+          "id": "58264804-49d5-4242-a45d-658307956c13",
+          "seed": null,
+          "score": 72.69021910426403,
+          "two_level_failed": false,
+          "code_sha256": "015ab3808eb681477cb2b3ab88439e910d534c5683358066874194cf8610b1c1",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1730.507333662073,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1195.9975824594053,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -850.9024075560483,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1663.8247779896165,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3032.4752071999187,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3079.630698687471,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2975.198922716483,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5293.7859672443,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3490.7117225582265,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4846.510751726606,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -615.6260219552886,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -904.0700396438956,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1683.558091682089,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1550.719801260767,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1245.6464675828474,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -618.689268332678,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1222.3372232196189,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1053.6402112351416,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1129.1403016881673,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1725.1819820297856,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2029.6470620129935,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1726.4003648076637,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2463.5188695130787,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1772.6808416988854,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2038.464548299983,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1370.653770431495,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1710.1389984704265,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2202.5927270730726,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2736.5228970506405,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1737.2513827359417,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3860.6760517202024,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3503.427173674386,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2821.932009122595,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2816.1170535841857,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1718.3347487023923,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3382.13999862036,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3808.6396537119404,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4167.589285957579,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2229.459277579837,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -808.6817187859647,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -415.0150539485602,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1188.3404525868,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2296.750051732494,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1401.945570753714,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1362.8966046667565,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3038.8755990402824,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2239.183875118128,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2261.7949116156706,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        }
+      ],
+      "pairs": [
+        {
+          "from": 0,
+          "to": 3,
+          "score_diff_x100": 0.04975310857953108,
+          "se_x100": 0.020303109330772715,
+          "n_subjects": 48
+        },
+        {
+          "from": 3,
+          "to": 20,
+          "score_diff_x100": 0.0013064007950203127,
+          "se_x100": 0.018201558974173936,
+          "n_subjects": 48
+        },
+        {
+          "from": 20,
+          "to": 31,
+          "score_diff_x100": 0.008470156832229847,
+          "se_x100": 0.009834351200617328,
+          "n_subjects": 48
+        },
+        {
+          "from": 31,
+          "to": 32,
+          "score_diff_x100": 9.207431613811323e-05,
+          "se_x100": 0.00516291754881876,
+          "n_subjects": 48
+        },
+        {
+          "from": 32,
+          "to": 35,
+          "score_diff_x100": 0.008929976236460302,
+          "se_x100": 0.00873710359550354,
+          "n_subjects": 48
+        },
+        {
+          "from": 35,
+          "to": 64,
+          "score_diff_x100": 0.007225910819486092,
+          "se_x100": 0.014642740566522252,
+          "n_subjects": 48
+        },
+        {
+          "from": 64,
+          "to": 93,
+          "score_diff_x100": 0.006550440855457307,
+          "se_x100": 0.005477722892859062,
+          "n_subjects": 48
+        }
+      ]
+    },
+    "cap12": {
+      "archive": {
+        "artifact": "NeuralDynamics/dfbfm-mevolve/run-seeded-islands-cap12-20261105-100249:v0",
+        "digest": "29d56803e288f29c602f339c5358f214",
+        "n_files": 1134,
+        "bytes": 19991256
+      },
+      "max_em": 20,
+      "n_draws": 2048,
+      "programs": [
+        {
+          "generation": 0,
+          "id": "seed-Miller-RHG-d9156da3",
+          "seed": "Miller-RHG",
+          "score": 72.60789103582971,
+          "two_level_failed": false,
+          "code_sha256": "59312a91bacf4c2d686f8b92ae105d8a83ff8ebdfe3c45533d307db253f8a4d7",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1744.7943356675714,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1202.146206810032,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -860.3308761538142,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1670.6232333312128,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3053.5300835594094,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3088.2122628377515,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2985.26548801175,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5290.9141549848855,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3493.6860997416125,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4868.180241487954,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -621.8242710044324,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -918.8905388430583,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1672.7442921945271,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1552.4225779043825,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1249.438730381793,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -620.8055609997989,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1221.8124675033573,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1060.172442583894,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1137.5177358386177,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1731.9752072837796,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2047.488496445297,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1732.2625187175825,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2488.0460991618274,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1771.2194012485184,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2037.1730912697496,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1375.6941172592255,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1718.3607707637575,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2209.339702880452,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2765.3628671988345,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1749.2481522700916,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3884.855021979281,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3517.949849446548,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2849.521753516145,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2829.662939506417,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1749.4284065079116,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3385.3581984586394,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3807.7815265051895,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4154.8264400308935,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2221.101485511124,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -797.6835883953927,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -420.03498360093636,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1199.2074532636811,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2308.6132413605887,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1410.106746863086,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1365.2344882883542,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3033.1804243259767,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2243.97379519406,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2265.8301412391475,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 7,
+          "id": "7b64b3ba-17be-4b27-81df-183023d21694",
+          "seed": null,
+          "score": 72.64594158142839,
+          "reproduced_score": 72.64594153332443,
+          "two_level_failed": false,
+          "code_sha256": "dd75f00996a9948500c259a06939b928025c23fcd8299e20be337747da25fa88",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1741.6036745222505,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1199.7394001151047,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -847.8741317612996,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1665.0939869053261,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3046.061588559859,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3086.5436628779853,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2984.2975724437915,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5283.438392969909,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3490.04131967601,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4865.411709351079,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -615.0006637310807,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -907.810041263017,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1677.8938636521534,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1547.0578465563733,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1244.9430350551268,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -620.1548097380349,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1225.4633322420596,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1062.8313586274267,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1127.3942495411522,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1732.3624309437982,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2045.2177972180025,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1730.598677480504,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2478.4026695364278,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1764.233385308324,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2037.0587809213341,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1369.2005830067242,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1707.4770204466797,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2209.657589526436,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2759.2982205148537,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1736.561760806471,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3877.182501317793,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3513.4477295708807,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2844.1883505229653,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2825.609535319234,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1726.6779626795537,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3383.150229266706,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3809.672631034536,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4162.032847684097,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2225.8137293469017,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -805.2725204802392,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -416.229693309912,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1199.2770966745659,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2315.3013411941906,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1403.6333832777552,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1355.3208276748142,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3033.366589382931,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2242.9235940547287,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2266.7951503143568,
+              "n_trials": 8979
+            }
+          ]
+        },
+        {
+          "generation": 14,
+          "id": "a743b79c-b333-47e5-8af5-0c452e581257",
+          "seed": null,
+          "score": 72.66051490567665,
+          "two_level_failed": false,
+          "code_sha256": "b6c4cb55d7fd5aa3669e575c08ce27841f4e349231c7bf55e0965b0cbe574d5f",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1738.0797996779925,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1196.8518083393062,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -846.198758721577,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1666.6756684881805,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3042.1153452786216,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3078.967993676637,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2981.6019986583506,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5284.615424794191,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3492.0668258978067,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4867.807874936204,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -615.6555107739329,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -909.5027234113961,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1675.9455736302857,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1553.5285708082981,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1243.8184448401673,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -619.2305618428284,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1222.5028193662251,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1060.240265118237,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1130.273276037925,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1734.248771275688,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2034.5596745668338,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1733.218833064738,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2473.3413843676954,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1769.4361460712375,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2038.414844522576,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1366.393236439123,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1710.2361854875014,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2206.870183038428,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2735.85689567961,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1734.4083671417907,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3871.420782609654,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3506.829408627623,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2826.611065750331,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2817.946224001128,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1723.954921793853,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3380.647755518322,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3813.12309889025,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4166.471463157426,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2227.6710399814947,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -794.4718438377406,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -414.7071947031053,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1191.5695288598529,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2304.570675512024,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1404.4189579024342,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1364.7614937109174,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3056.834610093405,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2252.86265679309,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2268.2974406304597,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 41,
+          "id": "f80db474-da71-460c-a566-480ab2465280",
+          "seed": null,
+          "score": 72.67042814285001,
+          "two_level_failed": false,
+          "code_sha256": "d0412a5de7aeeea87c9d2302990cd6ef0ff4e15eecbdbdfcb5ad1f4d652142fc",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1735.1934218750969,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1194.9719959498964,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -856.2745793970553,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1663.066501110804,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3039.84606769072,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3081.8381075482703,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2982.300371051754,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5286.945989739432,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3485.6558912303767,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4849.265877046937,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -617.3879603364727,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -908.3377525989966,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1676.1956857629004,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1553.5042233451397,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1242.8790442247077,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -618.8832029721442,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1224.178962022012,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1058.9236480777558,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1126.694536865288,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1727.5076572480648,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2030.2585603203827,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1724.8632577973585,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2479.189597739995,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1765.104723164221,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2040.0490943326404,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1366.0143217606426,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1706.2837431298174,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2211.558962093982,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2735.8577096219306,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1737.202989052925,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3862.813655577222,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3501.9744126742175,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2826.8708514299706,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2817.851564354855,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1726.953850122033,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3379.389833800249,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3818.905188656006,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4165.162467657941,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2229.8308369435044,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -816.7107369791041,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -414.1485609972282,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1191.6764770026691,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2301.6982637812257,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1408.1171526881944,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1364.7793466908513,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3044.1072468213115,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2239.350776215246,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2269.1967992594377,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 49,
+          "id": "a5c83e0f-517b-47d6-ba7e-f91bad0287d0",
+          "seed": null,
+          "score": 72.6742955074763,
+          "two_level_failed": false,
+          "code_sha256": "60cbfce6883177b0a33b04e674b71dcfe6e90756cb32b48a18c1147917027bc5",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1731.3569897304815,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1196.8216110498486,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -849.2431121393504,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1668.335092550462,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3043.2949243544035,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3074.94929913406,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2971.8864988210908,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5286.888974781602,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3492.455529484122,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4863.960166540036,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -616.503182607049,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -903.27374434889,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1671.7578483086713,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1542.5648383606695,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1244.4292547274417,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -617.5099327992157,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1224.3087675045745,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1061.2996511409692,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1130.3285512737684,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1727.7317168603163,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2036.7611350323727,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1727.230664043744,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2453.6881892008537,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1772.5418703623452,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2030.6744003239128,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1369.6932718154746,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1704.7591741663184,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2213.4304654151665,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2741.5368003737913,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1734.3391292082893,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3873.7638602970683,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3504.906670239802,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2820.852278589898,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2814.6806928498645,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1720.8655912327317,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3381.9819031853212,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3814.2444255457995,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4169.503838871343,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2239.892409980742,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -810.7842786685912,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -415.7666360018808,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1209.5519711867166,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2306.035547233212,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1403.6946336906929,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1354.654509488123,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3034.1456053766274,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2249.8138137404612,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2259.891316892383,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        },
+        {
+          "generation": 68,
+          "id": "1d26baa2-db4a-4468-8eb5-fb27880edee5",
+          "seed": null,
+          "score": 72.68079503041614,
+          "reproduced_score": 72.68080090454565,
+          "two_level_failed": false,
+          "code_sha256": "af8ff24f7b5d2c6ff87f85a91934e49a445236ff10a180fd23cfe2dfcb3509b9",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1735.7128819396905,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1195.030236116165,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -839.8466592640409,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1662.4594802041934,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3039.3344345585024,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3079.281139630401,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2980.641553120036,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5288.167646691212,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3485.8752823474656,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4847.143726524959,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -618.9821320814854,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -906.1855606901236,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1676.5921573680216,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1551.7012706758494,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1243.8174172298325,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -622.6033611388924,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1224.3923974941076,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1059.4974593360862,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1129.2349035299924,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1727.8556050052857,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2030.6878889923694,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1727.0619101657476,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2474.1101687321916,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1765.1755963350686,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2039.5159906911058,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1367.2561822689854,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1705.9389063119352,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2209.9786879261205,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2736.5905426553277,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1742.1988329942756,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3863.0876384590642,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3501.0780660115743,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2827.659765012409,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2823.6185077188497,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1720.8873803414226,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3378.8395744403497,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3821.299646633237,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4167.236140706094,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2229.6954926854964,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -810.2819617070963,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -419.07096637187885,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1197.4471900239887,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2296.959313524377,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1400.403924340883,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1356.7897659500863,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3020.825016295314,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2238.487754128891,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2273.1368497540384,
+              "n_trials": 8979
+            }
+          ]
+        },
+        {
+          "generation": 96,
+          "id": "dff5aa96-bf05-485f-8006-b0635a2e306b",
+          "seed": null,
+          "score": 72.69981677583759,
+          "two_level_failed": false,
+          "code_sha256": "8d14284ad8f2a328949dde4ccfd97eda1871c37ee6b40dc7dc7b5766731e5126",
+          "validation": [
+            {
+              "subject_id": "631198",
+              "log_lik": -1719.7700842497766,
+              "n_trials": 3763
+            },
+            {
+              "subject_id": "671246",
+              "log_lik": -1197.1645659912797,
+              "n_trials": 2987
+            },
+            {
+              "subject_id": "652742",
+              "log_lik": -859.6799538536036,
+              "n_trials": 2783
+            },
+            {
+              "subject_id": "655101",
+              "log_lik": -1659.553039746091,
+              "n_trials": 3774
+            },
+            {
+              "subject_id": "494694",
+              "log_lik": -3040.694061036618,
+              "n_trials": 5397
+            },
+            {
+              "subject_id": "490932",
+              "log_lik": -3085.7808999601225,
+              "n_trials": 8673
+            },
+            {
+              "subject_id": "684041",
+              "log_lik": -2977.715141592259,
+              "n_trials": 8307
+            },
+            {
+              "subject_id": "457496",
+              "log_lik": -5292.631413154715,
+              "n_trials": 9151
+            },
+            {
+              "subject_id": "641805",
+              "log_lik": -3484.907133761,
+              "n_trials": 9909
+            },
+            {
+              "subject_id": "646196",
+              "log_lik": -4836.791512846076,
+              "n_trials": 17986
+            },
+            {
+              "subject_id": "737846",
+              "log_lik": -621.1137359387982,
+              "n_trials": 1555
+            },
+            {
+              "subject_id": "794980",
+              "log_lik": -901.958303529732,
+              "n_trials": 4673
+            },
+            {
+              "subject_id": "781477",
+              "log_lik": -1674.6911788859527,
+              "n_trials": 4654
+            },
+            {
+              "subject_id": "751926",
+              "log_lik": -1552.5082458613647,
+              "n_trials": 4182
+            },
+            {
+              "subject_id": "751925",
+              "log_lik": -1241.9180671645158,
+              "n_trials": 3524
+            },
+            {
+              "subject_id": "751151",
+              "log_lik": -617.9260506038005,
+              "n_trials": 2503
+            },
+            {
+              "subject_id": "780285",
+              "log_lik": -1219.3053172961868,
+              "n_trials": 5866
+            },
+            {
+              "subject_id": "795497",
+              "log_lik": -1060.9311638515053,
+              "n_trials": 3741
+            },
+            {
+              "subject_id": "788586",
+              "log_lik": -1130.2489762197667,
+              "n_trials": 3608
+            },
+            {
+              "subject_id": "747315",
+              "log_lik": -1729.9581116084305,
+              "n_trials": 5440
+            },
+            {
+              "subject_id": "780284",
+              "log_lik": -2028.0057364869606,
+              "n_trials": 5791
+            },
+            {
+              "subject_id": "775435",
+              "log_lik": -1719.5149580199395,
+              "n_trials": 6285
+            },
+            {
+              "subject_id": "730945",
+              "log_lik": -2507.8632778878787,
+              "n_trials": 7334
+            },
+            {
+              "subject_id": "764769",
+              "log_lik": -1766.8619256520733,
+              "n_trials": 6496
+            },
+            {
+              "subject_id": "716868",
+              "log_lik": -2041.2768964129884,
+              "n_trials": 4550
+            },
+            {
+              "subject_id": "774664",
+              "log_lik": -1365.9851360461953,
+              "n_trials": 4666
+            },
+            {
+              "subject_id": "767299",
+              "log_lik": -1705.4722245876353,
+              "n_trials": 7119
+            },
+            {
+              "subject_id": "802294",
+              "log_lik": -2207.0325783168432,
+              "n_trials": 7952
+            },
+            {
+              "subject_id": "800680",
+              "log_lik": -2736.5434242027204,
+              "n_trials": 7787
+            },
+            {
+              "subject_id": "820112",
+              "log_lik": -1729.208175795101,
+              "n_trials": 5796
+            },
+            {
+              "subject_id": "781900",
+              "log_lik": -3868.689865750287,
+              "n_trials": 9609
+            },
+            {
+              "subject_id": "793733",
+              "log_lik": -3500.64810049234,
+              "n_trials": 8461
+            },
+            {
+              "subject_id": "820651",
+              "log_lik": -2818.4863090573276,
+              "n_trials": 7734
+            },
+            {
+              "subject_id": "765228",
+              "log_lik": -2825.4063459543167,
+              "n_trials": 8507
+            },
+            {
+              "subject_id": "828706",
+              "log_lik": -1730.956799234191,
+              "n_trials": 6618
+            },
+            {
+              "subject_id": "806664",
+              "log_lik": -3378.491545242561,
+              "n_trials": 10958
+            },
+            {
+              "subject_id": "795711",
+              "log_lik": -3811.5758955838946,
+              "n_trials": 7730
+            },
+            {
+              "subject_id": "796387",
+              "log_lik": -4155.209325613061,
+              "n_trials": 13758
+            },
+            {
+              "subject_id": "813309",
+              "log_lik": -2226.952723223221,
+              "n_trials": 6112
+            },
+            {
+              "subject_id": "663290",
+              "log_lik": -800.499549733027,
+              "n_trials": 3640
+            },
+            {
+              "subject_id": "695329",
+              "log_lik": -411.06149484273243,
+              "n_trials": 2195
+            },
+            {
+              "subject_id": "778637",
+              "log_lik": -1193.6743798075613,
+              "n_trials": 4506
+            },
+            {
+              "subject_id": "739970",
+              "log_lik": -2288.397792349919,
+              "n_trials": 7394
+            },
+            {
+              "subject_id": "781371",
+              "log_lik": -1395.209448968357,
+              "n_trials": 6211
+            },
+            {
+              "subject_id": "698694",
+              "log_lik": -1349.5448469145501,
+              "n_trials": 6453
+            },
+            {
+              "subject_id": "663612",
+              "log_lik": -3020.0592965804435,
+              "n_trials": 16633
+            },
+            {
+              "subject_id": "649061",
+              "log_lik": -2228.104654338687,
+              "n_trials": 11227
+            },
+            {
+              "subject_id": "751769",
+              "log_lik": -2259.2041338630793,
+              "n_trials": 8979
+            }
+          ],
+          "reproduced_score": null
+        }
+      ],
+      "pairs": [
+        {
+          "from": 0,
+          "to": 7,
+          "score_diff_x100": 0.03805049749472378,
+          "se_x100": 0.009845325784067594,
+          "n_subjects": 48
+        },
+        {
+          "from": 7,
+          "to": 14,
+          "score_diff_x100": 0.014573372352222336,
+          "se_x100": 0.011353170653926626,
+          "n_subjects": 48
+        },
+        {
+          "from": 14,
+          "to": 41,
+          "score_diff_x100": 0.009913237173353462,
+          "se_x100": 0.009227211938246075,
+          "n_subjects": 48
+        },
+        {
+          "from": 41,
+          "to": 49,
+          "score_diff_x100": 0.0038673646262976646,
+          "se_x100": 0.011995635678364355,
+          "n_subjects": 48
+        },
+        {
+          "from": 49,
+          "to": 68,
+          "score_diff_x100": 0.006505397069345165,
+          "se_x100": 0.011411026987766628,
+          "n_subjects": 48
+        },
+        {
+          "from": 68,
+          "to": 96,
+          "score_diff_x100": 0.019015871291938602,
+          "se_x100": 0.012932923727320154,
+          "n_subjects": 48
+        }
+      ]
+    }
+  }
+}
