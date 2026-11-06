@@ -2,6 +2,11 @@
 
 ## 2026-11-06
 
+- `seeded-islands` before its first proposal: the proposer is Claude Opus 5.5 (effort medium), and each
+  evaluation is its own Slurm job of 24 CPUs under a small driver job (`eval_launch: "job"`, MEvolve #70;
+  at most 48 evaluations and 24 proposals at a time), so the search uses CPUs as they free up instead of
+  waiting for one block. `seeded-islands-1` (Sonnet, one block of 32 slots) never started and was cancelled;
+  the rehearsal (`REHEARSAL=1`) now makes 6 real Claude calls. Notes: deviation, pre-registration, Run.
 - `seeded-islands` pre-registered and ready to launch: `run.json` (12 parameters and 6 latent variables,
   $450, stopping rule, snapshots every 10 minutes) and `search.sbatch` (slots of 24 CPUs, their number
   chosen at launch; TERM 120 s before the time limit; `RESUME_OF` for a resume; `FAKE=1` for a $0
