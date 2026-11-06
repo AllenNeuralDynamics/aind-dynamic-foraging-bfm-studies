@@ -14,8 +14,10 @@ mice, the run's ``max_em`` and ``n_draws``), keeping each validation mouse's log
 reproduced score must equal the score in the run's database. The paired standard error is
 ``mevolve.gate2.paired_se`` (subjects as the unit, delta method). Writes ``analysis/stop_se/steps.json``.
 
-Needs W&B (``WANDB_API_KEY``), /allen and MEvolve (``PYTHONPATH=<mevolve>/src``); run it on a full compute
-node with ``sbatch`` (about 4 hours for 15 programs on 24 CPUs). ``stop_se.py`` reads only the committed file.
+Needs W&B (``WANDB_API_KEY``), /allen and MEvolve (``PYTHONPATH=<mevolve>/src``), on a compute node. Each
+program's per-mouse records go to a gitignored cache (``analysis/_cache_stop_se/``) as they are made, so the
+evaluations can run as a Slurm array, one program per task (``STOP_SE_ONLY=<run>:<generation>``), and a last
+run writes the freeze from the cache. ``stop_se.py`` reads only the committed file.
 """
 from __future__ import annotations
 
@@ -37,6 +39,7 @@ RUNS = {"smoke": HERE / "seeded_islands_smoke" / "run.json", "cap12": HERE / "se
 GROUPS = {"smoke": "seeded-islands-smoke@20261105-011815", "cap12": "seeded-islands-cap12@20261105-100249"}
 COHORTS = STUDY / "reference" / "cohorts_seed0.json"
 OUT = HERE / "stop_se" / "steps.json"
+CACHE = HERE / "_cache_stop_se"
 WORKERS = max(1, len(os.sched_getaffinity(0)) // 2)   # one per core; the score does not depend on it
 
 
@@ -61,6 +64,7 @@ def main() -> None:
     mevolve_sha = subprocess.run(["git", "-C", str(Path(evaluate.__file__).parents[2]), "rev-parse", "HEAD"],
                                  capture_output=True, text=True, check=True).stdout.strip()
     cohorts = json.loads(COHORTS.read_text())["cohorts"]
+    only = os.environ.get("STOP_SE_ONLY")           # "<run>:<generation>": evaluate one program into the cache
     sources, out = [], {"mevolve_git_sha": mevolve_sha, "runs": {}}
     for name, frozen in RUNS.items():
         run = json.loads(frozen.read_text())
@@ -80,26 +84,37 @@ def main() -> None:
             val = [evaluate.subject_data(freeze, s) for s in cohorts[config["validation"]]]
             progs = []
             for p in steps:
-                path = Path(tmp) / f"gen_{p['generation']}_{p['id'][:8]}.py"
-                path.write_text(code[p["id"]])
-                records = evaluate.evaluate(path, gen + val, regime="2level", workers=WORKERS,
-                                            max_em=config["max_em"], n_draws=config["n_draws"])
-                v = records[len(gen):]
-                score = evaluate.program_score(v)
-                failed = bool(score["two_level_failed"])
-                reproduced = 100 * score["score"]
-                assert abs(reproduced - p["score"]) < 1e-9, f"{name} gen {p['generation']}: {reproduced} != {p['score']}"
-                key = "per_subject_log_lik" if failed else "log_lik"   # the likelihood its score was made of
-                progs.append({"generation": p["generation"], "id": p["id"], "seed": p["seed"], "score": p["score"],
-                              "two_level_failed": failed,
-                              "code_sha256": hashlib.sha256(code[p["id"]].encode()).hexdigest(),
-                              "validation": [{"subject_id": r["subject_id"], "log_lik": r[key], "n_trials": r["n_trials"]}
-                                             for r in v]})
-                print(f"{name} gen {p['generation']}: {reproduced:.6f} reproduced", flush=True)
+                if only and only != f"{name}:{p['generation']}":
+                    continue
+                sha = hashlib.sha256(code[p["id"]].encode()).hexdigest()
+                cached = CACHE / f"{name}_{p['generation']}_{sha[:16]}.json"
+                if not cached.exists():
+                    path = Path(tmp) / f"gen_{p['generation']}_{p['id'][:8]}.py"
+                    path.write_text(code[p["id"]])
+                    records = evaluate.evaluate(path, gen + val, regime="2level", workers=WORKERS,
+                                                max_em=config["max_em"], n_draws=config["n_draws"])
+                    v = records[len(gen):]
+                    score = evaluate.program_score(v)
+                    failed = bool(score["two_level_failed"])
+                    reproduced = 100 * score["score"]
+                    assert abs(reproduced - p["score"]) < 1e-9, f"{name} gen {p['generation']}: {reproduced} != {p['score']}"
+                    key = "per_subject_log_lik" if failed else "log_lik"   # the likelihood its score was made of
+                    CACHE.mkdir(exist_ok=True)
+                    cached.write_text(json.dumps({
+                        "generation": p["generation"], "id": p["id"], "seed": p["seed"], "score": p["score"],
+                        "two_level_failed": failed, "code_sha256": sha,
+                        "validation": [{"subject_id": r["subject_id"], "log_lik": r[key], "n_trials": r["n_trials"]}
+                                       for r in v]}))
+                    print(f"{name} gen {p['generation']}: {reproduced:.6f} reproduced", flush=True)
+                progs.append(json.loads(cached.read_text()))
+            if only:
+                continue
         pairs = [{"from": a["generation"], "to": b["generation"], **paired_se(b["validation"], a["validation"])}
                  for a, b in zip(progs, progs[1:])]
         out["runs"][name] = {"archive": run["archive"], "max_em": config["max_em"], "n_draws": config["n_draws"],
                              "programs": progs, "pairs": pairs}
+    if only:
+        return
     sources.append({"type": "file", "id": str(Path(config["freeze"]) / "manifest.json"),
                     "sha256": hashlib.sha256((Path(config["freeze"]) / "manifest.json").read_bytes()).hexdigest()})
     OUT.parent.mkdir(parents=True, exist_ok=True)
