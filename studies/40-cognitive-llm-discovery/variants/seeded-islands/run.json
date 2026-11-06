@@ -43,7 +43,7 @@
   "group": "$WANDB_GROUP",
   "name": "seeded-islands-search",
   "mode": "online",
-  "notes": "Study 40's main search: 5 islands (the template and the seeds of ADR 0006), the library in the prompt, Claude Sonnet 5.5 at effort medium on real mice, at most 12 parameters and 6 latent variables, $450 list, stopping after 2,000 proposals without a rise above one paired SE"
+  "notes": "Study 40's main search: 5 islands (the template and the seeds of ADR 0006), the library in the prompt, Claude Sonnet 5.5 at effort medium on real mice, at most 12 parameters and 6 latent variables, 450 USD list, stopping after 2,000 proposals without a rise above one paired SE"
  },
  "launch": {
   "label": "$LAUNCH_LABEL",

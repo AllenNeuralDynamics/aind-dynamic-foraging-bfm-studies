@@ -6,7 +6,7 @@ more than one standard error of a paired difference between two programs. Gate 2
 between literature models that differ a lot (0.03 to 0.06, ×100); the rule compares a new best with
 an earlier best of the same search, usually a close relative. This script measures it on such pairs:
 in `seeded-islands-smoke` and `seeded-islands-cap12`, every new best and the best before it (the best
-seed for the first).
+seed for the first), in the order the programs finished, as the rule counts them.
 
 Each program's code is read from its run's W&B archive (downloaded at the digest the committed freeze
 records) and evaluated again exactly as in the search (2-level EM on the generation and validation
@@ -16,7 +16,8 @@ worker count the floating-point order differs, and scores agreed to between 1e-9
 ``mevolve.gate2.paired_se`` (subjects as the unit, delta method). Writes ``analysis/stop_se/steps.json``.
 
 Needs W&B (``WANDB_API_KEY``), /allen and MEvolve (``PYTHONPATH=<mevolve>/src``), on a compute node. Each
-program's per-mouse records go to a gitignored cache (``analysis/_cache_stop_se/``) as they are made, so the
+program's per-mouse records go to a gitignored cache (``analysis/_cache_stop_se/``, keyed by the program's code
+and by the evaluation's inputs: MEvolve's commit, the cohorts, the data freeze, the fit settings) as they are made, so the
 evaluations can run as a Slurm array, one program per task (``STOP_SE_ONLY=<run>:<generation>``), and a last
 run writes the freeze from the cache. ``stop_se.py`` reads only the committed file.
 """
@@ -45,12 +46,13 @@ TOLERANCE = 1e-4      # ×100: far below any paired standard error here (0.01 an
 WORKERS = max(1, len(os.sched_getaffinity(0)) // 2)   # one per core; the score does not depend on it
 
 
-def new_bests(programs: list[dict]) -> list[dict]:
-    """The best seed, then every proposal that beat the best so far, in proposal order."""
+def new_bests(programs: list[dict], finished: dict[str, float]) -> list[dict]:
+    """The best seed, then every proposal that beat the best so far, in the order they finished
+    (``finished``: program id -> its database timestamp), as the stopping rule sees them."""
     seeds = [p for p in programs if p["generation"] == 0 and p["seed"]]
     cur = max(seeds, key=lambda p: p["score"])
     out = [cur]
-    for p in sorted((p for p in programs if p["generation"] > 0 and p["correct"]), key=lambda p: p["generation"]):
+    for p in sorted((p for p in programs if p["generation"] > 0 and p["correct"]), key=lambda p: finished[p["id"]]):
         if p["score"] > cur["score"]:
             out.append(p)
             cur = p
@@ -71,7 +73,6 @@ def main() -> None:
     for name, frozen in RUNS.items():
         run = json.loads(frozen.read_text())
         art_name, digest = run["archive"]["artifact"], run["archive"]["digest"]
-        steps = new_bests(run["programs"])
         with tempfile.TemporaryDirectory() as tmp:
             art = wandb.Api().artifact(art_name)
             assert art.digest == digest, f"{art_name} has digest {art.digest}, the freeze recorded {digest}"
@@ -80,7 +81,13 @@ def main() -> None:
             config = json.loads((root / "run_config.json").read_text())
             con = sqlite3.connect(f"file:{root / 'programs.sqlite'}?mode=ro", uri=True)
             code = {i: c for i, c in con.execute("SELECT id, code FROM programs")}
+            finished = {i: ts for i, ts in con.execute("SELECT id, timestamp FROM programs")}
             con.close()
+            steps = new_bests(run["programs"], finished)
+            inputs_key = hashlib.sha256(json.dumps(       # what else decides a program's likelihoods
+                [mevolve_sha, hashlib.sha256(COHORTS.read_bytes()).hexdigest(),
+                 hashlib.sha256((Path(config["freeze"]) / "manifest.json").read_bytes()).hexdigest(),
+                 config["generation"], config["validation"], config["max_em"], config["n_draws"]]).encode()).hexdigest()
             freeze = Freeze(Path(config["freeze"]))
             gen = [evaluate.subject_data(freeze, s) for s in cohorts[config["generation"]]]
             val = [evaluate.subject_data(freeze, s) for s in cohorts[config["validation"]]]
@@ -89,7 +96,7 @@ def main() -> None:
                 if only and only != f"{name}:{p['generation']}":
                     continue
                 sha = hashlib.sha256(code[p["id"]].encode()).hexdigest()
-                cached = CACHE / f"{name}_{p['generation']}_{sha[:16]}.json"
+                cached = CACHE / f"{name}_{p['generation']}_{sha[:16]}_{inputs_key[:16]}.json"
                 if not cached.exists():
                     path = Path(tmp) / f"gen_{p['generation']}_{p['id'][:8]}.py"
                     path.write_text(code[p["id"]])
