@@ -14,7 +14,8 @@
 # Slurm signals this script 120 s early and the search takes a last snapshot. A resume is a new launch
 # (its own LAUNCH_ID and label) with RESUME_OF=<the first launch's LAUNCH_ID>: same launch directory, same
 # W&B group, `--resume`. Pass DRY=1 for the $0 dry run, or REHEARSAL=1 for a rehearsal of this script on
-# real mice with real Claude calls: 6 proposals, at most $2, no W&B, its own launch directory.
+# real mice with real Claude calls: 6 proposals (about $1; no call starts once $2 is spent), no W&B, its own
+# launch directory.
 # Submitted from clean checkouts at pushed commits, with these exported:
 #   VARIANT_DIR   this directory in the studies checkout at STUDIES_SHA
 #   MEVOLVE_SRC   src/ of a MEvolve checkout at MEVOLVE_SHA
@@ -44,7 +45,7 @@ import json, sys
 run, choice = (json.load(open(p)) for p in sys.argv[1:3])
 out, rehearsal = sys.argv[3], sys.argv[4] == "1"
 assert run["seeds"] == choice["seeds"], f"run.json seeds {run['seeds']} != seed_choice.json {choice['seeds']}"
-if rehearsal:   # the same config with real Claude calls: a few proposals, at most $2, nothing logged
+if rehearsal:   # the same config with real Claude calls: a few proposals, new calls stop at $2, nothing logged
     run.update({"n_proposals": 6, "max_usd": 2.0, "wandb": None})
 json.dump(run, open(out, "w"), indent=1)
 PYEOF

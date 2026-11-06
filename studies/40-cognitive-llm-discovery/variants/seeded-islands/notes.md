@@ -30,7 +30,7 @@ the seeds' lineages apart long enough to develop, and migration lets their mecha
 | prompt | the task, the 19 literature models as a library, the limits |
 | programs | at most 12 parameters and 6 latent variables (ADR 0005 as amended); static checks; evaluation isolated (no file or network access for a candidate) |
 | score | validation score: 2-level EM fit of the 48 generation mice, pooled held-out likelihood ×100 on the 48 validation mice (`reference/cohorts_seed0.json`), `max_em` 20, 2,048 draws |
-| budget | $450 at list price (the ledger of Claude calls) |
+| budget | $450 at list price (the ledger of Claude calls): no call starts once it is spent; calls already running finish |
 | stopping rule | the anchor starts at the best score of generation 0 (the seeds and the template). Proposals are counted in the order they finish, every one once: scored, repeated, rejected by the checks, or a failed edit. A proposal scoring strictly above anchor + SE becomes the anchor and resets the count; small rises count once their total passes SE. The search stops when the count reaches 2,000: no new proposals start, the running ones finish and are kept. SE = **0.03** (×100), the low end of the paired standard errors between two programs on these mice (0.03 to 0.06, gate 2) |
 | not used | the novelty judge; code embeddings are only recorded (MEvolve #56) |
 
@@ -49,7 +49,7 @@ time limit; a crashed or timed-out run resumes from it as an intervention in the
 evaluations running. Opus is twice Sonnet's price per token: 12 of cap12's real prompts cost $0.09 to
 $0.13 each with no cached prompt (2026-11-06, none refused), so with the cache about $0.05 to $0.10 per
 proposal: $100 to $200 for 2,000 proposals, and the whole budget allows 4,500 to 9,000. A rehearsal of this script (`REHEARSAL=1`: 6 real Opus proposals,
-at most $2, on real mice) runs first, and the search starts only if it passes.
+about $1, on real mice) runs first, and the search starts only if it passes.
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `seeded-islands@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
