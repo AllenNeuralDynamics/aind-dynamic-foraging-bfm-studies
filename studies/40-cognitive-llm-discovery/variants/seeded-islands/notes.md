@@ -56,5 +56,5 @@ about $1, on real mice) runs first, and the search starts only if it passes.
 
 **Status.** `seeded-islands-1` (Sonnet 5.5, 32 slots of 24 CPUs; studies `549382d`, MEvolve `bbc9ac2`) was
 submitted 2026-11-06 03:24 PT and its rehearsal passed, but it never started: the partition had no block
-of 768 CPUs before Saturday. It was held, then cancelled, for the changes above; no proposal ran. Next launch:
-`seeded-islands-2`.
+of 768 CPUs before Saturday. It was held, then cancelled, for the changes above; no proposal ran. Launched again
+2026-11-06 11:50 PT as `seeded-islands-2`, W&B group [`seeded-islands@20261106-114959`](https://wandb.ai/NeuralDynamics/dfbfm-mevolve) (driver Slurm 27660252, evaluations as jobs of their own), studies `19f62ab`, MEvolve `761cefd`. It starts after the rehearsal (Slurm 27660251) passes.
