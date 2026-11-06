@@ -44,9 +44,10 @@ embedding server and Claude. Each evaluation is its own Slurm job of 24 CPUs (12
 large block: at most 48 evaluations and 24 proposals at a time. Time in the queue does not count against
 an evaluation's 2 hours. The database is snapshotted to the launch directory every 10 minutes and at the
 time limit; a crashed or timed-out run resumes from it as an intervention in the same W&B group
-(`RESUME_OF`). Expected: one evaluation is about 150 CPU-minutes (9,000 CPU-seconds,
-`seeded-islands-cap12`), so 2,000 proposals take at most 5,000 CPU-hours, about 10 hours with 48
-evaluations running. Opus is twice Sonnet's price per token: 12 of cap12's real prompts cost $0.09 to
+(`RESUME_OF`). Expected: an evaluation holds its 24 CPUs for about 13 minutes and uses about half of them
+(`seeded-islands-cap12`: 80,319 s over 101 evaluations), so 2,000 proposals hold about 10,700 CPU-hours
+in Slurm's accounting (one block of slots held 13,500), about 9 hours with 48 evaluations running and
+no queueing. Opus is twice Sonnet's price per token: 12 of cap12's real prompts cost $0.09 to
 $0.13 each with no cached prompt (2026-11-06, none refused), so with the cache about $0.05 to $0.10 per
 proposal: $100 to $200 for 2,000 proposals, and the whole budget allows 4,500 to 9,000. A rehearsal of this script (`REHEARSAL=1`: 6 real Opus proposals,
 about $1, on real mice) runs first, and the search starts only if it passes.
