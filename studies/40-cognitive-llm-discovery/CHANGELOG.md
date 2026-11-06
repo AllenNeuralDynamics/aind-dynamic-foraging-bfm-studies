@@ -2,6 +2,11 @@
 
 ## 2026-11-05
 
+- r1 is live: gate 4 has passed and the report is complete.
+- Screenshots of Shinka's portal (program tree, score trace, the best program's ancestors) in r1, for
+  both gate 4 searches, and in the `seeded-islands-smoke` notes, from each run's W&B archive
+  (`analysis/screenshots/`, with its README). Screenshots of a tool are PNG; the SVG rule covers figures
+  drawn by code (`scripts/check_figures.py` skips `screenshots/`).
 - `seeded-islands-cap12` result (pass): `analysis/freeze_seeded_islands_cap12.py` (`make
   freeze-seeded-islands-cap12`) freezes the run's W&B archive and Slurm steps;
   `analysis/seeded_islands_cap12.py` (`make cap12-result`, in `all`) writes the pre-registered numbers

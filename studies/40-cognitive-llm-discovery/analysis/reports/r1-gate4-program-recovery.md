@@ -2,7 +2,7 @@
 schema_version: 1
 id: r1
 slug: gate4-program-recovery
-status: draft
+status: live
 authors:
 - han
 wandb_groups:
@@ -118,6 +118,43 @@ Best validation score so far against proposals (lines) and every proposal (dots)
 | no seeds (template only) | 72.847 | 75 | 71 | pass | 72.615 | 72.634 | $2.10 | 109 | 3.65 | 2 |
 <!-- END result-3 -->
 
+### The two searches in Shinka's portal
+
+Screenshots of ShinkaEvolve's web portal for each run's W&B archive ([how they were made](../screenshots/README.md)).
+In the tree, each node is a program and each edge goes from parent to child; colour is the score, the
+badge names the island, and the orange line runs to the best program. In the score trace, red dots are
+single proposals, blue is the best so far, green the mean so far, and orange the best program's ancestors.
+
+**Seeded (4 islands: I0 the template, I1 to I3 the simplified seeds q_learning, choice_kernel and
+two_timescale).** The best program came at proposal 3, one edit from the two_timescale seed (I3),
+and nothing after it scored higher.
+
+![seeded: tree](../screenshots/gate4-seeded_tree.png)
+
+![seeded: score trace](../screenshots/gate4-seeded_score.png)
+
+<details>
+<summary>Seeded: the best program's ancestors, with Claude's hypothesis for each edit</summary>
+
+![seeded: best path](../screenshots/gate4-seeded_path.png)
+
+</details>
+
+**No seeds (1 island, the template only).** The best so far climbs in steps. The large step is
+proposal 71, which gave the values two learning rates (the slow reward trace the target has); proposal
+75, its sibling from the same parent (53), scored a little higher and is the best.
+
+![no seeds: tree](../screenshots/gate4-noseed_tree.png)
+
+![no seeds: score trace](../screenshots/gate4-noseed_score.png)
+
+<details>
+<summary>No seeds: the best program's ancestors, with Claude's hypothesis for each edit</summary>
+
+![no seeds: best path](../screenshots/gate4-noseed_path.png)
+
+</details>
+
 ## Mechanisms: what the best programs contain
 
 <!-- BEGIN result-4 -->
@@ -169,8 +206,6 @@ Measured per proposal (one 56-core job per run, two evaluations at a time, each 
 <!-- END result-6 -->
 
 ## What it says
-
-*Draft, for the lead scientist's review.*
 
 1. **Gate 4 passes.** The fitter recovers Hattori2019's typical values and spreads; its one failing
    parameter, biasL, differs from the per-subject fit by noise (accepted 2026-11-04,
