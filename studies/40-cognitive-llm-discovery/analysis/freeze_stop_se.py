@@ -15,12 +15,13 @@ reproduced score must equal the score in the run's database. The paired standard
 ``mevolve.gate2.paired_se`` (subjects as the unit, delta method). Writes ``analysis/stop_se/steps.json``.
 
 Needs W&B (``WANDB_API_KEY``), /allen and MEvolve (``PYTHONPATH=<mevolve>/src``); run it on a full compute
-node with ``sbatch`` (about an hour for 15 programs). ``stop_se.py`` reads only the committed file.
+node with ``sbatch`` (about 4 hours for 15 programs on 24 CPUs). ``stop_se.py`` reads only the committed file.
 """
 from __future__ import annotations
 
 import hashlib
 import json
+import os
 import sqlite3
 import subprocess
 import sys
@@ -36,7 +37,7 @@ RUNS = {"smoke": HERE / "seeded_islands_smoke" / "run.json", "cap12": HERE / "se
 GROUPS = {"smoke": "seeded-islands-smoke@20261105-011815", "cap12": "seeded-islands-cap12@20261105-100249"}
 COHORTS = STUDY / "reference" / "cohorts_seed0.json"
 OUT = HERE / "stop_se" / "steps.json"
-WORKERS = 56                                      # one per core on a 112-CPU node
+WORKERS = max(1, len(os.sched_getaffinity(0)) // 2)   # one per core; the score does not depend on it
 
 
 def new_bests(programs: list[dict]) -> list[dict]:
