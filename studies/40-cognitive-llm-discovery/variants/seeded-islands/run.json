@@ -6,11 +6,11 @@
  "generation": "generation",
  "validation": "validation",
  "workers": 12,
- "max_evaluation_jobs": 16,
- "max_proposal_jobs": 8,
+ "max_evaluation_jobs": 48,
+ "max_proposal_jobs": 24,
  "max_em": 20,
  "n_draws": 2048,
- "model": "claude-sonnet-5-5",
+ "model": "claude-opus-5-5",
  "effort": "medium",
  "max_usd": 450.0,
  "max_tokens": 32000,
@@ -35,15 +35,20 @@
  "migration_rate": 0.1,
  "repeat_cache": true,
  "embedding_python": "/allen/aind/scratch/han.hou/miniforge3/envs/mm-neuro/bin/python",
- "eval_launch": "srun",
+ "eval_launch": "job",
  "stage_dir": "$MEVOLVE_LAUNCH_DIR/stage",
+ "eval_job_args": [
+  "--partition=aind",
+  "--mem-per-cpu=1500M"
+ ],
+ "eval_queue_time": "24:00:00",
  "wandb": {
   "entity": "NeuralDynamics",
   "project": "dfbfm-mevolve",
   "group": "$WANDB_GROUP",
   "name": "seeded-islands-search",
   "mode": "online",
-  "notes": "Study 40's main search: 5 islands (the template and the seeds of ADR 0006), the library in the prompt, Claude Sonnet 5.5 at effort medium on real mice, at most 12 parameters and 6 latent variables, 450 USD list, stopping after 2,000 proposals without a rise above one paired SE"
+  "notes": "Study 40's main search: 5 islands (the template and the seeds of ADR 0006), the library in the prompt, Claude Opus 5.5 at effort medium on real mice, at most 12 parameters and 6 latent variables, 450 USD list, stopping after 2,000 proposals without a rise above one paired SE"
  },
  "launch": {
   "label": "$LAUNCH_LABEL",
