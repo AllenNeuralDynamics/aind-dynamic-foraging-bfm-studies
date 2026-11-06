@@ -11,7 +11,8 @@ seed for the first).
 Each program's code is read from its run's W&B archive (downloaded at the digest the committed freeze
 records) and evaluated again exactly as in the search (2-level EM on the generation and validation
 mice, the run's ``max_em`` and ``n_draws``), keeping each validation mouse's log-likelihood; the
-reproduced score must equal the score in the run's database. The paired standard error is
+reproduced score must match the score in the run's database within 1e-4 (×100): on another node and
+worker count the floating-point order differs, and scores agreed to between 1e-9 and 1e-5. The paired standard error is
 ``mevolve.gate2.paired_se`` (subjects as the unit, delta method). Writes ``analysis/stop_se/steps.json``.
 
 Needs W&B (``WANDB_API_KEY``), /allen and MEvolve (``PYTHONPATH=<mevolve>/src``), on a compute node. Each
@@ -40,6 +41,7 @@ GROUPS = {"smoke": "seeded-islands-smoke@20261105-011815", "cap12": "seeded-isla
 COHORTS = STUDY / "reference" / "cohorts_seed0.json"
 OUT = HERE / "stop_se" / "steps.json"
 CACHE = HERE / "_cache_stop_se"
+TOLERANCE = 1e-4      # ×100: far below any paired standard error here (0.01 and up)
 WORKERS = max(1, len(os.sched_getaffinity(0)) // 2)   # one per core; the score does not depend on it
 
 
@@ -97,16 +99,19 @@ def main() -> None:
                     score = evaluate.program_score(v)
                     failed = bool(score["two_level_failed"])
                     reproduced = 100 * score["score"]
-                    assert abs(reproduced - p["score"]) < 1e-9, f"{name} gen {p['generation']}: {reproduced} != {p['score']}"
+                    # the same evaluation on another node and worker count: equal to about 1e-5 (float order)
+                    assert abs(reproduced - p["score"]) < TOLERANCE, f"{name} gen {p['generation']}: {reproduced} != {p['score']}"
                     key = "per_subject_log_lik" if failed else "log_lik"   # the likelihood its score was made of
                     CACHE.mkdir(exist_ok=True)
                     cached.write_text(json.dumps({
                         "generation": p["generation"], "id": p["id"], "seed": p["seed"], "score": p["score"],
-                        "two_level_failed": failed, "code_sha256": sha,
+                        "reproduced_score": reproduced, "two_level_failed": failed, "code_sha256": sha,
                         "validation": [{"subject_id": r["subject_id"], "log_lik": r[key], "n_trials": r["n_trials"]}
                                        for r in v]}))
                     print(f"{name} gen {p['generation']}: {reproduced:.6f} reproduced", flush=True)
-                progs.append(json.loads(cached.read_text()))
+                entry = json.loads(cached.read_text())
+                entry.setdefault("reproduced_score", None)        # cached before the field: equal within 1e-9
+                progs.append(entry)
             if only:
                 continue
         pairs = [{"from": a["generation"], "to": b["generation"], **paired_se(b["validation"], a["validation"])}
