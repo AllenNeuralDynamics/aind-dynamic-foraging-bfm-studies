@@ -45,4 +45,4 @@ the whole budget would allow 13,000 to 18,000 proposals (5 to 13 days). A $0 reh
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `seeded-islands@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-06 03:24 PT as `seeded-islands-1`, W&B group [`seeded-islands@20261106-032429`](https://wandb.ai/NeuralDynamics/dfbfm-mevolve) (Slurm 27650174, 32 slots of 24 CPUs), studies `549382d`, MEvolve `bbc9ac2`. It starts after the $0 rehearsal (Slurm 27650173) passes.
