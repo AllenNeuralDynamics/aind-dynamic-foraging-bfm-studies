@@ -23,7 +23,11 @@ Three views per run:
   for its edit.
 
 **How they were made** (2026-11-05, on a compute node): each archive was downloaded at its digest; the
-portal from MEvolve's `mevolve-search` environment (ShinkaEvolve pinned at 8adc053a) served them through
-`serve_portal.py` (read-only, 127.0.0.1 only); `capture_portal.py <db_path> <out dir> 72.0` took the
-pictures in headless Chromium at twice the pixel density; the trees were cropped to their content and
-every picture reduced to 256 colours.
+portal from MEvolve's `mevolve-search` environment (ShinkaEvolve pinned at 8adc053a) served them
+read-only on 127.0.0.1 only, and headless Chromium took the pictures at twice the pixel density
+(`capture_portal.py` connects to port 8765):
+
+    python serve_portal.py <directory holding the runs> -p 8765
+    python capture_portal.py <db_path under that directory> <out dir> 72.0
+
+The trees were then cropped to their content and every picture reduced to 256 colours.

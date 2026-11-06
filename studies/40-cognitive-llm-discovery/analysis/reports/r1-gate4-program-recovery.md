@@ -207,8 +207,6 @@ Measured per proposal (one 56-core job per run, two evaluations at a time, each 
 
 ## What it says
 
-*Draft, for the lead scientist's review.*
-
 1. **Gate 4 passes.** The fitter recovers Hattori2019's typical values and spreads; its one failing
    parameter, biasL, differs from the per-subject fit by noise (accepted 2026-11-04,
    AllenNeuralDynamics/aind-dynamic-foraging-mevolve#36). ActorCritic (actor rate × temperature not
