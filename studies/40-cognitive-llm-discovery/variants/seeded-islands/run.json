@@ -18,7 +18,7 @@
  "n_proposals": 100000,
  "max_params": 12,
  "max_latent": 6,
- "stop_se": 0.0114,
+ "stop_se": 0.03,
  "stop_window": 2000,
  "snapshot_minutes": 10,
  "snapshot_dir": "$MEVOLVE_LAUNCH_DIR/snapshot",

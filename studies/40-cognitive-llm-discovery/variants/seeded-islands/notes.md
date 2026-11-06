@@ -16,15 +16,8 @@ the seeds' lineages apart long enough to develop, and migration lets their mecha
 
 - *Program limits:* at most 12 parameters and 6 latent variables, not ADR 0005's first 8 and 6 (its
   amendment of 2026-11-05, after `seeded-islands-cap12`).
-- *Where the standard error comes from:* the PLAN fixed it at gate 2, which measured it between
-  literature models that differ a lot. The rule compares a new best with an earlier best of the same
-  search, usually a close relative, so the error is measured on such pairs instead: every step of the
-  best score in `seeded-islands-smoke` and `seeded-islands-cap12`, re-evaluated with each validation
-  mouse's likelihood (`analysis/stop_se.json`, `make stop-se`).
 
 **Pre-registered (2026-11-06, before launch).**
-
-For scale (`analysis/stop_se.json`): in both earlier runs the whole gain from the best seed to the best program was about five standard errors (0.082 ± 0.016 and 0.092 ± 0.016), while 9 of the 13 single steps were smaller than the SE below.
 
 | | |
 |---|---|
@@ -34,7 +27,7 @@ For scale (`analysis/stop_se.json`): in both earlier runs the whole gain from th
 | programs | at most 12 parameters and 6 latent variables (ADR 0005 as amended); static checks; evaluation isolated (no file or network access for a candidate) |
 | score | validation score: 2-level EM fit of the 48 generation mice, pooled held-out likelihood ×100 on the 48 validation mice (`reference/cohorts_seed0.json`), `max_em` 20, 2,048 draws |
 | budget | $450 at list price (the ledger of Claude calls) |
-| stopping rule | the anchor starts at the best score of generation 0 (the seeds and the template). Proposals are counted in the order they finish, every one once: scored, repeated, rejected by the checks, or a failed edit. A proposal scoring strictly above anchor + SE becomes the anchor and resets the count; small rises count once their total passes SE. The search stops when the count reaches 2,000: no new proposals start, the running ones finish and are kept. SE = **0.0114** (×100), the median of the paired standard errors of the 13 steps measured (0.0052 to 0.0203; gate 2's literature pairs gave 0.03 to 0.06) |
+| stopping rule | the anchor starts at the best score of generation 0 (the seeds and the template). Proposals are counted in the order they finish, every one once: scored, repeated, rejected by the checks, or a failed edit. A proposal scoring strictly above anchor + SE becomes the anchor and resets the count; small rises count once their total passes SE. The search stops when the count reaches 2,000: no new proposals start, the running ones finish and are kept. SE = **0.03** (×100), the low end of the paired standard errors between two programs on these mice (0.03 to 0.06, gate 2) |
 | not used | the novelty judge; code embeddings are only recorded (MEvolve #56) |
 
 What it reports (r3): the best validation score against proposals and dollars, by island and lineage;

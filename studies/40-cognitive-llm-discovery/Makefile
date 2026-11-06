@@ -4,9 +4,9 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 stop-se freeze-stop-se freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
+.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
-all: gate3 seed-choice smoke-result cap12-result stop-se r1
+all: gate3 seed-choice smoke-result cap12-result r1
 
 # seed-choice = the seeds of the seeded-islands searches by ADR 0006's rule, from study 12's committed
 # 2-level EM fits on the validation mice (analysis/seed_choice.json).
@@ -33,17 +33,6 @@ cap12-result:
 # analysis/seeded_islands_cap12/.
 freeze-seeded-islands-cap12:
 	$(PY) analysis/freeze_seeded_islands_cap12.py
-
-# stop-se = the stopping rule's standard error for variants/seeded-islands (analysis/stop_se.json), from the
-# committed freeze analysis/stop_se/steps.json.
-stop-se:
-	$(PY) analysis/stop_se.py
-
-# freeze-stop-se = the live read for the stopping rule's standard error: re-evaluates the new bests of
-# seeded-islands-smoke and -cap12 from their W&B archives (needs W&B, /allen and MEvolve on PYTHONPATH;
-# a full compute node, about an hour); never part of `all`. Commit analysis/stop_se/.
-freeze-stop-se:
-	$(PY) analysis/freeze_stop_se.py
 
 # gate3 = gate 3's numbers for variants/engine-smoke/notes.md (Result), from analysis/engine_smoke/.
 gate3:

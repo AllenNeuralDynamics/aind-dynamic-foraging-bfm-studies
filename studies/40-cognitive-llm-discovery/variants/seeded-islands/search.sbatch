@@ -40,12 +40,11 @@ trap '[ -d "$TMPDIR/search" ] && cp -rn "$TMPDIR/search" "$MEVOLVE_LAUNCH_DIR/" 
 cd "$TMPDIR"                                     # no .env here for Shinka to load
 "$PY" -c "import mevolve, sys; assert mevolve.__file__.startswith('$MEVOLVE_SRC'), mevolve.__file__"
 CONFIG="$TMPDIR/run.json"                        # run.json with this job's slot count
-"$PY" - "$VARIANT_DIR/run.json" "$STUDY_DIR/analysis/seed_choice.json" "$STUDY_DIR/analysis/stop_se.json" "$SLURM_NTASKS" "$CONFIG" "${FAKE:-0}" <<'PYEOF'
+"$PY" - "$VARIANT_DIR/run.json" "$STUDY_DIR/analysis/seed_choice.json" "$SLURM_NTASKS" "$CONFIG" "${FAKE:-0}" <<'PYEOF'
 import json, sys
-run, choice, se = (json.load(open(p)) for p in sys.argv[1:4])
-slots, out, fake = int(sys.argv[4]), sys.argv[5], sys.argv[6] == "1"
+run, choice = (json.load(open(p)) for p in sys.argv[1:3])
+slots, out, fake = int(sys.argv[3]), sys.argv[4], sys.argv[5] == "1"
 assert run["seeds"] == choice["seeds"], f"run.json seeds {run['seeds']} != seed_choice.json {choice['seeds']}"
-assert run["stop_se"] == se["stop_se_x100"], f"run.json stop_se {run['stop_se']} != stop_se.json {se['stop_se_x100']}"
 run.update({"max_evaluation_jobs": slots, "max_proposal_jobs": max(1, slots // 2)})
 if fake:        # the $0 rehearsal: the same config, a few canned proposals, nothing logged
     run.update({"n_proposals": 6, "max_usd": 0.1, "patch_types": ["full"], "wandb": None})
