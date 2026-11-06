@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_initial",
+    "produced_at_pt": "2026-11-06T03:25:15-08:00",
+    "studies_git_sha": "549382d1c67e311e59c0fdacbfe7be5c6213ef13",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "seeded-islands@20261106-032429"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): seeded-islands@20261106-032429"
+    ]
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "seeded-islands@20261106-032429",
+  "label": "seeded-islands-1",
+  "note": "Study 40's main search (PLAN step 6): 5 islands (the template and the 4 seeds of ADR 0006), the library in the prompt, Claude Sonnet 5.5 at effort medium on real mice, programs of at most 12 parameters and 6 latent variables, $450 list, stopping after 2,000 proposals without a rise above one paired SE; 32 slots of 24 CPUs. Its programs feed simplification, selection and the test scores (step 7).",
+  "revisions": {
+    "studies": "549382d1c67e311e59c0fdacbfe7be5c6213ef13",
+    "mevolve": "bbc9ac2c28e035887c7f131ed4a78e97c06c464a"
+  },
+  "manifests": [
+    "search.sbatch"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_job",
+      "id": "27650174"
+    }
+  ],
+  "command": "sbatch --ntasks=32 --dependency=afterok:27650173 --export=ALL,VARIANT_DIR=<studies checkout at 549382d1>/studies/40-cognitive-llm-discovery/variants/seeded-islands,MEVOLVE_SRC=<mevolve checkout at bbc9ac2c>/src,LAUNCH_ID=20261106-032429,LAUNCH_LABEL=seeded-islands-1,STUDIES_SHA=549382d1c67e311e59c0fdacbfe7be5c6213ef13,MEVOLVE_SHA=bbc9ac2c28e035887c7f131ed4a78e97c06c464a search.sbatch",
+  "data": {
+    "source": "freeze",
+    "config": "mice_snapshot_scaling",
+    "snapshot": "20260603",
+    "uri": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+    "manifest_sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search",
+    "lock_sha256": "c35fd7d342ab4090194ae663bafd0e15e9964730a329b467dbb7ce27eb6c0006"
+  }
+}
