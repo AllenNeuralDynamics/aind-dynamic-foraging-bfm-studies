@@ -1,5 +1,14 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-06
+
+- `seeded-islands` pre-registered and ready to launch: `run.json` (12 parameters and 6 latent variables,
+  $450, stopping rule, snapshots every 10 minutes) and `search.sbatch` (slots of 24 CPUs, their number
+  chosen at launch; TERM 120 s before the time limit; `RESUME_OF` for a resume; `FAKE=1` for a $0
+  rehearsal). ADR 0005 amended to 12 parameters (6 latent variables unchanged), after
+  `seeded-islands-cap12`. The stopping rule's standard error is 0.03 (×100), the low end of gate 2's
+  paired standard errors. PLAN's compute line now has the measured costs.
+
 ## 2026-11-05
 
 - r1 is live: gate 4 has passed and the report is complete.

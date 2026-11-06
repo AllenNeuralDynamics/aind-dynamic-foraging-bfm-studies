@@ -81,8 +81,10 @@ carries its state probabilities among its latent variables.
 Dollar figures are list prices. After the organisation's discount the bill is about half of list
 price (gate 3, [`engine-smoke` notes](variants/engine-smoke/notes.md)).
 
-Compute: one SLURM job on a 112-core node per search run (about 24 evaluations at a time, 4 cores
-each); evaluator cost a few hundred to a thousand core-hours per search.
+Compute (measured 2026-11-05, `seeded-islands-cap12`): one evaluation of a proposal (48 + 48 mice, 2-level EM)
+is about 9,000 CPU-seconds; a search runs evaluations as Slurm steps of 24 CPUs on many nodes, about 406
+CPU-minutes per proposal in all. The search's minimum of 2,000 proposals is about 13,500 CPU-hours (17 hours
+on 32 slots); its whole budget would allow 13,000 to 18,000 proposals (88,000 to 122,000 CPU-hours).
 
 ## Build order
 
