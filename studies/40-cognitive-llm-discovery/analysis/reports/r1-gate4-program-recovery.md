@@ -2,7 +2,7 @@
 schema_version: 1
 id: r1
 slug: gate4-program-recovery
-status: draft
+status: live
 authors:
 - han
 wandb_groups:
