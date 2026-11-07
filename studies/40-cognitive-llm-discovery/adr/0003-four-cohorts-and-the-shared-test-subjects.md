@@ -43,6 +43,18 @@ takes about 3 minutes for literature models with the current fitter (MEvolve ADR
 2026-11-04), and longer for the largest programs; EM iterations and workers set the pace, not the
 cohorts.
 
+## Amendment (2026-11-07): monitor subjects
+
+A fourth cohort of 100 **monitor subjects** rescores programs the search has already found, to see
+whether gains on the 48 validation subjects carry to subjects the search never used (Han, 2026-11-07;
+issue #128). They are drawn by the same rule, after the other three: `mevolve.cohorts --seed 0` with
+sizes generation 48, validation 48, selection 100, monitor 100 returns the first three exactly as in
+`cohorts_seed0.json`, and 100 more from the rest of the pool, sharing no subject with them. The lists
+are in [`reference/cohorts_seed0_monitor.json`](../reference/cohorts_seed0_monitor.json), sha256
+`d4f442555667e53ba16d34cef558fb15847bf3cc00d24a23674e3ee160229241`, committed before any program was
+scored on them. Monitor scores never feed back into the search, the simplification or the choice of
+ADR 0007, which stays on the selection subjects; the test subjects stay untouched.
+
 ## Considered options
 
 - **Both fit directions, averaged**, as CogFunSearch did: less noise at twice the cost. Revisited only
