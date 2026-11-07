@@ -55,7 +55,8 @@ out in the task simulator to compare their behaviour with the mice's.
 The answer is the fraction of the gap from HB-CTT to the GRU that the best program closes on the
 test subjects, with its behavioural fingerprints and closed-loop match beside it.
 
-The procedure as one diagram: [`analysis/explainers/study40_procedure.html`](analysis/explainers/study40_procedure.html).
+The procedure as one diagram: [`analysis/explainers/study40_procedure.html`](analysis/explainers/study40_procedure.html)
+(interactive) and [`analysis/fig_procedure.svg`](analysis/fig_procedure.svg) (paper figure, `make procedure-figure`).
 
 Plan and build order: [PLAN.md](PLAN.md) (draft, before the design grill); vocabulary:
 [CONTEXT.md](CONTEXT.md) and MEvolve's
