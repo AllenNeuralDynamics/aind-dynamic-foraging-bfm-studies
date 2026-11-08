@@ -1,5 +1,11 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-08
+
+- `FUTURE_DIRECTIONS.md` (#132): follow-ups brainstormed with Han during the first production search, with
+  the evidence for each and where it is tracked; the biology follow-up analyses (individual and
+  task-variant differences) have their own section.
+
 ## 2026-11-06
 
 - `seeded-islands` before its first proposal: the proposer is Claude Opus 5.5 (effort medium), and each
