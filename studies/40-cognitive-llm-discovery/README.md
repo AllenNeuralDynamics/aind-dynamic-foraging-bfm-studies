@@ -55,6 +55,11 @@ out in the task simulator to compare their behaviour with the mice's.
 The answer is the fraction of the gap from HB-CTT to the GRU that the best program closes on the
 test subjects, with its behavioural fingerprints and closed-loop match beside it.
 
+![The procedure: (a) four cohorts of mice; (b) the search loop, with the score from the validation mice and Claude's feedback from the generation mice; (c) simplification, pre-registration on the selection mice and one score on the test mice, as the gap closed from HB-CTT to the GRU](analysis/fig_procedure.svg)
+
+*The procedure ([`analysis/fig_procedure.svg`](analysis/fig_procedure.svg), `make procedure-figure`; an interactive
+version is [`analysis/explainers/study40_procedure.html`](analysis/explainers/study40_procedure.html)).*
+
 Plan and build order: [PLAN.md](PLAN.md) (draft, before the design grill); vocabulary:
 [CONTEXT.md](CONTEXT.md) and MEvolve's
 [CONTEXT.md](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/blob/main/CONTEXT.md);

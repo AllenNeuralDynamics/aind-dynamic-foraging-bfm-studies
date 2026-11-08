@@ -4,9 +4,14 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all explainer gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
+.PHONY: all explainer procedure-figure gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
-all: gate3 seed-choice smoke-result cap12-result r1
+all: gate3 seed-choice smoke-result cap12-result r1 procedure-figure
+
+# procedure-figure = the study's procedure as a paper method figure (analysis/fig_procedure.svg),
+# with cohort sizes from reference/cohorts_seed0.json; independent of the archify pages.
+procedure-figure:
+	$(PY) analysis/fig_procedure.py
 
 # seed-choice = the seeds of the seeded-islands searches by ADR 0006's rule, from study 12's committed
 # 2-level EM fits on the validation mice (analysis/seed_choice.json).
