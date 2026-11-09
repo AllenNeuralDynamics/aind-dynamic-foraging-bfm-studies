@@ -4,7 +4,8 @@
 Reads the run directory MEvolve copied out at the end of the search and checks every file the W&B archive
 recorded (``archive.json``: sha256 per file at upload) against it, so the freeze is the archived run.
 Writes ``analysis/seeded_islands_2/run.json``: every program (generation, island, parent, seed, score at
-full precision, validation per-subject and 2-level, parameter and latent counts, timestamp, name, cost),
+full precision, validation per-subject and 2-level, parameter and latent counts and names, timestamp,
+name, cost),
 every Claude call (time, cost, stop reason, output tokens), the stopping rule's record, the final
 archive's members, the best program's code, and the Slurm driver job and evaluation jobs from ``sacct``.
 
@@ -14,6 +15,7 @@ Needs /allen and ``sacct``, so it runs on a compute node (it reads files only; n
 """
 from __future__ import annotations
 
+import ast
 import csv
 import hashlib
 import json
@@ -66,6 +68,23 @@ def slurm() -> dict:
                                 "cpu_hours": round(sum(int(r["cpus"]) * _seconds(r["elapsed"]) for r in evals) / 3600, 1)}}
 
 
+def names(code: str) -> tuple[list, list]:
+    """The program's parameter names (``PARAMS`` keys) and latent names (``LATENT_NAMES``), read from its
+    syntax tree without running it; they carry the mechanisms (r2 tags programs by them)."""
+    params, latents = [], []
+    try:
+        body = ast.parse(code).body
+    except SyntaxError:      # a failed edit's text (merge markers): never scored
+        return params, latents
+    for node in body:
+        if isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
+            if node.targets[0].id == "PARAMS" and isinstance(node.value, ast.Dict):
+                params = [k.value for k in node.value.keys if isinstance(k, ast.Constant)]
+            if node.targets[0].id == "LATENT_NAMES" and isinstance(node.value, (ast.Tuple, ast.List)):
+                latents = [e.value for e in node.value.elts if isinstance(e, ast.Constant)]
+    return params, latents
+
+
 def main() -> None:
     archive = json.loads((RUN / "archive.json").read_text())
     sources = [{"type": "url", "id": f"wandb-artifact://{archive['artifact']}"},   # its digest is in "archive"
@@ -101,6 +120,7 @@ def main() -> None:
                 "eval_seconds": float(r["eval_seconds"] or 0), "cost_usd": float(r["cost_usd"] or 0),
                 "name": r["name"] or None,
                 "code_sha256": hashlib.sha256(row["code"].encode()).hexdigest(),
+                "param_names": names(row["code"])[0], "latent_names": names(row["code"])[1],
                 "failure": None if correct else (row["text_feedback"] or "").removeprefix("The program failed and was not scored: ")})
         best = max((p for p in programs if p["generation"] > 0 and p["correct"]), key=lambda p: p["score"])
         best_code = db[best["id"]]["code"]
