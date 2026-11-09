@@ -1,0 +1,596 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r3_search_best.py",
+    "produced_at_pt": "2026-11-08T23:00:32-08:00",
+    "studies_git_sha": "5e31c81ff6fd951be0b52edacf450973762107bd",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.py",
+        "sha256": "55005dc5be4e4fa021dabb5553ffc759d1968e488690934155b687dca1eaa985"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection_selection.json",
+        "sha256": "288f1aa38a94105b67686dbb03e733a4d086c2c8c50a78ed1f919eccb4889bca"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/test/rank3_e3819885.json",
+        "sha256": "6505adb95f27733198f50398d65317034ae3b1d238228ef77493f6e241ddb76a"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/gru_test/rank3_e3819885.json",
+        "sha256": "a93b15487dd4523d218c7f1171ed9122e5ef119cf8948311038a0ac81473e72f"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/test/reference_miller_rhg.json",
+        "sha256": "3efc8d500f0c5e7c102e9e9eab78dd09a8680ce1230a7c66f8a56304d47d6a51"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/curves.json",
+        "sha256": "a01441ecc1f825b830df54ee67a7c9504a8c55d90bead4fcb15704151be73c0a"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_final_runs.json",
+        "sha256": "41a9f25de3640b571099b2ad1d9d7d895f1fa80f9f6675c04f42a5ce4ec5db76"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/r5_ctt_pooled.json",
+        "sha256": "eb35093f0104bed94e521d8d85008b823a1fa49e4f190d90d87a5ac6abba2011"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
+        "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay_gaps.json",
+        "sha256": "7fa83e5c7992adad714f2bf67c9b883a2304e9e77b450199f0c419b72d671eb5"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p2_rollout_gaps.json",
+        "sha256": "aace9f8d85d9a6157c0223992e9896cd077863f1bcf3915cc65cdd7d473cb247"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.json",
+        "sha256": "bfe5317b9c93a1a1675ba7e8ebe2a9f9cd4c69508d3af1f1a449f32caa10a10c"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/fig_r3_test.svg",
+        "sha256": "36c86d587c2cb533c103693f3577a68e83935c7223054e739e5511cf2b6f6483"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/fig_r3_curves.svg",
+        "sha256": "a032ad942d24ff6cf1e619656b1d436652deab227112dd1e3479d77788dfb685"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r3-search-best.md#result-1",
+        "sha256": "490945027ba2458cb6a6e0a814a1c2bfe0b34f83b2a42e3e6e06bf6d97aa7239"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r3-search-best.md#result-2",
+        "sha256": "3dd58883d7afd11831ba9a38256870f742ab2e41946f42b947ba54702e608e1c"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r3-search-best.md#result-3",
+        "sha256": "1d913f619cbe5e5dae150b76bddba71927af0b8bef3a9fee76bc497f9118f1ba"
+      }
+    ]
+  },
+  "selection": {
+    "chosen": "rank3_e3819885",
+    "chosen_patch_name": "satiety_engagement",
+    "candidates": [
+      {
+        "name": "rank1_a13b12cf",
+        "rank": 1,
+        "patch_name": "reward_satiety_gain",
+        "island": 0,
+        "validation_x100": 72.77508241922416,
+        "score_x100": 73.53950798113146,
+        "n_fallback": 3,
+        "replay_score": 1.2498914201043594,
+        "rollout_score": 1.4830187975114502,
+        "replay_curve_rmse": 0.01297362451046369,
+        "rollout_curve_rmse": 0.028092858782361976,
+        "passes_gate": true
+      },
+      {
+        "name": "rank2_3fd7f0c4",
+        "rank": 2,
+        "patch_name": "reward_rate_gated_perseveration",
+        "island": 3,
+        "validation_x100": 72.77108048588305,
+        "score_x100": 73.5629985882758,
+        "n_fallback": 1,
+        "replay_score": 1.2903673257469008,
+        "rollout_score": 1.4605144456553156,
+        "replay_curve_rmse": 0.014150552885899456,
+        "rollout_curve_rmse": 0.02619719141995831,
+        "passes_gate": true
+      },
+      {
+        "name": "rank3_e3819885",
+        "rank": 3,
+        "patch_name": "satiety_engagement",
+        "island": 1,
+        "validation_x100": 72.76949612773106,
+        "score_x100": 73.59942957733371,
+        "n_fallback": 1,
+        "replay_score": 1.2276030936184639,
+        "rollout_score": 1.4742705419762494,
+        "replay_curve_rmse": 0.012174507879445082,
+        "rollout_curve_rmse": 0.027861157302092484,
+        "passes_gate": true
+      },
+      {
+        "name": "rank4_5bb3332a",
+        "rank": 4,
+        "patch_name": "dual_cf_habit_experience",
+        "island": 2,
+        "validation_x100": 72.76615508819948,
+        "score_x100": 73.58238715155483,
+        "n_fallback": 2,
+        "replay_score": 1.2437583780892327,
+        "rollout_score": 1.323422290638062,
+        "replay_curve_rmse": 0.011930748203126488,
+        "rollout_curve_rmse": 0.022934484732536824,
+        "passes_gate": true
+      },
+      {
+        "name": "rank5_f0e71d90",
+        "rank": 5,
+        "patch_name": "unchosen_relax_to_reward_rate",
+        "island": 4,
+        "validation_x100": 72.76411346707735,
+        "score_x100": 73.59314780828673,
+        "n_fallback": 1,
+        "replay_score": 1.2922661882671087,
+        "rollout_score": 1.5092501966718825,
+        "replay_curve_rmse": 0.01311437380483351,
+        "rollout_curve_rmse": 0.02880889722227906,
+        "passes_gate": true
+      }
+    ],
+    "reference": {
+      "name": "reference_miller_rhg",
+      "score_x100": 73.43585869392615,
+      "n_fallback": 0,
+      "replay_score": 1.3927860381979988,
+      "rollout_score": 1.6800285185469137,
+      "replay_curve_rmse": 0.019790814401163086,
+      "rollout_curve_rmse": 0.03525247728182279
+    }
+  },
+  "test": {
+    "n_subjects": 146,
+    "n_trials": 994094,
+    "pooled_x100": {
+      "program": 72.56846374032875,
+      "hb_ctt": 72.18995720805293,
+      "gru_v2_h128": 72.83089966646288,
+      "miller_rhg_2level": 72.38269718718567
+    },
+    "bootstrap_se_x100": {
+      "program": 0.7204655159679474,
+      "hb_ctt": 0.7387899475549128,
+      "gru_v2_h128": 0.7241114708713317,
+      "miller_rhg_2level": 0.7237564959376512
+    },
+    "above_hb_ctt_x100": {
+      "program": 0.378506532275813,
+      "gru_v2_h128": 0.6409424584099543,
+      "miller_rhg_2level": 0.19273997913273888
+    },
+    "above_hb_ctt_paired_se_x100": {
+      "program": 0.02742083767276304,
+      "gru_v2_h128": 0.03138305931538085,
+      "miller_rhg_2level": 0.02978386846897902
+    },
+    "gap_closed": 0.5905468225881141,
+    "gap_closed_ci95": [
+      0.5325249623363446,
+      0.644016164805748
+    ],
+    "published_lists_x100": {
+      "program_test149": 72.62725440814638,
+      "hb_ctt_test149": 72.2464781663543,
+      "program_gru149": 72.55680068330241,
+      "gru_v2_h128_gru149": 72.82289461732671
+    },
+    "fallback_subjects": {
+      "test": 1,
+      "gru_test": 1
+    }
+  },
+  "curves": {
+    "rmse": {
+      "replay": {
+        "set": "non-warm-up",
+        "n_subjects": 146,
+        "rmse": {
+          "Lopez-DoubleTrace": {
+            "losses": 0.0152888437857116,
+            "pattern": 0.026694384600074186,
+            "hazard": 0.006397590583565396,
+            "post_switch": 0.020406133769713487
+          },
+          "Lebedeva-PR": {
+            "losses": 0.015212384737458349,
+            "pattern": 0.030299474788807103,
+            "hazard": 0.012846291331784146,
+            "post_switch": 0.035359705373724626
+          },
+          "CompareToThreshold": {
+            "losses": 0.008620735814333225,
+            "pattern": 0.05540480395961559,
+            "hazard": 0.010697147527424023,
+            "post_switch": 0.04706866302690191
+          },
+          "Zid-HistoryKernel2-ForagingRL": {
+            "losses": 0.017442265402610315,
+            "pattern": 0.07338249504751153,
+            "hazard": 0.03443921802760617,
+            "post_switch": 0.0695834343293415
+          },
+          "Miller-RHG": {
+            "losses": 0.016368291003262717,
+            "pattern": 0.02897946590729734,
+            "hazard": 0.010780281299394387,
+            "post_switch": 0.02850196767409137
+          },
+          "Bari2019": {
+            "losses": 0.0062751262130940665,
+            "pattern": 0.03467261444461776,
+            "hazard": 0.01890264221545884,
+            "post_switch": 0.048501101533826044
+          },
+          "Grossman-MetaLearning": {
+            "losses": 0.033746448895199906,
+            "pattern": 0.06357097398075374,
+            "hazard": 0.04853115297766531,
+            "post_switch": 0.07396584534695347
+          },
+          "Hattori2019": {
+            "losses": 0.021796834772907323,
+            "pattern": 0.06129709986937829,
+            "hazard": 0.04033102880798897,
+            "post_switch": 0.08354652391071545
+          },
+          "Chen-RLCK": {
+            "losses": 0.033269788367375715,
+            "pattern": 0.050196723289826974,
+            "hazard": 0.017642113910951916,
+            "post_switch": 0.042826947608137725
+          },
+          "Beron-RFLR": {
+            "losses": 0.006835596744670692,
+            "pattern": 0.04680912858651881,
+            "hazard": 0.026336953171420277,
+            "post_switch": 0.06837176710970624
+          },
+          "Eckstein-BI": {
+            "losses": 0.006064463324429511,
+            "pattern": 0.042293456052143144,
+            "hazard": 0.02308446808365667,
+            "post_switch": 0.0603513681382628
+          },
+          "Eckstein-RL": {
+            "losses": 0.00695005172116313,
+            "pattern": 0.041962269853730236,
+            "hazard": 0.024233995177914462,
+            "post_switch": 0.05333066890206246
+          },
+          "FeedbackDependent-RL+Bias+CK1": {
+            "losses": 0.005945165566718782,
+            "pattern": 0.08896753654872537,
+            "hazard": 0.056036926286979,
+            "post_switch": 0.13944663794228074
+          },
+          "Alsio-DualRateSticky-RL": {
+            "losses": 0.010424858973375827,
+            "pattern": 0.10409569758036262,
+            "hazard": 0.06422349699669333,
+            "post_switch": 0.16308146327469833
+          },
+          "LossCounting": {
+            "losses": 0.12938053915825068,
+            "pattern": 0.1629219274332731,
+            "hazard": 0.10035861222473923,
+            "post_switch": 0.23014576529595604
+          },
+          "ActorCritic": {
+            "losses": 0.03412706480134613,
+            "pattern": 0.1509809858967493,
+            "hazard": 0.11489378458505606,
+            "post_switch": 0.20787599234779514
+          },
+          "FeedbackDependent-RL+Bias": {
+            "losses": 0.2399261702824187,
+            "pattern": 0.19234459645877308,
+            "hazard": 0.20823049783892802,
+            "post_switch": 0.1444213556154433
+          },
+          "FeedbackDependent-RL": {
+            "losses": 0.285869565907128,
+            "pattern": 0.22189516109723526,
+            "hazard": 0.23954183614784058,
+            "post_switch": 0.15034275224403199
+          },
+          "Rescorla-Wagner": {
+            "losses": 0.3572624941342938,
+            "pattern": 0.259757162958237,
+            "hazard": 0.27768270555595886,
+            "post_switch": 0.14901011415823465
+          },
+          "GLM-Su2022": {
+            "losses": 0.013223522582626504,
+            "pattern": 0.04043760179166949,
+            "hazard": 0.01986328450356765,
+            "post_switch": 0.0563810391529058
+          },
+          "GRU-D614": {
+            "losses": 0.005622898767344369,
+            "pattern": 0.010149206310478238,
+            "hazard": 0.002782321529976982,
+            "post_switch": 0.008114524506209352
+          },
+          "search's best": {
+            "losses": 0.00455963005748759,
+            "pattern": 0.01817656810499891,
+            "hazard": 0.0075973003830474015,
+            "post_switch": 0.021755057040700233
+          },
+          "Miller-RHG (this study)": {
+            "losses": 0.01668982264502025,
+            "pattern": 0.02893649911822729,
+            "hazard": 0.0112820697402502,
+            "post_switch": 0.02856862227184953
+          }
+        }
+      },
+      "rollout": {
+        "set": "headline",
+        "n_subjects": 122,
+        "rmse": {
+          "Lopez-DoubleTrace": {
+            "losses": 0.04017830440783747,
+            "pattern": 0.05564934019827359,
+            "hazard": 0.03664827298836631,
+            "post_switch": 0.0596303517079413,
+            "run_length": 0.026675756928111846
+          },
+          "Lebedeva-PR": {
+            "losses": 0.027337767320443792,
+            "pattern": 0.042070872372778935,
+            "hazard": 0.02018610144809425,
+            "post_switch": 0.05286161705927678,
+            "run_length": 0.01624979408376813
+          },
+          "CompareToThreshold": {
+            "losses": 0.029097068737873794,
+            "pattern": 0.06151129756323532,
+            "hazard": 0.03276771768555583,
+            "post_switch": 0.04368383237532923,
+            "run_length": 0.020231785520071793
+          },
+          "Zid-HistoryKernel2-ForagingRL": {
+            "losses": 0.032472620205488384,
+            "pattern": 0.08460202238542003,
+            "hazard": 0.04665851537604447,
+            "post_switch": 0.0853790752403429,
+            "run_length": 0.028141868757362166
+          },
+          "Miller-RHG": {
+            "losses": 0.03995331000022993,
+            "pattern": 0.04556480163258009,
+            "hazard": 0.026685550723984888,
+            "post_switch": 0.04984678162054599,
+            "run_length": 0.01955403015036634
+          },
+          "Bari2019": {
+            "losses": 0.018407981182783903,
+            "pattern": 0.025891446416735745,
+            "hazard": 0.021373005979272098,
+            "post_switch": 0.026008327573590673,
+            "run_length": 0.014263505788481425
+          },
+          "Grossman-MetaLearning": {
+            "losses": 0.03621458146585968,
+            "pattern": 0.07294500994762997,
+            "hazard": 0.05324211338672077,
+            "post_switch": 0.09325957726570695,
+            "run_length": 0.032121162915898005
+          },
+          "Hattori2019": {
+            "losses": 0.026408543331611124,
+            "pattern": 0.06426458226331556,
+            "hazard": 0.040980543499412846,
+            "post_switch": 0.09362809553901875,
+            "run_length": 0.021074549956593514
+          },
+          "Chen-RLCK": {
+            "losses": 0.0364499648379166,
+            "pattern": 0.055865484752894524,
+            "hazard": 0.024258287697732382,
+            "post_switch": 0.06266655077160148,
+            "run_length": 0.021574367806952096
+          },
+          "Beron-RFLR": {
+            "losses": 0.01599626201861609,
+            "pattern": 0.03559246623663908,
+            "hazard": 0.02681779697927681,
+            "post_switch": 0.036617353281496984,
+            "run_length": 0.017367389456219785
+          },
+          "Eckstein-BI": {
+            "losses": 0.01836301677610699,
+            "pattern": 0.03798411713225541,
+            "hazard": 0.03197325005370925,
+            "post_switch": 0.03452105371384428,
+            "run_length": 0.020108355275943707
+          },
+          "Eckstein-RL": {
+            "losses": 0.020603341174283255,
+            "pattern": 0.0469046252331342,
+            "hazard": 0.030488387169806116,
+            "post_switch": 0.02613538648740812,
+            "run_length": 0.019647279833146472
+          },
+          "FeedbackDependent-RL+Bias+CK1": {
+            "losses": 0.022088260256406825,
+            "pattern": 0.07023945493755834,
+            "hazard": 0.04836551303493865,
+            "post_switch": 0.10120584867476028,
+            "run_length": 0.03316251509695199
+          },
+          "Alsio-DualRateSticky-RL": {
+            "losses": 0.02063725392376947,
+            "pattern": 0.07851972758228963,
+            "hazard": 0.04808735363775221,
+            "post_switch": 0.11844039348554601,
+            "run_length": 0.03691330241714438
+          },
+          "LossCounting": {
+            "losses": 0.09445434703538273,
+            "pattern": 0.1601580235297987,
+            "hazard": 0.0960918928608497,
+            "post_switch": 0.23056181795178937,
+            "run_length": 0.07593587268051803
+          },
+          "ActorCritic": {
+            "losses": 0.09263478099287041,
+            "pattern": 0.13447887423907287,
+            "hazard": 0.08106289956326006,
+            "post_switch": 0.2590007454432698,
+            "run_length": 0.06784434533072259
+          },
+          "FeedbackDependent-RL+Bias": {
+            "losses": 0.17166778191679866,
+            "pattern": 0.1725767289907311,
+            "hazard": 0.15531004843124271,
+            "post_switch": 0.20684486842343908,
+            "run_length": 0.08085998070257304
+          },
+          "FeedbackDependent-RL": {
+            "losses": 0.23651654935138405,
+            "pattern": 0.20681252922095478,
+            "hazard": 0.20079568032778827,
+            "post_switch": 0.18375742845310383,
+            "run_length": 0.0893250421205753
+          },
+          "Rescorla-Wagner": {
+            "losses": 0.34235787037169524,
+            "pattern": 0.2616205173049478,
+            "hazard": 0.25639771157974656,
+            "post_switch": 0.21088180538928492,
+            "run_length": 0.09576551733452043
+          },
+          "GLM-Su2022": {
+            "losses": 0.020200914952479738,
+            "pattern": 0.03868981607178763,
+            "hazard": 0.01798275292625752,
+            "post_switch": 0.05191512824530704,
+            "run_length": 0.01799465570254252
+          },
+          "GRU-D614": {
+            "losses": 0.01057021288452286,
+            "pattern": 0.017245312982161667,
+            "hazard": 0.00930404464673924,
+            "post_switch": 0.020842563137757054,
+            "run_length": 0.008074854196744533
+          },
+          "search's best": {
+            "losses": 0.016624008711664355,
+            "pattern": 0.03380210039674894,
+            "hazard": 0.02021600509802923,
+            "post_switch": 0.04300122828311097,
+            "run_length": 0.014449644928133864
+          },
+          "Miller-RHG (this study)": {
+            "losses": 0.03814167976691655,
+            "pattern": 0.04173618934609534,
+            "hazard": 0.024531534169615905,
+            "post_switch": 0.047924949797562684,
+            "run_length": 0.018919048331847148
+          }
+        }
+      }
+    },
+    "ranks": {
+      "replay|losses": {
+        "best": "search's best",
+        "program_rank": 1,
+        "gru_rank": 2,
+        "n_models": 22
+      },
+      "replay|pattern": {
+        "best": "GRU-D614",
+        "program_rank": 2,
+        "gru_rank": 1,
+        "n_models": 22
+      },
+      "replay|hazard": {
+        "best": "GRU-D614",
+        "program_rank": 3,
+        "gru_rank": 1,
+        "n_models": 22
+      },
+      "replay|post_switch": {
+        "best": "GRU-D614",
+        "program_rank": 3,
+        "gru_rank": 1,
+        "n_models": 22
+      },
+      "rollout|losses": {
+        "best": "GRU-D614",
+        "program_rank": 3,
+        "gru_rank": 1,
+        "n_models": 22
+      },
+      "rollout|pattern": {
+        "best": "GRU-D614",
+        "program_rank": 3,
+        "gru_rank": 1,
+        "n_models": 22
+      },
+      "rollout|hazard": {
+        "best": "GRU-D614",
+        "program_rank": 4,
+        "gru_rank": 1,
+        "n_models": 22
+      },
+      "rollout|post_switch": {
+        "best": "GRU-D614",
+        "program_rank": 6,
+        "gru_rank": 1,
+        "n_models": 22
+      },
+      "rollout|run_length": {
+        "best": "GRU-D614",
+        "program_rank": 3,
+        "gru_rank": 1,
+        "n_models": 22
+      }
+    }
+  }
+}
