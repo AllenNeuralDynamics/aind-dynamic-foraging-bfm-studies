@@ -2,9 +2,9 @@
   "_meta": {
     "schema_version": 2,
     "kind": "freeze",
-    "produced_by": "analysis/freeze_selection_tasks.py",
-    "produced_at_pt": "2026-11-08T18:22:57-08:00",
-    "studies_git_sha": "75a6d278fa5e7bbcc8ba2417c943dc0abbe70bc1",
+    "produced_by": "analysis/freeze_test_tasks.py",
+    "produced_at_pt": "2026-11-08T20:05:34-08:00",
+    "studies_git_sha": "b24820954d35b088f043c17098133973f9cabf3e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -15,8 +15,12 @@
     "provenance_findings": [],
     "code": [
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/freeze_test_tasks.py",
+        "sha256": "34ebc9a8a82b132ec082d7831858c25a3749d7152f0b3f9c88be519268bdbe92"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/freeze_selection_tasks.py",
-        "sha256": "de742617b3a9374de0ac5bacb4dd6c2843ca036a5886614242a09e2425b5ee04"
+        "sha256": "58a93bcaa808600cadfec6813aaf0dcfb94d274c04286bc3c895e24c71e7da19"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection_cohorts.py",
