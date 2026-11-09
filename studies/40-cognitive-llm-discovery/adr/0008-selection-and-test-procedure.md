@@ -113,6 +113,31 @@ view of the same statistics.
   candidates' jobs were cancelled before writing any output and rerun with the subjects' tallies kept.
   The reference was rerun the same way, so all six use one code path.
 
+## Amendment (2026-11-08, before any simplification run): the floors and the floor programs
+
+ADR 0007's "best of five" is the highest selection score for the search's best. A floor program is
+scored by its Halstead effort above a floor, so its five candidates and its choice are fixed here:
+
+- **Floors** (each run's check): from Miller-RHG's and the chosen search-best's validation scores,
+  both rescored with the search's evaluator settings (`max_em` 20, 2,048 draws, seed 0) and the
+  per-subject fallback (`analysis/freeze_floor_anchors.py`), so the floor and the run's check share one
+  scale. floor = low + share × (high − low), share 0.9, 0.75, 0.5 (`analysis/simplify_floors.py`,
+  `analysis/simplify/floors.json`). ADR 0005 named study 12 r3 for the low end; that score is at
+  `max_em` 100 and without the fallback, so it is not on the run's scale.
+- **Seeds**: the five selection candidates whose rescored validation score reaches the floor, the
+  chosen search-best on island 0 and the rest by search rank (a seed below the floor stops the run).
+- **Runs**: one per floor (`variants/simplify-90`, `-75`, `-50`): Claude Opus 5.5 at effort medium,
+  at most $40 each, the search's program limits and evaluator, stopping after 300 proposals without a
+  correct program of lower effort (MEvolve ADR 0006).
+- **Candidates**: the five correct programs of lowest Halstead effort, distinct by code, from the run's
+  final database.
+- **Choice**: each candidate is scored on the selection subjects like the search's candidates (this
+  ADR's evaluator, `max_em` 100, the fingerprint gate as amended). The floor program is the candidate
+  of lowest effort that passes the gate and whose selection score reaches the selection floor: the
+  same share of the gain between Miller-RHG's and the chosen search-best's selection scores. If none
+  qualifies, the next five by effort are scored.
+- **Test**: the chosen floor program is scored once on the test subjects, as the search's best.
+
 ## Considered options
 
 - **Choosing the search's best by the monitor scores**: forbidden by the ADR 0003 amendment.
