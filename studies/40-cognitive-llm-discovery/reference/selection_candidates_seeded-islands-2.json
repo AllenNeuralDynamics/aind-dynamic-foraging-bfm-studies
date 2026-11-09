@@ -1,0 +1,193 @@
+{
+ "search": "seeded-islands@20261106-114959",
+ "database": "/allen/aind/scratch/han.hou/mevolve/runs/seeded-islands/20261106-114959/search/programs.sqlite",
+ "database_sha256": "bcb29203faf8964c4fed42d3e9e44c857df6ba9321beb7736cc842a2538c5c36",
+ "rule": "programs with correct=1 and generation>0, distinct by code sha256, ranked by the search's validation score (combined_score), ties by earlier timestamp; ranks 1-5 are the candidates, ranks 6-20 the order of replacements if a candidate fails the fingerprint gate (study 40 ADR 0007, ADR 0008)",
+ "reference": {
+  "model": "Miller-RHG",
+  "validation_score_x100": 72.6135,
+  "source": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv, pooled over the validation cohort of reference/cohorts_seed0.json"
+ },
+ "ranked": [
+  {
+   "rank": 1,
+   "id": "a13b12cf-e70b-4ccd-b74c-5e5b8757fd09",
+   "island": 0,
+   "generation": 1938,
+   "validation_score_x100": 72.77508241922416,
+   "patch_name": "reward_satiety_gain",
+   "code_sha256": "5053db36dee22d8034cf9aa54be394adb4bfdcfcc3329c29b5811bd8fa8a6c3d"
+  },
+  {
+   "rank": 2,
+   "id": "3fd7f0c4-e3c4-4933-a53f-d3cce7718e15",
+   "island": 3,
+   "generation": 527,
+   "validation_score_x100": 72.77108048588305,
+   "patch_name": "reward_rate_gated_perseveration",
+   "code_sha256": "a65c9884a9999c965e18df6ae95d5b8db3967d903a7ec9fc745ad97619627522"
+  },
+  {
+   "rank": 3,
+   "id": "e3819885-add3-44e8-8b85-afbc72e67470",
+   "island": 1,
+   "generation": 1879,
+   "validation_score_x100": 72.76949612773106,
+   "patch_name": "satiety_engagement",
+   "code_sha256": "03cb88b3bc18a2478b0ae7908c8cb70de394ace8d64d57a4ebb765d0c53ab99f"
+  },
+  {
+   "rank": 4,
+   "id": "5bb3332a-4d23-4160-a4f8-5d8a83b35097",
+   "island": 2,
+   "generation": 1656,
+   "validation_score_x100": 72.76615508819948,
+   "patch_name": "dual_cf_habit_experience",
+   "code_sha256": "e5ca0dc2ab4d1c21095aec33e1f12d8ba36f1ca74ac610f4f0b648d09db667ce"
+  },
+  {
+   "rank": 5,
+   "id": "f0e71d90-1b80-42ca-8796-0537dad35818",
+   "island": 4,
+   "generation": 1611,
+   "validation_score_x100": 72.76411346707735,
+   "patch_name": "unchosen_relax_to_reward_rate",
+   "code_sha256": "2b2831e4bbab78feb2092bf41e94f2a750a38513ab6e1836502b7ff8a7d60656"
+  },
+  {
+   "rank": 6,
+   "id": "f9a29249-8514-407f-8270-775fc2902297",
+   "island": 1,
+   "generation": 1669,
+   "validation_score_x100": 72.76411346707735,
+   "patch_name": "forget_toward_average_reward",
+   "code_sha256": "b1ca4fd08a9de1e61d2796bf3f17b6b25e1aef892662a04b1ccb4a3ef623fd1a"
+  },
+  {
+   "rank": 7,
+   "id": "3fe2c8f0-445e-4fe6-a21e-95aae0ba1600",
+   "island": 4,
+   "generation": 1897,
+   "validation_score_x100": 72.76375628151341,
+   "patch_name": "rw_cf_dualhabit_experience_habit_tight",
+   "code_sha256": "3f38aea83916877178e1d7632f9c4505d18f84bac634c2c03ec9c98af9286f80"
+  },
+  {
+   "rank": 8,
+   "id": "51d3a8eb-c6e4-4385-83be-4c4c919d20a2",
+   "island": 1,
+   "generation": 1972,
+   "validation_score_x100": 72.76337710443622,
+   "patch_name": "engagement_experience_satiety_rl",
+   "code_sha256": "f9c1189ca2d985affcd164cfeb6d6edff2103a6542f78d53962902be5d64035e"
+  },
+  {
+   "rank": 9,
+   "id": "d70375f6-a072-4244-80c3-08de4b1241fd",
+   "island": 4,
+   "generation": 1455,
+   "validation_score_x100": 72.76297509637864,
+   "patch_name": "experience_dependent_determinism",
+   "code_sha256": "74a87561a3ee055f5ad7b9d1d0f384c06b25a4f6f7779c972d97d0e6bfd760df"
+  },
+  {
+   "rank": 10,
+   "id": "2975a09f-3ebc-40d1-a1aa-fbc284489df9",
+   "island": 3,
+   "generation": 1531,
+   "validation_score_x100": 72.76297509637864,
+   "patch_name": "experience_dependent_gain",
+   "code_sha256": "f490bad7a5c5afd82810f514a6210413db9e14c54a0f1b798290094f0eae3dea"
+  },
+  {
+   "rank": 11,
+   "id": "01c17f14-0f06-45a4-a01c-b38a917b7c0c",
+   "island": 0,
+   "generation": 2067,
+   "validation_score_x100": 72.76297509637864,
+   "patch_name": "experience_scaled_engagement",
+   "code_sha256": "fba715c8b9300ef1aaaf03b93e56dc9348a03ddb3cea006943087ab4a795209b"
+  },
+  {
+   "rank": 12,
+   "id": "afbc3fb3-8edd-413b-a69f-108ddd53c278",
+   "island": 2,
+   "generation": 1936,
+   "validation_score_x100": 72.7623417911131,
+   "patch_name": "experience_scaled_engagement",
+   "code_sha256": "ce8e55f215f9ecabe5070c4e3a82e35b71778802af77968692865c8511de0528"
+  },
+  {
+   "rank": 13,
+   "id": "a3c54ff6-2741-45e0-b0b4-5e8bc4552ce8",
+   "island": 0,
+   "generation": 1741,
+   "validation_score_x100": 72.76193885182218,
+   "patch_name": "habit_experience_cf_split",
+   "code_sha256": "fe1ab4dc165be080a6513f2ea854cee8b9bfa1bbe4349603a72033048bb6a59b"
+  },
+  {
+   "rank": 14,
+   "id": "8150d901-5794-41a5-a1dd-de677d3178a4",
+   "island": 1,
+   "generation": 1340,
+   "validation_score_x100": 72.76051172608436,
+   "patch_name": "within_session_engagement_decay",
+   "code_sha256": "aeed1e36e43343ea8bf560c47c367d9bbf4b8384a7efc6ffa4b975bc905b15fe"
+  },
+  {
+   "rank": 15,
+   "id": "94fb0304-1982-47f6-8be0-fb96af264a84",
+   "island": 1,
+   "generation": 1153,
+   "validation_score_x100": 72.76045669996826,
+   "patch_name": "satiety_rw_dualhabit",
+   "code_sha256": "a79c7bf4e702808e2e1903ef2bca606e13e634224fc414519798d07517a0f30c"
+  },
+  {
+   "rank": 16,
+   "id": "183e3cdd-1379-482f-8546-92fffd450e29",
+   "island": 1,
+   "generation": 1346,
+   "validation_score_x100": 72.76003406802694,
+   "patch_name": "experience_scaled_determinism",
+   "code_sha256": "3eeebce110f03a7608746a3e21002974ce6c4c26390a41aac50e307899a6892e"
+  },
+  {
+   "rank": 17,
+   "id": "c96a15dc-4548-4ef4-93d7-686643540b91",
+   "island": 4,
+   "generation": 2542,
+   "validation_score_x100": 72.76003406802694,
+   "patch_name": "experience_dependent_engagement",
+   "code_sha256": "c16f0d2b1698ed80fdc3c961ca779c06637aeadf134ab5ed2385595c8077c59a"
+  },
+  {
+   "rank": 18,
+   "id": "bf936dd6-60c5-462a-b30a-42e8150eebd2",
+   "island": 4,
+   "generation": 2113,
+   "validation_score_x100": 72.7597018894051,
+   "patch_name": "reward_rate_modulated_engagement",
+   "code_sha256": "7e8f6a9b2378d19e4da007a307270fcb1c1e14242eea36d3bc7553fcbd1ab18d"
+  },
+  {
+   "rank": 19,
+   "id": "8bf6711b-c47e-4cbe-abe1-f5ed812bc4eb",
+   "island": 4,
+   "generation": 1487,
+   "validation_score_x100": 72.75902027609149,
+   "patch_name": "dual_rl_bait_engagement_habits",
+   "code_sha256": "c2836bafddcaf03aabc858538db03fee1563175034880e74881d1853579999e5"
+  },
+  {
+   "rank": 20,
+   "id": "43f37655-a95e-4f9f-89a6-5f6fddffe79f",
+   "island": 3,
+   "generation": 1550,
+   "validation_score_x100": 72.75902027609149,
+   "patch_name": "bait_recovery_coupled_inference_engagement",
+   "code_sha256": "b68dc6d83706ca8378a8bb7f549ea3d070b6a911d8a9ab6e19ec956d5d7a993c"
+  }
+ ]
+}

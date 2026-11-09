@@ -1,5 +1,13 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-08 (selection and test)
+
+- ADR 0008 (#134): the selection and test procedure for `seeded-islands-2`, fixed before any selection or
+  test score: five candidates by validation score (`reference/selection_candidates_seeded-islands-2.json`),
+  Miller-RHG as reference, EM to convergence with MEvolve's per-mouse fallback (#81), the fingerprint gate
+  with study 15's library, the test scoring and its order. The gate uses each mode's fingerprint score
+  (study 15 ADR 0009), more statistics than ADR 0001's, which is amended (Han).
+
 ## 2026-11-08
 
 - `FUTURE_DIRECTIONS.md` (#132): follow-ups brainstormed with Han during the first production search, with
