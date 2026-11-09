@@ -28,4 +28,4 @@ three runs share a seed cache; `simplify-90` starts first so the others read its
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `simplify-90@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Submitted 2026-11-08 23:04 PT as `simplify-90-1`, W&B group [`simplify-90@20261108-230437`](https://wandb.ai/NeuralDynamics/dfbfm-mevolve) (driver Slurm 27716603), studies `4d34ea8`, MEvolve `4465615`. It waits for the seed-cache job (Slurm 27716334, the five seeds scored once on 24 CPUs with the run's own cache keys) and for a rehearsal of `simplify-90` (Slurm 27716602: 6 real proposals, new calls stop at $2).

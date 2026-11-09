@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_initial",
+    "produced_at_pt": "2026-11-08T23:04:43-08:00",
+    "studies_git_sha": "4d34ea8ce14c72af699cf8f29ebb11b3004f716b",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "simplify-50@20261108-230437"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): simplify-50@20261108-230437"
+    ]
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "simplify-50@20261108-230437",
+  "label": "simplify-50-1",
+  "note": "Study 40 simplification run at the 50% floor (ADR 0005, ADR 0008 floors amendment): Claude Opus 5.5 rewrites the five selection candidates to lower Halstead effort while the validation score stays at or above the floor (keeps 50% of the gain from Miller-RHG to satiety_engagement); $40 cap, stop after 300 proposals without a simpler correct program. Starts after the rehearsal (Slurm 27716602) succeeds; its five lowest-effort programs go to selection, the gate and one test score.",
+  "revisions": {
+    "studies": "4d34ea8ce14c72af699cf8f29ebb11b3004f716b",
+    "mevolve": "4465615ae765086cafab99fc0e09f20df6e33e67"
+  },
+  "manifests": [
+    "simplify.sbatch"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_job",
+      "id": "27716605"
+    }
+  ],
+  "command": "sbatch --dependency=afterok:27716602 --export=ALL,VARIANT_DIR=<studies checkout at 4d34ea8c>/studies/40-cognitive-llm-discovery/variants/simplify-50,MEVOLVE_SRC=<mevolve checkout at 4465615a>/src,LAUNCH_ID=20261108-230437,LAUNCH_LABEL=simplify-50-1,STUDIES_SHA=4d34ea8ce14c72af699cf8f29ebb11b3004f716b,MEVOLVE_SHA=4465615ae765086cafab99fc0e09f20df6e33e67 simplify.sbatch",
+  "data": {
+    "source": "freeze",
+    "config": "mice_snapshot_scaling",
+    "snapshot": "20260603",
+    "uri": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+    "manifest_sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search",
+    "lock_sha256": "c35fd7d342ab4090194ae663bafd0e15e9964730a329b467dbb7ce27eb6c0006"
+  }
+}
