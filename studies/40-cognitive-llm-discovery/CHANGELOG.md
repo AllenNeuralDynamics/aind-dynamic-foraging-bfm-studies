@@ -1,5 +1,13 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-08 (selection and test)
+
+- ADR 0008 (#134): the selection and test procedure for `seeded-islands-2`, fixed before any selection or
+  test score: five candidates by validation score (`reference/selection_candidates_seeded-islands-2.json`),
+  Miller-RHG as reference, EM to convergence with MEvolve's per-mouse fallback (#81), the fingerprint gate
+  with study 15's library, the test scoring and its order. One open question for Han: the rollout gate's
+  statistic.
+
 ## 2026-11-06
 
 - `seeded-islands` before its first proposal: the proposer is Claude Opus 5.5 (effort medium), and each
