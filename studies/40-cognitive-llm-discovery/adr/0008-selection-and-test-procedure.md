@@ -36,21 +36,24 @@ subjects (`reference/cohorts_seed0.json`).
 Computed with study 15's library (`aind-dynamic-foraging-models` 392c504, fingerprint spec v1), on
 the selection subjects' score sessions, for each candidate and the reference alike:
 
-- **Replay gap**: the mean, over the replay statistics `losses`, `pattern` and `hazard` (ADR 0001's
-  three), of the library's `replay_gap` per subject, averaged over subjects with equal weight
-  (`aggregate_subjects`).
-- **Rollout gap**: the library's `rollout_gap` for `hazard` (switching by last reward and run length,
-  ADR 0001's rollout statistic), averaged over subjects with equal weight. One rollout per score
-  session in session-matched gym tasks (study 15 ADR 0006; its `p2_task.build_task`), with
-  `aind-behavior-gym` 0.4.5, `perseverative_limit=4`, `max_block_tally=3`. Each rollout draws its
-  parameters from the 2-level fit, θ = μ + exp(log σ)·ε in fitting space (study 15 ADR 0005).
+- **Replay score**: study 15's replay fingerprint score (its ADR 0009): the geometric mean, over the
+  four rate statistics `losses`, `pattern`, `hazard` and `post_switch`, of the floor ratio (the gap
+  between the model's predicted and the subjects' observed switch rates, over the binomial floor,
+  each balanced over subjects), on the subjects' `all` session set (`replay_fingerprints`,
+  `aggregate_subjects`, `fingerprint_score`).
+- **Rollout score**: study 15's rollout fingerprint score: the geometric mean of the floor ratios
+  (gap over the split-half floor) of the same four rate statistics and the `run_length` distribution.
+  One rollout per score session in session-matched gym tasks (study 15 ADR 0006; its
+  `p2_task.build_task`), with `aind-behavior-gym` 0.4.5, `perseverative_limit=4`,
+  `max_block_tally=3`. Each rollout draws its parameters from the 2-level fit,
+  θ = μ + exp(log σ)·ε in fitting space (study 15 ADR 0005).
 - **Sessions excluded from rollouts** (they still count for likelihood and replay): sessions with no
   recorded block parameters, uncoupled sessions with a single reward probability, and coupled sessions
   whose pool has no unequal pair (study 15's gym traps). Every model uses the same session set.
 - **Paired seeds**: the task stream is seeded without the model (`SeedSequence([0, crc32(session_id),
   k])`), so candidates and the reference play the same tasks; the agent stream adds the model.
-- **Rule**: a candidate passes if its replay gap and its rollout gap are both no larger than the
-  reference's. The search's best is the passing candidate with the highest selection score; a failed
+- **Rule**: a candidate passes if its replay score and its rollout score are both no larger than
+  the reference's (lower is closer to the subjects). The search's best is the passing candidate with the highest selection score; a failed
   candidate is replaced by the next rank.
 
 ## Test scoring
@@ -69,15 +72,14 @@ r5) and GRU v2 H128 (study 01), both re-pooled from their committed per-subject 
 4. The search's best scored on the test subjects.
 5. Simplification at 90%, 75% and 50%; selection and gate for each; one test score each.
 
-## Open question for Han (decide before step 2)
+## Gate statistics: more of them, decided by Han
 
-Study 15 r3 found that the rollout `hazard` statistic is matched well by every good model, so it will
-barely separate candidates; in rollout, `losses` and `post_switch` are where models differ (2-level fits
-often lose there). ADR 0001 fixes `hazard`, and this record keeps it unless Han changes it now:
-
-- **Default (ADR 0001 as written)**: rollout gap = `hazard`.
-- **Alternative**: rollout gap = the mean over `losses`, `hazard` and `post_switch`, an amendment to
-  ADR 0001 made before any rollout is run.
+Study 15 r3 found that the rollout `hazard` statistic, ADR 0001's only rollout statistic, is matched
+well by every good model and barely separates them; in rollout, `losses` and `post_switch` are where
+models differ. Han chose to use more fingerprints, including those that differ (2026-11-08). The floor
+ratios put statistics of different scale, rates and a distribution, on one footing, so each mode's
+score uses all of its statistics. This amends ADR 0001 before any selection subject was rolled out
+or replayed.
 
 ## Considered options
 
@@ -86,3 +88,5 @@ often lose there). ADR 0001 fixes `hazard`, and this record keeps it unless Han 
   simplification; step 3 prevents it.
 - **Replay fingerprints only**: cheaper, but ADR 0001 makes both a gate; study 15's library makes the
   rollouts cheap enough.
+- **Raw gaps averaged over statistics** (ADR 0001's form): mixes scales, and cannot include the
+  `run_length` distribution; the floor ratios can.
