@@ -1,0 +1,179 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r1_pilot_decoding.py",
+    "produced_at_pt": "2026-11-08T17:44:36-08:00",
+    "studies_git_sha": "4aa8423a633b3775b520fd83bf4c88936e11b6ca",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "hurdle@20261027-212905",
+      "reference@20261027-213006"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): hurdle@20261027-212905, reference@20261027-213006"
+    ],
+    "code": [
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/r1_pilot_decoding.py",
+        "sha256": "17513af130ff96a2fdd56edcfe4e203ba1c6a3f8c8a908040ee97e25be11916f"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1.json",
+        "sha256": "110d11a2b19294926eda29616a576edcdc5b4e9064e5a3a56880499af3c3f757"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1_sessions.npz",
+        "sha256": "a0ce4e0241c3d8b5ba5acff97fa0bc8973994071511e1a33028ed0c3b38d0165"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/r1_pilot_decoding.json",
+        "sha256": "0a143afa22cec007365de51692f306eb4ec62089c5085c75b9b333218c7a0bc7"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_method.svg",
+        "sha256": "e9e77c6941282f3610c9412745e78c6926d18cf0dd2f8a633830d8406b95fa71"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_k3.svg",
+        "sha256": "8ad7c94e75fd1f73bb36985522159272a76f6074558b9685117474052e2c4251"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_engaged.svg",
+        "sha256": "430366dccec3c38325f45152f96b08474ee0e13baf32ca3c9ea5dc1446e506d7"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_kscan.svg",
+        "sha256": "a0dcd7287e8e50e636a16ee9dec2128ae413f7699e32bf106186e26cfc40812e"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_kdecoding.svg",
+        "sha256": "84690f0414a5a00e87e5db92f9eb03158215f3f5caddb61ee597a7d623e80529"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_shuffle.svg",
+        "sha256": "a21d4443007a7dedae72312dc995c1570fd43f4a7367e186dbe4c736dfe728eb"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_population.svg",
+        "sha256": "d41814f4caaee638ec2256880e94eac90c587c726f9a0c431eabd26817801c32"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_1.svg",
+        "sha256": "e6a1cffd2cf675c3c73ae13cda15e31888e63f44750ad36ee638dda19fa902ba"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_2.svg",
+        "sha256": "ae2314f059fce352d2473561b0b525a9489d76ef87007206b7f8f8c50f740ba3"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_3.svg",
+        "sha256": "257b05fefd8bc39a8faed805350bfa0a6eba4b0a796a202cb156e602d9d5531c"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_4.svg",
+        "sha256": "2ddfb1c6de7f0be9d3c4481ff1ba06d57ad3d6a0b6b2bcdf225d2f3f6eae2ab0"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-1",
+        "sha256": "3303b04c22defa0640f38adfacb0ba101000c52fb53d16e485a4e80dead957f3"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-2",
+        "sha256": "727aa7f3478bbe7f78fd95c569307de116f59f3680deb1185816899d2086df85"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-3",
+        "sha256": "3508b1027efd5d66b23f47eb2fc6eaa05e1517db0593e949b8393ad62194c646"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-4",
+        "sha256": "85d520ed717294d076526e1e524c66810adad4fd8483932f7c4dbc56e8ae822d"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-5",
+        "sha256": "be7a06099bee3b4274dbb96cb0b80ef718551d2070ad497b53c2f96eddcbb363"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-6",
+        "sha256": "e94abfbed4186d132b7d1ec72ea5f2699e29b86aedef15c901b1c9fe73a25c5b"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-7",
+        "sha256": "582dfdbeef0b9fb8821e9fb2657e6b5f79a201027dc1fb7a944e9b399700addc"
+      }
+    ]
+  },
+  "k3_r2_latents": [
+    0.9377813628274928,
+    0.8985309271936361,
+    0.8726704769382625
+  ],
+  "k3_r2_within_latents": [
+    0.8767580913337055,
+    0.8078983061975429,
+    0.7660459044068286
+  ],
+  "k3_r2_history": [
+    0.7403568125485552,
+    0.3475237470898006,
+    0.12207571920651883
+  ],
+  "kscan_pooled_r2_latents": {
+    "2": 0.9408897286265634,
+    "3": 0.9078776571567664,
+    "4": 0.89066743424538,
+    "5": 0.8591567035433462,
+    "6": 0.8372434045880033,
+    "7": 0.8437605812680746,
+    "8": 0.8306175641637509,
+    "9": 0.8154404615039235,
+    "10": 0.8181085442583039
+  },
+  "kscan_pooled_r2_within_latents": {
+    "2": 0.8773646287529386,
+    "3": 0.8235294448294747,
+    "4": 0.7998843146161639,
+    "5": 0.7632179891367893,
+    "6": 0.7337267670540257,
+    "7": 0.7406644566895577,
+    "8": 0.736920882205029,
+    "9": 0.7154110557864694,
+    "10": 0.7220224917263747
+  },
+  "shuffle_max_within": {
+    "latents_swap_K2": 0.03671516969603783,
+    "latents_swap_K3": -0.009348409508824096,
+    "latents_swap_K6": -0.000663644849912215,
+    "latents_swap_K10": -0.010029818106221278,
+    "latents_circ_K2": -0.17188206808068562,
+    "latents_circ_K3": -0.18212367970604326,
+    "latents_circ_K6": -0.1800251166455482,
+    "latents_circ_K10": -0.16874903266315222,
+    "history_swap_K2": 0.08226511303504891,
+    "history_swap_K3": 0.017254671215409245,
+    "history_swap_K6": 0.02085201185106067,
+    "history_swap_K10": 0.011516969177659653,
+    "history_circ_K2": -0.15849965685454426,
+    "history_circ_K3": -0.09506625093901233,
+    "history_circ_K6": -0.05597570767707305,
+    "history_circ_K10": -0.060842775753289224
+  }
+}
