@@ -43,7 +43,7 @@ the selection subjects' score sessions, for each candidate and the reference ali
   `aggregate_subjects`, `fingerprint_score`).
 - **Rollout score**: study 15's rollout fingerprint score: the geometric mean of the floor ratios
   (gap over the split-half floor) of the same four rate statistics and the `run_length` distribution.
-  One rollout per score session in session-matched gym tasks (study 15 ADR 0006; its
+  Ten rollouts per score session (study 15's `N_ROLLOUTS`) in session-matched gym tasks (study 15 ADR 0006; its
   `p2_task.build_task`), with `aind-behavior-gym` 0.4.5, `perseverative_limit=4`,
   `max_block_tally=3`. Each rollout draws its parameters from the 2-level fit,
   θ = μ + exp(log σ)·ε in fitting space (study 15 ADR 0005).
@@ -80,6 +80,17 @@ models differ. Han chose to use more fingerprints, including those that differ (
 ratios put statistics of different scale, rates and a distribution, on one footing, so each mode's
 score uses all of its statistics. This amends ADR 0001 before any selection subject was rolled out
 or replayed.
+
+## Amendment (2026-11-08, before any selection subject was scored): ten rollouts per session, and the code
+
+The record said one rollout per score session, a misreading of study 15's note (one parameter draw per
+rollout). Study 15 plays each session ten times (`N_ROLLOUTS = 10`), which keeps the rollout tallies far
+less noisy at little cost; ADR 0008 now does the same. The procedure runs as
+`analysis/freeze_selection_tasks.py` (session groups and gym tasks for a cohort; on the 149 test subjects
+it reproduces study 15's committed groups, specs and exclusions exactly) and `analysis/freeze_selection.py`
+(one program on one cohort: score, replay and rollout fingerprint scores), piloted on the generation
+subjects before the selection subjects. A fallen-back mouse (MEvolve ADR 0004) is replayed and rolled out
+with its per-subject fit, as it is scored.
 
 ## Considered options
 
