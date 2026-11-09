@@ -21,11 +21,10 @@ test score can shape it.
 
 ## Evaluator
 
-MEvolve at the commit that merges #81 (per-mouse 2-level fallback beyond 0.005 nats per trial; MEvolve
-ADR 0004 amendment), 2-level Laplace-EM, seed 0, EM run to convergence (`max_em=100`, MEvolve ADR
+MEvolve `146153c01f6391122414525022e9126f200a1586` (the merge of MEvolve PR 82: per-mouse 2-level
+fallback beyond 0.005 nats per trial, MEvolve #81 and its ADR 0004 amendment), 2-level Laplace-EM, seed 0, EM run to convergence (`max_em=100`, MEvolve ADR
 0004), 2,048 draws, fit on each subject's even sessions and scored on its odd ones. Candidates, the
-reference and later the floor programs are all scored this way. The commit's full SHA is added to this
-record before the first selection score.
+reference and later the floor programs are all scored this way.
 
 ## Selection score
 
@@ -63,7 +62,7 @@ r5) and GRU v2 H128 (study 01), both re-pooled from their committed per-subject 
 
 ## Order
 
-1. This record merged; the MEvolve SHA filled in.
+1. This record merged.
 2. Selection: likelihood, replay and rollout for the candidates and the reference.
 3. The simplification design (a variant's `run.json` and notes) committed **before** the search's
    best is scored on the test subjects, so the test score cannot shape it.
