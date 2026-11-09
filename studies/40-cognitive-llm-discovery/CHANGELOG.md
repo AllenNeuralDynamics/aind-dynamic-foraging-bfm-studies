@@ -6,6 +6,12 @@
   the evidence for each and where it is tracked; the biology follow-up analyses (individual and
   task-variant differences) have their own section.
 
+## 2026-11-07
+
+- Monitor subjects (ADR 0003 amendment, #128): 100 more training-pool subjects, drawn after the other
+  cohorts by the same seeded rule, to rescore the search's top programs on subjects it never used. The
+  list (`reference/cohorts_seed0_monitor.json`) is committed before any scoring.
+
 ## 2026-11-06
 
 - `seeded-islands` before its first proposal: the proposer is Claude Opus 5.5 (effort medium), and each
