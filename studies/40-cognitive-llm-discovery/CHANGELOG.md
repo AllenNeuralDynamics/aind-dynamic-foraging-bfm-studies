@@ -1,5 +1,11 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-08
+
+- `FUTURE_DIRECTIONS.md` (#132): follow-ups brainstormed with Han during the first production search, with
+  the evidence for each and where it is tracked; the biology follow-up analyses (individual and
+  task-variant differences) have their own section.
+
 ## 2026-11-07
 
 - Monitor subjects (ADR 0003 amendment, #128): 100 more training-pool subjects, drawn after the other
