@@ -148,7 +148,7 @@ def _clean(x):
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cohort", required=True, choices=["generation", "selection"])
+    ap.add_argument("--cohort", required=True, choices=["generation", "selection", "test", "gru_test"])
     ap.add_argument("--program", required=True)
     ap.add_argument("--name", required=True)
     ap.add_argument("--workers", type=int, default=12)
@@ -163,7 +163,10 @@ def main() -> None:
 
     t0 = time.time()
     program_path = str(Path(a.program).resolve())
-    subjects = json.loads(COHORTS.read_text())["cohorts"][a.cohort][: a.limit]
+    import pandas as pd
+    import selection_cohorts
+
+    subjects = selection_cohorts.subjects(a.cohort, pd.read_parquet(FREEZE / "sessions.parquet"))[: a.limit]
     tasks = json.loads((HERE / "selection" / f"tasks_{a.cohort}.json").read_text())
     freeze = Freeze(FREEZE)
     data = [evaluate.subject_data(freeze, s) for s in subjects]
@@ -191,8 +194,8 @@ def main() -> None:
     in_study = Path(program_path).is_relative_to(STUDY)
     tasks_path = HERE / "selection" / f"tasks_{a.cohort}.json"
     meta = build_meta(f"analysis/{Path(__file__).name}", [], study_root=STUDY, kind="freeze",
-                      code=[__file__, S15 / "p2_task.py"],
-                      inputs=[COHORTS, tasks_path] + ([program_path] if in_study else []),
+                      code=[__file__, HERE / "selection_cohorts.py", S15 / "p2_task.py"],
+                      inputs=[COHORTS, tasks_path] + ([selection_cohorts.GRU_ROWS] if a.cohort == "gru_test" else []) + ([program_path] if in_study else []),
                       sources=([] if in_study else [{"type": "file", "id": program_path, "sha256": sha(program_path)}]) + [
                           {"type": "file", "id": str(FREEZE / "manifest.json"), "sha256": sha(FREEZE / "manifest.json")},
                           {"type": "url", "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/commit/"

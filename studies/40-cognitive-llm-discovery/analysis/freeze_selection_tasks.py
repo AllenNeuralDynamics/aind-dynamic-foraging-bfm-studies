@@ -2,7 +2,8 @@
 """Session groups and gym task specs for a cohort's score sessions (study 40 ADR 0008; study 15 ADR 0006).
 
 Study 15 built both for the 149 test subjects only. This applies its rules, unchanged, to any cohort of
-``reference/cohorts_seed0.json`` (``generation`` for the pilot, ``selection`` for ADR 0008's selection),
+``selection_cohorts`` (``generation`` for the pilot, ``selection`` for ADR 0008's selection, ``test`` and
+``gru_test`` for its test scores),
 importing its helpers rather than copying them:
 
 - **group**: ``warm-up`` if every trial has a reward probability of 0 on one side or only 0 and 1, else
@@ -42,6 +43,7 @@ from freeze_p0_task_checks import FREEZE, FREEZE_MANIFEST, SNAPSHOT, load_trials
 from freeze_p1_session_groups import stage_group  # noqa: E402
 from freeze_p2_tasks import _mode, _shares  # noqa: E402
 from p2_task import MAX_BLOCK_TALLY, PERSEVERATIVE_LIMIT  # noqa: E402
+import selection_cohorts  # noqa: E402
 
 COHORTS = STUDY / "reference" / "cohorts_seed0.json"
 OUT_DIR = HERE / "selection"
@@ -121,7 +123,7 @@ def _check_study15(sessions: pd.DataFrame) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cohort", choices=["generation", "selection"])
+    ap.add_argument("--cohort", choices=selection_cohorts.NAMES)
     ap.add_argument("--check-study15", action="store_true")
     a = ap.parse_args()
     manifest = FREEZE / "manifest.json"
@@ -130,8 +132,7 @@ def main() -> None:
     if a.check_study15:
         _check_study15(sessions)
         return
-    cohorts = json.loads(COHORTS.read_text())["cohorts"]
-    subjects = set(cohorts[a.cohort])
+    subjects = set(selection_cohorts.subjects(a.cohort, sessions))
     mine = sessions[sessions["subject_id"].isin(subjects)].copy()
     assert mine["subject_id"].nunique() == len(subjects)
     groups, specs, excluded, db_path = groups_and_specs(mine)
@@ -139,9 +140,9 @@ def main() -> None:
     OUT_DIR.mkdir(exist_ok=True)
     out = OUT_DIR / f"tasks_{a.cohort}.json"
     meta = build_meta(f"analysis/{Path(__file__).name}", [], study_root=STUDY, kind="freeze",
-                      code=[__file__, S15 / "freeze_p0_task_checks.py", S15 / "freeze_p1_session_groups.py",
+                      code=[__file__, HERE / "selection_cohorts.py", S15 / "freeze_p0_task_checks.py", S15 / "freeze_p1_session_groups.py",
                             S15 / "freeze_p2_tasks.py", S15 / "p2_task.py"],
-                      inputs=[COHORTS],
+                      inputs=[COHORTS] + ([selection_cohorts.GRU_ROWS] if a.cohort == "gru_test" else []),
                       sources=[{"type": "file", "id": str(manifest), "sha256": FREEZE_MANIFEST},
                                {"type": "file", "id": db_path, "state": f"database snapshot {SNAPSHOT}"}])
     write_artifact(out, {
