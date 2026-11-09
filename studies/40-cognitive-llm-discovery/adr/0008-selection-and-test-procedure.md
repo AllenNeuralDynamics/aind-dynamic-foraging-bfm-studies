@@ -92,6 +92,27 @@ it reproduces study 15's committed groups, specs and exclusions exactly) and `an
 subjects before the selection subjects. A fallen-back mouse (MEvolve ADR 0004) is replayed and rolled out
 with its per-subject fit, as it is scored.
 
+## Amendment (2026-11-08, before any candidate's selection score was seen): the mouse-average curves
+
+Han added the error of the mouse-average curves to the gate (2026-11-08): study 15's Figure 5 view, where
+each point is one bin of a statistic, the subjects' mean against the model's, and the GRU is uniquely
+close (study 15 r2 and r3, Figure 6). The floor ratios balance each subject's gap against its own noise;
+this term asks whether the model reproduces the average mouse's curve, so it adds a second, different
+view of the same statistics.
+
+- **Curves**: per statistic, each subject's value per bin where its own tally keeps the bin (study 15's
+  `kept_bins`), averaged over the cohort's subjects, for the subjects and for the model (replay: the
+  predicted rate on the same trials; rollout: the rate in the subject's pooled rollouts). This is study
+  15's `_per_bin`, applied to one cohort.
+- **Curve score**: the RMSE over the bins where both means exist, each bin once, per statistic; then the
+  geometric mean over the mode's statistics (the same four in replay, five in rollout), so statistics of
+  different scale weigh alike and the comparison with the reference is a ratio.
+- **Rule**: a candidate passes if its replay and rollout fingerprint scores **and** its replay and
+  rollout curve scores are all no larger than the reference's. Ties to the selection score as before.
+- **Timing**: when this was decided, only the reference had finished on the selection subjects; the five
+  candidates' jobs were cancelled before writing any output and rerun with the subjects' tallies kept.
+  The reference was rerun the same way, so all six use one code path.
+
 ## Considered options
 
 - **Choosing the search's best by the monitor scores**: forbidden by the ADR 0003 amendment.

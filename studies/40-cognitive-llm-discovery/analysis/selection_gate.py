@@ -2,7 +2,8 @@
 """ADR 0008's selection: the candidates and the reference on one cohort, the fingerprint gate, the choice.
 
 Reads the frozen ``selection/<cohort>/<name>.json`` of ``freeze_selection.py`` (offline). A candidate passes
-the gate if its replay and rollout fingerprint scores are both no larger than the reference's (lower is
+the gate if its replay and rollout fingerprint scores and its replay and rollout curve scores (the
+mouse-average curves' per-bin RMSE, ADR 0008 amendment) are all no larger than the reference's (lower is
 closer to the subjects); the search's best is the passing candidate with the highest held-out score. Writes
 ``selection_<cohort>.json`` and ``fig_selection_<cohort>.svg``.
 
@@ -28,6 +29,12 @@ from _meta import build_meta, write_artifact  # noqa: E402
 
 CANDIDATES = STUDY / "reference" / "selection_candidates_seeded-islands-2.json"
 REFERENCE = "reference_miller_rhg"
+GATE = ("replay_score", "rollout_score", "replay_curve_rmse", "rollout_curve_rmse")
+
+
+def get(run: dict, key: str):
+    mode, kind = key.split("_", 1)
+    return run[mode]["score"] if kind == "score" else run[mode]["curves"]["curve_score"]
 
 
 def main() -> None:
@@ -45,25 +52,25 @@ def main() -> None:
         if name not in runs:
             continue
         r = runs[name]
-        rp, ro = r["replay"]["score"], r["rollout"]["score"]
-        ok = rp is not None and ro is not None and rp <= ref["replay"]["score"] and ro <= ref["rollout"]["score"]
+        vals = {k: get(r, k) for k in GATE}
+        ok = all(vals[k] is not None and vals[k] <= get(ref, k) for k in GATE)
         rows.append({"name": name, "rank": x["rank"], "patch_name": x["patch_name"], "island": x["island"],
                      "validation_x100": x["validation_score_x100"], "score_x100": 100 * r["score"]["score"],
-                     "n_fallback": r["score"]["n_fallback"], "replay_score": rp, "rollout_score": ro,
-                     "passes_gate": bool(ok)})
+                     "n_fallback": r["score"]["n_fallback"], **vals, "passes_gate": bool(ok)})
     passing = [r for r in rows if r["passes_gate"]]
     best = max(passing, key=lambda r: r["score_x100"]) if passing else None
     reference = {"name": REFERENCE, "score_x100": 100 * ref["score"]["score"], "n_fallback": ref["score"]["n_fallback"],
-                 "replay_score": ref["replay"]["score"], "rollout_score": ref["rollout"]["score"]}
+                 **{k: get(ref, k) for k in GATE}}
 
     fs.apply_paper_style()
-    fig, axes = plt.subplots(1, 3, figsize=fs.mm(fs.fit_width(groups=len(rows) + 1) * 3 / 2 + 36, 62),
+    fig, axes = plt.subplots(1, 5, figsize=fs.mm(min(183, 5 * (fs.AXIS_MM + 2 + 4 * (len(rows) + 1))), 62),
                              layout="constrained")
     labels = ["Miller-RHG"] + [f"#{r['rank']}" for r in rows]
     cols = [fs.OKABE_ITO["black"]] + [fs.OKABE_ITO["blue"] if r["passes_gate"] else fs.OKABE_ITO["vermillion"]
                                       for r in rows]
-    for ax, key, title in zip(axes, ("score_x100", "replay_score", "rollout_score"),
-                              ("held-out score (×100)", "replay fingerprint score", "rollout fingerprint score")):
+    for ax, key, title in zip(axes, ("score_x100", *GATE),
+                              ("held-out score (×100)", "replay fingerprint score", "rollout fingerprint score",
+                               "replay curve RMSE", "rollout curve RMSE")):
         vals = [reference[key]] + [r[key] for r in rows]
         ax.bar(range(len(vals)), vals, color=cols, width=0.7)
         ax.set_xticks(range(len(vals)), labels, rotation=45, ha="right")
@@ -76,9 +83,9 @@ def main() -> None:
         if best is not None:
             i = 1 + rows.index(best)
             ax.annotate("chosen", (i, vals[i]), xytext=(0, 2), textcoords="offset points", ha="center", fontsize=5)
-    for ax, letter in zip(axes, "abc"):
+    for ax, letter in zip(axes, "abcde"):
         fs.panel_label(ax, letter)
-    fig.suptitle(f"Selection on the {a.cohort} subjects: blue passes the fingerprint gate (both scores ≤ Miller-RHG's)")
+    fig.suptitle(f"Selection on the {a.cohort} subjects: blue passes the gate (all four ≤ Miller-RHG's)")
     fig_path = HERE / f"fig_selection_{a.cohort}.svg"
     fs.save_figure(fig, fig_path)
     out = HERE / f"selection_{a.cohort}.json"
@@ -86,7 +93,8 @@ def main() -> None:
                       inputs=[CANDIDATES] + list(files.values()))
     write_artifact(out, {"_meta": meta, "cohort": a.cohort, "reference": reference, "candidates": rows,
                          "chosen": best and best["name"],
-                         "rule": "passes if replay and rollout fingerprint scores are both <= the reference's; "
+                         "rule": "passes if replay and rollout fingerprint scores and replay and rollout curve "
+                                 "scores are all <= the reference's; "
                                  "the chosen program is the passing candidate with the highest held-out score "
                                  "(study 40 ADR 0008)"},
                    outputs=[fig_path])

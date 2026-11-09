@@ -15,7 +15,9 @@ MEvolve ADR 0004) and scored on the subjects' odd sessions. Then, with study 15'
   session, rollout).
 
 Per subject, ``replay_fingerprints`` and ``rollout_fingerprints`` on the ``all`` set; then
-``aggregate_subjects`` gives each mode's subject-balanced floor ratios and fingerprint score.
+``aggregate_subjects`` gives each mode's subject-balanced floor ratios and fingerprint score, and
+``mean_curves`` the mouse-average curves and their per-bin RMSE (study 15's Figure 5 view). Each
+subject's ``all`` tallies are kept, so other statistics can be drawn later without refitting.
 
 Needs /allen and the pinned code (foraging-models 392c504, MEvolve 146153c) on PYTHONPATH; on a compute
 node, one job per program (24 CPUs, 72 GB: 12 fitting workers):
@@ -83,7 +85,7 @@ def subject_job(args) -> dict:
     import jax
     import jax.numpy as jnp
     from aind_dynamic_foraging_models.fingerprints import ProgramAgent, replay_fingerprints, rollout, \
-        rollout_fingerprints
+        rollout_fingerprints, to_json
     from mevolve import fitting, scoring
     from p2_task import build_task
 
@@ -103,7 +105,9 @@ def subject_job(args) -> dict:
         p = scoring.marginal_p_right(prog, mu, log_sigma, batch, key, n_draws=N_DRAWS)
     p_right = [np.asarray(p[i, : len(s.choices)]) for i, s in enumerate(sessions)]
     sets = {"all": set(labels)}
-    rep = replay_fingerprints(choices, rewards, labels, p_right, sets=sets)["sets"]
+    rep_full = replay_fingerprints(choices, rewards, labels, p_right, sets=sets)
+    rep = rep_full["sets"]
+    tallies = {"replay": to_json(rep_full["tallies"]["all"])}
 
     real = {s.session_id: s for s in sessions}
     if fell:
@@ -128,10 +132,52 @@ def subject_job(args) -> dict:
                               rng, session=facts)
             rc.append(c), rr.append(r), rg.append(spec["group"])
     if specs:
-        rol = rollout_fingerprints(rc, rr, rg, oc, orw, og, sets={"all": set(og)})["sets"]
+        rol_full = rollout_fingerprints(rc, rr, rg, oc, orw, og, sets={"all": set(og)})
+        rol = rol_full["sets"]
+        tallies |= {"rollout": to_json(rol_full["tallies"]["rollout"]["all"]),
+                    "rollout_subject": to_json(rol_full["tallies"]["subject"]["all"])}
     else:
         rol = {}
-    return {"subject_id": sid, "replay": rep, "rollout": rol, "n_rollout_sessions": len(specs)}
+    return {"subject_id": sid, "replay": rep, "rollout": rol, "n_rollout_sessions": len(specs), "tallies": tallies}
+
+
+def mean_curves(per: list[dict], mode: str, stats: list[str]) -> dict:
+    """The mouse-average curves and their per-bin RMSE (study 15's ``_per_bin`` and Figure 5's RMSE).
+
+    Per statistic: each subject's value per bin where its own tally keeps the bin (``kept_bins``); the
+    mean over subjects per bin, for the subjects and for the model (replay: the predicted rate of the
+    same tally; rollout: the rate in the subject's pooled rollouts); RMSE over the bins where both means
+    are finite, each bin once. ``curve_score`` is the geometric mean of the statistics' RMSEs.
+    """
+    import warnings
+
+    from aind_dynamic_foraging_models.fingerprints import OBS, PRED, from_json, kept_bins, values
+
+    out = {}
+    for st in stats:
+        model, obs = [], []
+        for p in per:
+            t = p["tallies"]
+            if mode == "replay":
+                own = from_json(t["replay"])
+                m = values(own, st, PRED)
+            elif "rollout" in t:
+                own, rolled = from_json(t["rollout_subject"]), from_json(t["rollout"])
+                m = values(rolled, st)
+            else:
+                continue
+            keep = kept_bins(own, st)
+            obs.append(np.where(keep, values(own, st, OBS), np.nan))
+            model.append(np.where(keep, m, np.nan))
+        obs, model = np.asarray(obs), np.asarray(model)
+        n = np.isfinite(obs).sum(axis=0)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            mo, so = np.nanmean(model, axis=0), np.nanmean(obs, axis=0)
+        ok = np.isfinite(mo) & np.isfinite(so) & (n > 0)
+        out[st] = {"n_subjects": n.tolist(), "model": mo.tolist(), "subject": so.tolist(),
+                   "rmse": float(np.sqrt(np.mean((mo[ok] - so[ok]) ** 2)))}
+    return {"statistics": out, "curve_score": float(np.exp(np.mean([np.log(v["rmse"]) for v in out.values()])))}
 
 
 def _clean(x):
@@ -209,18 +255,22 @@ def main() -> None:
                      "n_rollouts": N_ROLLOUTS, "fallback_tol": evaluate.FALLBACK_TOL, "fingerprint_spec": SPEC_VERSION,
                      "mevolve": MEVOLVE_SHA, "foraging_models": MODELS_SHA},
         "score": {k: v for k, v in score.items()},
-        "replay": {"score": agg_replay["all"]["score"], "statistics": agg_replay["all"]["statistics"]},
+        "replay": {"score": agg_replay["all"]["score"], "statistics": agg_replay["all"]["statistics"],
+                   "curves": mean_curves(per, "replay", list(agg_replay["all"]["statistics"]))},
         "rollout": {"score": agg_rollout["all"]["score"], "statistics": agg_rollout["all"]["statistics"],
+                    "curves": mean_curves(per, "rollout", list(agg_rollout["all"]["statistics"])),
                     "n_subjects": sum(1 for p in per if p["rollout"]),
                     "n_rollout_sessions": sum(p["n_rollout_sessions"] for p in per)},
         "subjects": [{**{k: r.get(k) for k in keep}, "fell_back": r["subject_id"] in fell,
-                      "replay": p["replay"].get("all"), "rollout": p["rollout"].get("all")}
+                      "replay": p["replay"].get("all"), "rollout": p["rollout"].get("all"), "tallies": p["tallies"]}
                      for r, p in zip(records, per)],
         "seconds": time.time() - t0,
     })
     write_artifact(out, {"_meta": meta, **body})
     print(a.name, {"score": round(100 * score["score"], 4), "fallback": score["n_fallback"],
-                   "replay": agg_replay["all"]["score"], "rollout": agg_rollout["all"]["score"]},
+                   "replay": agg_replay["all"]["score"], "rollout": agg_rollout["all"]["score"],
+                   "replay_rmse": body["replay"]["curves"]["curve_score"],
+                   "rollout_rmse": body["rollout"]["curves"]["curve_score"]},
           f"{time.time() - t0:.0f}s", "->", out)
 
 
