@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+"""Each floor's program (ADR 0008, floors amendment). Offline.
+
+For each simplification run, its candidates (``simplify/<variant>/run.json``) scored on the selection
+subjects (``selection/selection/<variant>_c<k>_<id8>.json``, ``freeze_selection.py``) are checked with
+the gate as amended (replay and rollout fingerprint scores and curve RMSEs all no larger than
+Miller-RHG's) and against the selection floor (``simplify/floors.json``). The floor program is the
+passing candidate of lowest Halstead effort. Writes ``simplify_choice.json``.
+
+    python analysis/simplify_choice.py
+"""
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+STUDY = HERE.parent
+sys.path.insert(0, str(STUDY.parent / "util"))
+from _meta import build_meta, write_artifact  # noqa: E402
+from selection_gate import GATE, REFERENCE, get  # noqa: E402
+
+FLOORS = HERE / "simplify" / "floors.json"
+SEL = HERE / "selection" / "selection"
+VARIANTS = ("simplify-90", "simplify-75", "simplify-50")
+
+
+def main() -> None:
+    floors = json.loads(FLOORS.read_text())["runs"]
+    ref_path = SEL / f"{REFERENCE}.json"
+    ref = json.loads(ref_path.read_text())
+    inputs, out = [FLOORS, ref_path], {}
+    for v in VARIANTS:
+        run_path = HERE / "simplify" / v / "run.json"
+        run = json.loads(run_path.read_text())
+        inputs.append(run_path)
+        rows = []
+        for c in run["candidates"]:
+            name = f"{v}_c{c['rank']}_{c['id'][:8]}"
+            path = SEL / f"{name}.json"
+            if not path.exists():
+                continue
+            inputs.append(path)
+            r = json.loads(path.read_text())
+            vals = {k: get(r, k) for k in GATE}
+            gate = all(vals[k] is not None and vals[k] <= get(ref, k) for k in GATE)
+            score = 100 * r["score"]["score"]
+            rows.append({"name": name, "rank": c["rank"], "role": c["role"], "effort": c["effort"],
+                         "validation_x100": c["validation_x100"], "n_params": c["n_params"], "n_latent": c["n_latent"],
+                         "score_x100": score, "n_fallback": r["score"]["n_fallback"], **vals,
+                         "passes_gate": gate, "reaches_floor": score >= floors[v]["selection_floor"],
+                         "file": c["file"]})
+        ok = [x for x in rows if x["passes_gate"] and x["reaches_floor"]]
+        chosen = min(ok, key=lambda x: (x["effort"], x["rank"])) if ok else None
+        out[v] = {"selection_floor_x100": floors[v]["selection_floor"], "validation_floor_x100": floors[v]["floor"],
+                  "candidates": rows, "chosen": chosen and chosen["name"], "chosen_file": chosen and chosen["file"]}
+        print(v, "chosen", out[v]["chosen"], [(x["rank"], round(x["effort"]), round(x["score_x100"], 3),
+                                               x["passes_gate"], x["reaches_floor"]) for x in rows])
+    write_artifact(HERE / "simplify_choice.json", {
+        "_meta": build_meta(f"analysis/{Path(__file__).name}", [], study_root=STUDY, code=[__file__],
+                            inputs=inputs),
+        "reference": {k: get(ref, k) for k in GATE} | {"score_x100": 100 * ref["score"]["score"]},
+        "rule": "the passing candidate of lowest Halstead effort: replay and rollout fingerprint scores and curve "
+                "RMSEs all <= Miller-RHG's, and selection score >= the selection floor (study 40 ADR 0008)",
+        "floors": out})
+
+
+if __name__ == "__main__":
+    main()
