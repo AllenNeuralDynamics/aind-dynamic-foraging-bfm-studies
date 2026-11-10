@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/simplify_choice.py",
-    "produced_at_pt": "2026-11-09T20:49:45-08:00",
-    "studies_git_sha": "d4978331dcbbe3582415e9c8054edc3aebdb3569",
+    "produced_at_pt": "2026-11-10T03:23:44-08:00",
+    "studies_git_sha": "2842446983120a99375fd7ec3f8a49b17d56208b",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -65,6 +65,18 @@
         "sha256": "a73987084337183dec2ea83c9ef68d08a038b1378867e3d6324b25b7f75c6bc2"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c7_8697a4d3.json",
+        "sha256": "ccc0f3ac21e291701a859bc4075e57114deff15ae3198ec466122ab2619fac9a"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c8_ab068a9c.json",
+        "sha256": "c57a87257b35a15b75e5498c9ad10e6845ac1efd4a225f2ba1891ae9eb451ed0"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c10_7767603f.json",
+        "sha256": "12c9e34cba0ec004ea738d4b461f52ba3c46c95f36126502b3d99b6118d20df4"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/run.json",
         "sha256": "3dff867076a48529fd7b3629ba29973c6ae0311a9ef1c31d3ca425338eede9f1"
       },
@@ -116,7 +128,7 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/simplify_choice.json",
-        "sha256": "fdcae812ce1d9679ff7af8c46997fbdb1be5b593af8781ce726084ad9e661abf"
+        "sha256": "e66db8a54d7ca53f3060d47ec2960e249f53914c81bb632765bc6b5ae3d173c9"
       }
     ]
   },
@@ -248,6 +260,44 @@
           "same_program_as": null
         },
         {
+          "name": "simplify-90_c7_8697a4d3",
+          "rank": 7,
+          "role": "replacement",
+          "effort": 891.5251833234706,
+          "validation_x100": 72.756,
+          "n_params": 12,
+          "n_latent": 6,
+          "score_x100": 73.5513567296767,
+          "n_fallback": 4,
+          "replay_score": 1.259252674082581,
+          "rollout_score": 1.3946301945852841,
+          "replay_curve_rmse": 0.012651103455022171,
+          "rollout_curve_rmse": 0.026403713388522636,
+          "passes_gate": true,
+          "reaches_floor": false,
+          "file": "analysis/simplify/simplify-90/programs/c7_8697a4d3.py",
+          "same_program_as": null
+        },
+        {
+          "name": "simplify-90_c8_ab068a9c",
+          "rank": 8,
+          "role": "replacement",
+          "effort": 891.5251833234706,
+          "validation_x100": 72.756,
+          "n_params": 12,
+          "n_latent": 6,
+          "score_x100": 73.5513567296767,
+          "n_fallback": 4,
+          "replay_score": 1.259252674082581,
+          "rollout_score": 1.415778059274148,
+          "replay_curve_rmse": 0.012651103455022171,
+          "rollout_curve_rmse": 0.026225157122703343,
+          "passes_gate": true,
+          "reaches_floor": false,
+          "file": "analysis/simplify/simplify-90/programs/c8_ab068a9c.py",
+          "same_program_as": null
+        },
+        {
           "name": "simplify-90_c9_50865857",
           "rank": 9,
           "role": "replacement",
@@ -265,6 +315,25 @@
           "reaches_floor": false,
           "file": "analysis/simplify/simplify-90/programs/c9_50865857.py",
           "same_program_as": "simplify-90_c5_38e70cee"
+        },
+        {
+          "name": "simplify-90_c10_7767603f",
+          "rank": 10,
+          "role": "replacement",
+          "effort": 891.5251833234706,
+          "validation_x100": 72.756,
+          "n_params": 12,
+          "n_latent": 6,
+          "score_x100": 73.5513567296767,
+          "n_fallback": 4,
+          "replay_score": 1.259252674082581,
+          "rollout_score": 1.4188217257836724,
+          "replay_curve_rmse": 0.012651103455022171,
+          "rollout_curve_rmse": 0.027059215656208762,
+          "passes_gate": true,
+          "reaches_floor": false,
+          "file": "analysis/simplify/simplify-90/programs/c10_7767603f.py",
+          "same_program_as": null
         }
       ],
       "chosen": null,

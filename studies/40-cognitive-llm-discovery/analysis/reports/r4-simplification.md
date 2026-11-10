@@ -95,7 +95,10 @@ For scale: the search's best has Halstead effort 2,634, Miller-RHG 1,414. Every 
 | `simplify-90` | 4 | 852 | 73.562 | 73.583 | pass | no |  |
 | `simplify-90` | 5 | 892 | 73.551 | 73.583 | pass | no |  |
 | `simplify-90` | 6 | 892 | 73.551 | 73.583 | pass | no |  |
+| `simplify-90` | 7 | 892 | 73.551 | 73.583 | pass | no |  |
+| `simplify-90` | 8 | 892 | 73.551 | 73.583 | pass | no |  |
 | `simplify-90` | 9 | 892 | 73.551 | 73.583 | pass | no |  |
+| `simplify-90` | 10 | 892 | 73.551 | 73.583 | pass | no |  |
 | `simplify-75` | 1 | 403 | 73.572 | 73.559 | pass | yes | **chosen** |
 | `simplify-75` | 2 | 403 | 73.572 | 73.559 | pass | yes |  |
 | `simplify-75` | 3 | 403 | 73.572 | 73.559 | pass | yes |  |
@@ -256,10 +259,10 @@ def update(latents, choice, reward, p):
   lower than the same arithmetic written out, so the efforts flatter compact code. The 50% program is
   genuinely simple; its effort of 107 overstates by how much.
 - **The 90% floor is tight on 100 subjects.** Its selection floor sits 0.016 below the search's best
-  selection score; the search's own rank 1 would also fail it. Candidates 7, 8 and 10 (distinct
-  programs) were still queued when this was written; candidate 9 is the same program as 5 and 6 (same
-  syntax tree once docstrings are dropped) and takes their score. If 7, 8 or 10 reaches the floor, this
-  report is regenerated with a 90% program.
+  selection score; the search's own rank 1 would also fail it. All ten candidates (five, then the five
+  replacements ADR 0008 calls for) pass the gate and miss the floor; candidates 5 to 10 all score
+  73.551, one model under different names (candidate 9 is the same syntax tree as 5 and 6 and takes
+  their score; 7, 8 and 10 were fitted, on the interactive node when the queue was full).
 - **One test score per program**, and the GRU's own 149 subjects are scored for the search's best only;
   the floor programs' GRU-list scores were queued.
 - **The experience term is one program's finding.** It came from a single run and a single selection;
