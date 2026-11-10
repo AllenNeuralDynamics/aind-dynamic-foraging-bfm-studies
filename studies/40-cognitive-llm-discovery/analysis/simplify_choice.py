@@ -67,6 +67,9 @@ def main() -> None:
             if path not in inputs:
                 inputs.append(path)
             r = json.loads(path.read_text())
+            # a full cohort, and likelihood and fingerprints from the same fits (PR #138 review)
+            assert r["n_subjects"] == len(r["subjects"]) == 100, f"{path.name}: not the 100 selection subjects"
+            assert not r["score"]["two_level_failed"], f"{path.name}: 2-level fit failed; fingerprints would differ"
             vals = {k: get(r, k) for k in GATE}
             gate = all(vals[k] is not None and vals[k] <= get(ref, k) for k in GATE)
             score = 100 * r["score"]["score"]

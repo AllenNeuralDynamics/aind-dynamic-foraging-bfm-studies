@@ -58,6 +58,9 @@ def table(head, rows):
 def used_ll(run: dict) -> dict[str, tuple[float, int]]:
     """Per subject, the log-likelihood the score uses (MEvolve's per-subject fallback) and the trials."""
     failed = run["score"]["two_level_failed"]
+    # a full cohort, and likelihood and curves from the same fits (PR #138 review)
+    assert run["n_subjects"] == len(run["subjects"]) == 149, f"{run['name']}: not a full test cohort"
+    assert not failed, f"{run['name']}: 2-level fit failed; its curves would come from other fits"
     return {s["subject_id"]: (s["per_subject_log_lik"] if failed or s["fell_back"] else s["log_lik"], s["n_trials"])
             for s in run["subjects"]}
 

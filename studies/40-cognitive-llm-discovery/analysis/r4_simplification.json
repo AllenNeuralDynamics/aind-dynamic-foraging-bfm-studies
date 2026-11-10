@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r4_simplification.py",
-    "produced_at_pt": "2026-11-09T20:45:23-08:00",
-    "studies_git_sha": "3ce6ff9a9e3b2110b6b6f42e79c9677726bc8ab0",
+    "produced_at_pt": "2026-11-09T20:49:58-08:00",
+    "studies_git_sha": "d4978331dcbbe3582415e9c8054edc3aebdb3569",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -30,7 +30,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.py",
-        "sha256": "55005dc5be4e4fa021dabb5553ffc759d1968e488690934155b687dca1eaa985"
+        "sha256": "0014b5666877f63977fd1d156fd4b276bc5f9a04e79acc30ad8395fd0b7da7bb"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -60,7 +60,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/simplify_choice.json",
-        "sha256": "52240342a7a530dfc7830e5f61e6dbc33345f1da1ce0b54a9cdd4bf7bea4fc8c"
+        "sha256": "9b5e7339596b1401450342f9b1742d60663ceab64328851432651293bcb17eab"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/test/curves.json",
