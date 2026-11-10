@@ -79,7 +79,10 @@ def test_scores(names: list[str]) -> dict:
     h, g, p = stats()
     rng = np.random.default_rng(0)
     boot = [stats(rng.integers(0, len(shared), len(shared))) for _ in range(r3.N_BOOT)]
-    out = {"hb_ctt_x100": 100 * h, "gru_x100": 100 * g, "n_subjects": len(shared), "programs": {}}
+    gru149 = float(np.mean([np.exp(sum(v[0] for v in gru[s].values()) / sum(v[1] for v in gru[s].values()))
+                            for s in seeds]))
+    out = {"hb_ctt_x100": 100 * h, "gru_x100": 100 * g, "gru_gru149_x100": 100 * gru149, "n_subjects": len(shared),
+           "programs": {}}
     for k in names:
         gap = np.array([(b[2][k] - b[0]) / (b[1] - b[0]) for b in boot])
         out["programs"][k] = {"pooled_x100": 100 * p[k], "above_hb_x100": 100 * (p[k] - h),
@@ -134,18 +137,21 @@ def main() -> None:
                           "yes" if x["reaches_floor"] else "no", mark])
     rows3 = [["Miller-RHG (2-level EM)", f"{ref_eff:,.0f}", f"{ts['programs'][REFERENCE]['pooled_x100']:.3f}",
               f"{r3.fs.num(ts['programs'][REFERENCE]['above_hb_x100'], '+.3f')} ± {ts['programs'][REFERENCE]['above_hb_paired_se_x100']:.3f}",
-              f"{ts['programs'][REFERENCE]['gap_closed']:.2f}"]]
+              f"{ts['programs'][REFERENCE]['gap_closed']:.2f}", "—"]]
     for label, k in [("search's best", SEARCH_BEST)] + [(f"{SHARE[v]} floor", chosen[v]) for v in VARIANTS if chosen[v] in tested]:
         t = ts["programs"][k]
         rows3.append([label, f"{efforts[k]:,.0f}", f"**{t['pooled_x100']:.3f}**",
                       f"{r3.fs.num(t['above_hb_x100'], '+.3f')} ± {t['above_hb_paired_se_x100']:.3f}",
-                      f"**{t['gap_closed']:.2f}** [{t['gap_closed_ci95'][0]:.2f}, {t['gap_closed_ci95'][1]:.2f}]"])
+                      f"**{t['gap_closed']:.2f}** [{t['gap_closed_ci95'][0]:.2f}, {t['gap_closed_ci95'][1]:.2f}]",
+                      "—" if t["gru149_x100"] is None else f"{t['gru149_x100']:.3f}"])
     missing = [v for v in VARIANTS if not chosen[v]]
     b2 = (table(["run", "candidate", "effort", "selection score", "selection floor", "gate", "reaches floor", ""], rows2)
           + ("\n\n" + "; ".join(f"`{v}`: no candidate reached the selection floor, so no program goes to test"
                                 for v in missing) + "." if missing else "")
-          + f"\n\nOn the {ts['n_subjects']} shared test subjects (HB-CTT {ts['hb_ctt_x100']:.3f}, GRU {ts['gru_x100']:.3f}):\n\n"
-          + table(["program", "Halstead effort", "test (×100)", "above HB-CTT ± paired SE", "gap closed [95% CI]"], rows3))
+          + f"\n\nOn the {ts['n_subjects']} shared test subjects (HB-CTT {ts['hb_ctt_x100']:.3f}, GRU {ts['gru_x100']:.3f}); "
+            f"the last column is each program on the GRU's own 149 (the GRU there: {ts['gru_gru149_x100']:.3f}):\n\n"
+          + table(["program", "Halstead effort", "test (×100)", "above HB-CTT ± paired SE", "gap closed [95% CI]",
+                   "GRU's 149 (×100)"], rows3))
 
     # ---------- result 3: the programs' code
     b3 = []

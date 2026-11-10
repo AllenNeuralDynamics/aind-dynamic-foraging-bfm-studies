@@ -112,14 +112,14 @@ For scale: the search's best has Halstead effort 2,634, Miller-RHG 1,414. Every 
 
 `simplify-90`: no candidate reached the selection floor, so no program goes to test.
 
-On the 146 shared test subjects (HB-CTT 72.190, GRU 72.831):
+On the 146 shared test subjects (HB-CTT 72.190, GRU 72.831); the last column is each program on the GRU's own 149 (the GRU there: 72.823):
 
-| program | Halstead effort | test (×100) | above HB-CTT ± paired SE | gap closed [95% CI] |
-|---|---|---|---|---|
-| Miller-RHG (2-level EM) | 1,414 | 72.383 | +0.193 ± 0.030 | 0.30 |
-| search's best | 2,634 | **72.568** | +0.379 ± 0.027 | **0.59** [0.53, 0.64] |
-| 75% floor | 403 | **72.544** | +0.354 ± 0.026 | **0.55** [0.50, 0.60] |
-| 50% floor | 107 | **72.528** | +0.338 ± 0.026 | **0.53** [0.47, 0.58] |
+| program | Halstead effort | test (×100) | above HB-CTT ± paired SE | gap closed [95% CI] | GRU's 149 (×100) |
+|---|---|---|---|---|---|
+| Miller-RHG (2-level EM) | 1,414 | 72.383 | +0.193 ± 0.030 | 0.30 | — |
+| search's best | 2,634 | **72.568** | +0.379 ± 0.027 | **0.59** [0.53, 0.64] | 72.557 |
+| 75% floor | 403 | **72.544** | +0.354 ± 0.026 | **0.55** [0.50, 0.60] | 72.531 |
+| 50% floor | 107 | **72.528** | +0.338 ± 0.026 | **0.53** [0.47, 0.58] | 72.516 |
 <!-- END result-2 -->
 
 ## 3. The floor programs
@@ -263,10 +263,10 @@ def update(latents, choice, reward, p):
   replacements ADR 0008 calls for) pass the gate and miss the floor; candidates 5 to 10 all score
   73.551, one model under different names (candidate 9 is the same syntax tree as 5 and 6 and takes
   their score; 7, 8 and 10 were fitted, on the interactive node when the queue was full).
-- **One test score per program**, and the GRU's own 149 subjects are scored for the search's best only;
-  the floor programs' GRU-list scores were queued.
+- **One test score per program**, on the 149 test subjects and on the GRU's own 149; the headline pools
+  the 146 both lists share.
 - **The experience term is one program's finding.** It came from a single run and a single selection;
   r4 shows it matters for rollout, not why. It is a lead for the biology follow-ups
   (FUTURE_DIRECTIONS §1), not a result.
-- **Test scores of the floor programs ran on the interactive node** (4 workers each) when the queue
-  was full; the code, settings and outputs are the same as the queued runs'.
+- **The floor programs' test scores and three 90% candidates ran on the interactive node** (4 to 8
+  workers) when the queue was full; the code and settings are the queued runs'.
