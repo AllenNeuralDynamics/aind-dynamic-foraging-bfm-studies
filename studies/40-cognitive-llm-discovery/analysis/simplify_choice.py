@@ -5,12 +5,16 @@ For each simplification run, its candidates (``simplify/<variant>/run.json``) sc
 subjects (``selection/selection/<variant>_c<k>_<id8>.json``, ``freeze_selection.py``) are checked with
 the gate as amended (replay and rollout fingerprint scores and curve RMSEs all no larger than
 Miller-RHG's) and against the selection floor (``simplify/floors.json``). The floor program is the
-passing candidate of lowest Halstead effort. Writes ``simplify_choice.json``.
+passing candidate of lowest Halstead effort. A candidate whose code equals an already scored one's once
+docstrings are dropped (the same syntax tree) is the same program: it takes that score instead of being
+fitted again, and is marked ``same_program_as``. Writes ``simplify_choice.json``.
 
     python analysis/simplify_choice.py
 """
 from __future__ import annotations
 
+import ast
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -26,6 +30,19 @@ SEL = HERE / "selection" / "selection"
 VARIANTS = ("simplify-90", "simplify-75", "simplify-50")
 
 
+def program_key(source: str) -> str:
+    """The program without its docstrings and comments: its syntax tree, hashed."""
+    tree = ast.parse(source)
+    for node in ast.walk(tree):
+        for field in ("body", "orelse", "finalbody"):
+            body = getattr(node, field, None)
+            if isinstance(body, list):
+                kept = [x for x in body if not (isinstance(x, ast.Expr) and isinstance(x.value, ast.Constant)
+                                                and isinstance(x.value.value, str))]
+                setattr(node, field, kept or body)
+    return hashlib.sha256(ast.dump(tree, annotate_fields=False).encode()).hexdigest()
+
+
 def main() -> None:
     floors = json.loads(FLOORS.read_text())["runs"]
     ref_path = SEL / f"{REFERENCE}.json"
@@ -35,13 +52,20 @@ def main() -> None:
         run_path = HERE / "simplify" / v / "run.json"
         run = json.loads(run_path.read_text())
         inputs.append(run_path)
-        rows = []
+        rows, scored = [], {}
         for c in run["candidates"]:
             name = f"{v}_c{c['rank']}_{c['id'][:8]}"
             path = SEL / f"{name}.json"
+            key = program_key((STUDY / c["file"]).read_text())
+            same = None
             if not path.exists():
-                continue
-            inputs.append(path)
+                if key not in scored:
+                    continue
+                same, path = scored[key]
+            else:
+                scored.setdefault(key, (name, path))
+            if path not in inputs:
+                inputs.append(path)
             r = json.loads(path.read_text())
             vals = {k: get(r, k) for k in GATE}
             gate = all(vals[k] is not None and vals[k] <= get(ref, k) for k in GATE)
@@ -50,7 +74,7 @@ def main() -> None:
                          "validation_x100": c["validation_x100"], "n_params": c["n_params"], "n_latent": c["n_latent"],
                          "score_x100": score, "n_fallback": r["score"]["n_fallback"], **vals,
                          "passes_gate": gate, "reaches_floor": score >= floors[v]["selection_floor"],
-                         "file": c["file"]})
+                         "file": c["file"], "same_program_as": same})
         ok = [x for x in rows if x["passes_gate"] and x["reaches_floor"]]
         chosen = min(ok, key=lambda x: (x["effort"], x["rank"])) if ok else None
         out[v] = {"selection_floor_x100": floors[v]["selection_floor"], "validation_floor_x100": floors[v]["floor"],

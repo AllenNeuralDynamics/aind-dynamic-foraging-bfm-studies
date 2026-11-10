@@ -9,12 +9,17 @@ RMSE in Figure 6), on the subjects every model holds out: replay on the ``non-wa
 value where its own tally keeps the bin, then the mean over subjects), and requires the subjects' own
 curves to equal study 15's, so the comparison is on the same trials. Writes ``test/curves.json``.
 
-Needs the fingerprint library (foraging-models 392c504) on PYTHONPATH; reads files only:
+It also records each program's Halstead effort (MEvolve's ``simplify.halstead_effort``, recomputed from the
+program file the test run names, whose sha256 must match), so the reports can place it on the
+fit-versus-complexity curve.
+
+Needs the fingerprint library (foraging-models 392c504) and MEvolve 4465615 on PYTHONPATH; reads files only:
 
     python analysis/freeze_test_curves.py
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import warnings
@@ -29,8 +34,7 @@ sys.path.insert(0, str(STUDY.parent / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
 
 P1, P2 = S15 / "p1_replay_gaps.json", S15 / "p2_rollout_gaps.json"
-PROGRAMS = {"rank3_e3819885": HERE / "test" / "test" / "rank3_e3819885.json",
-            "reference_miller_rhg": HERE / "test" / "test" / "reference_miller_rhg.json"}
+PROGRAMS = {p.stem: p for p in sorted((HERE / "test" / "test").glob("*.json"))}   # every program scored on test
 OUT = HERE / "test" / "curves.json"
 MODELS_SHA = "392c504406094b33407321b168173981b8af8291"
 
@@ -67,9 +71,19 @@ def curve(subjects: list[dict], mode: str, set_name: str, stat: str) -> dict:
 def main() -> None:
     ref = {"replay": json.loads(P1.read_text()), "rollout": json.loads(P2.read_text())}
     common = {"replay": None, "rollout": ref["rollout"]["common_subjects"]}
-    out = {"sets": {m: ref[m]["headline_set"] for m in ref}, "programs": {}, "subject_check": {}}
+    from mevolve.search.simplify import halstead_effort
+
+    out = {"sets": {m: ref[m]["headline_set"] for m in ref}, "programs": {}, "subject_check": {}, "efforts": {}}
     for name, path in PROGRAMS.items():
         run = json.loads(path.read_text())
+        code = Path(run["program"])
+        marker = f"/{STUDY.parent.name}/{STUDY.name}/"
+        if marker in str(code):          # a program in the study: the committed file in this checkout
+            code = STUDY / str(code).split(marker, 1)[1]
+        src = next((x for x in run["_meta"].get("sources", []) if x.get("id") == str(code)), None)
+        if src:
+            assert hashlib.sha256(code.read_bytes()).hexdigest() == src["sha256"], f"{code} changed"
+        out["efforts"][name] = halstead_effort(code.read_text())
         by_id = {s["subject_id"]: s for s in run["subjects"]}
         out["programs"][name] = {}
         for mode, r in ref.items():
@@ -101,7 +115,9 @@ def main() -> None:
                       inputs=[P1, P2, *PROGRAMS.values(),
                               STUDY.parent / "01-gru-scaling-law" / "analysis" / "per_subject_rows.json"],
                       sources=[{"type": "url", "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-models/commit/"
-                                + MODELS_SHA}])
+                                + MODELS_SHA},
+                               {"type": "url", "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/commit/"
+                                "4465615ae765086cafab99fc0e09f20df6e33e67"}])
     write_artifact(OUT, {"_meta": meta, **out})
 
 

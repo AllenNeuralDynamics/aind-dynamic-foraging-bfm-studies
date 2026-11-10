@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_search_best.py",
-    "produced_at_pt": "2026-11-08T23:00:32-08:00",
-    "studies_git_sha": "5e31c81ff6fd951be0b52edacf450973762107bd",
+    "produced_at_pt": "2026-11-09T20:44:15-08:00",
+    "studies_git_sha": "3ce6ff9a9e3b2110b6b6f42e79c9677726bc8ab0",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -46,7 +46,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/test/curves.json",
-        "sha256": "a01441ecc1f825b830df54ee67a7c9504a8c55d90bead4fcb15704151be73c0a"
+        "sha256": "7981d834b4b2f26e01bb97d743c3d6683cc97eabff744a191549ec517126ed33"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_final_runs.json",

@@ -1,0 +1,274 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r4_simplification.py",
+    "produced_at_pt": "2026-11-09T20:45:23-08:00",
+    "studies_git_sha": "3ce6ff9a9e3b2110b6b6f42e79c9677726bc8ab0",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "simplify-90@20261108-230437",
+      "simplify-75@20261108-230437",
+      "simplify-50@20261108-230437"
+    ],
+    "source_studies_git_shas": [
+      "4d34ea8ce14c72af699cf8f29ebb11b3004f716b"
+    ],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no dispatcher SHA in the launch record(s) of W&B group(s): simplify-50@20261108-230437, simplify-75@20261108-230437, simplify-90@20261108-230437",
+      "no wrapper SHA in the launch record(s) of W&B group(s): simplify-50@20261108-230437, simplify-75@20261108-230437, simplify-90@20261108-230437",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): simplify-50@20261108-230437, simplify-75@20261108-230437, simplify-90@20261108-230437"
+    ],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/r4_simplification.py",
+        "sha256": "fc3965984024b255e7910209296a5c19b0c61bbd1946bc7742d96aa53a97d4f7"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.py",
+        "sha256": "55005dc5be4e4fa021dabb5553ffc759d1968e488690934155b687dca1eaa985"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/run.json",
+        "sha256": "c5ff43a3e0a516f2effec1f4689f2b4a8a6d2ec259825f2a35c6b53c9e8c72ee"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/run.json",
+        "sha256": "3dff867076a48529fd7b3629ba29973c6ae0311a9ef1c31d3ca425338eede9f1"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/run.json",
+        "sha256": "1be25884d8688875cc923b6ec13b16546475aaabfe3aae28773eef5e0bffbcb4"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/floors.json",
+        "sha256": "7a34d39cd76f5de14d7775cb44903e2e8ff4f33d8659ba72e26bc34daf1b4f8e"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify_choice.json",
+        "sha256": "52240342a7a530dfc7830e5f61e6dbc33345f1da1ce0b54a9cdd4bf7bea4fc8c"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/curves.json",
+        "sha256": "7981d834b4b2f26e01bb97d743c3d6683cc97eabff744a191549ec517126ed33"
+      },
+      {
+        "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_final_runs.json",
+        "sha256": "41a9f25de3640b571099b2ad1d9d7d895f1fa80f9f6675c04f42a5ce4ec5db76"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
+        "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay_gaps.json",
+        "sha256": "7fa83e5c7992adad714f2bf67c9b883a2304e9e77b450199f0c419b72d671eb5"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p2_rollout_gaps.json",
+        "sha256": "aace9f8d85d9a6157c0223992e9896cd077863f1bcf3915cc65cdd7d473cb247"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/test/reference_miller_rhg.json",
+        "sha256": "3efc8d500f0c5e7c102e9e9eab78dd09a8680ce1230a7c66f8a56304d47d6a51"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/test/rank3_e3819885.json",
+        "sha256": "6505adb95f27733198f50398d65317034ae3b1d238228ef77493f6e241ddb76a"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/test/simplify-75_c1_141c8a13.json",
+        "sha256": "68be78dfde67f0b6119b4ccf5cf6d1cbeaaf046d1c2d047311f7a3fb427cbe2d"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/test/test/simplify-50_c1_cd994c73.json",
+        "sha256": "d997c7f7ea6c8d7f01e0b00571571741eab09225b318dd7f77f64d2399126455"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/programs/c1_141c8a13.py",
+        "sha256": "74b333cff9f10edf4ed714b635aa2777d36cd99b2f64dd36be057daf385d856f"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/programs/c1_cd994c73.py",
+        "sha256": "acc2b74bb13aecd134bfc197943d58d887c8dc68908531f2beabaf4e8ab3c769"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/r4_simplification.json",
+        "sha256": "4942896183586306f472988902e2273ec42fbc04262fb2b4832469118ba92d45"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/fig_r4_frontier.svg",
+        "sha256": "b25f1bd6d4c2b18bcfa0f0cbb30d26c47eeb4acadb426fc35e93b29009a3d73b"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/fig_r4_curves.svg",
+        "sha256": "13d2fc70256773df71beeafc0a48b1aab00f49a90233c810f42b448310493ee3"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-1",
+        "sha256": "70c67aaab8a2811404315b1b0d27a1a6921d88533302d81269841ff2bed00c40"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-2",
+        "sha256": "d3d98cb6a193563aeff8937926ac3504ea9017e307ca656699283c54465a3cb3"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-3",
+        "sha256": "5436b1eee248017f0ad45a99be02852f237862f0ed69b2ba0170fcbab1947312"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-4",
+        "sha256": "7d9a0e8cb698a8dc28ef1e963f5a2eef7e5966b5a1ae45b1a8f49ba14cedcd3e"
+      }
+    ]
+  },
+  "efforts": {
+    "rank3_e3819885": 2633.7911211309406,
+    "reference_miller_rhg": 1413.9512508501475,
+    "simplify-50_c1_cd994c73": 106.98496879867804,
+    "simplify-75_c1_141c8a13": 403.3520804832903
+  },
+  "chosen": {
+    "simplify-90": null,
+    "simplify-75": "simplify-75_c1_141c8a13",
+    "simplify-50": "simplify-50_c1_cd994c73"
+  },
+  "test": {
+    "hb_ctt_x100": 72.18995720805293,
+    "gru_x100": 72.83089966646288,
+    "n_subjects": 146,
+    "programs": {
+      "reference_miller_rhg": {
+        "pooled_x100": 72.38269718718567,
+        "above_hb_x100": 0.19273997913273888,
+        "above_hb_paired_se_x100": 0.02978386846897902,
+        "gap_closed": 0.30071338948411513,
+        "gap_closed_ci95": [
+          0.22431167015932546,
+          0.3800756488157539
+        ],
+        "gru149_x100": null
+      },
+      "rank3_e3819885": {
+        "pooled_x100": 72.56846374032875,
+        "above_hb_x100": 0.378506532275813,
+        "above_hb_paired_se_x100": 0.02742083767276304,
+        "gap_closed": 0.5905468225881141,
+        "gap_closed_ci95": [
+          0.5325249623363446,
+          0.644016164805748
+        ],
+        "gru149_x100": 72.55680068330241
+      },
+      "simplify-75_c1_141c8a13": {
+        "pooled_x100": 72.5441506736816,
+        "above_hb_x100": 0.3541934656286716,
+        "above_hb_paired_se_x100": 0.026063552942333375,
+        "gap_closed": 0.5526135162076051,
+        "gap_closed_ci95": [
+          0.49932159837981377,
+          0.6046108226764727
+        ],
+        "gru149_x100": null
+      },
+      "simplify-50_c1_cd994c73": {
+        "pooled_x100": 72.52837386335199,
+        "above_hb_x100": 0.3384166552990453,
+        "above_hb_paired_se_x100": 0.026358159513698406,
+        "gap_closed": 0.5279984979284833,
+        "gap_closed_ci95": [
+          0.4734258835681419,
+          0.5828224159203831
+        ],
+        "gru149_x100": null
+      }
+    }
+  },
+  "rmse": {
+    "replay": {
+      "GRU": {
+        "losses": 0.005622898767344369,
+        "pattern": 0.010149206310478238,
+        "hazard": 0.002782321529976982,
+        "post_switch": 0.008114524506209352
+      },
+      "reference_miller_rhg": {
+        "losses": 0.01668982264502025,
+        "pattern": 0.02893649911822729,
+        "hazard": 0.0112820697402502,
+        "post_switch": 0.02856862227184953
+      },
+      "rank3_e3819885": {
+        "losses": 0.00455963005748759,
+        "pattern": 0.01817656810499891,
+        "hazard": 0.0075973003830474015,
+        "post_switch": 0.021755057040700233
+      },
+      "simplify-75_c1_141c8a13": {
+        "losses": 0.005431746879538961,
+        "pattern": 0.016802679202167273,
+        "hazard": 0.005407406517013387,
+        "post_switch": 0.02107866895563568
+      },
+      "simplify-50_c1_cd994c73": {
+        "losses": 0.0046105655125534455,
+        "pattern": 0.01773175811360089,
+        "hazard": 0.006491333236294092,
+        "post_switch": 0.02205431695752307
+      }
+    },
+    "rollout": {
+      "GRU": {
+        "losses": 0.01057021288452286,
+        "pattern": 0.017245312982161667,
+        "hazard": 0.00930404464673924,
+        "post_switch": 0.020842563137757054,
+        "run_length": 0.008074854196744533
+      },
+      "reference_miller_rhg": {
+        "losses": 0.03814167976691655,
+        "pattern": 0.04173618934609534,
+        "hazard": 0.024531534169615905,
+        "post_switch": 0.047924949797562684,
+        "run_length": 0.018919048331847148
+      },
+      "rank3_e3819885": {
+        "losses": 0.016624008711664355,
+        "pattern": 0.03380210039674894,
+        "hazard": 0.02021600509802923,
+        "post_switch": 0.04300122828311097,
+        "run_length": 0.014449644928133864
+      },
+      "simplify-75_c1_141c8a13": {
+        "losses": 0.008649290566845469,
+        "pattern": 0.020349677414935253,
+        "hazard": 0.008321508211083501,
+        "post_switch": 0.025688167188738308,
+        "run_length": 0.005873980000351583
+      },
+      "simplify-50_c1_cd994c73": {
+        "losses": 0.019271242582316283,
+        "pattern": 0.03669235725962795,
+        "hazard": 0.023319731941598903,
+        "post_switch": 0.04625170169215341,
+        "run_length": 0.015988084578274078
+      }
+    }
+  }
+}
