@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_r1.py",
-    "produced_at_pt": "2026-11-11T13:39:52-08:00",
-    "studies_git_sha": "c422858e7b04f176156c7b3fd5efc7e721f9682c",
+    "produced_at_pt": "2026-11-11T13:58:56-08:00",
+    "studies_git_sha": "00500ca029be5a5341191a8972e9ad5068f3e00e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -130,7 +130,7 @@
       {
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/results.json",
-        "sha256": "60a00cb04b85a0a7f8530276ff76743be259aed158685da822bb02405efbef35"
+        "sha256": "b623563277c9af59df95ce74820ca834ff8538bda28a691224654151b9631381"
       },
       {
         "type": "file",
@@ -1141,7 +1141,7 @@
     "outputs": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1.json",
-        "sha256": "b15a0d0680fbea9144e5be89393760afaa8aa7d3d5a02ea07fdf6edd360abeec"
+        "sha256": "917a41655b57269c5d18dddf6d1992be9a036843b725e8a575b13edbd1953ab2"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1_sessions.npz",
@@ -1256,7 +1256,7 @@
           "ignore_rate": 0.26438366527263746,
           "p_right_given_respond": 0.48738612040279106,
           "reward_rate_given_respond": 0.49260539673068965,
-          "p_choose_better_side": 0.589554410585602
+          "p_choose_better_side": 0.5987444974504793
         },
         {
           "state": 1,
@@ -1265,7 +1265,7 @@
           "ignore_rate": 0.028022733128045717,
           "p_right_given_respond": 0.5037001354531837,
           "reward_rate_given_respond": 0.44670158794723397,
-          "p_choose_better_side": 0.5642812053370104
+          "p_choose_better_side": 0.5723785823480239
         },
         {
           "state": 2,
@@ -1274,7 +1274,7 @@
           "ignore_rate": 0.016994309464351643,
           "p_right_given_respond": 0.5027736087306622,
           "reward_rate_given_respond": 0.4448517207677066,
-          "p_choose_better_side": 0.5463393812905855
+          "p_choose_better_side": 0.5513775150070882
         }
       ]
     },

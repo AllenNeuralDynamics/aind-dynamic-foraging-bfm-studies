@@ -8,7 +8,9 @@ j = pd.read_parquet(OUT / "joined_trials.parquet", columns=["choice", "reward", 
                     "smoothed_0", "smoothed_1", "smoothed_2", "viterbi", "reward_probabilityL", "reward_probabilityR"])
 c = j["choice"].to_numpy(); r = j["reward"].to_numpy()
 resp = c != 2
-better_right = j["reward_probabilityR"].to_numpy() > j["reward_probabilityL"].to_numpy()
+pR, pL = j["reward_probabilityR"].to_numpy(), j["reward_probabilityL"].to_numpy()
+better_right = pR > pL
+unequal = pR != pL   # trials with equal reward probabilities have no better side (PR #137 review)
 desc = []
 for k in range(3):
     w = j[f"smoothed_{k}"].to_numpy()
@@ -17,6 +19,7 @@ for k in range(3):
                  "ignore_rate": float((w * (c == 2)).sum() / w.sum()),
                  "p_right_given_respond": float((wr * (c == 1)).sum() / wr.sum()),
                  "reward_rate_given_respond": float((wr * r).sum() / wr.sum()),
-                 "p_choose_better_side": float((wr * ((c == 1) == better_right)).sum() / wr.sum())})
+                 "p_choose_better_side": float((wr * unequal * ((c == 1) == better_right)).sum()
+                                               / (wr * unequal).sum())})
 print(json.dumps(desc, indent=1))
 (OUT / "state_description.json").write_text(json.dumps(desc, indent=1))
