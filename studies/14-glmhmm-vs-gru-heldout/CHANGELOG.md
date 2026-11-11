@@ -60,3 +60,11 @@
   before launch. Launched as `refit-prior@20261101-130226`.
 - r2 (draft): `freeze_round2.py` and `r2_refit_prior.py`, the round-2 report: selection over
   the 320 refit-prior cells plus round 1's refit, held-out scores against no refit and the GRU.
+
+## 2026-11-11
+
+- Metadata (#139): `status: active` and a verdict from the draft reports; the README Verdict no longer
+  says nothing has launched.
+- Note from study 30 (#136): the saved `filtered_k` posterior includes trial t. The scores here use the
+  one-step predictive (`filtered_{t−1}·A`), so no number changes; reuse of the saved posteriors as a
+  prediction must shift them.

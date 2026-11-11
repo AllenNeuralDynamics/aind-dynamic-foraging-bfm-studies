@@ -1,5 +1,13 @@
 # Changelog — 40-cognitive-llm-discovery
 
+## 2026-11-11
+
+- Round 1 complete (#134, PR #138): r2 (search curve), r3 (search's best on selection and test) and r4
+  (simplification at three floors) live; ADR 0008 amended for the curve-RMSE gate and for the floors
+  and floor programs; variants `simplify-90`, `simplify-75`, `simplify-50`. No 90% floor program.
+- Metadata (#139): `status: active` and a verdict; README Verdict and variants table; PLAN.md notes what
+  round 1 delivered.
+
 ## 2026-11-08 (selection and test)
 
 - ADR 0008 (#134): the selection and test procedure for `seeded-islands-2`, fixed before any selection or
