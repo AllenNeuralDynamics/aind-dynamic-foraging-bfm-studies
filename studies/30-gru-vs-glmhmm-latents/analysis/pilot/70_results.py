@@ -57,7 +57,9 @@ def main():
             "config": fit["config"], "wrapper_git_sha_of_fit": fit.get("wrapper_git_sha"),
             "params_used": "GLOBAL hurdle K=3 parameters for every pilot mouse (pilot simplification: one shared "
                            "set of state labels, no cross-mouse alignment)",
-            "logged_train_mice_eval_likelihood_global": fit["summary"]["glmhmm/select/eval_likelihood"],
+            # glmhmm/select/eval_likelihood: training mice's eval sessions AFTER per-mouse MAP refits (study 14's
+            # K-selection score), not the global-fit score (PR #137 review)
+            "logged_train_mice_select_eval_likelihood_refit": fit["summary"]["glmhmm/select/eval_likelihood"],
             "state_names": rd("state_names.json"), "state_description": rd("state_description.json"),
         },
         "step1_filtered_convention": gl["step1"],

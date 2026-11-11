@@ -57,7 +57,7 @@ def stacked(ax, t, M, K):
     # fills are rasterized (text and axes stay vector) to keep the SVGs small
     for coll in ax.stackplot(t, M.T, colors=[TAB(k) for k in range(K)], lw=0):
         coll.set_rasterized(True)
-    ax.set(xlim=(t[0], t[-1]), ylim=(0, 1), yticks=[])
+    ax.set(xlim=(t[0] - 0.5, t[-1] + 0.5), ylim=(0, 1), yticks=[])
 
 
 def session_plot(fig, rect_mm, W, H, z, pre, title):
@@ -68,10 +68,12 @@ def session_plot(fig, rect_mm, W, H, z, pre, title):
     ch[ch == 2] = np.nan
     _, axes = plot_foraging_session(ch, z[pre + "reward"].astype(float), [z[pre + "pL"], z[pre + "pR"]],
                                     ax=fig.add_subplot(gs[0]), plot_list=["choice", "reward_prob"])
+    n = len(ch)
     for a in axes:
         if a.get_legend():
             a.get_legend().remove()
         a.set_xlabel("")
+        a.set_xlim(-0.5, n - 0.5)    # the same trial coordinates as the state panels below
     axes[0].set_title(title, loc="left")
     return axes
 
@@ -117,7 +119,7 @@ def fig_method(d, z):
     ax = at(18, H - 80, 105, 15)
     for coll in ax.stackplot(t, P.T, colors=K3_COLORS, lw=0):
         coll.set_rasterized(True)
-    ax.set(xlim=(t[0], t[-1]), ylim=(0, 1), ylabel="p(state)", xticklabels=[])
+    ax.set(xlim=(t[0] - 0.5, t[-1] + 0.5), ylim=(0, 1), ylabel="p(state)", xticklabels=[])
     ax.set_title("step 1, target: GLM-HMM predictive posterior π_t", loc="left")
     fs.panel_label(ax, "c")
     ax = at(18, H - 110, 105, 22)
@@ -138,7 +140,7 @@ def fig_method(d, z):
     for k in range(3):
         ax.plot(t, P[:, k], color=K3_COLORS[k], lw=1.0)
         ax.plot(t, Q[:, k], color="k", lw=0.5, ls=(0, (2, 1)))
-    ax.set(xlim=(t[0], t[-1]), ylim=(-0.02, 1.02), ylabel="p(state)", xlabel="trial in session")
+    ax.set(xlim=(t[0] - 0.5, t[-1] + 0.5), ylim=(-0.02, 1.02), ylabel="p(state)", xlabel="trial in session")
     ax.set_title("step 3, probe output: solid = target, dashed = decoded (probe never saw this mouse)", loc="left")
     fs.panel_label(ax, "e")
     ax = at(140, H - 60, 38, 26)
@@ -352,7 +354,7 @@ def fig_population(d, z):
         L = z[f"{pre}state_logit_K{K}"]
         for k in range(K):
             ax.plot(t, L[:, k], color=TAB(k), lw=0.5)
-        ax.set(xlim=(t[0], t[-1]), xlabel="trial in session")
+        ax.set(xlim=(t[0] - 0.5, t[-1] + 0.5), xlabel="trial in session")
         ax.set_title(f"K = {K}", fontsize=6)
         if c == 0:
             ax.set_ylabel("state logit\nw_k·z_t + b_k (centred)")
@@ -406,7 +408,7 @@ def fig_session(d, z, i):
     W, H = 183, 252
     fig = plt.figure(figsize=fs.mm(W, H))
     at = mm_axes(fig, W, H)
-    session_plot(fig, (24, H - 30, 154, 22), W, H, z, pre,
+    session_plot(fig, (30, H - 30, 148, 22), W, H, z, pre,
                  f"Mouse {info['mouse']}, {info['stage'].lower()}, {info['n_trials']} trials · {info['tag']} · test fold 3")
     x0, w = 30, 148
     for ri, (M, key, title) in enumerate([(Zr, "rastermap_raw_isort", "Rastermap order, raw latents"),
@@ -500,9 +502,16 @@ def blocks(d, figs):
         rows.append([K, g["run_id"], f"{g['glmhmm_likelihood_pilot']:.4f}"]
                     + [f"{f2(parts[f'hurdle__K{K}__{f}']['pooled_r2'])} / {f2(parts[f'hurdle__K{K}__{f}']['pooled_r2_within'])}"
                        for f in ("latents", "untrained", "logits", "history")])
+    def emission_gap(f):   # largest |hurdle − reference| over K = 2–10, pooled R² all trials and within session
+        return max(abs(parts[f"hurdle__K{K}__{f}"][m] - parts[f"reference__K{K}__{f}"][m])
+                   for K in range(2, 11) for m in ("pooled_r2", "pooled_r2_within"))
+
+    gaps = ", ".join(f"{lab} {emission_gap(f):.3f}" for f, lab in (("latents", "latents"), ("untrained", "untrained GRU"),
+                                                                   ("logits", "GRU logits"), ("history", "history")))
     b["result-4"] = "\n".join([
-        "Hurdle emission; pooled R² all trials / within session (reference agrees within ±0.03, figure). "
-        "The untrained-GRU probe hit the 1,000-iteration cap in every fold (unconverged fits).", "",
+        "Hurdle emission; pooled R² all trials / within session. Largest hurdle − reference difference over K = 2–10 "
+        f"(either score): {gaps} (figure, dashed). The untrained-GRU probe hit the 1,000-iteration cap in every fold "
+        "(unconverged fits).", "",
         table(["K", "run", "GLM-HMM lik.", "latents", "untrained GRU", "GRU logits", "history"], rows), "",
         f"![K scan](../{figs['kscan']})", "", f"![decoding at K = 2, 4, 6, 10](../{figs['kdecoding']})"])
     sh = d["shuffle"]

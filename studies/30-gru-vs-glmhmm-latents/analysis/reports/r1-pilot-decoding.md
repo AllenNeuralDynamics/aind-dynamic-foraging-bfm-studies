@@ -102,7 +102,7 @@ K = 3 hurdle, per-state R² (S0 ignore-prone / S1 engaged strong win-stay / S2 e
 ## Result 4 — across K, the latents stay readable while every baseline collapses
 
 <!-- BEGIN result-4 -->
-Hurdle emission; pooled R² all trials / within session (reference agrees within ±0.03, figure). The untrained-GRU probe hit the 1,000-iteration cap in every fold (unconverged fits).
+Hurdle emission; pooled R² all trials / within session. Largest hurdle − reference difference over K = 2–10 (either score): latents 0.028, untrained GRU 0.018, GRU logits 0.074, history 0.044 (figure, dashed). The untrained-GRU probe hit the 1,000-iteration cap in every fold (unconverged fits).
 
 | K | run | GLM-HMM lik. | latents | untrained GRU | GRU logits | history |
 |---|---|---|---|---|---|---|

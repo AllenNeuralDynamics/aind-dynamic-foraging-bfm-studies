@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_r1.py",
-    "produced_at_pt": "2026-11-11T13:27:20-08:00",
-    "studies_git_sha": "59a237d1f89b5d8be8f00fab1eada7ff06824dcc",
+    "produced_at_pt": "2026-11-11T13:39:52-08:00",
+    "studies_git_sha": "c422858e7b04f176156c7b3fd5efc7e721f9682c",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -130,7 +130,7 @@
       {
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/results.json",
-        "sha256": "b9e71f5931543a2b89670e81b24475f803e5993f0b0e7c19647be8f75cb2ff8d"
+        "sha256": "60a00cb04b85a0a7f8530276ff76743be259aed158685da822bb02405efbef35"
       },
       {
         "type": "file",
@@ -1141,7 +1141,7 @@
     "outputs": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1.json",
-        "sha256": "2d20bf45c96624d0d7dfcdd900bc09997287811f222ded2b0f53c453459acbdd"
+        "sha256": "b15a0d0680fbea9144e5be89393760afaa8aa7d3d5a02ea07fdf6edd360abeec"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1_sessions.npz",
@@ -1239,7 +1239,7 @@
       },
       "wrapper_git_sha_of_fit": "5f5301c738898e1289060635e8b656222ba32912",
       "params_used": "GLOBAL hurdle K=3 parameters for every pilot mouse (pilot simplification: one shared set of state labels, no cross-mouse alignment)",
-      "logged_train_mice_eval_likelihood_global": 0.6288664937019348,
+      "logged_train_mice_select_eval_likelihood_refit": 0.6288664937019348,
       "state_names": {
         "names": [
           "S0 ignore-prone",
@@ -1471,7 +1471,22 @@
         "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/45_state_names.py",
         "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/50_probes.py",
         "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/60_figures.py",
-        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/70_results.py"
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/70_results.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/80_methods_explainer.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/85_confusion.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/90_kscan_oof.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/91_kscan_decoding_fig.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/92_unit_heatmaps.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/93_unit_views.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/95_tdr.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/96_rastermap_fit.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/97_rastermap_fig.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/98_pick_sessions.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/99_shuffle_null.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/99b_shuffle_report.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/kscan_glmhmm.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/kscan_probes.py",
+        "/allen/aind/scratch/han.hou/pilots/study30-probe/scripts/kscan_report.py"
       ],
       "wrapper_worktree": "/home/han.hou/code/wt/wrapper-study30-pilot",
       "wrapper_git_sha": "5affee531856d6eff31c9285e981c93747699efc",
