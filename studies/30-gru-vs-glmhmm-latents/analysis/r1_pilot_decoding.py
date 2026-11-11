@@ -73,7 +73,7 @@ def session_plot(fig, rect_mm, W, H, z, pre, title):
         if a.get_legend():
             a.get_legend().remove()
         a.set_xlabel("")
-        a.set_xlim(-0.5, n - 0.5)    # the same trial coordinates as the state panels below
+        a.set_xlim(0.5, n + 0.5)     # plot_foraging_session draws trial i at x = i (1-based); state panels match
     axes[0].set_title(title, loc="left")
     return axes
 
@@ -110,7 +110,7 @@ def fig_method(d, z):
     fs.panel_label(ax, "a", dx_pt=-14, dy_pt=0)
 
     pre = "s0_"
-    t = z[pre + "trial_in_session"]
+    t = z[pre + "trial_in_session"] + 1   # 1-based, as plot_foraging_session draws trials
     info = d["sessions"]["items"][0]
     axes = session_plot(fig, (18, H - 57, 105, 24), W, H, z, pre,
                         f"example session (mouse {info['mouse']}, {info['stage'].lower()}, test fold 3)")
@@ -268,7 +268,7 @@ def fig_kdecoding(d, z):
     fig = plt.figure(figsize=fs.mm(W, H))
     at = mm_axes(fig, W, H)
     pre = "s0_"
-    t = z[pre + "trial_in_session"]
+    t = z[pre + "trial_in_session"] + 1   # 1-based, as plot_foraging_session draws trials
     for r, K in enumerate(KS_SHOW):
         y0 = H - 34 - r * 34
         for c, (key, title) in enumerate([("target", "target π_t (GLM-HMM)"), ("decoded_latents", "decoded from GRU latents"),
@@ -348,7 +348,7 @@ def fig_population(d, z):
     fig = plt.figure(figsize=fs.mm(W, H))
     at = mm_axes(fig, W, H)
     pre = "s0_"
-    t = z[pre + "trial_in_session"]
+    t = z[pre + "trial_in_session"] + 1   # 1-based, as plot_foraging_session draws trials
     for c, K in enumerate(KS_SHOW):
         ax = at(16 + c * 42, H - 34, 36, 22)
         L = z[f"{pre}state_logit_K{K}"]
@@ -400,7 +400,7 @@ def fig_population(d, z):
 def fig_session(d, z, i):
     info = d["sessions"]["items"][i]
     pre = info["key"]
-    t = z[pre + "trial_in_session"]
+    t = z[pre + "trial_in_session"] + 1   # 1-based, as plot_foraging_session draws trials
     Zr = z[pre + "latents_z"].astype(float)
     Zsm = pd.DataFrame(Zr).rolling(SMOOTH, center=True, min_periods=1).mean().to_numpy()
     r4 = z["unit_r_K4"]

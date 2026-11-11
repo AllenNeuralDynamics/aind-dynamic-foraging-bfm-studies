@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_pilot_decoding.py",
-    "produced_at_pt": "2026-11-11T13:40:13-08:00",
-    "studies_git_sha": "c422858e7b04f176156c7b3fd5efc7e721f9682c",
+    "produced_at_pt": "2026-11-11T13:50:08-08:00",
+    "studies_git_sha": "d25fe1d4a5f6ddfae3dd8d9cf50218b98dc83a07",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -29,7 +29,7 @@
     "code": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/r1_pilot_decoding.py",
-        "sha256": "787bef80700ffe10140f8f60505db740095c3b91b4dcef35acae4aa1cfa606eb"
+        "sha256": "46ab40ef78e061f879dcc16f977429dead4123ff094ee85fe7729255bb162e45"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/upstream_sources.py",
@@ -69,7 +69,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_method.svg",
-        "sha256": "097cd9980535273dcd8e754a5979c43d8e89f105b3a8c1523aa46dc7fe23a6dd"
+        "sha256": "6b73edc1a8a85a60c15d9e0dc4af890c3c0b36ffe7333c3b0ba2df04f31c48f1"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_k3.svg",
@@ -85,7 +85,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_kdecoding.svg",
-        "sha256": "3b8cee40169e9676733f5f664d2c28c5d5a81859e10b279bb4289071d0f1c1b9"
+        "sha256": "9802a7d1f03b4445dc265b8283af68d73a39ac8f39ee2473b63d2030961185a5"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_shuffle.svg",
@@ -93,23 +93,23 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_population.svg",
-        "sha256": "7295bbafa2d5e2f11c218c1d7b0bf10d88a1189f8440d8db0622903aa7f6f558"
+        "sha256": "d36d43044467db8500d3bc3ad1eb430b899687955ff08c786726e664d1b688a1"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_1.svg",
-        "sha256": "03fcb41908543e4ba57db971ef4fa4c82e2de26a67fe2a4f02fa4bec765d7442"
+        "sha256": "0727793e59cb44824836a603db114fb8718a659cdaeed169dd62d961ddd2cd8e"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_2.svg",
-        "sha256": "2732204ded25ce5c880ae3645e1ab54bfa99c80d277cc18d295692d1551c0d52"
+        "sha256": "98084f7b5552bcaed61ad61a2a2aa8775ee18bc0772242905d4be4b052f713fb"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_3.svg",
-        "sha256": "7ffedca3d3b69bc59feeee307b7642565710d0af851012ac9172263cc988281f"
+        "sha256": "60a9b02ac75107c3ea00dc829fa767dbbc723af178378a67d4d720cbd4787d91"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_4.svg",
-        "sha256": "46a1e3c9b8b24b308ddd5f43ea0c06e3967f2fb50878529085e7d812e2e7f931"
+        "sha256": "7b78ac89e0908a04e6b618e60d1f1cdc3b403f2ae1ee32d78aa105cb689c872e"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-1",
