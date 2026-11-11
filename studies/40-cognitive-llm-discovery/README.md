@@ -6,7 +6,9 @@ question: Can LLM-driven evolutionary search over small JAX cognitive programs, 
   held-out likelihood on the 149 held-out mice closes the gap from the best hierarchical
   cognitive baseline (HB-CTT) to the GRU, and that generates realistic behaviour in
   closed loop with the task?
-status: planned
+status: active
+verdict: The search's best program closes 0.59 of the HB-CTT-to-GRU gap on test (CI 0.53-0.64); simplified
+  programs keep 0.55 and 0.53; the GRU still matches most mouse-average curves best.
 wandb:
   entity: NeuralDynamics
   project: dfbfm-mevolve
@@ -51,6 +53,9 @@ out in the task simulator to compare their behaviour with the mice's.
 | [`engine-smoke`](variants/engine-smoke/notes.md) | gate 3: the first ShinkaEvolve runs, 10 proposals each at effort medium and high, on a small separate cohort; tests the engine, not the science |
 | [`gate4-recovery`](variants/gate4-recovery/notes.md) | gate 4, second half: 100 proposals on mice simulated from a hand-set program (two reward timescales plus a choice kernel), seeded with simplified programs, library off; the search must reach its own score |
 | [`gate4-noseed`](variants/gate4-noseed/notes.md) | gate 4 control: the same search with no seed programs (template only, one island); does Claude invent the slow reward trace? |
+| [`seeded-islands-smoke`](variants/seeded-islands-smoke/notes.md) | `seeded-islands` at 100 proposals on real mice: the smoke launch before the search |
+| [`seeded-islands-cap12`](variants/seeded-islands-cap12/notes.md) | the smoke launch with looser program limits (12 parameters, 8 latent variables) |
+| [`simplify-90`](variants/simplify-90/notes.md), [`simplify-75`](variants/simplify-75/notes.md), [`simplify-50`](variants/simplify-50/notes.md) | simplification: the lowest-effort rewrite of the search's best programs that keeps 90, 75 or 50% of its gain over Miller-RHG |
 
 The answer is the fraction of the gap from HB-CTT to the GRU that the best program closes on the
 test subjects, with its behavioural fingerprints and closed-loop match beside it.
@@ -60,7 +65,7 @@ test subjects, with its behavioural fingerprints and closed-loop match beside it
 *The procedure ([`analysis/fig_procedure.svg`](analysis/fig_procedure.svg), `make procedure-figure`; an interactive
 version is [`analysis/explainers/study40_procedure.html`](analysis/explainers/study40_procedure.html)).*
 
-Plan and build order: [PLAN.md](PLAN.md) (draft, before the design grill); vocabulary:
+Plan and build order: [PLAN.md](PLAN.md) (settled in the design grill; amended by the ADRs); vocabulary:
 [CONTEXT.md](CONTEXT.md) and MEvolve's
 [CONTEXT.md](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/blob/main/CONTEXT.md);
 decisions and why: [adr/](adr/); issue #73.
@@ -76,4 +81,13 @@ decisions and why: [adr/](adr/); issue #73.
 
 ## Verdict
 
-TODO once reports are live; also set `status` and `verdict` in the frontmatter.
+Round 1 ([r2](analysis/reports/r2-search-curve.md)–[r4](analysis/reports/r4-simplification.md)):
+
+- The search climbed +0.167 over Miller-RHG on the validation mice, nearly all in its first 500
+  proposals. The early gain holds on 100 unused mice; the late gain does not.
+- On the test mice, the search's best program (`satiety_engagement`) closes 0.59 of the gap from
+  HB-CTT to the GRU (CI 0.53–0.64). Its mouse-average curves beat Miller-RHG's, but the GRU stays
+  best on 8 of 9.
+- Simplified programs keep 0.55 (75% floor) and 0.53 (50% floor) of the gap at a fraction of the
+  complexity. No program met the 90% floor, so round 1 has three test programs, not four.
+- Round 2 directions: [FUTURE_DIRECTIONS.md](FUTURE_DIRECTIONS.md).

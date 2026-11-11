@@ -13,7 +13,7 @@ Can LLM-driven evolutionary search find a short, readable JAX program, fitted pe
 session, that closes the gap from the best hierarchical cognitive baseline (HB-CTT, study 13 r5) to
 the GRU on held-out subjects, and that behaves like the mice in closed loop with the task?
 
-The answer is four pre-registered programs (ADR 0007), each with its **gap closed** on the 146 shared
+The answer is four pre-registered programs (ADR 0007; round 1 delivered three, see Reports), each with its **gap closed** on the 146 shared
 test subjects, its complexity, and its replay and rollout fingerprints beside the literature models'.
 
 ## Fixed by design
@@ -103,9 +103,14 @@ on 32 slots); its whole budget would allow 13,000 to 18,000 proposals (88,000 to
 | report | content |
 |---|---|
 | r1 | program recovery on simulated subjects (gate 4), written first, so it took r1 (2026-11-04) |
-| r2 | MEvolve's evaluator against the reference fits (gates 1a–1c), cited from study 12 and study 13 |
-| r3 | search curve: best validation score against proposals and dollars, by island |
-| r4 | the four pre-registered programs on the test subjects: gap closed, fingerprints, both-regime test and ablations, fit-versus-complexity curve, example sessions |
+| r2 | search curve: best validation score against proposals, mechanisms, and the gain on 100 unused (monitor) mice |
+| r3 | the search's best on the selection and test subjects: gap closed, fingerprint gate, mouse-average curves |
+| r4 | simplification at three floors: fit against complexity on the test subjects |
+
+As delivered in round 1 (2026-11-11). The plan had r2 as the evaluator's parity with the reference
+fits (gates 1a–1c); that report was not written, and the gates are recorded in MEvolve's parity tests
+and issues (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#9, #10, #11). The plan had four
+pre-registered programs; the 90% floor had none under ADR 0008's rule, so round 1 has three.
 
 ## Risks
 
