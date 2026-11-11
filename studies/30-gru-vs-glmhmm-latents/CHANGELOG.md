@@ -1,5 +1,10 @@
 # Changelog — 30-gru-vs-glmhmm-latents
 
+## 2026-11-11
+
+- PLAN.md: r1 leakage audit, the `heldout-mice` variant (steps, reproduction check, open W&B decision), the
+  no-upload decision for r1's intermediates, later follow-ups.
+
 ## 2026-11-08
 
 - Study created (issue #136).
