@@ -6,7 +6,7 @@ question: Where does a GLM-HMM over left/right/ignore, refit on each held-out mo
   many latent states does it need?
 status: active
 verdict: Below the 3-way GRU at every K. Best is hurdle K = 10 with refits pooled toward the global fit
-  (0.6208); the winning K depends on the scoring rule and sits at the grid's edge (draft).
+  (0.6208); the winning K depends on the scoring rule and sits at the grid's edge.
 wandb:
   entity: AIND-disRNN
   project: mice_glmhmm
@@ -84,7 +84,7 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
 
 ## Verdict
 
-Draft ([r1](analysis/reports/r1-round-1.md), [r2](analysis/reports/r2-refit-prior.md)); all four
+From [r1](analysis/reports/r1-round-1.md) and [r2](analysis/reports/r2-refit-prior.md); all four
 variants have run.
 
 - Round 1: the GLM-HMM stays below the 3-way GRU; the best is the hurdle emission at K = 3 (0.6148).

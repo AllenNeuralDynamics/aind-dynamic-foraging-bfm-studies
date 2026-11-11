@@ -2,7 +2,7 @@
 schema_version: 1
 id: r2
 slug: refit-prior
-status: draft
+status: live
 authors:
 - han
 wandb_groups:
