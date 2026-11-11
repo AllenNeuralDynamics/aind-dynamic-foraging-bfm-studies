@@ -91,7 +91,8 @@ def main() -> None:
         print(v, "chosen", out[v]["chosen"], [(x["rank"], round(x["effort"]), round(x["score_x100"], 3),
                                                x["passes_gate"], x["reaches_floor"]) for x in rows])
     write_artifact(HERE / "simplify_choice.json", {
-        "_meta": build_meta(f"analysis/{Path(__file__).name}", [], study_root=STUDY, code=[__file__],
+        "_meta": build_meta(f"analysis/{Path(__file__).name}", [], study_root=STUDY,
+                            code=[__file__, HERE / "selection_gate.py"],   # the gate rule it imports
                             inputs=inputs),
         "reference": {k: get(ref, k) for k in GATE} | {"score_x100": 100 * ref["score"]["score"]},
         "rule": "the passing candidate of lowest Halstead effort: replay and rollout fingerprint scores and curve "

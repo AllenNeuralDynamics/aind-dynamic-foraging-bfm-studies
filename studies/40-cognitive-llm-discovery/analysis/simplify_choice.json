@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/simplify_choice.py",
-    "produced_at_pt": "2026-11-11T13:40:41-08:00",
-    "studies_git_sha": "b36f192ba535879f8b109cfaf26375bf027c948e",
+    "produced_at_pt": "2026-11-11T13:49:40-08:00",
+    "studies_git_sha": "91c7bf5b18295bc354fc25333f8ccc5541402cad",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,11 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/simplify_choice.py",
-        "sha256": "1eec8c0adff87a183160afa2ce2fa01a02f34e00f1b07299d9d438a512047306"
+        "sha256": "6c8a7449dbd2c265177ff7194e582fb7b31497e6e4099f760b385f4e40d94502"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection_gate.py",
+        "sha256": "d47fa50180bb3e614e87cb89684f01c2864d1bf97049e2b632558c8a5cb03ebd"
       },
       {
         "path": "studies/util/figure_audit.py",
