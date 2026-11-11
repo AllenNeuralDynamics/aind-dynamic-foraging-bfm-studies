@@ -49,11 +49,13 @@ scored with the study 02 / study 14 held-out protocol.
 ### Steps
 
 1. **Redo the fine-tune offline.** Same recipe as study 02: start from the global checkpoint, add one embedding
-   row per held-out mouse, train only those rows for 500 steps (lr 1e-3) on the mouse's even sessions. Run with
-   W&B disabled. **Never** use `resume_heldout_beaker.py`: it resumes the study 02 run and overwrites its results.
+   row per held-out mouse, train only those rows for 500 steps (lr 1e-3) on the mouse's even sessions. The job
+   runs with W&B off. **Never** use `resume_heldout_beaker.py`: it resumes the study 02 run and overwrites its
+   results. Files: [`variants/heldout-mice/`](variants/heldout-mice/notes.md).
 2. **Reproduction check.** The redone fine-tune must reproduce the run's logged held-out score
-   (`heldout/eval_likelihood`), read from study 02's committed `analysis/frozen_runs.json`, never retyped. A
-   mismatch beyond seed noise stops the variant.
+   (`heldout/final/eval_likelihood`), read from study 02's committed `analysis/frozen_runs.json`, never retyped. A
+   mismatch beyond 1e-4 stops the variant (the fine-tune is deterministic). Then `upload_wandb.py` logs the
+   result to study 30's W&B project (decision below).
 3. **Latents.** GRU latents (and the untrained-GRU control) on the held-out mice's odd sessions.
 4. **Targets.** Predictive posterior from each mouse's own refit: π_t = α_{t−1} · A_mouse (π⁰ at session start).
    Match each mouse's states to the global states by emission weights (study 14 r1 method; 141 / 149 matched at
@@ -65,17 +67,12 @@ scored with the study 02 / study 14 held-out protocol.
 **What would change the r1 conclusion:** held-out within-session R² far below r1's 0.72–0.88 means part of r1's
 score came from the GRU's familiarity with the training mice.
 
-### Open decision: where the fine-tuned embeddings go
-
-- **(a)** Local only, frozen with sha256 digests like r1.
-- **(b)** Logged as runs and an artifact in study 30's W&B project (`NeuralDynamics/dfbfm_30-gru-vs-glmhmm-latents`),
-  with a launch record for the variant.
-
-Choose (b) if other studies (for example 51, or an HB comparison) will reuse the fine-tunes; otherwise (a).
-Decide before step 1 runs.
-
 ## Decided
 
+- **Fine-tuned embeddings go to W&B (decision (b), Han, 2026-11-11).** After the reproduction check, one run
+  and one artifact (fine-tuned parameters, subject maps, embeddings, per-trial predictions) in
+  `NeuralDynamics/dfbfm_30-gru-vs-glmhmm-latents`, group `heldout-mice@<launch_id>`, with a launch record.
+  Other studies (for example 51, or an HB comparison) can reuse them. The alternative was local files only.
 - **No W&B upload of r1's per-trial intermediates** (Han, 2026-11-11). They rebuild from durable sources (the
   study 02 GRU artifact, the study 14 runs, snapshot 20260603) in about 15–30 min, plus 3–4 CPU-hours of probes;
   r1's freeze records each source's sha256.

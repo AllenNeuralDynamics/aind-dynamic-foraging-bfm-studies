@@ -52,9 +52,9 @@ on the same cohort, split and trials. Study 30 trains no new model; it reads bot
 | variant | what varies | status |
 |---|---|---|
 | [`training-mice-pilot`](variants/training-mice-pilot/notes.md) | 50 GRU-training mice, odd sessions, global GLM-HMM parameters; post hoc, no launch | done ([r1](analysis/reports/r1-pilot-decoding.md)) |
+| [`heldout-mice`](variants/heldout-mice/notes.md) | the 149 held-out mice: GRU embeddings fine-tuned offline (study 02's recipe), per-mouse GLM-HMM refits; W&B group `heldout-mice@<launch_id>` | fine-tune not launched yet |
 
-Planned next ([`PLAN.md`](PLAN.md); r1, Next steps): the 149 held-out mice with per-mouse refits, more GRU seeds, a one-hot 3-way
-GRU, a nonlinear history decoder, tests of discreteness, and the embedding comparison.
+Planned next ([`PLAN.md`](PLAN.md); r1, Next steps): more GRU seeds, a one-hot 3-way GRU, a nonlinear history decoder, tests of discreteness, and the embedding comparison.
 
 Glossary: [`CONTEXT.md`](CONTEXT.md).
 
