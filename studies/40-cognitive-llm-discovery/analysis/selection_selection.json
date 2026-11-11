@@ -1,0 +1,155 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/selection_gate.py",
+    "produced_at_pt": "2026-11-08T19:57:18-08:00",
+    "studies_git_sha": "fe71e3c5eaf4dd4870d277c4ff0029ee53d9b280",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection_gate.py",
+        "sha256": "d47fa50180bb3e614e87cb89684f01c2864d1bf97049e2b632558c8a5cb03ebd"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/reference/selection_candidates_seeded-islands-2.json",
+        "sha256": "c21ab13428aad8de688a5b0c7bb98c27ce7c10af7e76fb54989d5bdaac98feb1"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/rank1_a13b12cf.json",
+        "sha256": "1db30a84c392b82c9f8feb56376334c953949b76496203abbc7205d047357e0e"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/rank2_3fd7f0c4.json",
+        "sha256": "95b2704926108b267e7d335d254d1e3e5ee220baa46a984ebcdde5b51a62ac5b"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/rank3_e3819885.json",
+        "sha256": "fc75cafb486a3327a4ebb50458d83fafbe11dfbc15504a9b4d8095519d7d1898"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/rank4_5bb3332a.json",
+        "sha256": "5e197282a7a746749eb283a6aa4808a4ad6c7de3d8db604101b58eb6bdb85f22"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/rank5_f0e71d90.json",
+        "sha256": "76af9b5ff19ac03ecf6b3013717e93e02a0b9bae992dffedfc345d72351c0ba6"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/reference_miller_rhg.json",
+        "sha256": "43c074c4fedac8114aa2e0d299efff73bae45ad389914fbe2bc5f0ccab2645e4"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection_selection.json",
+        "sha256": "37bf5c2fad503e0f1ab032a964015a59c5781460f4118db84df406ff3223dbd2"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/fig_selection_selection.svg",
+        "sha256": "1c14f51d2b9dbf00ae10f1f740033824a8ff9bf66c6c4944efc385eecabd4687"
+      }
+    ]
+  },
+  "cohort": "selection",
+  "reference": {
+    "name": "reference_miller_rhg",
+    "score_x100": 73.43585869392615,
+    "n_fallback": 0,
+    "replay_score": 1.3927860381979988,
+    "rollout_score": 1.6800285185469137,
+    "replay_curve_rmse": 0.019790814401163086,
+    "rollout_curve_rmse": 0.03525247728182279
+  },
+  "candidates": [
+    {
+      "name": "rank1_a13b12cf",
+      "rank": 1,
+      "patch_name": "reward_satiety_gain",
+      "island": 0,
+      "validation_x100": 72.77508241922416,
+      "score_x100": 73.53950798113146,
+      "n_fallback": 3,
+      "replay_score": 1.2498914201043594,
+      "rollout_score": 1.4830187975114502,
+      "replay_curve_rmse": 0.01297362451046369,
+      "rollout_curve_rmse": 0.028092858782361976,
+      "passes_gate": true
+    },
+    {
+      "name": "rank2_3fd7f0c4",
+      "rank": 2,
+      "patch_name": "reward_rate_gated_perseveration",
+      "island": 3,
+      "validation_x100": 72.77108048588305,
+      "score_x100": 73.5629985882758,
+      "n_fallback": 1,
+      "replay_score": 1.2903673257469008,
+      "rollout_score": 1.4605144456553156,
+      "replay_curve_rmse": 0.014150552885899456,
+      "rollout_curve_rmse": 0.02619719141995831,
+      "passes_gate": true
+    },
+    {
+      "name": "rank3_e3819885",
+      "rank": 3,
+      "patch_name": "satiety_engagement",
+      "island": 1,
+      "validation_x100": 72.76949612773106,
+      "score_x100": 73.59942957733371,
+      "n_fallback": 1,
+      "replay_score": 1.2276030936184639,
+      "rollout_score": 1.4742705419762494,
+      "replay_curve_rmse": 0.012174507879445082,
+      "rollout_curve_rmse": 0.027861157302092484,
+      "passes_gate": true
+    },
+    {
+      "name": "rank4_5bb3332a",
+      "rank": 4,
+      "patch_name": "dual_cf_habit_experience",
+      "island": 2,
+      "validation_x100": 72.76615508819948,
+      "score_x100": 73.58238715155483,
+      "n_fallback": 2,
+      "replay_score": 1.2437583780892327,
+      "rollout_score": 1.323422290638062,
+      "replay_curve_rmse": 0.011930748203126488,
+      "rollout_curve_rmse": 0.022934484732536824,
+      "passes_gate": true
+    },
+    {
+      "name": "rank5_f0e71d90",
+      "rank": 5,
+      "patch_name": "unchosen_relax_to_reward_rate",
+      "island": 4,
+      "validation_x100": 72.76411346707735,
+      "score_x100": 73.59314780828673,
+      "n_fallback": 1,
+      "replay_score": 1.2922661882671087,
+      "rollout_score": 1.5092501966718825,
+      "replay_curve_rmse": 0.01311437380483351,
+      "rollout_curve_rmse": 0.02880889722227906,
+      "passes_gate": true
+    }
+  ],
+  "chosen": "rank3_e3819885",
+  "rule": "passes if replay and rollout fingerprint scores and replay and rollout curve scores are all <= the reference's; the chosen program is the passing candidate with the highest held-out score (study 40 ADR 0008)"
+}

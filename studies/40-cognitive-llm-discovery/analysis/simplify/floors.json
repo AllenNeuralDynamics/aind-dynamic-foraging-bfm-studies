@@ -1,0 +1,112 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/simplify_floors.py",
+    "produced_at_pt": "2026-11-08T19:57:44-08:00",
+    "studies_git_sha": "fe71e3c5eaf4dd4870d277c4ff0029ee53d9b280",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify_floors.py",
+        "sha256": "92902d6fc0f0d58c09a57e4e952fb71748e8eb2cec8a1f400aa4bbf5cfae29c9"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/floor_anchors.json",
+        "sha256": "a5760739be9d4623f7a8cf1ebbebfd78545ab238208e3124006703bf29cbdf27"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection_selection.json",
+        "sha256": "288f1aa38a94105b67686dbb03e733a4d086c2c8c50a78ed1f919eccb4889bca"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/reference/selection_candidates_seeded-islands-2.json",
+        "sha256": "c21ab13428aad8de688a5b0c7bb98c27ce7c10af7e76fb54989d5bdaac98feb1"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/reference_miller_rhg.json",
+        "sha256": "43c074c4fedac8114aa2e0d299efff73bae45ad389914fbe2bc5f0ccab2645e4"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/rank3_e3819885.json",
+        "sha256": "fc75cafb486a3327a4ebb50458d83fafbe11dfbc15504a9b4d8095519d7d1898"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/variants/simplify-90/run.json",
+        "sha256": "df07ebece9839bca369a872029b81c8ca3767e50d5f9ca76854a51fd39f73729"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/variants/simplify-75/run.json",
+        "sha256": "1301d1a0fe0334ebf1d7b628f51b23bd6213361d7d6ace72a11458d5dc780481"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/variants/simplify-50/run.json",
+        "sha256": "b75ea2214b804576b7c9bbb4c69869edc4dee3b74324fa102e1ad3995e82716e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/floors.json",
+        "sha256": "8b1606a9117464d0ff25fe069ad80e89a03039b4219f3feeedc472cc5b8731a6"
+      }
+    ]
+  },
+  "chosen": "rank3_e3819885",
+  "validation_anchors_x100": {
+    "low": 72.60789103582971,
+    "high": 72.7702000724909,
+    "gain": 0.1623090366611848
+  },
+  "selection_anchors_x100": {
+    "low": 73.43585869392615,
+    "high": 73.59942957733371,
+    "gain": 0.16357088340755865
+  },
+  "runs": {
+    "simplify-90": {
+      "share": 0.9,
+      "floor": 72.75396916882478,
+      "seed_programs": [
+        "$STUDY_DIR/analysis/selection/programs/rank3_e3819885.py",
+        "$STUDY_DIR/analysis/selection/programs/rank1_a13b12cf.py",
+        "$STUDY_DIR/analysis/selection/programs/rank2_3fd7f0c4.py",
+        "$STUDY_DIR/analysis/selection/programs/rank4_5bb3332a.py",
+        "$STUDY_DIR/analysis/selection/programs/rank5_f0e71d90.py"
+      ],
+      "selection_floor": 73.58307248899295
+    },
+    "simplify-75": {
+      "share": 0.75,
+      "floor": 72.72962281332559,
+      "seed_programs": [
+        "$STUDY_DIR/analysis/selection/programs/rank3_e3819885.py",
+        "$STUDY_DIR/analysis/selection/programs/rank1_a13b12cf.py",
+        "$STUDY_DIR/analysis/selection/programs/rank2_3fd7f0c4.py",
+        "$STUDY_DIR/analysis/selection/programs/rank4_5bb3332a.py",
+        "$STUDY_DIR/analysis/selection/programs/rank5_f0e71d90.py"
+      ],
+      "selection_floor": 73.55853685648182
+    },
+    "simplify-50": {
+      "share": 0.5,
+      "floor": 72.6890455541603,
+      "seed_programs": [
+        "$STUDY_DIR/analysis/selection/programs/rank3_e3819885.py",
+        "$STUDY_DIR/analysis/selection/programs/rank1_a13b12cf.py",
+        "$STUDY_DIR/analysis/selection/programs/rank2_3fd7f0c4.py",
+        "$STUDY_DIR/analysis/selection/programs/rank4_5bb3332a.py",
+        "$STUDY_DIR/analysis/selection/programs/rank5_f0e71d90.py"
+      ],
+      "selection_floor": 73.51764413562992
+    }
+  }
+}

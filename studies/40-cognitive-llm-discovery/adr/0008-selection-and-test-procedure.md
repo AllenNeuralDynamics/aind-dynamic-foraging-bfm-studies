@@ -43,7 +43,7 @@ the selection subjects' score sessions, for each candidate and the reference ali
   `aggregate_subjects`, `fingerprint_score`).
 - **Rollout score**: study 15's rollout fingerprint score: the geometric mean of the floor ratios
   (gap over the split-half floor) of the same four rate statistics and the `run_length` distribution.
-  One rollout per score session in session-matched gym tasks (study 15 ADR 0006; its
+  Ten rollouts per score session (study 15's `N_ROLLOUTS`) in session-matched gym tasks (study 15 ADR 0006; its
   `p2_task.build_task`), with `aind-behavior-gym` 0.4.5, `perseverative_limit=4`,
   `max_block_tally=3`. Each rollout draws its parameters from the 2-level fit,
   θ = μ + exp(log σ)·ε in fitting space (study 15 ADR 0005).
@@ -80,6 +80,63 @@ models differ. Han chose to use more fingerprints, including those that differ (
 ratios put statistics of different scale, rates and a distribution, on one footing, so each mode's
 score uses all of its statistics. This amends ADR 0001 before any selection subject was rolled out
 or replayed.
+
+## Amendment (2026-11-08, before any selection subject was scored): ten rollouts per session, and the code
+
+The record said one rollout per score session, a misreading of study 15's note (one parameter draw per
+rollout). Study 15 plays each session ten times (`N_ROLLOUTS = 10`), which keeps the rollout tallies far
+less noisy at little cost; ADR 0008 now does the same. The procedure runs as
+`analysis/freeze_selection_tasks.py` (session groups and gym tasks for a cohort; on the 149 test subjects
+it reproduces study 15's committed groups, specs and exclusions exactly) and `analysis/freeze_selection.py`
+(one program on one cohort: score, replay and rollout fingerprint scores), piloted on the generation
+subjects before the selection subjects. A fallen-back mouse (MEvolve ADR 0004) is replayed and rolled out
+with its per-subject fit, as it is scored.
+
+## Amendment (2026-11-08, before any candidate's selection score was seen): the mouse-average curves
+
+Han added the error of the mouse-average curves to the gate (2026-11-08): study 15's Figure 5 view, where
+each point is one bin of a statistic, the subjects' mean against the model's, and the GRU is uniquely
+close (study 15 r2 and r3, Figure 6). The floor ratios balance each subject's gap against its own noise;
+this term asks whether the model reproduces the average mouse's curve, so it adds a second, different
+view of the same statistics.
+
+- **Curves**: per statistic, each subject's value per bin where its own tally keeps the bin (study 15's
+  `kept_bins`), averaged over the cohort's subjects, for the subjects and for the model (replay: the
+  predicted rate on the same trials; rollout: the rate in the subject's pooled rollouts). This is study
+  15's `_per_bin`, applied to one cohort.
+- **Curve score**: the RMSE over the bins where both means exist, each bin once, per statistic; then the
+  geometric mean over the mode's statistics (the same four in replay, five in rollout), so statistics of
+  different scale weigh alike and the comparison with the reference is a ratio.
+- **Rule**: a candidate passes if its replay and rollout fingerprint scores **and** its replay and
+  rollout curve scores are all no larger than the reference's. Ties to the selection score as before.
+- **Timing**: when this was decided, only the reference had finished on the selection subjects; the five
+  candidates' jobs were cancelled before writing any output and rerun with the subjects' tallies kept.
+  The reference was rerun the same way, so all six use one code path.
+
+## Amendment (2026-11-08, before any simplification run): the floors and the floor programs
+
+ADR 0007's "best of five" is the highest selection score for the search's best. A floor program is
+scored by its Halstead effort above a floor, so its five candidates and its choice are fixed here:
+
+- **Floors** (each run's check): from Miller-RHG's and the chosen search-best's validation scores,
+  both rescored with the search's evaluator settings (`max_em` 20, 2,048 draws, seed 0) and the
+  per-subject fallback (`analysis/freeze_floor_anchors.py`), so the floor and the run's check share one
+  scale. floor = low + share × (high − low), share 0.9, 0.75, 0.5 (`analysis/simplify_floors.py`,
+  `analysis/simplify/floors.json`). ADR 0005 named study 12 r3 for the low end; that score is at
+  `max_em` 100 and without the fallback, so it is not on the run's scale.
+- **Seeds**: the five selection candidates whose rescored validation score reaches the floor, the
+  chosen search-best on island 0 and the rest by search rank (a seed below the floor stops the run).
+- **Runs**: one per floor (`variants/simplify-90`, `-75`, `-50`): Claude Opus 5.5 at effort medium,
+  at most $40 each, the search's program limits and evaluator, stopping after 300 proposals without a
+  correct program of lower effort (MEvolve ADR 0006).
+- **Candidates**: the five correct programs of lowest Halstead effort, distinct by code, from the run's
+  final database.
+- **Choice**: each candidate is scored on the selection subjects like the search's candidates (this
+  ADR's evaluator, `max_em` 100, the fingerprint gate as amended). The floor program is the candidate
+  of lowest effort that passes the gate and whose selection score reaches the selection floor: the
+  same share of the gain between Miller-RHG's and the chosen search-best's selection scores. If none
+  qualifies, the next five by effort are scored.
+- **Test**: the chosen floor program is scored once on the test subjects, as the search's best.
 
 ## Considered options
 

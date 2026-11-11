@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all explainer procedure-figure gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
-all: gate3 seed-choice smoke-result cap12-result r1 procedure-figure
+all: gate3 seed-choice smoke-result cap12-result r1 r2 r3 r4 procedure-figure
 
 # procedure-figure = the study's procedure as a paper method figure (analysis/fig_procedure.svg),
 # with cohort sizes from reference/cohorts_seed0.json; independent of the archify pages.
@@ -79,3 +79,18 @@ explainer:
 .PHONY: r1
 r1:
 	$(PY) analysis/r1_gate4_program_recovery.py
+
+# r2 = The first production search: curve, mechanisms and gains on unseen mice
+.PHONY: r2
+r2:
+	$(PY) analysis/r2_search_curve.py
+
+# r3 = The search's best on the selection and test subjects
+.PHONY: r3
+r3:
+	$(PY) analysis/r3_search_best.py
+
+# r4 = Simplification at three floors: fit against complexity on the test subjects
+.PHONY: r4
+r4:
+	$(PY) analysis/r4_simplification.py
