@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r4_simplification.py",
-    "produced_at_pt": "2026-11-10T06:53:04-08:00",
-    "studies_git_sha": "15dcbba5b1eac4efde558e9c4d223989309e9563",
+    "produced_at_pt": "2026-11-11T13:40:47-08:00",
+    "studies_git_sha": "b36f192ba535879f8b109cfaf26375bf027c948e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -30,7 +30,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.py",
-        "sha256": "0014b5666877f63977fd1d156fd4b276bc5f9a04e79acc30ad8395fd0b7da7bb"
+        "sha256": "f582f91d2cc7ef4dd0038d1612344b5262c0e19c931ebc281f5c5ea3254e21a9"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -60,11 +60,11 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/simplify_choice.json",
-        "sha256": "91f3472e40cf4333c6020fe7ba9959d943e78a50b18b6f504e94fdfb94e8d663"
+        "sha256": "7d4a3c14a613b7c78a802172a4b825c24a9ff05e23d28a52417508f07624eadd"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/test/curves.json",
-        "sha256": "7981d834b4b2f26e01bb97d743c3d6683cc97eabff744a191549ec517126ed33"
+        "sha256": "1784610b031ea14ad83523791a6d5f52a4c214e6765d462c6dd4c8f45613b891"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_final_runs.json",

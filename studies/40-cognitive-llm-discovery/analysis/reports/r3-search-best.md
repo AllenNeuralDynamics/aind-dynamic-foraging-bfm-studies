@@ -28,6 +28,12 @@ upstream:
   - study: 01-gru-scaling-law
     report: r1
     note: GRU v2 H128 per subject, full training set, three seeds (analysis/per_subject_rows.json)
+  - study: 12-cognitive-literature-leaderboard
+    report: r3
+    note: every literature model's 2-level EM test scores (analysis/two_level_em_fits.csv)
+  - study: 12-cognitive-literature-leaderboard
+    report: r1
+    note: per-subject fits, for the per-mouse fallback (analysis/per_subject_fits.csv)
   - study: 15-behavioral-fingerprints
     report: r2
     note: replay mouse-average curves of every model (analysis/p1_replay_gaps.json)
@@ -101,6 +107,18 @@ On the 146 shared test subjects (994,094 trials), the search's best scores **72.
 | GRU v2 H128 (study 01) | 72.831 | +0.641 ± 0.031 | 72.823 (GRU's 149) |
 
 **Figure 2.** (a) Pooled held-out likelihood per trial above HB-CTT's on the 146 shared test subjects, each model re-pooled from its committed per-subject values (the GRU: mean over its 3 seeds); bars: paired bootstrap SE over subjects (2,000 resamples). (b) Per subject, the program's and the GRU's held-out log-likelihood per trial above HB-CTT's; dotted: the program matches the GRU.
+
+**Added after pre-registration: the best literature models in the same regime.** Miller-RHG, the reference, was chosen as the best 2-level model on the 48 validation subjects (ADR 0001). On the test subjects study 12 ranks it 4th, but only because two of its test mice have failed 2-level fits; with the per-mouse fallback our evaluator applies, the top three literature models tie within the bootstrap error, so the regime alone closes about 0.3 of the gap whichever is taken:
+
+| literature model (study 12, 2-level EM) | fallback mice | without fallback (×100) | with fallback (×100) | gap closed |
+|---|---|---|---|---|
+| Lebedeva-PR | 0 | 72.376 | 72.376 | 0.29 |
+| Lopez-DoubleTrace | 1 | 72.343 | 72.358 | 0.26 |
+| Miller-RHG | 2 | 72.189 | 72.356 | 0.26 |
+| Bari2019 | 0 | 72.275 | 72.275 | 0.13 |
+| CompareToThreshold | 0 | 72.177 | 72.177 | -0.02 |
+
+The fallback uses study 12's per-subject fits, so Miller-RHG lands slightly below its score from this study's own run (above).
 <!-- END result-2 -->
 
 ## 3. The mouse-average curves
@@ -128,6 +146,11 @@ On the 146 shared test subjects (994,094 trials), the search's best scores **72.
 - **Model and fitting regime are mixed in the gap.** HB-CTT is a hierarchical Bayes fit; the program is
   fitted by 2-level EM. Miller-RHG in the program's regime already closes 0.30 of the gap, so the
   mechanisms the search found add about 0.29 (+0.186 ×100 over Miller-RHG, both 2-level EM).
+- **The reference was chosen on 48 validation subjects.** Miller-RHG is the best 2-level literature model
+  there but 4th in study 12's test ranking, which has no per-mouse fallback. With the fallback, the top
+  three (Lebedeva-PR, Lopez-DoubleTrace, Miller-RHG) close 0.26 to 0.30 of the gap (section 2, added after
+  pre-registration), so the regime-versus-mechanism split holds whichever is the reference. Like the
+  search's own late gains (r2), the literature ranking on 48 subjects was noise.
 - **One test score, chosen on 100 subjects.** The five candidates span only 0.06 (×100) on the
   selection subjects, the size of differences r2 found to be mostly noise on 48 subjects; the choice
   among them is close, and any of them would likely score similarly on test.

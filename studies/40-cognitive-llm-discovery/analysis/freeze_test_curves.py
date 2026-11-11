@@ -74,23 +74,28 @@ def main() -> None:
     from mevolve.search.simplify import halstead_effort
 
     out = {"sets": {m: ref[m]["headline_set"] for m in ref}, "programs": {}, "subject_check": {}, "efforts": {}}
+    inputs = [P1, P2, *PROGRAMS.values(), STUDY.parent / "01-gru-scaling-law" / "analysis" / "per_subject_rows.json"]
     for name, path in PROGRAMS.items():
         run = json.loads(path.read_text())
         code = Path(run["program"])
         marker = f"/{STUDY.parent.name}/{STUDY.name}/"
-        if marker in str(code):          # a program in the study: the committed file in this checkout
-            code = STUDY / str(code).split(marker, 1)[1]
-        src = next((x for x in run["_meta"].get("sources", []) if x.get("id") == str(code)), None)
-        if src:
-            assert hashlib.sha256(code.read_bytes()).hexdigest() == src["sha256"], f"{code} changed"
+        if marker in str(code):          # a program in the study: the committed file in this checkout,
+            rel = f"{STUDY.parent.name}/{STUDY.name}/" + str(code).split(marker, 1)[1]   # digest in _meta.inputs
+            code = STUDY.parents[1] / rel
+            rec = next((x for x in run["_meta"].get("inputs", []) if x.get("path") == rel), None)
+        else:                            # an external program: digest in _meta.sources
+            rec = next((x for x in run["_meta"].get("sources", []) if x.get("id") == str(code)), None)
+        assert rec is not None, f"{name}: no recorded digest for {code}"
+        assert hashlib.sha256(code.read_bytes()).hexdigest() == rec["sha256"], f"{code} differs from the scored program"
         out["efforts"][name] = halstead_effort(code.read_text())
+        if marker in str(run["program"]):
+            inputs.append(code)
         by_id = {s["subject_id"]: s for s in run["subjects"]}
         out["programs"][name] = {}
         for mode, r in ref.items():
             set_name = r["headline_set"]
             cells = r["models"]["Miller-RHG"]["two_level_em"][set_name]
             cells = cells.get("statistics", cells)
-            n_common = cells[next(iter(cells))]["per_bin_common"]["n_subjects"]
             if mode == "replay":   # study 15's replay common set: the test subjects the GRU holds out
                 gru_rows = json.loads((STUDY.parent / "01-gru-scaling-law" / "analysis" / "per_subject_rows.json")
                                       .read_text())["rows"]
@@ -112,8 +117,7 @@ def main() -> None:
             out["programs"][name][mode + "_n_common"] = len(subs)
         print(name, "ok", {m: out["programs"][name][m + "_n_common"] for m in ref})
     meta = build_meta(f"analysis/{Path(__file__).name}", [], study_root=STUDY, kind="freeze", code=[__file__],
-                      inputs=[P1, P2, *PROGRAMS.values(),
-                              STUDY.parent / "01-gru-scaling-law" / "analysis" / "per_subject_rows.json"],
+                      inputs=inputs,
                       sources=[{"type": "url", "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-models/commit/"
                                 + MODELS_SHA},
                                {"type": "url", "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/commit/"

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/simplify_choice.py",
-    "produced_at_pt": "2026-11-10T03:23:44-08:00",
-    "studies_git_sha": "2842446983120a99375fd7ec3f8a49b17d56208b",
+    "produced_at_pt": "2026-11-11T13:40:41-08:00",
+    "studies_git_sha": "b36f192ba535879f8b109cfaf26375bf027c948e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/simplify_choice.py",
-        "sha256": "a4307a2fc549ca724235f761930695409f3e7961fd3756e15d9a3eff54974881"
+        "sha256": "1eec8c0adff87a183160afa2ce2fa01a02f34e00f1b07299d9d438a512047306"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -41,36 +41,76 @@
         "sha256": "c5ff43a3e0a516f2effec1f4689f2b4a8a6d2ec259825f2a35c6b53c9e8c72ee"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c1_473b87b3.py",
+        "sha256": "7fd5f886541d2e494881a0611a7f5ffd6073d826d87f2f8601ca6084fb71af7e"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c1_473b87b3.json",
         "sha256": "36d49380e2da6086c2cd9849c0e75e3b917dfd778bbcaf1eee55e7225e1dd028"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c2_e0ec7dab.py",
+        "sha256": "f367ed9ba30254478a8afe9383ef35a6dd9dbcfbce19e32971aff521e7c33182"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c2_e0ec7dab.json",
         "sha256": "ba752bf3ce31d4b790af00408ef88e77a90cfaffc5dc134c73d3fac46b3c6760"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c3_186bfd31.py",
+        "sha256": "62b21e1cc4e39acc638074516b60516df02183138b6bf8fc9c46408d8b314534"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c3_186bfd31.json",
         "sha256": "b5aabc9336e0396417a2e94c5862056ad7535aff52f08e8e93cb8632c7d2f05b"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c4_ee7ecd34.py",
+        "sha256": "bbc69a2646711fcb56313eb9e41f6b2a4c4ca8c2f4aa2d516ba5ba2050721035"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c4_ee7ecd34.json",
         "sha256": "2a3359d57d0445b7c29e841aa45d0b0a843fefbf29f462944516cd722953c0c1"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c5_38e70cee.py",
+        "sha256": "ee19f4308e2e5198b57c91ff4d4c4299db1d4e02dfbab977b1d3034f81ab0c9c"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c5_38e70cee.json",
         "sha256": "14f93b735a8c505517eae5135aa941041eabeaf1bd78c5ac3c191b82473df55d"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c6_b447e5d8.py",
+        "sha256": "a19350c4021a83806f7b2701549648f5147eb3f0876a95d1a2b7369b44cb0989"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c6_b447e5d8.json",
         "sha256": "a73987084337183dec2ea83c9ef68d08a038b1378867e3d6324b25b7f75c6bc2"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c7_8697a4d3.py",
+        "sha256": "8a4c140a5c6907d38b3e10af5b174653c69dc038a2dcd181a4b47dcf913f3896"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c7_8697a4d3.json",
         "sha256": "ccc0f3ac21e291701a859bc4075e57114deff15ae3198ec466122ab2619fac9a"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c8_ab068a9c.py",
+        "sha256": "aad8a6b7c74988f717496be16f784b7ce6a3d26ba191c0e4ed9dad49f242c5d4"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c8_ab068a9c.json",
         "sha256": "c57a87257b35a15b75e5498c9ad10e6845ac1efd4a225f2ba1891ae9eb451ed0"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c9_50865857.py",
+        "sha256": "3342f9f09ae48ab77a02132e6d14a78c5ee8cda0a052550dfe87a3ccbd89efc9"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-90/programs/c10_7767603f.py",
+        "sha256": "8caf1b24e4ea77594782bc8618f39891dd584be7dc4c4fdeb7db27c168126454"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-90_c10_7767603f.json",
@@ -81,20 +121,40 @@
         "sha256": "3dff867076a48529fd7b3629ba29973c6ae0311a9ef1c31d3ca425338eede9f1"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/programs/c1_141c8a13.py",
+        "sha256": "74b333cff9f10edf4ed714b635aa2777d36cd99b2f64dd36be057daf385d856f"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-75_c1_141c8a13.json",
         "sha256": "daceb07b93a40614c5d3ffb87a7b3fc4387ee7def33049c4723071944d2898eb"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/programs/c2_d7662a42.py",
+        "sha256": "74c487fe82e08daf269de729df609e530d5bc71d4a7dc6b9ddeab7812ed9e9e4"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-75_c2_d7662a42.json",
         "sha256": "07b0455c5e0283669a0bb6505807fd6580b46c3c1fe719065aeaecc004f29952"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/programs/c3_86a816a0.py",
+        "sha256": "a075dc221dc1d579f32b28b587dd8910be37d3ca8c19357b1f000aca80547c25"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-75_c3_86a816a0.json",
         "sha256": "090916aeeb3657a52457bf88adba5972f41f00be4c35d5675be9aef6fb198f51"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/programs/c4_b751951a.py",
+        "sha256": "58a9cfde9a6acfed5c5411ee2bb003f60925bb85468fe1dcad8c6e18ea7391be"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-75_c4_b751951a.json",
         "sha256": "e55ae7cb549b636f483f672dd5f1fa26ee571c3708cf090671568e03637d6672"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/programs/c5_eb96257f.py",
+        "sha256": "c7a1906f62873ff3fa1360d9fa45355e7c9bf7a6a07b8e8b27ca504639afde20"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-75_c5_eb96257f.json",
@@ -105,20 +165,40 @@
         "sha256": "1be25884d8688875cc923b6ec13b16546475aaabfe3aae28773eef5e0bffbcb4"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/programs/c1_cd994c73.py",
+        "sha256": "acc2b74bb13aecd134bfc197943d58d887c8dc68908531f2beabaf4e8ab3c769"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-50_c1_cd994c73.json",
         "sha256": "119682fc6f239a4f79d5ed8a4c2fae9957ae2a5a66e4256829988591596be11d"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/programs/c2_1978e1e6.py",
+        "sha256": "288854f09adf7c860b3c96adbf8a5f6751ed7ef240112bdfc32a23f796e18062"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-50_c2_1978e1e6.json",
         "sha256": "58c67604d088926ea74eb2650e255bf37e51b4bee7b3220fb22d5f26ba5ad343"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/programs/c3_acbaee63.py",
+        "sha256": "60b29c10826f5f860eb7bf0164be3bd02746c3c5caf22ef629448ff88c052887"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-50_c3_acbaee63.json",
         "sha256": "5d147fecc56bf57555a7ae3c49e108a5616f9e72cc91c09a47777e13e5d4014b"
       },
       {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/programs/c4_a069952e.py",
+        "sha256": "b6af38585ff43ae77e45e036b38acc909e8b64958eacfe11d492d1f795be24e3"
+      },
+      {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-50_c4_a069952e.json",
         "sha256": "8b9f4ee1356d0be9f95691a5ecea8aeafcd9501c6469a8e2907ccb8d6bfbb83e"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/programs/c5_182d5ab5.py",
+        "sha256": "ab07a26d86069b995feae58301536b7f28aa3c543d5a80f770c5530c5b73d079"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/selection/selection/simplify-50_c5_182d5ab5.json",

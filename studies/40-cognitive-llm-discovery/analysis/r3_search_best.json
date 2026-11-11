@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_search_best.py",
-    "produced_at_pt": "2026-11-09T20:49:52-08:00",
-    "studies_git_sha": "d4978331dcbbe3582415e9c8054edc3aebdb3569",
+    "produced_at_pt": "2026-11-11T13:40:36-08:00",
+    "studies_git_sha": "b36f192ba535879f8b109cfaf26375bf027c948e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.py",
-        "sha256": "0014b5666877f63977fd1d156fd4b276bc5f9a04e79acc30ad8395fd0b7da7bb"
+        "sha256": "f582f91d2cc7ef4dd0038d1612344b5262c0e19c931ebc281f5c5ea3254e21a9"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -46,7 +46,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/test/curves.json",
-        "sha256": "7981d834b4b2f26e01bb97d743c3d6683cc97eabff744a191549ec517126ed33"
+        "sha256": "1784610b031ea14ad83523791a6d5f52a4c214e6765d462c6dd4c8f45613b891"
       },
       {
         "path": "studies/13-hb-subject-vs-gru-heldout/analysis/ctt_final_runs.json",
@@ -67,12 +67,20 @@
       {
         "path": "studies/15-behavioral-fingerprints/analysis/p2_rollout_gaps.json",
         "sha256": "aace9f8d85d9a6157c0223992e9896cd077863f1bcf3915cc65cdd7d473cb247"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
       }
     ],
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.json",
-        "sha256": "bfe5317b9c93a1a1675ba7e8ebe2a9f9cd4c69508d3af1f1a449f32caa10a10c"
+        "sha256": "9b5df396c080ea096ed3d75fa73733853f09fe836005ec17cd4e1bba885277fe"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r3_test.svg",
@@ -88,7 +96,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r3-search-best.md#result-2",
-        "sha256": "3dd58883d7afd11831ba9a38256870f742ab2e41946f42b947ba54702e608e1c"
+        "sha256": "3f37a3addeb9f03775c006f14df6bf737bdd8b2835a56a4f81c1ad98e2cf7a2f"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r3-search-best.md#result-3",
@@ -220,6 +228,46 @@
     "fallback_subjects": {
       "test": 1,
       "gru_test": 1
+    },
+    "literature_same_regime": {
+      "top": [
+        {
+          "model": "Lebedeva-PR",
+          "n_fallback": 0,
+          "raw_x100": 72.37580229219063,
+          "fallback_x100": 72.37580229219063,
+          "gap_closed": 0.2899559573549482
+        },
+        {
+          "model": "Lopez-DoubleTrace",
+          "n_fallback": 1,
+          "raw_x100": 72.34315403362233,
+          "fallback_x100": 72.35813660304689,
+          "gap_closed": 0.26239390570437254
+        },
+        {
+          "model": "Miller-RHG",
+          "n_fallback": 2,
+          "raw_x100": 72.18929560700168,
+          "fallback_x100": 72.35620314935855,
+          "gap_closed": 0.2593773265045388
+        },
+        {
+          "model": "Bari2019",
+          "n_fallback": 0,
+          "raw_x100": 72.27525284344635,
+          "fallback_x100": 72.27525284344635,
+          "gap_closed": 0.13307846012419405
+        },
+        {
+          "model": "CompareToThreshold",
+          "n_fallback": 0,
+          "raw_x100": 72.1770544112501,
+          "fallback_x100": 72.1770544112501,
+          "gap_closed": -0.020130975306032174
+        }
+      ],
+      "fallback_tol": 0.005
     }
   },
   "curves": {

@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_test_curves.py",
-    "produced_at_pt": "2026-11-09T20:44:06-08:00",
-    "studies_git_sha": "3ce6ff9a9e3b2110b6b6f42e79c9677726bc8ab0",
+    "produced_at_pt": "2026-11-11T13:40:27-08:00",
+    "studies_git_sha": "b36f192ba535879f8b109cfaf26375bf027c948e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/freeze_test_curves.py",
-        "sha256": "463b022b8319175f4a50ac9abf1c9f4d2b856c5b7eb2aeafeb754bab90cba78e"
+        "sha256": "5c441e9d57806d68148491d5b474215ebd5316b90d208c96e457b55b620f8928"
       }
     ],
     "inputs": [
@@ -47,6 +47,18 @@
       {
         "path": "studies/01-gru-scaling-law/analysis/per_subject_rows.json",
         "sha256": "bca38fecc641e5cb47808563dd1e9a56bd683c25392500e3b294dde38a84745a"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/programs/rank3_e3819885.py",
+        "sha256": "03cb88b3bc18a2478b0ae7908c8cb70de394ace8d64d57a4ebb765d0c53ab99f"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-50/programs/c1_cd994c73.py",
+        "sha256": "acc2b74bb13aecd134bfc197943d58d887c8dc68908531f2beabaf4e8ab3c769"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/simplify-75/programs/c1_141c8a13.py",
+        "sha256": "74b333cff9f10edf4ed714b635aa2777d36cd99b2f64dd36be057daf385d856f"
       }
     ],
     "sources": [

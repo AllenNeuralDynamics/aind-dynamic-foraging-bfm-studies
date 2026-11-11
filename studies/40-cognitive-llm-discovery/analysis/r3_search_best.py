@@ -40,6 +40,9 @@ CURVES = HERE / "test" / "curves.json"
 HB = STUDIES / "13-hb-subject-vs-gru-heldout" / "analysis" / "ctt_final_runs.json"
 HB_POOLED = STUDIES / "13-hb-subject-vs-gru-heldout" / "analysis" / "r5_ctt_pooled.json"
 GRU = STUDIES / "01-gru-scaling-law" / "analysis" / "per_subject_rows.json"
+S12 = STUDIES / "12-cognitive-literature-leaderboard" / "analysis"
+LIT_2LEVEL, LIT_PER_SUBJECT = S12 / "two_level_em_fits.csv", S12 / "per_subject_fits.csv"
+FALLBACK_TOL = 0.005    # MEvolve evaluate.FALLBACK_TOL at 146153c, the rule our test scores use
 S15 = {"replay": STUDIES / "15-behavioral-fingerprints" / "analysis" / "p1_replay_gaps.json",
        "rollout": STUDIES / "15-behavioral-fingerprints" / "analysis" / "p2_rollout_gaps.json"}
 GRU_MODEL = "GRU-D614"
@@ -194,7 +197,47 @@ def test() -> tuple[str, dict]:
               f"test subjects, each model re-pooled from its committed per-subject values (the GRU: mean over its "
               f"{len(seeds)} seeds); bars: paired bootstrap SE over subjects ({N_BOOT:,} resamples). (b) Per subject, the program's and the GRU's "
               f"held-out log-likelihood per trial above HB-CTT's; dotted: the program matches the GRU.")
-    return text, res
+    lit_text, lit = literature(h, g, shared)
+    res["literature_same_regime"] = lit
+    return text + "\n\n" + lit_text, res
+
+
+def literature(h: float, g: float, shared: list[str]) -> tuple[str, dict]:
+    """Added after pre-registration: every literature model's 2-level EM test score (study 12), with the
+    per-mouse fallback our evaluator applies (a mouse more than FALLBACK_TOL per trial below its per-subject
+    fit, or non-finite, takes the per-subject fit; study 12's per-subject fits), pooled on the shared subjects."""
+    import csv
+
+    per = {(r["literature_model"], r["subject_id"]): float(r["eval_total_log_likelihood"])
+           for r in csv.DictReader(LIT_PER_SUBJECT.open()) if r["cohort"] == "heldout"}
+    two: dict = {}
+    for r in csv.DictReader(LIT_2LEVEL.open()):
+        if r["pool"] == "heldout" and r["subject_id"] in shared:
+            two.setdefault(r["literature_model"], []).append((r["subject_id"], float(r["log_lik"]), int(r["n_trials"])))
+    rows = []
+    for m, xs in two.items():
+        assert len(xs) == len(shared), f"{m}: {len(xs)} shared subjects"
+        ll = np.array([x[1] for x in xs])
+        n = np.array([x[2] for x in xs], float)
+        one = np.array([per[m, x[0]] for x in xs])
+        fell = ~np.isfinite(ll) | (ll < one - FALLBACK_TOL * n)
+        raw, fb = pooled(np.where(np.isfinite(ll), ll, one), n), pooled(np.where(fell, one, ll), n)
+        rows.append({"model": m, "n_fallback": int(fell.sum()), "raw_x100": 100 * raw, "fallback_x100": 100 * fb,
+                     "gap_closed": (fb - h) / (g - h)})
+    rows.sort(key=lambda r: -r["fallback_x100"])
+    top = rows[:5]
+    text = ("**Added after pre-registration: the best literature models in the same regime.** Miller-RHG, the "
+            "reference, was chosen as the best 2-level model on the 48 validation subjects (ADR 0001). On the test "
+            "subjects study 12 ranks it 4th, but only because two of its test mice have failed 2-level fits; with "
+            "the per-mouse fallback our evaluator applies, the top three literature models tie within the bootstrap "
+            "error, so the regime alone closes about 0.3 of the gap whichever is taken:\n\n"
+            + table(["literature model (study 12, 2-level EM)", "fallback mice", "without fallback (×100)",
+                     "with fallback (×100)", "gap closed"],
+                    [[r["model"], str(r["n_fallback"]), f"{r['raw_x100']:.3f}", f"{r['fallback_x100']:.3f}",
+                      f"{r['gap_closed']:.2f}"] for r in top])
+            + "\n\nThe fallback uses study 12's per-subject fits, so Miller-RHG lands slightly below its score from "
+              "this study's own run (above).")
+    return text, {"top": top, "fallback_tol": FALLBACK_TOL}
 
 
 # ---------------------------------------------------------------- 3. mouse-average curves
@@ -296,7 +339,8 @@ def main() -> None:
     b3, r3 = curves()
     write_blocks({1: b1, 2: b2, 3: b3})
     meta = build_meta("analysis/r3_search_best.py", [], study_root=STUDY, code=[__file__],
-                      inputs=[SEL, *TEST.values(), CURVES, HB, HB_POOLED, GRU, *S15.values()])
+                      inputs=[SEL, *TEST.values(), CURVES, HB, HB_POOLED, GRU, *S15.values(), LIT_2LEVEL,
+                              LIT_PER_SUBJECT])
     write_artifact(HERE / "r3_search_best.json", {"_meta": meta, "selection": r1, "test": r2, "curves": r3},
                    outputs=[*FIGS.values(), *(Path(f"{REPORT}#result-{k}") for k in range(1, 4))])
     print(json.dumps({"test": {k: r2[k] for k in ("pooled_x100", "gap_closed", "gap_closed_ci95")}, "ranks": r3["ranks"]},
