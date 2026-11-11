@@ -22,7 +22,9 @@ import pyarrow.parquet as pq
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
+sys.path.insert(0, str(HERE))
 from _meta import build_meta, write_artifact  # noqa: E402
+import upstream_sources  # noqa: E402  (analysis/upstream_sources.py)
 
 PILOT = Path("/allen/aind/scratch/han.hou/pilots/study30-probe")
 SRC = PILOT / "out"
@@ -72,7 +74,6 @@ def main():
     tdr = jload(SRC / "tdr_results.json")
     selected = jload(SRC / "selected_sessions.json")
     heat_meta = jload(SRC / "fig_unit_heatmaps.json")
-    views = jload(SRC / "fig_unit_views.json")
     kscan_glm = {e: jload(SRC / "kscan" / f"glmhmm_{e}_summary.json") for e in ("hurdle", "reference")}
     kscan = {p.stem: json.loads(src(p).read_text()) for p in sorted((SRC / "kscan" / "parts").glob("*.json"))}
     shuffle = {p.stem: json.loads(src(p).read_text()) for p in sorted((SRC / "shuffle" / "parts").glob("*.json"))}
@@ -144,6 +145,17 @@ def main():
         return ((Zs - Zs.mean(0)).T @ (Ps - Ps.mean(0))) / (len(samp) * Zs.std(0)[:, None] * Ps.std(0)[None, :])
 
     r3, r4 = unit_r(target[3]), unit_r(target[4])
+    # Top principal components (fitted on the same 100k-trial training sample as analysis/pilot/93_unit_views.py)
+    # and their slow share: the variance a centred 20-trial moving average keeps, computed on COMPLETE
+    # training-fold sessions (the pilot averaged over the random sample, i.e. over non-consecutive trials).
+    from sklearn.decomposition import PCA
+    pca = PCA(6).fit(Zs)
+    pcs = pd.DataFrame(pca.transform(Z[train]))
+    pcs_smooth = pcs.groupby(ses[train]).transform(lambda v: v.rolling(20, center=True, min_periods=1).mean())
+    pc_stats = {"explained_var": pca.explained_variance_ratio_.round(4).tolist(),
+                "slow_fraction": (pcs_smooth.var() / pcs.var()).round(3).tolist(),
+                "window_trials": 20, "fit_sample": "100,000 training-fold trials, numpy default_rng(0)",
+                "slow_fraction_on": "all training-fold trials, complete sessions"}
     tdr_ax = np.load(src(SRC / "tdr_axes.npz"))
     pilot_tdr = pilot_tdr_regressors(j, target[3])
     npz = {"rastermap_raw_isort": rm["raw_s0_isort"], "rastermap_smooth_isort": rm["smooth_s0_isort"],
@@ -182,8 +194,10 @@ def main():
     groups_runs = [{"type": "wandb_run", "id": f"{GRU_PROJECT}/{pilot['gru']['run_id']}"}]
     groups_runs += [{"type": "wandb_run", "id": f"{GLM_PROJECT}/{v['run_id']}"}
                     for e in ("hurdle", "reference") for v in kscan_glm[e]["per_K"].values()]
-    meta = build_meta("analysis/freeze_r1.py", WANDB_GROUPS, study_root=HERE.parent, kind="freeze",
-                      code=[__file__], sources=groups_runs + _sources)
+    meta = upstream_sources.apply(build_meta(
+        "analysis/freeze_r1.py", WANDB_GROUPS, study_root=HERE.parent, kind="freeze",
+        code=[__file__, HERE / "upstream_sources.py", HERE / "pilot" / "95_tdr.py"],
+        inputs=upstream_sources.RECORDS, sources=groups_runs + _sources))
     write_artifact(OUT_JSON, {
         "_meta": meta,
         "pilot": {"gru": pilot["gru"], "glmhmm": pilot["glmhmm"], "pilot": pilot["pilot"],
@@ -197,7 +211,7 @@ def main():
         "hist2d_k3_state1": hist2d,
         "shuffle": shuffle,
         "tdr": tdr,
-        "population": {"pc": views, "rastermap_seed_stability_spearman": rm_stability,
+        "population": {"pc": pc_stats, "rastermap_seed_stability_spearman": rm_stability,
                        "rastermap_params": {"n_clusters": 40, "n_PCs": 64, "locality": 0.0, "version": "1.0"}},
         "sessions": {"selection_criterion": selected["criterion"], "items": sess_info,
                      "npz": "analysis/frozen_r1_sessions.npz"},

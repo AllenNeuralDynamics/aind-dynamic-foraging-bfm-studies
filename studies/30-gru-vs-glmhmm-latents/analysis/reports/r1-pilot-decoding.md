@@ -102,7 +102,7 @@ K = 3 hurdle, per-state R² (S0 ignore-prone / S1 engaged strong win-stay / S2 e
 ## Result 4 — across K, the latents stay readable while every baseline collapses
 
 <!-- BEGIN result-4 -->
-Hurdle emission; pooled R² all trials / within session (reference agrees within ±0.03, figure). The untrained-GRU probe hit the iteration cap in every fold: a lower bound.
+Hurdle emission; pooled R² all trials / within session (reference agrees within ±0.03, figure). The untrained-GRU probe hit the 1,000-iteration cap in every fold (unconverged fits).
 
 | K | run | GLM-HMM lik. | latents | untrained GRU | GRU logits | history |
 |---|---|---|---|---|---|---|
@@ -146,10 +146,10 @@ Pooled R² all trials / within session; nulls as mean (max within-session value,
 | measure | value |
 |---|---|
 | TDR full model, held-out R² of the population | 0.61 |
-| unique R²: p(ignore-prone) + p(engaged, weak WS) | 0.05 + 0.03 |
-| unique R²: ignore t−1 / choice history / reward t−1 | 0.09 / 0.05 / 0.05 |
+| unique R² (drop without it): p(ignore-prone) + p(engaged, weak WS) | 0.05 + 0.03 |
+| unique R² (drop without it): ignore t−1 / choice history / reward t−1 | 0.09 / 0.05 / 0.05 |
 | cosine, choice t−1 vs ignore t−1 axes | 0.90 |
-| top 6 PCs: variance / slow share (20-trial average) | PC1 29 % / 0.41, PC2 13 % / 0.63, PC3 10 % / 0.54, PC4 8 % / 0.55, PC5 6 % / 0.25, PC6 4 % / 0.89 |
+| top 6 PCs: variance / slow share (20-trial average, complete sessions) | PC1 29 % / 0.64, PC2 13 % / 0.77, PC3 10 % / 0.64, PC4 8 % / 0.71, PC5 6 % / 0.30, PC6 4 % / 0.93 |
 | Rastermap seed stability (Spearman of embeddings, raw / smooth) | 0.55 / 0.54 |
 
 ![population](../fig_r1_population.svg)

@@ -3,25 +3,37 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_pilot_decoding.py",
-    "produced_at_pt": "2026-11-08T17:44:36-08:00",
-    "studies_git_sha": "4aa8423a633b3775b520fd83bf4c88936e11b6ca",
+    "produced_at_pt": "2026-11-11T13:28:32-08:00",
+    "studies_git_sha": "59a237d1f89b5d8be8f00fab1eada7ff06824dcc",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "hurdle@20261027-212905",
       "reference@20261027-213006"
     ],
-    "source_studies_git_shas": [],
-    "source_dispatcher_git_shas": [],
-    "source_wrapper_git_shas": [],
-    "source_foraging_models_git_shas": [],
+    "source_studies_git_shas": [
+      "41e85aab9d006dd5b62df32f586c538be5a40f00"
+    ],
+    "source_dispatcher_git_shas": [
+      "f3109058e8106181917110789f1c11ddfb3f1ba1"
+    ],
+    "source_wrapper_git_shas": [
+      "5f5301c738898e1289060635e8b656222ba32912"
+    ],
+    "source_foraging_models_git_shas": [
+      "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
+    ],
     "provenance_findings": [
-      "no launch record found for W&B group(s): hurdle@20261027-212905, reference@20261027-213006"
+      "GRU run nxd-3way-20260707-075401-80a6d102 (study 02, group nxd-3way@20260707-075401) has no launch record in study 02; it is read through its W&B artifact and recorded as a wandb_run source"
     ],
     "code": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/r1_pilot_decoding.py",
-        "sha256": "17513af130ff96a2fdd56edcfe4e203ba1c6a3f8c8a908040ee97e25be11916f"
+        "sha256": "a98c5ae3af9a20208eb5fe19ec7221c7d0aa561cea6039d741217ed18e766b35"
+      },
+      {
+        "path": "studies/30-gru-vs-glmhmm-latents/analysis/upstream_sources.py",
+        "sha256": "f0e9fd579d6c5b801b4105ddd0c72f65089b2915f49713054f6359e972ca3ae8"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -35,11 +47,19 @@
     "inputs": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1.json",
-        "sha256": "110d11a2b19294926eda29616a576edcdc5b4e9064e5a3a56880499af3c3f757"
+        "sha256": "538912651e992d179f0854ba1a8767a69370d7678b0f179520c50ce378d6e9be"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1_sessions.npz",
         "sha256": "a0ce4e0241c3d8b5ba5acff97fa0bc8973994071511e1a33028ed0c3b38d0165"
+      },
+      {
+        "path": "studies/14-glmhmm-vs-gru-heldout/variants/hurdle/launch_record/hurdle-k1-10/hpc_sweep.json",
+        "sha256": "f17a8ef515d9512c778209a555fc094cc8f5e5b93936c319b692d698a19de0ab"
+      },
+      {
+        "path": "studies/14-glmhmm-vs-gru-heldout/variants/reference/launch_record/reference-k1-10/hpc_sweep.json",
+        "sha256": "7209643f081e50443435994fe9030a5fc3de145b72dc0d367903e0fe330062e6"
       }
     ],
     "outputs": [
@@ -61,7 +81,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_kscan.svg",
-        "sha256": "a0dcd7287e8e50e636a16ee9dec2128ae413f7699e32bf106186e26cfc40812e"
+        "sha256": "fadc141e2079ec79c82747ff5fc2f0f47a44a17b58774d9c89cdaf79ce391d98"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_kdecoding.svg",
@@ -69,27 +89,27 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_shuffle.svg",
-        "sha256": "a21d4443007a7dedae72312dc995c1570fd43f4a7367e186dbe4c736dfe728eb"
+        "sha256": "8ab49d464187189fa35b350378ae2f5499e0938c7828e9f863a03d18c0fa8501"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_population.svg",
-        "sha256": "d41814f4caaee638ec2256880e94eac90c587c726f9a0c431eabd26817801c32"
+        "sha256": "0231fba848f4f0dc2defde2577d523126a177b5a9554d9e689406c5ce4c634fc"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_1.svg",
-        "sha256": "e6a1cffd2cf675c3c73ae13cda15e31888e63f44750ad36ee638dda19fa902ba"
+        "sha256": "5d09407821b4e12eef6101012bb831118632b0f1c8415ddf88ce97f27817adce"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_2.svg",
-        "sha256": "ae2314f059fce352d2473561b0b525a9489d76ef87007206b7f8f8c50f740ba3"
+        "sha256": "de3762a840ad9730c7d70806d70f4a7875fb38209425e5994ceb2ffaaa45ecb8"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_3.svg",
-        "sha256": "257b05fefd8bc39a8faed805350bfa0a6eba4b0a796a202cb156e602d9d5531c"
+        "sha256": "5b8e6404056865d796f1f2ab6ff37a0287f7f7507c0cfb42af533a74f99cc573"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_session_4.svg",
-        "sha256": "2ddfb1c6de7f0be9d3c4481ff1ba06d57ad3d6a0b6b2bcdf225d2f3f6eae2ab0"
+        "sha256": "38e80ca916348580e857fb31eda4810a9ab802c641fcdee153e1f00c341708a2"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-1",
@@ -105,7 +125,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-4",
-        "sha256": "85d520ed717294d076526e1e524c66810adad4fd8483932f7c4dbc56e8ae822d"
+        "sha256": "8e37e00a1c3950d631ea679b451ae830dc1b795284f5f11157618e0928b1095f"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-5",
@@ -113,7 +133,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-6",
-        "sha256": "e94abfbed4186d132b7d1ec72ea5f2699e29b86aedef15c901b1c9fe73a25c5b"
+        "sha256": "cc971f1e2e28defe6cdff52a8d857cc6192db90d5928a4ea5362017adc8e1bec"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-7",

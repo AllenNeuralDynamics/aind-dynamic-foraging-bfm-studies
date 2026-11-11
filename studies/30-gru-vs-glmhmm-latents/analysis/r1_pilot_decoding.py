@@ -17,7 +17,9 @@ import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
+sys.path.insert(0, str(HERE))
 from _meta import build_meta, write_artifact  # noqa: E402
+import upstream_sources  # noqa: E402  (analysis/upstream_sources.py)
 import figure_style as fs  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.colors import to_rgb  # noqa: E402
@@ -232,7 +234,7 @@ def fig_engaged(d):
 def fig_kscan(d):
     parts, glm = d["kscan"]["parts"], d["kscan"]["glmhmm"]
     Ks = list(range(2, 11))
-    fig, axes = plt.subplots(1, 4, figsize=fs.mm(183, 48))
+    fig, axes = plt.subplots(1, 4, figsize=fs.mm(183, 54))
     for ax, (m, title) in zip(axes[:3], [("pooled_r2", "pooled R², all trials"),
                                          ("pooled_r2_within", "pooled R², within session"),
                                          ("info_recovered", "information recovered")]):
@@ -255,7 +257,7 @@ def fig_kscan(d):
     ax.legend(frameon=False, fontsize=5, loc="lower right")
     fig.text(0.01, 0.01, "Solid: hurdle emission; dashed: reference emission. Same 50 mice, folds and probe at every K.",
              fontsize=5)
-    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.25, top=0.88, wspace=0.35)
+    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.33, top=0.88, wspace=0.35)
     return save(fig, "fig_r1_kscan.svg")
 
 
@@ -310,7 +312,7 @@ def fig_shuffle(d):
     parts, sh = d["kscan"]["parts"], d["shuffle"]
     metrics = [("pooled_r2", "pooled R², all trials"), ("pooled_r2_within", "pooled R², within session"),
                ("info_recovered", "information recovered")]
-    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 50))
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 60))
     x = np.arange(len(KS_NULL))
     for ax, (m, title) in zip(axes, metrics):
         for fset, off in (("latents", -0.2), ("history", 0.2)):
@@ -328,7 +330,7 @@ def fig_shuffle(d):
     axes[2].legend(frameon=False, fontsize=5, loc="center left", bbox_to_anchor=(1.02, 0.5))
     fig.text(0.01, 0.01, "Decoder trained and scored on shuffled pairs. Session swap: target from another mouse's session "
              "in the same fold; circular shift: target rotated 20–80 % within its own session.", fontsize=5)
-    fig.subplots_adjust(left=0.08, right=0.78, bottom=0.25, top=0.88, wspace=0.35)
+    fig.subplots_adjust(left=0.08, right=0.78, bottom=0.34, top=0.88, wspace=0.35)
     return save(fig, "fig_r1_shuffle.svg")
 
 
@@ -374,8 +376,9 @@ def fig_population(d, z):
     ax.barh(y, [tdr["unique_r2"][n] for n in names], color=[gcol[n] for n in names])
     ax.set_yticks(y, labs, fontsize=5)
     ax.invert_yaxis()
-    ax.set_xlabel("unique R² (held-out mice)")
-    ax.set_title(f"variance each variable\nexplains alone (full R² {fs.num(tdr['r2_full_heldout'], '.2f')})", fontsize=6)
+    ax.set_xlabel("drop in R² without it (held-out mice)")
+    ax.set_title(f"variance each variable adds beyond\nthe other 8 (full model R² {fs.num(tdr['r2_full_heldout'], '.2f')})",
+                 fontsize=6)
     fs.panel_label(ax, "c", dx_pt=-60)
     ax = at(148, 34, 30, 40)
     ax.barh(y, [tdr["corr_projection_heldout"][n] for n in names], color=[gcol[n] for n in names])
@@ -400,7 +403,7 @@ def fig_session(d, z, i):
     Zsm = pd.DataFrame(Zr).rolling(SMOOTH, center=True, min_periods=1).mean().to_numpy()
     r4 = z["unit_r_K4"]
     bstate, br = r4.argmax(1), r4.max(1)
-    W, H = 183, 236
+    W, H = 183, 252
     fig = plt.figure(figsize=fs.mm(W, H))
     at = mm_axes(fig, W, H)
     session_plot(fig, (24, H - 30, 154, 22), W, H, z, pre,
@@ -409,20 +412,20 @@ def fig_session(d, z, i):
     for ri, (M, key, title) in enumerate([(Zr, "rastermap_raw_isort", "Rastermap order, raw latents"),
                                           (Zsm, "rastermap_smooth_isort", "Rastermap order, 20-trial-smoothed latents")]):
         order = z[key]
-        y = H - 92 - ri * 62
+        y = H - 100 - ri * 64
         ax = at(x0, y, w, 56)
         ax.imshow(np.clip(M[:, order].T, -2, 2), aspect="auto", cmap="RdBu_r", vmin=-2, vmax=2,
                   extent=[t[0] - 0.5, t[-1] + 0.5, 256, 0], interpolation="nearest")
         ax.set(xticklabels=[], yticks=[0, 128, 256])
         ax.set_title(title + " (fitted on the other 40 mice, without the GLM-HMM)", loc="left")
-        axb = at(x0 - 5, y, 3, 56)
+        axb = at(x0 - 11, y, 3, 56)
         rgb = np.array([to_rgb(TAB(s)) for s in bstate[order]])
         a = np.clip(br[order] / 0.6, 0, 1)[:, None]
         axb.imshow(np.clip(a * rgb + (1 - a), 0, 1)[:, None, :], aspect="auto", extent=[0, 1, 256, 0])
         axb.set(xticks=[], yticks=[])
     for kk, K in enumerate(KS_SHOW):
         for dd, (key, lab) in enumerate([("target", f"K={K} target"), ("decoded_latents", "decoded")]):
-            ax = at(x0, H - 166 - kk * 17 - dd * 7.5, w, 6.5)
+            ax = at(x0, H - 176 - kk * 17 - dd * 7.5, w, 6.5)
             stacked(ax, t, z[f"{pre}{key}_K{K}"], K)
             ax.set_ylabel(lab, rotation=0, ha="right", va="center", labelpad=2, fontsize=5)
             if kk < len(KS_SHOW) - 1 or dd == 0:
@@ -499,7 +502,7 @@ def blocks(d, figs):
                        for f in ("latents", "untrained", "logits", "history")])
     b["result-4"] = "\n".join([
         "Hurdle emission; pooled R² all trials / within session (reference agrees within ±0.03, figure). "
-        "The untrained-GRU probe hit the iteration cap in every fold: a lower bound.", "",
+        "The untrained-GRU probe hit the 1,000-iteration cap in every fold (unconverged fits).", "",
         table(["K", "run", "GLM-HMM lik.", "latents", "untrained GRU", "GRU logits", "history"], rows), "",
         f"![K scan](../{figs['kscan']})", "", f"![decoding at K = 2, 4, 6, 10](../{figs['kdecoding']})"])
     sh = d["shuffle"]
@@ -523,14 +526,14 @@ def blocks(d, figs):
     b["result-6"] = "\n".join([
         table(["measure", "value"], [
             ["TDR full model, held-out R² of the population", f2(tdr["r2_full_heldout"])],
-            ["unique R²: p(ignore-prone) + p(engaged, weak WS)",
+            ["unique R² (drop without it): p(ignore-prone) + p(engaged, weak WS)",
              f"{f2(tdr['unique_r2']['pi_ign'])} + {f2(tdr['unique_r2']['pi_weak'])}"],
-            ["unique R²: ignore t−1 / choice history / reward t−1",
+            ["unique R² (drop without it): ignore t−1 / choice history / reward t−1",
              f"{f2(tdr['unique_r2']['prev_ign'])} / {f2(tdr['unique_r2']['side_ema'])} / {f2(tdr['unique_r2']['prev_rew'])}"],
             ["cosine, choice t−1 vs ignore t−1 axes", f2(tdr["cosine"][3][4])],
-            ["top 6 PCs: variance / slow share (20-trial average)",
+            ["top 6 PCs: variance / slow share (20-trial average, complete sessions)",
              ", ".join(f"PC{i + 1} {100 * a:.0f} % / {s:.2f}" for i, (a, s) in
-                       enumerate(zip(pc["pc_explained_var"], pc["pc_slow_fraction"])))],
+                       enumerate(zip(pc["explained_var"], pc["slow_fraction"])))],
             ["Rastermap seed stability (Spearman of embeddings, raw / smooth)",
              f"{f2(pop['rastermap_seed_stability_spearman']['raw'])} / {f2(pop['rastermap_seed_stability_spearman']['smooth'])}"],
         ]), "", f"![population](../{figs['population']})"])
@@ -563,8 +566,9 @@ def main() -> None:
         figs[f"session_{i}"] = fig_session(d, z, i)
     b = blocks(d, figs)
     write_blocks(b)
-    meta = build_meta("analysis/r1_pilot_decoding.py", WANDB_GROUPS, study_root=HERE.parent, code=[__file__],
-                      inputs=[FROZEN, SESS])
+    meta = upstream_sources.apply(build_meta(
+        "analysis/r1_pilot_decoding.py", WANDB_GROUPS, study_root=HERE.parent,
+        code=[__file__, HERE / "upstream_sources.py"], inputs=[FROZEN, SESS] + upstream_sources.RECORDS))
     k3 = d["k3"]["results"]
     summary = {
         "k3_r2_latents": k3["pred|1_gru_latents"]["logistic"]["r2"],

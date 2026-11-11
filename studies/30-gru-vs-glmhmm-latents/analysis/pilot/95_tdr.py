@@ -148,7 +148,7 @@ def main():
     ax.set_yticks(y, labs, fontsize=5)
     ax.invert_yaxis()
     ax.set_xlabel("unique R² (held-out mice)")
-    ax.set_title(f"b · population variance each variable\nexplains alone (full model R² = {fs.num(r2_full, '.2f')})",
+    ax.set_title(f"b · population variance each variable adds\nbeyond the other 8 (full model R² = {fs.num(r2_full, '.2f')})",
                  fontsize=6)
     ax = ax_at(150, 100, 30, 36)
     ax.barh(y, [corr_te[n] for n in NAMES], color=[GROUP_COLOR[n] for n in NAMES])

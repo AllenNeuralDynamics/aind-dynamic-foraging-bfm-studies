@@ -70,7 +70,10 @@ def main():
     Zs = zs(j[cols].to_numpy()[samp])
     pca = PCA(N_PC).fit(Zs)
     ses_all = j["ses_idx"].to_numpy()
-    # slow fraction of each PC: variance kept by a centred 20-trial moving average within sessions
+    # slow fraction of each PC: variance kept by a centred 20-trial moving average within sessions.
+    # NOTE (PR #137 review): the average below runs over the random sample, so a 20-row window spans many more
+    # than 20 consecutive trials. The values reported in r1 are recomputed by analysis/freeze_r1.py on complete
+    # training-fold sessions; this script is kept as run.
     pcs_s = pd.DataFrame(pca.transform(Zs))
     sm = pcs_s.groupby(ses_all[samp]).transform(lambda v: v.rolling(SMOOTH, center=True, min_periods=1).mean())
     slow_frac = (sm.var() / pcs_s.var()).to_numpy()
