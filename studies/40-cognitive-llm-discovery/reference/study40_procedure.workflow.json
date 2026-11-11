@@ -1,0 +1,386 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Study 40: how MEvolve searches, chooses and measures",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "legend": {
+      "entries": {
+        "database": {
+          "label": "Mice and reference scores"
+        },
+        "cloud": {
+          "label": "Claude"
+        },
+        "messagebus": {
+          "label": "ShinkaEvolve"
+        },
+        "backend": {
+          "label": "MEvolve evaluator"
+        },
+        "security": {
+          "label": "Rule fixed before the search"
+        }
+      }
+    },
+    "output": "study40_procedure.html"
+  },
+  "lanes": [
+    {
+      "id": "shinka",
+      "label": "ShinkaEvolve (search)"
+    },
+    {
+      "id": "claude",
+      "label": "Claude (proposer)"
+    },
+    {
+      "id": "mevolve",
+      "label": "MEvolve (check, fit, score)"
+    },
+    {
+      "id": "rules",
+      "label": "Choose and measure"
+    },
+    {
+      "id": "mice",
+      "label": "Mice (four cohorts)"
+    }
+  ],
+  "phases": [
+    {
+      "id": "p_split",
+      "label": "1 Split + seed",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "p_loop",
+      "label": "2 Search loop",
+      "fromCol": 1,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "p_choose",
+      "label": "3 Simplify + choose",
+      "fromCol": 4,
+      "toCol": 4
+    },
+    {
+      "id": "p_measure",
+      "label": "4 Measure once",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "dashed"
+    }
+  ],
+  "mainPath": [
+    "propose",
+    "checks",
+    "eval_g",
+    "eval_v",
+    "archive",
+    "simplify",
+    "prereg",
+    "gap"
+  ],
+  "nodes": [
+    {
+      "id": "seeds",
+      "lane": "shinka",
+      "col": 0,
+      "type": "messagebus",
+      "label": "5 seeded islands",
+      "sublabel": "template + 4 literature"
+    },
+    {
+      "id": "archive",
+      "lane": "shinka",
+      "col": 3,
+      "type": "messagebus",
+      "label": "Island archive",
+      "sublabel": "keeps elites by score"
+    },
+    {
+      "id": "simplify",
+      "lane": "shinka",
+      "col": 4,
+      "type": "messagebus",
+      "label": "Stage 2: simplify",
+      "sublabel": "fit floors 90 · 75 · 50%"
+    },
+    {
+      "id": "propose",
+      "lane": "claude",
+      "col": 1,
+      "type": "cloud",
+      "label": "Claude proposes",
+      "sublabel": "program + hypothesis"
+    },
+    {
+      "id": "feedback",
+      "lane": "claude",
+      "col": 2,
+      "type": "cloud",
+      "label": "Feedback Claude reads",
+      "sublabel": "V: 1 number · G: details"
+    },
+    {
+      "id": "checks",
+      "lane": "mevolve",
+      "col": 1,
+      "type": "backend",
+      "label": "Static checks",
+      "sublabel": "≤ 12 params, ≤ 6 latents"
+    },
+    {
+      "id": "eval_g",
+      "lane": "mevolve",
+      "col": 2,
+      "type": "backend",
+      "label": "Evaluate on G",
+      "sublabel": "2-level EM, fit even, score odd"
+    },
+    {
+      "id": "eval_v",
+      "lane": "mevolve",
+      "col": 3,
+      "type": "backend",
+      "label": "Score on V",
+      "sublabel": "same fit; held-out lik. ×100"
+    },
+    {
+      "id": "refs",
+      "lane": "mevolve",
+      "col": 5,
+      "type": "database",
+      "label": "Reference scores",
+      "sublabel": "GRU ceiling · HB-CTT floor"
+    },
+    {
+      "id": "prereg",
+      "lane": "rules",
+      "col": 4,
+      "type": "security",
+      "label": "Pre-register 4",
+      "sublabel": "top 5 on S, fingerprint gate"
+    },
+    {
+      "id": "gap",
+      "lane": "rules",
+      "col": 5,
+      "type": "security",
+      "label": "Gap closed",
+      "sublabel": "(P − HB-CTT) / (GRU − HB-CTT)"
+    },
+    {
+      "id": "pool",
+      "lane": "mice",
+      "col": 0,
+      "type": "database",
+      "label": "614 training mice",
+      "sublabel": "stratified draw, seed 0"
+    },
+    {
+      "id": "gen",
+      "lane": "mice",
+      "col": 2,
+      "type": "database",
+      "label": "Generation 48",
+      "sublabel": "feed the feedback"
+    },
+    {
+      "id": "val",
+      "lane": "mice",
+      "col": 3,
+      "type": "database",
+      "label": "Validation 48",
+      "sublabel": "give the score"
+    },
+    {
+      "id": "sel",
+      "lane": "mice",
+      "col": 4,
+      "type": "database",
+      "label": "Selection 100",
+      "sublabel": "used once, to choose"
+    },
+    {
+      "id": "test",
+      "lane": "mice",
+      "col": 5,
+      "type": "database",
+      "label": "Test 149",
+      "sublabel": "146 shared with the GRU"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_seed",
+      "from": "seeds",
+      "to": "archive",
+      "label": "generation 0",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "id": "e_parent",
+      "from": "archive",
+      "to": "propose",
+      "label": "parent + inspirations",
+      "variant": "emphasis",
+      "role": "return"
+    },
+    {
+      "id": "e_check",
+      "from": "propose",
+      "to": "checks",
+      "variant": "default"
+    },
+    {
+      "id": "e_fit",
+      "from": "checks",
+      "to": "eval_g",
+      "label": "pass",
+      "variant": "default"
+    },
+    {
+      "id": "e_score",
+      "from": "eval_g",
+      "to": "eval_v",
+      "variant": "default"
+    },
+    {
+      "id": "e_rank",
+      "from": "eval_v",
+      "to": "archive",
+      "label": "score",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e_diag",
+      "from": "eval_g",
+      "to": "feedback",
+      "label": "diagnostics",
+      "variant": "default",
+      "role": "branch"
+    },
+    {
+      "id": "e_prompt",
+      "from": "feedback",
+      "to": "propose",
+      "label": "next prompt",
+      "variant": "emphasis",
+      "role": "return"
+    },
+    {
+      "id": "e_draw",
+      "from": "pool",
+      "to": "gen",
+      "label": "draw G · V · S",
+      "variant": "default",
+      "role": "branch"
+    },
+    {
+      "id": "e_gen",
+      "from": "gen",
+      "to": "eval_g",
+      "variant": "default",
+      "role": "branch"
+    },
+    {
+      "id": "e_val",
+      "from": "val",
+      "to": "eval_v",
+      "variant": "default",
+      "role": "branch"
+    },
+    {
+      "id": "e_elite",
+      "from": "archive",
+      "to": "simplify",
+      "label": "elites",
+      "variant": "default"
+    },
+    {
+      "id": "e_cand",
+      "from": "simplify",
+      "to": "prereg",
+      "label": "candidates",
+      "variant": "default"
+    },
+    {
+      "id": "e_sel",
+      "from": "sel",
+      "to": "prereg",
+      "label": "rescore",
+      "variant": "default",
+      "role": "branch"
+    },
+    {
+      "id": "e_once",
+      "from": "prereg",
+      "to": "gap",
+      "label": "score once",
+      "variant": "security"
+    },
+    {
+      "id": "e_test",
+      "from": "test",
+      "to": "gap",
+      "variant": "default",
+      "role": "branch"
+    },
+    {
+      "id": "e_refs",
+      "from": "refs",
+      "to": "gap",
+      "variant": "dashed",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "How proposals grow",
+      "items": [
+        "Five islands, each from its own seed: a near-empty template, Miller-RHG, Lopez-DoubleTrace, Lebedeva-PR, Eckstein-BI (ranked on validation mice)",
+        "Each proposal edits a parent from its island's archive, with other elites as inspirations: a diff, a full rewrite, or a crossover",
+        "Claude Opus 5.5 at effort medium; one repair attempt when an edit does not apply",
+        "Islands evolve apart; every 10 generations, 10% of programs migrate"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "What Claude sees",
+      "items": [
+        "Prompt: the task, the 19 literature models as a library, the limits",
+        "Validation mice: one number per program, its score",
+        "Generation mice: score by stage group × task variant",
+        "Switch-probability gaps: after losses, after the last 1–3 trials, by reward × run length",
+        "Fitted parameters: median [10th–90th percentile], flagged when most mice sit at a bound"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Rules fixed before the search",
+      "items": [
+        "Stop at $450, or after 2,000 proposals with no rise > 0.03 over the anchor",
+        "Pre-register the best program and the best at each floor; each is the best of 5 on selection mice",
+        "Fingerprint gate: skip a candidate whose replay or rollout gap exceeds the best literature model's",
+        "Test mice are scored once; nothing scored on them feeds back"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Headline",
+      "items": [
+        "Gap closed on the 146 test mice shared with the GRU",
+        "GRU = ceiling, HB-CTT = best hierarchical cognitive baseline; read from studies 01 and 13",
+        "Every mouse is fitted on its even sessions and scored on its odd sessions, as every comparator was"
+      ]
+    }
+  ]
+}

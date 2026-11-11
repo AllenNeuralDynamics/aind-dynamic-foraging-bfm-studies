@@ -1,0 +1,40 @@
+{
+ "freeze_manifest_sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0",
+ "seed": 0,
+ "drawn_with_sizes": {
+  "generation": 48,
+  "validation": 48,
+  "selection": 100,
+  "smoke_generation": 8,
+  "smoke_validation": 8
+ },
+ "note": "mevolve.cohorts.draw with these sizes in this order; the smoke cohorts come after the 48/48/100 draft cohorts, so they are disjoint from them. Only the smoke cohorts are kept here.",
+ "excluded": [
+  "764791",
+  "808057",
+  "823164"
+ ],
+ "strata": "curriculum x session-count thirds",
+ "cohorts": {
+  "smoke_generation": [
+   "663374",
+   "699364",
+   "777091",
+   "844917",
+   "744331",
+   "810888",
+   "795392",
+   "746729"
+  ],
+  "smoke_validation": [
+   "647695",
+   "694688",
+   "781898",
+   "756346",
+   "744744",
+   "741213",
+   "782229",
+   "732163"
+  ]
+ }
+}

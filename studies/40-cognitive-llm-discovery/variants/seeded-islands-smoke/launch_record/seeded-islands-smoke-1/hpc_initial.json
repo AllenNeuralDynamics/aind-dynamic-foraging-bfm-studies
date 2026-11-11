@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_initial",
+    "produced_at_pt": "2026-11-05T01:18:16-08:00",
+    "studies_git_sha": "a6c3f29cb6965174b0b5a0677770388929b336da",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "seeded-islands-smoke@20261105-011815"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): seeded-islands-smoke@20261105-011815"
+    ]
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "seeded-islands-smoke@20261105-011815",
+  "label": "seeded-islands-smoke-1",
+  "note": "Study 40's 100-proposal search on real mice in the seeded-islands configuration (5 islands: template, Miller-RHG, Lopez-DoubleTrace, Lebedeva-PR, Eckstein-BI; library in the prompt; Claude Sonnet 5.5 at effort medium; $20 cap): should give node time and dollars per proposal on real mice for the seeded-islands compute plan, and run the production configuration end to end (repeat cache, observed embeddings, archive).",
+  "revisions": {
+    "studies": "a6c3f29cb6965174b0b5a0677770388929b336da",
+    "mevolve": "02b955824b8c1e77330fb03dc507da8615564890"
+  },
+  "manifests": [
+    "search.sbatch"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_job",
+      "id": "27629852"
+    }
+  ],
+  "command": "sbatch --export=ALL,VARIANT_DIR=<studies checkout at a6c3f29c>/studies/40-cognitive-llm-discovery/variants/seeded-islands-smoke,MEVOLVE_SRC=<mevolve checkout at 02b95582>/src,LAUNCH_ID=20261105-011815,LAUNCH_LABEL=seeded-islands-smoke-1,STUDIES_SHA=a6c3f29cb6965174b0b5a0677770388929b336da,MEVOLVE_SHA=02b955824b8c1e77330fb03dc507da8615564890 search.sbatch",
+  "data": {
+    "source": "freeze",
+    "config": "mice_snapshot_scaling",
+    "snapshot": "20260603",
+    "uri": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+    "manifest_sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search",
+    "lock_sha256": "c35fd7d342ab4090194ae663bafd0e15e9964730a329b467dbb7ce27eb6c0006"
+  }
+}

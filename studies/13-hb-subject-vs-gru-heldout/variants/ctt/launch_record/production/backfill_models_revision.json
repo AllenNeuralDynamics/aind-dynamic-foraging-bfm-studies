@@ -1,0 +1,38 @@
+{
+ "_meta": {
+  "schema_version": 2,
+  "produced_by": "hand-written backfill (study 13 session)",
+  "produced_at_pt": "2026-10-28T09:00:00-07:00",
+  "wandb_groups": [
+   "ctt@20261028-003745"
+  ]
+ },
+ "kind": "backfill",
+ "platform": "none",
+ "wandb_group": "ctt@20261028-003745",
+ "label": "production-models-revision",
+ "note": "Records the foraging-models commit the launch ran, which the launcher could not read (PyPI install, no direct_url.json). Nothing was resubmitted; the original hpc_sweep.json is unchanged.",
+ "job_refs": [],
+ "supersedes": [],
+ "revisions": {
+  "studies": "c92a5669b7e065e74c16beb4cc62d353cc104e44",
+  "dispatcher": "b393a211541cff84ee7ce456d57b2269f639b3cf",
+  "wrapper": "1bf8e302ee85f71ab9ba5ec1f31076aa72e5e254",
+  "foraging_models": "0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112"
+ },
+ "trigger": {
+  "symptom": "hpc_sweep.json has foraging_models_git_commit null and the warning 'version 0.26.0 in the runtime env was not installed from git'.",
+  "cause": "aind-dynamic-foraging-models 0.26.0 was pip-installed from PyPI into the shared env (dynamic-foraging-bfm-cpu) at 2026-10-27 23:44 PT, so no VCS commit was recorded.",
+  "evidence": {
+   "release": "PyPI 0.26.0 is tag v0.26.0 = commit 0c95b4b85c5f3d16c30d7dd297f3f2ee1325f112 (contains models#87, merge b1fd000).",
+   "file_match": "All 47 .py files of the installed package equal the v0.26.0 tree byte for byte (sha256), checked 2026-10-28 PT.",
+   "env_unchanged": "dist-info written 2026-10-27 23:44:39 PT, before this launch (2026-10-28 00:37 PT); no later install."
+  }
+ },
+ "deviations": {},
+ "cost": {},
+ "manifests": [
+  "sweep_hpc_per_subject.yaml",
+  "sweep_submitted.yaml"
+ ]
+}

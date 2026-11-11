@@ -1,0 +1,188 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/f_engagement_embedding.py",
+    "produced_at_pt": "2026-10-29T04:17:45-07:00",
+    "studies_git_sha": "e447ced9fe48bc5cccb8a5c2304ce9c38dbcdd48",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/f_engagement_embedding.py",
+        "sha256": "ea66734ae1e01499acb504a6652e02d3cbee4b5aa5b3ee9f07bfadadf6c15402"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-61a145ca"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/trial_states_C3-s0.parquet",
+        "sha256": "3f4c2b2b055b041af7565cb4a12a73f6e0f8923ad718314fe4bd4fb2992b5311"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/index.json",
+        "sha256": "5491e793ad7eb84f29851fee930930325c1cb7fd2268c3a968a454050011ce96"
+      },
+      {
+        "type": "file",
+        "id": "studies/51-gru-dynamics-embedding-ignore/analysis/_cache/models/C3-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "e14ef88f14bd11a4023ff5df4d08a879239bacc20f8302aca8ea616f1cddd118"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/51-gru-dynamics-embedding-ignore/analysis/f_engagement_embedding.json",
+        "sha256": "d1e1cc20c9e0b095101208efab281d6fd09fd544cccf10c18f7f557cafefcd90"
+      }
+    ]
+  },
+  "n_mice": 614,
+  "min_ignored_steps_per_mouse": 20,
+  "feature_summary": {
+    "ignore rate": {
+      "count": 614.0,
+      "mean": 0.0906,
+      "std": 0.0752,
+      "min": 0.0047,
+      "25%": 0.0369,
+      "50%": 0.0711,
+      "75%": 0.1189,
+      "max": 0.444
+    },
+    "mean bout length": {
+      "count": 614.0,
+      "mean": 2.1911,
+      "std": 0.6728,
+      "min": 1.0256,
+      "25%": 1.7354,
+      "50%": 2.0978,
+      "75%": 2.4765,
+      "max": 6.3222
+    },
+    "P(stay disengaged)": {
+      "count": 614.0,
+      "mean": 0.5107,
+      "std": 0.1383,
+      "min": 0.0263,
+      "25%": 0.4294,
+      "50%": 0.5286,
+      "75%": 0.6025,
+      "max": 0.8459
+    },
+    "late − early ignore rate": {
+      "count": 614.0,
+      "mean": 0.1201,
+      "std": 0.098,
+      "min": -0.0435,
+      "25%": 0.0471,
+      "50%": 0.0964,
+      "75%": 0.173,
+      "max": 0.5065
+    }
+  },
+  "decode_cv_r2": {
+    "ignore rate": {
+      "C3": 0.6798651130503701,
+      "C": 0.011434152315609292
+    },
+    "mean bout length": {
+      "C3": 0.12662290457995162,
+      "C": -0.01158807034977749
+    },
+    "P(stay disengaged)": {
+      "C3": 0.1535588036623866,
+      "C": -0.013173192182262872
+    },
+    "late − early ignore rate": {
+      "C3": 0.44528541617357353,
+      "C": -0.00932082404858181
+    }
+  },
+  "mouse_dynamics_summary": {
+    "P(ignore) after 1 ignore": {
+      "count": 614.0,
+      "mean": 0.1713,
+      "std": 0.0971,
+      "min": 0.0278,
+      "25%": 0.1027,
+      "50%": 0.15,
+      "75%": 0.2145,
+      "max": 0.5756
+    },
+    "P(ignore) after 3 ignores": {
+      "count": 614.0,
+      "mean": 0.5127,
+      "std": 0.0421,
+      "min": 0.4039,
+      "25%": 0.4854,
+      "50%": 0.5093,
+      "75%": 0.5357,
+      "max": 0.664
+    },
+    "P(ignore) at the ignore attractor": {
+      "count": 614.0,
+      "mean": 0.9766,
+      "std": 0.0022,
+      "min": 0.9681,
+      "25%": 0.9752,
+      "50%": 0.977,
+      "75%": 0.9782,
+      "max": 0.9813
+    },
+    "P(ignore) 3 choices after the attractor": {
+      "count": 614.0,
+      "mean": 0.3571,
+      "std": 0.0815,
+      "min": 0.2285,
+      "25%": 0.3074,
+      "50%": 0.3362,
+      "75%": 0.3742,
+      "max": 0.6433
+    }
+  },
+  "corr_mouse_dynamics_vs_observed": {
+    "P(ignore) after 1 ignore": {
+      "ignore rate": 0.8965867033217259,
+      "mean bout length": 0.29984877153435713,
+      "P(stay disengaged)": 0.33302399464952653,
+      "late − early ignore rate": 0.5358096791205741
+    },
+    "P(ignore) after 3 ignores": {
+      "ignore rate": 0.4683089441591423,
+      "mean bout length": 0.4191138615479712,
+      "P(stay disengaged)": 0.39336563156974275,
+      "late − early ignore rate": 0.3456652547214796
+    },
+    "P(ignore) at the ignore attractor": {
+      "ignore rate": -0.050410081515240034,
+      "mean bout length": 0.12883126636411046,
+      "P(stay disengaged)": 0.15546897312916377,
+      "late − early ignore rate": 0.1794645003194884
+    },
+    "P(ignore) 3 choices after the attractor": {
+      "ignore rate": 0.3463194436279916,
+      "mean bout length": 0.18945383111858413,
+      "P(stay disengaged)": 0.20119253134925932,
+      "late − early ignore rate": 0.2224263100674226
+    }
+  },
+  "attractor_max_residual": 0.0028174713691192232,
+  "n_iter_attractor": 300,
+  "dynamics": "mouse's mean session context; start = mouse's mean engaged state; ignore input (2, 0) repeated; recovery = unrewarded choices of the side favoured at the attractor"
+}

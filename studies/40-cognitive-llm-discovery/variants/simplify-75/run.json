@@ -1,0 +1,60 @@
+{
+ "results_dir": "$TMPDIR/search",
+ "out_dir": "$MEVOLVE_LAUNCH_DIR/search",
+ "freeze": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+ "cohorts": "$STUDY_DIR/reference/cohorts_seed0.json",
+ "generation": "generation",
+ "validation": "validation",
+ "workers": 12,
+ "max_evaluation_jobs": 48,
+ "max_proposal_jobs": 24,
+ "max_em": 20,
+ "n_draws": 2048,
+ "model": "claude-opus-5-5",
+ "effort": "medium",
+ "max_usd": 40.0,
+ "max_tokens": 32000,
+ "max_patch_attempts": 2,
+ "n_proposals": 100000,
+ "max_params": 12,
+ "max_latent": 6,
+ "snapshot_minutes": 10,
+ "snapshot_dir": "$MEVOLVE_LAUNCH_DIR/snapshot",
+ "seed_cache": "/allen/aind/scratch/han.hou/mevolve/runs/simplify_seed_cache",
+ "library_in_prompt": false,
+ "migration_interval": 10,
+ "migration_rate": 0.1,
+ "repeat_cache": true,
+ "embedding_python": "/allen/aind/scratch/han.hou/miniforge3/envs/mm-neuro/bin/python",
+ "eval_launch": "job",
+ "stage_dir": "$MEVOLVE_LAUNCH_DIR/stage",
+ "eval_job_args": [
+  "--partition=aind",
+  "--mem-per-cpu=1500M"
+ ],
+ "eval_queue_time": "24:00:00",
+ "wandb": {
+  "entity": "NeuralDynamics",
+  "project": "dfbfm-mevolve",
+  "group": "$WANDB_GROUP",
+  "name": "simplify-75",
+  "mode": "online",
+  "notes": "Study 40 simplification at the 75% floor (ADR 0005, MEvolve ADR 0006): lower Halstead effort while the validation score stays at or above the floor; seeds are the selection candidates that reach it"
+ },
+ "launch": {
+  "label": "$LAUNCH_LABEL",
+  "launch_id": "$LAUNCH_ID",
+  "studies_sha": "$STUDIES_SHA",
+  "mevolve_sha": "$MEVOLVE_SHA"
+ },
+ "mode": "simplify",
+ "floor": 72.729623,
+ "seed_programs": [
+  "$STUDY_DIR/analysis/selection/programs/rank3_e3819885.py",
+  "$STUDY_DIR/analysis/selection/programs/rank1_a13b12cf.py",
+  "$STUDY_DIR/analysis/selection/programs/rank2_3fd7f0c4.py",
+  "$STUDY_DIR/analysis/selection/programs/rank4_5bb3332a.py",
+  "$STUDY_DIR/analysis/selection/programs/rank5_f0e71d90.py"
+ ],
+ "stop_window_simplify": 300
+}

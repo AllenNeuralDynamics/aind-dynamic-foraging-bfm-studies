@@ -31,13 +31,15 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "util"))
 from _meta import build_meta, write_artifact  # noqa: E402
+sys.path.insert(0, str(HERE))
+import final_runs  # noqa: E402
 
 # The code the production runs used (launch_record/production/hpc_sweep.json).
 CODE_ROOT = Path("/home/han.hou/code/wt/hpc13b")
 sys.path.insert(0, str(CODE_ROOT / "aind-dynamic-foraging-bfm-wrapper" / "code"))
 
-WANDB_GROUPS = ["hattori@20261026-002131"]
-RUNS = HERE / "hattori_runs.json"
+WANDB_GROUPS = final_runs.PRODUCTION_GROUPS + final_runs.FINAL_GROUPS
+RUNS = final_runs.FINAL_RUNS          # the final set (ADR 0004); draws via final_runs.draws_run
 LAUNCH = HERE.parent / "variants" / "hattori" / "launch_record" / "production" / "hpc_sweep.json"
 ARTIFACT_ROOT = Path("/home/han.hou/outputs/disrnn/hb_artifacts")
 OUT = HERE / "hattori_plugin.json"
@@ -97,13 +99,14 @@ def main() -> None:
     from utils.multisubject import compute_train_eval_session_ids
 
     choices, rewards, session_ids = _extract_subject_sessions(_heldout_frame())
-    runs = {r["subject_id"]: r for r in json.loads(RUNS.read_text())["rows"] if r["state"] == "finished"}
+    runs = {r["subject_id"]: r for r in final_runs.final_rows()}
     rows, sources = [], []
     for subject in sorted(runs):
         key = next(k for k in session_ids if str(k) == subject)
         _, eval_ids = compute_train_eval_session_ids(session_ids[key], EVAL_EVERY_N)
         index_of = {sid: i for i, sid in enumerate(session_ids[key])}
-        run_dir = ARTIFACT_ROOT / runs[subject]["wandb_run_id"]
+        draws_run = final_runs.draws_run(runs[subject])
+        run_dir = ARTIFACT_ROOT / draws_run
         draws_path = run_dir / "heldout_two_level_draws.npz"
         fit_json = run_dir / "heldout_two_level_fit.json"   # beta_max sets the temperature scale
         beta_max = json.loads(fit_json.read_text())["beta_max"]
@@ -121,6 +124,7 @@ def main() -> None:
         digest = hashlib.sha256(draws_path.read_bytes()).hexdigest()
         fit_digest = hashlib.sha256(fit_json.read_bytes()).hexdigest()
         rows.append({"subject_id": subject, "wandb_run_id": runs[subject]["wandb_run_id"],
+                     "draws_run_id": draws_run,
                      "draws_sha256": digest, "fit_json_sha256": fit_digest, "beta_max": beta_max,
                      "theta_unconstrained": theta.tolist(),
                      "plugin_log_lik_sum": total, "zero_spread_log_lik_sum": zero_spread,
@@ -130,7 +134,8 @@ def main() -> None:
     data = json.loads(LAUNCH.read_text())["data"]
     sources.append({"type": "url", "id": data["uri"], "sha256": data["manifest_sha256"]})
     meta = build_meta("analysis/freeze_plugin.py", WANDB_GROUPS, study_root=HERE.parent,
-                      kind="freeze", code=[__file__], inputs=[RUNS, LAUNCH], sources=sources)
+                      kind="freeze", code=[__file__, final_runs.__file__],
+                      inputs=[RUNS, final_runs.PRODUCTION_RUNS, LAUNCH], sources=sources)
     write_artifact(OUT, {"_meta": meta, "theta": "posterior median of mu_p per parameter",
                          "rows": rows}, outputs=[])
     print(f"froze plug-in scores for {len(rows)} subjects to {OUT}")

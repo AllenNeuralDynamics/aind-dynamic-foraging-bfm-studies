@@ -1,0 +1,54 @@
+# Study 14 / refit-prior (round 2): per-mouse refits with the weight prior centred on the global
+# fit at four prior SDs, crossed with a transition prior that is off (round 1's uniform
+# Dirichlet) or centred on the global transition matrix at three strengths, for K = 1 .. 10 and
+# both emissions (notes.md). transition_strength_subject = null is round 1's transition prior.
+# No global fit runs: each cell loads round 1's global fit for its (emission, K) from
+# global_fit_dir (a read-only copy of hurdle@20261027-212905 and reference@20261027-213006,
+# listed with sha256s in MANIFEST.json there and in this variant's global_fits_manifest.json).
+# The loader refuses a file whose global settings differ from this run's, so n_lags,
+# num_restarts and init_noise below must stay at round 1's values.
+#   data  -> dispatcher code/config/data/mice_snapshot_scaling.yaml (snapshot 20260603),
+#            exactly round 1's data overrides
+#   model -> dispatcher code/config/model/glmhmm.yaml
+# wandb.project must be in the command: the launcher sets only the group.
+
+entity: AIND-disRNN
+project: mice_glmhmm
+name: refit-prior
+
+method: grid
+metric:
+  name: glmhmm/select/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - data.ignore_policy=include
+  - +data.cols_to_retain=[trial,subject_id,ses_idx,animal_response,earned_reward,current_stage_actual]
+  - model=glmhmm
+  - model.n_lags=10  # round 1's L; the saved global fits are L = 10
+  - model.num_restarts=20  # round 1's value; checked against the saved fit, no restarts run
+  - model.subject_prior_center=global
+  - model.global_fit_dir=/allen/aind/scratch/han.hou/outputs/glmhmm_global_fits/study14-round1
+  - model.num_workers=10  # refits 10 at a time
+  - model.save_posteriors=false  # the report's freeze recomputes posteriors from fit.json
+  - seed=0
+  - wandb.entity=AIND-disRNN
+  - wandb.project=mice_glmhmm
+  - ${args_no_hyphens}
+
+parameters:
+  model.emission:
+    values: [hurdle, reference]
+  model.num_states:
+    values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  model.prior_sigma_subject:
+    values: [0.25, 0.5, 1.0, 2.0]
+  # Pseudo-transitions per row (a mouse has ~8,000 trials). "null" is a string on purpose: the
+  # W&B agent writes a YAML null as `=None`, which Hydra reads as the string "None", while
+  # `=null` reaches the trainer as None (round 1's transition prior).
+  model.transition_strength_subject:
+    values: ["null", 10.0, 100.0, 1000.0]

@@ -4,7 +4,9 @@ id: 14-glmhmm-vs-gru-heldout
 question: Where does a GLM-HMM over left/right/ignore, refit on each held-out mouse's
   context sessions, land against the 3-way GRU on the same held-out trials, and how
   many latent states does it need?
-status: planned
+status: active
+verdict: Below the 3-way GRU at every K. Best is hurdle K = 10 with refits pooled toward the global fit
+  (0.6208); the winning K depends on the scoring rule and sits at the grid's edge (draft).
 wandb:
   entity: AIND-disRNN
   project: mice_glmhmm
@@ -78,8 +80,16 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
 | `lag-scan` | K = 1, history length L ∈ {3, 5, 7, 10}, both emissions | which L the K grid uses |
 | `hurdle` | K = 1 … 10, hurdle emission, chosen L | held-out score vs K; states |
 | `reference` | K = 1 … 10, reference emission, chosen L | the same, for Faeze's 3-class `ssm` parameterisation (ignore as the zero-logit class) |
+| `refit-prior` | refit prior centred on the global fit, σ ∈ {0.25, 0.5, 1, 2}, K = 1 … 10, both emissions; reuses round 1's global fits | whether a centred refit stops scoring below the global fit alone, and where K peaks then |
 
 ## Verdict
 
-None yet: no variant has been launched. Launches wait for the code PRs to merge and the models
-package to be released.
+Draft ([r1](analysis/reports/r1-round-1.md), [r2](analysis/reports/r2-refit-prior.md)); all four
+variants have run.
+
+- Round 1: the GLM-HMM stays below the 3-way GRU; the best is the hurdle emission at K = 3 (0.6148).
+  The K that wins depends on the scoring rule: refits peak at 3, the global fit rises to 10. States
+  last whole sessions.
+- Round 2: refits pooled toward the global fit beat the global fit alone at every K, and the best
+  rises to hurdle K = 10 (0.6208), still below the GRU; the pick sits at the grid's edges.
+- Open: `hurdle-full`, input-driven transitions, and the state-spread analysis (#70); see issue #48.

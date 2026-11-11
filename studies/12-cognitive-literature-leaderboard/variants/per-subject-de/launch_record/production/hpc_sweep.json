@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-11-01T01:22:00-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "per-subject-de@20261101-012148",
+  "label": "production",
+  "note": "Study 12 production: the 19 literature models in aind-dynamic-foraging-models (17 FORAGER_PRESETS + 2 Costa variants), each fit per subject by differential evolution on all 763 cohort subjects (614 training pool + 149 held-out) with study 01 r8's protocol and data. Gives the leaderboard of literature models on our subjects for study 40's seed choice and MEvolve's parity reference; the re-fit Hattori2019, Bari2019 and CompareToThreshold should reproduce study 01 r8 per subject. Uses the PyPI-installed foraging-models 0.26.0 (= v0.26.0, 0c95b4b, byte-checked); env unchanged.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "3zwvpcce"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27565016"
+    }
+  ],
+  "revisions": {
+    "studies": "fab284da138461ef71c7a0d9f42fc4496f31afca",
+    "dispatcher": "6450af3c1505abf7806af4e46a62a48df56c75ac",
+    "wrapper": "331d373c128682c2d8f766e344f9ba05f228d5cf"
+  },
+  "manifests": [
+    "sweep_hpc.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 19,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e86b63bf5f63a0f94fe8a4e2e14ecef0ddd320fb3ec8a30ccb22cc6ea930dd41"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "3zwvpcce",
+  "wandb_sweep_path": "NeuralDynamics/aind-dynamic-foraging-model/3zwvpcce",
+  "sweep_url": "https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce",
+  "slurm_array_job_id": "27565016",
+  "slurm_autostop_job_id": "27565017",
+  "n_array_tasks": 19,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "6450af3c1505abf7806af4e46a62a48df56c75ac",
+  "studies_git_commit": "fab284da138461ef71c7a0d9f42fc4496f31afca",
+  "studies_git_branch": "study/12-cognitive-literature-leaderboard",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "6450af3c1505abf7806af4e46a62a48df56c75ac",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [
+    "foraging-models: version 0.26.0 in the runtime env was not installed from git, so no commit is recorded"
+  ],
+  "wrapper_git_commit": "331d373c128682c2d8f766e344f9ba05f228d5cf",
+  "foraging_models_git_commit": null,
+  "foraging_models_version": "0.26.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/studies-12/studies/12-cognitive-literature-leaderboard/variants/per-subject-de/sweep_hpc.yaml",
+  "created_utc": "2026-11-01T08:22:00.268091+00:00"
+}

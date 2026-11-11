@@ -1,0 +1,14 @@
+# Reports — Study 50
+
+| report | question | status | headline |
+|---|---|---|---|
+| [r1](r1-first-look.md) | first-look | draft | Model matches the animals on phase-B summaries; PC1 = choice preference, PC2 = last outcome (4 regions), PC5 = within-session drift; B5's post-reward persistence is environment-confounded (corrected 2026-10-19) |
+| [r2](r2-vs-animals-and-rl.md) | vs-animals-and-rl | draft | GRU history kernels match the animals (max gap 0.009) where no RL model does; better than all 3 RL fits in 100% of mice, edge grows with predicted switch probability; RL ΔQ on PC1, ΣQ on PC2 (corrected 2026-10-19); RL misses persistence after losses (Hattori) or the return after a failed switch (Bari, CTT), the GRU is calibrated within 0.2 pp |
+| [r3](r3-dynamics.md) | dynamics | draft | Input-driven jumps between four regions; one stable attractor per constant input on the chosen side; slow modes (τ ≈ 120–650 trials) mostly orthogonal to the readout; context sets attractor depth, not position (F2: depth tracks persistence, bias shifts attractors) |
+| [r4](r4-subspaces.md) | subspaces | draft | ~90% of state variance is readout-null; inputs land on their stored axes; ablations: reward axis carries the one-trial reward effect, the readout coordinate the memory beyond two trials; a 1-d carried state keeps the model at 0.713 |
+| [r5](r5-embedding.md) | embedding | draft (partial) | r10 replicates on C; embedding carries separate bias and gain+persistence axes (not task mix); GRU tracks within-mouse changes to the noise ceiling, average gain shift opposite in sign (corrected 2026-10-19) |
+| [r6](r6-integration-axis.md) | integration-axis | draft | One shared value coordinate carried through every jump between the four last-input clusters (slope 0.66–0.80, R² ≥ 0.93), along two mirror-tilted lobe axes; delta-rule-like relaxation toward each input's attractor; a distilled 1-variable model tracks v (corr 0.985) but scores 0.718 vs 0.734; unlike ΔQ, v is Markov through switches; a second, unrewarded-choice coordinate (choice×reward axis) closes a third of the gap |
+| [r7](r7-robustness.md) | robustness | draft (G1, G3) | C seeds 1–2 are the same model up to a basis change (logit r 0.998, v r 0.99, state CCA ≥ 0.88); 14/18 headline claims hold in all seeds; seed 1 carries v less cleanly through switches; embedding PC numbering, L+ bistability and slow-mode τ are seed-specific |
+| [r8](r8-gru-vs-q-learning.md) | gru-vs-q-learning | draft | In Q coordinates the GRU is delta-rule-like after rewards but keeps the chosen value after losses; on scripted histories it returns after failed switches in proportion to the run left behind and builds persistence through losses on a new side |
+
+**Overview of all analyses:** [SUMMARY.md](../../SUMMARY.md) — high-level summary plus how each analysis was done and what it found.

@@ -1,0 +1,254 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/i5_mouse_dynamics.py",
+    "produced_at_pt": "2026-10-28T05:57:22-07:00",
+    "studies_git_sha": "b7ce38f19796a4f26d06fef1e2f3acd45914f363",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/i5_mouse_dynamics.py",
+        "sha256": "2124f676460f8ae3886869db7052d14ddc32cd29ba19104ccae2451f5176a8ea"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c3820c43"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/seeds/C-s1/i5_mouse_dynamics.json",
+        "sha256": "3f596dddf1f648306118f9bfa9868563b0bb4fd1e6b0c4c04c9195e74098e1b7"
+      }
+    ]
+  },
+  "n_mice": 614,
+  "dynamics_features": [
+    "λ stay",
+    "λ switch",
+    "reward push",
+    "choice push",
+    "target asymmetry",
+    "switch target",
+    "readout slope a",
+    "readout offset"
+  ],
+  "behaviour_features": [
+    "bias",
+    "reward gain (1 back)",
+    "persistence (1 back)",
+    "reward decay (2/1 back)"
+  ],
+  "spearman": {
+    "bias": {
+      "λ stay": 0.09391115487106963,
+      "λ switch": 0.06247444053528089,
+      "reward push": -0.26037607614785757,
+      "choice push": -0.01511025837657668,
+      "target asymmetry": 0.8140059314414742,
+      "switch target": -0.016113754493262227,
+      "readout slope a": 0.07076378422492666,
+      "readout offset": 0.6386338166297318
+    },
+    "reward gain (1 back)": {
+      "λ stay": -0.5962750350545521,
+      "λ switch": -0.7079300833794884,
+      "reward push": 0.6795136648275475,
+      "choice push": 0.12782356171357306,
+      "target asymmetry": 0.3181776531912117,
+      "switch target": 0.8648744310171881,
+      "readout slope a": -0.3454057249309893,
+      "readout offset": -0.4019350605268571
+    },
+    "persistence (1 back)": {
+      "λ stay": -0.4456896217659511,
+      "λ switch": -0.63240654868706,
+      "reward push": 0.6420685212001145,
+      "choice push": 0.3456146978854254,
+      "target asymmetry": 0.3206236372984323,
+      "switch target": 0.895166335041105,
+      "readout slope a": -0.17062823174846625,
+      "readout offset": -0.3572004363496298
+    },
+    "reward decay (2/1 back)": {
+      "λ stay": -0.4015955507579158,
+      "λ switch": -0.4882169134195358,
+      "reward push": 0.5081117769427559,
+      "choice push": 0.1576038407269418,
+      "target asymmetry": 0.13419166386614742,
+      "switch target": 0.6012825372293693,
+      "readout slope a": -0.07595648479081514,
+      "readout offset": -0.30162882001951574
+    }
+  },
+  "embedding_decoding": {
+    "λ stay": {
+      "rank_r2": 0.5181476278889855,
+      "null_95": 0.0007765799544296798,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.02974551935094681,
+        -0.17936107385613453,
+        -0.1329319741696909,
+        0.974306881586631
+      ]
+    },
+    "λ switch": {
+      "rank_r2": 0.4880307666876784,
+      "null_95": 0.0010567364694607589,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        0.010434261836854853,
+        -0.49229439954674836,
+        0.18516900619559581,
+        0.8504409382781156
+      ]
+    },
+    "reward push": {
+      "rank_r2": 0.42675768094167554,
+      "null_95": 8.705616499681797e-05,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        0.4239325387645452,
+        0.5552468597766788,
+        0.2760354847336008,
+        -0.660141301883673
+      ]
+    },
+    "choice push": {
+      "rank_r2": 0.6381986788906344,
+      "null_95": -0.0004454940657827418,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        0.014414669777541205,
+        0.5227146555543789,
+        -0.2664017125960574,
+        0.809686194577726
+      ]
+    },
+    "target asymmetry": {
+      "rank_r2": 0.6605476771897956,
+      "null_95": -0.00027235284251111655,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.6659300662848326,
+        -0.0322647487794381,
+        -0.7121233941758152,
+        0.2199463668069893
+      ]
+    },
+    "switch target": {
+      "rank_r2": 0.6206480089345714,
+      "null_95": 0.0017508674739910818,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.26225734254614125,
+        0.6861723469779318,
+        -0.44842050878097905,
+        -0.5092225877040811
+      ]
+    },
+    "readout slope a": {
+      "rank_r2": 0.5263239115041436,
+      "null_95": -0.0008034504186852262,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        0.056047906937270436,
+        0.08167571213209679,
+        -0.27108242649591074,
+        0.957445574547585
+      ]
+    },
+    "readout offset": {
+      "rank_r2": 0.7915833050496399,
+      "null_95": -0.0013111370575206848,
+      "p_shuffle": 0.004975124378109453,
+      "n": 614,
+      "direction": [
+        -0.38367768699729254,
+        -0.27890509652451156,
+        -0.7624814139023801,
+        0.4400289457370821
+      ]
+    }
+  },
+  "per_mouse_summary": {
+    "λ stay": [
+      0.7085,
+      0.742,
+      0.7785
+    ],
+    "λ switch": [
+      0.59,
+      0.6313,
+      0.6828
+    ],
+    "reward push": [
+      0.7632,
+      0.9296,
+      1.0345
+    ],
+    "choice push": [
+      1.4423,
+      1.6315,
+      1.8806
+    ],
+    "target asymmetry": [
+      -0.2443,
+      -0.0187,
+      0.204
+    ],
+    "switch target": [
+      0.2517,
+      0.5369,
+      0.7942
+    ],
+    "readout slope a": [
+      0.9332,
+      1.0328,
+      1.1412
+    ],
+    "readout offset": [
+      -0.1351,
+      0.0169,
+      0.1943
+    ]
+  }
+}

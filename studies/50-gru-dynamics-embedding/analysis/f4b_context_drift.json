@@ -1,0 +1,128 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/f4b_context_drift.py",
+    "produced_at_pt": "2026-10-28T15:30:01-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f4b_context_drift.py",
+        "sha256": "be2ae64eb206bee81963b91337ce195a04b8126fba0230f656a086e9eea2b104"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/trial_states_C-s0.parquet",
+        "sha256": "01475c7afbab765ee616e438daac280581c80e574730ec6587a620546f117de1"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/f4b_context_drift.json",
+        "sha256": "e0c1dce772ec7b269563382618312ced1e2c84f1d2db5ae1be883c867b165af6"
+      }
+    ]
+  },
+  "split": "all sessions",
+  "n_mice_drift": 614,
+  "n_mice_counterfactual": 533,
+  "share_of_context_variance_within_mice": 0.03023399747253734,
+  "drift_on_embedding_pcs": {
+    "PC1": {
+      "median": -0.006705085446448208,
+      "median_in_between_mouse_sd": -0.17737354781626608,
+      "abs_median_in_between_mouse_sd": 0.18143174565848189,
+      "share_positive": 0.10912052117263844,
+      "wilcoxon_p": 1.956130231901582e-75
+    },
+    "PC2": {
+      "median": 0.006006020736837596,
+      "median_in_between_mouse_sd": 0.25691927041197216,
+      "abs_median_in_between_mouse_sd": 0.25691927041197216,
+      "share_positive": 0.9723127035830619,
+      "wilcoxon_p": 1.0724087591389309e-100
+    },
+    "PC3": {
+      "median": 0.004123890849847409,
+      "median_in_between_mouse_sd": 0.22104719780910698,
+      "abs_median_in_between_mouse_sd": 0.22196806385017276,
+      "share_positive": 0.8957654723127035,
+      "wilcoxon_p": 1.5103306955060431e-89
+    },
+    "PC4": {
+      "median": -0.0013922556945239514,
+      "median_in_between_mouse_sd": -0.11091558655500967,
+      "abs_median_in_between_mouse_sd": 0.12696260002883905,
+      "share_positive": 0.2003257328990228,
+      "wilcoxon_p": 5.48449862537937e-48
+    }
+  },
+  "counterfactual": "late sessions rerun with the mouse's mean early-half context; Su2022 soft-label refit on late rows",
+  "replay_parity_median_abs_p": 1.671125168220544e-05,
+  "effect": {
+    "bias": {
+      "median_delta_context": 0.010970726609230042,
+      "median_delta_gru_total": 0.011564722284674644,
+      "median_delta_animal": 0.030232787132263184,
+      "spearman_context_vs_gru_total": 0.18228054272536537,
+      "spearman_context_vs_animal": 0.1142002190162465,
+      "share_of_gru_change_variance_from_context": 0.003888170524148539,
+      "slope_context_on_gru_total": 0.009087791666604401,
+      "wilcoxon_p_context": 0.0
+    },
+    "reward gain (1 back)": {
+      "median_delta_context": -0.011426150798797607,
+      "median_delta_gru_total": -0.03531289100646973,
+      "median_delta_animal": 0.04721534252166748,
+      "spearman_context_vs_gru_total": 0.5462380575677659,
+      "spearman_context_vs_animal": 0.2995294431664887,
+      "share_of_gru_change_variance_from_context": 0.0554202208198257,
+      "slope_context_on_gru_total": 0.12574214899990557,
+      "wilcoxon_p_context": 2.618989124765349e-21
+    },
+    "persistence (1 back)": {
+      "median_delta_context": 0.005057930946350098,
+      "median_delta_gru_total": 0.03681027889251709,
+      "median_delta_animal": 0.004805803298950195,
+      "spearman_context_vs_gru_total": 0.6171079933321933,
+      "spearman_context_vs_animal": 0.4935823865162834,
+      "share_of_gru_change_variance_from_context": 0.031213938242864708,
+      "slope_context_on_gru_total": 0.1071112426902967,
+      "wilcoxon_p_context": 0.001616668188944459
+    }
+  }
+}

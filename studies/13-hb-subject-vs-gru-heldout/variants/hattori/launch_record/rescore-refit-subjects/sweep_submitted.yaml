@@ -1,0 +1,98 @@
+entity: AIND-disRNN
+project: mice_data_scaling
+name: hb-heldout-two-level-rescore-refit-subjects-20261027-201810
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+command:
+- python
+- -m
+- run_hpc
+- data=mice_snapshot_scaling
+- model=hb_hattori
+- model.estimator=heldout_two_level
+- model.num_warmup=2000
+- model.num_samples=1500
+- model.num_chains=4
+- +model.session_draws_per_posterior_draw=24
+- +model.draws_path=/home/han.hou/code/wt/hpc13c/aind-dynamic-foraging-bfm-studies/studies/13-hb-subject-vs-gru-heldout/variants/hattori/draws_index.json
+- +model.importance_rescore=true
+- +model.importance_draws=24000
+- data.subject_ratio=0.016
+- seed=0
+- wandb.entity=AIND-disRNN
+- wandb.project=mice_data_scaling
+- ${args_no_hyphens}
+- +meta.study=13-hb-subject-vs-gru-heldout
+- +meta.variant=hattori
+- +meta.launch_id=20261027-201810
+- +meta.config_hash=4845320e
+- +meta.dispatcher_git_commit=a4fe331b0fde0ca21aca8922d083e273e7868bcb
+- +meta.dispatcher_git_branch=HEAD
+- +meta.dispatcher_git_dirty=no
+- +meta.wrapper_git_commit=a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43
+- +meta.wrapper_git_branch=HEAD
+- +meta.wrapper_git_dirty=no
+- +meta.studies_commit=562f814c89ab0d90530421a851aaba3bb4bdcbb8
+- +meta.studies_git_branch=HEAD
+- +meta.studies_git_dirty=no
+- +meta.sweep_yaml=/home/han.hou/code/wt/hpc13c/aind-dynamic-foraging-bfm-studies/studies/13-hb-subject-vs-gru-heldout/variants/hattori/sweep_hpc_rescore_refit_subjects.yaml
+- +meta.owner=han.hou
+- +meta.launcher_cmd=../aind-dynamic-foraging-bfm-dispatcher/code/launch_hpc.p...
+- +meta.mode=cpu
+- +meta.label=rescore-refit-subjects
+- +meta.note='Study 13 hattori rescore of the 46 subjects that were ref...'
+- +wandb.group=hattori@20261027-201810
+- +meta.slurm_job_id='${oc.env:SLURM_JOB_ID,unknown}'
+- +meta.slurm_array_job_id='${oc.env:SLURM_ARRAY_JOB_ID,unknown}'
+- +meta.slurm_array_task_id='${oc.env:SLURM_ARRAY_TASK_ID,unknown}'
+parameters:
+  data.test_subject_ids:
+    values:
+    - '[637701]'
+    - '[643773]'
+    - '[652743]'
+    - '[655100]'
+    - '[673396]'
+    - '[684039]'
+    - '[697929]'
+    - '[697930]'
+    - '[710414]'
+    - '[711254]'
+    - '[716324]'
+    - '[722989]'
+    - '[747886]'
+    - '[749472]'
+    - '[756567]'
+    - '[761406]'
+    - '[765365]'
+    - '[765861]'
+    - '[766556]'
+    - '[766998]'
+    - '[767462]'
+    - '[774826]'
+    - '[777027]'
+    - '[777271]'
+    - '[780618]'
+    - '[780621]'
+    - '[781162]'
+    - '[785951]'
+    - '[786234]'
+    - '[788733]'
+    - '[790584]'
+    - '[790726]'
+    - '[798664]'
+    - '[802953]'
+    - '[809488]'
+    - '[813165]'
+    - '[813167]'
+    - '[813171]'
+    - '[814196]'
+    - '[818020]'
+    - '[818585]'
+    - '[819169]'
+    - '[820243]'
+    - '[832634]'
+    - '[839483]'
+    - '[841599]'

@@ -12,6 +12,14 @@
   (AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#111) and the `max_em_iters` 500
   follow-up (AllenNeuralDynamics/aind-dynamic-foraging-models#82).
 - r2 reads states only as far as study 15 (#50) shows they are recoverable.
+- HPC sweeps set `model.num_workers=10`, and the launch commands request 32 cores: restarts
+  and refits run 10 at a time (AllenNeuralDynamics/aind-dynamic-foraging-models#86), 3–5×
+  faster for a K = 10 cell. PLAN.md's Compute section records the measurement and the
+  `max_em_iters` 500 cap (AllenNeuralDynamics/aind-dynamic-foraging-bfm-dispatcher#207).
+- The Beaker templates name the built GLM-HMM image,
+  `han-hou/dynamic-foraging-bfm-glmhmm-20261027`; its smoke test has not run yet.
+- 20 restarts per K > 1 (was the config's 10), as Ashwood et al.; on HPC two rounds of 10
+  workers on 32 cores. 20 workers on 40 cores measured no faster.
 
 ## 2026-10-27 (evening)
 
@@ -37,10 +45,36 @@
 - Correction before review: per-mouse refits reorder states as K grows, so state summaries now
   use posteriors under the global fit. The side-biased states at K >= 8 span whole sessions,
   not short epochs.
-- r2 (draft, #70): how each state spreads across subjects. `freeze_r2.py` fits one GLM per
+- r3 (draft, #70; written as r2, renumbered 2026-11-11): how each state spreads across subjects. `freeze_r2.py` fits one GLM per
   {subject, state} on the state's Viterbi trials under each K-grid run's global fit (prior
   SD 2), for the held-out and training mice, as a 20-task SLURM array plus a merge.
-  `r2_state_spread.py` plots every {subject, state} in weight space and scores the clusters
+  `r3_state_spread.py` (then `r2_state_spread.py`) plots every {subject, state} in weight space and scores the clusters
   against K (silhouette against a within-mouse label-shuffle null, η² by state and by subject,
   k-means ARI). The weights are committed as float16 `.npz`, one per emission, to stay under
   the 10 MiB file cap; the float32 parts stay on `/allen`. Q-learning parameters are deferred.
+
+## 2026-11-01
+
+- r1 also publishes the held-out **zero-shot** (global fit only) L/R-on-engaged score per K (#84):
+  `scores/<emission>/<K>/LR_engaged_zero_shot` in `r1_round_1.json`, a new result-1 column, and
+  a dashed line in `fig_r1_scores` panel d. The value was already in `frozen_round1.json`; no
+  existing number changed. It rises to K = 10 (hurdle 0.7111 → 0.7224), while the refit score
+  peaks at K = 3 (0.7207). The atlas leaderboard draws both.
+- Variant `refit-prior` (round 2, #48): per-mouse refits with the weight prior centred on the
+  global fit (σ ∈ {0.25, 0.5, 1, 2}) crossed with a transition prior that is off or centred on
+  the global transition matrix (c ∈ {10, 100, 1000}), K = 1–10, both emissions, reusing round 1's
+  global fits (manifest in the variant). Selection rule and checks are stated in its notes
+  before launch. Launched as `refit-prior@20261101-130226`.
+- r2 (draft): `freeze_round2.py` and `r2_refit_prior.py`, the round-2 report: selection over
+  the 320 refit-prior cells plus round 1's refit, held-out scores against no refit and the GRU.
+
+## 2026-11-11
+
+- Metadata (#139): `status: active` and a verdict from the draft reports; the README Verdict no longer
+  says nothing has launched.
+- Note from study 30 (#136): the saved `filtered_k` posterior includes trial t. The scores here use the
+  one-step predictive (`filtered_{t−1}·A`), so no number changes; reuse of the saved posteriors as a
+  prediction must shift them.
+- r3 (#70): the state-spread report, written on 2026-10-29 as r2, takes r3 because the refit-prior
+  report took r2. Producer, outputs and report are renamed; the freeze keeps its `freeze_r2.py` /
+  `frozen_r2*` names, which its provenance records.

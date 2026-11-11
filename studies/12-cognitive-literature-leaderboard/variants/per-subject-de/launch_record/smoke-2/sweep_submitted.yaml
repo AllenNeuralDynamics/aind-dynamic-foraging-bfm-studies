@@ -1,0 +1,54 @@
+entity: NeuralDynamics
+project: aind-dynamic-foraging-model
+name: per-subject-de-smoke-20261101-005459
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+command:
+- python
+- -m
+- run_hpc
+- data=mice_snapshot_scaling
+- seed=0
+- model.heldout_refit.enabled=true
+- model.heldout_refit.skip_train_fit=false
+- model.multisubject_subject_workers=112
+- +model.DE_kwargs.workers=1
+- data.heldout_example_sessions_per_subject=0
+- data.train_example_sessions_per_subject=0
+- data.eval_example_sessions_per_subject=0
+- data.example_max_subjects=0
+- data.subject_ratio=0.016
+- wandb.entity=NeuralDynamics
+- wandb.project=aind-dynamic-foraging-model
+- wandb.tags=[hpc,cpu,mice,baseline_rl,literature_model,smoke,12-cognitive-literature-leaderboard]
+- ${args_no_hyphens}
+- +meta.study=12-cognitive-literature-leaderboard
+- +meta.variant=per-subject-de
+- +meta.launch_id=20261101-005459
+- +meta.config_hash=eaebc4c5
+- +meta.dispatcher_git_commit=6450af3c1505abf7806af4e46a62a48df56c75ac
+- +meta.dispatcher_git_branch=HEAD
+- +meta.dispatcher_git_dirty=no
+- +meta.wrapper_git_commit=331d373c128682c2d8f766e344f9ba05f228d5cf
+- +meta.wrapper_git_branch=HEAD
+- +meta.wrapper_git_dirty=no
+- +meta.studies_commit=d61d80dd3b0f49919959b72430b7d3076175d33f
+- +meta.studies_git_branch=study/12-cognitive-literature-leaderboard
+- +meta.studies_git_dirty=no
+- +meta.sweep_yaml=/home/han.hou/code/wt/studies-12/studies/12-cognitive-literature-leaderboard/variants/per-subject-de/sweep_hpc_smoke.yaml
+- +meta.owner=han.hou
+- +meta.launcher_cmd=/home/han.hou/code/wt/12-hpc/aind-dynamic-foraging-bfm-di...
+- +meta.mode=cpu
+- +meta.label=smoke-2
+- +meta.note='Study 12 smoke, second try after the launcher fix (dispat...'
+- +wandb.group=per-subject-de@20261101-005459
+- +meta.slurm_job_id='${oc.env:SLURM_JOB_ID,unknown}'
+- +meta.slurm_array_job_id='${oc.env:SLURM_ARRAY_JOB_ID,unknown}'
+- +meta.slurm_array_task_id='${oc.env:SLURM_ARRAY_TASK_ID,unknown}'
+parameters:
+  model:
+    values:
+    - baseline_rl_lit_hattori2019
+    - baseline_rl_lit_beron_rflr

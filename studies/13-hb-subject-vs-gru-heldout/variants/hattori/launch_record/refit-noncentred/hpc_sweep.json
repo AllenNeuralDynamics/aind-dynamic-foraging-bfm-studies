@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-10-27T22:36:42-07:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "hattori@20261027-223626",
+  "label": "refit-noncentred",
+  "note": "Study 13 hattori second refit, approved by Han after the centred refit (hattori@20261027-181415) was worse on every gate: the 46 subjects failing a gate in production, refit with production's non-centred session level at target acceptance 0.95 and 3000 warmup + 4x3000 draws, then scored with the importance-sampled k-hat rescue. Teaches whether smaller steps clear the divergences and whether that moves the headline.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "8fxzn2rq"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27518673"
+    }
+  ],
+  "revisions": {
+    "studies": "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
+    "dispatcher": "a4fe331b0fde0ca21aca8922d083e273e7868bcb",
+    "wrapper": "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43",
+    "foraging_models": "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
+  },
+  "manifests": [
+    "sweep_hpc_refit_noncentred.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 46,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "a4e519cee1b271cf6b340fa961753fb0721b7d906cacdc68d8865c935737c4d3"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "8fxzn2rq",
+  "wandb_sweep_path": "AIND-disRNN/mice_data_scaling/8fxzn2rq",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/mice_data_scaling/sweeps/8fxzn2rq",
+  "slurm_array_job_id": "27518673",
+  "slurm_autostop_job_id": "27518674",
+  "n_array_tasks": 46,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "a4fe331b0fde0ca21aca8922d083e273e7868bcb",
+  "studies_git_commit": "3ce455b9c492ce4f82d021b48aef897c11c9d5f2",
+  "studies_git_branch": "HEAD",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "a4fe331b0fde0ca21aca8922d083e273e7868bcb",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "a4b018b978c3f9c7aff4c6be8b873d3f9eb87e43",
+  "foraging_models_git_commit": "cf38f45d38eddaade38434bd9dbecfa4a98f7388",
+  "foraging_models_version": "0.25.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/hpc13c/aind-dynamic-foraging-bfm-studies/studies/13-hb-subject-vs-gru-heldout/variants/hattori/sweep_hpc_refit_noncentred.yaml",
+  "created_utc": "2026-10-28T05:36:42.880891+00:00"
+}

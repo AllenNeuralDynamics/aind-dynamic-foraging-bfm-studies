@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-11-01T13:02:37-08:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "refit-prior@20261101-130226",
+  "label": "refit-prior-r2",
+  "note": "Study 14 round 2: per-mouse GLM-HMM refits pooled toward the global fit (weight prior centred on it, sigma 0.25-2; transition prior centred on it, c off/10/100/1000), K=1-10, both emissions, reusing round 1's global fits. Tests whether a refit centred on the global fit stops scoring below the global fit alone, and where K peaks then.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "6mzqt91f"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27565930"
+    }
+  ],
+  "revisions": {
+    "studies": "cb21327b77aa7423cb160ce7e01a67853a585130",
+    "dispatcher": "ea2d6deaf308c0c04cde5b925f3444631415d754",
+    "wrapper": "f9ea87594215c4ce8dbb772de2b2af6968d38222",
+    "foraging_models": "2ce1f700b445823b19e3b7033704eb54c5ef746e"
+  },
+  "manifests": [
+    "sweep_hpc.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 320,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "cfbc42ebf6e8c8cd20329ce29bfcf7c6728bc335a2c55075078f0c8ccc68b1e1"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "6mzqt91f",
+  "wandb_sweep_path": "AIND-disRNN/mice_glmhmm/6mzqt91f",
+  "sweep_url": "https://wandb.ai/AIND-disRNN/mice_glmhmm/sweeps/6mzqt91f",
+  "slurm_array_job_id": "27565930",
+  "slurm_autostop_job_id": "27565931",
+  "n_array_tasks": 320,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "ea2d6deaf308c0c04cde5b925f3444631415d754",
+  "studies_git_commit": "cb21327b77aa7423cb160ce7e01a67853a585130",
+  "studies_git_branch": "feat/48-refit-prior",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "ea2d6deaf308c0c04cde5b925f3444631415d754",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "f9ea87594215c4ce8dbb772de2b2af6968d38222",
+  "foraging_models_git_commit": "2ce1f700b445823b19e3b7033704eb54c5ef746e",
+  "foraging_models_version": "0.28.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/studies-14-r2/studies/14-glmhmm-vs-gru-heldout/variants/refit-prior/sweep_hpc.yaml",
+  "created_utc": "2026-11-01T21:02:37.618098+00:00"
+}

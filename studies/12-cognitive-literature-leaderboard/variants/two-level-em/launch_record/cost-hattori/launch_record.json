@@ -1,0 +1,54 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_initial",
+    "produced_at_pt": "2026-11-03T01:10:58-08:00",
+    "studies_git_sha": "4dc99e3ec282c7aeaec2ca210c18be1d204b1408",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "two-level-em@20261102-003154"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): two-level-em@20261102-003154"
+    ],
+    "recorded_after_launch": true
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "two-level-em@20261102-003154",
+  "label": "cost-hattori",
+  "note": "Study 12 r3 cost run: Hattori2019 as 2-level EM on all 763 subjects with MEvolve's reported settings, to measure wall time before the other 18 ranked models.",
+  "revisions": {
+    "studies": "b1816eee09b59316c8cd2b9626c6cfb40095c31a",
+    "mevolve": "6af7d58a0a2dadb4d4eec7ab72108c6350e8dfbe"
+  },
+  "manifests": [
+    "run_2level.sbatch"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_job",
+      "id": "27567407"
+    }
+  ],
+  "command": "sbatch --parsable --export=ALL,MEVOLVE_ROOT=/home/han.hou/code/wt/12-mevolve-6af7d58,OUT=/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-003154,MODELS=Hattori2019 -J s12-2level -o /allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-003154/slurm-%j.out run_2level.sbatch",
+  "n_tasks": 1,
+  "data": {
+    "source": "freeze",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603",
+    "manifest_sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/mevolve",
+    "lock_sha256": "ef552f226e1d922d741720c2c0f56cdad89c53b98ffc2291fcba45471c0c9b07"
+  }
+}

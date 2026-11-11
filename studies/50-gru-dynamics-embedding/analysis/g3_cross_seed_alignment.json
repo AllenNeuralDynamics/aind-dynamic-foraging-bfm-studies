@@ -1,0 +1,245 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/g3_cross_seed_alignment.py",
+    "produced_at_pt": "2026-10-28T22:06:54-07:00",
+    "studies_git_sha": "dcf6115301e4597f0da14e07f970ab1492b0729f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": "56ab3ee9747cf79a4c2e81a887bc5bdff25168ed",
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/g3_cross_seed_alignment.py",
+        "sha256": "b667b04522dd5c108826eddc790f2405fb65347b9b75bd92231b7d8333060dd1"
+      },
+      {
+        "path": "studies/util/plot_style.py",
+        "sha256": "7294b46c291698f36a397ec813840c1191f432dd4dd18c1e33faf7942d1120b8"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "AIND-disRNN/mice_data_scaling/e4-e8-d614-source-20260906-195409-c160507b"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s0.npz",
+        "sha256": "8debcb40b3dec029c0ed8050eff204b5d5ddbea011161c0c3ee9fe1e569c6ce6"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/index.json",
+        "sha256": "603fc27d4e9418bfd3dff85d0428b6aa4acfc809dd6093eb40f087d8a899a9db"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s0/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "f6c190d03205e1b1a273b655ebe92bfdce23b1e35ba02426189921b3690848a5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s1.npz",
+        "sha256": "522c3fc49b933d6e3d6ac3d62bc51b00f809a45f42a6a58a3dcbfdb4b8f83a02"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/index.json",
+        "sha256": "8526632fd23e1d853e308aa548c78edcfa97cf11c068e7c4967214dd65a025c5"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s1/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "8af48625faa162d2b7af7c1713c7d1efade87291debc0d6373a39663f7ab535e"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/pca_C-s2.npz",
+        "sha256": "fdbecfbb9c2b437c4db8e2d2710deb6afba875e585eef488876645a5595f900d"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/subject_index_map.json",
+        "sha256": "fbb61e6c7f43d1b7ae52ec92f59131a0cc1fef53ff6a4ccc23448f02aab64592"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/checkpoints/index.json",
+        "sha256": "857073fa535edd31f4ac43e43e0a53158fa13a5a68e0cb7d6f2f778f02f0ec6c"
+      },
+      {
+        "type": "file",
+        "id": "studies/50-gru-dynamics-embedding/analysis/_cache/models/C-s2/run/outputs/checkpoints/step_90000/params.json",
+        "sha256": "2d3068536eb3e515d29f366db0d2d8bbb7b416cb23c773b0e820dbd064cccaa0"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/50-gru-dynamics-embedding/analysis/g3_cross_seed_alignment.json",
+        "sha256": "64a011d0296bf7f86e70df78bab26f8869d15d2c6d01c7fbc3feb90550cadd68"
+      }
+    ]
+  },
+  "n_subsample": 200000,
+  "seed": 31,
+  "n_cca_pcs": 10,
+  "pairs": {
+    "C-s0 vs C-s1": {
+      "logit_corr": 0.9978361892719215,
+      "p_right_mean_abs_diff": 0.011393295527522346,
+      "ll_mean_abs_diff_nats": 0.02278187997134075,
+      "ll_mean_diff_nats": 0.00011400219271217286,
+      "v_corr": 0.9886486036491802,
+      "state_cca_top10": [
+        0.9983891719533932,
+        0.9960418945965566,
+        0.9874715022088559,
+        0.9812289794669735,
+        0.961405432996599,
+        0.9557990612830697,
+        0.9527264505728156,
+        0.9291049867343177,
+        0.8953332457983805,
+        0.7470510957594517
+      ],
+      "pcs1_4_r2_from_other_state": [
+        0.9987801367610509,
+        0.9946478060425543,
+        0.9745617395209244,
+        0.9837095484037636
+      ],
+      "pcs1_4_r2_reverse": [
+        0.9985730595027815,
+        0.9945884125663121,
+        0.9625050703626299,
+        0.9863333348995578
+      ],
+      "embedding_cca": [
+        0.9848812666349454,
+        0.963336125365448,
+        0.959628789013857,
+        0.9101132801006732
+      ],
+      "embedding_distance_spearman": 0.9206038239811164
+    },
+    "C-s0 vs C-s2": {
+      "logit_corr": 0.9977978980086785,
+      "p_right_mean_abs_diff": 0.011789037129643251,
+      "ll_mean_abs_diff_nats": 0.02352882662711805,
+      "ll_mean_diff_nats": 0.00011602889618439916,
+      "v_corr": 0.9940489636013666,
+      "state_cca_top10": [
+        0.9985053271773626,
+        0.9969458846094207,
+        0.9851870159679629,
+        0.9801577087269742,
+        0.9718212002994079,
+        0.9631521442422385,
+        0.9494253828553683,
+        0.9158315267905013,
+        0.8814361246445231,
+        0.6701787166129051
+      ],
+      "pcs1_4_r2_from_other_state": [
+        0.9987106104761081,
+        0.9928313063017232,
+        0.9746269317443967,
+        0.9872998044987876
+      ],
+      "pcs1_4_r2_reverse": [
+        0.9985986888660657,
+        0.994145350796595,
+        0.9632408022170463,
+        0.9881934678106692
+      ],
+      "embedding_cca": [
+        0.9838153089129518,
+        0.9686932247454986,
+        0.9593079606123042,
+        0.8388377407888339
+      ],
+      "embedding_distance_spearman": 0.891763304751385
+    },
+    "C-s1 vs C-s2": {
+      "logit_corr": 0.9980090884406464,
+      "p_right_mean_abs_diff": 0.011306027487069707,
+      "ll_mean_abs_diff_nats": 0.022578739906371298,
+      "ll_mean_diff_nats": 2.0267034722263034e-06,
+      "v_corr": 0.9911091331455743,
+      "state_cca_top10": [
+        0.9984772129674354,
+        0.9960024165705504,
+        0.9890395724246991,
+        0.9822285527207103,
+        0.9704147224858616,
+        0.9657863671155846,
+        0.9450076409528897,
+        0.9270391211892997,
+        0.8803210189496274,
+        0.49167432777745307
+      ],
+      "pcs1_4_r2_from_other_state": [
+        0.998446174162206,
+        0.9929352446484192,
+        0.9771973293251126,
+        0.9870989278501997
+      ],
+      "pcs1_4_r2_reverse": [
+        0.9988190402174599,
+        0.9948226357101936,
+        0.9765338054137243,
+        0.9832047604960859
+      ],
+      "embedding_cca": [
+        0.9853655326136919,
+        0.977671330710987,
+        0.970841308479526,
+        0.8995050976342286
+      ],
+      "embedding_distance_spearman": 0.9303119345139697
+    }
+  },
+  "per_seed": {
+    "C-s0": {
+      "eta2_pc1_4_last_input": 0.6633010555350378,
+      "eta2_pc1_4_last_choice": 0.4691650504563018,
+      "eta2_pc1_last_choice": 0.8070895976415466,
+      "pooled_likelihood": 0.7338507031979481
+    },
+    "C-s1": {
+      "eta2_pc1_4_last_input": 0.6725232092393568,
+      "eta2_pc1_4_last_choice": 0.48327667059759544,
+      "eta2_pc1_last_choice": 0.8476901683808307,
+      "pooled_likelihood": 0.7337670473772242
+    },
+    "C-s2": {
+      "eta2_pc1_4_last_input": 0.6726134959227621,
+      "eta2_pc1_4_last_choice": 0.502713381921293,
+      "eta2_pc1_last_choice": 0.7740789172250437,
+      "pooled_likelihood": 0.7337655602505084
+    }
+  },
+  "reference_gru_minus_ctt_nats": 0.017610059500414766,
+  "reference_gru_ctt_corr_logit": 0.9698852250296794,
+  "reference_seed0_vs_ctt": {
+    "p_right_mean_abs_diff": 0.048912786290494406,
+    "ll_mean_abs_diff_nats": 0.09634453621901444
+  }
+}

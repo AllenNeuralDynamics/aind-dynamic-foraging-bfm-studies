@@ -1,0 +1,47 @@
+# Smoke for per-subject-de: two literature models (one of the three study 01 r8 fits and one
+# never run on our subjects) through the whole path on a small training cohort plus the full
+# held-out cohort. Its numbers are not results. What it must show: runs land in
+# NeuralDynamics/aind-dynamic-foraging-model under the group, both per-subject tables
+# (training and heldout_test) are written with fitted parameters, and meta.* is stamped.
+
+entity: NeuralDynamics
+project: aind-dynamic-foraging-model
+name: per-subject-de-smoke
+
+method: grid
+metric:
+  name: heldout/eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - seed=0
+  # One Hydra run dir per array task (see sweep_hpc.yaml); smoke-1/-2 ran without it.
+  - job_id='${oc.env:SLURM_JOB_ID,0}'
+  # Fit BOTH cohorts in one run: the training pool, then the held-out refit
+  # (the baseline_rl_lit configs default to heldout_refit.enabled=false).
+  - model.heldout_refit.enabled=true
+  - model.heldout_refit.skip_train_fit=false
+  # Parallelize over subjects, not inside differential evolution.
+  - model.multisubject_subject_workers=112
+  - +model.DE_kwargs.workers=1
+  # No example-session plots; metrics come from the per-subject tables.
+  - data.heldout_example_sessions_per_subject=0
+  - data.train_example_sessions_per_subject=0
+  - data.eval_example_sessions_per_subject=0
+  - data.example_max_subjects=0
+  # Small training cohort; the held-out cohort does not depend on subject_ratio.
+  - data.subject_ratio=0.016
+  - wandb.entity=NeuralDynamics
+  - wandb.project=aind-dynamic-foraging-model
+  - "wandb.tags=[hpc,cpu,mice,baseline_rl,literature_model,smoke,12-cognitive-literature-leaderboard]"
+  - ${args_no_hyphens}
+
+parameters:
+  model:
+    values:
+      - baseline_rl_lit_hattori2019
+      - baseline_rl_lit_beron_rflr

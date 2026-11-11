@@ -16,7 +16,7 @@
 PY ?= python
 .PHONY: all r1 r2 freeze
 
-all: r1
+all: r1 r4
 
 # r1 and r2 are produced together by scaling.py (one W&B pull, one figure,
 # both report blocks). Listing them separately is for discoverability; both
@@ -26,3 +26,8 @@ r1 r2:
 
 freeze:
 	$(PY) analysis/freeze_runs.py
+
+# r4 = 3-way and engagement likelihood scale with D
+.PHONY: r4
+r4:
+	$(PY) analysis/r4_three_way_engagement.py

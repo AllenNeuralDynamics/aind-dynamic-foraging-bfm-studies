@@ -43,7 +43,9 @@ SCORES = {   # label -> summary key
     "matched": "heldout/final/eval_likelihood",
     "zero_shot": "heldout/zero_shot/eval_likelihood",
     "LR_engaged": "heldout/final/eval_likelihood_LR_engaged",
+    "LR_engaged_zero_shot": "heldout/zero_shot/eval_likelihood_LR_engaged",
     "engage": "heldout/final/eval_likelihood_engage",
+    "engage_zero_shot": "heldout/zero_shot/eval_likelihood_engage",
     "pr_auc": "heldout/final/engage_ignore_pr_auc",
 }
 
@@ -142,8 +144,9 @@ def fig_scores(grids, lags, gru, path):
             Ks = sorted(grids[e])
             ax.plot(Ks, [grids[e][k]["summary"][SCORES[name]] for k in Ks], "o-",
                     color=COLORS[e], ms=3, label=e)
-            if name == "matched":
-                ax.plot(Ks, [grids[e][k]["summary"][SCORES["zero_shot"]] for k in Ks], "o--",
+            if name in ("matched", "LR_engaged"):
+                zs = "zero_shot" if name == "matched" else "LR_engaged_zero_shot"
+                ax.plot(Ks, [grids[e][k]["summary"][SCORES[zs]] for k in Ks], "o--",
                         color=COLORS[e], ms=2, alpha=0.6, label=f"{e}, global fit only")
             if name == "select":
                 ax.plot(Ks, [global_same_mice(grids[e][k]) for k in Ks], "s--", color=COLORS[e],
@@ -153,7 +156,7 @@ def fig_scores(grids, lags, gru, path):
                 if H in gru:
                     ax.axhline(gru[H][gru_key], color="0.3", ls=ls, lw=0.8, label=f"GRU H{H}")
         ax.set(xlabel="states K", ylabel=label, xticks=range(1, 11))
-        if name in ("select", "matched"):
+        if name in ("select", "matched"):     # panel d uses panel c's styles; a legend there sits on the GRU lines
             ax.legend(frameon=False, fontsize=5)
         fs.panel_label(ax, letter)
     fs.save_figure(fig, path)
@@ -422,11 +425,13 @@ def block_scores(grids, lags, gru, selected):
              "sessions never fitted (chance 1/3). *Refit*: training mice, after the per-mouse refit "
              "(study 14's selection score; bold = each emission's best). *Global fit, same mice*: "
              "training mice, global fit only (Faeze's way of choosing K). *Held-out*: 149 new mice, "
-             "with refit (matched, the GRU's protocol) and global fit only (zero-shot). GRU = study "
+             "with refit (matched, the GRU's protocol) and global fit only (zero-shot); *L/R engaged*: left "
+             "vs right on the trials the mouse responded (chance 1/2), under each; *engage*: respond vs ignore on every "
+             "trial (chance 1/2), under each. GRU = study "
              "02 r1's 3-way GRU at D = 614, mean of 3 seeds. One seed per GLM-HMM cell, so no error "
              "bars.",
-             "", "| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | held-out refit: L/R engaged | engage | ignore PR-AUC |",
-             "|---|---|---|---|---|---|---|---|---|"]
+             "", "| emission | K | refit (selection) | global fit, same mice | held-out, refit | held-out, global fit | held-out refit: L/R engaged | held-out, global fit: L/R engaged | held-out refit: engage | held-out, global fit: engage | ignore PR-AUC |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for e in EMISSIONS:
         for K, run in sorted(grids[e].items()):
             s = run["summary"]
@@ -434,10 +439,11 @@ def block_scores(grids, lags, gru, selected):
             if K == selected.get(e):
                 sel = f"**{sel}**"
             lines.append(f"| {e} | {K} | {sel} | {f4(global_same_mice(run))} | {f4(s[SCORES['matched']])} | {f4(s[SCORES['zero_shot']])} | "
-                         f"{f4(s[SCORES['LR_engaged']])} | {f4(s[SCORES['engage']])} | {f4(s[SCORES['pr_auc']])} |")
+                         f"{f4(s[SCORES['LR_engaged']])} | {f4(s[SCORES['LR_engaged_zero_shot']])} | {f4(s[SCORES['engage']])} | "
+                         f"{f4(s[SCORES['engage_zero_shot']])} | {f4(s[SCORES['pr_auc']])} |")
     for H, g in gru.items():
-        lines.append(f"| GRU H{H} (study 02) | — | — | — | {f4(g['matched'])} | — | {f4(g['LR_engaged'])} | "
-                     f"{f4(g['engage'])} | {f4(g['pr_auc'])} |")
+        lines.append(f"| GRU H{H} (study 02) | — | — | — | {f4(g['matched'])} | — | {f4(g['LR_engaged'])} | — | "
+                     f"{f4(g['engage'])} | — | {f4(g['pr_auc'])} |")
     Ls = sorted(set(lags["hurdle"]) | set(lags["reference"]))
     lines += ["", "**Lag scan** (K = 1, selection score; L = 15 from the follow-up launch):", "",
               "| emission | " + " | ".join(f"L = {L}" for L in Ls) + " |",

@@ -1,0 +1,137 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_ctt_credit.py",
+    "produced_at_pt": "2026-11-02T15:06:59-08:00",
+    "studies_git_sha": "df1f7971198367f120c790f8fd533436ac455bcf",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "ctt-credit@20261102-132626"
+    ],
+    "source_studies_git_shas": [
+      "9da9390db5225409dffbc71e9ae8bbf76fd258a3"
+    ],
+    "source_dispatcher_git_shas": [
+      "3b2197d30196881e1f30c41ee3dc512f3aa5dcde"
+    ],
+    "source_wrapper_git_shas": [
+      "331d373c128682c2d8f766e344f9ba05f228d5cf"
+    ],
+    "source_foraging_models_git_shas": [
+      "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/freeze_ctt_credit.py",
+        "sha256": "37ca48e0be6ea102e5f7ed28776e2c99cb5478179ab6c4f74a650d9d6fedde9e"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/freeze_fits.py",
+        "sha256": "fd1fe1d2144217fa6f6a6cd53afb05dcad843e6a88c63058e4edc19166b4cc97"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      }
+    ],
+    "sources": [
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/fb053fom",
+        "state": "finished",
+        "updated_at": "2026-11-02T22:19:04Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132731-fb053fom/files/outputs/subject_fit_metrics.csv",
+        "sha256": "48bd8171228d6bdf47aa7f0c06e659903dbb7a5b759bf10fcd24dfc3d9ecf20b"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132731-fb053fom/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "85c8afb127613aa2393a71fd4c46b4c2a4969ad9595a79a7d955dfbcc5284773"
+      },
+      {
+        "type": "wandb_run",
+        "id": "NeuralDynamics/aind-dynamic-foraging-model/vr3ba0lv",
+        "state": "finished",
+        "updated_at": "2026-11-02T23:02:16Z"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132730-vr3ba0lv/files/outputs/subject_fit_metrics.csv",
+        "sha256": "3cf320086741edc9a0b1e972a073f861bc441439fd081a3320ed51ec549d99dd"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132730-vr3ba0lv/files/outputs/heldout_test/subject_fit_metrics.csv",
+        "sha256": "30b3513ed144873fde20b332a446899c7416bc5540fd9240f3fc2ad8a2de3899"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/ctt_credit_fits.json",
+        "sha256": "ee4fdb2a0468a3f438b77aec3fb3ea93ec849d19d507b631529c14db2aced645"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/ctt_credit_fits.csv",
+        "sha256": "502f788748d7ecb50a894b172df5d92f68a750de7ecd43a14b1f195985f81762"
+      }
+    ]
+  },
+  "columns": [
+    "literature_model",
+    "wandb_run_id",
+    "cohort",
+    "subject_id",
+    "curriculum_name",
+    "eval_total_log_likelihood",
+    "eval_total_trials",
+    "eval_likelihood",
+    "train_total_log_likelihood",
+    "train_total_trials",
+    "n_free_params",
+    "fitted_params"
+  ],
+  "runs": [
+    {
+      "wandb_run_id": "fb053fom",
+      "wandb_group": "ctt-credit@20261102-132626",
+      "model_config": "baseline_rl_lit_compare_to_threshold",
+      "literature_model": "CompareToThreshold",
+      "agent_class": "ForagerCompareThreshold",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132731-fb053fom/files/outputs/subject_fit_metrics.csv",
+          "sha256": "48bd8171228d6bdf47aa7f0c06e659903dbb7a5b759bf10fcd24dfc3d9ecf20b"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132731-fb053fom/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "85c8afb127613aa2393a71fd4c46b4c2a4969ad9595a79a7d955dfbcc5284773"
+        }
+      }
+    },
+    {
+      "wandb_run_id": "vr3ba0lv",
+      "wandb_group": "ctt-credit@20261102-132626",
+      "model_config": "baseline_rl_lit_compare_to_threshold_credit",
+      "literature_model": "CompareToThreshold-credit",
+      "agent_class": "ForagerCompareThresholdCredit",
+      "tables": {
+        "train": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132730-vr3ba0lv/files/outputs/subject_fit_metrics.csv",
+          "sha256": "3cf320086741edc9a0b1e972a073f861bc441439fd081a3320ed51ec549d99dd"
+        },
+        "heldout": {
+          "path": "/allen/aind/scratch/han.hou/outputs/disrnn/wandb/run-20261102_132730-vr3ba0lv/files/outputs/heldout_test/subject_fit_metrics.csv",
+          "sha256": "30b3513ed144873fde20b332a446899c7416bc5540fd9240f3fc2ad8a2de3899"
+        }
+      }
+    }
+  ]
+}
