@@ -1,0 +1,57 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "variants/heldout-mice/launch_hpc.py",
+    "produced_at_pt": "2026-11-11T15:10:57-08:00",
+    "studies_git_sha": "33398f8277e5dfbd09c733ff8c7c0af58f967673",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "heldout-mice@20261111-151057"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): heldout-mice@20261111-151057"
+    ]
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "heldout-mice@20261111-151057",
+  "label": "heldout-ft",
+  "note": "Redo study 02's held-out embedding fine-tune of the H256/D614/s0 3-way GRU offline (its fine-tuned embeddings were never saved), so study 30 can decode GLM-HMM states from GRU latents on the 149 held-out mice; must reproduce study 02's heldout/final/eval_likelihood to 1e-4.",
+  "revisions": {
+    "studies": "33398f8277e5dfbd09c733ff8c7c0af58f967673",
+    "dispatcher": "68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "286692dd076fe6203c0fcf096c06fe37552e49da"
+  },
+  "manifests": [
+    "run_hpc.sbatch",
+    "heldout_offline.yaml",
+    "launch_hpc.py"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_job",
+      "id": "27746212"
+    }
+  ],
+  "command": "sbatch --parsable --export=ALL,WRAPPER=/home/han.hou/code/wt/wrapper-5affee5,MODELS=/home/han.hou/code/wt/models-fp-main,CONFIG=/allen/aind/scratch/han.hou/outputs/study30/heldout-mice/20261111-151057/heldout_offline.yaml,OUT_ROOT=/allen/aind/scratch/han.hou/outputs/study30/heldout-mice/20261111-151057,CPU_ENV=/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu,WANDB_ENV=/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search -J s30-heldout-ft -o /allen/aind/scratch/han.hou/tmp/s30/logs/heldout_ft_%j.log /home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mEv4rcjCW6gNDnZbH4/studies/30-gru-vs-glmhmm-latents/variants/heldout-mice/run_hpc.sbatch",
+  "n_tasks": 1,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "2d957f5366d684b48025ea80030046354a4d2a77c6c2127cec5800aed81baa2a"
+  }
+}

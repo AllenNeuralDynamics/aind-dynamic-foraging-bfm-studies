@@ -35,4 +35,7 @@ likelihoods as an artifact.
 `heldout-mice@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that
 group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-11 15:10 PT as `heldout-mice@20261111-151057`, slurm job 27746212
+(record in `launch_record/heldout-ft/`), wrapper `5affee5` and foraging-models `286692d`, the pair
+that reproduced study 01 per subject in study 15's `gru-heldout-replay`. A 2-step smoke run beforehand
+selected the same 149 mice (153 reserved; 4 have no trials) with the same ignore base rate as study 02.
