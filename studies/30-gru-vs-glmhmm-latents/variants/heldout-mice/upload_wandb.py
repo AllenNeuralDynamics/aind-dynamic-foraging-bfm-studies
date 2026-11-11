@@ -3,7 +3,7 @@
 
 One run in group ``heldout-mice@<launch_id>`` carrying the launch's meta and revisions, the final
 held-out metrics and the reproduction deltas, plus one artifact with the fine-tuned parameters,
-subject maps, embeddings, metrics and per-trial predictions. Refuses unless ``reproduction.json``
+subject maps, embeddings and metrics (overall and per mouse). Refuses unless ``reproduction.json``
 passed. Writes ``<out_root>/wandb_upload.json`` (run id, artifact version and digest). Run with an
 env whose wandb can write artifacts (mevolve-search), on a compute node:
 
@@ -23,7 +23,7 @@ ENTITY, PROJECT = "NeuralDynamics", "dfbfm_30-gru-vs-glmhmm-latents"
 KEY_FILE = Path.home() / ".config" / "mevolve" / "wandb_api_key"   # the NeuralDynamics account
 SOURCE_RUN = "nxd-3way-20260707-075401-80a6d102"
 FILES = ("params.json", "subject_index_map.json", "subject_embeddings.pkl", "multisubject_metadata.json",
-         "output_summary.json", "checkpoint_metrics.json", "test_trial_predictions.csv")
+         "output_summary.json", "checkpoint_metrics.json", "per_subject_likelihood.json")
 
 
 def main() -> None:
@@ -34,7 +34,7 @@ def main() -> None:
     record = json.loads(record_path.read_text())
     group = record["wandb_group"]
     launch_id = group.split("@")[1]
-    (outputs,) = out_root.glob("heldout/*/outputs")
+    (outputs,) = [p.parent for p in (out_root / "heldout").rglob("outputs/output_summary.json")]
     run_dir = outputs.parent
     os.environ["WANDB_API_KEY"] = KEY_FILE.read_text().strip()
     run = wandb.init(

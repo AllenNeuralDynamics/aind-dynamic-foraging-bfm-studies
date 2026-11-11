@@ -24,7 +24,7 @@ METRICS = ("eval_likelihood", "eval_likelihood_LR_engaged", "eval_likelihood_eng
 
 def main() -> None:
     out_root = Path(sys.argv[1])
-    (summary_path,) = out_root.glob("heldout/*/outputs/output_summary.json")
+    (summary_path,) = (out_root / "heldout").rglob("outputs/output_summary.json")
     redone = json.loads(summary_path.read_text())["metrics"]
     (logged,) = [r for r in json.loads(STUDY02_FROZEN.read_text())["runs"]
                  if r["wandb_run_id"] == SOURCE_RUN]

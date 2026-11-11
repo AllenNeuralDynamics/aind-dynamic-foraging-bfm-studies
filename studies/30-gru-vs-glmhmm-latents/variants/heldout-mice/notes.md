@@ -28,8 +28,8 @@ the variant. Retry first with the source run's wrapper (`4530d04`).
 **W&B.** Decision (b) in `PLAN.md` (Han, 2026-11-11). The job itself logs nothing. After the gate
 passes, `upload_wandb.py` logs one run to
 [`NeuralDynamics/dfbfm_30-gru-vs-glmhmm-latents`](https://wandb.ai/NeuralDynamics/dfbfm_30-gru-vs-glmhmm-latents)
-in group `heldout-mice@<launch_id>`, with the fine-tuned parameters, embeddings and per-trial
-predictions as an artifact.
+in group `heldout-mice@<launch_id>`, with the fine-tuned parameters, embeddings and per-mouse
+likelihoods as an artifact.
 
 **Launches.** Each launch writes its record to `launch_record/<label>/` and mints one W&B group
 `heldout-mice@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that

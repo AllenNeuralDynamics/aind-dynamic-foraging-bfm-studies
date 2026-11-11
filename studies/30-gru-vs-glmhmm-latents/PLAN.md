@@ -70,7 +70,7 @@ score came from the GRU's familiarity with the training mice.
 ## Decided
 
 - **Fine-tuned embeddings go to W&B (decision (b), Han, 2026-11-11).** After the reproduction check, one run
-  and one artifact (fine-tuned parameters, subject maps, embeddings, per-trial predictions) in
+  and one artifact (fine-tuned parameters, subject maps, embeddings, per-mouse likelihoods) in
   `NeuralDynamics/dfbfm_30-gru-vs-glmhmm-latents`, group `heldout-mice@<launch_id>`, with a launch record.
   Other studies (for example 51, or an HB comparison) can reuse them. The alternative was local files only.
 - **No W&B upload of r1's per-trial intermediates** (Han, 2026-11-11). They rebuild from durable sources (the
