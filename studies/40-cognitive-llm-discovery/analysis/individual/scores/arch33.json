@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_individual.py",
-    "produced_at_pt": "2026-11-11T23:25:37-08:00",
-    "studies_git_sha": "5bdf8a69c1c3b0b76be8a5a41d36b0edf5e8edf8",
+    "produced_at_pt": "2026-11-12T00:12:11-08:00",
+    "studies_git_sha": "fc5351f02c4a812df0ce595cd5b47047f99240a1",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,13 +16,13 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/freeze_individual.py",
-        "sha256": "df13b0e81f907b08951a9c6b1a56c39d803c9f990e07ba2fbb70e49bc80b6e0f"
+        "sha256": "e66d011e09eb42e6f5891505a48517f771624fc6e109d00b399826f23ecd6118"
       }
     ],
     "inputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/individual/sessions.json",
-        "sha256": "3b790c7d6e65caf258962f7be34d46049a569ec684d215fe3ff393070643499d"
+        "sha256": "e6b793795b765575fae9ffeffd74af895a7b7dde41476f719aa16a2a1935a889"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/individual/programs/arch33_22ae380e.py",
@@ -31,14 +31,14 @@
     ],
     "sources": [
       {
-        "type": "git",
-        "id": "aind-dynamic-foraging-mevolve@9d16704f4da03271774d138523bf0d6503a5f800"
+        "type": "url",
+        "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/tree/9d16704f4da03271774d138523bf0d6503a5f800"
       }
     ],
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/individual/scores/arch33.json",
-        "sha256": "b0ee3f93bb43f0e6ba49d3b7d193cab3be092eed5d94d8ebdca2197670b9d6ed"
+        "sha256": "00718396461c34eb793234c86c2c6e0f6d23ce5bb55fece6cbcadce022b7b8c6"
       }
     ]
   },
@@ -59,7 +59,7 @@
     "two_level_failed": false,
     "n_fallback": 1
   },
-  "seconds": 2406.120400905609,
+  "seconds": 2330.28692650795,
   "subjects": [
     {
       "subject_id": "663374",

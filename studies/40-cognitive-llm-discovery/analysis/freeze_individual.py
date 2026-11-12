@@ -40,6 +40,7 @@ COHORTS = STUDY / "reference" / "cohorts_seed0_monitor.json"
 MONITOR = HERE / "seeded_islands_2" / "monitor.json"
 OUT = HERE / "individual"
 SEED, N_DRAWS, MAX_EM = 0, 2048, 100
+MEVOLVE_URL = "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve"
 MEVOLVE_SHA = "9d16704f4da03271774d138523bf0d6503a5f800"   # MEvolve #85 (PR #86): session_per_subject_log_lik
 
 # tag -> source: "archive" (the monitor archive, sha256 from monitor.json), an in-study path, or
@@ -85,7 +86,7 @@ def prepare() -> None:
         elif src.startswith("literature:"):
             path = Path(program.LITERATURE_DIR) / src.split(":", 1)[1]
             want = sha256(path)
-            sources.append({"type": "git", "id": f"aind-dynamic-foraging-mevolve@{MEVOLVE_SHA}:"
+            sources.append({"type": "url", "id": f"{MEVOLVE_URL}/blob/{MEVOLVE_SHA}/"
                             f"src/mevolve/programs/literature/{path.name}", "sha256": want})
         else:
             path = HERE / src
@@ -151,7 +152,7 @@ def score(tag: str, workers: int, limit: int | None) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     meta = build_meta("analysis/freeze_individual.py", [], study_root=STUDY, kind="freeze", code=[__file__],
                       inputs=[OUT / "sessions.json", path],
-                      sources=[{"type": "git", "id": f"aind-dynamic-foraging-mevolve@{MEVOLVE_SHA}"}])
+                      sources=[{"type": "url", "id": f"{MEVOLVE_URL}/tree/{MEVOLVE_SHA}"}])
     write_artifact(out, {"_meta": meta, "tag": tag, "program": path.name,
                          "settings": {"regime": "2level", "max_em": MAX_EM, "n_draws": N_DRAWS, "seed": SEED,
                                       "fallback_tol": evaluate.FALLBACK_TOL, "mevolve": MEVOLVE_SHA},

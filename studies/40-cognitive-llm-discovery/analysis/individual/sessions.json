@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_individual.py",
-    "produced_at_pt": "2026-11-11T22:35:28-08:00",
-    "studies_git_sha": "5bdf8a69c1c3b0b76be8a5a41d36b0edf5e8edf8",
+    "produced_at_pt": "2026-11-11T23:32:53-08:00",
+    "studies_git_sha": "fc5351f02c4a812df0ce595cd5b47047f99240a1",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/freeze_individual.py",
-        "sha256": "df13b0e81f907b08951a9c6b1a56c39d803c9f990e07ba2fbb70e49bc80b6e0f"
+        "sha256": "e66d011e09eb42e6f5891505a48517f771624fc6e109d00b399826f23ecd6118"
       }
     ],
     "inputs": [
@@ -98,18 +98,18 @@
         "sha256": "f9c1189ca2d985affcd164cfeb6d6edff2103a6542f78d53962902be5d64035e"
       },
       {
-        "type": "git",
-        "id": "aind-dynamic-foraging-mevolve@9d16704f4da03271774d138523bf0d6503a5f800:src/mevolve/programs/literature/miller_rhg.py",
+        "type": "url",
+        "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/blob/9d16704f4da03271774d138523bf0d6503a5f800/src/mevolve/programs/literature/miller_rhg.py",
         "sha256": "288aaac0b8ec53aacc871bd05f5759c9bf50328629422f735927e7f8e8d84dc2"
       },
       {
-        "type": "git",
-        "id": "aind-dynamic-foraging-mevolve@9d16704f4da03271774d138523bf0d6503a5f800:src/mevolve/programs/literature/lebedeva_pr.py",
+        "type": "url",
+        "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/blob/9d16704f4da03271774d138523bf0d6503a5f800/src/mevolve/programs/literature/lebedeva_pr.py",
         "sha256": "4184fca08e58fe8f9e573a275d174f8bd39cb94a1381859bc4a48f911f15243e"
       },
       {
-        "type": "git",
-        "id": "aind-dynamic-foraging-mevolve@9d16704f4da03271774d138523bf0d6503a5f800:src/mevolve/programs/literature/lopez_double_trace.py",
+        "type": "url",
+        "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/blob/9d16704f4da03271774d138523bf0d6503a5f800/src/mevolve/programs/literature/lopez_double_trace.py",
         "sha256": "3aa892821fe593ee5ad7b59cd1dbacdbed9652a4de575890eeca195176f5cee7"
       },
       {
