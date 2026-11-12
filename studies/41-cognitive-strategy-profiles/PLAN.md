@@ -61,9 +61,14 @@ programs did not converge within `max_em` 100 (r5); a mixture model has more wei
 model gets a recovery test on simulated mice before it is fitted to real ones.
 
 **Claims.** A claim is registered before it is confirmed. Each claim names its model, its model-free
-signature in the raw choices, its recovery test, and the confirmation test with its pass rule. Claims
-and the scientist's notebook live under `analysis/notebook/` (format to be fixed with the scientist-mode
-ADR).
+signature in the raw choices, its recovery test, and the confirmation test with its pass rule.
+
+**Notebook.** The agents write to a run directory on shared disk, outside any git checkout (they write
+often). The run config names `reference/tiers.json` and its sha256; the harness refuses to start if
+either digest or the freeze manifest does not match, or if two tiers share a mouse. After a run, a
+`freeze-notebook` target (to come) copies the run's `agent/` directory, without the data views, into
+`analysis/notebook/` and commits it: claims, reviews, looks, budget, episode summaries and notes, in the
+format of MEvolve's ADR 0007.
 
 **The GRU map.** Confirmation compares models with the cross-validated GRU (studies #148), which gives
 held-out GRU predictions for every mouse. Discovery can start before that map exists, from study 40's
@@ -114,7 +119,7 @@ frozen r5 scores and the data freeze.
 
 - Do the robustness analyses across study 40's ensemble of programs (§1 A1–A3) belong here or in
   study 40? Study 40 plans no further reports.
-- The W&B project: does scientist mode log to this study's project, `dfbfm_41-strategy-profiles`, or
+- The W&B project for scientist-mode runs (the ADR leaves it to the study): this study's project, `dfbfm_41-strategy-profiles`, or
   to `dfbfm-mevolve` as study 40 did?
 - How many looks at the confirmation tier, and how a look is counted.
 </content>
