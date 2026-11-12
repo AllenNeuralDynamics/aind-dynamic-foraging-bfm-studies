@@ -31,20 +31,20 @@ W&B project [`dfbfm_17-gru-crossfit-predictability`](https://wandb.ai/NeuralDyna
 
 ## Design
 
-Train the study-01 reference GRU recipe in about 5 folds, each holding out a different set of
-mice, so that every one of the 763 mice gets held-out GRU predictions. The existing 149-mouse
-test split stays one fold as it is, so earlier results stay comparable. The output is a
-per-trial, per-session and per-mouse predictability map, frozen and registered as a shared
-reference for study 41 (#149) and MEvolve scientist mode.
-
-The fold plan and the held-out protocol are **not fixed yet**. [`PLAN.md`](PLAN.md) separates
-what was agreed from what is still open. No training starts until the open points are settled.
+Rotate 5 folds over all 763 mice: the freeze's 149 test subjects are one fold, and the 614
+training-pool mice form 4 more. Each fold model, a 3-way GRU (study 02 recipe, H128), trains on
+every mouse outside its fold and scores that fold's mice in two passes, so every session of every
+mouse gets a held-out prediction. The test fold reuses study 02's `nxd-3way` seed-0 model; the 4
+pool folds are new trainings. The output is a per-trial, per-session and per-mouse
+predictability map, frozen and registered as a shared reference for study 41 (#149) and MEvolve
+scientist mode. Details and checks: [`PLAN.md`](PLAN.md); terms: [`CONTEXT.md`](CONTEXT.md).
 
 ## Variants
 
 | variant | what | status | W&B group |
 |---|---|---|---|
-| [`test-fold-ref`](variants/test-fold-ref/notes.md) | the test fold: the 149 test mice, held out from the study-01 reference GRU | planned | — |
+| [`test-fold-ref`](variants/test-fold-ref/notes.md) | test fold: rescore study 02's `nxd-3way` model (seed 0; seeds 1–2 for noise) in passes A and B | planned | — |
+| [`pool-folds`](variants/pool-folds/notes.md) | 4 new fold models, one per pool fold | planned | — |
 
 ## Verdict
 
