@@ -300,10 +300,13 @@ def block_refits(runs, frozen):
         "transitions; training-mouse refits were not saved). *Not aligned*: refits whose states "
         "match the global states other than one to one in order (least-squares weight matching). "
         "*Second step*: the largest change of a second M-step from any {subject, state} fit, a "
-        f"convergence check over the frozen cells (at least {MIN_FROZEN} kept trials).",
+        f"convergence check over the frozen cells (at least {MIN_FROZEN} kept trials): Newton passes "
+        f"of {frozen['data']['newton_steps']} steps repeat until one more pass moves no frozen cell by more "
+        f"than {frozen['data']['converged']:g}, at most {frozen['data']['max_passes']}. *Passes*: the most "
+        "any cell needed.",
         "",
-        "| emission | K | σ | c | round-2 run | refits | held-out check | not aligned | not converged | second step |",
-        "|---|---|---|---|---|---|---|---|---|---|",
+        "| emission | K | σ | c | round-2 run | refits | held-out check | not aligned | not converged | second step | passes |",
+        "|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     for r in sorted(runs, key=lambda r: (r["emission"], r["num_states"])):
         r2, ref = r["round2"], r["refit"]
@@ -314,7 +317,7 @@ def block_refits(runs, frozen):
             f"{'off' if c is None else format(c, 'g')} | {r2['wandb_run_id']} | {len(ref['subject'])} | "
             f"{r2['heldout_refits_checked']} mice, ≤ {r2['heldout_refit_max_abs_diff']:.0e} | "
             f"{sum(not x for x in ref['matched_identity'])} | {sum(not x for x in ref['converged'])} | "
-            f"{step:.0e} |")
+            f"{step:.0e} | {r['max_newton_passes']} |")
     return "\n".join(lines)
 
 

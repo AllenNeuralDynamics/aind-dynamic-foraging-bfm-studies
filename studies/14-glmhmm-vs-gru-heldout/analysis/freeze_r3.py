@@ -70,8 +70,9 @@ ROUND2 = HERE / "r2_refit_prior.json"    # which round-2 prior the selection sco
 OUT = HERE / "frozen_r3.json"
 MIN_FROZEN_TRIALS = 50
 PRIOR_SIGMA = 2.0                # the {subject, state} GLM's weight prior (round 1's SUBJECT_PRIOR)
-NEWTON_STEPS = 12                # per fit (from the global weights, 12 match 30 to < 1e-8 on 16 mice);
-                                 # a second fit from the result checks convergence
+NEWTON_STEPS = 12                # per pass; passes repeat until a further pass changes every frozen
+CONVERGED = 1e-6                 # cell by less than CONVERGED, at most MAX_PASSES passes
+MAX_PASSES = 10
 SUBJECTS_PER_CHUNK = 32          # mice per pass; compiled code is released after each
 REFIT_WORKERS = 8
 EMISSIONS = ("hurdle", "reference")
@@ -227,9 +228,11 @@ def fit_cells(cut_model, starts, step, records, labels, emission, n_lags, design
     State by state: the trials on state k's Viterbi path are the only ones with weight in any
     of its cells, so each state's nine cuts are fitted together on those rows alone, as the
     nine states of ``cut_model`` (fitted independently, each started from the global state's
-    weights, ``starts[k]``), with ``step`` from ``compiled_m_step``. Returns (weights (9K, D)
-    with cell ``j * K + k`` = cut j, state k; n_trials, n_engaged, n_sessions (9K,); max |change|
-    of a second M-step from the result, over cells with at least ``MIN_FROZEN_TRIALS`` trials).
+    weights, ``starts[k]``), with ``step`` from ``compiled_m_step``. Passes of ``NEWTON_STEPS``
+    steps repeat until one more pass changes no frozen cell (at least ``MIN_FROZEN_TRIALS``
+    trials) by more than ``CONVERGED``, or ``MAX_PASSES`` passes have run. Returns (weights
+    (9K, D) with cell ``j * K + k`` = cut j, state k; n_trials, n_engaged, n_sessions (9K,); the
+    change one more pass would make, per cell, NaN for cells not frozen (9K,); passes run).
     """
     from aind_dynamic_foraging_models.glm_hmm import build_inputs
     from aind_dynamic_foraging_models.glm_hmm.emissions import aggregate
@@ -245,7 +248,8 @@ def fit_cells(cut_model, starts, step, records, labels, emission, n_lags, design
     cut = np.stack([(confidence >= p) & (run >= m) for p, m in CUTS], 1)        # (T, J)
     component = cut_model.emission_component
     w = np.zeros((J * K, flat_weights(emission, starts[0]).shape[1]))
-    delta = 0.0
+    change = np.full(J * K, np.nan)
+    passes = 0
     for k in range(K):
         rows = np.flatnonzero(path == k)
         if not cut[rows].any():
@@ -253,20 +257,27 @@ def fit_cells(cut_model, starts, step, records, labels, emission, n_lags, design
         with enable_x64():
             blocks = component.prepare_m_step(y[rows], inputs[rows])
             stats = tuple(pow2_rows(b.X, b.targets, aggregate(cut[rows] * 1.0, b)) for b in blocks)
+            frozen = cut[rows].sum(0) >= MIN_FROZEN_TRIALS             # (J,)
             fitted = step(starts[k], stats)
-            again = step(fitted, stats)
+            for passes_k in range(2, MAX_PASSES + 2):
+                again = step(fitted, stats)
+                moved = np.abs(flat_weights(emission, again) - flat_weights(emission, fitted)).max(1)
+                if passes_k > MAX_PASSES or not (moved[frozen] > CONVERGED).any():
+                    break
+                fitted = again
+        passes = max(passes, passes_k - 1)
         fitted_w = flat_weights(emission, fitted)
         for j in range(J):
             if cut[rows, j].any():
                 w[j * K + k] = fitted_w[j]
-            if cut[rows, j].sum() >= MIN_FROZEN_TRIALS:        # the check covers frozen cells only
-                delta = max(delta, float(np.abs(flat_weights(emission, again)[j] - fitted_w[j]).max()))
+            if frozen[j]:
+                change[j * K + k] = moved[j]
     kept = np.concatenate([cut & (path == k)[:, None] for k in range(K)], 1)  # (T, K*J), state-major
     kept = kept.reshape(len(y), K, J).transpose(0, 2, 1).reshape(len(y), J * K)  # cut-major
     n_trials = kept.sum(0)
     n_engaged = kept[y != 2].sum(0)
     n_sessions = np.array([len(np.unique(session[kept[:, c]])) for c in range(J * K)])
-    return w, n_trials, n_engaged, n_sessions, delta
+    return w, n_trials, n_engaged, n_sessions, change, passes
 
 
 def release_compiled(where):
@@ -359,6 +370,7 @@ def freeze_run(run, round2_run, cohorts, subject_index):
                          cfg2["max_em_iters"], cfg2["em_tol"])
 
     clock = {"refits": 0.0, "labels": 0.0, "cells": 0.0}
+    max_passes = 0
     for cohort, subjects in cohorts.items():
         for key in settings:
             settings[key]["n_cells_not_frozen"][cohort] = 0
@@ -407,12 +419,16 @@ def freeze_run(run, round2_run, cohorts, subject_index):
                     clock["labels"] += time.time() - t1
                 for labelling, labels in by_labelling.items():
                     t1 = time.time()
-                    w, n, n_eng, n_ses, delta = fit_cells(cut_model, starts, step, records, labels,
-                                                          emission, L, cfg["design"])
+                    w, n, n_eng, n_ses, moved, passes = fit_cells(cut_model, starts, step, records, labels,
+                                                                  emission, L, cfg["design"])
+                    max_passes = max(max_passes, passes)
                     clock["cells"] += time.time() - t1
                     for j, (p, m) in enumerate(CUTS):
                         entry = settings[setting_key(labelling, p, m)]
-                        entry["max_second_step_change"] = max(entry["max_second_step_change"], delta)
+                        own = moved[j * K:(j + 1) * K]
+                        if np.isfinite(own).any():
+                            entry["max_second_step_change"] = max(entry["max_second_step_change"],
+                                                                  float(np.nanmax(own)))
                         entry["n_trials_passing"][cohort] += int(n[j * K:(j + 1) * K].sum())
                         for k in range(K):
                             c = j * K + k
@@ -441,6 +457,7 @@ def freeze_run(run, round2_run, cohorts, subject_index):
                    "heldout_refits_checked": len(diffs),
                    "heldout_refit_max_abs_diff": max(diffs) if diffs else None},
         "refit": refit,
+        "max_newton_passes": max_passes,
         "settings": settings,
     }
     arrays = {f"W_{key}": np.asarray(w, np.float32).reshape(-1, G.shape[1]) for key, w in weights.items()}
@@ -598,6 +615,7 @@ def write_outputs(out_dir, parts, runs, round2_runs, smoke=False):
                                   ">= posterior_min and its same-state Viterbi run within the session is "
                                   ">= run_min trials long"},
                  "anchor": ANCHOR, "prior_sigma": PRIOR_SIGMA, "newton_steps": NEWTON_STEPS,
+                 "converged": CONVERGED, "max_passes": MAX_PASSES,
                  "min_frozen_trials": MIN_FROZEN_TRIALS, "min_scored_trials": P.MIN_TRIALS,
                  "coords": f"PC1-{N_PCS} of the anchor's training cells (>= {P.MIN_TRIALS} trials), "
                            "then the six named weights of r3_scores.named_features",
