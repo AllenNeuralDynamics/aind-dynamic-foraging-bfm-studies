@@ -38,7 +38,7 @@ sys.path.insert(0, str(STUDY.parent / "util"))
 import figure_style as fs  # noqa: E402
 from _meta import build_meta, write_artifact  # noqa: E402
 from freeze_seeded_islands_2 import names  # noqa: E402
-from r2_search_curve import ADD_ONS, tags  # noqa: E402
+from r2_search_curve import ADD_ONS, CORE, tags  # noqa: E402
 
 PLAN = HERE / "individual" / "sessions.json"
 SCORES = HERE / "individual" / "scores"
@@ -46,6 +46,9 @@ REPORT = HERE / "reports" / "r5-individual-differences.md"
 FIGS = {k: HERE / f"fig_r5_{k}.svg" for k in ("reliability", "mechanisms", "pairs")}
 LITERATURE = ("miller_rhg", "lebedeva_pr", "lopez_double_trace")
 UNION, PARTS = "arch08", ("arch14", "arch04", "arch03")
+# r2 tags mechanisms by parameter names; arch28 names its win-stay/lose-shift trace "reward_seeking" (its
+# comments and update say so). Corrected after review of PR #147, disclosed on #146 and in the report.
+TAG_FIX = {"arch28": {"win-stay, lose-shift"}}
 N_BOOT, SEED = 2000, 0
 OI = fs.OKABE_ITO
 
@@ -165,28 +168,30 @@ def analyse(plan, tags_, subjects, X, fell):
     # mechanism effects among the search programs
     search = [i for i, t in enumerate(tags_) if t not in LITERATURE]
     code = {t: (HERE / "individual" / "programs" / plan["programs"][t]["file"]).read_text() for t in tags_}
-    mech = {t: sorted(tags(sum(names(code[t]), []))) for t in tags_}
+    mech = {t: sorted(tags(sum(names(code[t]), [])) | TAG_FIX.get(t, set())) for t in tags_}
     out["mechanisms_by_program"] = mech
+    out["tag_fixes"] = {t: sorted(v) for t, v in TAG_FIX.items()}
     cov = covariates(plan, subjects)
     out["covariates"] = {k: v.tolist() for k, v in cov.items()}
+    # joint regression per mouse and half (#146): advantage of each search program on an intercept and
+    # the indicators of every mechanism that varies among the search programs
+    cols = [k for k in (*CORE, *ADD_ONS) if 0 < sum(k in mech[tags_[i]] for i in search) < len(search)]
+    design = np.column_stack([np.ones(len(search))] + [[float(k in mech[tags_[i]]) for i in search] for k in cols])
+    assert np.linalg.matrix_rank(design) == design.shape[1], "mechanism indicators are collinear"
+    beta = {h: np.linalg.lstsq(design, d[search], rcond=None)[0][1:] for h, d in (("A", dA), ("B", dB), ("all", dF))}
     effects = {}
-    for k in ADD_ONS:
-        has = [i for i in search if k in mech[tags_[i]]]
-        without = [i for i in search if k not in mech[tags_[i]]]
-        if not has or not without:
-            continue
-
-        def eff(d, ix=allix):
-            return d[has][:, ix].mean(0) - d[without][:, ix].mean(0)
-        eA, eB, eF = eff(dA), eff(dB), eff(dF)
-        lo, hi = boot(lambda ix: corr(eff(dA, ix), eff(dB, ix)), M, rng)
-        rho = {c: stats.spearmanr(eF, v) for c, v in cov.items()}
-        effects[k] = {"programs_with": [tags_[i] for i in has], "n_without": len(without),
-                      "mean_effect": float(eF.mean()), "sd_effect": float(eF.std()),
-                      "share_subjects_positive": float((eF > 0).mean()),
-                      "split_half_r": corr(eA, eB), "ci": [float(lo), float(hi)],
+    for j, k in enumerate(cols):
+        bA, bB, bF = beta["A"][j], beta["B"][j], beta["all"][j]
+        lo, hi = boot(lambda ix: corr(bA[ix], bB[ix]), M, rng)
+        rho = {c: stats.spearmanr(bF, v) for c, v in cov.items()}
+        effects[k] = {"programs_with": [tags_[i] for i in search if k in mech[tags_[i]]],
+                      "n_without": sum(k not in mech[tags_[i]] for i in search),
+                      "mean_effect": float(bF.mean()), "sd_effect": float(bF.std()),
+                      "share_subjects_positive": float((bF > 0).mean()),
+                      "split_half_r": corr(bA, bB), "ci": [float(lo), float(hi)],
                       "spearman": {c: {"rho": float(v.statistic), "p": float(v.pvalue)} for c, v in rho.items()}}
     out["mechanisms"] = effects
+    out["regression_columns"] = cols
 
     # union test: arch08 against its parts
     u, parts = tags_.index(UNION), [tags_.index(p) for p in PARTS]
@@ -257,7 +262,7 @@ def figures(plan, out, A, B):
     a.errorbar(r, y, xerr=[r - ci[:, 0], ci[:, 1] - r], fmt="o", ms=2.5, color=OI["black"], lw=0.7)
     a.axvline(0, color="0.6", lw=0.5)
     a.set_yticks(y, ks)
-    a.set_xlabel("split-half r of per-mouse\nmechanism effect")
+    a.set_xlabel("split-half r of per-mouse\nmechanism coefficient")
     R = np.array([[mech[k]["spearman"][cv]["rho"] for cv in covs] for k in ks])
     im = b.imshow(R, cmap="RdBu_r", vmin=-0.5, vmax=0.5, aspect="auto")
     b.set_xticks(range(len(covs)), [cv.replace("_", " ") for cv in covs], rotation=30, ha="right")
@@ -312,10 +317,13 @@ def blocks(plan, out) -> dict[int, str]:
                      f"{e['share_subjects_positive']:.2f}",
                      f"{fs.num(e['split_half_r'], '.2f')} [{fs.num(e['ci'][0], '.2f')}, {fs.num(e['ci'][1], '.2f')}]"]
                     + [f"{fs.num(sp[c]['rho'], '+.2f')} (p {sp[c]['p']:.2g})" for c in covs])
-    b3 = ("Mechanism effect per mouse = mean advantage of the search programs with the add-on minus those "
-          "without (14 search programs; literature models left out). Spearman ρ against each mouse's "
-          "covariates on all sessions; with 4 covariates per mechanism, read single p values with care.\n\n"
-          + table(["add-on", "with", "without", "mean (mnats/trial)", "SD across mice", "share of mice > 0",
+    b3 = ("Mechanism effect per mouse = its coefficient in a joint regression of the 14 search programs' "
+          "advantages on an intercept and the indicators of every mechanism that varies among them "
+          f"({', '.join(out['regression_columns'])}), fitted per mouse and half; literature models left out. "
+          "arch28 is tagged win-stay/lose-shift by hand: r2's name-based tagger misses its trace (found in "
+          "review, after scoring). Spearman ρ against each mouse's covariates on all sessions; with 4 "
+          "covariates per mechanism, read single p values with care.\n\n"
+          + table(["mechanism", "with", "without", "coefficient, mean (mnats/trial)", "SD across mice", "share of mice > 0",
                    "split-half r [95% CI]"] + [f"ρ {c.replace('_', ' ')}" for c in covs], rows)
           + "\n\n![mechanisms](../fig_r5_mechanisms.svg)")
     b4 = (f"Union test: {label(plan, UNION)} (engagement, experience and satiety) minus each part on all "

@@ -74,8 +74,8 @@ per-trial predictions (the search kept only pooled scores and summaries).
 ### Decision (Han, 2026-11-12)
 The biology question goes to a new study; this study keeps one interpretation report:
 
-- **r5 stays here** (#146): why the top programs tie. Each add-on reliably suits about two thirds of
-  the mice and hurts the rest, so pooled scores tie. The mouse-specific part is small, and choosing a
+- **r5 stays here** (#146): why the top programs tie. Each add-on reliably suits about half of the
+  mice and hurts the rest, so pooled scores tie. The mouse-specific part is small, and choosing a
   program per mouse gains little on unseen sessions.
 - **New study** (number and setup in its own session): each mouse's strategy profile. It starts with a
   mixture-of-agents model: per-mouse weights on the core and each add-on, with 0 meaning off. Next, the

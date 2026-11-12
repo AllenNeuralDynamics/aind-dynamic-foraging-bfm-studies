@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r5_individual_differences.py",
-    "produced_at_pt": "2026-11-12T00:14:58-08:00",
-    "studies_git_sha": "fc5351f02c4a812df0ce595cd5b47047f99240a1",
+    "produced_at_pt": "2026-11-12T00:26:11-08:00",
+    "studies_git_sha": "b57ab3a40b97519e21d27b82c78de4e94b6fba39",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r5_individual_differences.py",
-        "sha256": "7601562434d7463f3d954e326f28ded5f735029901e26fc6586d114cbcb96de1"
+        "sha256": "76498ef6c7cecf99d1d30b7b431841d6001cb3a37ae87a2a5db67c5d5a038349"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r2_search_curve.py",
@@ -180,7 +180,7 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r5_individual_differences.json",
-        "sha256": "c153c03ee8b6b6282ae458efe1fc38280b13faea6a6b8d3aa7c7698ae565d25c"
+        "sha256": "13f4b9eb50a80a9301a08f8959f2fbf91abc50a78573c576e0f2d48e8c172862"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r5_reliability.svg",
@@ -188,7 +188,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r5_mechanisms.svg",
-        "sha256": "c99404891ec8deaa5b6442a347a28eff362e9dc948619e8e65bba136d061436c"
+        "sha256": "c6282eadaad85ff02fb6fdd6674111ce827115cc07c065737ec908deb7ab468e"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r5_pairs.svg",
@@ -204,11 +204,11 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r5-individual-differences.md#result-3",
-        "sha256": "bb719011ebce0a49874ada6bd63ef37ac2167d75c053649fcfe54b61921a51eb"
+        "sha256": "1236fd9ce337510f3e932220a96c20286b9e4de8cd7679613ba5ba4945465059"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r5-individual-differences.md#result-4",
-        "sha256": "a8e71352e5fbcac9423299a98be000a7ebc1ea5d51e2b3227712fae53127ffdd"
+        "sha256": "21ca2e8a813eb613f55ea894f4a0cf71bd0ea8ab95a8069fd7133277e2a62443"
       }
     ]
   },
@@ -487,7 +487,8 @@
     "arch28": [
       "counterfactual update",
       "two habits",
-      "unchosen forgetting"
+      "unchosen forgetting",
+      "win-stay, lose-shift"
     ],
     "arch29": [
       "counterfactual update",
@@ -517,6 +518,11 @@
     "lebedeva_pr": [],
     "lopez_double_trace": [
       "two habits"
+    ]
+  },
+  "tag_fixes": {
+    "arch28": [
+      "win-stay, lose-shift"
     ]
   },
   "covariates": {
@@ -930,6 +936,49 @@
     ]
   },
   "mechanisms": {
+    "counterfactual update": {
+      "programs_with": [
+        "arch03",
+        "arch01",
+        "new01",
+        "arch04",
+        "arch14",
+        "arch38",
+        "arch15",
+        "arch39",
+        "arch33",
+        "arch28",
+        "arch29",
+        "arch08"
+      ],
+      "n_without": 2,
+      "mean_effect": 0.0001966611895130407,
+      "sd_effect": 0.001181264259882141,
+      "share_subjects_positive": 0.67,
+      "split_half_r": 0.46086936285961677,
+      "ci": [
+        0.13303222428356076,
+        0.6827584935464566
+      ],
+      "spearman": {
+        "ignore_rate": {
+          "rho": -0.020246024602460243,
+          "p": 0.841531184278921
+        },
+        "n_sessions": {
+          "rho": -0.014696275920632234,
+          "p": 0.8846138423769535
+        },
+        "ignore_rise_within_session": {
+          "rho": 0.06689468946894687,
+          "p": 0.5084341342279993
+        },
+        "share_uncoupled": {
+          "rho": -0.1115689961887012,
+          "p": 0.26910874203578894
+        }
+      }
+    },
     "bait expectation": {
       "programs_with": [
         "arch38",
@@ -937,30 +986,30 @@
         "arch33"
       ],
       "n_without": 11,
-      "mean_effect": -0.0002650604090175024,
-      "sd_effect": 0.0013732597739735857,
-      "share_subjects_positive": 0.48,
-      "split_half_r": 0.7380584610869336,
+      "mean_effect": -0.00025278146559678193,
+      "sd_effect": 0.0015491294903589917,
+      "share_subjects_positive": 0.51,
+      "split_half_r": 0.7369968491965294,
       "ci": [
-        0.2997260279228735,
-        0.8786984896978691
+        0.2658128752173978,
+        0.8811105348812842
       ],
       "spearman": {
         "ignore_rate": {
-          "rho": 0.02905490549054905,
-          "p": 0.7741454607691975
+          "rho": -0.035127512751275125,
+          "p": 0.7286169815186232
         },
         "n_sessions": {
-          "rho": 0.053607733155661356,
-          "p": 0.5963070139562721
+          "rho": 0.026698635469561013,
+          "p": 0.7920290714699663
         },
         "ignore_rise_within_session": {
-          "rho": 0.11927992799279927,
-          "p": 0.23719449781466564
+          "rho": 0.017425742574257424,
+          "p": 0.8633749283754862
         },
         "share_uncoupled": {
-          "rho": -0.13314494026770074,
-          "p": 0.18663546858168664
+          "rho": -0.08560564256058291,
+          "p": 0.3970788997362589
         }
       }
     },
@@ -970,30 +1019,30 @@
         "arch29"
       ],
       "n_without": 12,
-      "mean_effect": 8.774469758153479e-05,
-      "sd_effect": 0.0011387540667007364,
-      "share_subjects_positive": 0.6,
-      "split_half_r": 0.23733755341412582,
+      "mean_effect": -0.00015800763606318882,
+      "sd_effect": 0.001513667293475058,
+      "share_subjects_positive": 0.47,
+      "split_half_r": 0.3979173028786907,
       "ci": [
-        0.017133597150028226,
-        0.41471557906874723
+        0.0600075045181162,
+        0.6549939569665113
       ],
       "spearman": {
         "ignore_rate": {
-          "rho": -0.1375217521752175,
-          "p": 0.1724354253843601
+          "rho": -0.12836483648364835,
+          "p": 0.20309522017056642
         },
         "n_sessions": {
-          "rho": -0.13452143560575439,
-          "p": 0.1820808064482497
+          "rho": -0.0746238887786604,
+          "p": 0.4605834049640315
         },
         "ignore_rise_within_session": {
-          "rho": -0.1955235523552355,
-          "p": 0.05123413359299969
+          "rho": -0.20384038403840382,
+          "p": 0.04193279358905002
         },
         "share_uncoupled": {
-          "rho": 0.06913329696944712,
-          "p": 0.4943164873202983
+          "rho": 0.15743518024059958,
+          "p": 0.11773991783379477
         }
       }
     },
@@ -1004,30 +1053,30 @@
         "s75"
       ],
       "n_without": 11,
-      "mean_effect": 0.00016841074261602948,
-      "sd_effect": 0.0010245681760907134,
-      "share_subjects_positive": 0.61,
-      "split_half_r": 0.5545237632070454,
+      "mean_effect": -6.629143756969664e-05,
+      "sd_effect": 0.0011720080158925965,
+      "share_subjects_positive": 0.53,
+      "split_half_r": 0.6369954765255597,
       "ci": [
-        0.23215025665585723,
-        0.7669520274261915
+        0.3862301114751286,
+        0.7900932009889045
       ],
       "spearman": {
         "ignore_rate": {
-          "rho": 0.09921392139213919,
-          "p": 0.3260548983350912
+          "rho": 0.042292229222922285,
+          "p": 0.6760991090581104
         },
         "n_sessions": {
-          "rho": 0.04341534866897084,
-          "p": 0.6679978721372954
+          "rho": 0.0037041350110922485,
+          "p": 0.9708232644126107
         },
         "ignore_rise_within_session": {
-          "rho": 0.06127812781278127,
-          "p": 0.5447494037285046
+          "rho": -0.033219321932193215,
+          "p": 0.7428305320842272
         },
         "share_uncoupled": {
-          "rho": 0.06490838407029574,
-          "p": 0.5211327093142325
+          "rho": 0.1615758356175456,
+          "p": 0.10827040248277893
         }
       }
     },
@@ -1038,30 +1087,30 @@
         "arch08"
       ],
       "n_without": 11,
-      "mean_effect": 0.0002469453964114584,
-      "sd_effect": 0.001086225872562651,
-      "share_subjects_positive": 0.69,
-      "split_half_r": 0.6442095918211996,
+      "mean_effect": 6.94048482141788e-06,
+      "sd_effect": 0.0012365647037950154,
+      "share_subjects_positive": 0.57,
+      "split_half_r": 0.704301278259772,
       "ci": [
-        0.39561326154425897,
-        0.8003588179714584
+        0.4979548735067992,
+        0.8447421697361246
       ],
       "spearman": {
         "ignore_rate": {
-          "rho": 0.006912691269126911,
-          "p": 0.9455797620903057
+          "rho": 0.0596099609960996,
+          "p": 0.5557744663950045
         },
         "n_sessions": {
-          "rho": 0.16097352962165504,
-          "p": 0.10960973833631991
+          "rho": 0.1770287901405127,
+          "p": 0.07807340378587287
         },
         "ignore_rise_within_session": {
-          "rho": -0.03587158715871586,
-          "p": 0.7230990856570396
+          "rho": -0.001764176417641764,
+          "p": 0.9861015742686893
         },
         "share_uncoupled": {
-          "rho": 0.027353602744505715,
-          "p": 0.7870467434229624
+          "rho": 0.07660212447350247,
+          "p": 0.44874770523432816
         }
       }
     },
@@ -1073,67 +1122,77 @@
         "arch08"
       ],
       "n_without": 10,
-      "mean_effect": 0.00034725015215049843,
-      "sd_effect": 0.0010679129686066815,
-      "share_subjects_positive": 0.67,
-      "split_half_r": 0.3838383938203464,
+      "mean_effect": 9.632179311425461e-05,
+      "sd_effect": 0.0010770578756831904,
+      "share_subjects_positive": 0.58,
+      "split_half_r": 0.5677813317804344,
       "ci": [
-        0.176001849635363,
-        0.5861645667503638
+        0.28073285035799106,
+        0.750899749292478
       ],
       "spearman": {
         "ignore_rate": {
-          "rho": 0.14934293429342932,
-          "p": 0.13807881473100572
+          "rho": 0.09209720972097209,
+          "p": 0.36212048471481884
         },
         "n_sessions": {
-          "rho": 0.26306574426179175,
-          "p": 0.008185243218980594
+          "rho": 0.29322798649497145,
+          "p": 0.003068539463612334
         },
         "ignore_rise_within_session": {
-          "rho": 0.1613921392139214,
-          "p": 0.10867752597258339
+          "rho": 0.023114311431143113,
+          "p": 0.81943824337396
         },
         "share_uncoupled": {
-          "rho": 0.0018476470940733231,
-          "p": 0.9854440509501251
+          "rho": 0.13774901201677597,
+          "p": 0.17172046665923904
         }
       }
     },
     "win-stay, lose-shift": {
       "programs_with": [
         "arch39",
-        "arch33"
+        "arch33",
+        "arch28"
       ],
-      "n_without": 12,
-      "mean_effect": -0.0006644559602438081,
-      "sd_effect": 0.00210911260265672,
-      "share_subjects_positive": 0.3,
-      "split_half_r": 0.7993581120078026,
+      "n_without": 11,
+      "mean_effect": -0.000652004049460836,
+      "sd_effect": 0.001913296478181915,
+      "share_subjects_positive": 0.26,
+      "split_half_r": 0.6994039613173643,
       "ci": [
-        0.3823684373314658,
-        0.9072759715874887
+        0.30733588059275146,
+        0.8574057792122496
       ],
       "spearman": {
         "ignore_rate": {
-          "rho": -0.1673687368736874,
-          "p": 0.0960310398659898
+          "rho": -0.18125412541254124,
+          "p": 0.07111647901024384
         },
         "n_sessions": {
-          "rho": -0.029849555511464163,
-          "p": 0.7681402310652281
+          "rho": 0.07298829669584046,
+          "p": 0.47049746555339195
         },
         "ignore_rise_within_session": {
-          "rho": -0.19444344434443442,
-          "p": 0.05255822905624264
+          "rho": -0.2406240624062406,
+          "p": 0.01588559027229832
         },
         "share_uncoupled": {
-          "rho": 0.100272469818748,
-          "p": 0.32089400050765465
+          "rho": 0.1664748086943394,
+          "p": 0.09784518313566146
         }
       }
     }
   },
+  "regression_columns": [
+    "counterfactual update",
+    "bait expectation",
+    "reward rate",
+    "experience",
+    "engagement or lapse",
+    "satiety",
+    "win-stay, lose-shift"
+  ],
   "union": {
     "union": "arch08",
     "parts": [
@@ -1149,8 +1208,8 @@
     "share_subjects_union_beats_best_part": 0.3,
     "cv_union_minus_best_part": -0.0002878135254449077,
     "ci": [
-      -0.0006794243020317884,
-      5.056164950903084e-05
+      -0.0007275114222148278,
+      5.842168725324397e-05
     ]
   },
   "pairs": {
