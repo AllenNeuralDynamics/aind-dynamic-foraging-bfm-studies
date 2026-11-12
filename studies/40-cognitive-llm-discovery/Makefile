@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all explainer procedure-figure gate3 seed-choice smoke-result freeze-seeded-islands-smoke cap12-result freeze-seeded-islands-cap12 freeze-engine-smoke archive-gate4 freeze-gate4 freeze-gate4-novelty
 
-all: gate3 seed-choice smoke-result cap12-result r1 r2 r3 r4 procedure-figure
+all: gate3 seed-choice smoke-result cap12-result r1 r2 r3 r4 r5 procedure-figure
 
 # procedure-figure = the study's procedure as a paper method figure (analysis/fig_procedure.svg),
 # with cohort sizes from reference/cohorts_seed0.json; independent of the archify pages.
@@ -94,3 +94,15 @@ r3:
 .PHONY: r4
 r4:
 	$(PY) analysis/r4_simplification.py
+
+# r5 = Individual differences in mechanism fit
+.PHONY: r5
+r5:
+	$(PY) analysis/r5_individual_differences.py
+
+# freeze-individual = r5's freeze (#146): copy the 17 programs and the monitor subjects' score sessions,
+# then one scoring job per program on a compute node (needs /allen and MEvolve at freeze_individual's
+# MEVOLVE_SHA on PYTHONPATH; see its docstring). Never part of `all`.
+.PHONY: freeze-individual
+freeze-individual:
+	$(PY) analysis/freeze_individual.py prepare

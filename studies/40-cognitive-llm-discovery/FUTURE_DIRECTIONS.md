@@ -71,9 +71,17 @@ per-trial predictions (the search kept only pooled scores and summaries).
 - A model-free signature in the raw choices for every claim (the fingerprint code measures these).
 - Questions written down before looking.
 
-### Open decision
-Reports r5+ of this study, or a new study for the biology question. The question differs from this
-study's ("can search close the gap"), which argues for a new study.
+### Decision (Han, 2026-11-12)
+The biology question goes to a new study; this study keeps one interpretation report:
+
+- **r5 stays here** (#146): why the top programs tie. Each add-on reliably suits about half of the
+  mice and hurts the rest, so pooled scores tie. The mouse-specific part is small, and choosing a
+  program per mouse gains little on unseen sessions.
+- **New study** (number and setup in its own session): each mouse's strategy profile. It starts with a
+  mixture-of-agents model: per-mouse weights on the core and each add-on, with 0 meaning off. Next, the
+  weights switch between hidden states, as in TBS v5's mixture-of-agents HMM. It is compared with study
+  14's GLM-HMM states, and the extreme mice are checked with study 15's fingerprints. Sections A–D
+  above are the rest of its plan.
 
 ## 2. Search harness (MEvolve)
 
