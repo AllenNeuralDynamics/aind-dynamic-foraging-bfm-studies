@@ -125,8 +125,8 @@ Correlation of per-mouse advantage between programs: positive means two programs
   to unused mice.
 - **The stable part is not yet usable.** Choosing each mouse's best program on one half gains only
   +0.19 mnats per trial on the other half (95% CI −0.14 to +0.51). The program that has engagement,
-  experience and satiety together does no better than each mouse's best single add-on (−0.29, CI −0.68
-  to +0.05). Per-mouse parameters in the 2-level fit therefore do not switch the right add-on on per
+  experience and satiety together does no better than each mouse's best single add-on (−0.29, CI −0.73
+  to +0.06). Per-mouse parameters in the 2-level fit therefore do not switch the right add-on on per
   mouse.
 - **None of the simple behaviour measures clearly explains which mice an add-on helps.** The strongest
   is satiety × number of sessions (ρ 0.29, p 0.003), then win-stay/lose-shift × rise in ignores within a
