@@ -68,7 +68,10 @@ often). The run config names `reference/tiers.json` and its sha256; the harness 
 either digest or the freeze manifest does not match, or if two tiers share a mouse. After a run, a
 `freeze-notebook` target (to come) copies the run's `agent/` directory, without the data views, into
 `analysis/notebook/` and commits it: claims, reviews, looks, budget, episode summaries and notes, in the
-format of MEvolve's ADR 0007.
+format of MEvolve's ADR 0007. Looks are sealed: the agent never sees a look's result, so its claims
+cannot adapt to the confirmation subjects. `confirm` writes each result to `<run_dir>/confirm/results.jsonl`,
+outside the agent's directory; the same freeze copies that file, and the reports read results only
+from it.
 
 **The GRU map.** Confirmation compares models with the cross-validated GRU (studies #148), which gives
 held-out GRU predictions for every mouse. Discovery can start before that map exists, from study 40's
