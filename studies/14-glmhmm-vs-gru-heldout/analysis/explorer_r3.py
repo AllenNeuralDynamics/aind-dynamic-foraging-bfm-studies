@@ -172,7 +172,7 @@ def interactive_page(frozen, runs):
             "cohort": [int(s["cohort"] == "heldout") for s in frozen["subjects"]],
             "stateColors": STATE_COLORS, "minTrials": MIN_TRIALS, "anchor": ANCHOR,
             "cuts": frozen["data"]["cuts"], "emissions": {}}
-    keep = ("n_cells", "n_trials_kept", "silhouette", "silhouette_null_95", "silhouette_pc12",
+    keep = ("n_cells", "n_trials_passing", "silhouette", "silhouette_null_95", "silhouette_pc12",
             "eta2_state", "eta2_subject", "eta2_state_null_mean", "kmeans_ari")
     for emission in EMISSIONS:
         by_k = {r["num_states"]: r for r in runs if r["emission"] == emission}
@@ -269,7 +269,10 @@ const $ = id => document.getElementById(id);
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const COH = {heldout: "#0072B2", training: "#D55E00"};
 const R3 = {files: {}, waiting: {}};
-R3.load = (name, data) => { R3.files[name] = data; (R3.waiting[name] || []).forEach(f => f()); delete R3.waiting[name]; };
+R3.load = (name, data) => {
+  R3.files[name] = data; const queued = R3.waiting[name] || []; delete R3.waiting[name];
+  queued.forEach(f => { try { f(); } catch (err) { console.error(err); } });
+};
 function need(name, then) {
   if (R3.files[name]) return then();
   if (!R3.waiting[name]) { R3.waiting[name] = []; const s = document.createElement("script");
@@ -308,9 +311,14 @@ function layoutBase(extra) {
   return Object.assign({paper_bgcolor: css("--bg"), plot_bgcolor: css("--bg"),
     font: {color: css("--fg"), size: 12}, margin: {l: 56, r: 10, t: 10, b: 46}}, extra);
 }
+// Every callback re-reads the controls: a file that arrives after the selection changed only
+// triggers a fresh draw, which waits for whatever the current selection still lacks.
 function draw() {
-  const e = $("emission").value, dots = $("dots").value;
-  need(`${e}_${$("labelling").value}_K${$("K").value}`, () => dots === "cells" ? drawScatter() : need(`${e}_refits`, drawScatter));
+  const e = $("emission").value, names = [`${e}_${$("labelling").value}_K${$("K").value}`];
+  if ($("dots").value !== "cells") names.push(`${e}_refits`);
+  const missing = names.filter(n => !R3.files[n]);
+  if (!missing.length) return drawScatter();
+  missing.forEach(n => need(n, draw));
 }
 function drawScatter() {
   const e = $("emission").value, k = $("K").value, setting = key(), dots = $("dots").value;
@@ -350,7 +358,7 @@ function drawScatter() {
     : {xaxis: axis(labels[xi], xs), yaxis: axis(labels[yi], ys), legend: {orientation: "v", x: 1.01, y: 0.92}, hovermode: "closest"};
   Plotly.react("scatter", traces, layoutBase(layout), {responsive: true});
   const S = D.emissions[e].scores, cohorts = which === "both" ? ["heldout", "training"] : [which === "1" ? "heldout" : "training"];
-  const kept = cohorts.map(c => { const a = S[D.anchor][c][k - 1].n_trials_kept, b = S[setting][c][k - 1].n_trials_kept;
+  const kept = cohorts.map(c => { const a = S[D.anchor][c][k - 1].n_trials_passing, b = S[setting][c][k - 1].n_trials_passing;
     return `${c === "heldout" ? "held-out" : "training"} ${Math.round(100 * b / a)}%`; }).join(", ");
   const r2 = info.round2;
   $("runNote").textContent = `Setting ${setting}: trials kept vs the uncut global setting, ${kept}. Global fit: W&B run ${info.run} (mice_glmhmm); ` +

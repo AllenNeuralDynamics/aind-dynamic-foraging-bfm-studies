@@ -163,7 +163,7 @@ def fig_cuts(runs):
                 style = dict(color=CUT_COLORS[entry["posterior_min"]], ls=CUT_DASH[entry["run_min"]], lw=0.8)
                 axes[row, col].plot([r["K"] for r in sel], [r["silhouette"] for r in sel], **style)
                 axes[row, 2 + col].plot([r["K"] for r in rows],
-                                        [r["n_trials_kept"] / a["n_trials_kept"] for r, a in zip(rows, anchor)],
+                                        [r["n_trials_passing"] / a["n_trials_passing"] for r, a in zip(rows, anchor)],
                                         **style)
             axes[row, col].set_ylabel(f"{emission}\nsilhouette" if col == 0 else "silhouette")
             axes[row, col].set_title(f"{labelling} labels", pad=2)
@@ -270,8 +270,8 @@ def block_cuts(runs, frozen):
         "axes stay the uncut global setting's. Cutting keeps the trials that best fit a state's "
         "weights, so a higher silhouette after a cut is partly selection, not evidence.",
         "",
-        "Silhouette (all weights, training mice) by K, and the trials kept as a share of the uncut "
-        "setting's:",
+        "Silhouette (all weights, training mice) by K, and the trials the cut keeps (counted before "
+        "any cell-size floor) as a share of the uncut setting's:",
         "",
     ]
     Ks = list(range(2, 11))
@@ -282,7 +282,7 @@ def block_cuts(runs, frozen):
         anchor = {r["K"]: r for r in cut_rows(runs, emission, ANCHOR, "training")}
         for key in runs[0]["settings"]:
             rows = {r["K"]: r for r in cut_rows(runs, emission, key, "training")}
-            kept = [rows[K]["n_trials_kept"] / anchor[K]["n_trials_kept"] for K in (2, 10)]
+            kept = [rows[K]["n_trials_passing"] / anchor[K]["n_trials_passing"] for K in (2, 10)]
             lines.append(f"| `{key}` | " + " | ".join(fmt(rows[K].get("silhouette")) for K in Ks)
                          + f" | {kept[0]:.0%} | {kept[1]:.0%} |")
         lines.append("")
@@ -300,9 +300,7 @@ def block_refits(runs, frozen):
         "transitions; training-mouse refits were not saved). *Not aligned*: refits whose states "
         "match the global states other than one to one in order (least-squares weight matching). "
         "*Second step*: the largest change of a second M-step from any {subject, state} fit, a "
-        f"convergence check. It covers every cell with a kept trial, including cells under "
-        f"the freeze's {MIN_FROZEN}-trial floor that are never frozen, so it only bounds the "
-        "frozen cells' change from above.",
+        f"convergence check over the frozen cells (at least {MIN_FROZEN} kept trials).",
         "",
         "| emission | K | σ | c | round-2 run | refits | held-out check | not aligned | not converged | second step |",
         "|---|---|---|---|---|---|---|---|---|---|",

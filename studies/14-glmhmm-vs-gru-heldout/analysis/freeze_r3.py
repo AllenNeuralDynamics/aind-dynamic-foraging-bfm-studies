@@ -229,7 +229,7 @@ def fit_cells(cut_model, starts, step, records, labels, emission, n_lags, design
     nine states of ``cut_model`` (fitted independently, each started from the global state's
     weights, ``starts[k]``), with ``step`` from ``compiled_m_step``. Returns (weights (9K, D)
     with cell ``j * K + k`` = cut j, state k; n_trials, n_engaged, n_sessions (9K,); max |change|
-    of a second M-step from the result).
+    of a second M-step from the result, over cells with at least ``MIN_FROZEN_TRIALS`` trials).
     """
     from aind_dynamic_foraging_models.glm_hmm import build_inputs
     from aind_dynamic_foraging_models.glm_hmm.emissions import aggregate
@@ -259,6 +259,7 @@ def fit_cells(cut_model, starts, step, records, labels, emission, n_lags, design
         for j in range(J):
             if cut[rows, j].any():
                 w[j * K + k] = fitted_w[j]
+            if cut[rows, j].sum() >= MIN_FROZEN_TRIALS:        # the check covers frozen cells only
                 delta = max(delta, float(np.abs(flat_weights(emission, again)[j] - fitted_w[j]).max()))
     kept = np.concatenate([cut & (path == k)[:, None] for k in range(K)], 1)  # (T, K*J), state-major
     kept = kept.reshape(len(y), K, J).transpose(0, 2, 1).reshape(len(y), J * K)  # cut-major
@@ -282,6 +283,28 @@ def release_compiled(where):
             print(f"    released compiled code after {where} ({sum(1 for _ in maps)} maps)", flush=True)
     except OSError:
         pass
+
+
+def run_provenance(code):
+    """The code and revisions this process runs: recorded in every part, checked by the merge."""
+    import importlib.metadata
+    import subprocess
+
+    def git(root, *args):
+        return subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True,
+                              check=True).stdout.strip()
+
+    models = json.loads(importlib.metadata.distribution("aind-dynamic-foraging-models").read_text("direct_url.json")
+                        or "{}")
+    out = {"studies_git_sha": git(HERE, "rev-parse", "HEAD"),
+           "studies_git_dirty": bool(git(HERE, "status", "--porcelain", "--", str(HERE.parent))),
+           "foraging_models_git_sha": models.get("vcs_info", {}).get("commit_id"),
+           "foraging_models_version": importlib.metadata.version("aind-dynamic-foraging-models"),
+           "code_sha256": {Path(c).name: sha256(c) for c in code}}
+    for name in ("WRAPPER_ROOT", "DISPATCHER_ROOT"):
+        if name in os.environ:
+            out[f"{name.split('_')[0].lower()}_git_sha"] = git(os.environ[name], "rev-parse", "HEAD")
+    return out
 
 
 def freeze_run(run, round2_run, cohorts, subject_index):
@@ -319,7 +342,8 @@ def freeze_run(run, round2_run, cohorts, subject_index):
     settings = {setting_key(*s): {"labelling": s[0], "posterior_min": s[1], "run_min": s[2],
                                   "cells": {"subject": [], "state": [], "n_trials": [], "n_engaged": [],
                                             "n_sessions": []},
-                                  "n_cells_not_frozen": {}, "max_second_step_change": 0.0}
+                                  "n_cells_not_frozen": {}, "n_trials_passing": {},
+                                  "max_second_step_change": 0.0}
                 for s in SETTINGS}
     weights = {key: [] for key in settings}
     refit = {"subject": [], "converged": [], "em_iters": [], "matched_identity": [],
@@ -338,6 +362,7 @@ def freeze_run(run, round2_run, cohorts, subject_index):
     for cohort, subjects in cohorts.items():
         for key in settings:
             settings[key]["n_cells_not_frozen"][cohort] = 0
+            settings[key]["n_trials_passing"][cohort] = 0       # trials the cut keeps, before any cell floor
         names = list(subjects)
         for start in range(0, len(names), SUBJECTS_PER_CHUNK):
             chunk = {s: subjects[s] for s in names[start:start + SUBJECTS_PER_CHUNK]}
@@ -388,6 +413,7 @@ def freeze_run(run, round2_run, cohorts, subject_index):
                     for j, (p, m) in enumerate(CUTS):
                         entry = settings[setting_key(labelling, p, m)]
                         entry["max_second_step_change"] = max(entry["max_second_step_change"], delta)
+                        entry["n_trials_passing"][cohort] += int(n[j * K:(j + 1) * K].sum())
                         for k in range(K):
                             c = j * K + k
                             if n[c] < MIN_FROZEN_TRIALS:
@@ -460,6 +486,7 @@ def score_part(stem):
         for ci, name in enumerate(P.COHORTS):
             m = keep & (cohort == name)
             row = {"n_cells": int(m.sum()), "n_trials_kept": int(c["n_trials"][m].sum()) if len(W) else 0,
+                   "n_trials_passing": entry["n_trials_passing"][name],
                    "n_dropped": int((~keep & (cohort == name)).sum() + entry["n_cells_not_frozen"][name])}
             if m.sum() > K and len(np.unique(state[m])) > 1 or (K == 1 and m.sum() > 1):
                 rng = np.random.default_rng([P.SEED, EMISSIONS.index(emission), K, j, ci])
@@ -475,7 +502,7 @@ def score_part(stem):
             "pca_axes": axes.tolist(), "scores": scores}, coords
 
 
-def write_outputs(out_dir, parts, runs, round2_runs):
+def write_outputs(out_dir, parts, runs, round2_runs, smoke=False):
     """frozen_r3.json and frozen_r3_figure.npz (committed), and the archive's npz files.
 
     Committed (the report reads only these): ``frozen_r3.json`` (scores, checks, metadata) and
@@ -493,7 +520,7 @@ def write_outputs(out_dir, parts, runs, round2_runs):
     """
     import r3_scores as P
 
-    files, frozen, subjects = {}, [], None
+    files, frozen, subjects, provenance = {}, [], None, {"fit": None, "score": None}
     for stem in sorted(parts):
         part = json.loads(stem.with_suffix(".json").read_text())
         if subjects is not None and part["subjects"] != subjects:
@@ -501,6 +528,19 @@ def write_outputs(out_dir, parts, runs, round2_runs):
         subjects, record = part["subjects"], part["record"]
         arrays = np.load(stem.with_suffix(".npz"))
         scored = json.loads(stem.with_name(stem.name + "_scores.json").read_text())
+        # Every part must come from one clean checkout and one set of revisions.
+        for step, prov in (("fit", part.get("provenance")), ("score", scored.get("provenance"))):
+            if prov is None:
+                raise RuntimeError(f"{stem.name}: the {step} part records no provenance; rerun it")
+            same = {k: v for k, v in prov.items() if k != "slurm"}
+            if same["studies_git_dirty"] and not smoke:
+                raise RuntimeError(f"{stem.name}: the {step} part ran from a dirty checkout")
+            if provenance[step] is None:
+                provenance[step] = {**same, "slurm": []}
+            elif {k: v for k, v in provenance[step].items() if k != "slurm"} != same:
+                raise RuntimeError(f"{stem.name}: the {step} part ran other code or revisions than the others")
+            if "slurm" in prov:
+                provenance[step]["slurm"].append(prov["slurm"])
         coords = np.load(stem.with_name(stem.name + "_coords.npz"))
         emission, K = record["emission"], record["num_states"]
         for key, entry in record["settings"].items():
@@ -561,7 +601,8 @@ def write_outputs(out_dir, parts, runs, round2_runs):
                  "min_frozen_trials": MIN_FROZEN_TRIALS, "min_scored_trials": P.MIN_TRIALS,
                  "coords": f"PC1-{N_PCS} of the anchor's training cells (>= {P.MIN_TRIALS} trials), "
                            "then the six named weights of r3_scores.named_features",
-                 "archive_files": archived},
+                 "archive_files": archived,
+                 "parts_provenance": provenance},
         "subjects": subjects,
         "runs": sorted(frozen, key=lambda r: (r["emission"], r["num_states"])),
     }, outputs=[figure_path])
@@ -586,6 +627,7 @@ def main():
                 continue
             t0 = time.time()
             scored, coords = score_part(stem)
+            scored["provenance"] = run_provenance([__file__, HERE / "r3_scores.py"])
             np.savez(stem.with_name(stem.name + "_coords.npz"), **coords)
             stem.with_name(stem.name + "_scores.json").write_text(json.dumps(scored))
             print(f"  scored {stem.name} in {time.time() - t0:.0f} s", flush=True)
@@ -602,7 +644,7 @@ def main():
         # A smoke merge writes to an ignored directory, never over the committed files.
         out_dir = HERE / "_cache_smoke" if smoke else HERE
         out_dir.mkdir(exist_ok=True)
-        write_outputs(out_dir, stems, runs, used)
+        write_outputs(out_dir, stems, runs, used, smoke)
         return
     if smoke and "R3_RUNS" not in os.environ:
         runs = {key: run for key, run in runs.items() if key[2] == 3}
@@ -641,7 +683,10 @@ def main():
         if parts is not None:
             parts.mkdir(parents=True, exist_ok=True)
             np.savez(parts / f"{emission}_K{K:02d}.npz", **arrays)
-            (parts / f"{emission}_K{K:02d}.json").write_text(json.dumps({"subjects": subjects, "record": record}))
+            provenance = run_provenance([__file__, HERE / "freeze_round1.py", HERE / "freeze_round2.py"])
+            provenance["slurm"] = f"{os.environ.get('SLURM_ARRAY_JOB_ID')}_{os.environ.get('SLURM_ARRAY_TASK_ID')}"
+            (parts / f"{emission}_K{K:02d}.json").write_text(json.dumps(
+                {"subjects": subjects, "record": record, "provenance": provenance}))
 
 
 if __name__ == "__main__":
