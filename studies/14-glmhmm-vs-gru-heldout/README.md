@@ -84,12 +84,15 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
 
 ## Verdict
 
-From [r1](analysis/reports/r1-round-1.md) and [r2](analysis/reports/r2-refit-prior.md); all four
-variants have run.
+From [r1](analysis/reports/r1-round-1.md) and [r2](analysis/reports/r2-refit-prior.md) (live) and
+[r3](analysis/reports/r3-state-spread.md) (draft); all four variants have run.
 
 - Round 1: the GLM-HMM stays below the 3-way GRU; the best is the hurdle emission at K = 3 (0.6148).
   The K that wins depends on the scoring rule: refits peak at 3, the global fit rises to 10. States
   last whole sessions.
 - Round 2: refits pooled toward the global fit beat the global fit alone at every K, and the best
   rises to hurdle K = 10 (0.6208), still below the GRU; the pick sits at the grid's edges.
-- Open: `hurdle-full`, input-driven transitions, and the state-spread analysis (#70); see issue #48.
+- State spread (r3): states are distinct strategies shared across mice only at K = 2–3
+  (engagement, then a side-bias split). Beyond about K = 4 a state shifts the weights, but each
+  mouse's version of it overlaps the other states as much as the same state in other mice.
+- Open: `hurdle-full` and input-driven transitions; see issue #48.

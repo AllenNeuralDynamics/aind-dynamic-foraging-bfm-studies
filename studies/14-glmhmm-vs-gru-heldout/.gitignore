@@ -1,3 +1,7 @@
 # W&B pull caches are never committed and never an input
 analysis/*cache*
 __pycache__/
+
+# r3 explorer: built by `make r3-explorer` from the W&B archive, never committed
+analysis/interactive/r3_state_spread.html
+analysis/interactive/r3_data/
