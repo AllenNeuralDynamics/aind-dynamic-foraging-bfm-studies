@@ -142,7 +142,7 @@ def pack_cols(X):
 
 def pack_cells(state, subject, n, coords):
     return {"count": int(len(state)), "state": pack(state, "u1"), "subject": pack(subject, "<u2"),
-            "n": pack(np.minimum(n, 65535), "<u2"), "cols": pack_cols(coords)}
+            "n": pack(n, "<u4"), "cols": pack_cols(coords)}
 
 
 def interactive_files(runs):
@@ -284,7 +284,7 @@ const decoded = new WeakMap();
 function cells(packed) {
   if (decoded.has(packed)) return decoded.get(packed);
   const out = {count: packed.count, state: new Uint8Array(bytes(packed.state)),
-    subject: new Uint16Array(bytes(packed.subject)), n: new Uint16Array(bytes(packed.n)),
+    subject: new Uint16Array(bytes(packed.subject)), n: new Uint32Array(bytes(packed.n)),
     cols: packed.cols.map(([b, lo, step]) => Array.from(new Uint16Array(bytes(b)), q => lo + q * step))};
   decoded.set(packed, out); return out;
 }

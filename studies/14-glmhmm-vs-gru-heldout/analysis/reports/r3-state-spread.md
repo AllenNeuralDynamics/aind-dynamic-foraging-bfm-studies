@@ -250,12 +250,16 @@ so the separation does not come from fitting on the same mice. To explore every 
    of this rise is selection: the cut keeps the trials that already fit a state's weights.
 6. **Run-length cuts change nothing.** At least 99% of trials lie in same-state runs of 30
    trials or more, because the states usually last whole sessions (r1).
-7. **Labels from each mouse's own refit lower the separation.** Under the round-2 refit, the
-   silhouette is lower than under global labels at every K (hurdle: 0.22 against 0.27 at
-   K = 2, 0.04 against 0.07 at K = 4). With global labels, one model cuts every mouse, which
-   pulls each mouse's cells toward the global states. The refit labels remove part of that
-   pull, so the global-label scores are an upper bound. The refits keep the global states'
-   order in all 763 mice at every K (result-4), so the comparison is state for state.
+7. **Labels from each mouse's own refit lower the separation at small K.** At K = 2–6 the
+   silhouette under the round-2 refit is 0.005–0.047 lower than under global labels, for both
+   emissions and both cohorts (hurdle: 0.22 against 0.27 at K = 2, 0.04 against 0.07 at K = 4).
+   From K = 7 the two are within 0.01 of each other and both are about 0; at reference K = 10
+   the refit value is the higher one. With global labels, one model cuts every mouse, which
+   pulls each mouse's cells toward the global states, so part of the small-K separation likely
+   comes from that shared labelling. The refit labels also keep more cells (for example 4,932
+   against 4,367 at reference K = 10), so the two scores are not on the same cells and neither
+   bounds the other. The refits keep the global states' order in all 763 mice at every K
+   (result-4), so the comparison is state for state.
 
 **Reading.** At K = 2–3 the states are distinct strategies that the mice share: engaged against
 disengaged, then a side-bias split. Beyond about K = 4 the extra states are not separate
