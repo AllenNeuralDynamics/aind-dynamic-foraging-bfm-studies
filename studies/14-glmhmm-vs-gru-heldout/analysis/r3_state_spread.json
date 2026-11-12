@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r3_state_spread.py",
-    "produced_at_pt": "2026-11-11T16:33:31-08:00",
-    "studies_git_sha": "a80c58ca3db02a4d535dc7062839967ee84559a1",
+    "produced_at_pt": "2026-11-11T23:06:11-08:00",
+    "studies_git_sha": "19d1cb04071cda6cde2ef9a3218dec4a63d4a192",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -32,7 +32,7 @@
     "code": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r3_state_spread.py",
-        "sha256": "4417da0542f26be18d0df62ba5a62c2ffbeedb6b4de974b58ac7afd103a78a2c"
+        "sha256": "923371b84ac0557eedb5d9816e8e5669d001881358b5527b72a2298283b566cd"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r3_scores.py",
@@ -50,7 +50,7 @@
     "inputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_r3.json",
-        "sha256": "ce9b8c6400c0b2a3287727e532326518fe58a6120b6614659e41ae5d3b38ee6c"
+        "sha256": "2b00a7904b6279f38c2df2f7ea615a7b108f0e0ff110cac075c7841b897e8fcb"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_r3_figure.npz",
@@ -60,7 +60,7 @@
     "outputs": [
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/r3_state_spread.json",
-        "sha256": "8c9f79ce45e5e67883858c9a94504d066c4a32e7103b931e2c43956d626c3492"
+        "sha256": "f6741110c72015cbb1a6a174518348e5652c9b4b747aa1f9bedac0225e0a6b81"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r3_scores.svg",
@@ -76,7 +76,7 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/fig_r3_cuts.svg",
-        "sha256": "3699a2f7c63735ee5d885f9614b1387d1bff3c0808b79da725bc021793ca6a62"
+        "sha256": "5972d78ac42eeb586be256c644c784c0e4402c71de5772820a30d674e261a97a"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r3-state-spread.md#result-1",
@@ -88,11 +88,11 @@
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r3-state-spread.md#result-3",
-        "sha256": "81db437509351772939a8861b7825b778d78e38ceda4c5d763a946861bb1c020"
+        "sha256": "c1df118c27a0c03c7d94a5855812caba80290b696e7574bc0cdd968091ffdfe9"
       },
       {
         "path": "studies/14-glmhmm-vs-gru-heldout/analysis/reports/r3-state-spread.md#result-4",
-        "sha256": "6e8ec5b2ae8ab89053b7c7a0781e0a19856c4e78350cd3be418d28b7fde0c2cd"
+        "sha256": "819daf1f486e7f348ab90301cfa8cfe00573f8b3e9b97969ffe94d918e6e1f9a"
       }
     ]
   },
@@ -106,6 +106,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.9999999999999996,
@@ -126,6 +127,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2273040,
+            "n_trials_passing": 2273164,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.42551320282305066,
@@ -149,6 +151,7 @@
           {
             "n_cells": 425,
             "n_trials_kept": 2271353,
+            "n_trials_passing": 2273164,
             "n_dropped": 22,
             "n_subjects": 149,
             "eta2_subject": 0.31715305773024854,
@@ -172,6 +175,7 @@
           {
             "n_cells": 571,
             "n_trials_kept": 2271281,
+            "n_trials_passing": 2273164,
             "n_dropped": 25,
             "n_subjects": 149,
             "eta2_subject": 0.23271501709572515,
@@ -195,6 +199,7 @@
           {
             "n_cells": 676,
             "n_trials_kept": 2267624,
+            "n_trials_passing": 2273164,
             "n_dropped": 69,
             "n_subjects": 149,
             "eta2_subject": 0.21002753245483027,
@@ -218,6 +223,7 @@
           {
             "n_cells": 716,
             "n_trials_kept": 2261780,
+            "n_trials_passing": 2273164,
             "n_dropped": 178,
             "n_subjects": 149,
             "eta2_subject": 0.20210037300772324,
@@ -241,6 +247,7 @@
           {
             "n_cells": 845,
             "n_trials_kept": 2261378,
+            "n_trials_passing": 2273164,
             "n_dropped": 198,
             "n_subjects": 149,
             "eta2_subject": 0.1722363989207842,
@@ -264,6 +271,7 @@
           {
             "n_cells": 887,
             "n_trials_kept": 2258102,
+            "n_trials_passing": 2273164,
             "n_dropped": 305,
             "n_subjects": 149,
             "eta2_subject": 0.17548380709103398,
@@ -287,6 +295,7 @@
           {
             "n_cells": 992,
             "n_trials_kept": 2252948,
+            "n_trials_passing": 2273164,
             "n_dropped": 349,
             "n_subjects": 149,
             "eta2_subject": 0.1593614891185553,
@@ -310,6 +319,7 @@
           {
             "n_cells": 984,
             "n_trials_kept": 2249251,
+            "n_trials_passing": 2273164,
             "n_dropped": 506,
             "n_subjects": 149,
             "eta2_subject": 0.1623933961800179,
@@ -335,6 +345,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -355,6 +366,7 @@
           {
             "n_cells": 1219,
             "n_trials_kept": 9648673,
+            "n_trials_passing": 9649569,
             "n_dropped": 9,
             "n_subjects": 614,
             "eta2_subject": 0.42635032519850746,
@@ -378,6 +390,7 @@
           {
             "n_cells": 1744,
             "n_trials_kept": 9640914,
+            "n_trials_passing": 9649569,
             "n_dropped": 98,
             "n_subjects": 614,
             "eta2_subject": 0.31323392514421344,
@@ -401,6 +414,7 @@
           {
             "n_cells": 2295,
             "n_trials_kept": 9636146,
+            "n_trials_passing": 9649569,
             "n_dropped": 161,
             "n_subjects": 614,
             "eta2_subject": 0.2421675637826967,
@@ -424,6 +438,7 @@
           {
             "n_cells": 2773,
             "n_trials_kept": 9626525,
+            "n_trials_passing": 9649569,
             "n_dropped": 297,
             "n_subjects": 614,
             "eta2_subject": 0.21668915903442318,
@@ -447,6 +462,7 @@
           {
             "n_cells": 2925,
             "n_trials_kept": 9598209,
+            "n_trials_passing": 9649569,
             "n_dropped": 759,
             "n_subjects": 614,
             "eta2_subject": 0.2050195103631791,
@@ -470,6 +486,7 @@
           {
             "n_cells": 3421,
             "n_trials_kept": 9595441,
+            "n_trials_passing": 9649569,
             "n_dropped": 877,
             "n_subjects": 614,
             "eta2_subject": 0.1792657843632981,
@@ -493,6 +510,7 @@
           {
             "n_cells": 3603,
             "n_trials_kept": 9578129,
+            "n_trials_passing": 9649569,
             "n_dropped": 1309,
             "n_subjects": 614,
             "eta2_subject": 0.17734366829045925,
@@ -516,6 +534,7 @@
           {
             "n_cells": 4068,
             "n_trials_kept": 9569132,
+            "n_trials_passing": 9649569,
             "n_dropped": 1458,
             "n_subjects": 614,
             "eta2_subject": 0.16210321315659829,
@@ -539,6 +558,7 @@
           {
             "n_cells": 4011,
             "n_trials_kept": 9544307,
+            "n_trials_passing": 9649569,
             "n_dropped": 2129,
             "n_subjects": 614,
             "eta2_subject": 0.1671076024584765,
@@ -566,6 +586,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -586,6 +607,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2272954,
+            "n_trials_passing": 2273078,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.42555884667162486,
@@ -609,6 +631,7 @@
           {
             "n_cells": 425,
             "n_trials_kept": 2271274,
+            "n_trials_passing": 2273085,
             "n_dropped": 22,
             "n_subjects": 149,
             "eta2_subject": 0.31717331203500204,
@@ -632,6 +655,7 @@
           {
             "n_cells": 571,
             "n_trials_kept": 2271160,
+            "n_trials_passing": 2273043,
             "n_dropped": 25,
             "n_subjects": 149,
             "eta2_subject": 0.2327392840244827,
@@ -655,6 +679,7 @@
           {
             "n_cells": 676,
             "n_trials_kept": 2267545,
+            "n_trials_passing": 2273085,
             "n_dropped": 69,
             "n_subjects": 149,
             "eta2_subject": 0.21003454135124563,
@@ -678,6 +703,7 @@
           {
             "n_cells": 716,
             "n_trials_kept": 2261542,
+            "n_trials_passing": 2272899,
             "n_dropped": 178,
             "n_subjects": 149,
             "eta2_subject": 0.20209688819991015,
@@ -701,6 +727,7 @@
           {
             "n_cells": 845,
             "n_trials_kept": 2261286,
+            "n_trials_passing": 2273055,
             "n_dropped": 198,
             "n_subjects": 149,
             "eta2_subject": 0.17221969159518086,
@@ -724,6 +751,7 @@
           {
             "n_cells": 887,
             "n_trials_kept": 2257608,
+            "n_trials_passing": 2272614,
             "n_dropped": 305,
             "n_subjects": 149,
             "eta2_subject": 0.17555559324948086,
@@ -747,6 +775,7 @@
           {
             "n_cells": 992,
             "n_trials_kept": 2252463,
+            "n_trials_passing": 2272557,
             "n_dropped": 349,
             "n_subjects": 149,
             "eta2_subject": 0.15924961901352025,
@@ -770,6 +799,7 @@
           {
             "n_cells": 983,
             "n_trials_kept": 2248907,
+            "n_trials_passing": 2269220,
             "n_dropped": 507,
             "n_subjects": 149,
             "eta2_subject": 0.16270377265081237,
@@ -795,6 +825,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -815,6 +846,7 @@
           {
             "n_cells": 1219,
             "n_trials_kept": 9648241,
+            "n_trials_passing": 9649137,
             "n_dropped": 9,
             "n_subjects": 614,
             "eta2_subject": 0.4264202420559577,
@@ -838,6 +870,7 @@
           {
             "n_cells": 1744,
             "n_trials_kept": 9640470,
+            "n_trials_passing": 9649119,
             "n_dropped": 98,
             "n_subjects": 614,
             "eta2_subject": 0.31326133748308865,
@@ -861,6 +894,7 @@
           {
             "n_cells": 2295,
             "n_trials_kept": 9635559,
+            "n_trials_passing": 9648970,
             "n_dropped": 161,
             "n_subjects": 614,
             "eta2_subject": 0.2422059411713136,
@@ -884,6 +918,7 @@
           {
             "n_cells": 2773,
             "n_trials_kept": 9626065,
+            "n_trials_passing": 9649094,
             "n_dropped": 297,
             "n_subjects": 614,
             "eta2_subject": 0.21673124914817513,
@@ -907,6 +942,7 @@
           {
             "n_cells": 2924,
             "n_trials_kept": 9596694,
+            "n_trials_passing": 9648096,
             "n_dropped": 760,
             "n_subjects": 614,
             "eta2_subject": 0.20515398676698254,
@@ -930,6 +966,7 @@
           {
             "n_cells": 3421,
             "n_trials_kept": 9594849,
+            "n_trials_passing": 9648828,
             "n_dropped": 877,
             "n_subjects": 614,
             "eta2_subject": 0.17930325402738737,
@@ -953,6 +990,7 @@
           {
             "n_cells": 3603,
             "n_trials_kept": 9576047,
+            "n_trials_passing": 9647273,
             "n_dropped": 1309,
             "n_subjects": 614,
             "eta2_subject": 0.17753750918845795,
@@ -976,6 +1014,7 @@
           {
             "n_cells": 4064,
             "n_trials_kept": 9566499,
+            "n_trials_passing": 9647134,
             "n_dropped": 1462,
             "n_subjects": 614,
             "eta2_subject": 0.16258697530753144,
@@ -999,6 +1038,7 @@
           {
             "n_cells": 4011,
             "n_trials_kept": 9543729,
+            "n_trials_passing": 9633527,
             "n_dropped": 2129,
             "n_subjects": 614,
             "eta2_subject": 0.16715485143443357,
@@ -1026,6 +1066,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -1046,6 +1087,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2270760,
+            "n_trials_passing": 2270884,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.42757959783687477,
@@ -1069,6 +1111,7 @@
           {
             "n_cells": 425,
             "n_trials_kept": 2269034,
+            "n_trials_passing": 2270818,
             "n_dropped": 22,
             "n_subjects": 149,
             "eta2_subject": 0.3177121682812159,
@@ -1092,6 +1135,7 @@
           {
             "n_cells": 571,
             "n_trials_kept": 2268535,
+            "n_trials_passing": 2270405,
             "n_dropped": 25,
             "n_subjects": 149,
             "eta2_subject": 0.23282116452930637,
@@ -1115,6 +1159,7 @@
           {
             "n_cells": 675,
             "n_trials_kept": 2264995,
+            "n_trials_passing": 2270653,
             "n_dropped": 70,
             "n_subjects": 149,
             "eta2_subject": 0.211329579377842,
@@ -1138,6 +1183,7 @@
           {
             "n_cells": 713,
             "n_trials_kept": 2257394,
+            "n_trials_passing": 2268665,
             "n_dropped": 181,
             "n_subjects": 149,
             "eta2_subject": 0.2038395770453838,
@@ -1161,6 +1207,7 @@
           {
             "n_cells": 844,
             "n_trials_kept": 2258531,
+            "n_trials_passing": 2270122,
             "n_dropped": 199,
             "n_subjects": 149,
             "eta2_subject": 0.17355539920895385,
@@ -1184,6 +1231,7 @@
           {
             "n_cells": 885,
             "n_trials_kept": 2253725,
+            "n_trials_passing": 2268237,
             "n_dropped": 307,
             "n_subjects": 149,
             "eta2_subject": 0.17548391293148188,
@@ -1207,6 +1255,7 @@
           {
             "n_cells": 988,
             "n_trials_kept": 2247568,
+            "n_trials_passing": 2267023,
             "n_dropped": 353,
             "n_subjects": 149,
             "eta2_subject": 0.1602408290836661,
@@ -1230,6 +1279,7 @@
           {
             "n_cells": 976,
             "n_trials_kept": 2245045,
+            "n_trials_passing": 2264109,
             "n_dropped": 514,
             "n_subjects": 149,
             "eta2_subject": 0.16551919263041018,
@@ -1255,6 +1305,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999994,
@@ -1275,6 +1326,7 @@
           {
             "n_cells": 1218,
             "n_trials_kept": 9641047,
+            "n_trials_passing": 9642108,
             "n_dropped": 10,
             "n_subjects": 614,
             "eta2_subject": 0.43178148186062065,
@@ -1298,6 +1350,7 @@
           {
             "n_cells": 1743,
             "n_trials_kept": 9631978,
+            "n_trials_passing": 9640693,
             "n_dropped": 99,
             "n_subjects": 614,
             "eta2_subject": 0.31349417639713556,
@@ -1321,6 +1374,7 @@
           {
             "n_cells": 2295,
             "n_trials_kept": 9625446,
+            "n_trials_passing": 9638603,
             "n_dropped": 161,
             "n_subjects": 614,
             "eta2_subject": 0.24232050066968588,
@@ -1344,6 +1398,7 @@
           {
             "n_cells": 2772,
             "n_trials_kept": 9617601,
+            "n_trials_passing": 9640566,
             "n_dropped": 298,
             "n_subjects": 614,
             "eta2_subject": 0.2170213553031833,
@@ -1367,6 +1422,7 @@
           {
             "n_cells": 2915,
             "n_trials_kept": 9581579,
+            "n_trials_passing": 9631592,
             "n_dropped": 769,
             "n_subjects": 614,
             "eta2_subject": 0.20739134741611617,
@@ -1390,6 +1446,7 @@
           {
             "n_cells": 3415,
             "n_trials_kept": 9584300,
+            "n_trials_passing": 9638392,
             "n_dropped": 883,
             "n_subjects": 614,
             "eta2_subject": 0.1809146916043201,
@@ -1413,6 +1470,7 @@
           {
             "n_cells": 3600,
             "n_trials_kept": 9562046,
+            "n_trials_passing": 9630737,
             "n_dropped": 1312,
             "n_subjects": 614,
             "eta2_subject": 0.17815738422427757,
@@ -1436,6 +1494,7 @@
           {
             "n_cells": 4043,
             "n_trials_kept": 9547249,
+            "n_trials_passing": 9627089,
             "n_dropped": 1483,
             "n_subjects": 614,
             "eta2_subject": 0.16378926987120793,
@@ -1459,6 +1518,7 @@
           {
             "n_cells": 3988,
             "n_trials_kept": 9529301,
+            "n_trials_passing": 9611256,
             "n_dropped": 2152,
             "n_subjects": 614,
             "eta2_subject": 0.16840329560869113,
@@ -1486,6 +1546,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.9999999999999996,
@@ -1506,6 +1567,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2062095,
+            "n_trials_passing": 2062160,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.40739565985482296,
@@ -1529,6 +1591,7 @@
           {
             "n_cells": 415,
             "n_trials_kept": 1899554,
+            "n_trials_passing": 1902531,
             "n_dropped": 32,
             "n_subjects": 149,
             "eta2_subject": 0.30539033742331645,
@@ -1552,6 +1615,7 @@
           {
             "n_cells": 544,
             "n_trials_kept": 1749196,
+            "n_trials_passing": 1753915,
             "n_dropped": 52,
             "n_subjects": 149,
             "eta2_subject": 0.23443998604332814,
@@ -1575,6 +1639,7 @@
           {
             "n_cells": 642,
             "n_trials_kept": 1585383,
+            "n_trials_passing": 1593979,
             "n_dropped": 103,
             "n_subjects": 149,
             "eta2_subject": 0.20603084299394894,
@@ -1598,6 +1663,7 @@
           {
             "n_cells": 657,
             "n_trials_kept": 1490475,
+            "n_trials_passing": 1505079,
             "n_dropped": 237,
             "n_subjects": 149,
             "eta2_subject": 0.21335805968019195,
@@ -1621,6 +1687,7 @@
           {
             "n_cells": 753,
             "n_trials_kept": 1460670,
+            "n_trials_passing": 1478173,
             "n_dropped": 290,
             "n_subjects": 149,
             "eta2_subject": 0.1875475796457034,
@@ -1644,6 +1711,7 @@
           {
             "n_cells": 798,
             "n_trials_kept": 1443904,
+            "n_trials_passing": 1462851,
             "n_dropped": 394,
             "n_subjects": 149,
             "eta2_subject": 0.17978124950560448,
@@ -1667,6 +1735,7 @@
           {
             "n_cells": 824,
             "n_trials_kept": 1259020,
+            "n_trials_passing": 1286316,
             "n_dropped": 517,
             "n_subjects": 149,
             "eta2_subject": 0.18023515372194687,
@@ -1690,6 +1759,7 @@
           {
             "n_cells": 848,
             "n_trials_kept": 1336414,
+            "n_trials_passing": 1363143,
             "n_dropped": 642,
             "n_subjects": 149,
             "eta2_subject": 0.17022958097393578,
@@ -1715,6 +1785,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -1735,6 +1806,7 @@
           {
             "n_cells": 1216,
             "n_trials_kept": 8797447,
+            "n_trials_passing": 8798770,
             "n_dropped": 12,
             "n_subjects": 614,
             "eta2_subject": 0.4116497007669847,
@@ -1758,6 +1830,7 @@
           {
             "n_cells": 1712,
             "n_trials_kept": 8070524,
+            "n_trials_passing": 8082438,
             "n_dropped": 130,
             "n_subjects": 614,
             "eta2_subject": 0.3040507115468115,
@@ -1781,6 +1854,7 @@
           {
             "n_cells": 2211,
             "n_trials_kept": 7436132,
+            "n_trials_passing": 7458083,
             "n_dropped": 245,
             "n_subjects": 614,
             "eta2_subject": 0.23907265640517456,
@@ -1804,6 +1878,7 @@
           {
             "n_cells": 2629,
             "n_trials_kept": 6710432,
+            "n_trials_passing": 6746323,
             "n_dropped": 441,
             "n_subjects": 614,
             "eta2_subject": 0.2132050602467469,
@@ -1827,6 +1902,7 @@
           {
             "n_cells": 2663,
             "n_trials_kept": 6360309,
+            "n_trials_passing": 6425726,
             "n_dropped": 1021,
             "n_subjects": 614,
             "eta2_subject": 0.2139210067535611,
@@ -1850,6 +1926,7 @@
           {
             "n_cells": 3069,
             "n_trials_kept": 6171939,
+            "n_trials_passing": 6249053,
             "n_dropped": 1229,
             "n_subjects": 614,
             "eta2_subject": 0.1939341867016769,
@@ -1873,6 +1950,7 @@
           {
             "n_cells": 3218,
             "n_trials_kept": 6161369,
+            "n_trials_passing": 6252440,
             "n_dropped": 1694,
             "n_subjects": 614,
             "eta2_subject": 0.18833927789585958,
@@ -1896,6 +1974,7 @@
           {
             "n_cells": 3364,
             "n_trials_kept": 5381453,
+            "n_trials_passing": 5501211,
             "n_dropped": 2162,
             "n_subjects": 614,
             "eta2_subject": 0.1890369386859813,
@@ -1919,6 +1998,7 @@
           {
             "n_cells": 3468,
             "n_trials_kept": 5707512,
+            "n_trials_passing": 5820748,
             "n_dropped": 2672,
             "n_subjects": 614,
             "eta2_subject": 0.18256008369703491,
@@ -1946,6 +2026,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -1966,6 +2047,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2062020,
+            "n_trials_passing": 2062085,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.4073910420281199,
@@ -1989,6 +2071,7 @@
           {
             "n_cells": 415,
             "n_trials_kept": 1899506,
+            "n_trials_passing": 1902483,
             "n_dropped": 32,
             "n_subjects": 149,
             "eta2_subject": 0.3053894596044998,
@@ -2012,6 +2095,7 @@
           {
             "n_cells": 544,
             "n_trials_kept": 1749172,
+            "n_trials_passing": 1753891,
             "n_dropped": 52,
             "n_subjects": 149,
             "eta2_subject": 0.23444232132135562,
@@ -2035,6 +2119,7 @@
           {
             "n_cells": 642,
             "n_trials_kept": 1585376,
+            "n_trials_passing": 1593972,
             "n_dropped": 103,
             "n_subjects": 149,
             "eta2_subject": 0.20602885371557622,
@@ -2058,6 +2143,7 @@
           {
             "n_cells": 656,
             "n_trials_kept": 1490230,
+            "n_trials_passing": 1505031,
             "n_dropped": 238,
             "n_subjects": 149,
             "eta2_subject": 0.21335874291697318,
@@ -2081,6 +2167,7 @@
           {
             "n_cells": 753,
             "n_trials_kept": 1460661,
+            "n_trials_passing": 1478164,
             "n_dropped": 290,
             "n_subjects": 149,
             "eta2_subject": 0.18754622094712872,
@@ -2104,6 +2191,7 @@
           {
             "n_cells": 798,
             "n_trials_kept": 1443714,
+            "n_trials_passing": 1462610,
             "n_dropped": 394,
             "n_subjects": 149,
             "eta2_subject": 0.1800185465286646,
@@ -2127,6 +2215,7 @@
           {
             "n_cells": 824,
             "n_trials_kept": 1258822,
+            "n_trials_passing": 1286036,
             "n_dropped": 517,
             "n_subjects": 149,
             "eta2_subject": 0.18025554713904648,
@@ -2150,6 +2239,7 @@
           {
             "n_cells": 848,
             "n_trials_kept": 1336414,
+            "n_trials_passing": 1361563,
             "n_dropped": 642,
             "n_subjects": 149,
             "eta2_subject": 0.17022958097393578,
@@ -2175,6 +2265,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -2195,6 +2286,7 @@
           {
             "n_cells": 1216,
             "n_trials_kept": 8797063,
+            "n_trials_passing": 8798386,
             "n_dropped": 12,
             "n_subjects": 614,
             "eta2_subject": 0.411658942931172,
@@ -2218,6 +2310,7 @@
           {
             "n_cells": 1712,
             "n_trials_kept": 8070384,
+            "n_trials_passing": 8082298,
             "n_dropped": 130,
             "n_subjects": 614,
             "eta2_subject": 0.3040442031117108,
@@ -2241,6 +2334,7 @@
           {
             "n_cells": 2211,
             "n_trials_kept": 7436095,
+            "n_trials_passing": 7458046,
             "n_dropped": 245,
             "n_subjects": 614,
             "eta2_subject": 0.23907945130041675,
@@ -2264,6 +2358,7 @@
           {
             "n_cells": 2629,
             "n_trials_kept": 6710397,
+            "n_trials_passing": 6746288,
             "n_dropped": 441,
             "n_subjects": 614,
             "eta2_subject": 0.21319753360378574,
@@ -2287,6 +2382,7 @@
           {
             "n_cells": 2663,
             "n_trials_kept": 6360159,
+            "n_trials_passing": 6425568,
             "n_dropped": 1021,
             "n_subjects": 614,
             "eta2_subject": 0.21394708885591837,
@@ -2310,6 +2406,7 @@
           {
             "n_cells": 3069,
             "n_trials_kept": 6171939,
+            "n_trials_passing": 6249053,
             "n_dropped": 1229,
             "n_subjects": 614,
             "eta2_subject": 0.1939341867016769,
@@ -2333,6 +2430,7 @@
           {
             "n_cells": 3216,
             "n_trials_kept": 6160241,
+            "n_trials_passing": 6251477,
             "n_dropped": 1696,
             "n_subjects": 614,
             "eta2_subject": 0.18886522179234508,
@@ -2356,6 +2454,7 @@
           {
             "n_cells": 3363,
             "n_trials_kept": 5380587,
+            "n_trials_passing": 5500091,
             "n_dropped": 2163,
             "n_subjects": 614,
             "eta2_subject": 0.18914755224346844,
@@ -2379,6 +2478,7 @@
           {
             "n_cells": 3468,
             "n_trials_kept": 5707501,
+            "n_trials_passing": 5814510,
             "n_dropped": 2672,
             "n_subjects": 614,
             "eta2_subject": 0.1825386910199512,
@@ -2406,6 +2506,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -2426,6 +2527,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2059932,
+            "n_trials_passing": 2059997,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.4080213155293011,
@@ -2449,6 +2551,7 @@
           {
             "n_cells": 415,
             "n_trials_kept": 1897629,
+            "n_trials_passing": 1900589,
             "n_dropped": 32,
             "n_subjects": 149,
             "eta2_subject": 0.3057473370568527,
@@ -2472,6 +2575,7 @@
           {
             "n_cells": 544,
             "n_trials_kept": 1747853,
+            "n_trials_passing": 1752528,
             "n_dropped": 52,
             "n_subjects": 149,
             "eta2_subject": 0.23480680276242508,
@@ -2495,6 +2599,7 @@
           {
             "n_cells": 642,
             "n_trials_kept": 1584265,
+            "n_trials_passing": 1592740,
             "n_dropped": 103,
             "n_subjects": 149,
             "eta2_subject": 0.206243085599258,
@@ -2518,6 +2623,7 @@
           {
             "n_cells": 656,
             "n_trials_kept": 1489005,
+            "n_trials_passing": 1503491,
             "n_dropped": 238,
             "n_subjects": 149,
             "eta2_subject": 0.2136091703278391,
@@ -2541,6 +2647,7 @@
           {
             "n_cells": 752,
             "n_trials_kept": 1459798,
+            "n_trials_passing": 1477367,
             "n_dropped": 291,
             "n_subjects": 149,
             "eta2_subject": 0.1880972205484893,
@@ -2564,6 +2671,7 @@
           {
             "n_cells": 798,
             "n_trials_kept": 1442664,
+            "n_trials_passing": 1461101,
             "n_dropped": 394,
             "n_subjects": 149,
             "eta2_subject": 0.17991106870531776,
@@ -2587,6 +2695,7 @@
           {
             "n_cells": 820,
             "n_trials_kept": 1256814,
+            "n_trials_passing": 1283879,
             "n_dropped": 521,
             "n_subjects": 149,
             "eta2_subject": 0.18175421375472195,
@@ -2610,6 +2719,7 @@
           {
             "n_cells": 848,
             "n_trials_kept": 1335985,
+            "n_trials_passing": 1360230,
             "n_dropped": 642,
             "n_subjects": 149,
             "eta2_subject": 0.17029361357050976,
@@ -2635,6 +2745,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999994,
@@ -2655,6 +2766,7 @@
           {
             "n_cells": 1216,
             "n_trials_kept": 8790433,
+            "n_trials_passing": 8791717,
             "n_dropped": 12,
             "n_subjects": 614,
             "eta2_subject": 0.4123468915692896,
@@ -2678,6 +2790,7 @@
           {
             "n_cells": 1712,
             "n_trials_kept": 8063537,
+            "n_trials_passing": 8075310,
             "n_dropped": 130,
             "n_subjects": 614,
             "eta2_subject": 0.3042505633092452,
@@ -2701,6 +2814,7 @@
           {
             "n_cells": 2210,
             "n_trials_kept": 7430740,
+            "n_trials_passing": 7452699,
             "n_dropped": 246,
             "n_subjects": 614,
             "eta2_subject": 0.23963185724585495,
@@ -2724,6 +2838,7 @@
           {
             "n_cells": 2627,
             "n_trials_kept": 6705954,
+            "n_trials_passing": 6742061,
             "n_dropped": 443,
             "n_subjects": 614,
             "eta2_subject": 0.21372959875090258,
@@ -2747,6 +2862,7 @@
           {
             "n_cells": 2660,
             "n_trials_kept": 6355365,
+            "n_trials_passing": 6419898,
             "n_dropped": 1024,
             "n_subjects": 614,
             "eta2_subject": 0.21443583265016686,
@@ -2770,6 +2886,7 @@
           {
             "n_cells": 3062,
             "n_trials_kept": 6168056,
+            "n_trials_passing": 6246011,
             "n_dropped": 1236,
             "n_subjects": 614,
             "eta2_subject": 0.19472017351003773,
@@ -2793,6 +2910,7 @@
           {
             "n_cells": 3212,
             "n_trials_kept": 6154674,
+            "n_trials_passing": 6244830,
             "n_dropped": 1700,
             "n_subjects": 614,
             "eta2_subject": 0.1895163185903358,
@@ -2816,6 +2934,7 @@
           {
             "n_cells": 3356,
             "n_trials_kept": 5375244,
+            "n_trials_passing": 5493480,
             "n_dropped": 2170,
             "n_subjects": 614,
             "eta2_subject": 0.18969358459426347,
@@ -2839,6 +2958,7 @@
           {
             "n_cells": 3466,
             "n_trials_kept": 5704987,
+            "n_trials_passing": 5808250,
             "n_dropped": 2674,
             "n_subjects": 614,
             "eta2_subject": 0.18273196033576644,
@@ -2866,6 +2986,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.9999999999999996,
@@ -2886,6 +3007,7 @@
           {
             "n_cells": 296,
             "n_trials_kept": 1865865,
+            "n_trials_passing": 1866116,
             "n_dropped": 2,
             "n_subjects": 149,
             "eta2_subject": 0.3931146809684003,
@@ -2909,6 +3031,7 @@
           {
             "n_cells": 404,
             "n_trials_kept": 1587184,
+            "n_trials_passing": 1590640,
             "n_dropped": 43,
             "n_subjects": 149,
             "eta2_subject": 0.30437853748534394,
@@ -2932,6 +3055,7 @@
           {
             "n_cells": 513,
             "n_trials_kept": 1331285,
+            "n_trials_passing": 1338510,
             "n_dropped": 83,
             "n_subjects": 149,
             "eta2_subject": 0.24291741997508032,
@@ -2955,6 +3079,7 @@
           {
             "n_cells": 590,
             "n_trials_kept": 1107448,
+            "n_trials_passing": 1118787,
             "n_dropped": 155,
             "n_subjects": 149,
             "eta2_subject": 0.22653112395520156,
@@ -2978,6 +3103,7 @@
           {
             "n_cells": 572,
             "n_trials_kept": 982453,
+            "n_trials_passing": 998868,
             "n_dropped": 322,
             "n_subjects": 149,
             "eta2_subject": 0.2391880280556285,
@@ -3001,6 +3127,7 @@
           {
             "n_cells": 634,
             "n_trials_kept": 934390,
+            "n_trials_passing": 956641,
             "n_dropped": 409,
             "n_subjects": 149,
             "eta2_subject": 0.2164857788564185,
@@ -3024,6 +3151,7 @@
           {
             "n_cells": 650,
             "n_trials_kept": 938446,
+            "n_trials_passing": 965762,
             "n_dropped": 542,
             "n_subjects": 149,
             "eta2_subject": 0.22429623124761075,
@@ -3047,6 +3175,7 @@
           {
             "n_cells": 613,
             "n_trials_kept": 703426,
+            "n_trials_passing": 738178,
             "n_dropped": 728,
             "n_subjects": 149,
             "eta2_subject": 0.24958189943183778,
@@ -3070,6 +3199,7 @@
           {
             "n_cells": 679,
             "n_trials_kept": 797024,
+            "n_trials_passing": 827805,
             "n_dropped": 811,
             "n_subjects": 149,
             "eta2_subject": 0.21799058601253576,
@@ -3095,6 +3225,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -3115,6 +3246,7 @@
           {
             "n_cells": 1211,
             "n_trials_kept": 8003853,
+            "n_trials_passing": 8005622,
             "n_dropped": 17,
             "n_subjects": 614,
             "eta2_subject": 0.401553486853275,
@@ -3138,6 +3270,7 @@
           {
             "n_cells": 1669,
             "n_trials_kept": 6744700,
+            "n_trials_passing": 6759653,
             "n_dropped": 173,
             "n_subjects": 614,
             "eta2_subject": 0.30421376083887086,
@@ -3161,6 +3294,7 @@
           {
             "n_cells": 2081,
             "n_trials_kept": 5697394,
+            "n_trials_passing": 5728648,
             "n_dropped": 375,
             "n_subjects": 614,
             "eta2_subject": 0.24555384152399354,
@@ -3184,6 +3318,7 @@
           {
             "n_cells": 2398,
             "n_trials_kept": 4666239,
+            "n_trials_passing": 4716081,
             "n_dropped": 672,
             "n_subjects": 614,
             "eta2_subject": 0.23012808854695002,
@@ -3207,6 +3342,7 @@
           {
             "n_cells": 2290,
             "n_trials_kept": 4247178,
+            "n_trials_passing": 4323433,
             "n_dropped": 1394,
             "n_subjects": 614,
             "eta2_subject": 0.24797077207945115,
@@ -3230,6 +3366,7 @@
           {
             "n_cells": 2577,
             "n_trials_kept": 3944887,
+            "n_trials_passing": 4042214,
             "n_dropped": 1721,
             "n_subjects": 614,
             "eta2_subject": 0.22781805000440347,
@@ -3253,6 +3390,7 @@
           {
             "n_cells": 2657,
             "n_trials_kept": 4046970,
+            "n_trials_passing": 4163538,
             "n_dropped": 2255,
             "n_subjects": 614,
             "eta2_subject": 0.23270433800280715,
@@ -3276,6 +3414,7 @@
           {
             "n_cells": 2539,
             "n_trials_kept": 3060968,
+            "n_trials_passing": 3201664,
             "n_dropped": 2987,
             "n_subjects": 614,
             "eta2_subject": 0.2572909064613665,
@@ -3299,6 +3438,7 @@
           {
             "n_cells": 2772,
             "n_trials_kept": 3431374,
+            "n_trials_passing": 3562836,
             "n_dropped": 3368,
             "n_subjects": 614,
             "eta2_subject": 0.22886631872813076,
@@ -3326,6 +3466,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -3346,6 +3487,7 @@
           {
             "n_cells": 296,
             "n_trials_kept": 1865852,
+            "n_trials_passing": 1866103,
             "n_dropped": 2,
             "n_subjects": 149,
             "eta2_subject": 0.39311172400514965,
@@ -3369,6 +3511,7 @@
           {
             "n_cells": 404,
             "n_trials_kept": 1587169,
+            "n_trials_passing": 1590625,
             "n_dropped": 43,
             "n_subjects": 149,
             "eta2_subject": 0.3043881970918013,
@@ -3392,6 +3535,7 @@
           {
             "n_cells": 513,
             "n_trials_kept": 1331285,
+            "n_trials_passing": 1338510,
             "n_dropped": 83,
             "n_subjects": 149,
             "eta2_subject": 0.24291741997508032,
@@ -3415,6 +3559,7 @@
           {
             "n_cells": 590,
             "n_trials_kept": 1107448,
+            "n_trials_passing": 1118787,
             "n_dropped": 155,
             "n_subjects": 149,
             "eta2_subject": 0.22653112395520156,
@@ -3438,6 +3583,7 @@
           {
             "n_cells": 572,
             "n_trials_kept": 982441,
+            "n_trials_passing": 998853,
             "n_dropped": 322,
             "n_subjects": 149,
             "eta2_subject": 0.2391874712037591,
@@ -3461,6 +3607,7 @@
           {
             "n_cells": 634,
             "n_trials_kept": 934390,
+            "n_trials_passing": 956641,
             "n_dropped": 409,
             "n_subjects": 149,
             "eta2_subject": 0.2164857788564185,
@@ -3484,6 +3631,7 @@
           {
             "n_cells": 650,
             "n_trials_kept": 938400,
+            "n_trials_passing": 965687,
             "n_dropped": 542,
             "n_subjects": 149,
             "eta2_subject": 0.22451748263472715,
@@ -3507,6 +3655,7 @@
           {
             "n_cells": 613,
             "n_trials_kept": 703369,
+            "n_trials_passing": 738046,
             "n_dropped": 728,
             "n_subjects": 149,
             "eta2_subject": 0.24939227390636282,
@@ -3530,6 +3679,7 @@
           {
             "n_cells": 679,
             "n_trials_kept": 797024,
+            "n_trials_passing": 827286,
             "n_dropped": 811,
             "n_subjects": 149,
             "eta2_subject": 0.21799058601253576,
@@ -3555,6 +3705,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -3575,6 +3726,7 @@
           {
             "n_cells": 1211,
             "n_trials_kept": 8003804,
+            "n_trials_passing": 8005573,
             "n_dropped": 17,
             "n_subjects": 614,
             "eta2_subject": 0.4015468261516626,
@@ -3598,6 +3750,7 @@
           {
             "n_cells": 1669,
             "n_trials_kept": 6744657,
+            "n_trials_passing": 6759610,
             "n_dropped": 173,
             "n_subjects": 614,
             "eta2_subject": 0.30419750383043026,
@@ -3621,6 +3774,7 @@
           {
             "n_cells": 2081,
             "n_trials_kept": 5697394,
+            "n_trials_passing": 5728648,
             "n_dropped": 375,
             "n_subjects": 614,
             "eta2_subject": 0.24555384152399354,
@@ -3644,6 +3798,7 @@
           {
             "n_cells": 2398,
             "n_trials_kept": 4666224,
+            "n_trials_passing": 4716066,
             "n_dropped": 672,
             "n_subjects": 614,
             "eta2_subject": 0.2301368266303858,
@@ -3667,6 +3822,7 @@
           {
             "n_cells": 2290,
             "n_trials_kept": 4247132,
+            "n_trials_passing": 4323382,
             "n_dropped": 1394,
             "n_subjects": 614,
             "eta2_subject": 0.24798212109062492,
@@ -3690,6 +3846,7 @@
           {
             "n_cells": 2577,
             "n_trials_kept": 3944887,
+            "n_trials_passing": 4042214,
             "n_dropped": 1721,
             "n_subjects": 614,
             "eta2_subject": 0.22781805000440347,
@@ -3713,6 +3870,7 @@
           {
             "n_cells": 2656,
             "n_trials_kept": 4046602,
+            "n_trials_passing": 4163243,
             "n_dropped": 2256,
             "n_subjects": 614,
             "eta2_subject": 0.23305070381070633,
@@ -3736,6 +3894,7 @@
           {
             "n_cells": 2539,
             "n_trials_kept": 3060764,
+            "n_trials_passing": 3201088,
             "n_dropped": 2987,
             "n_subjects": 614,
             "eta2_subject": 0.2572954879368399,
@@ -3759,6 +3918,7 @@
           {
             "n_cells": 2772,
             "n_trials_kept": 3431374,
+            "n_trials_passing": 3560766,
             "n_dropped": 3368,
             "n_subjects": 614,
             "eta2_subject": 0.22886631872813076,
@@ -3786,6 +3946,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -3806,6 +3967,7 @@
           {
             "n_cells": 296,
             "n_trials_kept": 1864469,
+            "n_trials_passing": 1864720,
             "n_dropped": 2,
             "n_subjects": 149,
             "eta2_subject": 0.39371613357108776,
@@ -3829,6 +3991,7 @@
           {
             "n_cells": 404,
             "n_trials_kept": 1586260,
+            "n_trials_passing": 1589707,
             "n_dropped": 43,
             "n_subjects": 149,
             "eta2_subject": 0.30460209334368193,
@@ -3852,6 +4015,7 @@
           {
             "n_cells": 513,
             "n_trials_kept": 1331001,
+            "n_trials_passing": 1338192,
             "n_dropped": 83,
             "n_subjects": 149,
             "eta2_subject": 0.24291867278427517,
@@ -3875,6 +4039,7 @@
           {
             "n_cells": 589,
             "n_trials_kept": 1106878,
+            "n_trials_passing": 1118396,
             "n_dropped": 156,
             "n_subjects": 149,
             "eta2_subject": 0.2275034280096082,
@@ -3898,6 +4063,7 @@
           {
             "n_cells": 572,
             "n_trials_kept": 982144,
+            "n_trials_passing": 998438,
             "n_dropped": 322,
             "n_subjects": 149,
             "eta2_subject": 0.2393101043170093,
@@ -3921,6 +4087,7 @@
           {
             "n_cells": 634,
             "n_trials_kept": 934233,
+            "n_trials_passing": 956415,
             "n_dropped": 409,
             "n_subjects": 149,
             "eta2_subject": 0.2164950145956423,
@@ -3944,6 +4111,7 @@
           {
             "n_cells": 650,
             "n_trials_kept": 938233,
+            "n_trials_passing": 965344,
             "n_dropped": 542,
             "n_subjects": 149,
             "eta2_subject": 0.22464672738144054,
@@ -3967,6 +4135,7 @@
           {
             "n_cells": 612,
             "n_trials_kept": 703023,
+            "n_trials_passing": 737467,
             "n_dropped": 729,
             "n_subjects": 149,
             "eta2_subject": 0.2503676905302113,
@@ -3990,6 +4159,7 @@
           {
             "n_cells": 678,
             "n_trials_kept": 796786,
+            "n_trials_passing": 826901,
             "n_dropped": 812,
             "n_subjects": 149,
             "eta2_subject": 0.21854374733965748,
@@ -4015,6 +4185,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999994,
@@ -4035,6 +4206,7 @@
           {
             "n_cells": 1211,
             "n_trials_kept": 7999591,
+            "n_trials_passing": 8001321,
             "n_dropped": 17,
             "n_subjects": 614,
             "eta2_subject": 0.4018668547619108,
@@ -4058,6 +4230,7 @@
           {
             "n_cells": 1669,
             "n_trials_kept": 6741340,
+            "n_trials_passing": 6756229,
             "n_dropped": 173,
             "n_subjects": 614,
             "eta2_subject": 0.30438395095615894,
@@ -4081,6 +4254,7 @@
           {
             "n_cells": 2081,
             "n_trials_kept": 5695866,
+            "n_trials_passing": 5727074,
             "n_dropped": 375,
             "n_subjects": 614,
             "eta2_subject": 0.24554448712681498,
@@ -4104,6 +4278,7 @@
           {
             "n_cells": 2397,
             "n_trials_kept": 4665065,
+            "n_trials_passing": 4715023,
             "n_dropped": 673,
             "n_subjects": 614,
             "eta2_subject": 0.23014482635228234,
@@ -4127,6 +4302,7 @@
           {
             "n_cells": 2288,
             "n_trials_kept": 4245743,
+            "n_trials_passing": 4321847,
             "n_dropped": 1396,
             "n_subjects": 614,
             "eta2_subject": 0.24814000728863378,
@@ -4150,6 +4326,7 @@
           {
             "n_cells": 2574,
             "n_trials_kept": 3943878,
+            "n_trials_passing": 4041462,
             "n_dropped": 1724,
             "n_subjects": 614,
             "eta2_subject": 0.22800138591953592,
@@ -4173,6 +4350,7 @@
           {
             "n_cells": 2655,
             "n_trials_kept": 4045675,
+            "n_trials_passing": 4161519,
             "n_dropped": 2257,
             "n_subjects": 614,
             "eta2_subject": 0.23317182322311675,
@@ -4196,6 +4374,7 @@
           {
             "n_cells": 2536,
             "n_trials_kept": 3059566,
+            "n_trials_passing": 3199263,
             "n_dropped": 2990,
             "n_subjects": 614,
             "eta2_subject": 0.25791635464385265,
@@ -4219,6 +4398,7 @@
           {
             "n_cells": 2772,
             "n_trials_kept": 3431199,
+            "n_trials_passing": 3559022,
             "n_dropped": 3368,
             "n_subjects": 614,
             "eta2_subject": 0.22889653677890973,
@@ -4246,6 +4426,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.9999999999999996,
@@ -4266,6 +4447,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2273002,
+            "n_trials_passing": 2273164,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.42923300742321296,
@@ -4289,6 +4471,7 @@
           {
             "n_cells": 431,
             "n_trials_kept": 2271786,
+            "n_trials_passing": 2273164,
             "n_dropped": 16,
             "n_subjects": 149,
             "eta2_subject": 0.3064762074808987,
@@ -4312,6 +4495,7 @@
           {
             "n_cells": 583,
             "n_trials_kept": 2272098,
+            "n_trials_passing": 2273164,
             "n_dropped": 13,
             "n_subjects": 149,
             "eta2_subject": 0.2323451509593079,
@@ -4335,6 +4519,7 @@
           {
             "n_cells": 700,
             "n_trials_kept": 2268944,
+            "n_trials_passing": 2273164,
             "n_dropped": 45,
             "n_subjects": 149,
             "eta2_subject": 0.207457527078735,
@@ -4358,6 +4543,7 @@
           {
             "n_cells": 768,
             "n_trials_kept": 2262147,
+            "n_trials_passing": 2273164,
             "n_dropped": 126,
             "n_subjects": 149,
             "eta2_subject": 0.18443464520472666,
@@ -4381,6 +4567,7 @@
           {
             "n_cells": 887,
             "n_trials_kept": 2260518,
+            "n_trials_passing": 2273164,
             "n_dropped": 156,
             "n_subjects": 149,
             "eta2_subject": 0.16050503486988477,
@@ -4404,6 +4591,7 @@
           {
             "n_cells": 943,
             "n_trials_kept": 2257008,
+            "n_trials_passing": 2273164,
             "n_dropped": 249,
             "n_subjects": 149,
             "eta2_subject": 0.15871810556637295,
@@ -4427,6 +4615,7 @@
           {
             "n_cells": 1075,
             "n_trials_kept": 2254209,
+            "n_trials_passing": 2273164,
             "n_dropped": 266,
             "n_subjects": 149,
             "eta2_subject": 0.13993793556977527,
@@ -4450,6 +4639,7 @@
           {
             "n_cells": 1049,
             "n_trials_kept": 2250594,
+            "n_trials_passing": 2273164,
             "n_dropped": 441,
             "n_subjects": 149,
             "eta2_subject": 0.1502759850466713,
@@ -4475,6 +4665,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -4495,6 +4686,7 @@
           {
             "n_cells": 1223,
             "n_trials_kept": 9648990,
+            "n_trials_passing": 9649569,
             "n_dropped": 5,
             "n_subjects": 614,
             "eta2_subject": 0.42006404407198394,
@@ -4518,6 +4710,7 @@
           {
             "n_cells": 1773,
             "n_trials_kept": 9643254,
+            "n_trials_passing": 9649569,
             "n_dropped": 69,
             "n_subjects": 614,
             "eta2_subject": 0.3034736664690495,
@@ -4541,6 +4734,7 @@
           {
             "n_cells": 2371,
             "n_trials_kept": 9641795,
+            "n_trials_passing": 9649569,
             "n_dropped": 85,
             "n_subjects": 614,
             "eta2_subject": 0.235633479264338,
@@ -4564,6 +4758,7 @@
           {
             "n_cells": 2873,
             "n_trials_kept": 9630759,
+            "n_trials_passing": 9649569,
             "n_dropped": 197,
             "n_subjects": 614,
             "eta2_subject": 0.2069516433915336,
@@ -4587,6 +4782,7 @@
           {
             "n_cells": 3145,
             "n_trials_kept": 9602146,
+            "n_trials_passing": 9649569,
             "n_dropped": 539,
             "n_subjects": 614,
             "eta2_subject": 0.18400947346418073,
@@ -4610,6 +4806,7 @@
           {
             "n_cells": 3635,
             "n_trials_kept": 9595768,
+            "n_trials_passing": 9649569,
             "n_dropped": 663,
             "n_subjects": 614,
             "eta2_subject": 0.16400435429594837,
@@ -4633,6 +4830,7 @@
           {
             "n_cells": 3865,
             "n_trials_kept": 9580066,
+            "n_trials_passing": 9649569,
             "n_dropped": 1047,
             "n_subjects": 614,
             "eta2_subject": 0.16208681784891013,
@@ -4656,6 +4854,7 @@
           {
             "n_cells": 4357,
             "n_trials_kept": 9565459,
+            "n_trials_passing": 9649569,
             "n_dropped": 1169,
             "n_subjects": 614,
             "eta2_subject": 0.14718236591470024,
@@ -4679,6 +4878,7 @@
           {
             "n_cells": 4292,
             "n_trials_kept": 9544843,
+            "n_trials_passing": 9649569,
             "n_dropped": 1848,
             "n_subjects": 614,
             "eta2_subject": 0.1523998359675077,
@@ -4706,6 +4906,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -4726,6 +4927,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2272874,
+            "n_trials_passing": 2273036,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.42923634762735524,
@@ -4749,6 +4951,7 @@
           {
             "n_cells": 430,
             "n_trials_kept": 2271253,
+            "n_trials_passing": 2272749,
             "n_dropped": 17,
             "n_subjects": 149,
             "eta2_subject": 0.30733151144598264,
@@ -4772,6 +4975,7 @@
           {
             "n_cells": 583,
             "n_trials_kept": 2271936,
+            "n_trials_passing": 2273002,
             "n_dropped": 13,
             "n_subjects": 149,
             "eta2_subject": 0.23235716908893428,
@@ -4795,6 +4999,7 @@
           {
             "n_cells": 700,
             "n_trials_kept": 2268824,
+            "n_trials_passing": 2273027,
             "n_dropped": 45,
             "n_subjects": 149,
             "eta2_subject": 0.20747704658655547,
@@ -4818,6 +5023,7 @@
           {
             "n_cells": 768,
             "n_trials_kept": 2261704,
+            "n_trials_passing": 2272692,
             "n_dropped": 126,
             "n_subjects": 149,
             "eta2_subject": 0.18490492367787204,
@@ -4841,6 +5047,7 @@
           {
             "n_cells": 887,
             "n_trials_kept": 2260306,
+            "n_trials_passing": 2272944,
             "n_dropped": 156,
             "n_subjects": 149,
             "eta2_subject": 0.1602955518277721,
@@ -4864,6 +5071,7 @@
           {
             "n_cells": 943,
             "n_trials_kept": 2256376,
+            "n_trials_passing": 2272476,
             "n_dropped": 249,
             "n_subjects": 149,
             "eta2_subject": 0.15865004591733212,
@@ -4887,6 +5095,7 @@
           {
             "n_cells": 1075,
             "n_trials_kept": 2253538,
+            "n_trials_passing": 2272349,
             "n_dropped": 266,
             "n_subjects": 149,
             "eta2_subject": 0.14035997521069477,
@@ -4910,6 +5119,7 @@
           {
             "n_cells": 1048,
             "n_trials_kept": 2250181,
+            "n_trials_passing": 2270398,
             "n_dropped": 442,
             "n_subjects": 149,
             "eta2_subject": 0.1506236674987021,
@@ -4935,6 +5145,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -4955,6 +5166,7 @@
           {
             "n_cells": 1223,
             "n_trials_kept": 9648492,
+            "n_trials_passing": 9649062,
             "n_dropped": 5,
             "n_subjects": 614,
             "eta2_subject": 0.42024352229463785,
@@ -4978,6 +5190,7 @@
           {
             "n_cells": 1772,
             "n_trials_kept": 9641245,
+            "n_trials_passing": 9647568,
             "n_dropped": 70,
             "n_subjects": 614,
             "eta2_subject": 0.3039236616582808,
@@ -5001,6 +5214,7 @@
           {
             "n_cells": 2370,
             "n_trials_kept": 9640881,
+            "n_trials_passing": 9648833,
             "n_dropped": 86,
             "n_subjects": 614,
             "eta2_subject": 0.23588121230601988,
@@ -5024,6 +5238,7 @@
           {
             "n_cells": 2873,
             "n_trials_kept": 9630221,
+            "n_trials_passing": 9649021,
             "n_dropped": 197,
             "n_subjects": 614,
             "eta2_subject": 0.20702402232332726,
@@ -5047,6 +5262,7 @@
           {
             "n_cells": 3145,
             "n_trials_kept": 9600207,
+            "n_trials_passing": 9647445,
             "n_dropped": 539,
             "n_subjects": 614,
             "eta2_subject": 0.18417092887456737,
@@ -5070,6 +5286,7 @@
           {
             "n_cells": 3635,
             "n_trials_kept": 9594871,
+            "n_trials_passing": 9648592,
             "n_dropped": 663,
             "n_subjects": 614,
             "eta2_subject": 0.16400039301110939,
@@ -5093,6 +5310,7 @@
           {
             "n_cells": 3865,
             "n_trials_kept": 9577652,
+            "n_trials_passing": 9646852,
             "n_dropped": 1047,
             "n_subjects": 614,
             "eta2_subject": 0.16232709348114216,
@@ -5116,6 +5334,7 @@
           {
             "n_cells": 4351,
             "n_trials_kept": 9561757,
+            "n_trials_passing": 9646448,
             "n_dropped": 1175,
             "n_subjects": 614,
             "eta2_subject": 0.14737626602892603,
@@ -5139,6 +5358,7 @@
           {
             "n_cells": 4289,
             "n_trials_kept": 9543328,
+            "n_trials_passing": 9636966,
             "n_dropped": 1851,
             "n_subjects": 614,
             "eta2_subject": 0.15272999581621186,
@@ -5166,6 +5386,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -5186,6 +5407,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2270040,
+            "n_trials_passing": 2270202,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.43249045477699355,
@@ -5209,6 +5431,7 @@
           {
             "n_cells": 429,
             "n_trials_kept": 2264274,
+            "n_trials_passing": 2265753,
             "n_dropped": 18,
             "n_subjects": 149,
             "eta2_subject": 0.310464716807852,
@@ -5232,6 +5455,7 @@
           {
             "n_cells": 583,
             "n_trials_kept": 2267991,
+            "n_trials_passing": 2269037,
             "n_dropped": 13,
             "n_subjects": 149,
             "eta2_subject": 0.2330801158619136,
@@ -5255,6 +5479,7 @@
           {
             "n_cells": 699,
             "n_trials_kept": 2264789,
+            "n_trials_passing": 2269061,
             "n_dropped": 46,
             "n_subjects": 149,
             "eta2_subject": 0.20944797641436425,
@@ -5278,6 +5503,7 @@
           {
             "n_cells": 762,
             "n_trials_kept": 2254429,
+            "n_trials_passing": 2265140,
             "n_dropped": 132,
             "n_subjects": 149,
             "eta2_subject": 0.18860619830998557,
@@ -5301,6 +5527,7 @@
           {
             "n_cells": 882,
             "n_trials_kept": 2253852,
+            "n_trials_passing": 2267104,
             "n_dropped": 161,
             "n_subjects": 149,
             "eta2_subject": 0.16210366778814517,
@@ -5324,6 +5551,7 @@
           {
             "n_cells": 939,
             "n_trials_kept": 2248913,
+            "n_trials_passing": 2264216,
             "n_dropped": 253,
             "n_subjects": 149,
             "eta2_subject": 0.1605271171034235,
@@ -5347,6 +5575,7 @@
           {
             "n_cells": 1071,
             "n_trials_kept": 2244954,
+            "n_trials_passing": 2262704,
             "n_dropped": 270,
             "n_subjects": 149,
             "eta2_subject": 0.14257775558938732,
@@ -5370,6 +5599,7 @@
           {
             "n_cells": 1043,
             "n_trials_kept": 2244393,
+            "n_trials_passing": 2262584,
             "n_dropped": 447,
             "n_subjects": 149,
             "eta2_subject": 0.15168926156880966,
@@ -5395,6 +5625,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999994,
@@ -5415,6 +5646,7 @@
           {
             "n_cells": 1222,
             "n_trials_kept": 9636615,
+            "n_trials_passing": 9637233,
             "n_dropped": 6,
             "n_subjects": 614,
             "eta2_subject": 0.4238968949117057,
@@ -5438,6 +5670,7 @@
           {
             "n_cells": 1763,
             "n_trials_kept": 9608489,
+            "n_trials_passing": 9615006,
             "n_dropped": 79,
             "n_subjects": 614,
             "eta2_subject": 0.308603514142293,
@@ -5461,6 +5694,7 @@
           {
             "n_cells": 2368,
             "n_trials_kept": 9624951,
+            "n_trials_passing": 9632982,
             "n_dropped": 88,
             "n_subjects": 614,
             "eta2_subject": 0.23711176606012652,
@@ -5484,6 +5718,7 @@
           {
             "n_cells": 2868,
             "n_trials_kept": 9615112,
+            "n_trials_passing": 9634256,
             "n_dropped": 202,
             "n_subjects": 614,
             "eta2_subject": 0.2080968894488446,
@@ -5507,6 +5742,7 @@
           {
             "n_cells": 3108,
             "n_trials_kept": 9566483,
+            "n_trials_passing": 9614086,
             "n_dropped": 576,
             "n_subjects": 614,
             "eta2_subject": 0.18985549672274166,
@@ -5530,6 +5766,7 @@
           {
             "n_cells": 3624,
             "n_trials_kept": 9571303,
+            "n_trials_passing": 9625235,
             "n_dropped": 674,
             "n_subjects": 614,
             "eta2_subject": 0.1651560624819004,
@@ -5553,6 +5790,7 @@
           {
             "n_cells": 3842,
             "n_trials_kept": 9546118,
+            "n_trials_passing": 9613215,
             "n_dropped": 1070,
             "n_subjects": 614,
             "eta2_subject": 0.16429282800619402,
@@ -5576,6 +5814,7 @@
           {
             "n_cells": 4310,
             "n_trials_kept": 9525076,
+            "n_trials_passing": 9608634,
             "n_dropped": 1216,
             "n_subjects": 614,
             "eta2_subject": 0.15037384735634307,
@@ -5599,6 +5838,7 @@
           {
             "n_cells": 4269,
             "n_trials_kept": 9519294,
+            "n_trials_passing": 9601489,
             "n_dropped": 1871,
             "n_subjects": 614,
             "eta2_subject": 0.15427044078143162,
@@ -5626,6 +5866,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.9999999999999996,
@@ -5646,6 +5887,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2087906,
+            "n_trials_passing": 2088059,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.4087204573888107,
@@ -5669,6 +5911,7 @@
           {
             "n_cells": 427,
             "n_trials_kept": 1900676,
+            "n_trials_passing": 1902482,
             "n_dropped": 20,
             "n_subjects": 149,
             "eta2_subject": 0.2856696701522416,
@@ -5692,6 +5935,7 @@
           {
             "n_cells": 578,
             "n_trials_kept": 1876176,
+            "n_trials_passing": 1878024,
             "n_dropped": 18,
             "n_subjects": 149,
             "eta2_subject": 0.2207018306403332,
@@ -5715,6 +5959,7 @@
           {
             "n_cells": 688,
             "n_trials_kept": 1788351,
+            "n_trials_passing": 1793697,
             "n_dropped": 57,
             "n_subjects": 149,
             "eta2_subject": 0.19644434144744366,
@@ -5738,6 +5983,7 @@
           {
             "n_cells": 722,
             "n_trials_kept": 1690980,
+            "n_trials_passing": 1705568,
             "n_dropped": 172,
             "n_subjects": 149,
             "eta2_subject": 0.1925075890089154,
@@ -5761,6 +6007,7 @@
           {
             "n_cells": 836,
             "n_trials_kept": 1692790,
+            "n_trials_passing": 1708763,
             "n_dropped": 207,
             "n_subjects": 149,
             "eta2_subject": 0.1670764917399343,
@@ -5784,6 +6031,7 @@
           {
             "n_cells": 907,
             "n_trials_kept": 1663591,
+            "n_trials_passing": 1680576,
             "n_dropped": 285,
             "n_subjects": 149,
             "eta2_subject": 0.15671539301275267,
@@ -5807,6 +6055,7 @@
           {
             "n_cells": 1002,
             "n_trials_kept": 1564975,
+            "n_trials_passing": 1587829,
             "n_dropped": 339,
             "n_subjects": 149,
             "eta2_subject": 0.14329339305356348,
@@ -5830,6 +6079,7 @@
           {
             "n_cells": 992,
             "n_trials_kept": 1596505,
+            "n_trials_passing": 1619552,
             "n_dropped": 498,
             "n_subjects": 149,
             "eta2_subject": 0.15320913219434992,
@@ -5855,6 +6105,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -5875,6 +6126,7 @@
           {
             "n_cells": 1222,
             "n_trials_kept": 8838295,
+            "n_trials_passing": 8838903,
             "n_dropped": 6,
             "n_subjects": 614,
             "eta2_subject": 0.40066864655753504,
@@ -5898,6 +6150,7 @@
           {
             "n_cells": 1745,
             "n_trials_kept": 7966156,
+            "n_trials_passing": 7975467,
             "n_dropped": 97,
             "n_subjects": 614,
             "eta2_subject": 0.28560951397491396,
@@ -5921,6 +6174,7 @@
           {
             "n_cells": 2347,
             "n_trials_kept": 7926695,
+            "n_trials_passing": 7937338,
             "n_dropped": 109,
             "n_subjects": 614,
             "eta2_subject": 0.22794247355943137,
@@ -5944,6 +6198,7 @@
           {
             "n_cells": 2831,
             "n_trials_kept": 7546594,
+            "n_trials_passing": 7569073,
             "n_dropped": 239,
             "n_subjects": 614,
             "eta2_subject": 0.19951101845981387,
@@ -5967,6 +6222,7 @@
           {
             "n_cells": 2974,
             "n_trials_kept": 7206078,
+            "n_trials_passing": 7264201,
             "n_dropped": 710,
             "n_subjects": 614,
             "eta2_subject": 0.19284145625864227,
@@ -5990,6 +6246,7 @@
           {
             "n_cells": 3457,
             "n_trials_kept": 7191244,
+            "n_trials_passing": 7257128,
             "n_dropped": 841,
             "n_subjects": 614,
             "eta2_subject": 0.16924408811781858,
@@ -6013,6 +6270,7 @@
           {
             "n_cells": 3713,
             "n_trials_kept": 7051181,
+            "n_trials_passing": 7125522,
             "n_dropped": 1199,
             "n_subjects": 614,
             "eta2_subject": 0.16168322796357984,
@@ -6036,6 +6294,7 @@
           {
             "n_cells": 4044,
             "n_trials_kept": 6598281,
+            "n_trials_passing": 6699008,
             "n_dropped": 1482,
             "n_subjects": 614,
             "eta2_subject": 0.15332111282390115,
@@ -6059,6 +6318,7 @@
           {
             "n_cells": 4068,
             "n_trials_kept": 6743373,
+            "n_trials_passing": 6843698,
             "n_dropped": 2072,
             "n_subjects": 614,
             "eta2_subject": 0.15613186182725125,
@@ -6086,6 +6346,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -6106,6 +6367,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2087795,
+            "n_trials_passing": 2087948,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.4087747124319905,
@@ -6129,6 +6391,7 @@
           {
             "n_cells": 427,
             "n_trials_kept": 1900453,
+            "n_trials_passing": 1902225,
             "n_dropped": 20,
             "n_subjects": 149,
             "eta2_subject": 0.2858485209181166,
@@ -6152,6 +6415,7 @@
           {
             "n_cells": 578,
             "n_trials_kept": 1876102,
+            "n_trials_passing": 1877950,
             "n_dropped": 18,
             "n_subjects": 149,
             "eta2_subject": 0.22067995849595623,
@@ -6175,6 +6439,7 @@
           {
             "n_cells": 688,
             "n_trials_kept": 1788316,
+            "n_trials_passing": 1793659,
             "n_dropped": 57,
             "n_subjects": 149,
             "eta2_subject": 0.1964832708371412,
@@ -6198,6 +6463,7 @@
           {
             "n_cells": 721,
             "n_trials_kept": 1690661,
+            "n_trials_passing": 1705411,
             "n_dropped": 173,
             "n_subjects": 149,
             "eta2_subject": 0.192649661031353,
@@ -6221,6 +6487,7 @@
           {
             "n_cells": 836,
             "n_trials_kept": 1692742,
+            "n_trials_passing": 1708715,
             "n_dropped": 207,
             "n_subjects": 149,
             "eta2_subject": 0.16703592601865822,
@@ -6244,6 +6511,7 @@
           {
             "n_cells": 907,
             "n_trials_kept": 1663325,
+            "n_trials_passing": 1680279,
             "n_dropped": 285,
             "n_subjects": 149,
             "eta2_subject": 0.15682837423227203,
@@ -6267,6 +6535,7 @@
           {
             "n_cells": 1002,
             "n_trials_kept": 1564663,
+            "n_trials_passing": 1587475,
             "n_dropped": 339,
             "n_subjects": 149,
             "eta2_subject": 0.14348807573223132,
@@ -6290,6 +6559,7 @@
           {
             "n_cells": 990,
             "n_trials_kept": 1596067,
+            "n_trials_passing": 1618546,
             "n_dropped": 500,
             "n_subjects": 149,
             "eta2_subject": 0.1528015411302667,
@@ -6315,6 +6585,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -6335,6 +6606,7 @@
           {
             "n_cells": 1222,
             "n_trials_kept": 8837884,
+            "n_trials_passing": 8838477,
             "n_dropped": 6,
             "n_subjects": 614,
             "eta2_subject": 0.4007258955486032,
@@ -6358,6 +6630,7 @@
           {
             "n_cells": 1745,
             "n_trials_kept": 7965102,
+            "n_trials_passing": 7974311,
             "n_dropped": 97,
             "n_subjects": 614,
             "eta2_subject": 0.2857481589741759,
@@ -6381,6 +6654,7 @@
           {
             "n_cells": 2347,
             "n_trials_kept": 7926476,
+            "n_trials_passing": 7937100,
             "n_dropped": 109,
             "n_subjects": 614,
             "eta2_subject": 0.2279795475908579,
@@ -6404,6 +6678,7 @@
           {
             "n_cells": 2831,
             "n_trials_kept": 7546495,
+            "n_trials_passing": 7568974,
             "n_dropped": 239,
             "n_subjects": 614,
             "eta2_subject": 0.19950722850920524,
@@ -6427,6 +6702,7 @@
           {
             "n_cells": 2974,
             "n_trials_kept": 7205495,
+            "n_trials_passing": 7263567,
             "n_dropped": 710,
             "n_subjects": 614,
             "eta2_subject": 0.1928477597801946,
@@ -6450,6 +6726,7 @@
           {
             "n_cells": 3457,
             "n_trials_kept": 7191069,
+            "n_trials_passing": 7256941,
             "n_dropped": 841,
             "n_subjects": 614,
             "eta2_subject": 0.1692534445347055,
@@ -6473,6 +6750,7 @@
           {
             "n_cells": 3712,
             "n_trials_kept": 7049911,
+            "n_trials_passing": 7124364,
             "n_dropped": 1200,
             "n_subjects": 614,
             "eta2_subject": 0.16198482386458887,
@@ -6496,6 +6774,7 @@
           {
             "n_cells": 4043,
             "n_trials_kept": 6597086,
+            "n_trials_passing": 6697602,
             "n_dropped": 1483,
             "n_subjects": 614,
             "eta2_subject": 0.15353686971543667,
@@ -6519,6 +6798,7 @@
           {
             "n_cells": 4068,
             "n_trials_kept": 6743348,
+            "n_trials_passing": 6839472,
             "n_dropped": 2072,
             "n_subjects": 614,
             "eta2_subject": 0.1561330430003156,
@@ -6546,6 +6826,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -6566,6 +6847,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2085322,
+            "n_trials_passing": 2085475,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.41122683560131207,
@@ -6589,6 +6871,7 @@
           {
             "n_cells": 426,
             "n_trials_kept": 1895439,
+            "n_trials_passing": 1897227,
             "n_dropped": 21,
             "n_subjects": 149,
             "eta2_subject": 0.29011833557709826,
@@ -6612,6 +6895,7 @@
           {
             "n_cells": 578,
             "n_trials_kept": 1873628,
+            "n_trials_passing": 1875476,
             "n_dropped": 18,
             "n_subjects": 149,
             "eta2_subject": 0.2209316630307572,
@@ -6635,6 +6919,7 @@
           {
             "n_cells": 687,
             "n_trials_kept": 1786051,
+            "n_trials_passing": 1791465,
             "n_dropped": 58,
             "n_subjects": 149,
             "eta2_subject": 0.19789687463621183,
@@ -6658,6 +6943,7 @@
           {
             "n_cells": 719,
             "n_trials_kept": 1688013,
+            "n_trials_passing": 1701918,
             "n_dropped": 175,
             "n_subjects": 149,
             "eta2_subject": 0.19409648016436482,
@@ -6681,6 +6967,7 @@
           {
             "n_cells": 834,
             "n_trials_kept": 1689603,
+            "n_trials_passing": 1705718,
             "n_dropped": 209,
             "n_subjects": 149,
             "eta2_subject": 0.16814421494328835,
@@ -6704,6 +6991,7 @@
           {
             "n_cells": 905,
             "n_trials_kept": 1659795,
+            "n_trials_passing": 1676241,
             "n_dropped": 287,
             "n_subjects": 149,
             "eta2_subject": 0.1577333501697735,
@@ -6727,6 +7015,7 @@
           {
             "n_cells": 995,
             "n_trials_kept": 1559800,
+            "n_trials_passing": 1582580,
             "n_dropped": 346,
             "n_subjects": 149,
             "eta2_subject": 0.14607609558599238,
@@ -6750,6 +7039,7 @@
           {
             "n_cells": 987,
             "n_trials_kept": 1593732,
+            "n_trials_passing": 1615236,
             "n_dropped": 503,
             "n_subjects": 149,
             "eta2_subject": 0.15360966496591896,
@@ -6775,6 +7065,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999994,
@@ -6795,6 +7086,7 @@
           {
             "n_cells": 1222,
             "n_trials_kept": 8827534,
+            "n_trials_passing": 8827998,
             "n_dropped": 6,
             "n_subjects": 614,
             "eta2_subject": 0.40172085759704873,
@@ -6818,6 +7110,7 @@
           {
             "n_cells": 1735,
             "n_trials_kept": 7941665,
+            "n_trials_passing": 7951337,
             "n_dropped": 107,
             "n_subjects": 614,
             "eta2_subject": 0.2901863868292437,
@@ -6841,6 +7134,7 @@
           {
             "n_cells": 2345,
             "n_trials_kept": 7916182,
+            "n_trials_passing": 7926948,
             "n_dropped": 111,
             "n_subjects": 614,
             "eta2_subject": 0.2290206683804245,
@@ -6864,6 +7158,7 @@
           {
             "n_cells": 2830,
             "n_trials_kept": 7537955,
+            "n_trials_passing": 7560023,
             "n_dropped": 240,
             "n_subjects": 614,
             "eta2_subject": 0.19983248663310887,
@@ -6887,6 +7182,7 @@
           {
             "n_cells": 2959,
             "n_trials_kept": 7190237,
+            "n_trials_passing": 7246314,
             "n_dropped": 725,
             "n_subjects": 614,
             "eta2_subject": 0.1951414614033668,
@@ -6910,6 +7206,7 @@
           {
             "n_cells": 3450,
             "n_trials_kept": 7178635,
+            "n_trials_passing": 7244541,
             "n_dropped": 848,
             "n_subjects": 614,
             "eta2_subject": 0.17035413631253668,
@@ -6933,6 +7230,7 @@
           {
             "n_cells": 3698,
             "n_trials_kept": 7034288,
+            "n_trials_passing": 7106862,
             "n_dropped": 1214,
             "n_subjects": 614,
             "eta2_subject": 0.16335945054386652,
@@ -6956,6 +7254,7 @@
           {
             "n_cells": 4029,
             "n_trials_kept": 6582178,
+            "n_trials_passing": 6679277,
             "n_dropped": 1497,
             "n_subjects": 614,
             "eta2_subject": 0.15471346013144108,
@@ -6979,6 +7278,7 @@
           {
             "n_cells": 4057,
             "n_trials_kept": 6733362,
+            "n_trials_passing": 6824059,
             "n_dropped": 2083,
             "n_subjects": 614,
             "eta2_subject": 0.15690443316126415,
@@ -7006,6 +7306,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.9999999999999996,
@@ -7026,6 +7327,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 1885794,
+            "n_trials_passing": 1885924,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.39894970664034624,
@@ -7049,6 +7351,7 @@
           {
             "n_cells": 409,
             "n_trials_kept": 1534743,
+            "n_trials_passing": 1538338,
             "n_dropped": 38,
             "n_subjects": 149,
             "eta2_subject": 0.2934737511797188,
@@ -7072,6 +7375,7 @@
           {
             "n_cells": 566,
             "n_trials_kept": 1517405,
+            "n_trials_passing": 1520823,
             "n_dropped": 30,
             "n_subjects": 149,
             "eta2_subject": 0.21513896687987005,
@@ -7095,6 +7399,7 @@
           {
             "n_cells": 675,
             "n_trials_kept": 1386751,
+            "n_trials_passing": 1392542,
             "n_dropped": 70,
             "n_subjects": 149,
             "eta2_subject": 0.1926710046459199,
@@ -7118,6 +7423,7 @@
           {
             "n_cells": 678,
             "n_trials_kept": 1243415,
+            "n_trials_passing": 1257394,
             "n_dropped": 216,
             "n_subjects": 149,
             "eta2_subject": 0.20182957252099887,
@@ -7141,6 +7447,7 @@
           {
             "n_cells": 796,
             "n_trials_kept": 1255063,
+            "n_trials_passing": 1271295,
             "n_dropped": 247,
             "n_subjects": 149,
             "eta2_subject": 0.17415737181522783,
@@ -7164,6 +7471,7 @@
           {
             "n_cells": 848,
             "n_trials_kept": 1222070,
+            "n_trials_passing": 1241324,
             "n_dropped": 344,
             "n_subjects": 149,
             "eta2_subject": 0.15972123925919626,
@@ -7187,6 +7495,7 @@
           {
             "n_cells": 902,
             "n_trials_kept": 1068806,
+            "n_trials_passing": 1095954,
             "n_dropped": 439,
             "n_subjects": 149,
             "eta2_subject": 0.16571627906460945,
@@ -7210,6 +7519,7 @@
           {
             "n_cells": 916,
             "n_trials_kept": 1115297,
+            "n_trials_passing": 1139848,
             "n_dropped": 574,
             "n_subjects": 149,
             "eta2_subject": 0.16137006105871793,
@@ -7235,6 +7545,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -7255,6 +7566,7 @@
           {
             "n_cells": 1220,
             "n_trials_kept": 7984705,
+            "n_trials_passing": 7985471,
             "n_dropped": 8,
             "n_subjects": 614,
             "eta2_subject": 0.3894138806916373,
@@ -7278,6 +7590,7 @@
           {
             "n_cells": 1682,
             "n_trials_kept": 6401837,
+            "n_trials_passing": 6415626,
             "n_dropped": 160,
             "n_subjects": 614,
             "eta2_subject": 0.2944014271086729,
@@ -7301,6 +7614,7 @@
           {
             "n_cells": 2312,
             "n_trials_kept": 6409278,
+            "n_trials_passing": 6423200,
             "n_dropped": 144,
             "n_subjects": 614,
             "eta2_subject": 0.2226628418593067,
@@ -7324,6 +7638,7 @@
           {
             "n_cells": 2743,
             "n_trials_kept": 5828577,
+            "n_trials_passing": 5859346,
             "n_dropped": 327,
             "n_subjects": 614,
             "eta2_subject": 0.2017824565382696,
@@ -7347,6 +7662,7 @@
           {
             "n_cells": 2754,
             "n_trials_kept": 5358093,
+            "n_trials_passing": 5421234,
             "n_dropped": 930,
             "n_subjects": 614,
             "eta2_subject": 0.205449892772087,
@@ -7370,6 +7686,7 @@
           {
             "n_cells": 3205,
             "n_trials_kept": 5299374,
+            "n_trials_passing": 5377504,
             "n_dropped": 1093,
             "n_subjects": 614,
             "eta2_subject": 0.18060103409295875,
@@ -7393,6 +7710,7 @@
           {
             "n_cells": 3434,
             "n_trials_kept": 5161001,
+            "n_trials_passing": 5250799,
             "n_dropped": 1478,
             "n_subjects": 614,
             "eta2_subject": 0.1746784853884542,
@@ -7416,6 +7734,7 @@
           {
             "n_cells": 3648,
             "n_trials_kept": 4515665,
+            "n_trials_passing": 4628191,
             "n_dropped": 1878,
             "n_subjects": 614,
             "eta2_subject": 0.17086360730558003,
@@ -7439,6 +7758,7 @@
           {
             "n_cells": 3767,
             "n_trials_kept": 4740255,
+            "n_trials_passing": 4845385,
             "n_dropped": 2373,
             "n_subjects": 614,
             "eta2_subject": 0.16817041581985376,
@@ -7466,6 +7786,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -7486,6 +7807,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 1885733,
+            "n_trials_passing": 1885863,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.39899239590646013,
@@ -7509,6 +7831,7 @@
           {
             "n_cells": 409,
             "n_trials_kept": 1534697,
+            "n_trials_passing": 1538283,
             "n_dropped": 38,
             "n_subjects": 149,
             "eta2_subject": 0.29351115382639004,
@@ -7532,6 +7855,7 @@
           {
             "n_cells": 566,
             "n_trials_kept": 1517382,
+            "n_trials_passing": 1520800,
             "n_dropped": 30,
             "n_subjects": 149,
             "eta2_subject": 0.21511918261590712,
@@ -7555,6 +7879,7 @@
           {
             "n_cells": 675,
             "n_trials_kept": 1386744,
+            "n_trials_passing": 1392535,
             "n_dropped": 70,
             "n_subjects": 149,
             "eta2_subject": 0.19267148423747166,
@@ -7578,6 +7903,7 @@
           {
             "n_cells": 678,
             "n_trials_kept": 1243394,
+            "n_trials_passing": 1257365,
             "n_dropped": 216,
             "n_subjects": 149,
             "eta2_subject": 0.20185026359785038,
@@ -7601,6 +7927,7 @@
           {
             "n_cells": 796,
             "n_trials_kept": 1255046,
+            "n_trials_passing": 1271278,
             "n_dropped": 247,
             "n_subjects": 149,
             "eta2_subject": 0.17414412530319323,
@@ -7624,6 +7951,7 @@
           {
             "n_cells": 848,
             "n_trials_kept": 1222020,
+            "n_trials_passing": 1241248,
             "n_dropped": 344,
             "n_subjects": 149,
             "eta2_subject": 0.15975062408870339,
@@ -7647,6 +7975,7 @@
           {
             "n_cells": 902,
             "n_trials_kept": 1068719,
+            "n_trials_passing": 1095815,
             "n_dropped": 439,
             "n_subjects": 149,
             "eta2_subject": 0.16579000645721195,
@@ -7670,6 +7999,7 @@
           {
             "n_cells": 916,
             "n_trials_kept": 1115297,
+            "n_trials_passing": 1139557,
             "n_dropped": 574,
             "n_subjects": 149,
             "eta2_subject": 0.16137006105871793,
@@ -7695,6 +8025,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -7715,6 +8046,7 @@
           {
             "n_cells": 1220,
             "n_trials_kept": 7984557,
+            "n_trials_passing": 7985314,
             "n_dropped": 8,
             "n_subjects": 614,
             "eta2_subject": 0.38944100053546127,
@@ -7738,6 +8070,7 @@
           {
             "n_cells": 1682,
             "n_trials_kept": 6401597,
+            "n_trials_passing": 6415308,
             "n_dropped": 160,
             "n_subjects": 614,
             "eta2_subject": 0.29444398929826127,
@@ -7761,6 +8094,7 @@
           {
             "n_cells": 2311,
             "n_trials_kept": 6409053,
+            "n_trials_passing": 6423172,
             "n_dropped": 145,
             "n_subjects": 614,
             "eta2_subject": 0.22294660876756903,
@@ -7784,6 +8118,7 @@
           {
             "n_cells": 2743,
             "n_trials_kept": 5828564,
+            "n_trials_passing": 5859328,
             "n_dropped": 327,
             "n_subjects": 614,
             "eta2_subject": 0.20178068160994686,
@@ -7807,6 +8142,7 @@
           {
             "n_cells": 2754,
             "n_trials_kept": 5357933,
+            "n_trials_passing": 5421062,
             "n_dropped": 930,
             "n_subjects": 614,
             "eta2_subject": 0.20544858581915382,
@@ -7830,6 +8166,7 @@
           {
             "n_cells": 3205,
             "n_trials_kept": 5299333,
+            "n_trials_passing": 5377458,
             "n_dropped": 1093,
             "n_subjects": 614,
             "eta2_subject": 0.1806177353143165,
@@ -7853,6 +8190,7 @@
           {
             "n_cells": 3434,
             "n_trials_kept": 5160816,
+            "n_trials_passing": 5250555,
             "n_dropped": 1478,
             "n_subjects": 614,
             "eta2_subject": 0.17467938880381878,
@@ -7876,6 +8214,7 @@
           {
             "n_cells": 3647,
             "n_trials_kept": 4515172,
+            "n_trials_passing": 4627566,
             "n_dropped": 1879,
             "n_subjects": 614,
             "eta2_subject": 0.1710199270305985,
@@ -7899,6 +8238,7 @@
           {
             "n_cells": 3767,
             "n_trials_kept": 4740255,
+            "n_trials_passing": 4844217,
             "n_dropped": 2373,
             "n_subjects": 614,
             "eta2_subject": 0.16817041581985376,
@@ -7926,6 +8266,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -7946,6 +8287,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 1884208,
+            "n_trials_passing": 1884338,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.39996212270709575,
@@ -7969,6 +8311,7 @@
           {
             "n_cells": 407,
             "n_trials_kept": 1532197,
+            "n_trials_passing": 1536063,
             "n_dropped": 40,
             "n_subjects": 149,
             "eta2_subject": 0.29808775872598225,
@@ -7992,6 +8335,7 @@
           {
             "n_cells": 565,
             "n_trials_kept": 1516187,
+            "n_trials_passing": 1519767,
             "n_dropped": 31,
             "n_subjects": 149,
             "eta2_subject": 0.2168031601205865,
@@ -8015,6 +8359,7 @@
           {
             "n_cells": 674,
             "n_trials_kept": 1385620,
+            "n_trials_passing": 1391518,
             "n_dropped": 71,
             "n_subjects": 149,
             "eta2_subject": 0.19359493956613716,
@@ -8038,6 +8383,7 @@
           {
             "n_cells": 678,
             "n_trials_kept": 1242720,
+            "n_trials_passing": 1256158,
             "n_dropped": 216,
             "n_subjects": 149,
             "eta2_subject": 0.20196737546661594,
@@ -8061,6 +8407,7 @@
           {
             "n_cells": 795,
             "n_trials_kept": 1253857,
+            "n_trials_passing": 1270185,
             "n_dropped": 248,
             "n_subjects": 149,
             "eta2_subject": 0.17475143213048625,
@@ -8084,6 +8431,7 @@
           {
             "n_cells": 845,
             "n_trials_kept": 1220563,
+            "n_trials_passing": 1239872,
             "n_dropped": 347,
             "n_subjects": 149,
             "eta2_subject": 0.1613073672632538,
@@ -8107,6 +8455,7 @@
           {
             "n_cells": 901,
             "n_trials_kept": 1067760,
+            "n_trials_passing": 1094441,
             "n_dropped": 440,
             "n_subjects": 149,
             "eta2_subject": 0.1660163919585428,
@@ -8130,6 +8479,7 @@
           {
             "n_cells": 915,
             "n_trials_kept": 1114757,
+            "n_trials_passing": 1138657,
             "n_dropped": 575,
             "n_subjects": 149,
             "eta2_subject": 0.16182078365259994,
@@ -8155,6 +8505,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999994,
@@ -8175,6 +8526,7 @@
           {
             "n_cells": 1220,
             "n_trials_kept": 7978121,
+            "n_trials_passing": 7978780,
             "n_dropped": 8,
             "n_subjects": 614,
             "eta2_subject": 0.39023390068774105,
@@ -8198,6 +8550,7 @@
           {
             "n_cells": 1679,
             "n_trials_kept": 6391902,
+            "n_trials_passing": 6405062,
             "n_dropped": 163,
             "n_subjects": 614,
             "eta2_subject": 0.29594322100219467,
@@ -8221,6 +8574,7 @@
           {
             "n_cells": 2311,
             "n_trials_kept": 6405007,
+            "n_trials_passing": 6418921,
             "n_dropped": 145,
             "n_subjects": 614,
             "eta2_subject": 0.22319764669328937,
@@ -8244,6 +8598,7 @@
           {
             "n_cells": 2743,
             "n_trials_kept": 5825013,
+            "n_trials_passing": 5855454,
             "n_dropped": 327,
             "n_subjects": 614,
             "eta2_subject": 0.202012862890601,
@@ -8267,6 +8622,7 @@
           {
             "n_cells": 2748,
             "n_trials_kept": 5352905,
+            "n_trials_passing": 5415106,
             "n_dropped": 936,
             "n_subjects": 614,
             "eta2_subject": 0.2063861504947579,
@@ -8290,6 +8646,7 @@
           {
             "n_cells": 3201,
             "n_trials_kept": 5295323,
+            "n_trials_passing": 5373393,
             "n_dropped": 1097,
             "n_subjects": 614,
             "eta2_subject": 0.18106283021153186,
@@ -8313,6 +8670,7 @@
           {
             "n_cells": 3421,
             "n_trials_kept": 5154554,
+            "n_trials_passing": 5244663,
             "n_dropped": 1491,
             "n_subjects": 614,
             "eta2_subject": 0.1754177638954944,
@@ -8336,6 +8694,7 @@
           {
             "n_cells": 3636,
             "n_trials_kept": 4509937,
+            "n_trials_passing": 4621850,
             "n_dropped": 1890,
             "n_subjects": 614,
             "eta2_subject": 0.1717829215814277,
@@ -8359,6 +8718,7 @@
           {
             "n_cells": 3765,
             "n_trials_kept": 4738307,
+            "n_trials_passing": 4839816,
             "n_dropped": 2375,
             "n_subjects": 614,
             "eta2_subject": 0.16810760867986294,
@@ -8388,6 +8748,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -8404,6 +8765,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2273002,
+            "n_trials_passing": 2273164,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.39350980952409,
@@ -8423,6 +8785,7 @@
           {
             "n_cells": 427,
             "n_trials_kept": 2271539,
+            "n_trials_passing": 2273164,
             "n_dropped": 20,
             "n_subjects": 149,
             "eta2_subject": 0.31539754182234087,
@@ -8442,6 +8805,7 @@
           {
             "n_cells": 569,
             "n_trials_kept": 2270634,
+            "n_trials_passing": 2273164,
             "n_dropped": 27,
             "n_subjects": 149,
             "eta2_subject": 0.23870003661803624,
@@ -8461,6 +8825,7 @@
           {
             "n_cells": 680,
             "n_trials_kept": 2269055,
+            "n_trials_passing": 2273164,
             "n_dropped": 65,
             "n_subjects": 149,
             "eta2_subject": 0.21593739680869017,
@@ -8480,6 +8845,7 @@
           {
             "n_cells": 731,
             "n_trials_kept": 2262065,
+            "n_trials_passing": 2273164,
             "n_dropped": 163,
             "n_subjects": 149,
             "eta2_subject": 0.20549721841608842,
@@ -8499,6 +8865,7 @@
           {
             "n_cells": 827,
             "n_trials_kept": 2260501,
+            "n_trials_passing": 2273164,
             "n_dropped": 216,
             "n_subjects": 149,
             "eta2_subject": 0.188395175220618,
@@ -8518,6 +8885,7 @@
           {
             "n_cells": 914,
             "n_trials_kept": 2255383,
+            "n_trials_passing": 2273164,
             "n_dropped": 278,
             "n_subjects": 149,
             "eta2_subject": 0.171670725869834,
@@ -8537,6 +8905,7 @@
           {
             "n_cells": 989,
             "n_trials_kept": 2253945,
+            "n_trials_passing": 2273164,
             "n_dropped": 352,
             "n_subjects": 149,
             "eta2_subject": 0.15966098473701376,
@@ -8556,6 +8925,7 @@
           {
             "n_cells": 1057,
             "n_trials_kept": 2251468,
+            "n_trials_passing": 2273164,
             "n_dropped": 433,
             "n_subjects": 149,
             "eta2_subject": 0.1520867827782967,
@@ -8577,6 +8947,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -8593,6 +8964,7 @@
           {
             "n_cells": 1218,
             "n_trials_kept": 9648359,
+            "n_trials_passing": 9649569,
             "n_dropped": 10,
             "n_subjects": 614,
             "eta2_subject": 0.3982749705446291,
@@ -8612,6 +8984,7 @@
           {
             "n_cells": 1750,
             "n_trials_kept": 9641171,
+            "n_trials_passing": 9649569,
             "n_dropped": 92,
             "n_subjects": 614,
             "eta2_subject": 0.3148688753246733,
@@ -8631,6 +9004,7 @@
           {
             "n_cells": 2302,
             "n_trials_kept": 9637206,
+            "n_trials_passing": 9649569,
             "n_dropped": 154,
             "n_subjects": 614,
             "eta2_subject": 0.24625990760044392,
@@ -8650,6 +9024,7 @@
           {
             "n_cells": 2752,
             "n_trials_kept": 9624852,
+            "n_trials_passing": 9649569,
             "n_dropped": 318,
             "n_subjects": 614,
             "eta2_subject": 0.2180181276511054,
@@ -8669,6 +9044,7 @@
           {
             "n_cells": 2954,
             "n_trials_kept": 9597755,
+            "n_trials_passing": 9649569,
             "n_dropped": 730,
             "n_subjects": 614,
             "eta2_subject": 0.20621167251815062,
@@ -8688,6 +9064,7 @@
           {
             "n_cells": 3360,
             "n_trials_kept": 9587849,
+            "n_trials_passing": 9649569,
             "n_dropped": 938,
             "n_subjects": 614,
             "eta2_subject": 0.18871992307151458,
@@ -8707,6 +9084,7 @@
           {
             "n_cells": 3742,
             "n_trials_kept": 9573484,
+            "n_trials_passing": 9649569,
             "n_dropped": 1170,
             "n_subjects": 614,
             "eta2_subject": 0.1711687550300931,
@@ -8726,6 +9104,7 @@
           {
             "n_cells": 4045,
             "n_trials_kept": 9570858,
+            "n_trials_passing": 9649569,
             "n_dropped": 1481,
             "n_subjects": 614,
             "eta2_subject": 0.16271153130456403,
@@ -8745,6 +9124,7 @@
           {
             "n_cells": 4367,
             "n_trials_kept": 9556835,
+            "n_trials_passing": 9649569,
             "n_dropped": 1773,
             "n_subjects": 614,
             "eta2_subject": 0.15246458255992323,
@@ -8768,6 +9148,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000004,
@@ -8784,6 +9165,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2272916,
+            "n_trials_passing": 2273078,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.393565447785369,
@@ -8803,6 +9185,7 @@
           {
             "n_cells": 427,
             "n_trials_kept": 2271453,
+            "n_trials_passing": 2273078,
             "n_dropped": 20,
             "n_subjects": 149,
             "eta2_subject": 0.31542237858215055,
@@ -8822,6 +9205,7 @@
           {
             "n_cells": 569,
             "n_trials_kept": 2270539,
+            "n_trials_passing": 2273069,
             "n_dropped": 27,
             "n_subjects": 149,
             "eta2_subject": 0.23873363252410004,
@@ -8841,6 +9225,7 @@
           {
             "n_cells": 680,
             "n_trials_kept": 2268967,
+            "n_trials_passing": 2273076,
             "n_dropped": 65,
             "n_subjects": 149,
             "eta2_subject": 0.21593806095081963,
@@ -8860,6 +9245,7 @@
           {
             "n_cells": 730,
             "n_trials_kept": 2261257,
+            "n_trials_passing": 2272477,
             "n_dropped": 164,
             "n_subjects": 149,
             "eta2_subject": 0.20604371881178665,
@@ -8879,6 +9265,7 @@
           {
             "n_cells": 827,
             "n_trials_kept": 2259999,
+            "n_trials_passing": 2272608,
             "n_dropped": 216,
             "n_subjects": 149,
             "eta2_subject": 0.18863965156698081,
@@ -8898,6 +9285,7 @@
           {
             "n_cells": 913,
             "n_trials_kept": 2254731,
+            "n_trials_passing": 2272519,
             "n_dropped": 279,
             "n_subjects": 149,
             "eta2_subject": 0.17192964049998308,
@@ -8917,6 +9305,7 @@
           {
             "n_cells": 985,
             "n_trials_kept": 2252631,
+            "n_trials_passing": 2272537,
             "n_dropped": 356,
             "n_subjects": 149,
             "eta2_subject": 0.1613203007449326,
@@ -8936,6 +9325,7 @@
           {
             "n_cells": 1055,
             "n_trials_kept": 2250546,
+            "n_trials_passing": 2272504,
             "n_dropped": 435,
             "n_subjects": 149,
             "eta2_subject": 0.15336088125514222,
@@ -8957,6 +9347,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 1.0000000000000007,
@@ -8973,6 +9364,7 @@
           {
             "n_cells": 1218,
             "n_trials_kept": 9647908,
+            "n_trials_passing": 9649118,
             "n_dropped": 10,
             "n_subjects": 614,
             "eta2_subject": 0.398386631155592,
@@ -8992,6 +9384,7 @@
           {
             "n_cells": 1750,
             "n_trials_kept": 9640728,
+            "n_trials_passing": 9649120,
             "n_dropped": 92,
             "n_subjects": 614,
             "eta2_subject": 0.31493230724147103,
@@ -9011,6 +9404,7 @@
           {
             "n_cells": 2300,
             "n_trials_kept": 9636331,
+            "n_trials_passing": 9649069,
             "n_dropped": 156,
             "n_subjects": 614,
             "eta2_subject": 0.2465633937034923,
@@ -9030,6 +9424,7 @@
           {
             "n_cells": 2751,
             "n_trials_kept": 9624169,
+            "n_trials_passing": 9649059,
             "n_dropped": 319,
             "n_subjects": 614,
             "eta2_subject": 0.21818052625105905,
@@ -9049,6 +9444,7 @@
           {
             "n_cells": 2954,
             "n_trials_kept": 9595419,
+            "n_trials_passing": 9646961,
             "n_dropped": 730,
             "n_subjects": 614,
             "eta2_subject": 0.20658974126106938,
@@ -9068,6 +9464,7 @@
           {
             "n_cells": 3360,
             "n_trials_kept": 9585746,
+            "n_trials_passing": 9647029,
             "n_dropped": 938,
             "n_subjects": 614,
             "eta2_subject": 0.18911938597940475,
@@ -9087,6 +9484,7 @@
           {
             "n_cells": 3739,
             "n_trials_kept": 9571045,
+            "n_trials_passing": 9647103,
             "n_dropped": 1173,
             "n_subjects": 614,
             "eta2_subject": 0.17159922263855074,
@@ -9106,6 +9504,7 @@
           {
             "n_cells": 4045,
             "n_trials_kept": 9569015,
+            "n_trials_passing": 9647150,
             "n_dropped": 1481,
             "n_subjects": 614,
             "eta2_subject": 0.16293420471576603,
@@ -9125,6 +9524,7 @@
           {
             "n_cells": 4365,
             "n_trials_kept": 9554579,
+            "n_trials_passing": 9647080,
             "n_dropped": 1775,
             "n_subjects": 614,
             "eta2_subject": 0.15262694787782613,
@@ -9148,6 +9548,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -9164,6 +9565,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2270822,
+            "n_trials_passing": 2270984,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.39449500581893854,
@@ -9183,6 +9585,7 @@
           {
             "n_cells": 427,
             "n_trials_kept": 2269300,
+            "n_trials_passing": 2270925,
             "n_dropped": 20,
             "n_subjects": 149,
             "eta2_subject": 0.31593794621157417,
@@ -9202,6 +9605,7 @@
           {
             "n_cells": 568,
             "n_trials_kept": 2267861,
+            "n_trials_passing": 2270536,
             "n_dropped": 28,
             "n_subjects": 149,
             "eta2_subject": 0.2388990498580913,
@@ -9221,6 +9625,7 @@
           {
             "n_cells": 678,
             "n_trials_kept": 2266265,
+            "n_trials_passing": 2270657,
             "n_dropped": 67,
             "n_subjects": 149,
             "eta2_subject": 0.21674820910328402,
@@ -9240,25 +9645,27 @@
           {
             "n_cells": 726,
             "n_trials_kept": 2254963,
+            "n_trials_passing": 2265763,
             "n_dropped": 168,
             "n_subjects": 149,
-            "eta2_subject": 0.20870522725032764,
-            "silhouette_pc12": 0.09482584509776816,
+            "eta2_subject": 0.20870715457812897,
+            "silhouette_pc12": 0.09478231146271505,
             "silhouette_big_cells": -0.008501761575858177,
-            "silhouette": -0.01862100693805215,
-            "silhouette_null_mean": -0.025198099925354663,
+            "silhouette": -0.018631234386818116,
+            "silhouette_null_mean": -0.025198076714705416,
             "silhouette_null_95": [
-              -0.04620933484871461,
-              -0.016164096939422175
+              -0.04621446988818539,
+              -0.01616776626464691
             ],
-            "eta2_state": 0.1886938114540084,
-            "eta2_state_null_mean": 0.008391820164083528,
+            "eta2_state": 0.18868677433772998,
+            "eta2_state_null_mean": 0.008392260149102873,
             "kmeans_ari": 0.374694158818926,
             "K": 6
           },
           {
             "n_cells": 817,
             "n_trials_kept": 2253236,
+            "n_trials_passing": 2266480,
             "n_dropped": 226,
             "n_subjects": 149,
             "eta2_subject": 0.1934269809526481,
@@ -9278,6 +9685,7 @@
           {
             "n_cells": 909,
             "n_trials_kept": 2250432,
+            "n_trials_passing": 2267612,
             "n_dropped": 283,
             "n_subjects": 149,
             "eta2_subject": 0.17351070262582796,
@@ -9297,6 +9705,7 @@
           {
             "n_cells": 981,
             "n_trials_kept": 2247880,
+            "n_trials_passing": 2267284,
             "n_dropped": 360,
             "n_subjects": 149,
             "eta2_subject": 0.16254724867130413,
@@ -9316,6 +9725,7 @@
           {
             "n_cells": 1052,
             "n_trials_kept": 2245428,
+            "n_trials_passing": 2266453,
             "n_dropped": 438,
             "n_subjects": 149,
             "eta2_subject": 0.15487327529812733,
@@ -9337,6 +9747,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -9353,6 +9764,7 @@
           {
             "n_cells": 1218,
             "n_trials_kept": 9640773,
+            "n_trials_passing": 9641891,
             "n_dropped": 10,
             "n_subjects": 614,
             "eta2_subject": 0.39868389318321035,
@@ -9372,6 +9784,7 @@
           {
             "n_cells": 1750,
             "n_trials_kept": 9632288,
+            "n_trials_passing": 9640513,
             "n_dropped": 92,
             "n_subjects": 614,
             "eta2_subject": 0.3152903795789018,
@@ -9391,6 +9804,7 @@
           {
             "n_cells": 2300,
             "n_trials_kept": 9627022,
+            "n_trials_passing": 9639562,
             "n_dropped": 156,
             "n_subjects": 614,
             "eta2_subject": 0.24669235288899413,
@@ -9410,6 +9824,7 @@
           {
             "n_cells": 2750,
             "n_trials_kept": 9615571,
+            "n_trials_passing": 9640226,
             "n_dropped": 320,
             "n_subjects": 614,
             "eta2_subject": 0.21851057084074677,
@@ -9429,6 +9844,7 @@
           {
             "n_cells": 2921,
             "n_trials_kept": 9567964,
+            "n_trials_passing": 9620238,
             "n_dropped": 763,
             "n_subjects": 614,
             "eta2_subject": 0.20986868271199424,
@@ -9448,6 +9864,7 @@
           {
             "n_cells": 3339,
             "n_trials_kept": 9564084,
+            "n_trials_passing": 9623905,
             "n_dropped": 959,
             "n_subjects": 614,
             "eta2_subject": 0.19111547084901492,
@@ -9467,6 +9884,7 @@
           {
             "n_cells": 3728,
             "n_trials_kept": 9553995,
+            "n_trials_passing": 9626692,
             "n_dropped": 1184,
             "n_subjects": 614,
             "eta2_subject": 0.17232980604255863,
@@ -9486,6 +9904,7 @@
           {
             "n_cells": 4024,
             "n_trials_kept": 9550219,
+            "n_trials_passing": 9627928,
             "n_dropped": 1502,
             "n_subjects": 614,
             "eta2_subject": 0.1643930316820047,
@@ -9505,6 +9924,7 @@
           {
             "n_cells": 4349,
             "n_trials_kept": 9536488,
+            "n_trials_passing": 9626966,
             "n_dropped": 1791,
             "n_subjects": 614,
             "eta2_subject": 0.1537192139504925,
@@ -9528,6 +9948,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -9544,6 +9965,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2055025,
+            "n_trials_passing": 2055177,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.3749699264024852,
@@ -9563,6 +9985,7 @@
           {
             "n_cells": 418,
             "n_trials_kept": 1900576,
+            "n_trials_passing": 1903212,
             "n_dropped": 29,
             "n_subjects": 149,
             "eta2_subject": 0.3110726395763032,
@@ -9582,6 +10005,7 @@
           {
             "n_cells": 540,
             "n_trials_kept": 1747947,
+            "n_trials_passing": 1753414,
             "n_dropped": 56,
             "n_subjects": 149,
             "eta2_subject": 0.2403851712358535,
@@ -9601,6 +10025,7 @@
           {
             "n_cells": 631,
             "n_trials_kept": 1655841,
+            "n_trials_passing": 1665552,
             "n_dropped": 114,
             "n_subjects": 149,
             "eta2_subject": 0.22159901342835808,
@@ -9620,6 +10045,7 @@
           {
             "n_cells": 663,
             "n_trials_kept": 1569428,
+            "n_trials_passing": 1584927,
             "n_dropped": 231,
             "n_subjects": 149,
             "eta2_subject": 0.21355255542140397,
@@ -9639,6 +10065,7 @@
           {
             "n_cells": 728,
             "n_trials_kept": 1467891,
+            "n_trials_passing": 1487942,
             "n_dropped": 315,
             "n_subjects": 149,
             "eta2_subject": 0.19874906928245245,
@@ -9658,6 +10085,7 @@
           {
             "n_cells": 796,
             "n_trials_kept": 1403762,
+            "n_trials_passing": 1428706,
             "n_dropped": 396,
             "n_subjects": 149,
             "eta2_subject": 0.1815317024655687,
@@ -9677,6 +10105,7 @@
           {
             "n_cells": 846,
             "n_trials_kept": 1339949,
+            "n_trials_passing": 1367961,
             "n_dropped": 495,
             "n_subjects": 149,
             "eta2_subject": 0.17965316010301427,
@@ -9696,6 +10125,7 @@
           {
             "n_cells": 878,
             "n_trials_kept": 1282073,
+            "n_trials_passing": 1312712,
             "n_dropped": 612,
             "n_subjects": 149,
             "eta2_subject": 0.17402555833112596,
@@ -9717,6 +10147,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -9733,6 +10164,7 @@
           {
             "n_cells": 1216,
             "n_trials_kept": 8770311,
+            "n_trials_passing": 8771789,
             "n_dropped": 12,
             "n_subjects": 614,
             "eta2_subject": 0.3806016375797432,
@@ -9752,6 +10184,7 @@
           {
             "n_cells": 1723,
             "n_trials_kept": 8062220,
+            "n_trials_passing": 8073057,
             "n_dropped": 119,
             "n_subjects": 614,
             "eta2_subject": 0.30589133858006473,
@@ -9771,6 +10204,7 @@
           {
             "n_cells": 2215,
             "n_trials_kept": 7456687,
+            "n_trials_passing": 7477352,
             "n_dropped": 241,
             "n_subjects": 614,
             "eta2_subject": 0.24412630946373473,
@@ -9790,6 +10224,7 @@
           {
             "n_cells": 2613,
             "n_trials_kept": 7031683,
+            "n_trials_passing": 7067848,
             "n_dropped": 457,
             "n_subjects": 614,
             "eta2_subject": 0.22078500342210775,
@@ -9809,6 +10244,7 @@
           {
             "n_cells": 2702,
             "n_trials_kept": 6696777,
+            "n_trials_passing": 6763647,
             "n_dropped": 982,
             "n_subjects": 614,
             "eta2_subject": 0.21694106878306516,
@@ -9828,6 +10264,7 @@
           {
             "n_cells": 3040,
             "n_trials_kept": 6289857,
+            "n_trials_passing": 6367670,
             "n_dropped": 1258,
             "n_subjects": 614,
             "eta2_subject": 0.19682052851823784,
@@ -9847,6 +10284,7 @@
           {
             "n_cells": 3285,
             "n_trials_kept": 6054303,
+            "n_trials_passing": 6153797,
             "n_dropped": 1627,
             "n_subjects": 614,
             "eta2_subject": 0.18726644324998892,
@@ -9866,6 +10304,7 @@
           {
             "n_cells": 3479,
             "n_trials_kept": 5804577,
+            "n_trials_passing": 5916291,
             "n_dropped": 2047,
             "n_subjects": 614,
             "eta2_subject": 0.18105464104679453,
@@ -9885,6 +10324,7 @@
           {
             "n_cells": 3667,
             "n_trials_kept": 5510151,
+            "n_trials_passing": 5644827,
             "n_dropped": 2473,
             "n_subjects": 614,
             "eta2_subject": 0.17342926186101545,
@@ -9908,6 +10348,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000004,
@@ -9924,6 +10365,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2054950,
+            "n_trials_passing": 2055102,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.37496290660947657,
@@ -9943,6 +10385,7 @@
           {
             "n_cells": 418,
             "n_trials_kept": 1900522,
+            "n_trials_passing": 1903158,
             "n_dropped": 29,
             "n_subjects": 149,
             "eta2_subject": 0.3110596396313745,
@@ -9962,6 +10405,7 @@
           {
             "n_cells": 540,
             "n_trials_kept": 1747923,
+            "n_trials_passing": 1753390,
             "n_dropped": 56,
             "n_subjects": 149,
             "eta2_subject": 0.24038537950410696,
@@ -9981,6 +10425,7 @@
           {
             "n_cells": 631,
             "n_trials_kept": 1655832,
+            "n_trials_passing": 1665543,
             "n_dropped": 114,
             "n_subjects": 149,
             "eta2_subject": 0.22161537855629374,
@@ -10000,6 +10445,7 @@
           {
             "n_cells": 663,
             "n_trials_kept": 1569277,
+            "n_trials_passing": 1584765,
             "n_dropped": 231,
             "n_subjects": 149,
             "eta2_subject": 0.21347373711079085,
@@ -10019,6 +10465,7 @@
           {
             "n_cells": 728,
             "n_trials_kept": 1467796,
+            "n_trials_passing": 1487833,
             "n_dropped": 315,
             "n_subjects": 149,
             "eta2_subject": 0.19887752358122343,
@@ -10038,6 +10485,7 @@
           {
             "n_cells": 796,
             "n_trials_kept": 1403712,
+            "n_trials_passing": 1428603,
             "n_dropped": 396,
             "n_subjects": 149,
             "eta2_subject": 0.1816252316582094,
@@ -10057,6 +10505,7 @@
           {
             "n_cells": 846,
             "n_trials_kept": 1339791,
+            "n_trials_passing": 1367719,
             "n_dropped": 495,
             "n_subjects": 149,
             "eta2_subject": 0.1799661903597646,
@@ -10076,6 +10525,7 @@
           {
             "n_cells": 878,
             "n_trials_kept": 1281926,
+            "n_trials_passing": 1312483,
             "n_dropped": 612,
             "n_subjects": 149,
             "eta2_subject": 0.1742716352757923,
@@ -10097,6 +10547,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 1.0000000000000007,
@@ -10113,6 +10564,7 @@
           {
             "n_cells": 1216,
             "n_trials_kept": 8769912,
+            "n_trials_passing": 8771390,
             "n_dropped": 12,
             "n_subjects": 614,
             "eta2_subject": 0.38065104298283425,
@@ -10132,6 +10584,7 @@
           {
             "n_cells": 1723,
             "n_trials_kept": 8062071,
+            "n_trials_passing": 8072908,
             "n_dropped": 119,
             "n_subjects": 614,
             "eta2_subject": 0.30588902272770196,
@@ -10151,6 +10604,7 @@
           {
             "n_cells": 2215,
             "n_trials_kept": 7456624,
+            "n_trials_passing": 7477289,
             "n_dropped": 241,
             "n_subjects": 614,
             "eta2_subject": 0.24412247172539636,
@@ -10170,6 +10624,7 @@
           {
             "n_cells": 2613,
             "n_trials_kept": 7031645,
+            "n_trials_passing": 7067810,
             "n_dropped": 457,
             "n_subjects": 614,
             "eta2_subject": 0.2207756431355728,
@@ -10189,6 +10644,7 @@
           {
             "n_cells": 2702,
             "n_trials_kept": 6696250,
+            "n_trials_passing": 6763102,
             "n_dropped": 982,
             "n_subjects": 614,
             "eta2_subject": 0.21696688132599815,
@@ -10208,6 +10664,7 @@
           {
             "n_cells": 3040,
             "n_trials_kept": 6289237,
+            "n_trials_passing": 6367008,
             "n_dropped": 1258,
             "n_subjects": 614,
             "eta2_subject": 0.19692496979164617,
@@ -10227,6 +10684,7 @@
           {
             "n_cells": 3284,
             "n_trials_kept": 6053841,
+            "n_trials_passing": 6153421,
             "n_dropped": 1628,
             "n_subjects": 614,
             "eta2_subject": 0.1873048523449651,
@@ -10246,6 +10704,7 @@
           {
             "n_cells": 3478,
             "n_trials_kept": 5803855,
+            "n_trials_passing": 5915463,
             "n_dropped": 2048,
             "n_subjects": 614,
             "eta2_subject": 0.18130989152862959,
@@ -10265,6 +10724,7 @@
           {
             "n_cells": 3666,
             "n_trials_kept": 5509478,
+            "n_trials_passing": 5644023,
             "n_dropped": 2474,
             "n_subjects": 614,
             "eta2_subject": 0.17361985098982324,
@@ -10288,6 +10748,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -10304,6 +10765,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2052962,
+            "n_trials_passing": 2053114,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.3755617530237037,
@@ -10323,6 +10785,7 @@
           {
             "n_cells": 418,
             "n_trials_kept": 1898740,
+            "n_trials_passing": 1901360,
             "n_dropped": 29,
             "n_subjects": 149,
             "eta2_subject": 0.31131748815349325,
@@ -10342,6 +10805,7 @@
           {
             "n_cells": 540,
             "n_trials_kept": 1746638,
+            "n_trials_passing": 1752083,
             "n_dropped": 56,
             "n_subjects": 149,
             "eta2_subject": 0.24069734825229352,
@@ -10361,6 +10825,7 @@
           {
             "n_cells": 631,
             "n_trials_kept": 1654710,
+            "n_trials_passing": 1664307,
             "n_dropped": 114,
             "n_subjects": 149,
             "eta2_subject": 0.22167537857426944,
@@ -10380,6 +10845,7 @@
           {
             "n_cells": 661,
             "n_trials_kept": 1566666,
+            "n_trials_passing": 1581924,
             "n_dropped": 233,
             "n_subjects": 149,
             "eta2_subject": 0.21480825160454792,
@@ -10399,6 +10865,7 @@
           {
             "n_cells": 727,
             "n_trials_kept": 1465829,
+            "n_trials_passing": 1485427,
             "n_dropped": 316,
             "n_subjects": 149,
             "eta2_subject": 0.19952438092910127,
@@ -10418,6 +10885,7 @@
           {
             "n_cells": 796,
             "n_trials_kept": 1402870,
+            "n_trials_passing": 1427223,
             "n_dropped": 396,
             "n_subjects": 149,
             "eta2_subject": 0.18215114044192646,
@@ -10437,6 +10905,7 @@
           {
             "n_cells": 846,
             "n_trials_kept": 1338739,
+            "n_trials_passing": 1365839,
             "n_dropped": 495,
             "n_subjects": 149,
             "eta2_subject": 0.18045050520203987,
@@ -10456,6 +10925,7 @@
           {
             "n_cells": 878,
             "n_trials_kept": 1280669,
+            "n_trials_passing": 1310527,
             "n_dropped": 612,
             "n_subjects": 149,
             "eta2_subject": 0.17428231523170418,
@@ -10477,6 +10947,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -10493,6 +10964,7 @@
           {
             "n_cells": 1216,
             "n_trials_kept": 8763214,
+            "n_trials_passing": 8764600,
             "n_dropped": 12,
             "n_subjects": 614,
             "eta2_subject": 0.38095614404263106,
@@ -10512,6 +10984,7 @@
           {
             "n_cells": 1723,
             "n_trials_kept": 8055248,
+            "n_trials_passing": 8065925,
             "n_dropped": 119,
             "n_subjects": 614,
             "eta2_subject": 0.30627482631903424,
@@ -10531,6 +11004,7 @@
           {
             "n_cells": 2213,
             "n_trials_kept": 7451242,
+            "n_trials_passing": 7472176,
             "n_dropped": 243,
             "n_subjects": 614,
             "eta2_subject": 0.24473606865996556,
@@ -10550,6 +11024,7 @@
           {
             "n_cells": 2611,
             "n_trials_kept": 7027284,
+            "n_trials_passing": 7063594,
             "n_dropped": 459,
             "n_subjects": 614,
             "eta2_subject": 0.22094763098077727,
@@ -10569,6 +11044,7 @@
           {
             "n_cells": 2690,
             "n_trials_kept": 6686264,
+            "n_trials_passing": 6752159,
             "n_dropped": 994,
             "n_subjects": 614,
             "eta2_subject": 0.21828149574396907,
@@ -10588,6 +11064,7 @@
           {
             "n_cells": 3027,
             "n_trials_kept": 6280025,
+            "n_trials_passing": 6357452,
             "n_dropped": 1271,
             "n_subjects": 614,
             "eta2_subject": 0.19777783511654817,
@@ -10607,6 +11084,7 @@
           {
             "n_cells": 3275,
             "n_trials_kept": 6048020,
+            "n_trials_passing": 6147045,
             "n_dropped": 1637,
             "n_subjects": 614,
             "eta2_subject": 0.18817425564811993,
@@ -10626,6 +11104,7 @@
           {
             "n_cells": 3471,
             "n_trials_kept": 5798388,
+            "n_trials_passing": 5908797,
             "n_dropped": 2055,
             "n_subjects": 614,
             "eta2_subject": 0.18212223582137269,
@@ -10645,6 +11124,7 @@
           {
             "n_cells": 3657,
             "n_trials_kept": 5503793,
+            "n_trials_passing": 5637382,
             "n_dropped": 2483,
             "n_subjects": 614,
             "eta2_subject": 0.17434979595307226,
@@ -10668,6 +11148,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -10684,6 +11165,7 @@
           {
             "n_cells": 296,
             "n_trials_kept": 1851332,
+            "n_trials_passing": 1851639,
             "n_dropped": 2,
             "n_subjects": 149,
             "eta2_subject": 0.36609331569907677,
@@ -10703,6 +11185,7 @@
           {
             "n_cells": 405,
             "n_trials_kept": 1589081,
+            "n_trials_passing": 1592620,
             "n_dropped": 42,
             "n_subjects": 149,
             "eta2_subject": 0.3110301208028182,
@@ -10722,6 +11205,7 @@
           {
             "n_cells": 509,
             "n_trials_kept": 1339282,
+            "n_trials_passing": 1346704,
             "n_dropped": 87,
             "n_subjects": 149,
             "eta2_subject": 0.24329344045013482,
@@ -10741,6 +11225,7 @@
           {
             "n_cells": 572,
             "n_trials_kept": 1200411,
+            "n_trials_passing": 1213472,
             "n_dropped": 173,
             "n_subjects": 149,
             "eta2_subject": 0.23173869987767567,
@@ -10760,6 +11245,7 @@
           {
             "n_cells": 565,
             "n_trials_kept": 1098363,
+            "n_trials_passing": 1117849,
             "n_dropped": 329,
             "n_subjects": 149,
             "eta2_subject": 0.24504891724904904,
@@ -10779,6 +11265,7 @@
           {
             "n_cells": 613,
             "n_trials_kept": 958170,
+            "n_trials_passing": 982432,
             "n_dropped": 430,
             "n_subjects": 149,
             "eta2_subject": 0.23439847388107637,
@@ -10798,6 +11285,7 @@
           {
             "n_cells": 662,
             "n_trials_kept": 892294,
+            "n_trials_passing": 919677,
             "n_dropped": 530,
             "n_subjects": 149,
             "eta2_subject": 0.22257939491642031,
@@ -10817,6 +11305,7 @@
           {
             "n_cells": 669,
             "n_trials_kept": 818157,
+            "n_trials_passing": 850602,
             "n_dropped": 672,
             "n_subjects": 149,
             "eta2_subject": 0.2247471877581059,
@@ -10836,6 +11325,7 @@
           {
             "n_cells": 696,
             "n_trials_kept": 744650,
+            "n_trials_passing": 779013,
             "n_dropped": 794,
             "n_subjects": 149,
             "eta2_subject": 0.22058642872920653,
@@ -10857,6 +11347,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -10873,6 +11364,7 @@
           {
             "n_cells": 1208,
             "n_trials_kept": 7939600,
+            "n_trials_passing": 7941846,
             "n_dropped": 20,
             "n_subjects": 614,
             "eta2_subject": 0.3683124711480667,
@@ -10892,6 +11384,7 @@
           {
             "n_cells": 1677,
             "n_trials_kept": 6742947,
+            "n_trials_passing": 6757266,
             "n_dropped": 165,
             "n_subjects": 614,
             "eta2_subject": 0.30650234413520755,
@@ -10911,6 +11404,7 @@
           {
             "n_cells": 2070,
             "n_trials_kept": 5735802,
+            "n_trials_passing": 5768257,
             "n_dropped": 386,
             "n_subjects": 614,
             "eta2_subject": 0.25379918416453945,
@@ -10930,6 +11424,7 @@
           {
             "n_cells": 2375,
             "n_trials_kept": 5118388,
+            "n_trials_passing": 5170012,
             "n_dropped": 695,
             "n_subjects": 614,
             "eta2_subject": 0.237058335013567,
@@ -10949,6 +11444,7 @@
           {
             "n_cells": 2328,
             "n_trials_kept": 4753723,
+            "n_trials_passing": 4835342,
             "n_dropped": 1356,
             "n_subjects": 614,
             "eta2_subject": 0.24500763020020142,
@@ -10968,6 +11464,7 @@
           {
             "n_cells": 2568,
             "n_trials_kept": 4191727,
+            "n_trials_passing": 4288384,
             "n_dropped": 1730,
             "n_subjects": 614,
             "eta2_subject": 0.23099592579070832,
@@ -10987,6 +11484,7 @@
           {
             "n_cells": 2664,
             "n_trials_kept": 3913874,
+            "n_trials_passing": 4038264,
             "n_dropped": 2248,
             "n_subjects": 614,
             "eta2_subject": 0.23319269528847067,
@@ -11006,6 +11504,7 @@
           {
             "n_cells": 2777,
             "n_trials_kept": 3607372,
+            "n_trials_passing": 3737770,
             "n_dropped": 2749,
             "n_subjects": 614,
             "eta2_subject": 0.22480635763794343,
@@ -11025,6 +11524,7 @@
           {
             "n_cells": 2857,
             "n_trials_kept": 3257697,
+            "n_trials_passing": 3410156,
             "n_dropped": 3283,
             "n_subjects": 614,
             "eta2_subject": 0.222836097384401,
@@ -11048,6 +11548,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000004,
@@ -11064,6 +11565,7 @@
           {
             "n_cells": 296,
             "n_trials_kept": 1851318,
+            "n_trials_passing": 1851625,
             "n_dropped": 2,
             "n_subjects": 149,
             "eta2_subject": 0.3660912092738368,
@@ -11083,6 +11585,7 @@
           {
             "n_cells": 405,
             "n_trials_kept": 1589064,
+            "n_trials_passing": 1592603,
             "n_dropped": 42,
             "n_subjects": 149,
             "eta2_subject": 0.31103512201336014,
@@ -11102,6 +11605,7 @@
           {
             "n_cells": 509,
             "n_trials_kept": 1339282,
+            "n_trials_passing": 1346704,
             "n_dropped": 87,
             "n_subjects": 149,
             "eta2_subject": 0.24329344045013482,
@@ -11121,6 +11625,7 @@
           {
             "n_cells": 572,
             "n_trials_kept": 1200411,
+            "n_trials_passing": 1213472,
             "n_dropped": 173,
             "n_subjects": 149,
             "eta2_subject": 0.23173869987767567,
@@ -11140,6 +11645,7 @@
           {
             "n_cells": 565,
             "n_trials_kept": 1098324,
+            "n_trials_passing": 1117805,
             "n_dropped": 329,
             "n_subjects": 149,
             "eta2_subject": 0.245056881215699,
@@ -11159,6 +11665,7 @@
           {
             "n_cells": 613,
             "n_trials_kept": 958170,
+            "n_trials_passing": 982432,
             "n_dropped": 430,
             "n_subjects": 149,
             "eta2_subject": 0.23439847388107637,
@@ -11178,6 +11685,7 @@
           {
             "n_cells": 662,
             "n_trials_kept": 892294,
+            "n_trials_passing": 919677,
             "n_dropped": 530,
             "n_subjects": 149,
             "eta2_subject": 0.22257939491642031,
@@ -11197,6 +11705,7 @@
           {
             "n_cells": 669,
             "n_trials_kept": 818140,
+            "n_trials_passing": 850581,
             "n_dropped": 672,
             "n_subjects": 149,
             "eta2_subject": 0.22470616006671887,
@@ -11216,6 +11725,7 @@
           {
             "n_cells": 696,
             "n_trials_kept": 744635,
+            "n_trials_passing": 778994,
             "n_dropped": 794,
             "n_subjects": 149,
             "eta2_subject": 0.22051222195317335,
@@ -11237,6 +11747,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 1.0000000000000007,
@@ -11253,6 +11764,7 @@
           {
             "n_cells": 1208,
             "n_trials_kept": 7939521,
+            "n_trials_passing": 7941767,
             "n_dropped": 20,
             "n_subjects": 614,
             "eta2_subject": 0.36832530041412215,
@@ -11272,6 +11784,7 @@
           {
             "n_cells": 1677,
             "n_trials_kept": 6742912,
+            "n_trials_passing": 6757231,
             "n_dropped": 165,
             "n_subjects": 614,
             "eta2_subject": 0.3064950080075978,
@@ -11291,6 +11804,7 @@
           {
             "n_cells": 2070,
             "n_trials_kept": 5735802,
+            "n_trials_passing": 5768257,
             "n_dropped": 386,
             "n_subjects": 614,
             "eta2_subject": 0.25379918416453945,
@@ -11310,6 +11824,7 @@
           {
             "n_cells": 2375,
             "n_trials_kept": 5118382,
+            "n_trials_passing": 5170006,
             "n_dropped": 695,
             "n_subjects": 614,
             "eta2_subject": 0.23705790012666378,
@@ -11329,6 +11844,7 @@
           {
             "n_cells": 2328,
             "n_trials_kept": 4753523,
+            "n_trials_passing": 4835130,
             "n_dropped": 1356,
             "n_subjects": 614,
             "eta2_subject": 0.24503897267594202,
@@ -11348,6 +11864,7 @@
           {
             "n_cells": 2568,
             "n_trials_kept": 4191693,
+            "n_trials_passing": 4288341,
             "n_dropped": 1730,
             "n_subjects": 614,
             "eta2_subject": 0.231026345859522,
@@ -11367,6 +11884,7 @@
           {
             "n_cells": 2664,
             "n_trials_kept": 3913874,
+            "n_trials_passing": 4038260,
             "n_dropped": 2248,
             "n_subjects": 614,
             "eta2_subject": 0.23319269528847067,
@@ -11386,6 +11904,7 @@
           {
             "n_cells": 2777,
             "n_trials_kept": 3607361,
+            "n_trials_passing": 3737749,
             "n_dropped": 2749,
             "n_subjects": 614,
             "eta2_subject": 0.22479600107001896,
@@ -11405,6 +11924,7 @@
           {
             "n_cells": 2857,
             "n_trials_kept": 3257686,
+            "n_trials_passing": 3410139,
             "n_dropped": 3283,
             "n_subjects": 614,
             "eta2_subject": 0.2228277236248971,
@@ -11428,6 +11948,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -11444,6 +11965,7 @@
           {
             "n_cells": 296,
             "n_trials_kept": 1849867,
+            "n_trials_passing": 1850174,
             "n_dropped": 2,
             "n_subjects": 149,
             "eta2_subject": 0.36653599269588727,
@@ -11463,6 +11985,7 @@
           {
             "n_cells": 405,
             "n_trials_kept": 1588219,
+            "n_trials_passing": 1591748,
             "n_dropped": 42,
             "n_subjects": 149,
             "eta2_subject": 0.3112458482946996,
@@ -11482,6 +12005,7 @@
           {
             "n_cells": 509,
             "n_trials_kept": 1338967,
+            "n_trials_passing": 1346379,
             "n_dropped": 87,
             "n_subjects": 149,
             "eta2_subject": 0.24326502001264322,
@@ -11501,6 +12025,7 @@
           {
             "n_cells": 572,
             "n_trials_kept": 1200112,
+            "n_trials_passing": 1213151,
             "n_dropped": 173,
             "n_subjects": 149,
             "eta2_subject": 0.23190104819061752,
@@ -11520,6 +12045,7 @@
           {
             "n_cells": 564,
             "n_trials_kept": 1097494,
+            "n_trials_passing": 1116855,
             "n_dropped": 330,
             "n_subjects": 149,
             "eta2_subject": 0.24621281785914007,
@@ -11539,6 +12065,7 @@
           {
             "n_cells": 613,
             "n_trials_kept": 957839,
+            "n_trials_passing": 981883,
             "n_dropped": 430,
             "n_subjects": 149,
             "eta2_subject": 0.2345050510546747,
@@ -11558,6 +12085,7 @@
           {
             "n_cells": 662,
             "n_trials_kept": 892138,
+            "n_trials_passing": 919331,
             "n_dropped": 530,
             "n_subjects": 149,
             "eta2_subject": 0.22263003278920254,
@@ -11577,6 +12105,7 @@
           {
             "n_cells": 668,
             "n_trials_kept": 817787,
+            "n_trials_passing": 850176,
             "n_dropped": 673,
             "n_subjects": 149,
             "eta2_subject": 0.22556900757436313,
@@ -11596,6 +12125,7 @@
           {
             "n_cells": 695,
             "n_trials_kept": 744249,
+            "n_trials_passing": 778590,
             "n_dropped": 795,
             "n_subjects": 149,
             "eta2_subject": 0.2207733625460265,
@@ -11617,6 +12147,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -11633,6 +12164,7 @@
           {
             "n_cells": 1208,
             "n_trials_kept": 7935364,
+            "n_trials_passing": 7937567,
             "n_dropped": 20,
             "n_subjects": 614,
             "eta2_subject": 0.3686421073844408,
@@ -11652,6 +12184,7 @@
           {
             "n_cells": 1677,
             "n_trials_kept": 6739464,
+            "n_trials_passing": 6753721,
             "n_dropped": 165,
             "n_subjects": 614,
             "eta2_subject": 0.30663158333476387,
@@ -11671,6 +12204,7 @@
           {
             "n_cells": 2070,
             "n_trials_kept": 5734365,
+            "n_trials_passing": 5766785,
             "n_dropped": 386,
             "n_subjects": 614,
             "eta2_subject": 0.25375620445874064,
@@ -11690,6 +12224,7 @@
           {
             "n_cells": 2375,
             "n_trials_kept": 5117225,
+            "n_trials_passing": 5168757,
             "n_dropped": 695,
             "n_subjects": 614,
             "eta2_subject": 0.23707834081987306,
@@ -11709,6 +12244,7 @@
           {
             "n_cells": 2327,
             "n_trials_kept": 4751342,
+            "n_trials_passing": 4832047,
             "n_dropped": 1357,
             "n_subjects": 614,
             "eta2_subject": 0.24529039951529863,
@@ -11728,6 +12264,7 @@
           {
             "n_cells": 2568,
             "n_trials_kept": 4190362,
+            "n_trials_passing": 4285902,
             "n_dropped": 1730,
             "n_subjects": 614,
             "eta2_subject": 0.23110098642520632,
@@ -11747,6 +12284,7 @@
           {
             "n_cells": 2661,
             "n_trials_kept": 3912776,
+            "n_trials_passing": 4036944,
             "n_dropped": 2251,
             "n_subjects": 614,
             "eta2_subject": 0.23361095708657886,
@@ -11766,6 +12304,7 @@
           {
             "n_cells": 2774,
             "n_trials_kept": 3606217,
+            "n_trials_passing": 3736231,
             "n_dropped": 2752,
             "n_subjects": 614,
             "eta2_subject": 0.22517097488304683,
@@ -11785,6 +12324,7 @@
           {
             "n_cells": 2857,
             "n_trials_kept": 3257268,
+            "n_trials_passing": 3408758,
             "n_dropped": 3283,
             "n_subjects": 614,
             "eta2_subject": 0.22284416286288097,
@@ -11808,6 +12348,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -11824,6 +12365,7 @@
           {
             "n_cells": 298,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.40846621284986817,
@@ -11843,6 +12385,7 @@
           {
             "n_cells": 439,
             "n_trials_kept": 2272517,
+            "n_trials_passing": 2273164,
             "n_dropped": 8,
             "n_subjects": 149,
             "eta2_subject": 0.3073605367578458,
@@ -11862,6 +12405,7 @@
           {
             "n_cells": 570,
             "n_trials_kept": 2271173,
+            "n_trials_passing": 2273164,
             "n_dropped": 26,
             "n_subjects": 149,
             "eta2_subject": 0.23427693436691452,
@@ -11881,6 +12425,7 @@
           {
             "n_cells": 704,
             "n_trials_kept": 2269084,
+            "n_trials_passing": 2273164,
             "n_dropped": 41,
             "n_subjects": 149,
             "eta2_subject": 0.20730474792846482,
@@ -11900,6 +12445,7 @@
           {
             "n_cells": 788,
             "n_trials_kept": 2262990,
+            "n_trials_passing": 2273164,
             "n_dropped": 106,
             "n_subjects": 149,
             "eta2_subject": 0.18447687618959416,
@@ -11919,6 +12465,7 @@
           {
             "n_cells": 895,
             "n_trials_kept": 2259199,
+            "n_trials_passing": 2273164,
             "n_dropped": 148,
             "n_subjects": 149,
             "eta2_subject": 0.16549623527971818,
@@ -11938,6 +12485,7 @@
           {
             "n_cells": 1010,
             "n_trials_kept": 2257497,
+            "n_trials_passing": 2273164,
             "n_dropped": 182,
             "n_subjects": 149,
             "eta2_subject": 0.14536367125497113,
@@ -11957,6 +12505,7 @@
           {
             "n_cells": 1111,
             "n_trials_kept": 2255950,
+            "n_trials_passing": 2273164,
             "n_dropped": 230,
             "n_subjects": 149,
             "eta2_subject": 0.13850865296781864,
@@ -11976,6 +12525,7 @@
           {
             "n_cells": 1204,
             "n_trials_kept": 2253114,
+            "n_trials_passing": 2273164,
             "n_dropped": 286,
             "n_subjects": 149,
             "eta2_subject": 0.13060569009731113,
@@ -11997,6 +12547,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -12013,6 +12564,7 @@
           {
             "n_cells": 1225,
             "n_trials_kept": 9649168,
+            "n_trials_passing": 9649569,
             "n_dropped": 3,
             "n_subjects": 614,
             "eta2_subject": 0.39822382951587243,
@@ -12032,6 +12584,7 @@
           {
             "n_cells": 1798,
             "n_trials_kept": 9644907,
+            "n_trials_passing": 9649569,
             "n_dropped": 44,
             "n_subjects": 614,
             "eta2_subject": 0.3005130979106098,
@@ -12051,6 +12604,7 @@
           {
             "n_cells": 2334,
             "n_trials_kept": 9640328,
+            "n_trials_passing": 9649569,
             "n_dropped": 122,
             "n_subjects": 614,
             "eta2_subject": 0.23308836247720915,
@@ -12070,6 +12624,7 @@
           {
             "n_cells": 2886,
             "n_trials_kept": 9631853,
+            "n_trials_passing": 9649569,
             "n_dropped": 184,
             "n_subjects": 614,
             "eta2_subject": 0.20386093677011882,
@@ -12089,6 +12644,7 @@
           {
             "n_cells": 3223,
             "n_trials_kept": 9604897,
+            "n_trials_passing": 9649569,
             "n_dropped": 461,
             "n_subjects": 614,
             "eta2_subject": 0.18468792489352792,
@@ -12108,6 +12664,7 @@
           {
             "n_cells": 3671,
             "n_trials_kept": 9592364,
+            "n_trials_passing": 9649569,
             "n_dropped": 627,
             "n_subjects": 614,
             "eta2_subject": 0.16839121822489184,
@@ -12127,6 +12684,7 @@
           {
             "n_cells": 4109,
             "n_trials_kept": 9579022,
+            "n_trials_passing": 9649569,
             "n_dropped": 803,
             "n_subjects": 614,
             "eta2_subject": 0.15207074545078542,
@@ -12146,6 +12704,7 @@
           {
             "n_cells": 4503,
             "n_trials_kept": 9567392,
+            "n_trials_passing": 9649569,
             "n_dropped": 1023,
             "n_subjects": 614,
             "eta2_subject": 0.1418430914951371,
@@ -12165,6 +12724,7 @@
           {
             "n_cells": 4932,
             "n_trials_kept": 9558867,
+            "n_trials_passing": 9649569,
             "n_dropped": 1208,
             "n_subjects": 614,
             "eta2_subject": 0.13228745166348205,
@@ -12188,6 +12748,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000004,
@@ -12204,6 +12765,7 @@
           {
             "n_cells": 298,
             "n_trials_kept": 2273042,
+            "n_trials_passing": 2273042,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.40842552358551365,
@@ -12223,6 +12785,7 @@
           {
             "n_cells": 439,
             "n_trials_kept": 2272171,
+            "n_trials_passing": 2272818,
             "n_dropped": 8,
             "n_subjects": 149,
             "eta2_subject": 0.3078452801701114,
@@ -12242,6 +12805,7 @@
           {
             "n_cells": 569,
             "n_trials_kept": 2270484,
+            "n_trials_passing": 2272556,
             "n_dropped": 27,
             "n_subjects": 149,
             "eta2_subject": 0.2348990518669616,
@@ -12261,6 +12825,7 @@
           {
             "n_cells": 704,
             "n_trials_kept": 2268957,
+            "n_trials_passing": 2273037,
             "n_dropped": 41,
             "n_subjects": 149,
             "eta2_subject": 0.20732938071793092,
@@ -12280,6 +12845,7 @@
           {
             "n_cells": 788,
             "n_trials_kept": 2262072,
+            "n_trials_passing": 2272155,
             "n_dropped": 106,
             "n_subjects": 149,
             "eta2_subject": 0.18466587763705836,
@@ -12299,6 +12865,7 @@
           {
             "n_cells": 895,
             "n_trials_kept": 2258503,
+            "n_trials_passing": 2272382,
             "n_dropped": 148,
             "n_subjects": 149,
             "eta2_subject": 0.16566808071218467,
@@ -12318,6 +12885,7 @@
           {
             "n_cells": 1010,
             "n_trials_kept": 2256765,
+            "n_trials_passing": 2272341,
             "n_dropped": 182,
             "n_subjects": 149,
             "eta2_subject": 0.1457700959218788,
@@ -12337,6 +12905,7 @@
           {
             "n_cells": 1111,
             "n_trials_kept": 2255090,
+            "n_trials_passing": 2272217,
             "n_dropped": 230,
             "n_subjects": 149,
             "eta2_subject": 0.13916072286523518,
@@ -12356,6 +12925,7 @@
           {
             "n_cells": 1203,
             "n_trials_kept": 2252080,
+            "n_trials_passing": 2272174,
             "n_dropped": 287,
             "n_subjects": 149,
             "eta2_subject": 0.13132699947155962,
@@ -12377,6 +12947,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 1.0000000000000007,
@@ -12393,6 +12964,7 @@
           {
             "n_cells": 1225,
             "n_trials_kept": 9648572,
+            "n_trials_passing": 9648965,
             "n_dropped": 3,
             "n_subjects": 614,
             "eta2_subject": 0.3983591652093731,
@@ -12412,6 +12984,7 @@
           {
             "n_cells": 1798,
             "n_trials_kept": 9643777,
+            "n_trials_passing": 9648195,
             "n_dropped": 44,
             "n_subjects": 614,
             "eta2_subject": 0.3006150432507854,
@@ -12431,6 +13004,7 @@
           {
             "n_cells": 2331,
             "n_trials_kept": 9638211,
+            "n_trials_passing": 9647689,
             "n_dropped": 125,
             "n_subjects": 614,
             "eta2_subject": 0.23375754650251812,
@@ -12450,6 +13024,7 @@
           {
             "n_cells": 2886,
             "n_trials_kept": 9631257,
+            "n_trials_passing": 9648958,
             "n_dropped": 184,
             "n_subjects": 614,
             "eta2_subject": 0.20389403390122512,
@@ -12469,6 +13044,7 @@
           {
             "n_cells": 3222,
             "n_trials_kept": 9600809,
+            "n_trials_passing": 9645249,
             "n_dropped": 462,
             "n_subjects": 614,
             "eta2_subject": 0.18528908761634125,
@@ -12488,6 +13064,7 @@
           {
             "n_cells": 3671,
             "n_trials_kept": 9589201,
+            "n_trials_passing": 9645908,
             "n_dropped": 627,
             "n_subjects": 614,
             "eta2_subject": 0.1687828085423393,
@@ -12507,6 +13084,7 @@
           {
             "n_cells": 4108,
             "n_trials_kept": 9575948,
+            "n_trials_passing": 9646141,
             "n_dropped": 804,
             "n_subjects": 614,
             "eta2_subject": 0.1523899486007196,
@@ -12526,6 +13104,7 @@
           {
             "n_cells": 4502,
             "n_trials_kept": 9564091,
+            "n_trials_passing": 9645914,
             "n_dropped": 1024,
             "n_subjects": 614,
             "eta2_subject": 0.14222257533010424,
@@ -12545,6 +13124,7 @@
           {
             "n_cells": 4929,
             "n_trials_kept": 9555149,
+            "n_trials_passing": 9645889,
             "n_dropped": 1211,
             "n_subjects": 614,
             "eta2_subject": 0.1326532664338377,
@@ -12568,6 +13148,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -12584,6 +13165,7 @@
           {
             "n_cells": 298,
             "n_trials_kept": 2269783,
+            "n_trials_passing": 2269783,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 0.4096742064335292,
@@ -12603,6 +13185,7 @@
           {
             "n_cells": 436,
             "n_trials_kept": 2265430,
+            "n_trials_passing": 2266388,
             "n_dropped": 11,
             "n_subjects": 149,
             "eta2_subject": 0.31256624481869116,
@@ -12622,6 +13205,7 @@
           {
             "n_cells": 565,
             "n_trials_kept": 2260897,
+            "n_trials_passing": 2263103,
             "n_dropped": 31,
             "n_subjects": 149,
             "eta2_subject": 0.2381003487116173,
@@ -12641,6 +13225,7 @@
           {
             "n_cells": 702,
             "n_trials_kept": 2264026,
+            "n_trials_passing": 2268353,
             "n_dropped": 43,
             "n_subjects": 149,
             "eta2_subject": 0.20896879234339433,
@@ -12660,6 +13245,7 @@
           {
             "n_cells": 773,
             "n_trials_kept": 2246571,
+            "n_trials_passing": 2257396,
             "n_dropped": 121,
             "n_subjects": 149,
             "eta2_subject": 0.19242873954126988,
@@ -12679,6 +13265,7 @@
           {
             "n_cells": 880,
             "n_trials_kept": 2244919,
+            "n_trials_passing": 2259360,
             "n_dropped": 163,
             "n_subjects": 149,
             "eta2_subject": 0.1722068772612412,
@@ -12698,6 +13285,7 @@
           {
             "n_cells": 1001,
             "n_trials_kept": 2244595,
+            "n_trials_passing": 2259729,
             "n_dropped": 191,
             "n_subjects": 149,
             "eta2_subject": 0.14937178048280758,
@@ -12717,6 +13305,7 @@
           {
             "n_cells": 1101,
             "n_trials_kept": 2242311,
+            "n_trials_passing": 2259100,
             "n_dropped": 240,
             "n_subjects": 149,
             "eta2_subject": 0.1409777157632764,
@@ -12736,6 +13325,7 @@
           {
             "n_cells": 1191,
             "n_trials_kept": 2239112,
+            "n_trials_passing": 2258908,
             "n_dropped": 299,
             "n_subjects": 149,
             "eta2_subject": 0.13382957601632034,
@@ -12757,6 +13347,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -12773,6 +13364,7 @@
           {
             "n_cells": 1223,
             "n_trials_kept": 9635608,
+            "n_trials_passing": 9636290,
             "n_dropped": 5,
             "n_subjects": 614,
             "eta2_subject": 0.40359107609999795,
@@ -12792,6 +13384,7 @@
           {
             "n_cells": 1790,
             "n_trials_kept": 9616685,
+            "n_trials_passing": 9621427,
             "n_dropped": 52,
             "n_subjects": 614,
             "eta2_subject": 0.3035362877108746,
@@ -12811,6 +13404,7 @@
           {
             "n_cells": 2315,
             "n_trials_kept": 9600785,
+            "n_trials_passing": 9611295,
             "n_dropped": 141,
             "n_subjects": 614,
             "eta2_subject": 0.2387595490669825,
@@ -12830,6 +13424,7 @@
           {
             "n_cells": 2882,
             "n_trials_kept": 9613662,
+            "n_trials_passing": 9631452,
             "n_dropped": 188,
             "n_subjects": 614,
             "eta2_subject": 0.2049023306613504,
@@ -12849,6 +13444,7 @@
           {
             "n_cells": 3155,
             "n_trials_kept": 9539596,
+            "n_trials_passing": 9586139,
             "n_dropped": 529,
             "n_subjects": 614,
             "eta2_subject": 0.192963225882893,
@@ -12868,6 +13464,7 @@
           {
             "n_cells": 3621,
             "n_trials_kept": 9539959,
+            "n_trials_passing": 9596163,
             "n_dropped": 677,
             "n_subjects": 614,
             "eta2_subject": 0.17383608128073136,
@@ -12887,6 +13484,7 @@
           {
             "n_cells": 4051,
             "n_trials_kept": 9527741,
+            "n_trials_passing": 9599360,
             "n_dropped": 861,
             "n_subjects": 614,
             "eta2_subject": 0.15641795372828518,
@@ -12906,6 +13504,7 @@
           {
             "n_cells": 4450,
             "n_trials_kept": 9516052,
+            "n_trials_passing": 9598224,
             "n_dropped": 1076,
             "n_subjects": 614,
             "eta2_subject": 0.14558821572151356,
@@ -12925,6 +13524,7 @@
           {
             "n_cells": 4868,
             "n_trials_kept": 9503605,
+            "n_trials_passing": 9596579,
             "n_dropped": 1272,
             "n_subjects": 614,
             "eta2_subject": 0.13557009707349713,
@@ -12948,6 +13548,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -12964,6 +13565,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2091563,
+            "n_trials_passing": 2091743,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.3881338527979731,
@@ -12983,6 +13585,7 @@
           {
             "n_cells": 434,
             "n_trials_kept": 1933539,
+            "n_trials_passing": 1935025,
             "n_dropped": 13,
             "n_subjects": 149,
             "eta2_subject": 0.29505070078299434,
@@ -13002,6 +13605,7 @@
           {
             "n_cells": 559,
             "n_trials_kept": 1799514,
+            "n_trials_passing": 1802744,
             "n_dropped": 37,
             "n_subjects": 149,
             "eta2_subject": 0.22566207640736008,
@@ -13021,6 +13625,7 @@
           {
             "n_cells": 690,
             "n_trials_kept": 1850670,
+            "n_trials_passing": 1856731,
             "n_dropped": 55,
             "n_subjects": 149,
             "eta2_subject": 0.20560108667859522,
@@ -13040,6 +13645,7 @@
           {
             "n_cells": 757,
             "n_trials_kept": 1775122,
+            "n_trials_passing": 1788216,
             "n_dropped": 137,
             "n_subjects": 149,
             "eta2_subject": 0.18836546441275442,
@@ -13059,6 +13665,7 @@
           {
             "n_cells": 860,
             "n_trials_kept": 1722741,
+            "n_trials_passing": 1739047,
             "n_dropped": 183,
             "n_subjects": 149,
             "eta2_subject": 0.17141103903980673,
@@ -13078,6 +13685,7 @@
           {
             "n_cells": 956,
             "n_trials_kept": 1701209,
+            "n_trials_passing": 1721475,
             "n_dropped": 236,
             "n_subjects": 149,
             "eta2_subject": 0.15238326495304708,
@@ -13097,6 +13705,7 @@
           {
             "n_cells": 1049,
             "n_trials_kept": 1657677,
+            "n_trials_passing": 1680723,
             "n_dropped": 292,
             "n_subjects": 149,
             "eta2_subject": 0.14297480827393227,
@@ -13116,6 +13725,7 @@
           {
             "n_cells": 1135,
             "n_trials_kept": 1618903,
+            "n_trials_passing": 1645423,
             "n_dropped": 355,
             "n_subjects": 149,
             "eta2_subject": 0.13695521735152152,
@@ -13137,6 +13747,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -13153,6 +13764,7 @@
           {
             "n_cells": 1224,
             "n_trials_kept": 8866124,
+            "n_trials_passing": 8866627,
             "n_dropped": 4,
             "n_subjects": 614,
             "eta2_subject": 0.3776495977538253,
@@ -13172,6 +13784,7 @@
           {
             "n_cells": 1777,
             "n_trials_kept": 8179722,
+            "n_trials_passing": 8186962,
             "n_dropped": 65,
             "n_subjects": 614,
             "eta2_subject": 0.2889647686409979,
@@ -13191,6 +13804,7 @@
           {
             "n_cells": 2291,
             "n_trials_kept": 7690569,
+            "n_trials_passing": 7704387,
             "n_dropped": 165,
             "n_subjects": 614,
             "eta2_subject": 0.22746207172436197,
@@ -13210,6 +13824,7 @@
           {
             "n_cells": 2856,
             "n_trials_kept": 7890177,
+            "n_trials_passing": 7910588,
             "n_dropped": 214,
             "n_subjects": 614,
             "eta2_subject": 0.19839254811334864,
@@ -13229,6 +13844,7 @@
           {
             "n_cells": 3076,
             "n_trials_kept": 7561520,
+            "n_trials_passing": 7618629,
             "n_dropped": 608,
             "n_subjects": 614,
             "eta2_subject": 0.1894116844279061,
@@ -13248,6 +13864,7 @@
           {
             "n_cells": 3517,
             "n_trials_kept": 7341585,
+            "n_trials_passing": 7408610,
             "n_dropped": 781,
             "n_subjects": 614,
             "eta2_subject": 0.17233010523646805,
@@ -13267,6 +13884,7 @@
           {
             "n_cells": 3906,
             "n_trials_kept": 7228540,
+            "n_trials_passing": 7314622,
             "n_dropped": 1006,
             "n_subjects": 614,
             "eta2_subject": 0.1544466784174049,
@@ -13286,6 +13904,7 @@
           {
             "n_cells": 4254,
             "n_trials_kept": 7067626,
+            "n_trials_passing": 7168642,
             "n_dropped": 1272,
             "n_subjects": 614,
             "eta2_subject": 0.14534228280913666,
@@ -13305,6 +13924,7 @@
           {
             "n_cells": 4638,
             "n_trials_kept": 6932035,
+            "n_trials_passing": 7044091,
             "n_dropped": 1502,
             "n_subjects": 614,
             "eta2_subject": 0.13676814402405701,
@@ -13328,6 +13948,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000004,
@@ -13344,6 +13965,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2091456,
+            "n_trials_passing": 2091636,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.38810248032887606,
@@ -13363,6 +13985,7 @@
           {
             "n_cells": 434,
             "n_trials_kept": 1933323,
+            "n_trials_passing": 1934771,
             "n_dropped": 13,
             "n_subjects": 149,
             "eta2_subject": 0.2951857522942446,
@@ -13382,6 +14005,7 @@
           {
             "n_cells": 559,
             "n_trials_kept": 1799304,
+            "n_trials_passing": 1802430,
             "n_dropped": 37,
             "n_subjects": 149,
             "eta2_subject": 0.22584525702626834,
@@ -13401,6 +14025,7 @@
           {
             "n_cells": 690,
             "n_trials_kept": 1850595,
+            "n_trials_passing": 1856656,
             "n_dropped": 55,
             "n_subjects": 149,
             "eta2_subject": 0.20560215505110097,
@@ -13420,6 +14045,7 @@
           {
             "n_cells": 757,
             "n_trials_kept": 1774769,
+            "n_trials_passing": 1787828,
             "n_dropped": 137,
             "n_subjects": 149,
             "eta2_subject": 0.18859464828003542,
@@ -13439,6 +14065,7 @@
           {
             "n_cells": 860,
             "n_trials_kept": 1722533,
+            "n_trials_passing": 1738809,
             "n_dropped": 183,
             "n_subjects": 149,
             "eta2_subject": 0.17152264333579936,
@@ -13458,6 +14085,7 @@
           {
             "n_cells": 956,
             "n_trials_kept": 1700967,
+            "n_trials_passing": 1721190,
             "n_dropped": 236,
             "n_subjects": 149,
             "eta2_subject": 0.15255243650873243,
@@ -13477,6 +14105,7 @@
           {
             "n_cells": 1049,
             "n_trials_kept": 1657302,
+            "n_trials_passing": 1680291,
             "n_dropped": 292,
             "n_subjects": 149,
             "eta2_subject": 0.14325176238240891,
@@ -13496,6 +14125,7 @@
           {
             "n_cells": 1135,
             "n_trials_kept": 1618543,
+            "n_trials_passing": 1645017,
             "n_dropped": 355,
             "n_subjects": 149,
             "eta2_subject": 0.1372449406846687,
@@ -13517,6 +14147,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 1.0000000000000007,
@@ -13533,6 +14164,7 @@
           {
             "n_cells": 1224,
             "n_trials_kept": 8865622,
+            "n_trials_passing": 8866118,
             "n_dropped": 4,
             "n_subjects": 614,
             "eta2_subject": 0.377740911187029,
@@ -13552,6 +14184,7 @@
           {
             "n_cells": 1776,
             "n_trials_kept": 8178830,
+            "n_trials_passing": 8186099,
             "n_dropped": 66,
             "n_subjects": 614,
             "eta2_subject": 0.2891108157241016,
@@ -13571,6 +14204,7 @@
           {
             "n_cells": 2290,
             "n_trials_kept": 7689678,
+            "n_trials_passing": 7703443,
             "n_dropped": 166,
             "n_subjects": 614,
             "eta2_subject": 0.2281825764449389,
@@ -13590,6 +14224,7 @@
           {
             "n_cells": 2856,
             "n_trials_kept": 7890044,
+            "n_trials_passing": 7910447,
             "n_dropped": 214,
             "n_subjects": 614,
             "eta2_subject": 0.1983622246733774,
@@ -13609,6 +14244,7 @@
           {
             "n_cells": 3075,
             "n_trials_kept": 7559847,
+            "n_trials_passing": 7616989,
             "n_dropped": 609,
             "n_subjects": 614,
             "eta2_subject": 0.18968229286301233,
@@ -13628,6 +14264,7 @@
           {
             "n_cells": 3517,
             "n_trials_kept": 7340625,
+            "n_trials_passing": 7407481,
             "n_dropped": 781,
             "n_subjects": 614,
             "eta2_subject": 0.172486652153857,
@@ -13647,6 +14284,7 @@
           {
             "n_cells": 3906,
             "n_trials_kept": 7227655,
+            "n_trials_passing": 7313506,
             "n_dropped": 1006,
             "n_subjects": 614,
             "eta2_subject": 0.15455030781162285,
@@ -13666,6 +14304,7 @@
           {
             "n_cells": 4253,
             "n_trials_kept": 7066286,
+            "n_trials_passing": 7167214,
             "n_dropped": 1273,
             "n_subjects": 614,
             "eta2_subject": 0.14554258861368902,
@@ -13685,6 +14324,7 @@
           {
             "n_cells": 4637,
             "n_trials_kept": 6930722,
+            "n_trials_passing": 7042633,
             "n_dropped": 1503,
             "n_subjects": 614,
             "eta2_subject": 0.13687880982146775,
@@ -13708,6 +14348,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -13724,6 +14365,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 2088502,
+            "n_trials_passing": 2088682,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.38901590057829744,
@@ -13743,6 +14385,7 @@
           {
             "n_cells": 432,
             "n_trials_kept": 1928380,
+            "n_trials_passing": 1929921,
             "n_dropped": 15,
             "n_subjects": 149,
             "eta2_subject": 0.2982245235845975,
@@ -13762,6 +14405,7 @@
           {
             "n_cells": 556,
             "n_trials_kept": 1793315,
+            "n_trials_passing": 1796441,
             "n_dropped": 40,
             "n_subjects": 149,
             "eta2_subject": 0.22944992536751288,
@@ -13781,6 +14425,7 @@
           {
             "n_cells": 688,
             "n_trials_kept": 1847417,
+            "n_trials_passing": 1853705,
             "n_dropped": 57,
             "n_subjects": 149,
             "eta2_subject": 0.2066541293755984,
@@ -13800,6 +14445,7 @@
           {
             "n_cells": 748,
             "n_trials_kept": 1766312,
+            "n_trials_passing": 1779314,
             "n_dropped": 146,
             "n_subjects": 149,
             "eta2_subject": 0.1932042241565284,
@@ -13819,6 +14465,7 @@
           {
             "n_cells": 852,
             "n_trials_kept": 1715737,
+            "n_trials_passing": 1731861,
             "n_dropped": 191,
             "n_subjects": 149,
             "eta2_subject": 0.17511806257157936,
@@ -13838,6 +14485,7 @@
           {
             "n_cells": 945,
             "n_trials_kept": 1693869,
+            "n_trials_passing": 1714633,
             "n_dropped": 247,
             "n_subjects": 149,
             "eta2_subject": 0.15589010914103096,
@@ -13857,6 +14505,7 @@
           {
             "n_cells": 1039,
             "n_trials_kept": 1649997,
+            "n_trials_passing": 1673279,
             "n_dropped": 302,
             "n_subjects": 149,
             "eta2_subject": 0.1444765390658153,
@@ -13876,6 +14525,7 @@
           {
             "n_cells": 1127,
             "n_trials_kept": 1611806,
+            "n_trials_passing": 1637984,
             "n_dropped": 363,
             "n_subjects": 149,
             "eta2_subject": 0.13853452982792724,
@@ -13897,6 +14547,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -13913,6 +14564,7 @@
           {
             "n_cells": 1223,
             "n_trials_kept": 8854432,
+            "n_trials_passing": 8855000,
             "n_dropped": 5,
             "n_subjects": 614,
             "eta2_subject": 0.38058513855809556,
@@ -13932,6 +14584,7 @@
           {
             "n_cells": 1770,
             "n_trials_kept": 8159110,
+            "n_trials_passing": 8166103,
             "n_dropped": 72,
             "n_subjects": 614,
             "eta2_subject": 0.2915599847968333,
@@ -13951,6 +14604,7 @@
           {
             "n_cells": 2273,
             "n_trials_kept": 7665128,
+            "n_trials_passing": 7679813,
             "n_dropped": 183,
             "n_subjects": 614,
             "eta2_subject": 0.2317971184319178,
@@ -13970,6 +14624,7 @@
           {
             "n_cells": 2849,
             "n_trials_kept": 7877765,
+            "n_trials_passing": 7898986,
             "n_dropped": 221,
             "n_subjects": 614,
             "eta2_subject": 0.19957806813159615,
@@ -13989,6 +14644,7 @@
           {
             "n_cells": 3031,
             "n_trials_kept": 7526231,
+            "n_trials_passing": 7582582,
             "n_dropped": 653,
             "n_subjects": 614,
             "eta2_subject": 0.1945775134813789,
@@ -14008,6 +14664,7 @@
           {
             "n_cells": 3485,
             "n_trials_kept": 7314207,
+            "n_trials_passing": 7379119,
             "n_dropped": 813,
             "n_subjects": 614,
             "eta2_subject": 0.1747741112891824,
@@ -14027,6 +14684,7 @@
           {
             "n_cells": 3873,
             "n_trials_kept": 7202597,
+            "n_trials_passing": 7287192,
             "n_dropped": 1039,
             "n_subjects": 614,
             "eta2_subject": 0.15697766939462496,
@@ -14046,6 +14704,7 @@
           {
             "n_cells": 4227,
             "n_trials_kept": 7042160,
+            "n_trials_passing": 7140194,
             "n_dropped": 1299,
             "n_subjects": 614,
             "eta2_subject": 0.14715888941467517,
@@ -14065,6 +14724,7 @@
           {
             "n_cells": 4604,
             "n_trials_kept": 6904721,
+            "n_trials_passing": 7015401,
             "n_dropped": 1536,
             "n_subjects": 614,
             "eta2_subject": 0.13863350089391188,
@@ -14088,6 +14748,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273164,
+            "n_trials_passing": 2273164,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0,
@@ -14104,6 +14765,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 1896551,
+            "n_trials_passing": 1896699,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.3713981909429622,
@@ -14123,6 +14785,7 @@
           {
             "n_cells": 421,
             "n_trials_kept": 1601803,
+            "n_trials_passing": 1604671,
             "n_dropped": 26,
             "n_subjects": 149,
             "eta2_subject": 0.2964311588929422,
@@ -14142,6 +14805,7 @@
           {
             "n_cells": 545,
             "n_trials_kept": 1385655,
+            "n_trials_passing": 1389643,
             "n_dropped": 51,
             "n_subjects": 149,
             "eta2_subject": 0.22813612454968907,
@@ -14161,6 +14825,7 @@
           {
             "n_cells": 681,
             "n_trials_kept": 1511631,
+            "n_trials_passing": 1517785,
             "n_dropped": 64,
             "n_subjects": 149,
             "eta2_subject": 0.20068004745111193,
@@ -14180,6 +14845,7 @@
           {
             "n_cells": 705,
             "n_trials_kept": 1392027,
+            "n_trials_passing": 1408297,
             "n_dropped": 189,
             "n_subjects": 149,
             "eta2_subject": 0.2054493096796023,
@@ -14199,6 +14865,7 @@
           {
             "n_cells": 798,
             "n_trials_kept": 1313951,
+            "n_trials_passing": 1333939,
             "n_dropped": 245,
             "n_subjects": 149,
             "eta2_subject": 0.18353816383422122,
@@ -14218,6 +14885,7 @@
           {
             "n_cells": 884,
             "n_trials_kept": 1284711,
+            "n_trials_passing": 1308988,
             "n_dropped": 308,
             "n_subjects": 149,
             "eta2_subject": 0.1652128183471115,
@@ -14237,6 +14905,7 @@
           {
             "n_cells": 977,
             "n_trials_kept": 1234962,
+            "n_trials_passing": 1261537,
             "n_dropped": 364,
             "n_subjects": 149,
             "eta2_subject": 0.15163176599694736,
@@ -14256,6 +14925,7 @@
           {
             "n_cells": 1052,
             "n_trials_kept": 1184263,
+            "n_trials_passing": 1214568,
             "n_dropped": 438,
             "n_subjects": 149,
             "eta2_subject": 0.1446194705224111,
@@ -14277,6 +14947,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649569,
+            "n_trials_passing": 9649569,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999998,
@@ -14293,6 +14964,7 @@
           {
             "n_cells": 1222,
             "n_trials_kept": 8040226,
+            "n_trials_passing": 8040916,
             "n_dropped": 6,
             "n_subjects": 614,
             "eta2_subject": 0.36606102430236975,
@@ -14312,6 +14984,7 @@
           {
             "n_cells": 1740,
             "n_trials_kept": 6783255,
+            "n_trials_passing": 6793795,
             "n_dropped": 102,
             "n_subjects": 614,
             "eta2_subject": 0.29083863347487493,
@@ -14331,6 +15004,7 @@
           {
             "n_cells": 2196,
             "n_trials_kept": 5965191,
+            "n_trials_passing": 5987621,
             "n_dropped": 260,
             "n_subjects": 614,
             "eta2_subject": 0.23249392073712966,
@@ -14350,25 +15024,27 @@
           {
             "n_cells": 2801,
             "n_trials_kept": 6424329,
+            "n_trials_passing": 6450508,
             "n_dropped": 269,
             "n_subjects": 614,
-            "eta2_subject": 0.19889524543118686,
-            "silhouette_pc12": -0.01570634409221435,
+            "eta2_subject": 0.19889517188894426,
+            "silhouette_pc12": -0.01570585944803799,
             "silhouette_big_cells": -0.009001107053675489,
-            "silhouette": 0.00619375801445489,
-            "silhouette_null_mean": -0.009097501609950136,
+            "silhouette": 0.006193776259482939,
+            "silhouette_null_mean": -0.009097558627700432,
             "silhouette_null_95": [
-              -0.013722162751961468,
-              -0.0054331851794510895
+              -0.013721877463163414,
+              -0.005432877891829934
             ],
-            "eta2_state": 0.16372700807967144,
-            "eta2_state_null_mean": 0.0019008781023152727,
+            "eta2_state": 0.16372689919152683,
+            "eta2_state_null_mean": 0.0019008746735910836,
             "kmeans_ari": 0.4173027418347799,
             "K": 5
           },
           {
             "n_cells": 2893,
             "n_trials_kept": 5944570,
+            "n_trials_passing": 6008619,
             "n_dropped": 791,
             "n_subjects": 614,
             "eta2_subject": 0.19899904955068926,
@@ -14388,6 +15064,7 @@
           {
             "n_cells": 3311,
             "n_trials_kept": 5646570,
+            "n_trials_passing": 5722538,
             "n_dropped": 987,
             "n_subjects": 614,
             "eta2_subject": 0.1778853986301362,
@@ -14407,6 +15084,7 @@
           {
             "n_cells": 3653,
             "n_trials_kept": 5505384,
+            "n_trials_passing": 5601972,
             "n_dropped": 1259,
             "n_subjects": 614,
             "eta2_subject": 0.16398077014895532,
@@ -14426,6 +15104,7 @@
           {
             "n_cells": 3937,
             "n_trials_kept": 5314308,
+            "n_trials_passing": 5430636,
             "n_dropped": 1589,
             "n_subjects": 614,
             "eta2_subject": 0.1566364050490348,
@@ -14445,6 +15124,7 @@
           {
             "n_cells": 4263,
             "n_trials_kept": 5121760,
+            "n_trials_passing": 5253889,
             "n_dropped": 1877,
             "n_subjects": 614,
             "eta2_subject": 0.14906223700727048,
@@ -14468,6 +15148,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2273103,
+            "n_trials_passing": 2273103,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000004,
@@ -14484,6 +15165,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 1896489,
+            "n_trials_passing": 1896637,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.37138007485822966,
@@ -14503,6 +15185,7 @@
           {
             "n_cells": 421,
             "n_trials_kept": 1601768,
+            "n_trials_passing": 1604627,
             "n_dropped": 26,
             "n_subjects": 149,
             "eta2_subject": 0.2964191094970284,
@@ -14522,6 +15205,7 @@
           {
             "n_cells": 545,
             "n_trials_kept": 1385616,
+            "n_trials_passing": 1389583,
             "n_dropped": 51,
             "n_subjects": 149,
             "eta2_subject": 0.22819535167305963,
@@ -14541,6 +15225,7 @@
           {
             "n_cells": 681,
             "n_trials_kept": 1511600,
+            "n_trials_passing": 1517754,
             "n_dropped": 64,
             "n_subjects": 149,
             "eta2_subject": 0.20068549086653623,
@@ -14560,6 +15245,7 @@
           {
             "n_cells": 705,
             "n_trials_kept": 1391938,
+            "n_trials_passing": 1408193,
             "n_dropped": 189,
             "n_subjects": 149,
             "eta2_subject": 0.20539368645454847,
@@ -14579,6 +15265,7 @@
           {
             "n_cells": 798,
             "n_trials_kept": 1313941,
+            "n_trials_passing": 1333925,
             "n_dropped": 245,
             "n_subjects": 149,
             "eta2_subject": 0.1835414332395712,
@@ -14598,6 +15285,7 @@
           {
             "n_cells": 884,
             "n_trials_kept": 1284680,
+            "n_trials_passing": 1308941,
             "n_dropped": 308,
             "n_subjects": 149,
             "eta2_subject": 0.16524134332187085,
@@ -14617,6 +15305,7 @@
           {
             "n_cells": 976,
             "n_trials_kept": 1234680,
+            "n_trials_passing": 1261414,
             "n_dropped": 365,
             "n_subjects": 149,
             "eta2_subject": 0.1521233573074191,
@@ -14636,6 +15325,7 @@
           {
             "n_cells": 1052,
             "n_trials_kept": 1184163,
+            "n_trials_passing": 1214426,
             "n_dropped": 438,
             "n_subjects": 149,
             "eta2_subject": 0.14459347705853823,
@@ -14657,6 +15347,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9649196,
+            "n_trials_passing": 9649196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 1.0000000000000007,
@@ -14673,6 +15364,7 @@
           {
             "n_cells": 1222,
             "n_trials_kept": 8040026,
+            "n_trials_passing": 8040710,
             "n_dropped": 6,
             "n_subjects": 614,
             "eta2_subject": 0.36606603606911614,
@@ -14692,6 +15384,7 @@
           {
             "n_cells": 1740,
             "n_trials_kept": 6783074,
+            "n_trials_passing": 6793536,
             "n_dropped": 102,
             "n_subjects": 614,
             "eta2_subject": 0.29084986724765666,
@@ -14711,6 +15404,7 @@
           {
             "n_cells": 2196,
             "n_trials_kept": 5965097,
+            "n_trials_passing": 5987427,
             "n_dropped": 260,
             "n_subjects": 614,
             "eta2_subject": 0.23250317791379352,
@@ -14730,25 +15424,27 @@
           {
             "n_cells": 2801,
             "n_trials_kept": 6424311,
+            "n_trials_passing": 6450485,
             "n_dropped": 269,
             "n_subjects": 614,
-            "eta2_subject": 0.19890256477692722,
-            "silhouette_pc12": -0.0157139692532967,
+            "eta2_subject": 0.19890249117781816,
+            "silhouette_pc12": -0.015713483993376083,
             "silhouette_big_cells": -0.009005352159072092,
-            "silhouette": 0.006189082984875389,
-            "silhouette_null_mean": -0.00908899585548139,
+            "silhouette": 0.006189101292727584,
+            "silhouette_null_mean": -0.009089000141795943,
             "silhouette_null_95": [
-              -0.01392987093512917,
-              -0.0056057518020879065
+              -0.013930402811762154,
+              -0.005605859525022889
             ],
-            "eta2_state": 0.1637225249990014,
-            "eta2_state_null_mean": 0.001973857250490507,
+            "eta2_state": 0.16372241622005698,
+            "eta2_state_null_mean": 0.0019738595423054797,
             "kmeans_ari": 0.4173027418347799,
             "K": 5
           },
           {
             "n_cells": 2893,
             "n_trials_kept": 5944092,
+            "n_trials_passing": 6008104,
             "n_dropped": 791,
             "n_subjects": 614,
             "eta2_subject": 0.1990227890406842,
@@ -14768,6 +15464,7 @@
           {
             "n_cells": 3311,
             "n_trials_kept": 5646354,
+            "n_trials_passing": 5722289,
             "n_dropped": 987,
             "n_subjects": 614,
             "eta2_subject": 0.17793044504807592,
@@ -14787,6 +15484,7 @@
           {
             "n_cells": 3653,
             "n_trials_kept": 5505265,
+            "n_trials_passing": 5601758,
             "n_dropped": 1259,
             "n_subjects": 614,
             "eta2_subject": 0.16404484897968566,
@@ -14806,6 +15504,7 @@
           {
             "n_cells": 3937,
             "n_trials_kept": 5314043,
+            "n_trials_passing": 5430239,
             "n_dropped": 1589,
             "n_subjects": 614,
             "eta2_subject": 0.15671490467694532,
@@ -14825,6 +15524,7 @@
           {
             "n_cells": 4262,
             "n_trials_kept": 5121329,
+            "n_trials_passing": 5253503,
             "n_dropped": 1878,
             "n_subjects": 614,
             "eta2_subject": 0.14913721834356056,
@@ -14848,6 +15548,7 @@
           {
             "n_cells": 149,
             "n_trials_kept": 2272459,
+            "n_trials_passing": 2272459,
             "n_dropped": 0,
             "n_subjects": 149,
             "eta2_subject": 1.0000000000000007,
@@ -14864,6 +15565,7 @@
           {
             "n_cells": 297,
             "n_trials_kept": 1894584,
+            "n_trials_passing": 1894732,
             "n_dropped": 1,
             "n_subjects": 149,
             "eta2_subject": 0.3717449962862577,
@@ -14883,6 +15585,7 @@
           {
             "n_cells": 417,
             "n_trials_kept": 1598988,
+            "n_trials_passing": 1602300,
             "n_dropped": 30,
             "n_subjects": 149,
             "eta2_subject": 0.29969378991806284,
@@ -14902,6 +15605,7 @@
           {
             "n_cells": 542,
             "n_trials_kept": 1383188,
+            "n_trials_passing": 1387343,
             "n_dropped": 54,
             "n_subjects": 149,
             "eta2_subject": 0.22962652794822536,
@@ -14921,6 +15625,7 @@
           {
             "n_cells": 681,
             "n_trials_kept": 1510387,
+            "n_trials_passing": 1516407,
             "n_dropped": 64,
             "n_subjects": 149,
             "eta2_subject": 0.20095793231161607,
@@ -14940,6 +15645,7 @@
           {
             "n_cells": 703,
             "n_trials_kept": 1388952,
+            "n_trials_passing": 1404510,
             "n_dropped": 191,
             "n_subjects": 149,
             "eta2_subject": 0.20620944426857638,
@@ -14959,6 +15665,7 @@
           {
             "n_cells": 795,
             "n_trials_kept": 1311386,
+            "n_trials_passing": 1330935,
             "n_dropped": 248,
             "n_subjects": 149,
             "eta2_subject": 0.1838213446066233,
@@ -14978,6 +15685,7 @@
           {
             "n_cells": 882,
             "n_trials_kept": 1282855,
+            "n_trials_passing": 1306504,
             "n_dropped": 310,
             "n_subjects": 149,
             "eta2_subject": 0.16590999288726088,
@@ -14997,6 +15705,7 @@
           {
             "n_cells": 974,
             "n_trials_kept": 1232481,
+            "n_trials_passing": 1258676,
             "n_dropped": 367,
             "n_subjects": 149,
             "eta2_subject": 0.1528326484375133,
@@ -15016,6 +15725,7 @@
           {
             "n_cells": 1049,
             "n_trials_kept": 1181868,
+            "n_trials_passing": 1211759,
             "n_dropped": 441,
             "n_subjects": 149,
             "eta2_subject": 0.14559781724557697,
@@ -15037,6 +15747,7 @@
           {
             "n_cells": 614,
             "n_trials_kept": 9647196,
+            "n_trials_passing": 9647196,
             "n_dropped": 0,
             "n_subjects": 614,
             "eta2_subject": 0.9999999999999997,
@@ -15053,6 +15764,7 @@
           {
             "n_cells": 1220,
             "n_trials_kept": 8032788,
+            "n_trials_passing": 8033749,
             "n_dropped": 8,
             "n_subjects": 614,
             "eta2_subject": 0.3681435726563778,
@@ -15072,6 +15784,7 @@
           {
             "n_cells": 1735,
             "n_trials_kept": 6773234,
+            "n_trials_passing": 6783602,
             "n_dropped": 107,
             "n_subjects": 614,
             "eta2_subject": 0.2918832966562182,
@@ -15091,6 +15804,7 @@
           {
             "n_cells": 2188,
             "n_trials_kept": 5956300,
+            "n_trials_passing": 5978525,
             "n_dropped": 268,
             "n_subjects": 614,
             "eta2_subject": 0.23475078332226806,
@@ -15110,25 +15824,27 @@
           {
             "n_cells": 2798,
             "n_trials_kept": 6419154,
+            "n_trials_passing": 6445455,
             "n_dropped": 272,
             "n_subjects": 614,
-            "eta2_subject": 0.19925307133357484,
-            "silhouette_pc12": -0.015569984596745474,
+            "eta2_subject": 0.19925299649069433,
+            "silhouette_pc12": -0.01556951771204265,
             "silhouette_big_cells": -0.009097841413962431,
-            "silhouette": 0.0059850684635012405,
-            "silhouette_null_mean": -0.009041270089034064,
+            "silhouette": 0.005985098255345109,
+            "silhouette_null_mean": -0.009041355089748696,
             "silhouette_null_95": [
-              -0.013933130022617325,
-              -0.005555666453377722
+              -0.013933145007104613,
+              -0.005555796801157754
             ],
-            "eta2_state": 0.16308463164196707,
-            "eta2_state_null_mean": 0.0019855298282548126,
+            "eta2_state": 0.16308452714090005,
+            "eta2_state_null_mean": 0.001985515608552183,
             "kmeans_ari": 0.407149705755204,
             "K": 5
           },
           {
             "n_cells": 2881,
             "n_trials_kept": 5932939,
+            "n_trials_passing": 5994066,
             "n_dropped": 803,
             "n_subjects": 614,
             "eta2_subject": 0.20031055873362205,
@@ -15148,6 +15864,7 @@
           {
             "n_cells": 3305,
             "n_trials_kept": 5638299,
+            "n_trials_passing": 5711004,
             "n_dropped": 993,
             "n_subjects": 614,
             "eta2_subject": 0.17850312030536186,
@@ -15167,6 +15884,7 @@
           {
             "n_cells": 3643,
             "n_trials_kept": 5497364,
+            "n_trials_passing": 5591678,
             "n_dropped": 1269,
             "n_subjects": 614,
             "eta2_subject": 0.16483305904289847,
@@ -15186,6 +15904,7 @@
           {
             "n_cells": 3919,
             "n_trials_kept": 5303880,
+            "n_trials_passing": 5419165,
             "n_dropped": 1607,
             "n_subjects": 614,
             "eta2_subject": 0.15823203502094127,
@@ -15205,6 +15924,7 @@
           {
             "n_cells": 4248,
             "n_trials_kept": 5111939,
+            "n_trials_passing": 5242616,
             "n_dropped": 1892,
             "n_subjects": 614,
             "eta2_subject": 0.15026710203107246,

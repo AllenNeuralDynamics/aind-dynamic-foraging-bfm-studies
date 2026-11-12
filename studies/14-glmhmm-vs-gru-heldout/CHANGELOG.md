@@ -69,7 +69,7 @@
   run per task (`r3_scores.py`, shared with the producer). The repository keeps 3 MB:
   `frozen_r3.json` (scores, checks) and `frozen_r3_figure.npz`. The float32 parts and the merged
   npz (cells, uncut weights, refits; about 520 MB) are the W&B artifact
-  `AIND-disRNN/mice_glmhmm/study14-r3-freeze:v0`, recorded with digest and sha256 in
+  `AIND-disRNN/mice_glmhmm/study14-r3-freeze:v1`, recorded with digest and sha256 in
   `archives_r3.json` (`archive_r3.py`, study 40's pattern). `r3_state_spread.py` reports the
   uncut global setting (cluster scores vs K against a within-mouse label-shuffle null, η² by
   state and by subject, k-means ARI), the cuts, and the refit checks; `explorer_r3.py`

@@ -145,7 +145,7 @@ Each panel: every {subject, state} GLM of one cohort at one K (every trial, glob
 <!-- BEGIN result-3 -->
 The same cells, cut and labelled 18 ways. *Labels*: the Viterbi path and smoothed posteriors under the global fit (`global`, as in result-1) or under each mouse's own round-2 refit (`refit`: r2's pick at that K, centred on the global fit). *Cuts*: a trial counts for its Viterbi state only if that state's smoothed posterior is at least p (p ∈ {0, 0.8, 0.95}) and it lies in a same-state run of at least m trials within its session (m ∈ {1, 10, 30}). Each cell is refitted to its kept trials; states keep result-1's ranks and the plotted axes stay the uncut global setting's. Cutting keeps the trials that best fit a state's weights, so a higher silhouette after a cut is partly selection, not evidence.
 
-Silhouette (all weights, training mice) by K, and the trials kept as a share of the uncut setting's:
+Silhouette (all weights, training mice) by K, and the trials the cut keeps (counted before any cell-size floor) as a share of the uncut setting's:
 
 **hurdle**
 
@@ -157,9 +157,9 @@ Silhouette (all weights, training mice) by K, and the trials kept as a share of 
 | `global_p80_m1` | 0.28 | 0.19 | 0.10 | 0.08 | 0.08 | 0.06 | 0.06 | 0.05 | 0.06 | 91% | 60% |
 | `global_p80_m10` | 0.28 | 0.19 | 0.10 | 0.08 | 0.08 | 0.06 | 0.06 | 0.05 | 0.06 | 91% | 60% |
 | `global_p80_m30` | 0.28 | 0.19 | 0.10 | 0.08 | 0.08 | 0.06 | 0.06 | 0.05 | 0.06 | 91% | 60% |
-| `global_p95_m1` | 0.30 | 0.20 | 0.14 | 0.11 | 0.12 | 0.09 | 0.08 | 0.06 | 0.07 | 83% | 36% |
-| `global_p95_m10` | 0.30 | 0.20 | 0.14 | 0.11 | 0.12 | 0.09 | 0.08 | 0.06 | 0.07 | 83% | 36% |
-| `global_p95_m30` | 0.30 | 0.20 | 0.14 | 0.11 | 0.12 | 0.09 | 0.08 | 0.06 | 0.07 | 83% | 36% |
+| `global_p95_m1` | 0.30 | 0.20 | 0.14 | 0.11 | 0.12 | 0.09 | 0.08 | 0.06 | 0.07 | 83% | 37% |
+| `global_p95_m10` | 0.30 | 0.20 | 0.14 | 0.11 | 0.12 | 0.09 | 0.08 | 0.06 | 0.07 | 83% | 37% |
+| `global_p95_m30` | 0.30 | 0.20 | 0.14 | 0.11 | 0.12 | 0.09 | 0.08 | 0.06 | 0.07 | 83% | 37% |
 | `refit_p0_m1` | 0.22 | 0.14 | 0.04 | 0.02 | 0.02 | 0.01 | 0.01 | -0.00 | -0.00 | 100% | 100% |
 | `refit_p0_m10` | 0.22 | 0.14 | 0.04 | 0.02 | 0.02 | 0.01 | 0.01 | -0.00 | -0.00 | 100% | 100% |
 | `refit_p0_m30` | 0.22 | 0.14 | 0.04 | 0.02 | 0.02 | 0.01 | 0.01 | -0.00 | -0.00 | 100% | 100% |
@@ -180,47 +180,47 @@ Silhouette (all weights, training mice) by K, and the trials kept as a share of 
 | `global_p80_m1` | 0.31 | 0.16 | 0.05 | 0.02 | 0.02 | 0.01 | 0.01 | 0.01 | 0.00 | 91% | 58% |
 | `global_p80_m10` | 0.31 | 0.16 | 0.05 | 0.02 | 0.02 | 0.01 | 0.01 | 0.01 | 0.00 | 91% | 58% |
 | `global_p80_m30` | 0.31 | 0.16 | 0.05 | 0.02 | 0.02 | 0.01 | 0.01 | 0.01 | 0.00 | 91% | 58% |
-| `global_p95_m1` | 0.33 | 0.18 | 0.07 | 0.05 | 0.05 | 0.04 | 0.03 | 0.02 | 0.01 | 82% | 34% |
-| `global_p95_m10` | 0.33 | 0.18 | 0.07 | 0.05 | 0.05 | 0.04 | 0.03 | 0.02 | 0.01 | 82% | 34% |
-| `global_p95_m30` | 0.33 | 0.18 | 0.07 | 0.05 | 0.05 | 0.04 | 0.03 | 0.02 | 0.01 | 82% | 34% |
+| `global_p95_m1` | 0.33 | 0.18 | 0.07 | 0.05 | 0.05 | 0.04 | 0.03 | 0.02 | 0.01 | 82% | 35% |
+| `global_p95_m10` | 0.33 | 0.18 | 0.07 | 0.05 | 0.05 | 0.04 | 0.03 | 0.02 | 0.01 | 82% | 35% |
+| `global_p95_m30` | 0.33 | 0.18 | 0.07 | 0.05 | 0.05 | 0.04 | 0.03 | 0.02 | 0.01 | 82% | 35% |
 | `refit_p0_m1` | 0.25 | 0.13 | 0.02 | -0.01 | -0.02 | -0.02 | -0.02 | -0.02 | -0.03 | 100% | 100% |
 | `refit_p0_m10` | 0.25 | 0.12 | 0.02 | -0.01 | -0.02 | -0.02 | -0.02 | -0.02 | -0.03 | 100% | 100% |
 | `refit_p0_m30` | 0.25 | 0.12 | 0.02 | -0.01 | -0.02 | -0.02 | -0.02 | -0.02 | -0.03 | 100% | 99% |
 | `refit_p80_m1` | 0.27 | 0.15 | 0.03 | 0.00 | -0.00 | -0.01 | -0.00 | -0.00 | -0.01 | 92% | 73% |
 | `refit_p80_m10` | 0.27 | 0.15 | 0.03 | 0.00 | -0.00 | -0.01 | -0.00 | -0.00 | -0.01 | 92% | 73% |
-| `refit_p80_m30` | 0.26 | 0.15 | 0.03 | 0.00 | -0.01 | -0.01 | -0.00 | -0.00 | -0.01 | 92% | 72% |
+| `refit_p80_m30` | 0.26 | 0.15 | 0.03 | 0.00 | -0.01 | -0.01 | -0.00 | -0.00 | -0.01 | 92% | 73% |
 | `refit_p95_m1` | 0.28 | 0.16 | 0.04 | 0.01 | 0.01 | 0.00 | 0.01 | 0.00 | -0.01 | 83% | 54% |
 | `refit_p95_m10` | 0.28 | 0.16 | 0.04 | 0.01 | 0.01 | 0.00 | 0.01 | 0.00 | -0.01 | 83% | 54% |
-| `refit_p95_m30` | 0.28 | 0.16 | 0.04 | 0.01 | 0.01 | 0.00 | 0.01 | 0.00 | -0.01 | 83% | 53% |
+| `refit_p95_m30` | 0.28 | 0.16 | 0.04 | 0.01 | 0.01 | 0.00 | 0.01 | 0.00 | -0.01 | 83% | 54% |
 
 ![cuts](../fig_r3_cuts.svg)
 <!-- END result-3 -->
 
 <!-- BEGIN result-4 -->
-Each mouse's round-2 refit, recomputed by the freeze (EM from the global fit on the mouse's train sessions, r2's picked prior at that K). *Held-out check*: largest difference from the refits round 2 saved for the 149 held-out mice (weights and transitions; training-mouse refits were not saved). *Not aligned*: refits whose states match the global states other than one to one in order (least-squares weight matching). *Second step*: the largest change of a second M-step from any {subject, state} fit, a convergence check. It covers every cell with a kept trial, including cells under the freeze's 50-trial floor that are never frozen, so it only bounds the frozen cells' change from above.
+Each mouse's round-2 refit, recomputed by the freeze (EM from the global fit on the mouse's train sessions, r2's picked prior at that K). *Held-out check*: largest difference from the refits round 2 saved for the 149 held-out mice (weights and transitions; training-mouse refits were not saved). *Not aligned*: refits whose states match the global states other than one to one in order (least-squares weight matching). *Second step*: the largest change of a second M-step from any {subject, state} fit, a convergence check over the frozen cells (at least 50 kept trials): Newton passes of 12 steps repeat until one more pass moves no frozen cell by more than 1e-06, at most 10. *Passes*: the most any cell needed.
 
-| emission | K | σ | c | round-2 run | refits | held-out check | not aligned | not converged | second step |
-|---|---|---|---|---|---|---|---|---|---|
-| hurdle | 1 | 0.25 | off | 9as0x8ab | 763 | 149 mice, ≤ 1e-08 | 0 | 0 | 8e-09 |
-| hurdle | 2 | 0.25 | off | cp89pveg | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 3e-08 |
-| hurdle | 3 | 0.25 | off | jkpx7cwn | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 1e-07 |
-| hurdle | 4 | 0.25 | 1000 | f3xdpnwy | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 3e-07 |
-| hurdle | 5 | 0.25 | 1000 | v0q28x0e | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 4e-07 |
-| hurdle | 6 | 0.25 | 1000 | xpdgnjgm | 763 | 149 mice, ≤ 5e-08 | 0 | 0 | 9e-08 |
-| hurdle | 7 | 0.25 | 1000 | pkobiude | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 2e-07 |
-| hurdle | 8 | 0.25 | 1000 | is1htdih | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 9e-08 |
-| hurdle | 9 | 0.25 | 1000 | mmdq3fk5 | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 4e-02 |
-| hurdle | 10 | 0.25 | 1000 | pk5tuq2s | 763 | 149 mice, ≤ 1e-07 | 0 | 0 | 1e-07 |
-| reference | 1 | 0.25 | 10 | ncnqbfwp | 763 | 149 mice, ≤ 4e-09 | 0 | 0 | 1e-08 |
-| reference | 2 | 0.25 | off | 8vhp92xu | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 1e-07 |
-| reference | 3 | 0.25 | off | 0svgwbzt | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 8e-08 |
-| reference | 4 | 0.25 | off | zwpqfv04 | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 2e-07 |
-| reference | 5 | 0.25 | 1000 | itytk3db | 763 | 149 mice, ≤ 5e-08 | 0 | 0 | 2e-02 |
-| reference | 6 | 0.25 | 1000 | tkoz22oa | 763 | 149 mice, ≤ 6e-08 | 0 | 0 | 3e-01 |
-| reference | 7 | 0.25 | 1000 | 2tiiuvik | 763 | 149 mice, ≤ 6e-08 | 0 | 0 | 1e-03 |
-| reference | 8 | 0.25 | 1000 | vfaac2bm | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 8e-05 |
-| reference | 9 | 0.25 | 1000 | x7u2hkyn | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 5e-05 |
-| reference | 10 | 0.25 | 1000 | jhpe53no | 763 | 149 mice, ≤ 1e-08 | 0 | 0 | 3e-02 |
+| emission | K | σ | c | round-2 run | refits | held-out check | not aligned | not converged | second step | passes |
+|---|---|---|---|---|---|---|---|---|---|---|
+| hurdle | 1 | 0.25 | off | 9as0x8ab | 763 | 149 mice, ≤ 1e-08 | 0 | 0 | 8e-09 | 1 |
+| hurdle | 2 | 0.25 | off | cp89pveg | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 3e-08 | 1 |
+| hurdle | 3 | 0.25 | off | jkpx7cwn | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 1e-07 | 1 |
+| hurdle | 4 | 0.25 | 1000 | f3xdpnwy | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 3e-07 | 1 |
+| hurdle | 5 | 0.25 | 1000 | v0q28x0e | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 4e-07 | 1 |
+| hurdle | 6 | 0.25 | 1000 | xpdgnjgm | 763 | 149 mice, ≤ 5e-08 | 0 | 0 | 9e-08 | 1 |
+| hurdle | 7 | 0.25 | 1000 | pkobiude | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 2e-07 | 1 |
+| hurdle | 8 | 0.25 | 1000 | is1htdih | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 9e-08 | 1 |
+| hurdle | 9 | 0.25 | 1000 | mmdq3fk5 | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 7e-08 | 1 |
+| hurdle | 10 | 0.25 | 1000 | pk5tuq2s | 763 | 149 mice, ≤ 1e-07 | 0 | 0 | 1e-07 | 1 |
+| reference | 1 | 0.25 | 10 | ncnqbfwp | 763 | 149 mice, ≤ 4e-09 | 0 | 0 | 1e-08 | 1 |
+| reference | 2 | 0.25 | off | 8vhp92xu | 763 | 149 mice, ≤ 3e-08 | 0 | 0 | 1e-07 | 1 |
+| reference | 3 | 0.25 | off | 0svgwbzt | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 8e-08 | 1 |
+| reference | 4 | 0.25 | off | zwpqfv04 | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 2e-07 | 1 |
+| reference | 5 | 0.25 | 1000 | itytk3db | 763 | 149 mice, ≤ 5e-08 | 0 | 0 | 1e-07 | 2 |
+| reference | 6 | 0.25 | 1000 | tkoz22oa | 763 | 149 mice, ≤ 6e-08 | 0 | 0 | 1e-07 | 2 |
+| reference | 7 | 0.25 | 1000 | 2tiiuvik | 763 | 149 mice, ≤ 6e-08 | 0 | 0 | 7e-07 | 2 |
+| reference | 8 | 0.25 | 1000 | vfaac2bm | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 4e-07 | 2 |
+| reference | 9 | 0.25 | 1000 | x7u2hkyn | 763 | 149 mice, ≤ 2e-08 | 0 | 0 | 2e-07 | 2 |
+| reference | 10 | 0.25 | 1000 | jhpe53no | 763 | 149 mice, ≤ 1e-08 | 0 | 0 | 2e-07 | 2 |
 <!-- END result-4 -->
 
 ## What it says
@@ -246,7 +246,7 @@ so the separation does not come from fitting on the same mice. To explore every 
    about the same silhouette as all cells (result-1).
 5. **Dropping uncertain trials sharpens the clusters a little, at a high cost.** With trials kept
    only where the state's posterior is at least 0.95, the hurdle silhouette at K = 4 goes from
-   0.07 to 0.14 with 59% of the trials, and at K = 10 from 0.00 to 0.07 with 36% (result-3). Part
+   0.07 to 0.14 with 59% of the trials, and at K = 10 from 0.00 to 0.07 with 37% (result-3). Part
    of this rise is selection: the cut keeps the trials that already fit a state's weights.
 6. **Run-length cuts change nothing.** At least 99% of trials lie in same-state runs of 30
    trials or more, because the states usually last whole sessions (r1).
@@ -268,11 +268,6 @@ of the weights is the direct test of that (Next steps).
 - *Circularity.* The labels come from the same GLM family as the cells, so some clustering is
   built in (point 7). The shuffle null keeps each mouse's cells and only breaks the labels, so
   it does not remove this part.
-- *Convergence check (result-4).* The second-step column covers every cell with a kept trial,
-  including cells under 50 trials that are never frozen, so it only bounds the frozen cells.
-  For the uncut global setting, the frozen cells were compared by hand with r3's first freeze
-  (30 Newton steps instead of 12) and agree to within 5 × 10⁻⁷; that comparison is not part of
-  the committed pipeline.
 - *Engagement weights.* In a state that almost never ignores, the engagement weights are poorly
   constrained (PLAN.md). Point 2 shows the K = 2 split rests on them.
 - *One global fit per K*, so there are no error bars across fits.
