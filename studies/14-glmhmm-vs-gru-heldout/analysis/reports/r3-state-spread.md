@@ -226,9 +226,10 @@ Each mouse's round-2 refit, recomputed by the freeze (EM from the global fit on 
 ## What it says
 
 Numbers below are training mice unless named; held-out mice agree to within 0.01 (result-1),
-so the separation does not come from fitting on the same mice. To explore every setting, run
-`make r3-explorer` (it downloads the freeze's W&B archive, `archives_r3.json`) and open
-`analysis/interactive/r3_state_spread.html`.
+so the separation does not come from fitting on the same mice. To explore every setting, open
+the [interactive explorer](https://claude.ai/artifact/KiKG8J5UXvWe4rSwjBCnPn) (Allen Institute
+accounts; built from archive `study14-r3-freeze:v1`), or run `make r3-explorer` (it downloads the
+freeze's W&B archive, `archives_r3.json`) and open `analysis/interactive/r3_state_spread.html`.
 
 1. **States form clear clusters only at K = 2–3.** With every trial and global labels, the
    silhouette is 0.27 (hurdle) and 0.29 (reference) at K = 2, and 0.16 and 0.14 at K = 3. From
