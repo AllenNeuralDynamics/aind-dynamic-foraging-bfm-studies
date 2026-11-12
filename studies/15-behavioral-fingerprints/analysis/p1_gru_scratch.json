@@ -1,0 +1,1636 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_p1_gru_scratch.py",
+    "produced_at_pt": "2026-11-04T21:36:48-08:00",
+    "studies_git_sha": "5be50f029133ff9f8e9b4eb3740a458ca37b7b10",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_gru_scratch.py",
+        "sha256": "e69985655b93b0087173df2c29726b632f0b3a60de063ab63cd75ee43a9b3614"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
+        "sha256": "f59813c335951894ff95c46fa004d98d3e7e57b6d4200bfe02160cbec3408fed"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay_gaps.json",
+        "sha256": "7fa83e5c7992adad714f2bf67c9b883a2304e9e77b450199f0c419b72d671eb5"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_gru.json",
+        "sha256": "d3c91c4e2d8b4021858e6a52ddc9669e640ebc6509a7cc28ca3c42986498a71e"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_session_groups.json",
+        "sha256": "c45bdcafc3ac5aeedc5abe559aca102dde7a1ca387c218a83ef96b2e4b156108"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.json",
+        "sha256": "46e3e36c41cc317630ef6898dc85089bf43bc21c2f7388d2c0ae0fb31ccfb6bc"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/animal.parquet",
+        "sha256": "827fdafb03d1378a0b1698c600c981ff4bb6b74fb202ceba19e07fd81051d326"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/GRU-D614.parquet",
+        "sha256": "8fc517c8a1b8ed82a00e2e2e064eb5de95e37adf9a17b996ff2639bc33b01c09"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Lopez-DoubleTrace.parquet",
+        "sha256": "81adef3697f0f4ca39d6e644c9510a758c0da82d38ce9d78c6a31bae30aad4a4"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/Lebedeva-PR.parquet",
+        "sha256": "04a63b717e275058d3a8f566c3b8e7bd45b6b435124588e958bd6a4479e420a8"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/CompareToThreshold.parquet",
+        "sha256": "f594a1ed98287f2346cd2538112b8bb864027d6ef23e13a42914c0c180cfd4a1"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_replay/GLM-Su2022.parquet",
+        "sha256": "981241df839760ca5c85f86a82e904af6ccd5a2bd0d695a9dd4e8e528114692f"
+      }
+    ],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/outputs/study12/two-level-em/20261102-004644/2level_Lopez-DoubleTrace.json",
+        "sha256": "f4e913f6f9c2e0c5902c30a0af11c2eb23792954a94f0756953acdc62efb4d0e"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_gru_scratch.json",
+        "sha256": "376a4c5c96cd8af427210b936d2ce30bacb34aed6f238ab2e4a3b3efe7c9361f"
+      }
+    ]
+  },
+  "fingerprints_library": {
+    "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
+    "git_sha": "35d535f4a4fe099d4b4ea472496b99bdc233f06c"
+  },
+  "headline_set": "non-warm-up",
+  "n_subjects": 146,
+  "min_trials": 5,
+  "models": [
+    "GRU-D614",
+    "Lopez-DoubleTrace",
+    "Lebedeva-PR",
+    "CompareToThreshold",
+    "GLM-Su2022"
+  ],
+  "regimes": {
+    "GRU-D614": "per_subject",
+    "Lopez-DoubleTrace": "two_level_em",
+    "Lebedeva-PR": "two_level_em",
+    "CompareToThreshold": "per_subject",
+    "GLM-Su2022": "per_subject"
+  },
+  "binomial_floor": {
+    "losses": 0.011982157653451609,
+    "pattern": 0.009347511649334825,
+    "hazard": 0.010149059510776205,
+    "post_switch": 0.04074288856640404
+  },
+  "errors": {
+    "GRU-D614": {
+      "losses": {
+        "subject_mean_curve_error": 0.0032238543419773657,
+        "mean_subject_gap": 0.0166655957279494,
+        "n_subjects": 146,
+        "n_regimes": 3
+      },
+      "pattern": {
+        "subject_mean_curve_error": 0.002381198338594596,
+        "mean_subject_gap": 0.014181878964654905,
+        "n_subjects": 146,
+        "n_regimes": 3
+      },
+      "hazard": {
+        "subject_mean_curve_error": 0.0024524800644342816,
+        "mean_subject_gap": 0.014714725991947354,
+        "n_subjects": 146,
+        "n_regimes": 3
+      },
+      "post_switch": {
+        "subject_mean_curve_error": 0.004513848653917865,
+        "mean_subject_gap": 0.05083196387803626,
+        "n_subjects": 146,
+        "n_regimes": 3
+      }
+    },
+    "Lopez-DoubleTrace": {
+      "losses": {
+        "subject_mean_curve_error": 0.009168761585069206,
+        "mean_subject_gap": 0.01665084226389039,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "pattern": {
+        "subject_mean_curve_error": 0.005946573708344189,
+        "mean_subject_gap": 0.013148745303411646,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "hazard": {
+        "subject_mean_curve_error": 0.0038478625560406997,
+        "mean_subject_gap": 0.013071685489977804,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "post_switch": {
+        "subject_mean_curve_error": 0.01674730845071039,
+        "mean_subject_gap": 0.049388687761587065,
+        "n_subjects": 146,
+        "n_regimes": 1
+      }
+    },
+    "Lebedeva-PR": {
+      "losses": {
+        "subject_mean_curve_error": 0.010746364242990369,
+        "mean_subject_gap": 0.016583320155039556,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "pattern": {
+        "subject_mean_curve_error": 0.007693582341463108,
+        "mean_subject_gap": 0.013232057658250961,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "hazard": {
+        "subject_mean_curve_error": 0.006569110050706573,
+        "mean_subject_gap": 0.01417761337372491,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "post_switch": {
+        "subject_mean_curve_error": 0.025625238395565398,
+        "mean_subject_gap": 0.053170140714900754,
+        "n_subjects": 146,
+        "n_regimes": 1
+      }
+    },
+    "CompareToThreshold": {
+      "losses": {
+        "subject_mean_curve_error": 0.005014808190853742,
+        "mean_subject_gap": 0.019265069962129247,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "pattern": {
+        "subject_mean_curve_error": 0.009115257832396058,
+        "mean_subject_gap": 0.017797941502694297,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "hazard": {
+        "subject_mean_curve_error": 0.007637020571517392,
+        "mean_subject_gap": 0.01759047055711261,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "post_switch": {
+        "subject_mean_curve_error": 0.03225689673128307,
+        "mean_subject_gap": 0.06448682902443013,
+        "n_subjects": 146,
+        "n_regimes": 1
+      }
+    },
+    "GLM-Su2022": {
+      "losses": {
+        "subject_mean_curve_error": 0.015547038760931836,
+        "mean_subject_gap": 0.024747462012467844,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "pattern": {
+        "subject_mean_curve_error": 0.01572980007707987,
+        "mean_subject_gap": 0.021346233604922563,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "hazard": {
+        "subject_mean_curve_error": 0.01684161352982472,
+        "mean_subject_gap": 0.022969929526913586,
+        "n_subjects": 146,
+        "n_regimes": 1
+      },
+      "post_switch": {
+        "subject_mean_curve_error": 0.04373704187244268,
+        "mean_subject_gap": 0.07783604253069955,
+        "n_subjects": 146,
+        "n_regimes": 1
+      }
+    }
+  },
+  "paired": {
+    "n_subjects": 146,
+    "n_gru_worse": 80,
+    "sign_test_p": 0.2819365341298733,
+    "wilcoxon_p": 0.14854476773898834,
+    "median_ratio": 1.05013886839813,
+    "median_ratio_ci95": [
+      0.9601967919935018,
+      1.119085664007156
+    ]
+  },
+  "spread": {
+    "test": {
+      "lopez_mean_log_sigma": {
+        "spearman_rho": 0.05639671078634572,
+        "ci95": [
+          -0.11514815485146747,
+          0.22385399320975735
+        ],
+        "n": 146
+      },
+      "log_split_over_binomial_floor": {
+        "spearman_rho": 0.07085305544040951,
+        "ci95": [
+          -0.1124413071889445,
+          0.24556849274720666
+        ],
+        "n": 146
+      },
+      "n_trials": {
+        "spearman_rho": -0.026558568632932628,
+        "ci95": [
+          -0.19908971845236173,
+          0.14462151245901161
+        ],
+        "n": 146
+      },
+      "n_sessions": {
+        "spearman_rho": -0.03764804454289403,
+        "ci95": [
+          -0.20241260429735486,
+          0.13114051025412743
+        ],
+        "n": 146
+      }
+    },
+    "control": {
+      "lopez_mean_log_sigma": {
+        "spearman_rho": 0.1975051333712512,
+        "ci95": [
+          0.020814521958196712,
+          0.36415046296782666
+        ],
+        "n": 146
+      },
+      "log_split_over_binomial_floor": {
+        "spearman_rho": 0.11840590747399575,
+        "ci95": [
+          -0.04932378728285973,
+          0.286948187416946
+        ],
+        "n": 146
+      }
+    },
+    "measures_agree": {
+      "spearman_rho": 0.13946381575776273,
+      "ci95": [
+        -0.032171285801748606,
+        0.3103434918154784
+      ],
+      "n": 146
+    },
+    "control_median_ratio": 1.3731733702383329
+  },
+  "subjects": [
+    {
+      "subject_id": "452275",
+      "gru_vs_lopez_2l": 0.043733189916568244,
+      "lopez_per_subject_vs_2l": 0.2606395656208097,
+      "lopez_mean_log_sigma": -2.790526760647863,
+      "log_split_over_binomial_floor": 0.19757474159063795,
+      "n_trials": 11523,
+      "n_sessions": 24
+    },
+    {
+      "subject_id": "453476",
+      "gru_vs_lopez_2l": -0.05448317058872655,
+      "lopez_per_subject_vs_2l": 0.3011373404535227,
+      "lopez_mean_log_sigma": -2.3297150512781792,
+      "log_split_over_binomial_floor": 0.49666396653509776,
+      "n_trials": 7511,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "453478",
+      "gru_vs_lopez_2l": -0.3904290632909463,
+      "lopez_per_subject_vs_2l": 0.20731285802788105,
+      "lopez_mean_log_sigma": -2.5268966783056483,
+      "log_split_over_binomial_floor": 0.10348721967188794,
+      "n_trials": 5252,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "455525",
+      "gru_vs_lopez_2l": 0.26527644703428305,
+      "lopez_per_subject_vs_2l": 0.19986843841302088,
+      "lopez_mean_log_sigma": -2.6852712262394753,
+      "log_split_over_binomial_floor": 0.5273451246845718,
+      "n_trials": 12888,
+      "n_sessions": 28
+    },
+    {
+      "subject_id": "472184",
+      "gru_vs_lopez_2l": 0.6582572292389632,
+      "lopez_per_subject_vs_2l": 0.03245322145786618,
+      "lopez_mean_log_sigma": -2.940365414732241,
+      "log_split_over_binomial_floor": 0.29018536687727936,
+      "n_trials": 16372,
+      "n_sessions": 19
+    },
+    {
+      "subject_id": "494693",
+      "gru_vs_lopez_2l": 0.16385788574843113,
+      "lopez_per_subject_vs_2l": 0.19447095254860722,
+      "lopez_mean_log_sigma": -2.1980095909337405,
+      "log_split_over_binomial_floor": 0.6534355494803674,
+      "n_trials": 4633,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "616134",
+      "gru_vs_lopez_2l": -0.18145945632892152,
+      "lopez_per_subject_vs_2l": 0.27801829122871335,
+      "lopez_mean_log_sigma": -2.4167141531839724,
+      "log_split_over_binomial_floor": 0.165328319867291,
+      "n_trials": 5885,
+      "n_sessions": 10
+    },
+    {
+      "subject_id": "627042",
+      "gru_vs_lopez_2l": -0.07930523979532351,
+      "lopez_per_subject_vs_2l": 0.4645336533243886,
+      "lopez_mean_log_sigma": -2.3388686099684595,
+      "log_split_over_binomial_floor": 0.4680423608469034,
+      "n_trials": 10846,
+      "n_sessions": 13
+    },
+    {
+      "subject_id": "637701",
+      "gru_vs_lopez_2l": -0.22611079745639623,
+      "lopez_per_subject_vs_2l": 0.014438341684522793,
+      "lopez_mean_log_sigma": -2.443472439512337,
+      "log_split_over_binomial_floor": 0.29872522704801957,
+      "n_trials": 4197,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "639875",
+      "gru_vs_lopez_2l": -0.6498120261062089,
+      "lopez_per_subject_vs_2l": 0.5107146682149155,
+      "lopez_mean_log_sigma": -2.4817223619528046,
+      "log_split_over_binomial_floor": 0.6592086396572192,
+      "n_trials": 14822,
+      "n_sessions": 21
+    },
+    {
+      "subject_id": "641494",
+      "gru_vs_lopez_2l": 0.15009567054510228,
+      "lopez_per_subject_vs_2l": -0.14202855773347772,
+      "lopez_mean_log_sigma": -2.5391596393838047,
+      "log_split_over_binomial_floor": 0.5835446043882055,
+      "n_trials": 17536,
+      "n_sessions": 23
+    },
+    {
+      "subject_id": "643773",
+      "gru_vs_lopez_2l": 0.3582302995997594,
+      "lopez_per_subject_vs_2l": 0.7166497305331265,
+      "lopez_mean_log_sigma": -2.199308321192076,
+      "log_split_over_binomial_floor": 0.9486479556740052,
+      "n_trials": 16103,
+      "n_sessions": 19
+    },
+    {
+      "subject_id": "648586",
+      "gru_vs_lopez_2l": 0.20951583372656038,
+      "lopez_per_subject_vs_2l": 0.4999057484004667,
+      "lopez_mean_log_sigma": -1.9453749365204482,
+      "log_split_over_binomial_floor": 0.43896578076173215,
+      "n_trials": 6423,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "651475",
+      "gru_vs_lopez_2l": -0.3585818624513029,
+      "lopez_per_subject_vs_2l": 0.5328314393982091,
+      "lopez_mean_log_sigma": -2.730245540471882,
+      "log_split_over_binomial_floor": 0.41702728819209095,
+      "n_trials": 13968,
+      "n_sessions": 18
+    },
+    {
+      "subject_id": "651554",
+      "gru_vs_lopez_2l": 0.09394977508376452,
+      "lopez_per_subject_vs_2l": 0.2484461832147935,
+      "lopez_mean_log_sigma": -2.445578843816985,
+      "log_split_over_binomial_floor": 0.5017728448203613,
+      "n_trials": 11741,
+      "n_sessions": 21
+    },
+    {
+      "subject_id": "652743",
+      "gru_vs_lopez_2l": 0.5194041298131096,
+      "lopez_per_subject_vs_2l": 0.5732055698478989,
+      "lopez_mean_log_sigma": -2.2355634871449404,
+      "log_split_over_binomial_floor": 0.5060227010675318,
+      "n_trials": 3315,
+      "n_sessions": 5
+    },
+    {
+      "subject_id": "655100",
+      "gru_vs_lopez_2l": 0.5347833142676639,
+      "lopez_per_subject_vs_2l": 0.63546176358665,
+      "lopez_mean_log_sigma": -2.454945040354382,
+      "log_split_over_binomial_floor": 0.4198079309465072,
+      "n_trials": 1910,
+      "n_sessions": 4
+    },
+    {
+      "subject_id": "656489",
+      "gru_vs_lopez_2l": -0.14341113191037363,
+      "lopez_per_subject_vs_2l": -0.056194280864392,
+      "lopez_mean_log_sigma": -2.8512352304848396,
+      "log_split_over_binomial_floor": 0.42426580879967174,
+      "n_trials": 19109,
+      "n_sessions": 26
+    },
+    {
+      "subject_id": "659778",
+      "gru_vs_lopez_2l": -0.3519741416856759,
+      "lopez_per_subject_vs_2l": 0.23937869185583138,
+      "lopez_mean_log_sigma": -2.7833315928876097,
+      "log_split_over_binomial_floor": 0.1346881192743749,
+      "n_trials": 7508,
+      "n_sessions": 17
+    },
+    {
+      "subject_id": "663373",
+      "gru_vs_lopez_2l": -0.018723698337732346,
+      "lopez_per_subject_vs_2l": 0.38941125139513183,
+      "lopez_mean_log_sigma": -2.376753333592183,
+      "log_split_over_binomial_floor": 0.5435712130041437,
+      "n_trials": 7292,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "668551",
+      "gru_vs_lopez_2l": 0.07175290061111028,
+      "lopez_per_subject_vs_2l": 0.4022433502770326,
+      "lopez_mean_log_sigma": -2.694194868666768,
+      "log_split_over_binomial_floor": 0.48082741706840176,
+      "n_trials": 13021,
+      "n_sessions": 21
+    },
+    {
+      "subject_id": "671245",
+      "gru_vs_lopez_2l": 0.1258421314161177,
+      "lopez_per_subject_vs_2l": 0.8576044074376243,
+      "lopez_mean_log_sigma": -2.4302172870742624,
+      "log_split_over_binomial_floor": 0.388137828612575,
+      "n_trials": 1569,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "673396",
+      "gru_vs_lopez_2l": 0.3502668615135682,
+      "lopez_per_subject_vs_2l": 0.5960679543472786,
+      "lopez_mean_log_sigma": -2.074705447102616,
+      "log_split_over_binomial_floor": 0.7937346842570218,
+      "n_trials": 4202,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "682342",
+      "gru_vs_lopez_2l": 0.1862721410553851,
+      "lopez_per_subject_vs_2l": 0.4642321835670548,
+      "lopez_mean_log_sigma": -2.085117674062164,
+      "log_split_over_binomial_floor": 0.2184972568352772,
+      "n_trials": 1182,
+      "n_sessions": 4
+    },
+    {
+      "subject_id": "684039",
+      "gru_vs_lopez_2l": 0.08827598663938473,
+      "lopez_per_subject_vs_2l": -0.38583771231862807,
+      "lopez_mean_log_sigma": -2.6904772437696303,
+      "log_split_over_binomial_floor": 0.35289108349449444,
+      "n_trials": 4466,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "697929",
+      "gru_vs_lopez_2l": -0.12227731698054041,
+      "lopez_per_subject_vs_2l": -0.08588554338085198,
+      "lopez_mean_log_sigma": -2.3893236944020457,
+      "log_split_over_binomial_floor": 0.4996451178100151,
+      "n_trials": 3071,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "697930",
+      "gru_vs_lopez_2l": 0.334221039906864,
+      "lopez_per_subject_vs_2l": 0.4623375937028349,
+      "lopez_mean_log_sigma": -2.4244054392878485,
+      "log_split_over_binomial_floor": 0.35247821259949097,
+      "n_trials": 1441,
+      "n_sessions": 7
+    },
+    {
+      "subject_id": "699982",
+      "gru_vs_lopez_2l": 0.24404840274530187,
+      "lopez_per_subject_vs_2l": 0.6349388295760332,
+      "lopez_mean_log_sigma": -2.6311549540221013,
+      "log_split_over_binomial_floor": 0.296544343137184,
+      "n_trials": 4747,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "700708",
+      "gru_vs_lopez_2l": -0.727266641487223,
+      "lopez_per_subject_vs_2l": -0.5477430921856841,
+      "lopez_mean_log_sigma": 1.7681752560926414,
+      "log_split_over_binomial_floor": 0.4431662017632056,
+      "n_trials": 8752,
+      "n_sessions": 29
+    },
+    {
+      "subject_id": "708299",
+      "gru_vs_lopez_2l": 0.500869411563787,
+      "lopez_per_subject_vs_2l": 0.21192948316826304,
+      "lopez_mean_log_sigma": -2.561964116763632,
+      "log_split_over_binomial_floor": 0.28500257759095804,
+      "n_trials": 6721,
+      "n_sessions": 20
+    },
+    {
+      "subject_id": "710414",
+      "gru_vs_lopez_2l": 0.30193875537051146,
+      "lopez_per_subject_vs_2l": 1.4710550974053107,
+      "lopez_mean_log_sigma": -2.7342750434503897,
+      "log_split_over_binomial_floor": 0.5337840307049404,
+      "n_trials": 1989,
+      "n_sessions": 4
+    },
+    {
+      "subject_id": "711039",
+      "gru_vs_lopez_2l": 0.49271981502160395,
+      "lopez_per_subject_vs_2l": 0.23441628258353592,
+      "lopez_mean_log_sigma": -2.8365941547987092,
+      "log_split_over_binomial_floor": 0.10180950947401204,
+      "n_trials": 6595,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "711041",
+      "gru_vs_lopez_2l": 0.38605565617173804,
+      "lopez_per_subject_vs_2l": 0.3301864924453892,
+      "lopez_mean_log_sigma": -2.6481160019914114,
+      "log_split_over_binomial_floor": 0.30799696544966637,
+      "n_trials": 7471,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "711254",
+      "gru_vs_lopez_2l": -0.33420701526451696,
+      "lopez_per_subject_vs_2l": 0.09116855565124704,
+      "lopez_mean_log_sigma": -2.3598801054628074,
+      "log_split_over_binomial_floor": 0.38406802800910256,
+      "n_trials": 4229,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "711281",
+      "gru_vs_lopez_2l": 0.05090466538381891,
+      "lopez_per_subject_vs_2l": 0.27308069194427503,
+      "lopez_mean_log_sigma": -2.3395296909195538,
+      "log_split_over_binomial_floor": 0.4288107435191108,
+      "n_trials": 5144,
+      "n_sessions": 13
+    },
+    {
+      "subject_id": "712031",
+      "gru_vs_lopez_2l": -0.0010159187100037548,
+      "lopez_per_subject_vs_2l": 0.038633100586174376,
+      "lopez_mean_log_sigma": -2.324296659744172,
+      "log_split_over_binomial_floor": 0.2720373826417243,
+      "n_trials": 3020,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "713379",
+      "gru_vs_lopez_2l": 0.13302806305636466,
+      "lopez_per_subject_vs_2l": 0.3473003590263769,
+      "lopez_mean_log_sigma": -2.4750113673356293,
+      "log_split_over_binomial_floor": 0.4330830982026322,
+      "n_trials": 14940,
+      "n_sessions": 35
+    },
+    {
+      "subject_id": "713862",
+      "gru_vs_lopez_2l": 0.14612283742346413,
+      "lopez_per_subject_vs_2l": 0.35909301847608655,
+      "lopez_mean_log_sigma": -2.3096297683523725,
+      "log_split_over_binomial_floor": 0.4965665652464084,
+      "n_trials": 7939,
+      "n_sessions": 16
+    },
+    {
+      "subject_id": "716324",
+      "gru_vs_lopez_2l": 0.4183687006200155,
+      "lopez_per_subject_vs_2l": 1.0433639285581116,
+      "lopez_mean_log_sigma": -2.092319115876438,
+      "log_split_over_binomial_floor": 0.16236139955189197,
+      "n_trials": 5444,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "721403",
+      "gru_vs_lopez_2l": 0.16316842898326117,
+      "lopez_per_subject_vs_2l": 0.6179063639123026,
+      "lopez_mean_log_sigma": -2.4141511262482265,
+      "log_split_over_binomial_floor": 0.3183100261593244,
+      "n_trials": 5787,
+      "n_sessions": 16
+    },
+    {
+      "subject_id": "722989",
+      "gru_vs_lopez_2l": 0.42363407415730076,
+      "lopez_per_subject_vs_2l": 0.0764418501234562,
+      "lopez_mean_log_sigma": -2.4751913141269015,
+      "log_split_over_binomial_floor": 0.2919977799872153,
+      "n_trials": 2881,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "726649",
+      "gru_vs_lopez_2l": 0.35437798834943524,
+      "lopez_per_subject_vs_2l": 0.14991634344785099,
+      "lopez_mean_log_sigma": -2.357326892056078,
+      "log_split_over_binomial_floor": 0.16309023170976675,
+      "n_trials": 4097,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "727456",
+      "gru_vs_lopez_2l": -0.20098837419872406,
+      "lopez_per_subject_vs_2l": 0.33759795428134676,
+      "lopez_mean_log_sigma": -2.518704578545742,
+      "log_split_over_binomial_floor": 0.4529278685429862,
+      "n_trials": 9585,
+      "n_sessions": 21
+    },
+    {
+      "subject_id": "736198",
+      "gru_vs_lopez_2l": 0.06457368840357551,
+      "lopez_per_subject_vs_2l": 0.5401793226545485,
+      "lopez_mean_log_sigma": -2.350917702837062,
+      "log_split_over_binomial_floor": 0.49417866924489773,
+      "n_trials": 5224,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "736199",
+      "gru_vs_lopez_2l": -0.06098047357260367,
+      "lopez_per_subject_vs_2l": -0.20182389194854194,
+      "lopez_mean_log_sigma": -2.627811115849548,
+      "log_split_over_binomial_floor": 0.09256334946797896,
+      "n_trials": 3917,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "744779",
+      "gru_vs_lopez_2l": -0.20670228130448337,
+      "lopez_per_subject_vs_2l": 0.026886086436138535,
+      "lopez_mean_log_sigma": -2.599518124918158,
+      "log_split_over_binomial_floor": 0.3087455241805146,
+      "n_trials": 5981,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "745505",
+      "gru_vs_lopez_2l": 0.31941098284645153,
+      "lopez_per_subject_vs_2l": 0.5404160998895913,
+      "lopez_mean_log_sigma": -2.261612157518468,
+      "log_split_over_binomial_floor": 0.336548732751626,
+      "n_trials": 5686,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "746346",
+      "gru_vs_lopez_2l": -0.19480155282454015,
+      "lopez_per_subject_vs_2l": 0.6708257786564022,
+      "lopez_mean_log_sigma": -2.523805481692025,
+      "log_split_over_binomial_floor": 0.3049137366389889,
+      "n_trials": 9150,
+      "n_sessions": 24
+    },
+    {
+      "subject_id": "747886",
+      "gru_vs_lopez_2l": -0.11457922199038945,
+      "lopez_per_subject_vs_2l": 0.28068607148374997,
+      "lopez_mean_log_sigma": -2.468498880768169,
+      "log_split_over_binomial_floor": 0.34516199210493775,
+      "n_trials": 2903,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "749472",
+      "gru_vs_lopez_2l": -0.0528318039142398,
+      "lopez_per_subject_vs_2l": 0.07073687360197947,
+      "lopez_mean_log_sigma": -2.8216003695021232,
+      "log_split_over_binomial_floor": 0.23739097952588906,
+      "n_trials": 5035,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "751153",
+      "gru_vs_lopez_2l": 0.08076172857622257,
+      "lopez_per_subject_vs_2l": -0.016126722272520266,
+      "lopez_mean_log_sigma": -2.5039827642341836,
+      "log_split_over_binomial_floor": 0.23127962473851918,
+      "n_trials": 2404,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "751765",
+      "gru_vs_lopez_2l": -0.1945821478582508,
+      "lopez_per_subject_vs_2l": 0.29119986251887425,
+      "lopez_mean_log_sigma": -2.4893093645497983,
+      "log_split_over_binomial_floor": 0.2480103199353433,
+      "n_trials": 9193,
+      "n_sessions": 17
+    },
+    {
+      "subject_id": "751920",
+      "gru_vs_lopez_2l": 0.1707959402611385,
+      "lopez_per_subject_vs_2l": 0.24286102529251435,
+      "lopez_mean_log_sigma": -2.566165963045742,
+      "log_split_over_binomial_floor": 0.38958371975063183,
+      "n_trials": 2516,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "753122",
+      "gru_vs_lopez_2l": -0.14470247262683159,
+      "lopez_per_subject_vs_2l": 0.3289479525044036,
+      "lopez_mean_log_sigma": -2.407572678325969,
+      "log_split_over_binomial_floor": 0.3582912709857972,
+      "n_trials": 4546,
+      "n_sessions": 10
+    },
+    {
+      "subject_id": "754372",
+      "gru_vs_lopez_2l": -0.3775155376382198,
+      "lopez_per_subject_vs_2l": 0.6904098190146758,
+      "lopez_mean_log_sigma": -2.175472959620569,
+      "log_split_over_binomial_floor": 0.12354818318515377,
+      "n_trials": 2934,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "756567",
+      "gru_vs_lopez_2l": 0.12511053696250207,
+      "lopez_per_subject_vs_2l": 0.31697666800531693,
+      "lopez_mean_log_sigma": -2.6137595841481938,
+      "log_split_over_binomial_floor": 0.2302955853135184,
+      "n_trials": 3568,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "757214",
+      "gru_vs_lopez_2l": -0.4986228739090337,
+      "lopez_per_subject_vs_2l": -0.046514913055867114,
+      "lopez_mean_log_sigma": -3.154117801348559,
+      "log_split_over_binomial_floor": 0.191113471409449,
+      "n_trials": 5987,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "761406",
+      "gru_vs_lopez_2l": 0.1679088236103022,
+      "lopez_per_subject_vs_2l": 0.36542743395956745,
+      "lopez_mean_log_sigma": -2.6583497813821553,
+      "log_split_over_binomial_floor": 0.19876750552935218,
+      "n_trials": 5667,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "762611",
+      "gru_vs_lopez_2l": 0.4019574473358651,
+      "lopez_per_subject_vs_2l": 0.7093266280356154,
+      "lopez_mean_log_sigma": -2.148136019996662,
+      "log_split_over_binomial_floor": 0.027941929608289992,
+      "n_trials": 3709,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "763704",
+      "gru_vs_lopez_2l": 0.3854205496551613,
+      "lopez_per_subject_vs_2l": 0.3455207112479832,
+      "lopez_mean_log_sigma": -2.354908794637075,
+      "log_split_over_binomial_floor": 0.14885902841665452,
+      "n_trials": 6562,
+      "n_sessions": 16
+    },
+    {
+      "subject_id": "764693",
+      "gru_vs_lopez_2l": 0.4772439085357192,
+      "lopez_per_subject_vs_2l": 0.454862151005096,
+      "lopez_mean_log_sigma": -2.4848212806127616,
+      "log_split_over_binomial_floor": 0.12771235076889093,
+      "n_trials": 6538,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "765232",
+      "gru_vs_lopez_2l": -0.14142956081060443,
+      "lopez_per_subject_vs_2l": 0.16061348975796633,
+      "lopez_mean_log_sigma": -2.6934454761490714,
+      "log_split_over_binomial_floor": 0.4149367940651723,
+      "n_trials": 7208,
+      "n_sessions": 17
+    },
+    {
+      "subject_id": "765365",
+      "gru_vs_lopez_2l": -0.02906143916685952,
+      "lopez_per_subject_vs_2l": 0.24881941900691823,
+      "lopez_mean_log_sigma": -2.5491645262551925,
+      "log_split_over_binomial_floor": 0.26502442689221706,
+      "n_trials": 9203,
+      "n_sessions": 26
+    },
+    {
+      "subject_id": "765373",
+      "gru_vs_lopez_2l": -0.5388875868472309,
+      "lopez_per_subject_vs_2l": 0.09242247576759337,
+      "lopez_mean_log_sigma": -2.524218139173008,
+      "log_split_over_binomial_floor": 0.5675580010675925,
+      "n_trials": 4582,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "765861",
+      "gru_vs_lopez_2l": 0.42328101357180914,
+      "lopez_per_subject_vs_2l": 0.4588600801497849,
+      "lopez_mean_log_sigma": -2.352053262556676,
+      "log_split_over_binomial_floor": 0.3974124449380857,
+      "n_trials": 3339,
+      "n_sessions": 7
+    },
+    {
+      "subject_id": "766556",
+      "gru_vs_lopez_2l": 0.027345154594847966,
+      "lopez_per_subject_vs_2l": 0.877698469836123,
+      "lopez_mean_log_sigma": -2.365973671724095,
+      "log_split_over_binomial_floor": 0.32748676185030245,
+      "n_trials": 4782,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "766998",
+      "gru_vs_lopez_2l": 0.3676435241558748,
+      "lopez_per_subject_vs_2l": 0.5921406761445664,
+      "lopez_mean_log_sigma": -2.259362635048665,
+      "log_split_over_binomial_floor": 0.30241484114606976,
+      "n_trials": 9319,
+      "n_sessions": 19
+    },
+    {
+      "subject_id": "767462",
+      "gru_vs_lopez_2l": 0.1485443077110872,
+      "lopez_per_subject_vs_2l": 0.5393598757850123,
+      "lopez_mean_log_sigma": -2.563454976250917,
+      "log_split_over_binomial_floor": 0.36691429693436917,
+      "n_trials": 6495,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "767463",
+      "gru_vs_lopez_2l": 0.8512260813484658,
+      "lopez_per_subject_vs_2l": 0.472007509075148,
+      "lopez_mean_log_sigma": -2.324469399618004,
+      "log_split_over_binomial_floor": 0.19738910155344735,
+      "n_trials": 6692,
+      "n_sessions": 16
+    },
+    {
+      "subject_id": "769359",
+      "gru_vs_lopez_2l": -0.3691814602837837,
+      "lopez_per_subject_vs_2l": 0.23208387985177056,
+      "lopez_mean_log_sigma": -2.378566600057231,
+      "log_split_over_binomial_floor": 0.16817125276308226,
+      "n_trials": 4962,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "770803",
+      "gru_vs_lopez_2l": 0.33808133625418374,
+      "lopez_per_subject_vs_2l": 0.03621404088832644,
+      "lopez_mean_log_sigma": -2.6477302135930376,
+      "log_split_over_binomial_floor": 0.37791137033712463,
+      "n_trials": 6253,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "774826",
+      "gru_vs_lopez_2l": 0.38738531150651667,
+      "lopez_per_subject_vs_2l": -0.11972017480802748,
+      "lopez_mean_log_sigma": -2.265231225146552,
+      "log_split_over_binomial_floor": 0.08867158423358357,
+      "n_trials": 3019,
+      "n_sessions": 7
+    },
+    {
+      "subject_id": "775741",
+      "gru_vs_lopez_2l": -0.2630675929314879,
+      "lopez_per_subject_vs_2l": 0.2900179855946027,
+      "lopez_mean_log_sigma": -2.7598077675212966,
+      "log_split_over_binomial_floor": 0.2419930224031969,
+      "n_trials": 9805,
+      "n_sessions": 22
+    },
+    {
+      "subject_id": "775745",
+      "gru_vs_lopez_2l": 0.0991947423136613,
+      "lopez_per_subject_vs_2l": 0.38937079859181783,
+      "lopez_mean_log_sigma": -2.7612649668402853,
+      "log_split_over_binomial_floor": 0.3737757390437686,
+      "n_trials": 7881,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "776259",
+      "gru_vs_lopez_2l": -0.2619238088276042,
+      "lopez_per_subject_vs_2l": -0.023686945440112225,
+      "lopez_mean_log_sigma": -2.1837182069315095,
+      "log_split_over_binomial_floor": 0.4448805254275578,
+      "n_trials": 3149,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "777027",
+      "gru_vs_lopez_2l": 0.479692155857759,
+      "lopez_per_subject_vs_2l": 0.21045834597708274,
+      "lopez_mean_log_sigma": -2.8117137925018216,
+      "log_split_over_binomial_floor": 0.36996179228707987,
+      "n_trials": 5490,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "777098",
+      "gru_vs_lopez_2l": 0.04694015669957247,
+      "lopez_per_subject_vs_2l": 0.7710128501109874,
+      "lopez_mean_log_sigma": -2.3180119194856186,
+      "log_split_over_binomial_floor": 0.3094789580707714,
+      "n_trials": 4717,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "777271",
+      "gru_vs_lopez_2l": -0.2770781282693075,
+      "lopez_per_subject_vs_2l": 0.37069176913967194,
+      "lopez_mean_log_sigma": -2.700627229423104,
+      "log_split_over_binomial_floor": 0.28202138987428965,
+      "n_trials": 3901,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "778103",
+      "gru_vs_lopez_2l": -0.11879338541972094,
+      "lopez_per_subject_vs_2l": -0.05571124430602502,
+      "lopez_mean_log_sigma": -2.291963969381466,
+      "log_split_over_binomial_floor": 0.4684351077189633,
+      "n_trials": 5526,
+      "n_sessions": 13
+    },
+    {
+      "subject_id": "778336",
+      "gru_vs_lopez_2l": -0.040563782609077316,
+      "lopez_per_subject_vs_2l": 0.3573556167821834,
+      "lopez_mean_log_sigma": -2.661451112149751,
+      "log_split_over_binomial_floor": 0.3138120334412671,
+      "n_trials": 4919,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "780618",
+      "gru_vs_lopez_2l": 0.10655560987636221,
+      "lopez_per_subject_vs_2l": 1.0792386568473598,
+      "lopez_mean_log_sigma": -2.3839944392606194,
+      "log_split_over_binomial_floor": 0.25831511543042374,
+      "n_trials": 5662,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "780621",
+      "gru_vs_lopez_2l": -0.15603825878875088,
+      "lopez_per_subject_vs_2l": 0.10853762230126142,
+      "lopez_mean_log_sigma": -2.693641889089688,
+      "log_split_over_binomial_floor": 0.4477119683625439,
+      "n_trials": 9680,
+      "n_sessions": 22
+    },
+    {
+      "subject_id": "781162",
+      "gru_vs_lopez_2l": 0.1453485915845065,
+      "lopez_per_subject_vs_2l": 0.1692736336972633,
+      "lopez_mean_log_sigma": -2.6151060955127754,
+      "log_split_over_binomial_floor": 0.3734188115827904,
+      "n_trials": 8396,
+      "n_sessions": 17
+    },
+    {
+      "subject_id": "781369",
+      "gru_vs_lopez_2l": -0.08485488917814266,
+      "lopez_per_subject_vs_2l": 0.28535237129766405,
+      "lopez_mean_log_sigma": -3.0351548853495545,
+      "log_split_over_binomial_floor": 0.40516363873331723,
+      "n_trials": 7625,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "781896",
+      "gru_vs_lopez_2l": -0.09108944877147176,
+      "lopez_per_subject_vs_2l": -0.03429175705507985,
+      "lopez_mean_log_sigma": -2.8095071051895104,
+      "log_split_over_binomial_floor": 0.473368613553631,
+      "n_trials": 7995,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "781897",
+      "gru_vs_lopez_2l": -0.2988731065601745,
+      "lopez_per_subject_vs_2l": 0.2623627572613557,
+      "lopez_mean_log_sigma": -2.45660727431903,
+      "log_split_over_binomial_floor": 0.49756225753947136,
+      "n_trials": 7821,
+      "n_sessions": 18
+    },
+    {
+      "subject_id": "782394",
+      "gru_vs_lopez_2l": 0.19134466935076544,
+      "lopez_per_subject_vs_2l": -0.1564909092770835,
+      "lopez_mean_log_sigma": -2.8934081055237173,
+      "log_split_over_binomial_floor": 0.15051534699824587,
+      "n_trials": 5624,
+      "n_sessions": 10
+    },
+    {
+      "subject_id": "784956",
+      "gru_vs_lopez_2l": -0.07849833530074549,
+      "lopez_per_subject_vs_2l": 0.7082295764935673,
+      "lopez_mean_log_sigma": -2.61135766954847,
+      "log_split_over_binomial_floor": 0.4480855880073128,
+      "n_trials": 6589,
+      "n_sessions": 17
+    },
+    {
+      "subject_id": "785951",
+      "gru_vs_lopez_2l": -0.21013437123802647,
+      "lopez_per_subject_vs_2l": 0.07141505840753853,
+      "lopez_mean_log_sigma": -2.49445344355326,
+      "log_split_over_binomial_floor": 0.1585070320094281,
+      "n_trials": 4448,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "786234",
+      "gru_vs_lopez_2l": -0.18587297329576608,
+      "lopez_per_subject_vs_2l": 0.4550143776834853,
+      "lopez_mean_log_sigma": -2.851521234196358,
+      "log_split_over_binomial_floor": 0.08101130275404987,
+      "n_trials": 5762,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "787625",
+      "gru_vs_lopez_2l": 0.1527805285111699,
+      "lopez_per_subject_vs_2l": 0.08369118469588387,
+      "lopez_mean_log_sigma": -2.382868029851111,
+      "log_split_over_binomial_floor": 0.28050248348919626,
+      "n_trials": 3903,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "788732",
+      "gru_vs_lopez_2l": -0.36550275560129053,
+      "lopez_per_subject_vs_2l": 0.8591690977106283,
+      "lopez_mean_log_sigma": -2.5760903167857454,
+      "log_split_over_binomial_floor": 0.431069894501307,
+      "n_trials": 10471,
+      "n_sessions": 19
+    },
+    {
+      "subject_id": "788733",
+      "gru_vs_lopez_2l": -0.30708216799648613,
+      "lopez_per_subject_vs_2l": -0.37118402757173674,
+      "lopez_mean_log_sigma": -2.3772657440338403,
+      "log_split_over_binomial_floor": 0.24515635615423084,
+      "n_trials": 7940,
+      "n_sessions": 19
+    },
+    {
+      "subject_id": "790584",
+      "gru_vs_lopez_2l": -0.04019347770848765,
+      "lopez_per_subject_vs_2l": 1.2531254393904774,
+      "lopez_mean_log_sigma": -2.5649970739188053,
+      "log_split_over_binomial_floor": 0.5154852446636651,
+      "n_trials": 5018,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "790726",
+      "gru_vs_lopez_2l": -0.23225861498977024,
+      "lopez_per_subject_vs_2l": -0.12384773448224269,
+      "lopez_mean_log_sigma": -2.2021941938276126,
+      "log_split_over_binomial_floor": 0.04246671193978214,
+      "n_trials": 3542,
+      "n_sessions": 8
+    },
+    {
+      "subject_id": "790768",
+      "gru_vs_lopez_2l": 0.33385823725685293,
+      "lopez_per_subject_vs_2l": 0.40099876862282813,
+      "lopez_mean_log_sigma": -2.742711125308683,
+      "log_split_over_binomial_floor": 0.26308809603507094,
+      "n_trials": 13983,
+      "n_sessions": 26
+    },
+    {
+      "subject_id": "791174",
+      "gru_vs_lopez_2l": 0.4433950733844688,
+      "lopez_per_subject_vs_2l": -0.1656975227362762,
+      "lopez_mean_log_sigma": -2.829822502378074,
+      "log_split_over_binomial_floor": 0.5076731112006989,
+      "n_trials": 16918,
+      "n_sessions": 30
+    },
+    {
+      "subject_id": "793397",
+      "gru_vs_lopez_2l": 0.25187102171275494,
+      "lopez_per_subject_vs_2l": 0.288503083468708,
+      "lopez_mean_log_sigma": -2.6773852140377663,
+      "log_split_over_binomial_floor": 0.4003690412260914,
+      "n_trials": 9399,
+      "n_sessions": 18
+    },
+    {
+      "subject_id": "797673",
+      "gru_vs_lopez_2l": 0.052536587918953825,
+      "lopez_per_subject_vs_2l": 0.7465557966223347,
+      "lopez_mean_log_sigma": -2.435909693156201,
+      "log_split_over_binomial_floor": 0.2500815310883221,
+      "n_trials": 4912,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "798520",
+      "gru_vs_lopez_2l": -0.23607543032283385,
+      "lopez_per_subject_vs_2l": 0.1342793927866345,
+      "lopez_mean_log_sigma": -2.0736027447761884,
+      "log_split_over_binomial_floor": 0.5197901405892712,
+      "n_trials": 5980,
+      "n_sessions": 13
+    },
+    {
+      "subject_id": "798664",
+      "gru_vs_lopez_2l": -0.370898639845057,
+      "lopez_per_subject_vs_2l": 0.09422685420580128,
+      "lopez_mean_log_sigma": -2.5555796563357904,
+      "log_split_over_binomial_floor": 0.10917567572924049,
+      "n_trials": 3680,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "800175",
+      "gru_vs_lopez_2l": -0.1108977829290665,
+      "lopez_per_subject_vs_2l": 0.5235550925818963,
+      "lopez_mean_log_sigma": -2.5585336565044585,
+      "log_split_over_binomial_floor": 0.4687819882079113,
+      "n_trials": 8720,
+      "n_sessions": 18
+    },
+    {
+      "subject_id": "801996",
+      "gru_vs_lopez_2l": -0.37692776318248955,
+      "lopez_per_subject_vs_2l": 0.47606951550248017,
+      "lopez_mean_log_sigma": -2.7287060008100306,
+      "log_split_over_binomial_floor": 0.04185214831240052,
+      "n_trials": 3906,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "802292",
+      "gru_vs_lopez_2l": 0.1459277215607436,
+      "lopez_per_subject_vs_2l": -0.14534496154826573,
+      "lopez_mean_log_sigma": -2.51060420057893,
+      "log_split_over_binomial_floor": 0.5390341651029708,
+      "n_trials": 7885,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "802953",
+      "gru_vs_lopez_2l": -0.32029718135650787,
+      "lopez_per_subject_vs_2l": 0.0502820836571672,
+      "lopez_mean_log_sigma": -2.340325325924877,
+      "log_split_over_binomial_floor": 0.37161559069534716,
+      "n_trials": 4247,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "805496",
+      "gru_vs_lopez_2l": 0.0006365407463612208,
+      "lopez_per_subject_vs_2l": 0.014115224943693203,
+      "lopez_mean_log_sigma": -2.932228685551219,
+      "log_split_over_binomial_floor": 0.29920832666168734,
+      "n_trials": 5469,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "807885",
+      "gru_vs_lopez_2l": 0.17233702557742153,
+      "lopez_per_subject_vs_2l": 0.040572676812071745,
+      "lopez_mean_log_sigma": -2.787235657742914,
+      "log_split_over_binomial_floor": 0.15583765162580354,
+      "n_trials": 5589,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "808584",
+      "gru_vs_lopez_2l": 0.10048237547720658,
+      "lopez_per_subject_vs_2l": 0.5252782137439626,
+      "lopez_mean_log_sigma": -2.4180754991497326,
+      "log_split_over_binomial_floor": 0.5508184839033295,
+      "n_trials": 9057,
+      "n_sessions": 24
+    },
+    {
+      "subject_id": "809488",
+      "gru_vs_lopez_2l": -0.3198913242276116,
+      "lopez_per_subject_vs_2l": 0.22282961940263835,
+      "lopez_mean_log_sigma": -2.628361468825839,
+      "log_split_over_binomial_floor": 0.4789081783955085,
+      "n_trials": 7533,
+      "n_sessions": 17
+    },
+    {
+      "subject_id": "810756",
+      "gru_vs_lopez_2l": 0.250232336988348,
+      "lopez_per_subject_vs_2l": 0.621195439337508,
+      "lopez_mean_log_sigma": -2.478644877205267,
+      "log_split_over_binomial_floor": 0.43882652559895174,
+      "n_trials": 10320,
+      "n_sessions": 21
+    },
+    {
+      "subject_id": "810758",
+      "gru_vs_lopez_2l": -0.17964185534747779,
+      "lopez_per_subject_vs_2l": 0.02442699902536386,
+      "lopez_mean_log_sigma": -2.8128909293994133,
+      "log_split_over_binomial_floor": 0.09324747039374107,
+      "n_trials": 6453,
+      "n_sessions": 13
+    },
+    {
+      "subject_id": "812305",
+      "gru_vs_lopez_2l": 0.00839637034616591,
+      "lopez_per_subject_vs_2l": 0.6303385691528186,
+      "lopez_mean_log_sigma": -2.7525625130350915,
+      "log_split_over_binomial_floor": 0.3844136948388061,
+      "n_trials": 5541,
+      "n_sessions": 10
+    },
+    {
+      "subject_id": "812307",
+      "gru_vs_lopez_2l": -0.12119249206888791,
+      "lopez_per_subject_vs_2l": 0.4337523007576083,
+      "lopez_mean_log_sigma": -2.439741330060326,
+      "log_split_over_binomial_floor": 0.3455684347621289,
+      "n_trials": 8261,
+      "n_sessions": 16
+    },
+    {
+      "subject_id": "813165",
+      "gru_vs_lopez_2l": -0.119612479230017,
+      "lopez_per_subject_vs_2l": 0.141588010740655,
+      "lopez_mean_log_sigma": -2.27270806744423,
+      "log_split_over_binomial_floor": 0.35758153638717916,
+      "n_trials": 5287,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "813167",
+      "gru_vs_lopez_2l": -0.47294017092297275,
+      "lopez_per_subject_vs_2l": 0.07491143230696393,
+      "lopez_mean_log_sigma": -2.679845165325952,
+      "log_split_over_binomial_floor": 0.1788347725445774,
+      "n_trials": 7256,
+      "n_sessions": 19
+    },
+    {
+      "subject_id": "813171",
+      "gru_vs_lopez_2l": 0.22764666173964357,
+      "lopez_per_subject_vs_2l": 0.31727211184956705,
+      "lopez_mean_log_sigma": -2.5301288669088264,
+      "log_split_over_binomial_floor": 0.47194304986264346,
+      "n_trials": 5443,
+      "n_sessions": 17
+    },
+    {
+      "subject_id": "813992",
+      "gru_vs_lopez_2l": -0.40118607378205395,
+      "lopez_per_subject_vs_2l": 0.32571720304311613,
+      "lopez_mean_log_sigma": -2.5488407968458078,
+      "log_split_over_binomial_floor": 0.3092475178159145,
+      "n_trials": 8630,
+      "n_sessions": 23
+    },
+    {
+      "subject_id": "814147",
+      "gru_vs_lopez_2l": -0.0656500978390412,
+      "lopez_per_subject_vs_2l": 0.6605143045406139,
+      "lopez_mean_log_sigma": -2.5642096913445616,
+      "log_split_over_binomial_floor": 0.23891467590834087,
+      "n_trials": 5947,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "814196",
+      "gru_vs_lopez_2l": -0.1965506101949948,
+      "lopez_per_subject_vs_2l": 0.46184330775392274,
+      "lopez_mean_log_sigma": -2.2698989553978963,
+      "log_split_over_binomial_floor": 0.24417148574921532,
+      "n_trials": 2498,
+      "n_sessions": 5
+    },
+    {
+      "subject_id": "815334",
+      "gru_vs_lopez_2l": 0.1456899852722348,
+      "lopez_per_subject_vs_2l": 0.18847032586920456,
+      "lopez_mean_log_sigma": -2.3387064323678435,
+      "log_split_over_binomial_floor": 0.34388295992499107,
+      "n_trials": 8891,
+      "n_sessions": 22
+    },
+    {
+      "subject_id": "818020",
+      "gru_vs_lopez_2l": 0.052902500291143094,
+      "lopez_per_subject_vs_2l": 0.4270787863170782,
+      "lopez_mean_log_sigma": -2.3618767460476673,
+      "log_split_over_binomial_floor": 0.28629514278094814,
+      "n_trials": 2203,
+      "n_sessions": 6
+    },
+    {
+      "subject_id": "818585",
+      "gru_vs_lopez_2l": 0.4343556714520286,
+      "lopez_per_subject_vs_2l": 0.48152116960017377,
+      "lopez_mean_log_sigma": -2.401714115613738,
+      "log_split_over_binomial_floor": 0.27449073852375994,
+      "n_trials": 8742,
+      "n_sessions": 18
+    },
+    {
+      "subject_id": "818908",
+      "gru_vs_lopez_2l": 0.17886431789232035,
+      "lopez_per_subject_vs_2l": 0.16103093753131487,
+      "lopez_mean_log_sigma": -2.171697518307186,
+      "log_split_over_binomial_floor": 0.4183437297777649,
+      "n_trials": 6148,
+      "n_sessions": 20
+    },
+    {
+      "subject_id": "819169",
+      "gru_vs_lopez_2l": 0.1258146301308595,
+      "lopez_per_subject_vs_2l": 0.14804896261777498,
+      "lopez_mean_log_sigma": -2.730687690773289,
+      "log_split_over_binomial_floor": 0.22168459091558895,
+      "n_trials": 4608,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "821576",
+      "gru_vs_lopez_2l": -0.20219264173790708,
+      "lopez_per_subject_vs_2l": 0.5814103808824543,
+      "lopez_mean_log_sigma": -2.3980096971345524,
+      "log_split_over_binomial_floor": 0.3524485700066939,
+      "n_trials": 9932,
+      "n_sessions": 20
+    },
+    {
+      "subject_id": "823161",
+      "gru_vs_lopez_2l": 0.40685430334203443,
+      "lopez_per_subject_vs_2l": 0.558860778714174,
+      "lopez_mean_log_sigma": -2.4094023709370673,
+      "log_split_over_binomial_floor": 0.21273183319265707,
+      "n_trials": 5940,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "823163",
+      "gru_vs_lopez_2l": 0.20877939629098502,
+      "lopez_per_subject_vs_2l": 0.8624443488825249,
+      "lopez_mean_log_sigma": -2.664392834046564,
+      "log_split_over_binomial_floor": 0.2325995117137865,
+      "n_trials": 6765,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "823166",
+      "gru_vs_lopez_2l": 0.49999162899125205,
+      "lopez_per_subject_vs_2l": 0.49652097373629167,
+      "lopez_mean_log_sigma": -2.84490597319776,
+      "log_split_over_binomial_floor": 0.3001996107846876,
+      "n_trials": 11026,
+      "n_sessions": 22
+    },
+    {
+      "subject_id": "826160",
+      "gru_vs_lopez_2l": -0.33257068792242883,
+      "lopez_per_subject_vs_2l": 0.2110621441403688,
+      "lopez_mean_log_sigma": -2.514687860871994,
+      "log_split_over_binomial_floor": 0.25314010669650955,
+      "n_trials": 3849,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "829048",
+      "gru_vs_lopez_2l": 0.13610068232087238,
+      "lopez_per_subject_vs_2l": 0.4071270037530975,
+      "lopez_mean_log_sigma": -2.106272179118148,
+      "log_split_over_binomial_floor": 0.4797284504029773,
+      "n_trials": 2891,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "829489",
+      "gru_vs_lopez_2l": 0.4238455972048472,
+      "lopez_per_subject_vs_2l": 0.6273580537442102,
+      "lopez_mean_log_sigma": -2.705001142267086,
+      "log_split_over_binomial_floor": 0.4131779359797034,
+      "n_trials": 7643,
+      "n_sessions": 20
+    },
+    {
+      "subject_id": "829569",
+      "gru_vs_lopez_2l": 0.4791035601181965,
+      "lopez_per_subject_vs_2l": 0.4682531841901949,
+      "lopez_mean_log_sigma": -2.343100145009685,
+      "log_split_over_binomial_floor": 0.6708047249816633,
+      "n_trials": 5000,
+      "n_sessions": 11
+    },
+    {
+      "subject_id": "832634",
+      "gru_vs_lopez_2l": -0.04067026512747617,
+      "lopez_per_subject_vs_2l": 0.32318737916074736,
+      "lopez_mean_log_sigma": -2.527005040645179,
+      "log_split_over_binomial_floor": 0.6161615197570531,
+      "n_trials": 3960,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "835178",
+      "gru_vs_lopez_2l": 0.0017129893750553946,
+      "lopez_per_subject_vs_2l": 0.29308535284382703,
+      "lopez_mean_log_sigma": -2.521393822200946,
+      "log_split_over_binomial_floor": 0.26834034357752334,
+      "n_trials": 3459,
+      "n_sessions": 13
+    },
+    {
+      "subject_id": "835444",
+      "gru_vs_lopez_2l": 0.17976507587895213,
+      "lopez_per_subject_vs_2l": 0.5266751655197626,
+      "lopez_mean_log_sigma": -2.4048912690098354,
+      "log_split_over_binomial_floor": 0.38626155577245774,
+      "n_trials": 5218,
+      "n_sessions": 10
+    },
+    {
+      "subject_id": "836656",
+      "gru_vs_lopez_2l": -0.11383111730115256,
+      "lopez_per_subject_vs_2l": 0.22816893326088614,
+      "lopez_mean_log_sigma": -2.36218327077846,
+      "log_split_over_binomial_floor": 0.20276140939790624,
+      "n_trials": 2773,
+      "n_sessions": 5
+    },
+    {
+      "subject_id": "836657",
+      "gru_vs_lopez_2l": -0.29168876704917546,
+      "lopez_per_subject_vs_2l": 0.38964998300551906,
+      "lopez_mean_log_sigma": -2.4945624278986527,
+      "log_split_over_binomial_floor": 0.2640338967045403,
+      "n_trials": 5065,
+      "n_sessions": 9
+    },
+    {
+      "subject_id": "837689",
+      "gru_vs_lopez_2l": 0.1833024441444578,
+      "lopez_per_subject_vs_2l": 0.40335285480059413,
+      "lopez_mean_log_sigma": -2.4413630263239576,
+      "log_split_over_binomial_floor": 0.417389342499094,
+      "n_trials": 2915,
+      "n_sessions": 7
+    },
+    {
+      "subject_id": "838101",
+      "gru_vs_lopez_2l": -0.04386611248501926,
+      "lopez_per_subject_vs_2l": 0.4769778973132941,
+      "lopez_mean_log_sigma": -2.238117093376237,
+      "log_split_over_binomial_floor": 0.4087231633890756,
+      "n_trials": 5821,
+      "n_sessions": 10
+    },
+    {
+      "subject_id": "838332",
+      "gru_vs_lopez_2l": 0.07307078762208052,
+      "lopez_per_subject_vs_2l": 0.4118676124960703,
+      "lopez_mean_log_sigma": -2.5307046692703152,
+      "log_split_over_binomial_floor": 0.32676785757490484,
+      "n_trials": 6039,
+      "n_sessions": 12
+    },
+    {
+      "subject_id": "839483",
+      "gru_vs_lopez_2l": -0.3094894061000216,
+      "lopez_per_subject_vs_2l": 0.31008686768246274,
+      "lopez_mean_log_sigma": -2.4681124236922787,
+      "log_split_over_binomial_floor": 0.3374542751831462,
+      "n_trials": 6628,
+      "n_sessions": 13
+    },
+    {
+      "subject_id": "841356",
+      "gru_vs_lopez_2l": 0.018410049369247658,
+      "lopez_per_subject_vs_2l": 0.4528344216355772,
+      "lopez_mean_log_sigma": -2.2939354848465383,
+      "log_split_over_binomial_floor": 0.2895637057058297,
+      "n_trials": 7456,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "841363",
+      "gru_vs_lopez_2l": -0.11179737027139164,
+      "lopez_per_subject_vs_2l": -0.26166126471730927,
+      "lopez_mean_log_sigma": -2.8947095991545915,
+      "log_split_over_binomial_floor": 0.2975743035245313,
+      "n_trials": 6966,
+      "n_sessions": 14
+    },
+    {
+      "subject_id": "841599",
+      "gru_vs_lopez_2l": 0.11965060525000458,
+      "lopez_per_subject_vs_2l": 0.1771874913493599,
+      "lopez_mean_log_sigma": -2.5838141152454885,
+      "log_split_over_binomial_floor": 0.38317231088457804,
+      "n_trials": 7082,
+      "n_sessions": 15
+    },
+    {
+      "subject_id": "845710",
+      "gru_vs_lopez_2l": 0.2685893939141846,
+      "lopez_per_subject_vs_2l": 0.8699094585791711,
+      "lopez_mean_log_sigma": -2.690082417505749,
+      "log_split_over_binomial_floor": 0.6013339797210341,
+      "n_trials": 3522,
+      "n_sessions": 7
+    },
+    {
+      "subject_id": "850597",
+      "gru_vs_lopez_2l": -0.08048856011094893,
+      "lopez_per_subject_vs_2l": 0.2010578688997954,
+      "lopez_mean_log_sigma": -2.372022781247068,
+      "log_split_over_binomial_floor": 0.33698658487940736,
+      "n_trials": 3155,
+      "n_sessions": 8
+    }
+  ]
+}

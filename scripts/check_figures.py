@@ -2,7 +2,7 @@
 """Every study figure is an editable, paper-style SVG (studies/util/figure_style.py).
 
 For each study not listed in LEGACY_STUDIES, every figure it commits (tracked or new, not
-gitignored; launch_record/ and reference/ excluded) must be an SVG that passes
+gitignored; launch_record/, reference/ and screenshots/ excluded) must be an SVG that passes
 studies/util/figure_audit.py: text kept as Arial <text>, no label split into per-letter
 <tspan>s, and the paper limits (5-8 pt text, at most 183 mm wide), or the slide limits for
 figures under a slides/ directory. Raster or PDF figures (.png, .jpg, .gif, .pdf,
@@ -33,7 +33,8 @@ LEGACY_STUDIES = {
     "09-gru-cross-species-transfer", "10-gru-reservoir-ablation", "11-disrnn-near-gru-ceiling",
 }
 RASTER = {".png", ".jpg", ".jpeg", ".gif", ".pdf", ".eps", ".tif", ".tiff", ".webp"}
-EXCLUDED_DIRS = {"launch_record", "reference"}
+# screenshots/ holds pictures of a tool (e.g. a web UI), not figures drawn by code: PNG is fine there.
+EXCLUDED_DIRS = {"launch_record", "reference", "screenshots"}
 
 
 def study_files(study: Path) -> list[Path]:

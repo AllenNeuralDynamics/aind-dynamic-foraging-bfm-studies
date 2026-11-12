@@ -24,9 +24,12 @@ Setting ``global_p0_m1`` (every trial, global Viterbi) is the first version of r
 
 A SLURM array (``freeze_r3.sbatch``) runs one K-grid run per task and writes a part per run to
 ``R3_PARTS``: the record (JSON) and every setting's float32 weights plus the refit weights
-(npz). ``R3_SCORE=1`` then scores each part with the producer's own functions (cluster scores
-and plotted coordinates of every setting, on the weights rounded as committed), and
-``R3_MERGE=1`` writes ``frozen_r3.json`` and its npz files from the parts. Needs the
+(npz). ``R3_SCORE=1`` then scores each part with ``r3_scores.py``, shared with the producer
+(cluster scores and plotted coordinates of every setting, on the weights rounded to float16 as
+archived), and
+``R3_MERGE=1`` writes ``frozen_r3.json`` and ``frozen_r3_figure.npz`` (committed) and the
+archive's npz files (``_cache_r3/``, see ``write_outputs``) from the parts; ``archive_r3.py``
+then puts the parts and those files in a W&B artifact. Needs the
 /allen mount and the snapshot, so it runs on an HPC compute node:
 
     WRAPPER_ROOT=<wrapper checkout> DISPATCHER_ROOT=<dispatcher checkout> \\
@@ -421,18 +424,18 @@ def freeze_run(run, round2_run, cohorts, subject_index):
 
 
 def committed(w):
-    """Weights as the repository keeps them (float16), back in float64 for scoring."""
+    """Weights as the archive keeps them (float16), back in float64 for scoring."""
     return np.asarray(w).astype(np.float16).astype(np.float64)
 
 
 def score_part(stem):
     """Cluster scores and plotted coordinates of every setting of one part.
 
-    Uses the producer's own score functions on the weights rounded as committed. States are
+    Uses ``r3_scores`` (shared with the producer) on the weights rounded as committed. States are
     ranked by the anchor setting's trials (state 1 = most used), so a state keeps its rank and
     colour in every setting; the plotted axes are PC1-3 of the anchor's training cells.
     """
-    import r3_state_spread as P
+    import r3_scores as P
 
     part = json.loads(stem.with_suffix(".json").read_text())
     arrays = np.load(stem.with_suffix(".npz"))
@@ -473,17 +476,22 @@ def score_part(stem):
 
 
 def write_outputs(out_dir, parts, runs, round2_runs):
-    """frozen_r3.json and the npz files, from every part and its scores.
+    """frozen_r3.json and frozen_r3_figure.npz (committed), and the archive's npz files.
 
-    Files (float16 weights and coordinates keep each under the repository's 10 MiB cap; the
-    float32 parts stay on /allen):
+    Committed (the report reads only these): ``frozen_r3.json`` (scores, checks, metadata) and
+    ``frozen_r3_figure.npz`` (the uncut global setting's cells per K: subject, state, trials,
+    PC1-3, float16), for the scatter figures.
+
+    Archived, not committed (``archive_r3.py`` puts them and the float32 parts in a W&B
+    artifact; ``explorer_r3.py`` reads them), written to ``_cache_r3/`` with their sha256 in
+    ``frozen_r3.json``:
     - ``frozen_r3_cells_<emission>_<labelling>.npz``: every cut's cells per K (subject, state,
       trial counts) and their plotted coordinates (PC1-3, then the six named weights);
     - ``frozen_r3_weights_<emission>_<labelling>.npz``: full weights of the labelling's
       uncut setting (p = 0, m = 1), in the cells file's order;
     - ``frozen_r3_refits_<emission>.npz``: every mouse's round-2 refit (weights, transitions).
     """
-    import r3_state_spread as P
+    import r3_scores as P
 
     files, frozen, subjects = {}, [], None
     for stem in sorted(parts):
@@ -503,6 +511,11 @@ def write_outputs(out_dir, parts, runs, round2_runs):
             for n in ("n_trials", "n_engaged", "n_sessions"):
                 kind[f"K{K}_{key}_{n}"] = np.asarray(c[n], np.int32)
             kind[f"K{K}_{key}_coords"] = coords[key].astype(np.float16)
+            if key == ANCHOR:
+                figure = files.setdefault("figure", {})
+                for n in ("subject", "state", "n_trials"):
+                    figure[f"{emission}_K{K}_{n}"] = kind[f"K{K}_{key}_{n}"]
+                figure[f"{emission}_K{K}_pc"] = coords[key][:, :N_PCS].astype(np.float16)
             entry["n_cells_frozen"] = len(c["state"])
             entry["scores"] = scored["scores"][key]
             if entry["posterior_min"] == 0.0 and entry["run_min"] == 1:
@@ -513,11 +526,16 @@ def write_outputs(out_dir, parts, runs, round2_runs):
         refits[f"K{K}_A"] = arrays["refit_A"].astype(np.float16)
         record.update({k: scored[k] for k in ("state_rank", "pca_variance_share", "pca_mean", "pca_axes")})
         frozen.append(record)
-    paths = []
+    cache = out_dir / "_cache_r3"
+    cache.mkdir(exist_ok=True)
+    archived = {}
     for name, content in sorted(files.items()):
-        path = out_dir / f"frozen_r3_{name}.npz"
+        path = (out_dir if name == "figure" else cache) / f"frozen_r3_{name}.npz"
         np.savez_compressed(path, **content)
-        paths.append(path)
+        if name == "figure":
+            figure_path = path
+        else:
+            archived[path.name] = sha256(path)
     snapshot, build_id = snapshot_source()     # refuses a snapshot other than the runs read
     sources = [snapshot]
     for run in [*runs.values(), *round2_runs]:
@@ -542,11 +560,12 @@ def write_outputs(out_dir, parts, runs, round2_runs):
                  "anchor": ANCHOR, "prior_sigma": PRIOR_SIGMA, "newton_steps": NEWTON_STEPS,
                  "min_frozen_trials": MIN_FROZEN_TRIALS, "min_scored_trials": P.MIN_TRIALS,
                  "coords": f"PC1-{N_PCS} of the anchor's training cells (>= {P.MIN_TRIALS} trials), "
-                           "then the six named weights of the producer's named_features"},
+                           "then the six named weights of r3_scores.named_features",
+                 "archive_files": archived},
         "subjects": subjects,
         "runs": sorted(frozen, key=lambda r: (r["emission"], r["num_states"])),
-    }, outputs=paths)
-    print(f"wrote {out_dir / OUT.name} and {[p.name for p in paths]}")
+    }, outputs=[figure_path])
+    print(f"wrote {out_dir / OUT.name}, {figure_path.name}, and {sorted(archived)} in {cache}")
 
 
 def main():

@@ -60,16 +60,26 @@
   before launch. Launched as `refit-prior@20261101-130226`.
 - r2 (draft): `freeze_round2.py` and `r2_refit_prior.py`, the round-2 report: selection over
   the 320 refit-prior cells plus round 1's refit, held-out scores against no refit and the GRU.
-
 - r3 (draft, #70; numbered r2 before the refit-prior report took r2): how each state spreads
   across subjects. `freeze_r3.py` fits one GLM per {subject, state} (prior SD 2) for the
   held-out and training mice under 18 settings: trials labelled by the Viterbi path of the
   global fit or of each mouse's round-2 refit (r2's pick at that K, recomputed; it reproduces
   r2's saved held-out refits), times nine cuts on the state's smoothed posterior (≥ 0.8, 0.95)
   and same-state run length (≥ 10, 30 trials). A 20-task SLURM array fits and scores one K-grid
-  run per task (the producer's own score functions); the merge writes cells and plotted
-  coordinates, the uncut settings' float16 weights and the refits as `.npz`, each under the
-  10 MiB cap; the float32 parts stay on `/allen`. `r3_state_spread.py` reports the uncut
-  global setting (cluster scores vs K against a within-mouse label-shuffle null, η² by state
-  and by subject, k-means ARI), the cuts, and the refit checks; its interactive page loads
-  each setting on demand. Q-learning parameters are deferred.
+  run per task (`r3_scores.py`, shared with the producer). The repository keeps 3 MB:
+  `frozen_r3.json` (scores, checks) and `frozen_r3_figure.npz`. The float32 parts and the merged
+  npz (cells, uncut weights, refits; about 520 MB) are the W&B artifact
+  `AIND-disRNN/mice_glmhmm/study14-r3-freeze:v0`, recorded with digest and sha256 in
+  `archives_r3.json` (`archive_r3.py`, study 40's pattern). `r3_state_spread.py` reports the
+  uncut global setting (cluster scores vs K against a within-mouse label-shuffle null, η² by
+  state and by subject, k-means ARI), the cuts, and the refit checks; `explorer_r3.py`
+  (`make r3-explorer`) downloads the archive and builds the git-ignored interactive page.
+  Q-learning parameters are deferred.
+
+## 2026-11-11
+
+- Metadata (#139): `status: active` and a verdict from the draft reports; the README Verdict no longer
+  says nothing has launched.
+- Note from study 30 (#136): the saved `filtered_k` posterior includes trial t. The scores here use the
+  one-step predictive (`filtered_{t−1}·A`), so no number changes; reuse of the saved posteriors as a
+  prediction must shift them.

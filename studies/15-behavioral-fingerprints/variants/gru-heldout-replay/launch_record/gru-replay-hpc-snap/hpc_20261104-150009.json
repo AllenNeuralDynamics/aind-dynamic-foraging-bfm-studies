@@ -1,0 +1,57 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "variants/gru-heldout-replay/launch_hpc.py",
+    "produced_at_pt": "2026-11-04T15:00:13-08:00",
+    "studies_git_sha": "b1d25bf79645aa7e53d6ba19c6e14f2e7c74a3ea",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "gru-heldout-replay@20261104-150009"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): gru-heldout-replay@20261104-150009"
+    ]
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "gru-heldout-replay@20261104-150009",
+  "label": "gru-replay-hpc-snap",
+  "note": "Study 15 P1: GRU held-out replay (study 01 v1 D=614, 3 seeds) relaunched with the held-out selectors pinned to snapshot 20260603. The first HPC launch re-selected the cohort from the live database (162 subjects, 67 in the freeze's 149); this one must score exactly the freeze's 149 and reproduce study 01 r2 per subject.",
+  "revisions": {
+    "studies": "b1d25bf79645aa7e53d6ba19c6e14f2e7c74a3ea",
+    "dispatcher": "68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "286692dd076fe6203c0fcf096c06fe37552e49da"
+  },
+  "manifests": [
+    "run_hpc.sbatch",
+    "heldout_offline.yaml",
+    "launch_hpc.py"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_array_job",
+      "id": "27621304"
+    }
+  ],
+  "command": "sbatch --parsable --export=ALL,WRAPPER=/home/han.hou/code/wt/wrapper-5affee5,MODELS=/home/han.hou/code/wt/models-fp-main,CONFIG=/home/han.hou/code/wt/studies-15-gru/studies/15-behavioral-fingerprints/variants/gru-heldout-replay/heldout_offline.yaml,PRIOR_ROOT=/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/prior,OUT_ROOT=/allen/aind/scratch/han.hou/outputs/study15/gru-heldout-replay/hpc/20261104-150009,PATH=/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu/bin:/usr/bin:/bin -J s15-gru-replay -o /allen/aind/scratch/han.hou/tmp/s15/logs/gru_replay_%A_%a.log /home/han.hou/code/wt/studies-15-gru/studies/15-behavioral-fingerprints/variants/gru-heldout-replay/run_hpc.sbatch",
+  "n_tasks": 3,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "e54987cb7fc9803db018af3f77ca9be62b4cbdaa7b3517c1cc525a6f509d9e56"
+  }
+}

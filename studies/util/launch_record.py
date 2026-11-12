@@ -1,4 +1,5 @@
-"""Schema + writer for INTERVENTION launch records (all studies).
+"""Schema + writers for launch records (all studies): interventions, and initial records for runs
+no dispatcher launcher submits (MEvolve, see :func:`write_initial`).
 
 WHY THIS EXISTS. A study's *first* launch is well instrumented: the launchers write
 `launch_record/beaker_resumable.json` with a fixed schema, and stamp the portable `meta.*` fields into each W&B run config.
@@ -60,6 +61,7 @@ Times are Seattle per AGENTS.md section 7.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -261,6 +263,169 @@ def write_intervention(
     return record
 
 
+def conda_image(prefix: Path | str) -> dict:
+    """The launch record's HPC ``image`` for a conda env, digested as the dispatcher's launcher
+    does (``image_record_hpc`` in the dispatcher's ``code/launch_inputs.py``): sha256 over the
+    sorted conda package filenames in ``conda-meta`` and then the sorted pip ``*.dist-info`` names
+    in each site-packages, so it changes when any installed version does."""
+    prefix = Path(prefix).expanduser().resolve()
+    site_packages = sorted(prefix.glob("lib/python*/site-packages"))
+    if not site_packages:
+        raise ValueError(f"{prefix} has no lib/python*/site-packages; is it a conda env prefix?")
+    names = sorted(p.name for p in (prefix / "conda-meta").glob("*.json"))
+    names += sorted(p.name for sp in site_packages for p in sp.glob("*.dist-info"))
+    return {"platform": "hpc", "conda_env": str(prefix),
+            "lock_sha256": hashlib.sha256("\n".join(names).encode()).hexdigest()}
+
+
+_SHA = re.compile(r"^[0-9a-f]{40}$")
+
+
+def write_initial(
+    path: Path | str,
+    *,
+    platform: str,
+    wandb_group: str,
+    study_root: Path | str,
+    label: str,
+    note: str,
+    job_refs: list[dict[str, str]],
+    revisions: dict[str, str],
+    manifests: list[str],
+    data: dict[str, Any],
+    image: dict[str, Any],
+    recorded_after_launch: bool = False,
+    command: str | None = None,
+    n_tasks: int | None = None,
+    produced_by: str = "launch_record.write_initial",
+) -> dict:
+    """Write the v2 initial record of a launch no dispatcher launcher wrote, and return it.
+
+    For runs of tools outside the dispatcher, such as MEvolve (study 12's 2-level EM scoring,
+    study 40's searches): ``revisions`` names ``studies`` and ``mevolve`` (full SHAs) and need not
+    name the dispatcher or the wrapper; ``data`` may be ``{"source": "freeze", ...}`` with the
+    freeze's snapshot id, path (``uri``), manifest sha256 and the data config it was built from.
+
+    Args:
+        path: destination JSON under the variant's ``launch_record/``.
+        platform: ``"beaker"`` or ``"hpc"``.
+        wandb_group: ``<variant>@<launch_id>``; the prefix must be the variant's directory name.
+        study_root: ``studies/<study>/``, for ``_meta``.
+        label, note: the launch's label and why it exists (at least 10 characters).
+        job_refs: typed handles, e.g. ``[{"type": "slurm_job", "id": "27567407"}]``.
+        revisions: repo -> full SHA; ``studies`` plus either ``dispatcher`` and ``wrapper`` or
+            ``mevolve``.
+        manifests: variant-relative paths of what was submitted (e.g. the sbatch script with its
+            command-line arguments); each must exist, and is copied beside the record as the
+            launch's snapshot. Several launches in one variant (one per model, say) each need
+            their own subdirectory of ``launch_record/``.
+        data, image: what the run read and ran in (studies#25); both required.
+        recorded_after_launch: True when written after submission from the launch facts kept in
+            the variant's notes; stored as ``_meta.recorded_after_launch``. The manifests are then
+            snapshotted from git at ``revisions["studies"]``, not from the working copy.
+        command: the exact command line submitted, when the manifest alone does not carry its
+            arguments (e.g. ``sbatch --array=0-17 run_2level.sbatch``).
+
+    Raises:
+        ValueError: on a bad platform, ref, group prefix, SHA, note, missing manifest, missing
+            ``data``/``image``, or a second initial record for the same group.
+    """
+    if platform not in ("beaker", "hpc"):
+        raise ValueError(f'an initial launch runs on "beaker" or "hpc", not {platform!r}')
+    allowed = {"beaker": {"beaker_experiment"}, "hpc": {"wandb_sweep", "slurm_array_job", "slurm_job"}}[platform]
+    job_refs = [dict(r) for r in job_refs or []]
+    if not job_refs:
+        raise ValueError("job_refs is empty; an initial launch submitted something")
+    for r in job_refs:
+        if r.get("type") not in allowed or not r.get("id"):
+            raise ValueError(f"job_ref {r!r} not valid for platform {platform!r}; expected type in {sorted(allowed)} and an id")
+    revisions = dict(revisions or {})
+    bad = {k: v for k, v in revisions.items() if not _SHA.match(str(v))}
+    if bad:
+        raise ValueError(f"revisions must be full 40-character SHAs: {bad}")
+    if "studies" not in revisions or not ({"dispatcher", "wrapper"} <= revisions.keys() or "mevolve" in revisions):
+        raise ValueError("revisions needs studies, plus dispatcher and wrapper or mevolve "
+                         "(schemas/launch-record.v2.schema.json)")
+    if not note or len(note.strip()) < 10:
+        raise ValueError("note must say why this launch exists (at least 10 characters)")
+    if not data or not image:
+        raise ValueError("data and image are required: what the run read and the environment it ran in (studies#25)")
+
+    path = Path(path).resolve()
+    if path.exists():
+        raise ValueError(f"{path} already exists; a launch record is never overwritten")
+    launch_dir = _launch_record_root(path)
+    variant_dir = launch_dir.parent
+    if wandb_group.split("@")[0] != variant_dir.name:
+        raise ValueError(f"group {wandb_group} must start with {variant_dir.name}@ (docs/adr/0001)")
+    try:
+        _initial_launch(launch_dir, wandb_group)
+    except ValueError:
+        pass
+    else:
+        raise ValueError(f"{wandb_group} already has an initial launch record; a later action is an intervention")
+    if (image or {}).get("platform") != platform:
+        raise ValueError(f"image describes {(image or {}).get('platform')!r}, but the launch ran on {platform!r}")
+    if not manifests:
+        raise ValueError("manifests is empty; a record must name what it submitted")
+    names = [Path(m).name for m in manifests]
+    if len(set(names)) != len(names):     # snapshots are stored by file name beside the record
+        raise ValueError(f"manifests {list(manifests)} share a file name; rename one so each "
+                         "snapshot beside the record is distinct")
+    snapshots = {}
+    for m in manifests:
+        if Path(m).suffix == ".json":   # a JSON snapshot in launch_record/ would read as a record
+            raise ValueError(f"manifest {m} is JSON; submit YAML or a script, which cannot be "
+                             "mistaken for a launch record")
+        if not recorded_after_launch and not (variant_dir / m).exists():
+            raise ValueError(f"manifest {m} not found in {variant_dir}; commit it beside the record")
+        if recorded_after_launch:      # the working copy may have changed since the submission
+            text = _text_at_commit(variant_dir / m, revisions["studies"])
+            if text is None:
+                raise ValueError(f"manifest {m} is not at studies {revisions['studies']}; a record "
+                                 "written after launch snapshots what was committed when it ran")
+        else:
+            text = (variant_dir / m).read_text()
+        snap = path.parent / Path(m).name
+        if snap.exists() and snap.read_text() != text:
+            raise ValueError(f"{snap} already holds a different manifest; write each launch's record "
+                             "in its own subdirectory of launch_record/")
+        if snap != (variant_dir / m).resolve():
+            snapshots[snap] = text
+
+    meta = build_meta(produced_by, [wandb_group], study_root=study_root)
+    record = {
+        "_meta": {"schema_version": 2, **meta,
+                  **({"recorded_after_launch": True} if recorded_after_launch else {})},
+        "kind": "initial",
+        "platform": platform,
+        "wandb_group": wandb_group,
+        "label": label,
+        "note": note,
+        "revisions": revisions,
+        "manifests": list(manifests),
+        "job_refs": job_refs,
+        **({"command": command} if command else {}),
+        **({"n_tasks": n_tasks} if n_tasks is not None else {}),
+        "data": dict(data),
+        "image": dict(image),
+    }
+    from jsonschema import Draft202012Validator   # dev requirement, as for scripts/check_provenance.py
+    schema = json.loads((Path(__file__).resolve().parents[2] / "schemas" / "launch-record.v2.schema.json").read_text())
+    errors = sorted(f"{'/'.join(map(str, e.absolute_path)) or '<record>'}: {e.message}"
+                    for e in Draft202012Validator(schema).iter_errors(record))
+    if errors:
+        raise ValueError("the record does not match schemas/launch-record.v2.schema.json: " + "; ".join(errors))
+    # snapshot each manifest beside the record, as the dispatcher launchers do, so a later
+    # intervention compares against what was submitted even if the variant's copy changes;
+    # written only once the record is known to be valid
+    path.parent.mkdir(parents=True, exist_ok=True)
+    for snap, text in snapshots.items():
+        snap.write_text(text)
+    path.write_text(json.dumps(record, indent=2) + "\n")
+    return record
+
+
 def _launch_record_root(path: Path) -> Path:
     """The variant's launch_record/ directory that ``path`` lives in (subdirectories allowed)."""
     for parent in [path.parent, *path.parent.parents]:
@@ -286,6 +451,22 @@ def _initial_launch(launch_dir: Path, wandb_group: str) -> dict:
 
 
 _OVERRIDE = re.compile(r"^[+~]*([A-Za-z_][\w.]*)=(.*)$")
+
+
+def _manifest_keys(name: str, text: str) -> dict[str, Any]:
+    """A manifest's keys for the diff: YAML or JSON flattened; any other file (an sbatch script
+    for a MEvolve run) is one key, ``script``, so any edit to it must be declared, plus one key
+    per Hydra-style override token in it (``script.=model.training.n_steps``), so declaring the
+    script edit cannot slip a step-budget change past the extend-only rule."""
+    if Path(name).suffix in (".yaml", ".yml", ".json"):
+        return _flatten(yaml.safe_load(text) or {})
+    keys: dict[str, Any] = {"script": text}
+    for token in text.split():
+        token = token.strip("'\"")             # a quoted override is still an override
+        m = _OVERRIDE.match(token)
+        if m:                                   # a repeated key keeps every value, in order
+            keys[f"script.={m[1]}"] = keys.get(f"script.={m[1]}", ()) + (token,)
+    return keys
 
 
 def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:
@@ -314,6 +495,20 @@ def _flatten(obj: Any, prefix: str = "") -> dict[str, Any]:
 _EXTEND_ONLY = ("n_steps",)
 
 
+def _text_at_commit(path: Path, sha: str) -> str | None:
+    """``path``'s text in the studies repo at commit ``sha``, or None if git cannot show it."""
+    # run git from the nearest directory that still exists: the manifest's own may be gone
+    here = next((d for d in path.resolve().parents if d.is_dir()), Path("/"))
+    try:
+        top = subprocess.run(["git", "-C", str(here), "rev-parse", "--show-toplevel"],
+                             capture_output=True, text=True, check=True).stdout.strip()
+        rel = path.resolve().relative_to(Path(top).resolve()).as_posix()
+        return subprocess.run(["git", "-C", top, "show", f"{sha}:{rel}"],
+                              capture_output=True, text=True, check=True).stdout
+    except (subprocess.CalledProcessError, ValueError, OSError):
+        return None
+
+
 def _launch_manifest_text(name: str, initial: dict, variant_dir: Path) -> str:
     """The launch's manifest as submitted: its immutable snapshot beside the launch record,
     else the file at the launch's studies commit. Never the variant's current file, which
@@ -323,15 +518,9 @@ def _launch_manifest_text(name: str, initial: dict, variant_dir: Path) -> str:
         return snap.read_text()
     sha = (initial.get("revisions") or {}).get("studies")
     if sha:
-        target = (variant_dir / name).resolve()
-        try:
-            top = subprocess.run(["git", "-C", str(variant_dir), "rev-parse", "--show-toplevel"],
-                                 capture_output=True, text=True, check=True).stdout.strip()
-            rel = target.relative_to(Path(top).resolve()).as_posix()
-            return subprocess.run(["git", "-C", top, "show", f"{sha}:{rel}"],
-                                  capture_output=True, text=True, check=True).stdout
-        except (subprocess.CalledProcessError, ValueError, OSError):
-            pass
+        text = _text_at_commit(variant_dir / name, sha)
+        if text is not None:
+            return text
     raise ValueError(f"cannot recover the launch's {name} (no snapshot beside its record, and not "
                      f"at studies {sha or '<no revision>'}); refusing to compare against a file "
                      "that may have changed since the launch")
@@ -368,8 +557,8 @@ def _check_manifest_diff(variant_dir: Path, initial: dict, kind: str,
         if Path(name).name not in launch:
             raise ValueError(f"{name} matches none of the launch's manifests {sorted(launch.values())}; "
                              "a different spec is a new launch (docs/adr/0001)")
-        a = _flatten(yaml.safe_load(_launch_manifest_text(launch[Path(name).name], initial, variant_dir)) or {})
-        b = _flatten(yaml.safe_load(new.read_text()) or {})
+        a = _manifest_keys(name, _launch_manifest_text(launch[Path(name).name], initial, variant_dir))
+        b = _manifest_keys(name, new.read_text())
         changed = sorted(k for k in a.keys() | b.keys() if a.get(k, missing) != b.get(k, missing))
         covered = lambda k: any(k == d or k.startswith(d + ".") for d in declared)
         undeclared = [k for k in changed if not covered(k)]

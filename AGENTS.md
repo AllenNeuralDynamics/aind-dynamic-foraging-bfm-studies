@@ -34,6 +34,10 @@ the links give detail, they do not replace the rules.
 
 - Every tracked change starts with an assigned GitHub issue on project 184
   (`AIND-behavior-fm`). File first, then work.
+- **One W&B project per study, in entity `NeuralDynamics`, named `dfbfm_NN-name`** (e.g.
+  `dfbfm_12-leaderboard`; a harness uses `dfbfm-name`, e.g. `dfbfm-mevolve`). Plain characters
+  only: no brackets or spaces, which Hydra and shell quoting break. Never put a new study in the
+  shared `aind-dynamic-foraging-model` project. Runs already logged elsewhere stay where they are.
 - One scientific question per `studies/NN-{model}-{purpose}/`; conditions are
   self-contained variants under `variants/<variant>/`, not new studies. `NN` is an
   accession number: never renumber or reuse one.
@@ -59,6 +63,8 @@ the links give detail, they do not replace the rules.
   `fs.save_figure(fig, ...svg)`, which refuses text that Illustrator cannot edit. No PNG/PDF
   figures. Reports embed the paper style; a slide version (`fs.apply_slide_style()`,
   `style="slide"`) goes under `analysis/slides/`. `make validate` and CI run `scripts/check_figures.py`; studies 01–11 are exempt until redrawn (#44).
+  The rule is for figures drawn by code: a screenshot of a tool (for example a web UI) is a PNG under
+  `analysis/screenshots/`, with a README naming what it shows and how it was taken.
 - **Session plots use the lab's utility, and sides have one colour.** Draw a foraging session
   (choices, rewards, block reward probabilities) with `plot_foraging_session` from
   `aind_dynamic_foraging_basic_analysis.plot.plot_foraging_session`, onto an axis of the paper

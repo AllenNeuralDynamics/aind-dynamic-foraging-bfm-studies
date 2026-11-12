@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_p1_agent_check.py",
+    "produced_at_pt": "2026-11-04T13:49:46-08:00",
+    "studies_git_sha": "23a21d007652f46a364cfe403ddde2614ee2856b",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_agent_check.py",
+        "sha256": "4a043b7a0da0129288f7e743c8edd3637c873e96899c736e2ff6caa62faddb17"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p0_golden_mevolve.py",
+        "sha256": "f59813c335951894ff95c46fa004d98d3e7e57b6d4200bfe02160cbec3408fed"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_glm.py",
+        "sha256": "67364fad68579deff26c5d4aa5886ef4c4b3884b07bd1297bfbc21fe10921d60"
+      },
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/freeze_p1_replay.py",
+        "sha256": "fa770742af34904e892053daa40f904a8423c4737426ea15132bbf7475ff7a3d"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/cross_study_literature.py",
+        "sha256": "112514978d87c6d7fe15804ef570cbef9aa4de880ed7a75d8a5c5e95df52fb4e"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_glm.json",
+        "sha256": "1b25d1427a004119a77a975797e0897f4a9da48db0aeef8c6f72abd794dd0131"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      }
+    ],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/15-behavioral-fingerprints/analysis/p1_agent_check.json",
+        "sha256": "63701586ecddba19442a21e1d4a1f6fb1a18e1c56e3cbe4db336b35856eefb9a"
+      }
+    ]
+  },
+  "fingerprints_library": {
+    "repo": "AllenNeuralDynamics/aind-dynamic-foraging-models",
+    "git_sha": "35d535f4a4fe099d4b4ea472496b99bdc233f06c"
+  },
+  "mevolve_git_sha": "30ae4f3386a67a02b543b4b84fb83caedd1cd8a2",
+  "tolerance": 1e-06,
+  "max_abs_diff": 1.4432899320127035e-15,
+  "passed": true,
+  "rows": [
+    {
+      "adapter": "ProgramAgent",
+      "model": "Bari2019",
+      "subject_id": "452275",
+      "n_trials": 15105,
+      "max_abs_diff": 4.996003610813204e-16
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "Bari2019",
+      "subject_id": "700708",
+      "n_trials": 9794,
+      "max_abs_diff": 2.7755575615628914e-16
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "Bari2019",
+      "subject_id": "455525",
+      "n_trials": 12888,
+      "max_abs_diff": 4.440892098500626e-16
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "Lebedeva-PR",
+      "subject_id": "452275",
+      "n_trials": 15105,
+      "max_abs_diff": 1.4432899320127035e-15
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "Lebedeva-PR",
+      "subject_id": "700708",
+      "n_trials": 9794,
+      "max_abs_diff": 6.661338147750939e-16
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "Lebedeva-PR",
+      "subject_id": "455525",
+      "n_trials": 12888,
+      "max_abs_diff": 3.3306690738754696e-16
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "CompareToThreshold",
+      "subject_id": "452275",
+      "n_trials": 15105,
+      "max_abs_diff": 3.608224830031759e-16
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "CompareToThreshold",
+      "subject_id": "700708",
+      "n_trials": 9794,
+      "max_abs_diff": 3.3306690738754696e-16
+    },
+    {
+      "adapter": "ProgramAgent",
+      "model": "CompareToThreshold",
+      "subject_id": "455525",
+      "n_trials": 12888,
+      "max_abs_diff": 3.885780586188048e-16
+    },
+    {
+      "adapter": "GLMAgent",
+      "model": "GLM-Su2022",
+      "subject_id": "452275",
+      "n_trials": 15105,
+      "max_abs_diff": 2.220446049250313e-16
+    },
+    {
+      "adapter": "GLMAgent",
+      "model": "GLM-Su2022",
+      "subject_id": "700708",
+      "n_trials": 9794,
+      "max_abs_diff": 2.220446049250313e-16
+    },
+    {
+      "adapter": "GLMAgent",
+      "model": "GLM-Su2022",
+      "subject_id": "455525",
+      "n_trials": 12888,
+      "max_abs_diff": 2.220446049250313e-16
+    }
+  ]
+}

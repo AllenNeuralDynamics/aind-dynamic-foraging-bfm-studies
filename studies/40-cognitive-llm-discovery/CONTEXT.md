@@ -25,6 +25,12 @@ Training-pool subjects, disjoint from the other cohorts, used once at the end to
 pre-registered programs.
 _Avoid_: second validation set, holdout set
 
+**Monitor subjects**:
+Training-pool subjects, disjoint from the other cohorts, on which programs already found are
+rescored to see whether their validation gains carry to subjects the search never used. Nothing
+scored on them feeds back into the search or the choice of the pre-registered programs.
+_Avoid_: holdout set, selection subjects
+
 **Test subjects**:
 The 149 held-out subjects of the per-subject MLE and HB baselines, scored once per variant at the
 end.

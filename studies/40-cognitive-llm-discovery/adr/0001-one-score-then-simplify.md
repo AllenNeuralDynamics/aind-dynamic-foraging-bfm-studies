@@ -25,6 +25,15 @@ candidate whose replay gap or rollout gap exceeds the reference's is skipped for
 (ADR 0007). Aggregates are compared rather than single bins, so noise in one sparse bin cannot reject
 a program.
 
+## Amendment (2026-11-08): the gate uses each mode's fingerprint score
+
+The gate's statistics are now study 15's fingerprint scores, one per mode (study 15 ADR 0009): replay
+over `losses`, `pattern`, `hazard` and `post_switch`; rollout over the same four and the `run_length`
+distribution; each a geometric mean of gaps over the subjects' noise floor. A candidate passes if both
+scores are no larger than the reference's. The rollout `hazard` curve alone barely separates good models
+(study 15 r3), so Han chose more fingerprints, including those that differ (2026-11-08); fixed before any
+selection subject was replayed or rolled out. Details in ADR 0008.
+
 ## Considered options
 
 - **A weighted sum of likelihood and behavioural distances.** The weights would be arbitrary, summary

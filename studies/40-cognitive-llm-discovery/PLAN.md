@@ -13,7 +13,7 @@ Can LLM-driven evolutionary search find a short, readable JAX program, fitted pe
 session, that closes the gap from the best hierarchical cognitive baseline (HB-CTT, study 13 r5) to
 the GRU on held-out subjects, and that behaves like the mice in closed loop with the task?
 
-The answer is four pre-registered programs (ADR 0007), each with its **gap closed** on the 146 shared
+The answer is four pre-registered programs (ADR 0007; round 1 delivered three, see Reports), each with its **gap closed** on the 146 shared
 test subjects, its complexity, and its replay and rollout fingerprints beside the literature models'.
 
 ## Fixed by design
@@ -23,7 +23,7 @@ test subjects, its complexity, and its replay and rollout fingerprints beside th
 | objective | maximize pooled held-out likelihood on the validation subjects; behaviour never enters the score | ADR 0001 |
 | behaviour | replay fingerprints for every program, in the feedback; rollout fingerprints at pre-registration; both gate pre-registration against the best literature model | ADR 0001, 0007 |
 | fitting | the 2-level model (each session's parameters around the subject's typical values, no population level), fitted as 2-level EM (Laplace-EM), session facts as program inputs, every score split by stage group and task variant; fallback to one parameter set per subject | ADR 0002 |
-| cohorts | generation and validation (48 each, resized at gate 2), about 100 selection subjects, test = 149 held-out subjects with the headline on the 146 shared ones; one fit direction; stratified draws that exclude the GRU's three extra test subjects | ADR 0003 |
+| cohorts | generation and validation (48 each), 100 selection subjects (the seed-0 draft, adopted 2026-11-04), test = 149 held-out subjects with the headline on the 146 shared ones; one fit direction; stratified draws that exclude the GRU's three extra test subjects | ADR 0003 |
 | parity | gates 1a, 1b, 1c with fixed tolerances | ADR 0004 |
 | interpretable | at most 8 parameters and 6 latent variables, static checks, Halstead effort, floors at 90%, 75% and 50% of the gain over the best literature model | ADR 0005 |
 | search | one search, 5 islands (template, top 3 literature models, Eckstein's Bayesian-inference model or the 4th), seed library = the literature models study 12 ranks | ADR 0006 |
@@ -78,8 +78,13 @@ carries its state probabilities among its latent variables.
 | simplification, three floors | $120 |
 | **total** | **about $617**, under the $650 Console workspace limit |
 
-Compute: one SLURM job on a 112-core node per search run (about 24 evaluations at a time, 4 cores
-each); evaluator cost a few hundred to a thousand core-hours per search.
+Dollar figures are list prices. After the organisation's discount the bill is about half of list
+price (gate 3, [`engine-smoke` notes](variants/engine-smoke/notes.md)).
+
+Compute (measured 2026-11-05, `seeded-islands-cap12`): one evaluation of a proposal (48 + 48 mice, 2-level EM)
+is about 9,000 CPU-seconds; a search runs evaluations as Slurm steps of 24 CPUs on many nodes, about 406
+CPU-minutes per proposal in all. The search's minimum of 2,000 proposals is about 13,500 CPU-hours (17 hours
+on 32 slots); its whole budget would allow 13,000 to 18,000 proposals (88,000 to 122,000 CPU-hours).
 
 ## Build order
 
@@ -97,10 +102,15 @@ each); evaluator cost a few hundred to a thousand core-hours per search.
 
 | report | content |
 |---|---|
-| r1 | MEvolve's evaluator against the reference fits (gates 1a–1c), cited from study 12 and study 13 |
-| r2 | program recovery on simulated subjects |
-| r3 | search curve: best validation score against proposals and dollars, by island |
-| r4 | the four pre-registered programs on the test subjects: gap closed, fingerprints, both-regime test and ablations, fit-versus-complexity curve, example sessions |
+| r1 | program recovery on simulated subjects (gate 4), written first, so it took r1 (2026-11-04) |
+| r2 | search curve: best validation score against proposals, mechanisms, and the gain on 100 unused (monitor) mice |
+| r3 | the search's best on the selection and test subjects: gap closed, fingerprint gate, mouse-average curves |
+| r4 | simplification at three floors: fit against complexity on the test subjects |
+
+As delivered in round 1 (2026-11-11). The plan had r2 as the evaluator's parity with the reference
+fits (gates 1a–1c); that report was not written, and the gates are recorded in MEvolve's parity tests
+and issues (AllenNeuralDynamics/aind-dynamic-foraging-mevolve#9, #10, #11). The plan had four
+pre-registered programs; the 90% floor had none under ADR 0008's rule, so round 1 has three.
 
 ## Risks
 

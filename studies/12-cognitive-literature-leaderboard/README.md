@@ -7,7 +7,7 @@ question: How well do the models in the literature, each fit per subject on our 
 status: active
 wandb:
   entity: NeuralDynamics
-  project: aind-dynamic-foraging-model
+  project: dfbfm_12-leaderboard
 motivated_by:
 - study: 01-gru-scaling-law
   report: r8
@@ -26,7 +26,8 @@ issues:
 ---
 # Study: 12-cognitive-literature-leaderboard
 
-W&B project [`aind-dynamic-foraging-model`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model).
+W&B project [`dfbfm_12-leaderboard`](https://wandb.ai/NeuralDynamics/dfbfm_12-leaderboard) for new launches. Every launch to
+date (per-subject-de, ctt-credit) is in [`aind-dynamic-foraging-model`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model) and stays there.
 
 **Question.** How well do the models in the literature, each fit per subject on our subjects, predict held-out sessions, and how do they rank against the hierarchical cognitive baselines and the GRU?
 
@@ -46,8 +47,8 @@ later study draws has a score.
 
 | variant | what it varies |
 |---|---|
-| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over 19 literature models, one run per model, plus a second launch for LossCounting; production group [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce), running |
-| [`ctt-credit`](variants/ctt-credit/notes.md) | CompareToThreshold in stay-credit coordinates (same likelihood, wider bounds), compared with per-subject-de's CompareToThreshold in r2 |
+| [`per-subject-de`](variants/per-subject-de/notes.md) | one W&B sweep over 19 literature models, one run per model, plus a second launch for LossCounting; production group [`per-subject-de@20261101-012148`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/3zwvpcce), complete |
+| [`ctt-credit`](variants/ctt-credit/notes.md) | CompareToThreshold in stay-credit coordinates (same likelihood, wider bounds) and the original CompareToThreshold, refit together on one foraging-models commit and compared in r2; group [`ctt-credit@20261102-132626`](https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/2f26d1qa), complete |
 
 **Headline ranking: r3** (2-level EM; models whose 2-level score falls below their per-subject score are placed by the latter), because the hierarchical baselines are 2-level too; r1 is the per-subject reference. The answer is the leaderboard of literature models on the 149 test subjects (and on the 146 also
 on the GRU's held-out list), with HB-CTT and HB-Hattori (study 13) and the GRU (study 01) as
@@ -64,10 +65,14 @@ Study 40's requirements (issue #73, decision records 0005 to 0007) set the regim
 
 ## Deviations from study-conventions
 
-- **Shared W&B project.** Runs log to `NeuralDynamics/aind-dynamic-foraging-model`, which study 40
-  also uses, not to a project of their own: the BFM stack is moving off a personal W&B account
-  that is almost full (decided 2026-11-01). Groups (`per-subject-de@<launch_id>`) and
-  `meta.study` keep the two studies apart.
+- **Two W&B projects.** The launches up to 2026-11-02 (`per-subject-de@20261101-012148`,
+  `per-subject-de@20261101-071303`, `ctt-credit@20261102-132626`) log to the shared
+  `NeuralDynamics/aind-dynamic-foraging-model`, which study 40 also used; groups and `meta.study`
+  keep the studies apart. From 2026-11-03 new launches go to `NeuralDynamics/dfbfm_12-leaderboard`
+  (one project per study, `dfbfm_NN-name`; studies #99). The old runs are not moved or re-logged:
+  the freezes (`freeze_fits.py`, `freeze_ctt_credit.py`) read those pinned groups from the shared
+  project, and their launch records stay as written. A new launch's sweep sets
+  `wandb.project=dfbfm_12-leaderboard`; an intervention on an old group joins it in the shared project.
 
 ## Verdict
 

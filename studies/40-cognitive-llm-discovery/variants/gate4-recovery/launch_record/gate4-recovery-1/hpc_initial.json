@@ -1,0 +1,50 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_initial",
+    "produced_at_pt": "2026-11-04T13:26:13-08:00",
+    "studies_git_sha": "b429728e29cd0135163c42843c41f07f836c78da",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "gate4-recovery@20261104-132600"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): gate4-recovery@20261104-132600"
+    ]
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "gate4-recovery@20261104-132600",
+  "label": "gate4-recovery-1",
+  "note": "Gate 4 second half: 100 proposals by Claude Sonnet 5.5 (effort medium, one repair attempt, $8 cap) on mice simulated from a hand-set program (two reward timescales plus a choice kernel), seeded with three simplified programs, library off; should show whether the search reaches the generating program's own 2-level score within 0.2 (x100), before the $450 search.",
+  "revisions": {
+    "studies": "b429728e29cd0135163c42843c41f07f836c78da",
+    "mevolve": "59adafdfab84e934a41bf0436b53adf2753a8e2b"
+  },
+  "manifests": [
+    "search.sbatch"
+  ],
+  "job_refs": [
+    {
+      "type": "slurm_job",
+      "id": "27614671"
+    }
+  ],
+  "command": "sbatch --export=ALL,VARIANT_DIR=<studies checkout at b429728e>/studies/40-cognitive-llm-discovery/variants/gate4-recovery,MEVOLVE_SRC=<mevolve checkout at 59adafdf>/src,LAUNCH_ID=20261104-132600,LAUNCH_LABEL=gate4-recovery-1,STUDIES_SHA=b429728e29cd0135163c42843c41f07f836c78da,MEVOLVE_SHA=59adafdfab84e934a41bf0436b53adf2753a8e2b search.sbatch",
+  "data": {
+    "source": "generated",
+    "config": "mevolve.gate4 simulated subjects of generator/two_timescale_ck.py, hand-set setting a (make_truths.py): generation, validation and held-out sets in the uri",
+    "uri": "/allen/aind/scratch/han.hou/mevolve/gate4/ttck_a_1100041",
+    "manifest_sha256": "7d80409e35c796ec065f97d1ad1e1d7ce44c6bab0b4d2e6e00bfa3dbe01ed6d3"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search",
+    "lock_sha256": "c35fd7d342ab4090194ae663bafd0e15e9964730a329b467dbb7ce27eb6c0006"
+  }
+}

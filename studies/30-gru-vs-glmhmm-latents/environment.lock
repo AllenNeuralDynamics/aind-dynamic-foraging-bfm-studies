@@ -1,0 +1,29 @@
+# Analysis environment for studies/30-gru-vs-glmhmm-latents/ (per the posthoc-reporting contract).
+# Not a full `pip freeze`: it pins what the pilot (analysis/pilot/), freeze_r1.py and r1_pilot_decoding.py import,
+# in the env they ran in (/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu, HPC compute
+# node n268 and `aind` batch nodes), 2026-11-07 / 08 PT.
+#   Python 3.12.13
+numpy==2.4.6
+pandas==2.3.3
+pyarrow==25.0.0
+scipy==1.17.1
+scikit-learn==1.8.0
+matplotlib==3.10.9  # r1 figures; byte-identical only on one plotting stack (posthoc-reporting)
+aind-dynamic-foraging-basic-analysis==0.3.34  # plot_foraging_session for the example sessions
+aind-dynamic-foraging-models==0.29.0  # glm_hmm: GLM-HMM posteriors and design matrix
+jax==0.6.1
+jaxlib==0.6.1
+dynamax==1.0.3
+#
+# Rastermap ran in a separate env (/allen/aind/scratch/han.hou/pilots/study30-probe/env-rastermap):
+#   rastermap==1.0, numpy==2.5.4, numba==0.68.1  (analysis/pilot/96_rastermap_fit.py)
+# The W&B artifact download used the mevolve-search env (wandb 0.31.0; the shared env's wandb 0.23.1 gets
+# HTTP 400 on artifact queries), read only.
+#
+# GRU forward passes and data loading: aind-dynamic-foraging-bfm-wrapper 5affee531856d6eff31c9285e981c93747699efc
+# with aind-dynamic-foraging-bfm-dispatcher 68041b2b0ef2c6a37a6f710a4fb6b7dc92d68f64 (worktrees under ~/code/wt/).
+#
+# Code whose outputs are read here (not run by this study):
+# - GRU nxd-3way@20260707-075401 (study 02): its launch record in studies/02-gru-scaling-law-ignore/;
+# - GLM-HMM hurdle@20261027-212905 and reference@20261027-213006 (study 14): wrapper
+#   5f5301c738898e1289060635e8b656222ba32912, foraging-models cf38f45d38eddaade38434bd9dbecfa4a98f7388.

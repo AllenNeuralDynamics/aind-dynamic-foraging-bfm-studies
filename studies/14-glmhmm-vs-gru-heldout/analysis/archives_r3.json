@@ -1,0 +1,132 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/archive_r3.py",
+    "produced_at_pt": "2026-11-11T16:34:58-08:00",
+    "studies_git_sha": "a80c58ca3db02a4d535dc7062839967ee84559a1",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "hurdle@20261027-212905",
+      "reference@20261027-213006",
+      "refit-prior@20261101-130226"
+    ],
+    "source_studies_git_shas": [
+      "41e85aab9d006dd5b62df32f586c538be5a40f00",
+      "cb21327b77aa7423cb160ce7e01a67853a585130"
+    ],
+    "source_dispatcher_git_shas": [
+      "ea2d6deaf308c0c04cde5b925f3444631415d754",
+      "f3109058e8106181917110789f1c11ddfb3f1ba1"
+    ],
+    "source_wrapper_git_shas": [
+      "5f5301c738898e1289060635e8b656222ba32912",
+      "f9ea87594215c4ce8dbb772de2b2af6968d38222"
+    ],
+    "source_foraging_models_git_shas": [
+      "2ce1f700b445823b19e3b7033704eb54c5ef746e",
+      "cf38f45d38eddaade38434bd9dbecfa4a98f7388"
+    ],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/14-glmhmm-vs-gru-heldout/analysis/archive_r3.py",
+        "sha256": "168d99b7dadb28b400ef1e5094552576a13fc12f3061a2bcc2b65c2c6e1d8afd"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/14-glmhmm-vs-gru-heldout/analysis/frozen_r3.json",
+        "sha256": "ce9b8c6400c0b2a3287727e532326518fe58a6120b6614659e41ae5d3b38ee6c"
+      }
+    ],
+    "sources": [
+      {
+        "type": "url",
+        "id": "wandb-artifact://AIND-disRNN/mice_glmhmm/study14-r3-freeze:v0"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_cells_hurdle_global.npz",
+        "sha256": "ba6ad8c700dfc106e24a3b757443fd1b73e86210cd4882cc163aa566db372e5a"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_cells_hurdle_refit.npz",
+        "sha256": "f7a4c370b6da840b0ecda48a0ce67b8c3f802414cfb775b4674e014175f38e48"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_cells_reference_global.npz",
+        "sha256": "3ee6608370f3685d8328e647a87b3235bb44c448dcea5628a9335f1b28b917d5"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_cells_reference_refit.npz",
+        "sha256": "5d13c9c34ad80ed22ac21f5f9bad9a18af2a46b6ae0a336e42f845b3a6f50e4f"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_refits_hurdle.npz",
+        "sha256": "48bf4993f2e24826442e7c22ea0ced233807115f3657b1c5e50f53775fd5b5e2"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_refits_reference.npz",
+        "sha256": "1debee71ee42615d757660bcfb3c92e08cc2e6c828299ef59c711bf62e6db0ab"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_weights_hurdle_global.npz",
+        "sha256": "bb67028c19ac5c0667ad05a7d134df2af3fc19866f6f1acf6ff3c3950a241cd3"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_weights_hurdle_refit.npz",
+        "sha256": "f9eaeaf3d44f105681acc52587b0743256da34b286e99817378f8d48974177da"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_weights_reference_global.npz",
+        "sha256": "ebcedfb696950ae6068a4870d01856efb044594aa950d45b328a831e7eef39f6"
+      },
+      {
+        "type": "file",
+        "id": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCXcg9RqpwjxmgBkbQ/studies/14-glmhmm-vs-gru-heldout/analysis/_cache_r3/frozen_r3_weights_reference_refit.npz",
+        "sha256": "3a1e9fa542283584fa51ae996fe8ba02d0e4f92dd5fcf548f801eeea534758c5"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/14-glmhmm-vs-gru-heldout/analysis/archives_r3.json",
+        "sha256": "d1f69900b85395a73136d8c4ee10b8aa5f0897e271e9c1fa659966926545439e"
+      }
+    ]
+  },
+  "about": "W&B artifact holding r3's freeze (parts/ and merged/); the digest is the immutable key and sha256 covers the merged files explorer_r3.py reads.",
+  "archive": {
+    "wandb_group": "r3-state-spread-archive",
+    "artifact": "AIND-disRNN/mice_glmhmm/study14-r3-freeze:v0",
+    "digest": "503b6a98f1adef4650b531ecf45f8d04",
+    "archive_run": "https://wandb.ai/AIND-disRNN/mice_glmhmm/runs/0zpzb2vk",
+    "n_part_files": 80,
+    "part_bytes": 481120964,
+    "parts_dir": "/allen/aind/scratch/han.hou/outputs/study14_r3_parts_87433f7",
+    "merged": {
+      "path": "merged/",
+      "sha256": {
+        "frozen_r3_cells_hurdle_global.npz": "ba6ad8c700dfc106e24a3b757443fd1b73e86210cd4882cc163aa566db372e5a",
+        "frozen_r3_cells_hurdle_refit.npz": "f7a4c370b6da840b0ecda48a0ce67b8c3f802414cfb775b4674e014175f38e48",
+        "frozen_r3_cells_reference_global.npz": "3ee6608370f3685d8328e647a87b3235bb44c448dcea5628a9335f1b28b917d5",
+        "frozen_r3_cells_reference_refit.npz": "5d13c9c34ad80ed22ac21f5f9bad9a18af2a46b6ae0a336e42f845b3a6f50e4f",
+        "frozen_r3_refits_hurdle.npz": "48bf4993f2e24826442e7c22ea0ced233807115f3657b1c5e50f53775fd5b5e2",
+        "frozen_r3_refits_reference.npz": "1debee71ee42615d757660bcfb3c92e08cc2e6c828299ef59c711bf62e6db0ab",
+        "frozen_r3_weights_hurdle_global.npz": "bb67028c19ac5c0667ad05a7d134df2af3fc19866f6f1acf6ff3c3950a241cd3",
+        "frozen_r3_weights_hurdle_refit.npz": "f9eaeaf3d44f105681acc52587b0743256da34b286e99817378f8d48974177da",
+        "frozen_r3_weights_reference_global.npz": "ebcedfb696950ae6068a4870d01856efb044594aa950d45b328a831e7eef39f6",
+        "frozen_r3_weights_reference_refit.npz": "3a1e9fa542283584fa51ae996fe8ba02d0e4f92dd5fcf548f801eeea534758c5"
+      }
+    }
+  }
+}

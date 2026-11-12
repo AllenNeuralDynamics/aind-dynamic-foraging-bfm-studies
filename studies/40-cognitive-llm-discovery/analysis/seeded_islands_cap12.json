@@ -1,0 +1,1178 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/seeded_islands_cap12.py",
+    "produced_at_pt": "2026-11-05T12:22:19-08:00",
+    "studies_git_sha": "090bfdd7aecaf078077049d6a268d41258e13c4c",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "seeded-islands-smoke@20261105-011815",
+      "seeded-islands-cap12@20261105-100249"
+    ],
+    "source_studies_git_shas": [
+      "a6c3f29cb6965174b0b5a0677770388929b336da",
+      "b506d776205ea3909c6e1383b5f79f0ce431a4a5"
+    ],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no dispatcher SHA in the launch record(s) of W&B group(s): seeded-islands-cap12@20261105-100249, seeded-islands-smoke@20261105-011815",
+      "no wrapper SHA in the launch record(s) of W&B group(s): seeded-islands-cap12@20261105-100249, seeded-islands-smoke@20261105-011815",
+      "no foraging_models SHA in the launch record(s) of W&B group(s): seeded-islands-cap12@20261105-100249, seeded-islands-smoke@20261105-011815"
+    ],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_cap12.py",
+        "sha256": "0801becf4168b47fb981c2a8d11c8161199c0129b0399e527991b34d0b5623ef"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_smoke/run.json",
+        "sha256": "b040c74a801cf50d35972264f8a3bc4342c297cc57596af47889d906a4caeae1"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_cap12/run.json",
+        "sha256": "ecc41d3688127e2fb857262f1cd5b3c25a41550a067ea235c341d356ba07091d"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/variants/seeded-islands-smoke/launch_record/seeded-islands-smoke-1/search.sbatch",
+        "sha256": "1194663aa4eab86a74f57e7d2e552301a24bf2194184eb820faeb34b43dda46e"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/variants/seeded-islands-cap12/launch_record/seeded-islands-cap12-1/search.sbatch",
+        "sha256": "eaaf143b7da6ca9cdfd61d228a600aed8fc1d771868386be80df32bc528bf64f"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seeded_islands_cap12.json",
+        "sha256": "13cc9a2c347cae64964fbb4c5cfc45ec3fc53d8b794e306b7e99c0669b4180c3"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/fig_seeded_islands_cap12.svg",
+        "sha256": "dc3f834247679969051c0e141139d6c620e662b5a945ef6488f237a6a6a0800e"
+      }
+    ]
+  },
+  "about": "seeded-islands-cap12 against seeded-islands-smoke: the pre-registered numbers of its notes.",
+  "pass": {
+    "passed": true,
+    "checks": {
+      "proposals": true,
+      "cost": true,
+      "hours": true,
+      "api_errors": true,
+      "steps": true,
+      "archive": true
+    },
+    "stop_reasons": {
+      "end_turn": 103
+    },
+    "archive": {
+      "artifact": "NeuralDynamics/dfbfm-mevolve/run-seeded-islands-cap12-20261105-100249:v0",
+      "digest": "29d56803e288f29c602f339c5358f214",
+      "n_files": 1134,
+      "bytes": 19991256
+    },
+    "programs_evaluated": 101,
+    "steps": {
+      "n": 101,
+      "states": {
+        "COMPLETED": 101
+      },
+      "nodes": 16,
+      "median_seconds": 875.0
+    },
+    "slurm_failures": []
+  },
+  "best_constants": [
+    {
+      "line": 25,
+      "value": 6,
+      "text": "return jnp.zeros(6)"
+    },
+    {
+      "line": 39,
+      "value": 2.0,
+      "text": "s = 2.0 * choice - 1.0"
+    },
+    {
+      "line": 42,
+      "value": 2,
+      "text": "chosen = jax.nn.one_hot(choice, 2)"
+    },
+    {
+      "line": 50,
+      "value": 8.0,
+      "text": "streak = s * jnp.minimum(count, 8.0)"
+    }
+  ],
+  "smoke": {
+    "proposals": 100,
+    "cost_usd": 3.431225,
+    "hours": 5.614533659219742,
+    "api_errors": 0,
+    "n_scored": 94,
+    "throughput": {
+      "cpus": 112,
+      "proposals_per_hour": 17.810918247108187,
+      "search_cpu_minutes_per_proposal": 377.29666189956663,
+      "allocation_cpu_minutes_per_proposal": null
+    },
+    "above_old_limits": {
+      "params": 0,
+      "latent": 0,
+      "either": 0
+    },
+    "n_params": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 3,
+      "7": 45,
+      "8": 45,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0
+    },
+    "n_latent": {
+      "1": 0,
+      "2": 3,
+      "3": 28,
+      "4": 27,
+      "5": 26,
+      "6": 10,
+      "7": 0,
+      "8": 0
+    },
+    "best": {
+      "generation": 93,
+      "score": 72.69021910426403,
+      "best_seed": 72.60789103582971,
+      "gain_over_best_seed": 0.08232806843432172,
+      "n_params": 8,
+      "n_latent": 6,
+      "lineage": "template"
+    },
+    "better_than_parent": 30,
+    "two_level_failed": 10,
+    "two_level_failed_by_size": {
+      "above_8_params": {
+        "failed": 0,
+        "of": 0
+      },
+      "at_most_8_params": {
+        "failed": 10,
+        "of": 94
+      }
+    },
+    "rejected_by_checks": [
+      {
+        "generation": 33,
+        "reason": "rejected by the static checks: syntax error: invalid syntax (<unknown>, line 35)"
+      },
+      {
+        "generation": 54,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 25)"
+      },
+      {
+        "generation": 60,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 26)"
+      },
+      {
+        "generation": 90,
+        "reason": "rejected by the static checks: 9 parameters; at most 8 are allowed"
+      },
+      {
+        "generation": 100,
+        "reason": "rejected by the static checks: update returns shape (3,), but N_LATENT is 4"
+      }
+    ],
+    "no_program": [
+      {
+        "generation": 51,
+        "failure_class": "patch_apply_failed",
+        "failure_stage": "proposal"
+      }
+    ],
+    "lineages": {
+      "template": {
+        "proposals": 22,
+        "seed": 70.01983724758728,
+        "best": 72.69021910426403
+      },
+      "Miller-RHG": {
+        "proposals": 40,
+        "seed": 72.60789103582971,
+        "best": 72.67663778639356
+      },
+      "Lebedeva-PR": {
+        "proposals": 18,
+        "seed": 72.57282867286597,
+        "best": 72.66759884612351
+      },
+      "Lopez-DoubleTrace": {
+        "proposals": 9,
+        "seed": 72.5479347911504,
+        "best": 72.59114643596887
+      },
+      "Eckstein-BI": {
+        "proposals": 10,
+        "seed": 71.77990471201106,
+        "best": 72.60553711830458
+      }
+    },
+    "best_so_far": [
+      [
+        1,
+        72.60789103582971
+      ],
+      [
+        2,
+        72.60789103582971
+      ],
+      [
+        3,
+        72.65764414440923
+      ],
+      [
+        4,
+        72.65764414440923
+      ],
+      [
+        5,
+        72.65764414440923
+      ],
+      [
+        6,
+        72.65764414440923
+      ],
+      [
+        7,
+        72.65764414440923
+      ],
+      [
+        8,
+        72.65764414440923
+      ],
+      [
+        9,
+        72.65764414440923
+      ],
+      [
+        10,
+        72.65764414440923
+      ],
+      [
+        11,
+        72.65764414440923
+      ],
+      [
+        12,
+        72.65764414440923
+      ],
+      [
+        13,
+        72.65764414440923
+      ],
+      [
+        14,
+        72.65764414440923
+      ],
+      [
+        15,
+        72.65764414440923
+      ],
+      [
+        16,
+        72.65764414440923
+      ],
+      [
+        17,
+        72.65764414440923
+      ],
+      [
+        18,
+        72.65764414440923
+      ],
+      [
+        19,
+        72.65764414440923
+      ],
+      [
+        20,
+        72.65895054520426
+      ],
+      [
+        21,
+        72.65895054520426
+      ],
+      [
+        22,
+        72.65895054520426
+      ],
+      [
+        23,
+        72.65895054520426
+      ],
+      [
+        24,
+        72.65895054520426
+      ],
+      [
+        25,
+        72.65895054520426
+      ],
+      [
+        26,
+        72.65895054520426
+      ],
+      [
+        27,
+        72.65895054520426
+      ],
+      [
+        28,
+        72.65895054520426
+      ],
+      [
+        29,
+        72.65895054520426
+      ],
+      [
+        30,
+        72.65895054520426
+      ],
+      [
+        31,
+        72.66742070222034
+      ],
+      [
+        32,
+        72.66751277635262
+      ],
+      [
+        33,
+        72.66751277635262
+      ],
+      [
+        34,
+        72.66751277635262
+      ],
+      [
+        35,
+        72.6764427525387
+      ],
+      [
+        36,
+        72.6764427525387
+      ],
+      [
+        37,
+        72.6764427525387
+      ],
+      [
+        38,
+        72.6764427525387
+      ],
+      [
+        39,
+        72.6764427525387
+      ],
+      [
+        40,
+        72.6764427525387
+      ],
+      [
+        41,
+        72.6764427525387
+      ],
+      [
+        42,
+        72.6764427525387
+      ],
+      [
+        43,
+        72.6764427525387
+      ],
+      [
+        44,
+        72.6764427525387
+      ],
+      [
+        45,
+        72.6764427525387
+      ],
+      [
+        46,
+        72.6764427525387
+      ],
+      [
+        47,
+        72.6764427525387
+      ],
+      [
+        48,
+        72.6764427525387
+      ],
+      [
+        49,
+        72.6764427525387
+      ],
+      [
+        50,
+        72.6764427525387
+      ],
+      [
+        52,
+        72.6764427525387
+      ],
+      [
+        53,
+        72.6764427525387
+      ],
+      [
+        54,
+        72.6764427525387
+      ],
+      [
+        55,
+        72.6764427525387
+      ],
+      [
+        56,
+        72.6764427525387
+      ],
+      [
+        57,
+        72.6764427525387
+      ],
+      [
+        58,
+        72.6764427525387
+      ],
+      [
+        59,
+        72.6764427525387
+      ],
+      [
+        60,
+        72.6764427525387
+      ],
+      [
+        61,
+        72.6764427525387
+      ],
+      [
+        62,
+        72.6764427525387
+      ],
+      [
+        63,
+        72.6764427525387
+      ],
+      [
+        64,
+        72.68366866340857
+      ],
+      [
+        65,
+        72.68366866340857
+      ],
+      [
+        66,
+        72.68366866340857
+      ],
+      [
+        67,
+        72.68366866340857
+      ],
+      [
+        68,
+        72.68366866340857
+      ],
+      [
+        69,
+        72.68366866340857
+      ],
+      [
+        70,
+        72.68366866340857
+      ],
+      [
+        71,
+        72.68366866340857
+      ],
+      [
+        72,
+        72.68366866340857
+      ],
+      [
+        73,
+        72.68366866340857
+      ],
+      [
+        74,
+        72.68366866340857
+      ],
+      [
+        75,
+        72.68366866340857
+      ],
+      [
+        76,
+        72.68366866340857
+      ],
+      [
+        77,
+        72.68366866340857
+      ],
+      [
+        78,
+        72.68366866340857
+      ],
+      [
+        79,
+        72.68366866340857
+      ],
+      [
+        80,
+        72.68366866340857
+      ],
+      [
+        81,
+        72.68366866340857
+      ],
+      [
+        82,
+        72.68366866340857
+      ],
+      [
+        83,
+        72.68366866340857
+      ],
+      [
+        84,
+        72.68366866340857
+      ],
+      [
+        85,
+        72.68366866340857
+      ],
+      [
+        86,
+        72.68366866340857
+      ],
+      [
+        87,
+        72.68366866340857
+      ],
+      [
+        88,
+        72.68366866340857
+      ],
+      [
+        89,
+        72.68366866340857
+      ],
+      [
+        90,
+        72.68366866340857
+      ],
+      [
+        91,
+        72.68366866340857
+      ],
+      [
+        92,
+        72.68366866340857
+      ],
+      [
+        93,
+        72.69021910426403
+      ],
+      [
+        94,
+        72.69021910426403
+      ],
+      [
+        95,
+        72.69021910426403
+      ],
+      [
+        96,
+        72.69021910426403
+      ],
+      [
+        97,
+        72.69021910426403
+      ],
+      [
+        98,
+        72.69021910426403
+      ],
+      [
+        99,
+        72.69021910426403
+      ],
+      [
+        100,
+        72.69021910426403
+      ]
+    ]
+  },
+  "cap12": {
+    "proposals": 100,
+    "cost_usd": 2.547602,
+    "hours": 1.696964471803771,
+    "api_errors": 0,
+    "n_scored": 89,
+    "throughput": {
+      "cpus": 384,
+      "proposals_per_hour": 58.92875287701576,
+      "search_cpu_minutes_per_proposal": 390.9806143035889,
+      "allocation_cpu_minutes_per_proposal": 405.63199999999995
+    },
+    "above_old_limits": {
+      "params": 36,
+      "latent": 2,
+      "either": 37
+    },
+    "n_params": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 0,
+      "6": 2,
+      "7": 22,
+      "8": 28,
+      "9": 25,
+      "10": 7,
+      "11": 3,
+      "12": 1
+    },
+    "n_latent": {
+      "1": 0,
+      "2": 3,
+      "3": 21,
+      "4": 38,
+      "5": 12,
+      "6": 13,
+      "7": 1,
+      "8": 1
+    },
+    "best": {
+      "generation": 96,
+      "score": 72.69981677583759,
+      "best_seed": 72.60789103582971,
+      "gain_over_best_seed": 0.09192574000788056,
+      "n_params": 11,
+      "n_latent": 6,
+      "lineage": "Lopez-DoubleTrace"
+    },
+    "better_than_parent": 36,
+    "two_level_failed": 20,
+    "two_level_failed_by_size": {
+      "above_8_params": {
+        "failed": 10,
+        "of": 36
+      },
+      "at_most_8_params": {
+        "failed": 10,
+        "of": 53
+      }
+    },
+    "rejected_by_checks": [
+      {
+        "generation": 3,
+        "reason": "rejected by the static checks: init_latents returns shape (2,), but N_LATENT is 3"
+      },
+      {
+        "generation": 6,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 28)"
+      },
+      {
+        "generation": 11,
+        "reason": "rejected by the static checks: one step of the program fails: KeyError: 'trace_weight'"
+      },
+      {
+        "generation": 13,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 28)"
+      },
+      {
+        "generation": 21,
+        "reason": "rejected by the static checks: syntax error: invalid syntax (<unknown>, line 25)"
+      },
+      {
+        "generation": 24,
+        "reason": "rejected by the static checks: syntax error: invalid syntax (<unknown>, line 23)"
+      },
+      {
+        "generation": 57,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 26)"
+      },
+      {
+        "generation": 63,
+        "reason": "rejected by the static checks: syntax error: unmatched ']' (<unknown>, line 27)"
+      },
+      {
+        "generation": 66,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 27)"
+      },
+      {
+        "generation": 80,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 25)"
+      },
+      {
+        "generation": 98,
+        "reason": "rejected by the static checks: syntax error: unmatched ')' (<unknown>, line 27)"
+      }
+    ],
+    "no_program": [],
+    "lineages": {
+      "template": {
+        "proposals": 27,
+        "seed": 70.01983724758728,
+        "best": 72.6742955074763
+      },
+      "Miller-RHG": {
+        "proposals": 19,
+        "seed": 72.60789103582971,
+        "best": 72.65895054520426
+      },
+      "Lebedeva-PR": {
+        "proposals": 28,
+        "seed": 72.57282867286597,
+        "best": 72.68079503041614
+      },
+      "Lopez-DoubleTrace": {
+        "proposals": 11,
+        "seed": 72.5479347911504,
+        "best": 72.69981677583759
+      },
+      "Eckstein-BI": {
+        "proposals": 15,
+        "seed": 71.77990471201106,
+        "best": 72.67088583395108
+      }
+    },
+    "best_so_far": [
+      [
+        1,
+        72.60789103582971
+      ],
+      [
+        2,
+        72.60789103582971
+      ],
+      [
+        3,
+        72.60789103582971
+      ],
+      [
+        4,
+        72.60789103582971
+      ],
+      [
+        5,
+        72.60789103582971
+      ],
+      [
+        6,
+        72.60789103582971
+      ],
+      [
+        7,
+        72.64594158142839
+      ],
+      [
+        8,
+        72.64594158142839
+      ],
+      [
+        9,
+        72.64594158142839
+      ],
+      [
+        10,
+        72.64594158142839
+      ],
+      [
+        11,
+        72.64594158142839
+      ],
+      [
+        12,
+        72.64594158142839
+      ],
+      [
+        13,
+        72.64594158142839
+      ],
+      [
+        14,
+        72.66051490567665
+      ],
+      [
+        15,
+        72.66051490567665
+      ],
+      [
+        16,
+        72.66051490567665
+      ],
+      [
+        17,
+        72.66051490567665
+      ],
+      [
+        18,
+        72.66051490567665
+      ],
+      [
+        19,
+        72.66051490567665
+      ],
+      [
+        20,
+        72.66051490567665
+      ],
+      [
+        21,
+        72.66051490567665
+      ],
+      [
+        22,
+        72.66051490567665
+      ],
+      [
+        23,
+        72.66051490567665
+      ],
+      [
+        24,
+        72.66051490567665
+      ],
+      [
+        25,
+        72.66051490567665
+      ],
+      [
+        26,
+        72.66051490567665
+      ],
+      [
+        27,
+        72.66051490567665
+      ],
+      [
+        28,
+        72.66051490567665
+      ],
+      [
+        29,
+        72.66051490567665
+      ],
+      [
+        30,
+        72.66051490567665
+      ],
+      [
+        31,
+        72.66051490567665
+      ],
+      [
+        32,
+        72.66051490567665
+      ],
+      [
+        33,
+        72.66051490567665
+      ],
+      [
+        34,
+        72.66051490567665
+      ],
+      [
+        35,
+        72.66051490567665
+      ],
+      [
+        36,
+        72.66051490567665
+      ],
+      [
+        37,
+        72.66051490567665
+      ],
+      [
+        38,
+        72.66051490567665
+      ],
+      [
+        39,
+        72.66051490567665
+      ],
+      [
+        40,
+        72.66051490567665
+      ],
+      [
+        41,
+        72.67042814285001
+      ],
+      [
+        42,
+        72.67042814285001
+      ],
+      [
+        43,
+        72.67042814285001
+      ],
+      [
+        44,
+        72.67042814285001
+      ],
+      [
+        45,
+        72.67042814285001
+      ],
+      [
+        46,
+        72.67042814285001
+      ],
+      [
+        47,
+        72.67042814285001
+      ],
+      [
+        48,
+        72.67042814285001
+      ],
+      [
+        49,
+        72.6742955074763
+      ],
+      [
+        50,
+        72.6742955074763
+      ],
+      [
+        51,
+        72.6742955074763
+      ],
+      [
+        52,
+        72.6742955074763
+      ],
+      [
+        53,
+        72.6742955074763
+      ],
+      [
+        54,
+        72.6742955074763
+      ],
+      [
+        55,
+        72.6742955074763
+      ],
+      [
+        56,
+        72.6742955074763
+      ],
+      [
+        57,
+        72.6742955074763
+      ],
+      [
+        58,
+        72.6742955074763
+      ],
+      [
+        59,
+        72.6742955074763
+      ],
+      [
+        60,
+        72.6742955074763
+      ],
+      [
+        61,
+        72.6742955074763
+      ],
+      [
+        62,
+        72.6742955074763
+      ],
+      [
+        63,
+        72.6742955074763
+      ],
+      [
+        64,
+        72.6742955074763
+      ],
+      [
+        65,
+        72.6742955074763
+      ],
+      [
+        66,
+        72.6742955074763
+      ],
+      [
+        67,
+        72.6742955074763
+      ],
+      [
+        68,
+        72.68079503041614
+      ],
+      [
+        69,
+        72.68079503041614
+      ],
+      [
+        70,
+        72.68079503041614
+      ],
+      [
+        71,
+        72.68079503041614
+      ],
+      [
+        72,
+        72.68079503041614
+      ],
+      [
+        73,
+        72.68079503041614
+      ],
+      [
+        74,
+        72.68079503041614
+      ],
+      [
+        75,
+        72.68079503041614
+      ],
+      [
+        76,
+        72.68079503041614
+      ],
+      [
+        77,
+        72.68079503041614
+      ],
+      [
+        78,
+        72.68079503041614
+      ],
+      [
+        79,
+        72.68079503041614
+      ],
+      [
+        80,
+        72.68079503041614
+      ],
+      [
+        81,
+        72.68079503041614
+      ],
+      [
+        82,
+        72.68079503041614
+      ],
+      [
+        83,
+        72.68079503041614
+      ],
+      [
+        84,
+        72.68079503041614
+      ],
+      [
+        85,
+        72.68079503041614
+      ],
+      [
+        86,
+        72.68079503041614
+      ],
+      [
+        87,
+        72.68079503041614
+      ],
+      [
+        88,
+        72.68079503041614
+      ],
+      [
+        89,
+        72.68079503041614
+      ],
+      [
+        90,
+        72.68079503041614
+      ],
+      [
+        91,
+        72.68079503041614
+      ],
+      [
+        92,
+        72.68079503041614
+      ],
+      [
+        93,
+        72.68079503041614
+      ],
+      [
+        94,
+        72.68079503041614
+      ],
+      [
+        95,
+        72.68079503041614
+      ],
+      [
+        96,
+        72.69981677583759
+      ],
+      [
+        97,
+        72.69981677583759
+      ],
+      [
+        98,
+        72.69981677583759
+      ],
+      [
+        99,
+        72.69981677583759
+      ],
+      [
+        100,
+        72.69981677583759
+      ]
+    ]
+  }
+}

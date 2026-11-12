@@ -1,0 +1,139 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_floor_anchors.py",
+    "produced_at_pt": "2026-11-08T19:43:15-08:00",
+    "studies_git_sha": "4676642f22fdcbe95950f7d2702ec1d1a666fee4",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/freeze_floor_anchors.py",
+        "sha256": "c1ce3a095aa1cf9ab75ea4cd3581db1b5ac764a7dfa14cd3e7fcdbe13d06028c"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/reference/cohorts_seed0.json",
+        "sha256": "cbe2cd029611a713043afdd4312aedd5fa31d10473b04e9402134cb994c4d7cb"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/programs/rank1_a13b12cf.py",
+        "sha256": "5053db36dee22d8034cf9aa54be394adb4bfdcfcc3329c29b5811bd8fa8a6c3d"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/programs/rank2_3fd7f0c4.py",
+        "sha256": "a65c9884a9999c965e18df6ae95d5b8db3967d903a7ec9fc745ad97619627522"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/programs/rank3_e3819885.py",
+        "sha256": "03cb88b3bc18a2478b0ae7908c8cb70de394ace8d64d57a4ebb765d0c53ab99f"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/programs/rank4_5bb3332a.py",
+        "sha256": "e5ca0dc2ab4d1c21095aec33e1f12d8ba36f1ca74ac610f4f0b648d09db667ce"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/selection/programs/rank5_f0e71d90.py",
+        "sha256": "2b2831e4bbab78feb2092bf41e94f2a750a38513ab6e1836502b7ff8a7d60656"
+      }
+    ],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/selection/mevolve-146153c/src/mevolve/programs/literature/miller_rhg.py",
+        "sha256": "288aaac0b8ec53aacc871bd05f5759c9bf50328629422f735927e7f8e8d84dc2"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      },
+      {
+        "type": "url",
+        "id": "https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/commit/146153c01f6391122414525022e9126f200a1586"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/simplify/floor_anchors.json",
+        "sha256": "a45217fcfe32cfdc5e852b2af9069bef002dd703a2be8a8ac661c0e90e62c2c1"
+      }
+    ]
+  },
+  "cohort": "validation",
+  "n_subjects": 48,
+  "settings": {
+    "regime": "2level",
+    "max_em": 20,
+    "n_draws": 2048,
+    "seed": 0,
+    "fallback_tol": 0.005,
+    "mevolve": "146153c01f6391122414525022e9126f200a1586"
+  },
+  "programs": {
+    "reference_miller_rhg": {
+      "program_sha256": "288aaac0b8ec53aacc871bd05f5759c9bf50328629422f735927e7f8e8d84dc2",
+      "score_x100": 72.60789103582971,
+      "two_level_x100": 72.60789103582971,
+      "per_subject_x100": 72.07309627952216,
+      "two_level_failed": false,
+      "n_fallback": 0,
+      "fallback_subjects": []
+    },
+    "rank1_a13b12cf": {
+      "program_sha256": "5053db36dee22d8034cf9aa54be394adb4bfdcfcc3329c29b5811bd8fa8a6c3d",
+      "score_x100": 72.77508241922416,
+      "two_level_x100": 72.77508241922416,
+      "per_subject_x100": 72.20329183646953,
+      "two_level_failed": false,
+      "n_fallback": 0,
+      "fallback_subjects": []
+    },
+    "rank2_3fd7f0c4": {
+      "program_sha256": "a65c9884a9999c965e18df6ae95d5b8db3967d903a7ec9fc745ad97619627522",
+      "score_x100": 72.77108048588305,
+      "two_level_x100": 72.77108048588305,
+      "per_subject_x100": 72.24711879061576,
+      "two_level_failed": false,
+      "n_fallback": 0,
+      "fallback_subjects": []
+    },
+    "rank3_e3819885": {
+      "program_sha256": "03cb88b3bc18a2478b0ae7908c8cb70de394ace8d64d57a4ebb765d0c53ab99f",
+      "score_x100": 72.7702000724909,
+      "two_level_x100": 72.7702000724909,
+      "per_subject_x100": 72.19566132506125,
+      "two_level_failed": false,
+      "n_fallback": 0,
+      "fallback_subjects": []
+    },
+    "rank4_5bb3332a": {
+      "program_sha256": "e5ca0dc2ab4d1c21095aec33e1f12d8ba36f1ca74ac610f4f0b648d09db667ce",
+      "score_x100": 72.76471052854629,
+      "two_level_x100": 72.76471052854629,
+      "per_subject_x100": 72.29391292370178,
+      "two_level_failed": false,
+      "n_fallback": 0,
+      "fallback_subjects": []
+    },
+    "rank5_f0e71d90": {
+      "program_sha256": "2b2831e4bbab78feb2092bf41e94f2a750a38513ab6e1836502b7ff8a7d60656",
+      "score_x100": 72.7573580811221,
+      "two_level_x100": 72.74118371076558,
+      "per_subject_x100": 72.24163631329355,
+      "two_level_failed": false,
+      "n_fallback": 1,
+      "fallback_subjects": [
+        "775435"
+      ]
+    }
+  }
+}

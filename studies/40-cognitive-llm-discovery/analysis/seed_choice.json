@@ -1,0 +1,175 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/seed_choice.py",
+    "produced_at_pt": "2026-11-05T00:50:35-08:00",
+    "studies_git_sha": "d1b1dc80e50e56783d13e67caeee8e7bba41fa5d",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seed_choice.py",
+        "sha256": "730bf85224d5c58d0c59ff889276273424f9ff00e4263c13cb1a54de3338a58b"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/cross_study_literature.py",
+        "sha256": "112514978d87c6d7fe15804ef570cbef9aa4de880ed7a75d8a5c5e95df52fb4e"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/reference/cohorts_seed0.json",
+        "sha256": "cbe2cd029611a713043afdd4312aedd5fa31d10473b04e9402134cb994c4d7cb"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r1_leaderboard.json",
+        "sha256": "5468d7bf17b38b495b67d43c78a456e62c3a30bd7f1cc7b3babd550e487f59c4"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/seed_choice.json",
+        "sha256": "77d66e156fffba085a61b08d79cde4e8573152953cf2e17f969ad5cd1c47ec0f"
+      }
+    ]
+  },
+  "rule": "ADR 0006: the three literature models with the best pooled 2-level EM score (study 12 r3) on the 48 validation mice, then Eckstein-BI, or the fourth-best if Eckstein-BI is among them",
+  "score": "pooled likelihood x 100 over the validation mice's score sessions",
+  "seeds": [
+    "Miller-RHG",
+    "Lopez-DoubleTrace",
+    "Lebedeva-PR",
+    "Eckstein-BI"
+  ],
+  "ranking": [
+    {
+      "literature_model": "Miller-RHG",
+      "score": 72.61351071689947,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Lopez-DoubleTrace",
+      "score": 72.57596762560577,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Lebedeva-PR",
+      "score": 72.57275055944804,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Bari2019",
+      "score": 72.39635417955658,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "CompareToThreshold",
+      "score": 72.3505663750568,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Hattori2019",
+      "score": 72.19202765852798,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Zid-HistoryKernel2-ForagingRL",
+      "score": 72.04904394953564,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Chen-RLCK",
+      "score": 71.91105919482101,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Eckstein-BI",
+      "score": 71.76705979723688,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Beron-RFLR",
+      "score": 71.73468597825554,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Eckstein-RL",
+      "score": 71.59091730743707,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias+CK1",
+      "score": 71.09982717373295,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Alsio-DualRateSticky-RL",
+      "score": 70.57980812184998,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Grossman-MetaLearning",
+      "score": 69.42494450080508,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "ActorCritic",
+      "score": 66.64458482173585,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "LossCounting",
+      "score": 65.89942617107954,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "FeedbackDependent-RL+Bias",
+      "score": 61.09465465634546,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "FeedbackDependent-RL",
+      "score": 58.02970635497155,
+      "n_subjects": 48,
+      "n_trials": 322977
+    },
+    {
+      "literature_model": "Rescorla-Wagner",
+      "score": 52.96935081159682,
+      "n_subjects": 48,
+      "n_trials": 322977
+    }
+  ]
+}

@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1 r2
+all: r1 r2 r3
 
 # r1 = GLM-HMM round 1: held-out score vs K, and what the states are
 .PHONY: r1
@@ -38,6 +38,20 @@ r3:
 .PHONY: freeze-r3
 # Node-only (reads /allen and the snapshot), same WRAPPER_ROOT / DISPATCHER_ROOT as
 # freeze-round1. Run as the SLURM array analysis/freeze_r3.sbatch (fit and score one K-grid run
-# per task into R3_PARTS), then R3_MERGE=1 writes analysis/frozen_r3.json and its npz files.
+# per task into R3_PARTS), then R3_MERGE=1 writes analysis/frozen_r3.json and
+# analysis/frozen_r3_figure.npz (committed) and the archive's npz files (analysis/_cache_r3/).
 freeze-r3:
 	$(PY) analysis/freeze_r3.py
+
+.PHONY: archive-r3
+# Once per freeze: R3_PARTS and analysis/_cache_r3/ to the W&B artifact recorded in
+# analysis/archives_r3.json (AIND-disRNN/mice_glmhmm); never part of `all`.
+archive-r3:
+	$(PY) analysis/archive_r3.py
+
+.PHONY: r3-explorer
+# The interactive explorer of every r3 setting, from the W&B archive (downloaded into
+# analysis/_cache_r3/ when missing, checked against archives_r3.json). Writes the git-ignored
+# analysis/interactive/r3_state_spread.html and r3_data/; never part of `all`.
+r3-explorer:
+	$(PY) analysis/explorer_r3.py

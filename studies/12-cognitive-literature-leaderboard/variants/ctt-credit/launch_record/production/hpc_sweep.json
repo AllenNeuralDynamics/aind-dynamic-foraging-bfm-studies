@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-11-02T13:26:40-08:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "ctt-credit@20261102-132626",
+  "label": "production",
+  "note": "Study 12 variant ctt-credit: CompareToThreshold in stay-credit coordinates (ForagerCompareThresholdCredit, models #95; credits bounded to [-20, 20]) and the original CompareToThreshold, both refit per subject by differential evolution on all 763 cohort subjects with per-subject-de's protocol and data, on one foraging-models commit (v0.29.0, 4574b4b). Report r2 compares the two forms subject by subject: same likelihood, so any gain comes from the bounds (72 subjects sit at CTT's theta = -1) or an easier search. Han's request after Galen's report, 2026-11-02. Env dynamic-foraging-bfm-cpu upgraded to v0.29.0 for this launch.",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "2f26d1qa"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27572010"
+    }
+  ],
+  "revisions": {
+    "studies": "9da9390db5225409dffbc71e9ae8bbf76fd258a3",
+    "dispatcher": "3b2197d30196881e1f30c41ee3dc512f3aa5dcde",
+    "wrapper": "331d373c128682c2d8f766e344f9ba05f228d5cf",
+    "foraging_models": "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+  },
+  "manifests": [
+    "sweep_hpc.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 2,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "2d957f5366d684b48025ea80030046354a4d2a77c6c2127cec5800aed81baa2a"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "2f26d1qa",
+  "wandb_sweep_path": "NeuralDynamics/aind-dynamic-foraging-model/2f26d1qa",
+  "sweep_url": "https://wandb.ai/NeuralDynamics/aind-dynamic-foraging-model/sweeps/2f26d1qa",
+  "slurm_array_job_id": "27572010",
+  "slurm_autostop_job_id": "27572011",
+  "n_array_tasks": 2,
+  "agent_count": 1,
+  "slurm_mode": "cpu",
+  "dispatcher_commit": "3b2197d30196881e1f30c41ee3dc512f3aa5dcde",
+  "studies_git_commit": "9da9390db5225409dffbc71e9ae8bbf76fd258a3",
+  "studies_git_branch": "study/12-ctt-credit-r2",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "3b2197d30196881e1f30c41ee3dc512f3aa5dcde",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "331d373c128682c2d8f766e344f9ba05f228d5cf",
+  "foraging_models_git_commit": "4574b4bfd919bebd8311ffab886b88b7ab1d76f0",
+  "foraging_models_version": "0.29.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/wt/studies-12/studies/12-cognitive-literature-leaderboard/variants/ctt-credit/sweep_hpc.yaml",
+  "created_utc": "2026-11-02T21:26:40.233566+00:00"
+}

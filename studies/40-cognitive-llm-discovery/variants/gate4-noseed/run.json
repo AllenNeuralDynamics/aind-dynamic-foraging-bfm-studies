@@ -1,0 +1,39 @@
+{
+ "results_dir": "$TMPDIR/search",
+ "out_dir": "$MEVOLVE_LAUNCH_DIR/search",
+ "simulated": {
+  "generation": "$SIM_DIR/simulated_two_timescale_ck_generation.json.gz",
+  "validation": "$SIM_DIR/simulated_two_timescale_ck_validation.json.gz"
+ },
+ "library_exclude": [],
+ "workers": 24,
+ "max_evaluation_jobs": 2,
+ "max_proposal_jobs": 3,
+ "max_em": 20,
+ "n_draws": 2048,
+ "model": "claude-sonnet-5-5",
+ "effort": "medium",
+ "max_usd": 8.0,
+ "max_tokens": 32000,
+ "max_patch_attempts": 2,
+ "n_proposals": 100,
+ "seeds": [],
+ "seed_cache": "/allen/aind/scratch/han.hou/mevolve/runs/gate4-recovery/seed_cache",
+ "library_in_prompt": false,
+ "migration_interval": 10,
+ "migration_rate": 0.1,
+ "wandb": {
+  "entity": "NeuralDynamics",
+  "project": "dfbfm-mevolve",
+  "group": "$WANDB_GROUP",
+  "name": "gate4-noseed-search",
+  "mode": "online",
+  "notes": "Gate 4 control: 100 proposals on the same simulated mice as gate4-recovery (hand-set two timescales plus a choice kernel), with no seed programs: the template only, library off"
+ },
+ "launch": {
+  "label": "$LAUNCH_LABEL",
+  "launch_id": "$LAUNCH_ID",
+  "studies_sha": "$STUDIES_SHA",
+  "mevolve_sha": "$MEVOLVE_SHA"
+ }
+}

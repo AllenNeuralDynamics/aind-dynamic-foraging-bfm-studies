@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all freeze-fits
 
-all: r1 r3
+all: r1 r2 r3
 
 # The only live read: per-subject tables of the pinned W&B group, from the run directories on
 # /allen. Needs WANDB_API_KEY (the NeuralDynamics key); run on a compute node.
@@ -17,6 +17,11 @@ freeze-fits:
 .PHONY: freeze-two-level-em
 freeze-two-level-em:
 	$(PY) analysis/freeze_two_level_em.py
+
+# The ctt-credit group's two runs (credit form and CompareToThreshold), from /allen; compute node.
+.PHONY: freeze-ctt-credit
+freeze-ctt-credit:
+	$(PY) analysis/freeze_ctt_credit.py
 
 # r1 = Literature models on the held-out subjects: the leaderboard
 .PHONY: r1

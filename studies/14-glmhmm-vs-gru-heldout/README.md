@@ -4,7 +4,9 @@ id: 14-glmhmm-vs-gru-heldout
 question: Where does a GLM-HMM over left/right/ignore, refit on each held-out mouse's
   context sessions, land against the 3-way GRU on the same held-out trials, and how
   many latent states does it need?
-status: planned
+status: active
+verdict: Below the 3-way GRU at every K. Best is hurdle K = 10 with refits pooled toward the global fit
+  (0.6208); the winning K depends on the scoring rule and sits at the grid's edge (draft).
 wandb:
   entity: AIND-disRNN
   project: mice_glmhmm
@@ -82,5 +84,15 @@ Full design: [`PLAN.md`](PLAN.md); decisions: issue #48.
 
 ## Verdict
 
-None yet: no variant has been launched. Launches wait for the code PRs to merge and the models
-package to be released.
+Draft ([r1](analysis/reports/r1-round-1.md), [r2](analysis/reports/r2-refit-prior.md),
+[r3](analysis/reports/r3-state-spread.md)); all four variants have run.
+
+- Round 1: the GLM-HMM stays below the 3-way GRU; the best is the hurdle emission at K = 3 (0.6148).
+  The K that wins depends on the scoring rule: refits peak at 3, the global fit rises to 10. States
+  last whole sessions.
+- Round 2: refits pooled toward the global fit beat the global fit alone at every K, and the best
+  rises to hurdle K = 10 (0.6208), still below the GRU; the pick sits at the grid's edges.
+- State spread (r3): states are distinct strategies shared across mice only at K = 2–3
+  (engagement, then a side-bias split). Beyond about K = 4 a state shifts the weights, but each
+  mouse's version of it overlaps the other states as much as the same state in other mice.
+- Open: `hurdle-full` and input-driven transitions; see issue #48.
