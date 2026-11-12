@@ -80,6 +80,7 @@
 
 - Metadata (#139): `status: active` and a verdict from the draft reports; the README Verdict no longer
   says nothing has launched.
+- r1 and r2 are `live` (#142).
 - Note from study 30 (#136): the saved `filtered_k` posterior includes trial t. The scores here use the
   one-step predictive (`filtered_{t−1}·A`), so no number changes; reuse of the saved posteriors as a
   prediction must shift them.
