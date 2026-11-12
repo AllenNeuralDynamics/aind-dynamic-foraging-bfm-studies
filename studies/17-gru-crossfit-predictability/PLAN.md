@@ -6,8 +6,8 @@ Issue #148. Companions: study 41 (#149, the strategy study) and
 
 ## Why
 
-The study-01 reference GRU (v2 H128) trained on all 614 training-pool mice. Only the 149 test mice
-have held-out GRU predictions, so every comparison with the GRU spends the test set (studies 01,
+The study-01 reference GRU (v2 H128) trained on the whole training pool. Only its 149 held-out
+mice have held-out GRU predictions, so every comparison with the GRU spends the test set (studies 01,
 12, 13, 15 and 40 all scored there). Cross-validated folds give a held-out prediction for every
 mouse. Study 41 uses the result as its ceiling and residual map: where an interpretable model
 loses to the GRU, structure is missing. The spread across folds shows how stable that ceiling is.
@@ -26,20 +26,32 @@ Nothing else is decided: no deadline, no GPU budget, no choice between Beaker an
 
 | set | mice | source |
 |---|---|---|
-| test (held out by study 01) | 149 | MEvolve freeze `20260603` `sessions.parquet`, `pool == heldout` |
-| training pool | 614 | same, `pool == train` |
+| test (freeze label) | 149 | MEvolve freeze `20260603` `sessions.parquet`, `pool == heldout` |
+| training pool (freeze label) | 614 | same, `pool == train` |
 | ↳ study 40 discovery cohorts | 296 | `studies/40-cognitive-llm-discovery/reference/cohorts_seed0_monitor.json` → `cohorts` |
 | ↳ study 41 confirmation tier | 315 | study 41 `reference/tiers.json` (draft PR #150) |
 | ↳ excluded (on the GRU's own test list) | 3 | same study-40 file → `excluded`: 764791, 808057, 823164 |
+
+**The GRU's held-out set is not the freeze's test set.** Checked 2026-11-12 against
+`studies/01-gru-scaling-law/analysis/per_subject_rows.json` (every variant, ratio and seed scores
+the same 149 mice): 146 of them are freeze test mice; the other 3 are the "excluded" mice above,
+which the freeze labels training pool. In turn, 3 freeze test mice (722683, 795395, 820243) are
+not in the GRU's held-out set; whether the GRU trained on them is not yet checked (the run's
+`inputs.yaml`). So "the existing test split" must name which of the two 149-mouse sets it means
+(D0).
 
 ## Open decisions (for Han)
 
 Each item gives the suggestion from the study 40 session or this session. None is decided.
 
-**D1. Fold plan.** Suggested: the test fold reuses the study-01 run (trained on all 614; not
-retrained), plus K new trainings over the training pool, each holding out one part of it.
+**D0. Which 149 is the test fold.** The GRU's own held-out set (reuses study 01's predictions
+as they are) or the freeze's test set (matches study 40/41 tiers; 3 mice would need new
+predictions, and 3 of the GRU's held-out mice move to the pool folds). Suggested: the GRU's own set,
+since that is what "earlier results stay comparable" refers to, with the 3+3 mismatch recorded.
+
+**D1. Fold plan.** Suggested: the test fold reuses the study-01 run (not retrained), plus K new trainings over the training pool, each holding out one part of it.
 - K: 4 parts (≈153 mice each, the same size as the test fold) or 5 (≈122 each)?
-- Each new fold trains on about 460–490 mice, not 614. Study 01 found the held-out gain
+- Each new fold trains on about 460–490 mice, not the full pool. Study 01 found the held-out gain
   saturates by about 100 mice, so this is probably harmless, but it is a known difference
   between the test fold and the others.
 - Alternative: retrain the test fold too, so all folds use the same code and wrapper SHA. Then it
@@ -49,9 +61,9 @@ retrained), plus K new trainings over the training pool, each holding out one pa
 ADR 0003: by curriculum and by session-count thirds, fixed seed), and spread the discovery (296)
 and confirmation (315) mice across all folds, so no model is scored on one tier only.
 
-**D3. The 3 excluded mice.** Suggested: use their existing study-01 held-out predictions (to verify
-against that run's inputs: the freeze puts them in the training pool, but they are on the GRU's test list, so that
-GRU never trained on them) and keep them out of the new folds. Study 41 excludes them anyway.
+**D3. The 3 excluded mice.** They are in study 01's held-out rows, so the study-01 GRU did not
+train on them. Suggested: use those existing held-out predictions and keep them out of the new
+folds. Study 41 excludes them anyway.
 
 **D4. Which sessions get scored.** This decides what "every session" means.
 - Study 01's held-out protocol (`heldout_offline.yaml`, inherited `eval_every_n=2`) fine-tunes
