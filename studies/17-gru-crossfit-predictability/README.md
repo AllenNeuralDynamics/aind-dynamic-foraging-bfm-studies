@@ -46,7 +46,7 @@ scientist mode. Details and checks: [`PLAN.md`](PLAN.md); terms: [`CONTEXT.md`](
 |---|---|---|---|
 | [`test-fold-ref`](variants/test-fold-ref/notes.md) | test fold: rescore study 02's `nxd-3way` model (seed 0; seeds 1–2 for noise) in passes A and B | planned | — |
 | [`pool-folds`](variants/pool-folds/notes.md) | 4 new fold models (H256), one per pool fold | running (Beaker) | `pool-folds@20261113-005356` (Beaker; earlier Cedar/Beaker launches in notes) |
-| [`scaling-folds`](variants/scaling-folds/notes.md) | cross-validated scaling curve: 16 models at D ~ 10, 30, 100, 300 per pool fold, plus the test fold at D=300 | running (Beaker) | `scaling-folds@20261113-005618` (D100), `scaling-folds@20261113-005652` (D10/30) |
+| [`scaling-folds`](variants/scaling-folds/notes.md) | cross-validated scaling curve: 16 models at D ~ 10, 30, 100, 300 per pool fold, plus the test fold at D=300 | running (Beaker) | `scaling-folds@20261113-005618` (D100), `scaling-folds@20261113-005652` (D10/30), `scaling-folds@20261113-010450` (D300), `scaling-folds@20261113-010520` (test D300) |
 | [`cedar-smoke`](variants/cedar-smoke/notes.md) | first Cedar launch: the recipe cut to 300 steps on one A100; tests the platform, not a result | done (1st OOM, 2nd finished) | `cedar-smoke@20261112-175329`, `cedar-smoke@20261112-182835` |
 
 ## Verdict
