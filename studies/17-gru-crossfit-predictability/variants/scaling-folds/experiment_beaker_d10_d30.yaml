@@ -38,7 +38,7 @@ tasks:
       memory: 200GiB
     envVars:
       - name: WANDB_API_KEY
-        secret: han-wandb-api-key
+        secret: han-wandb-api-key-neuraldynamics   # han-hou (NeuralDynamics member); han-wandb-api-key (houhan) got W&B 403
       - name: BFM_OUTPUT_DIR
         value: /results
       # Readable values; the launcher submits the resolved full SHAs.

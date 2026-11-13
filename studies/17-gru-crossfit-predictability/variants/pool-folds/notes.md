@@ -35,7 +35,8 @@ study 41 uses as its ceiling and residual map.
   resubmitted at 370GiB / 28 CPU; verified 1 GPU per task.
   **W&B offline:** the Beaker secret `han-wandb-api-key` is the `houhan` account, which is not in
   the `NeuralDynamics` team; `wandb.init` got 403 "permission denied" three times and the wrapper
-  continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`). The first launch (this or the Cedar
+  continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`). **Stopped
+  at 00:58 PT** to resubmit with a `NeuralDynamics` key (Beaker secret `han-wandb-api-key-neuraldynamics`). The first launch (this or the Cedar
   relaunch) to finish all 4 folds supplies the map; the other is stopped and recorded. Outcome:
   pending.
 

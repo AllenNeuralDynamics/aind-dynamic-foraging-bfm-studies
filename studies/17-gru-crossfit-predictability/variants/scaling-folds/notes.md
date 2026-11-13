@@ -26,4 +26,5 @@ H200. Records go to `launch_record/<label>/`.
   priority, preemptible, AWS H200. Outcome: pending.
   **W&B offline:** the Beaker secret `han-wandb-api-key` is the `houhan` account, which is not in
   the `NeuralDynamics` team; `wandb.init` got 403 "permission denied" three times and the wrapper
-  continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`).
+  continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`). **Stopped
+  at 00:58 PT** to resubmit with a `NeuralDynamics` key (Beaker secret `han-wandb-api-key-neuraldynamics`).
