@@ -718,6 +718,14 @@ class ReportV2Test(StudyRepo):
         self.assertIn(f"report-skeleton|{self.REL}|## Question", self.findings("report-skeleton", "info"))
         self.assertEqual(self.findings("report-prose-number", "info"), set())
 
+    def test_fences_follow_commonmark(self):
+        hw = report_verdicts.hand_written
+        for text in ("~~~\n## Q\n~~~example\n0.1234\n~~~\n", "   ````\n0.1234\n```\n## Q\n`````  \n",
+                     "  ~~~py\n0.1234\n"):
+            self.assertNotIn("0.1234", hw(text), text)
+            self.assertNotIn("## Q", hw(text), text)
+        self.assertIn("0.5", hw("    ~~~\n0.5\n"))            # four spaces: indented code, not a fence
+
     def test_verdicts_create_a_missing_index(self):
         index = self.study / "analysis/reports/INDEX.md"
         index.unlink()

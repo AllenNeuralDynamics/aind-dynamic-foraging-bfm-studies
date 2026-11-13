@@ -28,7 +28,9 @@ FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 # script-written regions of a report (result-N, methods), HTML comments and fenced code
 MARKED = re.compile(r"<!-- BEGIN ([\w.-]+) -->.*?<!-- END \1 -->", re.S)
 COMMENT = re.compile(r"<!--.*?-->", re.S)
-FENCE = re.compile(r"^(`{3,}|~{3,}).*?^\1[^\n]*$", re.S | re.M)   # closed by the same delimiter
+# CommonMark fence: indented up to 3 spaces; closed by the same character, at least as many,
+# then only whitespace; an unclosed fence runs to the end
+FENCE = re.compile(r"^ {0,3}(?P<f>(?P<c>[`~])(?P=c){2,})[^\n]*$.*?(?:^ {0,3}(?P=f)(?P=c)*[ \t]*$|\Z)", re.S | re.M)
 HEADING = re.compile(r"^(#{1,2}) +(.*?)[ \t]*$", re.M)
 BLOCK = re.compile(r"<!-- BEGIN verdicts -->\n?(.*?)<!-- END verdicts -->", re.S)
 
