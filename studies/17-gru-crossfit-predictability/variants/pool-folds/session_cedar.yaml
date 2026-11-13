@@ -7,7 +7,7 @@ cluster: octo.hub-usc1-gcp-a100
 image: dfbfm-wrapper:20261109-wf390d4f   # cached on the A100 node (AllenOCTO/cedar#543)
 gpu: 1
 cpu: 16
-ram: 256Gi
+ram: 320Gi                               # 256Gi was OOM-killed at H256 (folds-h256); 4 x 320Gi fills the 1.3 TiB A100 node
 max_live_time: 48h
 secrets:
   wandb-api-key-neuraldynamics: WANDB_API_KEY
