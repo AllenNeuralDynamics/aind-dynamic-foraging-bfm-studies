@@ -71,3 +71,9 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   `folds-h256-2way-t2`. The allocated-seat copies of folds 1-3 (`folds-h256-2way-t1` `-000`..`-002`)
   stay queued as a backup until the Cedar runs pass their first checkpoint (10k, the RAM peak),
   then are stopped. Fold 4 waits on Beaker (`-t1` `-003` and `-t2` `-003`).
+- 15:41 PT: fold 4 started on Beaker tier 2 (`folds-h256-2way-t2` task `-003`, group
+  `pool-folds-2way@20261113-015357`); its allocated-seat copy (`folds-h256-2way-t1` `-003`) was
+  stopped. The 4 2-way fold models therefore come from two launches: folds 1-3 Cedar A100
+  (`@20261113-145449`), fold 4 Beaker on-prem H200 (`@20261113-015357`); same sweep, same pinned
+  wrapper/dispatcher/foraging-models SHAs, different runtime image (Cedar `dfbfm-wrapper:20261109-wf390d4f`
+  vs Beaker `dynamic-foraging-bfm-wrapper-main-20260902`).
