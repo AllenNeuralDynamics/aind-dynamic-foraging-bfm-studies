@@ -28,10 +28,12 @@ tasks:
         # H200 141GB (H256 OOMs a 48GB L40S); on-prem reaches AWS S3 for the snapshot cache.
         - ai1/octo-hub-onprem-h200
     resources:
-      # H256 at ~610 mice ran out of host memory at 256Gi on Cedar (folds-h256); give 384GiB.
+      # One on-prem H200 bundle = 1 GPU + 28 CPU + 378 GiB (node: 8 GPU, 224 CPU, 3.0 TiB). Stay
+      # inside it: 384GiB grabbed 2 GPUs per task (folds-h256-beaker). H256 at ~610 mice needs
+      # more than 256Gi (Cedar folds-h256 OOM) and ran near 257 GiB at 320Gi on Cedar.
       gpuCount: 1
-      cpuCount: 16
-      memory: 384GiB
+      cpuCount: 28
+      memory: 370GiB
     envVars:
       - name: WANDB_API_KEY
         secret: han-wandb-api-key
