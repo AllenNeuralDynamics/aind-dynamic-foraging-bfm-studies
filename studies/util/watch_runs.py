@@ -43,6 +43,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from wandb_key import key_for
+
 logger = logging.getLogger("watch_runs")
 
 PT = ZoneInfo("America/Los_Angeles")
@@ -232,7 +234,7 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     experiments = dict(pair.split("=", 1) for pair in args.experiments)
-    key = os.environ["WANDB_API_KEY"]
+    key = key_for(args.wandb_entity)
 
     from beaker import Beaker, Config
     beaker = Beaker(
