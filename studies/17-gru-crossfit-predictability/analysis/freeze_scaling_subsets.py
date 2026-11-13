@@ -2,14 +2,16 @@
 """Training-mouse subsets for the cross-validated scaling curve (variant ``scaling-folds``).
 
 For each pool fold k, fold model k's training mice (every mouse outside pool fold k:
-``reference/folds.json``) are subsampled to D ~ 10, 30 and 100 mice, with the subject ratios of
-studies 01/02 (0.016, 0.049, 0.163) applied per curriculum. Within a curriculum the mice are
+``reference/folds.json``) are subsampled to D ~ 10, 30, 100 and 300 mice, with the subject ratios
+of studies 01/02 (0.016, 0.049, 0.163, 0.489) applied per curriculum. Within a curriculum the mice are
 shuffled once (seed 0) and each D takes a prefix of that order, so the subsets are nested
-(D=10 within D=30 within D=100), as the wrapper's ``subject_ratio`` sampling is. The full-size
+(D=10 within D=30 within D=100 within D=300), as the wrapper's ``subject_ratio`` sampling is. The full-size
 point is the ``pool-folds`` model; the test fold's curve is study 02's ``nxd-3way`` grid.
 
 Writes ``reference/scaling_subsets.json`` and the variant's two sweeps from their templates:
-``sweep_d100.yaml`` (allocated seats) and ``sweep_d10_d30.yaml`` (preemptible). Reads the
+``sweep_d100.yaml`` (allocated seats), ``sweep_d10_d30.yaml`` and ``sweep_d300.yaml`` (preemptible).
+The test fold's D=300 point (``sweep_test_d300.yaml``) is not written here: it uses study 02's own
+``subject_ratio`` selection. Reads the
 curriculum of each mouse from the MEvolve data freeze on /allen (snapshot 20260603). Needs pandas;
 run on a compute node:
 
@@ -32,8 +34,8 @@ FOLDS = STUDY / "reference" / "folds.json"
 SESSIONS = Path("/allen/aind/scratch/han.hou/mevolve/freeze/20260603/sessions.parquet")
 OUT = STUDY / "reference" / "scaling_subsets.json"
 VARIANT = STUDY / "variants" / "scaling-folds"
-SWEEPS = {"sweep_d100.yaml": ["d100"], "sweep_d10_d30.yaml": ["d10", "d30"]}
-RATIOS = {"d10": 0.016, "d30": 0.049, "d100": 0.163}   # studies 01/02 subject_ratio values
+SWEEPS = {"sweep_d100.yaml": ["d100"], "sweep_d10_d30.yaml": ["d10", "d30"], "sweep_d300.yaml": ["d300"]}
+RATIOS = {"d10": 0.016, "d30": 0.049, "d100": 0.163, "d300": 0.489}   # studies 01/02 subject_ratio values
 SEED = 0
 
 
@@ -64,8 +66,8 @@ def main() -> None:
         for d, ratio in RATIOS.items():
             pick = [s for c, ids in order.items() for s in ids[:max(1, round(ratio * len(ids)))]]
             subsets[k][d] = sorted(pick)
-        assert set(subsets[k]["d10"]) <= set(subsets[k]["d30"]) <= set(subsets[k]["d100"])
-        assert not set(subsets[k]["d100"]) & set(folds["folds"][k])
+        assert set(subsets[k]["d10"]) <= set(subsets[k]["d30"]) <= set(subsets[k]["d100"]) <= set(subsets[k]["d300"])
+        assert not set(subsets[k]["d300"]) & set(folds["folds"][k])
     sizes = {k: {d: len(v) for d, v in ds.items()} for k, ds in subsets.items()}
 
     templates = [VARIANT / f"{name.removesuffix('.yaml')}.template.yaml" for name in SWEEPS]

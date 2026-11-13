@@ -1,9 +1,11 @@
 # Variant `scaling-folds`
 
 **What.** The cross-validated scaling curve (PLAN.md, "Scaling curve"). For each pool fold k,
-fold model k's training mice are subsampled to D ~ 10, 30 and 100 (studies 01/02 subject ratios
-0.016, 0.049, 0.163 per curriculum, nested, seed 0; `reference/scaling_subsets.json`), and a
-3-way GRU H256 (the `pool-folds` recipe) is trained on each: 4 folds x 3 D = 12 models. The
+fold model k's training mice are subsampled to D ~ 10, 30, 100 and 300 (studies 01/02 subject
+ratios 0.016, 0.049, 0.163, 0.489 per curriculum, nested, seed 0; `reference/scaling_subsets.json`),
+and a 3-way GRU H256 (the `pool-folds` recipe) is trained on each: 4 folds x 4 D = 16 models.
+D=300 was added on 2026-11-13 (Han), with one test-fold run at D=300 (`sweep_test_d300.yaml`:
+study 02's recipe with `subject_ratio` 0.489, seed 0), since study 02's grid has no D=300. The
 full-size point is the `pool-folds` model of the same fold; the test fold's curve is study 02's
 `nxd-3way` grid (same recipe, D = 10, 30, 100, 614, seeds 0-2).
 

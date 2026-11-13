@@ -2,6 +2,8 @@
 
 ## 2026-11-13
 
+- Han: add D=300 to the scaling curve (4 pool-fold models + 1 test-fold model); no new H.
+
 - Han: the cross-validated scaling curve is part of study 17. Added variant `scaling-folds`,
   `reference/scaling_subsets.json` (`make freeze-scaling`) and the `scaling` question tag.
 

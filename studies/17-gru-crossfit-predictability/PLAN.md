@@ -72,13 +72,14 @@ trains on every mouse outside its fold, test mice included.
 ## Scaling curve (Han, 2026-11-13: an extension of the same cross-validation)
 
 Variant `scaling-folds`: for each pool fold, fold model k's training mice are subsampled to
-D ~ 10, 30, 100 (studies 01/02 subject ratios per curriculum, nested, seed 0;
-`reference/scaling_subsets.json`) and the same H256 recipe is trained on each (12 models). The
+D ~ 10, 30, 100, 300 (studies 01/02 subject ratios per curriculum, nested, seed 0;
+`reference/scaling_subsets.json`) and the same H256 recipe is trained on each (16 models). The
 full-size point is the `pool-folds` model; the test fold's curve is study 02's `nxd-3way` grid
-(D = 10, 30, 100, 614). Scored with the same passes A and B, this gives held-out prediction
+(D = 10, 30, 100, 614) plus one new test-fold run at D=300 (study 02's recipe, `subject_ratio`
+0.489, seed 0), added 2026-11-13 because D=300 is where the curve's saturation is judged. Scored with the same passes A and B, this gives held-out prediction
 against D over all 763 mice, with fold-to-fold error bars. Compute: the 8 allocated Beaker seats
 take the 4 `pool-folds` and 4 D=100 models; D=10 and 30 run at low priority, preemptible, on
-idle AWS H200s (normal-priority preemptible jobs are capped at the allocation).
+idle AWS H200s, and D=300 the same way on on-prem H200 (one 378 GiB bundle each) (normal-priority preemptible jobs are capped at the allocation).
 
 ## Checks before the map is frozen
 
