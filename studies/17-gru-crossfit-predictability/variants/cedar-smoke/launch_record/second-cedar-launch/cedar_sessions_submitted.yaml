@@ -1,0 +1,134 @@
+session_config:
+  workspace: dfbfm
+  cluster: octo.hub-usc1-gcp-a100
+  image: dfbfm-wrapper:20261109-wf390d4f
+  gpu: 1
+  cpu: 16
+  ram: 256Gi
+  max_live_time: 2h
+  secrets:
+    wandb-api-key-neuraldynamics: WANDB_API_KEY
+  env:
+    WRAPPER_REF: main
+    DISPATCHER_REF: main
+    FORAGING_MODELS_REF: main
+sessions:
+- name: cedar-smoke-20261112-182835-0
+  overrides:
+  - seed=0
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=128
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=100
+  - model.architecture.session_n_warmup_steps=100
+  - model.training.n_steps=300
+  - model.training.checkpoint_every_n_steps=100
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=200
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: cedar-smoke
+  - name: BFM_META_LAUNCH_ID
+    value: 20261112-182835
+  - name: BFM_META_CONFIG_HASH
+    value: 60312e1a
+  - name: BFM_META_STUDIES_COMMIT
+    value: 5c52b85d2dddd675f89d329d418f8e658fa6bbac
+  - name: BFM_META_LABEL
+    value: second-cedar-launch
+  - name: BFM_META_NOTE
+    value: 'Second Cedar smoke launch (dispatcher #219): same 300-step cut of the
+      study 02 nxd-3way H128 recipe, with ram 256Gi / cpu 16 as study 02 used on Beaker,
+      after first-cedar-launch was OOM-killed at 64Gi. Should show the recipe trains
+      to completion on a Cedar A100 and finishes cleanly in W&B.'
+  - name: WANDB_RUN_ID
+    value: cedar-smoke-20261112-182835-21b19cb6
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: cedar-smoke@20261112-182835
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - cedar-smoke-20261112-182835-0
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '16'
+  - --ram
+  - 256Gi
+  - --max-live-time
+  - 2h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=cedar-smoke
+  - --env
+  - BFM_META_LAUNCH_ID=20261112-182835
+  - --env
+  - BFM_META_CONFIG_HASH=60312e1a
+  - --env
+  - BFM_META_STUDIES_COMMIT=5c52b85d2dddd675f89d329d418f8e658fa6bbac
+  - --env
+  - BFM_META_LABEL=second-cedar-launch
+  - --env
+  - 'BFM_META_NOTE=Second Cedar smoke launch (dispatcher #219): same 300-step cut
+    of the study 02 nxd-3way H128 recipe, with ram 256Gi / cpu 16 as study 02 used
+    on Beaker, after first-cedar-launch was OOM-killed at 64Gi. Should show the recipe
+    trains to completion on a Cedar A100 and finishes cleanly in W&B.'
+  - --env
+  - WANDB_RUN_ID=cedar-smoke-20261112-182835-21b19cb6
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=cedar-smoke@20261112-182835
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=128 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=100 model.architecture.session_n_warmup_steps=100
+    model.training.n_steps=300 model.training.checkpoint_every_n_steps=100 model.training.lr=1e-5
+    model.training.checkpoint_run_heldout_eval=false model.training.length_bucketing=true
+    model.training.early_stopping.enabled=true model.training.early_stopping.start_after_step=200
+    model.training.auto_heldout_finetune.enabled=false seed=0 > "$CEDAR_OUTPUTS_DIR/run.log"
+    2>&1 < /dev/null & pid=$!; sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started;
+    else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log" >&2; exit 3; fi

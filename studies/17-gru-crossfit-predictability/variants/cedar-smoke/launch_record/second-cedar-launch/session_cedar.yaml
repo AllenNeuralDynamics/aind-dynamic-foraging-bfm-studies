@@ -1,0 +1,14 @@
+# Cedar session for the cedar-smoke variant (dispatcher launch_cedar.py, #219).
+workspace: dfbfm
+cluster: octo.hub-usc1-gcp-a100
+image: dfbfm-wrapper:20261109-wf390d4f   # already cached on the A100 node (AllenOCTO/cedar#543)
+gpu: 1
+cpu: 16
+ram: 256Gi                               # as study 02 nxd-3way on Beaker; 64Gi was OOM-killed (first-cedar-launch)
+max_live_time: 2h
+secrets:
+  wandb-api-key-neuraldynamics: WANDB_API_KEY
+env:                                     # the launcher resolves these to full SHAs
+  WRAPPER_REF: main
+  DISPATCHER_REF: main
+  FORAGING_MODELS_REF: main
