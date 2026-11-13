@@ -47,7 +47,7 @@ STUDIES = REPO / "studies"
 # study 01's v1/v2 are protocols on one data snapshot, not data versions.
 CONDITION_KEYS = ("data", "protocol", "model", "D", "mouse_set", "metric", "split")
 
-# One default per comparison. PROPOSED in issue #63; confirmed in PR review.
+# One default per comparison, confirmed in issue #63 review (2026-11-13).
 DEFAULTS = {
     # Study 01's production recipe (H128, session conditioning engaged), which studies 07, 08
     # and 10 match; v1 is the record of a run where session conditioning never engaged, and
