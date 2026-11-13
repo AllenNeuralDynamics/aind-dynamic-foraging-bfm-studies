@@ -73,9 +73,22 @@ cannot adapt to the confirmation subjects. `confirm` writes each result to `<run
 outside the agent's directory; the same freeze copies that file, and the reports read results only
 from it.
 
-**The GRU map.** Confirmation compares models with the cross-validated GRU (studies #148), which gives
-held-out GRU predictions for every mouse. Discovery can start before that map exists, from study 40's
-frozen r5 scores and the data freeze.
+**The GRU map.** Confirmation compares models with study 17's cross-validated GRU (studies #148, PR
+#151; decided with Han on 2026-11-12), which gives held-out GRU predictions for every mouse. Discovery
+can start before that map exists, from study 40's frozen r5 scores and the data freeze.
+
+- **Folds.** 5 folds over all 763 mice (study 17 `reference/folds.json`): the 149 test subjects are
+  one fold, scored by model 0 (study 02 `nxd-3way` H256 seed 0, trained on the 614 pool mice); 4 pool
+  folds, each scored by a model trained on the other 3 pool folds and the 149 test subjects. No model
+  scores a mouse it trained on; discovery and confirmation subjects are spread across the 4 pool folds.
+- **Held out means "knowing the mouse".** Each mouse's embedding is tuned on interleaved sessions,
+  before and after the session predicted; the map is not a forecast.
+- **Limitation.** Models 1–4 trained on the test subjects, so the residuals and embeddings that
+  discovery and confirmation subjects get carry a weak, population-level trace of the test subjects.
+  Every test-tier claim cites this.
+- **Reference numbers.** The headline GRU number on the test subjects is study 01's, on the 146 shared
+  test subjects, for continuity with studies 01, 12, 13 and 40. Every trial-level comparison and
+  residual uses study 17's map (model 0 on the test subjects).
 
 ## First hypotheses
 
@@ -114,7 +127,8 @@ frozen r5 scores and the data freeze.
 | study 40's cohorts and excluded mice | `40-cognitive-llm-discovery/reference/cohorts_seed0_monitor.json` | read by path in `analysis/freeze_tiers.py`; a `cross_study` reader to come |
 | r5 per-session scores of 17 programs on the 100 monitor mice | study 40 `analysis/individual/sessions.json`, `analysis/individual/scores/` | `cross_study` reader to come |
 | r5 programs | study 40 `analysis/individual/programs/` | read by path |
-| cross-validated GRU predictions | studies #148 | when it is registered |
+| cross-validated GRU predictions, folds | study 17 (#148): per-trial predictions; `reference/folds.json` | when it is registered |
+| GRU headline on the 146 shared test subjects | study 01 | `cross_study` registry (#63) |
 | GLM-HMM states | study 14 r3 | to come |
 | behavioural fingerprints | study 15 | to come |
 
