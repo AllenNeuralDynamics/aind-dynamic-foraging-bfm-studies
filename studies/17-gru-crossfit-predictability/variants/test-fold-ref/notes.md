@@ -1,7 +1,8 @@
 # Variant `test-fold-ref`
 
 **What.** The test fold: the freeze's 149 test subjects. No training. Rescores study 02's
-`nxd-3way` H128 model (W&B `AIND-disRNN/mice_ignore_scaling`, group `nxd-3way@20260707-075401`)
+`nxd-3way` H256 model (W&B `AIND-disRNN/mice_ignore_scaling`, group `nxd-3way@20260707-075401`;
+seed 0 `-80a6d102`, seeds 1–2 `-3c79d1d1`, `-a3171d8e`)
 in passes A and B with the freeze's fit/score session lists. Seed 0 gives the map; seeds 1–2
 measure training noise.
 

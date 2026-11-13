@@ -20,16 +20,18 @@ trains on every mouse outside its fold, test mice included.
 
 | model | held out (scored) | trains on | source |
 |---|---|---|---|
-| 0 | test fold: the freeze's 149 test subjects (`pool == heldout`) | the 614 pool mice | **reused**: study 02 `nxd-3way` seed 0 (`AIND-disRNN/mice_ignore_scaling`, group `nxd-3way@20260707-075401`) |
+| 0 | test fold: the freeze's 149 test subjects (`pool == heldout`) | the 614 pool mice | **reused**: study 02 `nxd-3way` H256 seed 0, run `nxd-3way-20260707-075401-80a6d102` (`AIND-disRNN/mice_ignore_scaling`, group `nxd-3way@20260707-075401`) |
 | 1–4 | pool fold k (≈153 mice) | the other 3 pool folds + the 149 test mice (≈610) | new training, seed 0 |
 
-- **Model: 3-way GRU** (left / right / ignore), the study 02 `nxd-3way` recipe at H128
+- **Model: 3-way GRU** (left / right / ignore), the study 02 `nxd-3way` recipe at **H256**
   (`ignore_policy: include`, snapshot `20260603`, λ-forward session conditioning, 150k steps,
-  gated early stop). Study 02 found the ignore class costs nothing on left/right prediction.
+  gated early stop). Study 02 found the ignore class costs nothing on left/right prediction; H256
+  at 614 mice is its best cell (Han, 2026-11-12, switched from H128).
 - **Pool folds:** the 614 pool mice in 4 parts, stratified by curriculum × session-count thirds
   with a fixed seed (as study 40 ADR 0003), then checked so the 296 discovery and 315
   confirmation mice spread across all 4. The map is committed before training as
-  `reference/folds.json` (mouse → fold).
+  `reference/folds.json` (mouse → fold; `analysis/freeze_folds.py`, which also writes the
+  `pool-folds` sweep).
 - **Mouse lists follow the freeze.** 764791, 808057, 823164 (on study 01's 2-way held-out list)
   are pool mice here; 722683, 795395, 820243 (freeze test mice that study 01 trained on) are in
   the test fold. Study 02's model already uses exactly the freeze's lists.
@@ -41,16 +43,18 @@ trains on every mouse outside its fold, test mice included.
   training mice; no held-out mouse is scored during training. The recipe already does this
   (wrapper `gru_trainer.py`: `eval_likelihood` on `bundle.eval_set`; per-checkpoint held-out eval
   is skipped for the multisubject GRU).
-- **Seeds:** one per fold. Training noise comes from study 02's seeds 1–2 of model 0 on the test
-  fold, at the cost of rescoring only.
-- **Platform:** Beaker hub clusters, as study 02's H128 runs (`octo.ai-aws-g6e`,
-  `octo-hub-aws-l40s`). Cedar is not launch-ready (no launcher, no launch-record schema entry, no
-  W&B secret); making it ready is a separate infra task.
+- **Seeds:** one per fold. Training noise comes from study 02's H256 seeds 1–2 of model 0
+  (`-3c79d1d1`, `-a3171d8e`) on the test fold, at the cost of rescoring only.
+- **Platform: Cedar** (Han, 2026-11-12), A100 cluster, launched with dispatcher `launch_cedar.py`
+  (dispatcher #220): one session per fold model, 256Gi RAM (the `cedar-smoke` variant showed the
+  recipe peaks near 190 GB), 48h lifetime until the first run gives a step rate. No automatic
+  resume: a stopped run is restarted by hand in the same output folder.
 
 ## Variants
 
 - `test-fold-ref`: rescoring only (passes A and B) of model 0, plus seeds 1–2 for training noise.
-- `pool-folds`: one launch, 4 tasks (one per pool fold), one W&B group.
+- `pool-folds`: one launch, 4 Cedar sessions (one per pool fold), one W&B group.
+- `cedar-smoke`: the first Cedar launch, a 300-step test of the platform (not a result).
 
 ## Checks before the map is frozen
 
@@ -77,7 +81,7 @@ detection (PR-AUC) second; full 3-way likelihood in tables only.
 
 ## Prerequisites
 
-1. **Wrapper change (to file):** the held-out fine-tune takes its fit/score split only from the
+1. **Wrapper change (to file; needed for scoring, not for training):** the held-out fine-tune takes its fit/score split only from the
    `eval_every_n` alternation and cannot swap it, and its per-trial export
    (`test_trial_predictions.csv`, `build_binary_trial_predictions`) is 2-way only. Needed: an
    explicit per-session fit/score list with a swap, and 3-way per-trial export with the subject
@@ -91,7 +95,8 @@ detection (PR-AUC) second; full 3-way likelihood in tables only.
 
 - [x] Study scaffolded (PR #151).
 - [x] Fold plan and recipe fixed before training (this plan).
-- [ ] Wrapper prerequisite merged; `reference/folds.json` committed.
+- [x] `reference/folds.json` committed.
+- [ ] Wrapper prerequisite merged (needed for scoring, not for training).
 - [ ] Model 0 reproduces study 02 (check 1).
 - [ ] All folds trained; per-trial predictions frozen and registered.
 - [ ] Report: predictability per mouse and per session, and the spread across folds.
