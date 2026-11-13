@@ -253,6 +253,81 @@ def update(latents, choice, reward, p):
 **Figure 2.** The per-bin RMSE of the mouse-average curves (study 15's view, its headline sets and common subjects, as in r3) for each program and the GRU; lower is closer to the mice.
 <!-- END result-4 -->
 
+## 5. On all 149 test subjects (the atlas leaderboard)
+
+<!-- BEGIN result-5 -->
+Pooled likelihood (geometric-mean probability per choice) on all 149 test subjects, the atlas leaderboard's metric. The leaderboard reads the raw 2-level EM score, which is study 12 r3's convention for the literature models. The other columns are the score with the per-mouse fallback (MEvolve ADR 0004; this study's headline on the 146 shared subjects uses it) and the per-subject fit.
+
+| program | 2-level EM (raw) | with per-mouse fallback | per subject | mice on fallback |
+|---|---|---|---|---|
+| Miller-RHG (2-level EM) | 0.7225 | 0.7244 | 0.7196 | 2 |
+| search's best (`satiety_engagement`) | 0.7261 | 0.7263 | 0.7212 | 1 |
+| 75% floor | 0.7260 | 0.7260 | 0.7214 | 1 |
+| 50% floor | 0.7258 | 0.7258 | 0.7207 | 0 |
+
+### search's best (`satiety_engagement`)
+
+Values learned at separate rates after reward and no reward. The unchosen side is forgotten toward 0 and, after a miss, also learns that the other side pays (counterfactual learning, with its own strength in coupled and uncoupled tasks). Fast and slow choice traces and a side bias. The weight on values and traces changes with the rewards collected in the session (satiety). Its docstring also mentions a bait expectation; the code has none. Code: [`analysis/selection/programs/rank3_e3819885.py`](../selection/programs/rank3_e3819885.py).
+
+Notation: trial $t$; choice $c_t \in \{L, R\}$, $u_t$ the side not chosen; reward $r_t \in \{0, 1\}$; signed choice $s_t = +1$ (right) or $-1$ (left); $\sigma(x) = 1/(1+e^{-x})$; learning rate $\alpha_t = \alpha_+$ after a reward, $\alpha_-$ after none. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.
+
+**Update:**
+
+$$\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \alpha_t\,\big(r_t - Q_t(c_t)\big) \\ Q_{t+1}(u_t) &= (1-\phi)\,Q_t(u_t) + \kappa\,\alpha_t\,\big((1 - r_t) - (1-\phi)\,Q_t(u_t)\big) \\ F_{t+1} &= F_t + \tau_F\,(s_t - F_t) \\ S_{t+1} &= S_t + \tau_S\,(s_t - S_t) \\ n_{t+1} &= n_t + r_t/100 \end{aligned}$$
+
+with $\kappa = \kappa_c$ in coupled tasks and $\kappa_u$ in uncoupled ones; $n_t$ is the rewards collected so far, in hundreds.
+
+**Choice** ($\epsilon = 10^{-4}$):
+
+$$\begin{aligned} x_t &= \beta\,\big(Q_t(R) - Q_t(L)\big) + w_F F_t + w_S S_t \\ g_t &= \exp\!\big(-\gamma\,(n_t - 1)\big) \\ P(c_t = R) &= \epsilon + (1 - 2\epsilon)\,\sigma(g_t\,x_t + b) \end{aligned}$$
+
+**Initial values:** every latent variable is 0 at the start of each session.
+
+**Parameters (12):** $\alpha_+$ `learn_rate_rewarded`, $\alpha_-$ `learn_rate_unrewarded`, $\phi$ `forget_rate_unchosen`, $\beta$ `value_inverse_temperature`, $\tau_F$ `fast_habit_step_size`, $w_F$ `fast_habit_weight`, $\tau_S$ `slow_habit_step_size`, $w_S$ `slow_habit_weight`, $b$ `right_bias`, $\kappa_c$ `counterfactual_weight`, $\kappa_u$ `counterfactual_weight_uncoupled`, $\gamma$ `satiety_gain`.
+
+### 75% floor
+
+The 50% floor's model with one addition: the fast choice trace's weight changes with the mouse's training experience (the log of the session's index). Values and traces are kept in logit units, so the choice is their plain sum. Code: [`analysis/simplify/simplify-75/programs/c1_141c8a13.py`](../simplify/simplify-75/programs/c1_141c8a13.py).
+
+Notation: trial $t$; choice $c_t \in \{L, R\}$, $u_t$ the side not chosen; reward $r_t \in \{0, 1\}$; signed choice $s_t = +1$ (right) or $-1$ (left); $\sigma(x) = 1/(1+e^{-x})$; learning rate $\alpha_t = \alpha_+$ after a reward, $\alpha_-$ after none. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.
+
+**Session start:** the fast trace's weight for session $k$ (0 for the mouse's first session) is
+
+$$w_F^{(k)} = w_F + \gamma\,\big(\ln(1 + k) - 3\big)$$
+
+($\ln(1+k) = 3$ near the 20th session).
+
+**Update:**
+
+$$\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \alpha_t\,\big(\beta\,r_t - Q_t(c_t)\big) \\ Q_{t+1}(u_t) &= (1-\phi)\,Q_t(u_t) \\ F_{t+1} &= F_t + \tau_F\,\big(w_F^{(k)}\,s_t/2 - F_t\big) \\ S_{t+1} &= S_t + \tau_S\,\big(w_S\,s_t/2 - S_t\big) \end{aligned}$$
+
+**Choice:**
+
+$$P(c_t = R) = \sigma\big(Q_t(R) - Q_t(L) + F_t + S_t + b\big)$$
+
+**Initial values:** $Q$, $F$ and $S$ are 0 at the start of each session.
+
+**Parameters (10):** $\alpha_+$ `learn_rate_rewarded`, $\alpha_-$ `learn_rate_unrewarded`, $\phi$ `forget_rate_unchosen`, $\beta$ `value_inverse_temperature`, $\tau_F$ `fast_habit_step_size`, $w_F$ `fast_habit_weight`, $\tau_S$ `slow_habit_step_size`, $w_S$ `slow_habit_weight`, $b$ `right_bias`, $\gamma$ `habit_experience_gain`.
+
+### 50% floor
+
+Values learned at separate rates after reward and no reward, with the unchosen side forgotten toward 0; fast and slow choice traces that pull toward repeating (or alternating) recent choices; a side bias; a softmax over their weighted sum. Code: [`analysis/simplify/simplify-50/programs/c1_cd994c73.py`](../simplify/simplify-50/programs/c1_cd994c73.py).
+
+Notation: trial $t$; choice $c_t \in \{L, R\}$, $u_t$ the side not chosen; reward $r_t \in \{0, 1\}$; signed choice $s_t = +1$ (right) or $-1$ (left); $\sigma(x) = 1/(1+e^{-x})$; learning rate $\alpha_t = \alpha_+$ after a reward, $\alpha_-$ after none. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.
+
+**Update:**
+
+$$\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \alpha_t\,\big(r_t - Q_t(c_t)\big) \\ Q_{t+1}(u_t) &= (1-\phi)\,Q_t(u_t) \\ F_{t+1} &= F_t + \tau_F\,(s_t - F_t) \\ S_{t+1} &= S_t + \tau_S\,(s_t - S_t) \end{aligned}$$
+
+**Choice:**
+
+$$P(c_t = R) = \sigma\big(\beta\,(Q_t(R) - Q_t(L)) + w_F F_t + w_S S_t + b\big)$$
+
+**Initial values:** every latent variable is 0 at the start of each session.
+
+**Parameters (9):** $\alpha_+$ `learn_rate_rewarded`, $\alpha_-$ `learn_rate_unrewarded`, $\phi$ `unchosen_forgetting`, $\beta$ `beta`, $\tau_F$ `fast_trace_step`, $w_F$ `fast_trace_weight`, $\tau_S$ `slow_trace_step`, $w_S$ `slow_trace_weight`, $b$ `right_bias`.
+<!-- END result-5 -->
+
 ## Caveats
 
 - **Halstead effort counts operators, not calls.** Vectorized code (a dot product, `concatenate`) scores
