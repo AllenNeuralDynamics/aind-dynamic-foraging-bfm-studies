@@ -31,13 +31,14 @@ tasks:
     constraints:
       cluster:
         # H200; reaches AWS S3 for the snapshot cache (GCP clusters cannot).
-        - ai1/octo-hub-onprem-h200
+        - ai1/octo-hub-aws-h200   # on-prem was full; normal-preemptible jobs queued there (2026-11-13 01:40 PT)
     resources:
-      # D ~ 300: host RAM between the D<=100 runs and the ~610-mouse runs (>320 GiB); take the
-      # whole on-prem H200 bundle (1 GPU + 28 CPU + 378 GiB), not more, so each task gets 1 GPU.
+      # Two AWS H200 bundles (each 1 GPU + 24 CPU + 250 GiB): the ~610-mouse runs need more than
+      # 320 GiB of host RAM, and D=300 is unmeasured. Beaker therefore assigns 2 GPUs per task, one
+      # idle; deliberate (Han, 2026-11-13).
       gpuCount: 1
-      cpuCount: 28
-      memory: 370GiB
+      cpuCount: 48
+      memory: 480GiB
     envVars:
       - name: WANDB_API_KEY
         secret: han-wandb-api-key-neuraldynamics   # han-hou (NeuralDynamics member); han-wandb-api-key (houhan) got W&B 403

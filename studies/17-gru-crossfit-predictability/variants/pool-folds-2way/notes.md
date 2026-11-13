@@ -24,3 +24,7 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
 - Normal priority, not preemptible (2026-11-13 01:33-01:35 PT, `*-normal` launch records): all
   tasks queued behind the 8 allocated seats; stopped at 01:41 PT without starting. Resubmitted
   at normal priority, preemptible (the unallocated budget).
+- Normal priority, preemptible on on-prem H200 (`*-np` launch records, 01:37-01:38 PT): nothing was
+  scheduled in 3 min (on-prem had 0 free GPUs; normal-preemptible jobs wait for a free GPU rather
+  than evicting other workspaces' low-priority jobs). Stopped at 01:44 PT; moved to AWS H200,
+  normal priority, preemptible, two bundles (2 GPUs, 480 GiB) per task.
