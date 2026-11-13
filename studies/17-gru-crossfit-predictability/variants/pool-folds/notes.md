@@ -23,7 +23,12 @@ study 41 uses as its ceiling and residual map.
 - `folds-h256-beaker` (2026-11-13 00:15 PT, group `pool-folds@20261113-001528`, Beaker experiment
   [`01M79ZKT8PKHHVQH93ZN1V3450`](https://beaker.org/ex/01M79ZKT8PKHHVQH93ZN1V3450)): the same 4
   fold models on Beaker's allocated on-prem H200 slots (normal priority, not preemptible, 384GiB),
-  run in parallel with the Cedar relaunch at Han's request. The first launch to finish all 4
-  folds supplies the map; the other is stopped and recorded. Outcome: pending.
+  run in parallel with the Cedar relaunch at Han's request. **Stopped at 00:26 PT, during setup:**
+  384GiB exceeded one H200 bundle (1 GPU + 28 CPU + 378 GiB), so each task took 2 GPUs.
+- `folds-h256-beaker-1gpu` (2026-11-13 00:28 PT, group `pool-folds@20261113-002829`, Beaker
+  experiment [`01M7A0BPTN41XJ5TGJGAVNP5Z7`](https://beaker.org/ex/01M7A0BPTN41XJ5TGJGAVNP5Z7)):
+  resubmitted at 370GiB / 28 CPU; verified 1 GPU per task. The first launch (this or the Cedar
+  relaunch) to finish all 4 folds supplies the map; the other is stopped and recorded. Outcome:
+  pending.
 
 Training does not need the wrapper prerequisite; scoring does.
