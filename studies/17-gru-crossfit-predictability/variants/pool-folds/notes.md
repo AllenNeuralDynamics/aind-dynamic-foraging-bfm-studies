@@ -32,7 +32,10 @@ study 41 uses as its ceiling and residual map.
   384GiB exceeded one H200 bundle (1 GPU + 28 CPU + 378 GiB), so each task took 2 GPUs.
 - `folds-h256-beaker-1gpu` (2026-11-13 00:28 PT, group `pool-folds@20261113-002829`, Beaker
   experiment [`01M7A0BPTN41XJ5TGJGAVNP5Z7`](https://beaker.org/ex/01M7A0BPTN41XJ5TGJGAVNP5Z7)):
-  resubmitted at 370GiB / 28 CPU; verified 1 GPU per task. The first launch (this or the Cedar
+  resubmitted at 370GiB / 28 CPU; verified 1 GPU per task.
+  **W&B offline:** the Beaker secret `han-wandb-api-key` is the `houhan` account, which is not in
+  the `NeuralDynamics` team; `wandb.init` got 403 "permission denied" three times and the wrapper
+  continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`). The first launch (this or the Cedar
   relaunch) to finish all 4 folds supplies the map; the other is stopped and recorded. Outcome:
   pending.
 

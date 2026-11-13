@@ -24,3 +24,6 @@ H200. Records go to `launch_record/<label>/`.
 - `d10-d30` (2026-11-13 00:44 PT, group `scaling-folds@20261113-004435`, Beaker experiment
   [`01M7A1963XK8VXZVKQ1762NWWF`](https://beaker.org/ex/01M7A1963XK8VXZVKQ1762NWWF)): 8 tasks, low
   priority, preemptible, AWS H200. Outcome: pending.
+  **W&B offline:** the Beaker secret `han-wandb-api-key` is the `houhan` account, which is not in
+  the `NeuralDynamics` team; `wandb.init` got 403 "permission denied" three times and the wrapper
+  continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`).
