@@ -1,0 +1,78 @@
+version: v2
+description: "scaling-folds@20261113-013513 \u2014 1 resumable grid tasks (autoResume)"
+tasks:
+- name: scaling-folds-20261113-013513-000
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ratio=0.489
+  context:
+    priority: normal
+    preemptible: false
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 28
+    memory: 370GiB
+  envVars:
+  - name: WANDB_API_KEY
+    secret: han-wandb-api-key-neuraldynamics
+  - name: BFM_OUTPUT_DIR
+    value: /results
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_RESUMABLE_OUTPUT_DIR
+    value: /results/run
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-013513-d3410418
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-013513
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-013513
+  - name: BFM_META_CONFIG_HASH
+    value: 011e9a37
+  - name: BFM_META_STUDIES_COMMIT
+    value: 82ced049309a9a21d063a90938aa62c0fa1f6807
+  - name: BFM_META_LABEL
+    value: test-d300-normal
+  - name: BFM_META_NOTE
+    value: Study 17 (#148) cross-validated scaling curve, the test fold's D=300 point
+      (study 02 recipe, subject_ratio 0.489, seed 0). Resubmitted at normal priority,
+      not preemptible, on on-prem H200 after the low-priority launch was evicted every
+      2-4 min.
+  result:
+    path: /results
