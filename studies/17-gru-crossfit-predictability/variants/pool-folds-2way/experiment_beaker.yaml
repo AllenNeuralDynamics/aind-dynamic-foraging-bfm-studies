@@ -19,23 +19,20 @@ tasks:
       - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
       - "true"
     context:
-      # Normal priority, preemptible (Han, 2026-11-13): the workspace's unallocated budget (~8 slots,
-      # beaker-launch scheduling-lessons), above other workspaces' low-priority jobs; auto-resumes.
-      # Low priority was evicted every 2-4 min on the full on-prem cluster; normal + not preemptible
-      # only queues behind the allocated seats.
+      # Normal priority, preemptible: the workspace's unallocated tier (64 slots, Han 2026-11-13).
+      # Not low: low-priority jobs were evicted by other workspaces' normal jobs (2026-11-13).
       priority: normal
       preemptible: true
     constraints:
       cluster:
-        # H200 141GB (H256 OOMs a 48GB L40S); on-prem reaches AWS S3 for the snapshot cache.
-        - ai1/octo-hub-aws-h200   # on-prem was full; normal-preemptible jobs queued there (2026-11-13 01:40 PT)
+        # H200 clusters that reach AWS S3; Beaker places the task on whichever has room.
+        - ai1/octo-hub-onprem-h200
     resources:
-      # Two AWS H200 bundles (each 1 GPU + 24 CPU + 250 GiB): the ~610-mouse runs need more than
-      # 320 GiB of host RAM, and D=300 is unmeasured. Beaker therefore assigns 2 GPUs per task, one
-      # idle; deliberate (Han, 2026-11-13).
+      # The ~610-mouse models need more than 320 GiB: one on-prem bundle (1 GPU + 28 CPU + 378 GiB),
+      # which only on-prem offers; 1 GPU per task.
       gpuCount: 1
-      cpuCount: 48
-      memory: 480GiB
+      cpuCount: 28
+      memory: 370GiB
     envVars:
       - name: WANDB_API_KEY
         secret: han-wandb-api-key-neuraldynamics   # han-hou (NeuralDynamics member); han-wandb-api-key (houhan) got W&B 403

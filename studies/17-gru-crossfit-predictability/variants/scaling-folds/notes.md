@@ -53,3 +53,8 @@ H200. Records go to `launch_record/<label>/`.
   scheduled in 3 min (on-prem had 0 free GPUs; normal-preemptible jobs wait for a free GPU rather
   than evicting other workspaces' low-priority jobs). Stopped at 01:44 PT; moved to AWS H200,
   normal priority, preemptible, two bundles (2 GPUs, 480 GiB) per task.
+- 2026-11-13 01:56 PT: stopped the AWS 2-bundle tier-2 launches (queued; AWS filled at 01:37 PT
+  with another workspace's normal-priority jobs) and, in scaling-folds, the low-priority D=10/30
+  launch (all 8 evicted at 01:37 PT at 5-8k steps, before the first checkpoint). Resubmitted at
+  normal priority, preemptible (unallocated tier, 64 slots), 1 GPU per task: D=10/30 and D=300 on
+  either H200 cluster; 2-way on on-prem only (needs its 378 GiB bundle).
