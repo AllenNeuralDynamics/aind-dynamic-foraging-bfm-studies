@@ -38,7 +38,11 @@ H200. Records go to `launch_record/<label>/`.
   409 "retryable database conflict" and created nothing. Outcome: pending.
 - `d300` (2026-11-13 01:04 PT, group `scaling-folds@20261113-010450`, Beaker experiment
   [`01M7A2E7G9AFRRYWNRDBNAWY75`](https://beaker.org/ex/01M7A2E7G9AFRRYWNRDBNAWY75)): 4 pool-fold
-  models at D~300, low priority, preemptible, on-prem H200, one 378 GiB bundle each. Outcome: pending.
+  models at D~300, low priority, preemptible, on-prem H200, one 378 GiB bundle each. **Stopped at 01:33 PT, no training done:** on the oversubscribed on-prem
+  cluster (our 8 allocated + another workspace's 6 low-priority jobs) each task was evicted
+  (exit 143) every 2-4 min during setup. Resubmitted at normal priority (Han).
 - `test-d300` (2026-11-13 01:05 PT, group `scaling-folds@20261113-010520`, Beaker experiment
   [`01M7A2F6QR9216KY1F2NM3MNF6`](https://beaker.org/ex/01M7A2F6QR9216KY1F2NM3MNF6)): the test fold's
-  D=300 model (study 02 recipe, `subject_ratio` 0.489, seed 0), same resources. Outcome: pending.
+  D=300 model (study 02 recipe, `subject_ratio` 0.489, seed 0), same resources. **Stopped at 01:33 PT, no training done:** on the oversubscribed on-prem
+  cluster (our 8 allocated + another workspace's 6 low-priority jobs) each task was evicted
+  (exit 143) every 2-4 min during setup. Resubmitted at normal priority (Han).

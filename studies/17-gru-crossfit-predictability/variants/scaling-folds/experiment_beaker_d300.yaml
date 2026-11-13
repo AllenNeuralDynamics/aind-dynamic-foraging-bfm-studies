@@ -1,4 +1,4 @@
-## Beaker task template for study 17's `scaling-folds` variant, D=300 (pool folds and test fold), preemptible on on-prem H200.
+## Beaker task template for study 17's `scaling-folds` variant, D=300 (pool folds and test fold), on-prem H200, normal priority.
 ## Han (2026-11-13): the 8 allocated seats take the longer runs (the 4 pool-folds models and the
 ## 4 D=100 models); D=10, 30 and 300 run preemptible and resume from checkpoints. Used by two
 ## launches: sweep_d300.yaml (pool folds 1-4) and sweep_test_d300.yaml (test fold).
@@ -22,10 +22,10 @@ tasks:
       - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
       - "true"
     context:
-      # Bursts onto idle GPUs beyond the allocation; preempted tasks resume from checkpoints
-      # (autoResume is applied automatically to preemptible jobs; never set it).
-      priority: low
-      preemptible: true
+      # Normal priority, not preemptible (Han, 2026-11-13): at low priority on the full on-prem
+      # cluster these were evicted every 2-4 min by other workspaces' low-priority jobs.
+      priority: normal
+      preemptible: false
     constraints:
       cluster:
         # H200; reaches AWS S3 for the snapshot cache (GCP clusters cannot).

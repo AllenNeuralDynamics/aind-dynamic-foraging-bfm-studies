@@ -1,6 +1,6 @@
 ## Beaker task template for study 17's `pool-folds-2way` variant: the 4 fold models as 2-way
-## (ignore_policy exclude), H256. Low priority, preemptible (the 8 allocated seats are full);
-## preempted tasks resume from checkpoints. Run from the studies root:
+## (ignore_policy exclude), H256. Normal priority, not preemptible (low priority thrashed on the
+## full on-prem cluster). Run from the studies root:
 ##   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
 ##     --sweep      "$PWD/studies/17-gru-crossfit-predictability/variants/pool-folds-2way/sweep.yaml" \
 ##     --experiment "$PWD/studies/17-gru-crossfit-predictability/variants/pool-folds-2way/experiment_beaker.yaml" \
@@ -18,11 +18,11 @@ tasks:
       - bash
       - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
       - "true"
-    # Bursts onto idle GPUs beyond the allocation; preempted tasks resume from checkpoints
-    # (autoResume is applied automatically to preemptible jobs; never set it).
     context:
-      priority: low
-      preemptible: true
+      # Normal priority, not preemptible (Han, 2026-11-13): at low priority on the full on-prem
+      # cluster these were evicted every 2-4 min by other workspaces' low-priority jobs.
+      priority: normal
+      preemptible: false
     constraints:
       cluster:
         # H200 141GB (H256 OOMs a 48GB L40S); on-prem reaches AWS S3 for the snapshot cache.

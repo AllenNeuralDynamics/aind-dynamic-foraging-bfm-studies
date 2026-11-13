@@ -18,4 +18,6 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
 **Status.**
 - `folds-h256-2way` (2026-11-13 01:13 PT, group `pool-folds-2way@20261113-011355`, Beaker experiment
   [`01M7A2YWB6S8T0Q8RWER74DJ6V`](https://beaker.org/ex/01M7A2YWB6S8T0Q8RWER74DJ6V)): 4 tasks, low
-  priority, preemptible, on-prem H200, W&B key `han-wandb-api-key-neuraldynamics`. Outcome: pending.
+  priority, preemptible, on-prem H200, W&B key `han-wandb-api-key-neuraldynamics`. **Stopped at 01:33 PT, no training done:** on the oversubscribed on-prem
+  cluster (our 8 allocated + another workspace's 6 low-priority jobs) each task was evicted
+  (exit 143) every 2-4 min during setup. Resubmitted at normal priority (Han).
