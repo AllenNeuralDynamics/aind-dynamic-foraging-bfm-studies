@@ -186,8 +186,9 @@ _Code_: `studies/13-hb-subject-vs-gru-heldout/analysis/r2_per_subject.py` (`per_
 
 <a id="metric-heldout-likelihood-subject-balanced"></a>**Held-out likelihood, subject-balanced**:
 `exp(mean over subjects of each subject's mean log p per trial)`: the geometric mean of the
-per-subject values, so every subject counts the same. It equals the trial-pooled value only when
-every subject has the same number of trials, and it is never above the per-subject mean.
+per-subject values, so every subject counts the same. It equals the trial-pooled value when every
+subject has the same number of trials (and can match it otherwise); it is never above the
+per-subject mean.
 _Avoid_: normalized likelihood, R1-scale likelihood, "Bari2019 likelihood" or "GRU614
 likelihood" with no aggregation
 _Code_: `studies/09-gru-cross-species-transfer/analysis/freeze_generalization_drivers.py`
@@ -337,7 +338,8 @@ _Code_: `studies/03-disrnn-beta-scan/analysis/backfill_sparsity_metrics.py`
 How well a linear decoder predicts a known quantity (a generating parameter, a mixture weight,
 session position) from a model's embedding, scored on held-out folds: at most 1, 0 is no better
 than the mean, and it can be negative. Reports differ in decoder (ridge or least squares), fold
-unit (subjects or sessions) and target (the value or its rank), so name all three; rank R² is
+unit (subjects or sessions), target (the value or its rank) and pooling (mean of fold R² values,
+or one R² over all out-of-fold predictions), so name all four; rank R² is
 not Spearman ρ². Fitted forager parameters compared directly with the true ones, with no
 decoder, give parameter-recovery R² instead.
 _Avoid_: recovery, recovery R², Ridge R², mix-R², position-R², session-frac R²
@@ -355,8 +357,9 @@ _Code_: wrapper `code/analysis/stage4b_recovery.py`
 ### Used by one study
 
 <a id="metric-shrinkage-slope"></a>**Shrinkage slope** (study 08):
-The [Theil–Sen slope](#method-theil-sen) of the HB's estimate of a subject's parameter on the
-per-subject MLE of the same parameter. 1 means the HB keeps the differences between subjects;
+The [Theil–Sen slope](#method-theil-sen) of the HB posterior mean of a subject's parameter on
+the per-subject MLE of the same parameter. The primary slope leaves out MLE rates pinned at 0 or
+1 and inverse temperatures outside the HB's support; an all-subject slope is also reported. 1 means the HB keeps the differences between subjects;
 below 1 means it pulls them toward the group.
 _Avoid_: slope (1 = no shrinkage)
 _Code_: `studies/08-hb-vs-gru-heldout/analysis/shrinkage.py`
