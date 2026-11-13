@@ -16,4 +16,11 @@ shows whether H256 is still climbing at full size (study 02: not plateaued).
 the longer runs), and `sweep_d10_d30.yaml` + `experiment_beaker_d10_d30.yaml` preemptible on AWS
 H200. Records go to `launch_record/<label>/`.
 
-**Status.** Not launched.
+**Status.**
+- `d100` (2026-11-13 00:46 PT, group `scaling-folds@20261113-004534`, Beaker experiment
+  [`01M7A1AXYCBM0SBEP32KXVXR56`](https://beaker.org/ex/01M7A1AXYCBM0SBEP32KXVXR56)): 4 tasks, allocated
+  on-prem H200 seats. The first two submissions returned Beaker 409 "retryable database conflict"
+  and created nothing; the third went through. Outcome: pending.
+- `d10-d30` (2026-11-13 00:44 PT, group `scaling-folds@20261113-004435`, Beaker experiment
+  [`01M7A1963XK8VXZVKQ1762NWWF`](https://beaker.org/ex/01M7A1963XK8VXZVKQ1762NWWF)): 8 tasks, low
+  priority, preemptible, AWS H200. Outcome: pending.
