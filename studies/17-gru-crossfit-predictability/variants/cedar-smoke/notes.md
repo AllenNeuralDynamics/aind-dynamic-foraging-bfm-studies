@@ -12,5 +12,11 @@ launch-record v2 `platform: cedar` record (studies #153). Not a result; no repor
 
 **Launches.** Each launch writes its record to `launch_record/<label>/` and mints one W&B group `cedar-smoke@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Launched 2026-11-12 17:53 PT, label `first-cedar-launch`, W&B group
-`cedar-smoke@20261112-175329`, session `cedar-smoke-20261112-175329-0`. Outcome: pending.
+**Status.**
+- `first-cedar-launch` (2026-11-12 17:53 PT, group `cedar-smoke@20261112-175329`, run
+  `cedar-smoke-20261112-175329-89c9c8f7`): **failed**. Session start, pinned SHAs, snapshot read,
+  GPU and W&B logging worked; about a minute into training the container was killed for running
+  out of memory (Cedar event RESTARTED, exit 137; peak sampled 45 GiB against the 64 GiB
+  request). The restarted container does not resume the run. Session stopped.
+- `second-cedar-launch`: `ram` 64Gi → 256Gi and `cpu` 8 → 16, as study 02 `nxd-3way` requested
+  on Beaker. Outcome: pending.

@@ -3,8 +3,8 @@ workspace: dfbfm
 cluster: octo.hub-usc1-gcp-a100
 image: dfbfm-wrapper:20261109-wf390d4f   # already cached on the A100 node (AllenOCTO/cedar#543)
 gpu: 1
-cpu: 8
-ram: 64Gi
+cpu: 16
+ram: 256Gi                               # as study 02 nxd-3way on Beaker; 64Gi was OOM-killed (first-cedar-launch)
 max_live_time: 2h
 secrets:
   wandb-api-key-neuraldynamics: WANDB_API_KEY
