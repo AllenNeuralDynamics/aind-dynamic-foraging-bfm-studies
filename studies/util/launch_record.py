@@ -51,6 +51,7 @@ list of typed refs rather than a Beaker-shaped `experiment_ids`:
     hpc     ->  {"type": "wandb_sweep",        "id": "abc123"}     # the durable handle
                 {"type": "slurm_array_job",    "id": "12345"}      # ages out of sacct
                 {"type": "slurm_job",          "id": "12345_7"}
+    cedar   ->  {"type": "cedar_session",      "id": "sess_01M...", "name": "cedar-smoke-..."}
 
 For HPC prefer the **W&B sweep id**: SLURM job ids are recycled and drop out of `sacct`
 history, so a sweep id is the only ref that stays resolvable months later. `launch_hpc.py`
@@ -88,11 +89,12 @@ _REQUIRED_TRIGGER_KEYS = ("symptom", "cause")
 
 # Compute backends. "none" is for kinds that create no job at all (backfill), so the field
 # stays required and meaningful rather than being left blank.
-PLATFORMS = ("beaker", "hpc", "none")
+PLATFORMS = ("beaker", "hpc", "cedar", "none")
 
 # Ref types per platform. Beaker identifies a submitted unit by experiment; HPC by W&B sweep
-# (durable) and SLURM job/array ids (recycled, and they age out of sacct — prefer the sweep).
-REF_TYPES = ("beaker_experiment", "wandb_sweep", "slurm_array_job", "slurm_job")
+# (durable) and SLURM job/array ids (recycled, and they age out of sacct — prefer the sweep);
+# Cedar by session (one per grid point; names are permanent per workspace).
+REF_TYPES = ("beaker_experiment", "wandb_sweep", "slurm_array_job", "slurm_job", "cedar_session")
 
 
 def write_intervention(
@@ -201,6 +203,7 @@ def write_intervention(
     allowed_ref_types = {
         "beaker": {"beaker_experiment"},
         "hpc": {"wandb_sweep", "slurm_array_job", "slurm_job"},
+        "cedar": {"cedar_session"},
     }
     allowed = allowed_ref_types.get(platform)
     if allowed is not None:
@@ -308,7 +311,7 @@ def write_initial(
 
     Args:
         path: destination JSON under the variant's ``launch_record/``.
-        platform: ``"beaker"`` or ``"hpc"``.
+        platform: ``"beaker"``, ``"hpc"`` or ``"cedar"``.
         wandb_group: ``<variant>@<launch_id>``; the prefix must be the variant's directory name.
         study_root: ``studies/<study>/``, for ``_meta``.
         label, note: the launch's label and why it exists (at least 10 characters).
@@ -330,9 +333,10 @@ def write_initial(
         ValueError: on a bad platform, ref, group prefix, SHA, note, missing manifest, missing
             ``data``/``image``, or a second initial record for the same group.
     """
-    if platform not in ("beaker", "hpc"):
-        raise ValueError(f'an initial launch runs on "beaker" or "hpc", not {platform!r}')
-    allowed = {"beaker": {"beaker_experiment"}, "hpc": {"wandb_sweep", "slurm_array_job", "slurm_job"}}[platform]
+    if platform not in ("beaker", "hpc", "cedar"):
+        raise ValueError(f'an initial launch runs on "beaker", "hpc" or "cedar", not {platform!r}')
+    allowed = {"beaker": {"beaker_experiment"}, "hpc": {"wandb_sweep", "slurm_array_job", "slurm_job"},
+               "cedar": {"cedar_session"}}[platform]
     job_refs = [dict(r) for r in job_refs or []]
     if not job_refs:
         raise ValueError("job_refs is empty; an initial launch submitted something")
