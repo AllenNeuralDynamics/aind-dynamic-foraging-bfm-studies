@@ -67,3 +67,8 @@ H200. Records go to `launch_record/<label>/`.
 - `d10-fold2-cedar` (2026-11-13 04:59 PT, group `scaling-folds@20261113-045923`): D=10 pool fold 2 on the one free Cedar A100
   (one-point sweep `sweep_d10_d30_p1.yaml`, 5 CPU / 48Gi), parallel to its queued Beaker twin.
   Launched from dispatcher `d1f4870` (Cedar session-log fix, #223).
+- 2026-11-13 ~07:00-07:50 PT: all 13 tier-2 tasks (`d300-t2` ×4, `test-d300-t2`, `d10-d30-t2` ×8)
+  started on Beaker. 08:00 PT: stopped the Beaker D=10 pool fold 1 and 2 tasks of `d10-d30-t2`
+  (jobs `01M7A597NNY8GKVC2FPHAZ5W4M`, `01M7A597SS59V9KSXEK17EJS3J`, at ~1.2k and ~0.4k steps):
+  their Cedar twins (`d10-d30-cedar` session 0, `d10-fold2-cedar`) were at 48k and 22k steps.
+  The D=10 folds 1-2 points come from Cedar; the other 6 D=10/30 points from Beaker.
