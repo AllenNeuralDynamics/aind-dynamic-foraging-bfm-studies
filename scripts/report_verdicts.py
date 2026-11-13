@@ -28,7 +28,7 @@ FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 # script-written regions of a report (result-N, methods), HTML comments and fenced code
 MARKED = re.compile(r"<!-- BEGIN ([\w.-]+) -->.*?<!-- END \1 -->", re.S)
 COMMENT = re.compile(r"<!--.*?-->", re.S)
-FENCE = re.compile(r"^```.*?^```[^\n]*$", re.S | re.M)
+FENCE = re.compile(r"^(`{3,}|~{3,}).*?^\1[^\n]*$", re.S | re.M)   # closed by the same delimiter
 HEADING = re.compile(r"^(#{1,2}) +(.*?)[ \t]*$", re.M)
 BLOCK = re.compile(r"<!-- BEGIN verdicts -->\n?(.*?)<!-- END verdicts -->", re.S)
 
@@ -137,19 +137,21 @@ def current(text: str) -> str | None:
 
 def expected(study: Path) -> dict[Path, str]:
     """Each file that must carry a generated block -> the block's content. A file is listed when
-    the study has a version-2 report, or when the file already has a block."""
+    the study has a version-2 report (INDEX.md then even if missing), or when the file already
+    has a block."""
     has_v2 = bool(v2_reports(study))
     out = {}
     for path, render in ((study / "analysis" / "reports" / "INDEX.md", index_block),
                          (study / "README.md", readme_block)):
-        if path.exists() and (has_v2 or current(path.read_text()) is not None):
+        exists = path.exists()
+        if (has_v2 and (exists or path.name == "INDEX.md")) or (exists and current(path.read_text()) is not None):
             out[path] = render(study)
     return out
 
 
 def apply(path: Path, inner: str) -> str:
     """`path`'s text with its generated block set to `inner`, inserting the block if missing."""
-    text = path.read_text()
+    text = path.read_text() if path.exists() else f"# {path.parents[2].name} — reports\n"
     if current(text) is not None:
         return BLOCK.sub(lambda _: wrap(inner), text, count=1)
     if path.name == "README.md":
@@ -164,7 +166,7 @@ def write(study: Path) -> list[Path]:
     changed = []
     for path, inner in expected(study).items():
         new = apply(path, inner)
-        if new != path.read_text():
+        if not path.exists() or new != path.read_text():
             path.write_text(new)
             changed.append(path)
     return changed

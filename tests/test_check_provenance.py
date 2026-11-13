@@ -693,6 +693,39 @@ class ReportV2Test(StudyRepo):
         self.commit()
         self.assertEqual(self.findings("report-upstream-"), {f"report-upstream-undeclared|{self.REL}|{other}"})
 
+    def test_range_in_a_json_string_is_not_a_negative_number(self):
+        a = self.study / "analysis"
+        fit = json.loads((a / "fit.json").read_text())
+        fit["range_text"] = "0.0201-0.0246"
+        (a / "fit.json").write_text(json.dumps(fit))
+        cp_ = cp.Checker(self.root)
+        self.assertIn(0.0246, cp_.json_numbers(a / "fit.json"))
+        self.assertNotIn(-0.0246, cp_.json_numbers(a / "fit.json"))
+
+    def test_claim_pointer_may_not_leave_the_study(self):
+        other = self.root / "studies/05-disrnn-other/analysis/fit.json"
+        other.parent.mkdir(parents=True, exist_ok=True)
+        other.write_text('{"gap": 0.5}')
+        self.write_report(claims="  - {id: F1, text: \"Elsewhere.\", pointer: \"../05-disrnn-other/analysis/fit.json#/gap\"}\n")
+        self.commit()
+        self.assertEqual(self.findings("report-claim"), {f"report-claim-unresolved|{self.REL}|F1"})
+
+    def test_tilde_fences_are_not_prose(self):
+        body = V2_BODY.replace("none\n", "none\n\n~~~\n## Question\nwas 0.1234\n~~~\n")
+        body = body.replace("## Question\n\nDoes", "## Questio\n\nDoes")
+        self.write_report(body)
+        self.commit()
+        self.assertIn(f"report-skeleton|{self.REL}|## Question", self.findings("report-skeleton", "info"))
+        self.assertEqual(self.findings("report-prose-number", "info"), set())
+
+    def test_verdicts_create_a_missing_index(self):
+        index = self.study / "analysis/reports/INDEX.md"
+        index.unlink()
+        self.commit()
+        self.assertIn(f"verdict-stale|{STUDY}/analysis/reports/INDEX.md|verdicts", self.findings("verdict-stale"))
+        report_verdicts.write(self.study)
+        self.assertIn("(r2-fit.md)", index.read_text())
+
     def test_non_list_claims_is_a_schema_error_not_a_crash(self):
         self.write_report(claims="")
         report = self.root / self.REL

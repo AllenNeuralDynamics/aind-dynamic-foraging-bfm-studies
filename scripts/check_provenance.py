@@ -63,7 +63,8 @@ SKELETON = ["## Question", "## Answer", "## Methods", "## Results", "## What it 
 # left alone (years, D=614, n=149, r1, F2, seed counts): too many are not results.
 # The sign is part of the number (`−0.016`), unless it follows a digit (`0.01-0.02` is a range).
 PROSE_NUMBER = re.compile(r"(?<![\w.@/\\])([-−+]?(?:\d*\.\d+(?:[eE][-+−]?\d+)?|\d+[eE][-+−]?\d+|\d+(?:\.\d+)?%))(?![\w%]|\.\d)")
-JSON_NUMBER = re.compile(r"-?\d*\.?\d+(?:[eE][-+]?\d+)?")
+# a hyphen after a digit or point is a range ("0.01-0.02"), not a minus
+JSON_NUMBER = re.compile(r"(?:(?<![\w.])-)?\d*\.?\d+(?:[eE][-+]?\d+)?")
 # Prose numbers that are conventions, not results. Write any other constant as code (`0.5`).
 PROSE_CONSTANTS = {"95%"}
 # Hand-written text the prose-number lint ignores besides blocks, comments and fenced code.
@@ -564,6 +565,12 @@ class Checker:
             if not (isinstance(c, dict) and isinstance(c.get("pointer"), str) and "#" in c["pointer"]):
                 continue                                 # the schema reports it
             path, pointer = c["pointer"].split("#", 1)
+            if posixpath.normpath(path).startswith(".."):
+                # another study's number reaches a report through its own JSON, which records the
+                # source in `_meta.inputs` and so falls under the upstream check
+                self.add(level, "report-claim-unresolved", p, f"{c.get('id')}: {path} is outside this study; "
+                         "point at this study's JSON, which reads the other study's value", item=str(c.get("id")))
+                continue
             try:
                 doc = json.loads((study / path).read_text())
                 problem = None if self._resolves(doc, pointer) else f"{path} has no {pointer}"
@@ -672,7 +679,7 @@ class Checker:
     def check_verdicts(self, study: Path) -> None:
         """The generated INDEX table and README verdict still copy the version-2 reports' claims."""
         for path, inner in report_verdicts.expected(study).items():
-            have = report_verdicts.current(path.read_text())
+            have = report_verdicts.current(path.read_text()) if path.exists() else None
             if have != inner:
                 self.add("warn", "verdict-stale", path,
                          f"the generated verdicts block is {'missing' if have is None else 'out of date'}; "
