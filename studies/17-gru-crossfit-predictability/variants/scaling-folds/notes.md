@@ -72,3 +72,7 @@ H200. Records go to `launch_record/<label>/`.
   (jobs `01M7A597NNY8GKVC2FPHAZ5W4M`, `01M7A597SS59V9KSXEK17EJS3J`, at ~1.2k and ~0.4k steps):
   their Cedar twins (`d10-d30-cedar` session 0, `d10-fold2-cedar`) were at 48k and 22k steps.
   The D=10 folds 1-2 points come from Cedar; the other 6 D=10/30 points from Beaker.
+- 2026-11-13 14:50 PT: stopped Cedar session `scaling-folds-20261113-015941-0` (D=10 pool fold 1). Its
+  run finished at 12:20 PT (early stop at 80k; `gru-output` artifact committed), but a Cedar
+  session does not end when its run ends: it stayed `ready` and held its A100 for 2.5 h. Finished
+  Cedar sessions are stopped by hand.

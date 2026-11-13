@@ -54,3 +54,8 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   `392c504`, the SHAs of every other study-17 run (the template's `main` refs had moved). Third
   copy of the same 4 runs, with `folds-h256-2way-t2` (Beaker tier 2) and `folds-h256-2way-hpc`;
   the first copy to start is kept and the others are cancelled.
+- `folds-h256-2way-cedar-h200` (2026-11-13 14:51 PT, group `pool-folds-2way@20261113-145140`): the 4
+  tasks on the Cedar H200 node (`session_cedar_h200.yaml`: 1 GPU, 16 CPU, 600Gi, refs pinned).
+  **Did not start:** the node's 8 GPUs were all allocated to other sessions ("largest free slot on
+  one node is 0.687 vCPUs, 38.4 GiB, and 0 GPUs"), although `cluster nodes list` showed only 9% of
+  its memory and 23% GPU use. The launcher stopped after the first session; nothing ran.

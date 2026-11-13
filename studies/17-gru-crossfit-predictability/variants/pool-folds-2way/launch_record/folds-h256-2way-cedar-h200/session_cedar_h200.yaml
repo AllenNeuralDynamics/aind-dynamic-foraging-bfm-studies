@@ -1,0 +1,16 @@
+# Cedar session for the 2-way fold models on the Cedar H200 node (one session per fold model).
+# 600Gi: the full-size H256 recipe peaks near 350 GB (OOM-killed at 320Gi on the A100 node; pool-folds notes).
+# Refs pinned to the SHAs every other study-17 Beaker/HPC run used.
+workspace: dfbfm
+cluster: octo.hub-usw1-gcp-h200
+image: dfbfm-wrapper:20261109-wf390d4f
+gpu: 1
+cpu: 16
+ram: 600Gi
+max_live_time: 48h
+secrets:
+  wandb-api-key-neuraldynamics: WANDB_API_KEY
+env:
+  WRAPPER_REF: 5affee531856d6eff31c9285e981c93747699efc
+  DISPATCHER_REF: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  FORAGING_MODELS_REF: 392c504406094b33407321b168173981b8af8291
