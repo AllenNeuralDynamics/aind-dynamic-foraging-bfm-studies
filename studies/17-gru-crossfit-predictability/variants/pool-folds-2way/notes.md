@@ -59,3 +59,15 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   **Did not start:** the node's 8 GPUs were all allocated to other sessions ("largest free slot on
   one node is 0.687 vCPUs, 38.4 GiB, and 0 GPUs"), although `cluster nodes list` showed only 9% of
   its memory and 23% GPU use. The launcher stopped after the first session; nothing ran.
+- `folds-h256-2way-cedar-a100` (2026-11-13 14:54 PT, group `pool-folds-2way@20261113-145449`): the
+  Cedar A100 node had emptied (2 of 96 CPUs, 14 GiB used), so the 4 tasks went there
+  (`session_cedar_a100.yaml`: 1 GPU, 16 CPU, 400Gi, refs pinned). **Folds 1-3 started** (sessions
+  `-0`, `-1`, `-2`); fold 4's session `-3` did not (NOT_PROGRESSED: node full at 3 x 400Gi).
+  400Gi vs this morning's OOM at 320Gi on this node: the 3-way fold models pass every checkpoint at
+  370GiB on Beaker (peak ~350 GB).
+- 14:57 PT, for folds 1-3 kept on Cedar: cancelled the HPC array 27820674 (its W&B sweep agents take
+  grid points in order, so a surviving task would rerun fold 1; the dependent job 27820675 then
+  stops sweep `x17uytie`) and stopped the Beaker tier-2 tasks `-000`..`-002` of
+  `folds-h256-2way-t2`. The allocated-seat copies of folds 1-3 (`folds-h256-2way-t1` `-000`..`-002`)
+  stay queued as a backup until the Cedar runs pass their first checkpoint (10k, the RAM peak),
+  then are stopped. Fold 4 waits on Beaker (`-t1` `-003` and `-t2` `-003`).
