@@ -93,6 +93,19 @@ def test_scores(names: list[str]) -> dict:
     return out
 
 
+def scores_149(names: list[str]) -> dict:
+    """Each program's pooled likelihood on all 149 test subjects, the atlas leaderboard's metric: the raw
+    2-level EM score (study 12 r3's convention), the score with the per-mouse fallback, and per subject."""
+    out = {}
+    for k in names:
+        d = json.loads((HERE / "test" / "test" / f"{k}.json").read_text())
+        s = d["score"]
+        out[k] = {"n_subjects": d["n_subjects"], "two_level": s["two_level"], "with_fallback": s["score"],
+                  "per_subject": s["per_subject"], "n_fallback": s["n_fallback"], "two_level_failed": s["two_level_failed"]}
+    assert {v["n_subjects"] for v in out.values()} == {149}
+    return out
+
+
 def main() -> None:
     runs = {v: json.loads(p.read_text()) for v, p in RUNS.items()}
     floors = json.loads(FLOORS.read_text())
@@ -103,6 +116,7 @@ def main() -> None:
     tested = [c for c in chosen.values() if c and (HERE / "test" / "test" / f"{c}.json").exists()]
     names = [REFERENCE, SEARCH_BEST] + tested
     ts = test_scores(names)
+    s149 = scores_149(names)
 
     # ---------- result 1: the runs
     rows1 = []
@@ -243,7 +257,18 @@ def main() -> None:
     fs.panel_label(axes[0], "a"), fs.panel_label(axes[1], "b")
     fs.save_figure(fig, FIGS["curves"])
 
-    write_blocks({1: b1, 2: b2, 3: b3, 4: b4})
+    # ---------- result 5: all 149 test subjects, for the atlas leaderboard
+    label = {REFERENCE: "Miller-RHG (2-level EM)", SEARCH_BEST: "search's best (`satiety_engagement`)",
+             **{chosen[v]: f"{SHARE[v]} floor" for v in VARIANTS if chosen[v]}}
+    rows5 = [[label[k], f"{s149[k]['two_level']:.4f}", f"{s149[k]['with_fallback']:.4f}", f"{s149[k]['per_subject']:.4f}",
+              str(s149[k]["n_fallback"])] for k in names]
+    b5 = ("Pooled likelihood (geometric-mean probability per choice) on all 149 test subjects, the atlas "
+          "leaderboard's metric. The leaderboard reads the raw 2-level EM score, which is study 12 r3's convention "
+          "for the literature models. The other columns are the score with the per-mouse fallback (MEvolve ADR 0004; "
+          "this study's headline on the 146 shared subjects uses it) and the per-subject fit.\n\n"
+          + table(["program", "2-level EM (raw)", "with per-mouse fallback", "per subject", "mice on fallback"], rows5))
+
+    write_blocks({1: b1, 2: b2, 3: b3, 4: b4, 5: b5})
     inputs = [*RUNS.values(), FLOORS, CHOICE, CURVES, r3.HB, r3.GRU, *r3.S15.values(),
               *(HERE / "test" / "test" / f"{k}.json" for k in names),
               *(p for k in tested if (p := HERE / "test" / "gru_test" / f"{k}.json").exists()),
@@ -251,8 +276,8 @@ def main() -> None:
     write_artifact(HERE / "r4_simplification.json", {
         "_meta": build_meta("analysis/r4_simplification.py", [f"{v}@20261108-230437" for v in VARIANTS],
                             study_root=STUDY, code=[__file__, HERE / "r3_search_best.py"], inputs=inputs),
-        "efforts": efforts, "chosen": chosen, "test": ts, "rmse": rm},
-        outputs=[*FIGS.values(), *(Path(f"{REPORT}#result-{k}") for k in range(1, 5))])
+        "efforts": efforts, "chosen": chosen, "test": ts, "rmse": rm, "test_149": s149},
+        outputs=[*FIGS.values(), *(Path(f"{REPORT}#result-{k}") for k in range(1, 6))])
     print(json.dumps({"chosen": chosen, "test": {k: {kk: v[kk] for kk in ("pooled_x100", "gap_closed", "gap_closed_ci95")}
                                                 for k, v in ts["programs"].items()}}, indent=1, default=float))
 

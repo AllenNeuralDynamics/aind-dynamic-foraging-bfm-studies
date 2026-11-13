@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r4_simplification.py",
-    "produced_at_pt": "2026-11-11T13:49:47-08:00",
-    "studies_git_sha": "91c7bf5b18295bc354fc25333f8ccc5541402cad",
+    "produced_at_pt": "2026-11-12T16:23:03-08:00",
+    "studies_git_sha": "3f724cb821a92b8d1aee3e827b5435cd724ff45e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r4_simplification.py",
-        "sha256": "5a6d27fc702c050f76ecc630e0ce5bd4dc5d97b291e2c0d72016f6bb76130a11"
+        "sha256": "c0c972514f1a2d51d6655d955770e818c12440c22de60d2cb2c61f3478758ccf"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.py",
@@ -118,15 +118,15 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r4_simplification.json",
-        "sha256": "bc71f640ed78987a515fa19840a22c0cfb504a7d5f7ba669e2984d03663af387"
+        "sha256": "d73b9e3a3c558f3fa92ee20a87343118ddfaec683fefbf04a66bb714ef74a68f"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r4_frontier.svg",
-        "sha256": "b25f1bd6d4c2b18bcfa0f0cbb30d26c47eeb4acadb426fc35e93b29009a3d73b"
+        "sha256": "190ceb1af6124948ad73a4598c86ac4dceedcc01c6a202382e991f15513c57ce"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r4_curves.svg",
-        "sha256": "13d2fc70256773df71beeafc0a48b1aab00f49a90233c810f42b448310493ee3"
+        "sha256": "17b2f5b1e0d6c47542b3dd3ef946854c1215f1adb9db8a215225ddc52deb5fa3"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-1",
@@ -143,6 +143,10 @@
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-4",
         "sha256": "7d9a0e8cb698a8dc28ef1e963f5a2eef7e5966b5a1ae45b1a8f49ba14cedcd3e"
+      },
+      {
+        "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-5",
+        "sha256": "419d756eb1adbbdb6c659270edbf6afea272bd2135195911e4ada1cbfae19ff2"
       }
     ]
   },
@@ -278,6 +282,40 @@
         "post_switch": 0.04625170169215341,
         "run_length": 0.015988084578274078
       }
+    }
+  },
+  "test_149": {
+    "reference_miller_rhg": {
+      "n_subjects": 149,
+      "two_level": 0.7225079050669331,
+      "with_fallback": 0.7244070720255641,
+      "per_subject": 0.7195948705675819,
+      "n_fallback": 2,
+      "two_level_failed": false
+    },
+    "rank3_e3819885": {
+      "n_subjects": 149,
+      "two_level": 0.7260863001420115,
+      "with_fallback": 0.7262725440814638,
+      "per_subject": 0.7211730773126505,
+      "n_fallback": 1,
+      "two_level_failed": false
+    },
+    "simplify-75_c1_141c8a13": {
+      "n_subjects": 149,
+      "two_level": 0.7259907805471841,
+      "with_fallback": 0.7260044710748267,
+      "per_subject": 0.7214162990156392,
+      "n_fallback": 1,
+      "two_level_failed": false
+    },
+    "simplify-50_c1_cd994c73": {
+      "n_subjects": 149,
+      "two_level": 0.7258479602395429,
+      "with_fallback": 0.7258479602395429,
+      "per_subject": 0.720658128120553,
+      "n_fallback": 0,
+      "two_level_failed": false
     }
   }
 }

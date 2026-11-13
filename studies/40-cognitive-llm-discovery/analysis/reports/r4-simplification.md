@@ -253,6 +253,19 @@ def update(latents, choice, reward, p):
 **Figure 2.** The per-bin RMSE of the mouse-average curves (study 15's view, its headline sets and common subjects, as in r3) for each program and the GRU; lower is closer to the mice.
 <!-- END result-4 -->
 
+## 5. On all 149 test subjects (the atlas leaderboard)
+
+<!-- BEGIN result-5 -->
+Pooled likelihood (geometric-mean probability per choice) on all 149 test subjects, the atlas leaderboard's metric. The leaderboard reads the raw 2-level EM score, which is study 12 r3's convention for the literature models. The other columns are the score with the per-mouse fallback (MEvolve ADR 0004; this study's headline on the 146 shared subjects uses it) and the per-subject fit.
+
+| program | 2-level EM (raw) | with per-mouse fallback | per subject | mice on fallback |
+|---|---|---|---|---|
+| Miller-RHG (2-level EM) | 0.7225 | 0.7244 | 0.7196 | 2 |
+| search's best (`satiety_engagement`) | 0.7261 | 0.7263 | 0.7212 | 1 |
+| 75% floor | 0.7260 | 0.7260 | 0.7214 | 1 |
+| 50% floor | 0.7258 | 0.7258 | 0.7207 | 0 |
+<!-- END result-5 -->
+
 ## Caveats
 
 - **Halstead effort counts operators, not calls.** Vectorized code (a dot product, `concatenate`) scores
