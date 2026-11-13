@@ -1,0 +1,17 @@
+# Cedar sessions for pool-folds on the H200 node (fallback if the A100 node's 320Gi is not
+# enough; Han, 2026-11-13). The H200 node has 2.8 TiB RAM, 224 vCPU and 8 GPUs (141 GB each).
+# The image is not cached there yet: the first session may fail Cedar's 1-min start limit
+# (AllenOCTO/cedar#543) while the node pulls it; retry once the pull has finished.
+workspace: dfbfm
+cluster: octo.hub-usw1-gcp-h200
+image: dfbfm-wrapper:20261109-wf390d4f
+gpu: 1
+cpu: 16
+ram: 480Gi
+max_live_time: 48h
+secrets:
+  wandb-api-key-neuraldynamics: WANDB_API_KEY
+env:                                     # the launcher resolves these to full SHAs
+  WRAPPER_REF: main
+  DISPATCHER_REF: main
+  FORAGING_MODELS_REF: main
