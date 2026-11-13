@@ -395,7 +395,7 @@ class Checker:
             # what the runs trained on and ran in (studies#25); a backfill submits nothing.
             # The schema accepts a null digest or id (a launcher without network or token
             # writes one rather than failing), so the checker warns on those too.
-            if rec.get("platform") in ("beaker", "hpc"):
+            if rec.get("platform") in ("beaker", "hpc", "cedar"):
                 data, image = rec.get("data"), rec.get("image")
                 if not isinstance(data, dict):
                     self.add("warn", "record-data-unrecorded", p, "the launch record has no `data`")
@@ -404,8 +404,9 @@ class Checker:
                 elif data.get("source") in ("snapshot", "freeze") and not (data.get("uri") and data.get("manifest_sha256")):
                     self.add("warn", "record-data-unrecorded", p, f"the {data['source']} has no uri or manifest digest")
                 # the image must describe this record's backend: a Beaker id for Beaker, a conda
-                # lock digest for HPC; the other backend's identity proves nothing about this run
-                identity = {"beaker": "id", "hpc": "lock_sha256"}[rec["platform"]]
+                # lock digest for HPC, a manifest digest for Cedar; the other backend's identity
+                # proves nothing about this run
+                identity = {"beaker": "id", "hpc": "lock_sha256", "cedar": "digest"}[rec["platform"]]
                 if not isinstance(image, dict):
                     self.add("warn", "record-image-unrecorded", p, "the launch record has no `image`")
                 elif image.get("platform") != rec["platform"]:

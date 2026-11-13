@@ -400,6 +400,23 @@ class WriteInitialTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "full 40-character"):
             self.write("c.json", revisions={"studies": self.sha, "mevolve": "6af7d58"})
 
+    def test_cedar_launch_is_a_valid_initial_record(self):
+        cedar = dict(platform="cedar", job_refs=[{"type": "cedar_session", "id": "sess_01M7EXAMPLE",
+                                                  "name": "two-level-em-20261102-003154-0"}],
+                     revisions={"studies": self.sha, "dispatcher": "b" * 40, "wrapper": "c" * 40},
+                     image={"platform": "cedar", "name": "dfbfm-wrapper:20261109-wf390d4f",
+                            "digest": "sha256:" + "3" * 64})
+        rec = self.write("cedar.json", **cedar)
+        self.assertEqual(self.schema_errors(rec), [])
+        findings = []
+        check_records_parse(load_records(self.lr), findings)
+        self.assertEqual(findings, [])
+        self.assertTrue(self.schema_errors({**rec, "image": {**rec["image"], "digest": "3" * 64}}))  # sha256: prefix
+        self.assertTrue(self.schema_errors({**rec, "image": {"platform": "cedar", "name": "x"}}))     # digest required
+        with self.assertRaisesRegex(ValueError, "not valid for platform"):
+            self.write("cedar2.json", wandb_group="two-level-em@20261102-010000",
+                       **{**cedar, "job_refs": [{"type": "slurm_job", "id": "1"}]})
+
     def test_freeze_needs_its_path_and_digest(self):
         rec = self.write()
         self.assertTrue(self.schema_errors({**rec, "data": {"source": "freeze", "config": "mice_snapshot_scaling",

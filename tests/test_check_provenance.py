@@ -475,6 +475,18 @@ class CheckProvenanceTest(unittest.TestCase):
         self.commit()
         self.assertEqual(self.keys(), set())
 
+    def test_cedar_launch_needs_an_image_digest(self):
+        path = f"{STUDY}/variants/base/launch_record/cedar.json"
+        cedar = {**RECORD, "platform": "cedar", "job_refs": [{"type": "cedar_session", "id": "sess_01M7EXAMPLE"}],
+                 "image": {"platform": "cedar", "name": "dfbfm-wrapper:20261109-wf390d4f", "digest": "sha256:" + "3" * 64}}
+        for image, warned in ((cedar["image"], False), ({**cedar["image"], "digest": None}, True),
+                              (RECORD["image"], True)):          # a Beaker image never pins a Cedar run
+            (self.study / "variants/base/launch_record/cedar.json").write_text(json.dumps({**cedar, "image": image}))
+            self.commit()
+            got = {k for k in self.keys() if k.startswith("record-")}
+            self.assertEqual(f"record-image-unrecorded|{path}|" in got, warned, image)
+            self.assertFalse([k for k in got if k.startswith(f"record-schema|{path}")], image)
+
 
 class BodyDigestTest(unittest.TestCase):
     def test_key_order_and_meta_do_not_matter(self):
