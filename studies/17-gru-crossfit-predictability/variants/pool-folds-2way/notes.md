@@ -77,3 +77,12 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   (`@20261113-145449`), fold 4 Beaker on-prem H200 (`@20261113-015357`); same sweep, same pinned
   wrapper/dispatcher/foraging-models SHAs, different runtime image (Cedar `dfbfm-wrapper:20261109-wf390d4f`
   vs Beaker `dynamic-foraging-bfm-wrapper-main-20260902`).
+- **15:43 PT: the 3 Cedar A100 runs (folds 1-3, `@20261113-145449`) failed** at steps 10-80 with a
+  GPU out-of-memory error (`RESOURCE_EXHAUSTED: Out of memory while trying to allocate 33236989808
+  bytes`; A100 has 40 GB). The full-size H256 recipe does not fit an A100's GPU memory; the
+  300-step `cedar-smoke` run never reached the longest length buckets. Sessions stopped 15:47 PT;
+  the W&B runs are marked failed. Full-size models need H200s (141 GB).
+- 15:50 PT: folds 1-3 resubmitted at tier 2 with pinned refs (`experiment_beaker_t2.yaml`,
+  launch `folds-h256-2way-t2b`; its fold-4 task is stopped at once, since fold 4 runs in
+  `folds-h256-2way-t2`). The allocated-seat copies (`folds-h256-2way-t1` `-000`..`-002`) stay
+  queued; the first copy of each fold to start is kept.
