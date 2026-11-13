@@ -28,3 +28,9 @@ H200. Records go to `launch_record/<label>/`.
   the `NeuralDynamics` team; `wandb.init` got 403 "permission denied" three times and the wrapper
   continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`). **Stopped
   at 00:58 PT** to resubmit with a `NeuralDynamics` key (Beaker secret `han-wandb-api-key-neuraldynamics`).
+- `d100-nd` (2026-11-13 00:56 PT, group `scaling-folds@20261113-005618`, Beaker experiment
+  [`01M7A1YKMY3S4E7B03S6QM76N7`](https://beaker.org/ex/01M7A1YKMY3S4E7B03S6QM76N7)) and `d10-d30-nd`
+  (00:56 PT, group `scaling-folds@20261113-005652`, experiment
+  [`01M7A1ZN00710G7QA68F0AMQNA`](https://beaker.org/ex/01M7A1ZN00710G7QA68F0AMQNA)): the live runs,
+  resubmitted with the `NeuralDynamics` W&B key. Several submissions before them returned Beaker
+  409 "retryable database conflict" and created nothing. Outcome: pending.

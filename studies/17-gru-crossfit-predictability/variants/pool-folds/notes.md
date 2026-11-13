@@ -37,7 +37,11 @@ study 41 uses as its ceiling and residual map.
   the `NeuralDynamics` team; `wandb.init` got 403 "permission denied" three times and the wrapper
   continued with W&B offline (run data in each job's `/results/wandb/offline-run-*`). **Stopped
   at 00:58 PT** to resubmit with a `NeuralDynamics` key (Beaker secret `han-wandb-api-key-neuraldynamics`). The first launch (this or the Cedar
-  relaunch) to finish all 4 folds supplies the map; the other is stopped and recorded. Outcome:
-  pending.
+  relaunch) to finish all 4 folds supplies the map; the other is stopped and recorded.
+
+- `folds-h256-beaker-nd` (2026-11-13 00:53 PT, group `pool-folds@20261113-005356`, Beaker experiment
+  [`01M7A1T94RG1HN0892EJY9T2XE`](https://beaker.org/ex/01M7A1T94RG1HN0892EJY9T2XE)): the live run of
+  the 4 fold models. Allocated on-prem H200, 1 GPU + 28 CPU + 378 GiB each, W&B key
+  `han-wandb-api-key-neuraldynamics`. Outcome: pending.
 
 Training does not need the wrapper prerequisite; scoring does.
