@@ -50,6 +50,19 @@ trains on every mouse outside its fold, test mice included.
   recipe peaks near 190 GB), 48h lifetime until the first run gives a step rate. No automatic
   resume: a stopped run is restarted by hand in the same output folder.
 
+- **What "held-out prediction" means (Han, 2026-11-12):** fit and score sessions alternate by
+  date, so a mouse's embedding is tuned on sessions both before and after the one it predicts. The
+  map measures how well the GRU predicts a session once it knows the mouse from its other
+  sessions, not a forecast of later sessions. Study 01 and MEvolve use the same definition.
+- **Known limitation (Han, 2026-11-12):** fold models 1–4 train on the 149 test mice, so the
+  residuals and embeddings study 41 uses on discovery and confirmation mice carry a weak,
+  population-level trace of the test mice. Test-mouse predictions come only from model 0, which
+  never saw them. Kept to give every model about 610 training mice; study 41 should cite this next
+  to any test-tier claim.
+- **Reference numbers for study 41 (Han, 2026-11-12):** on the test mice, the headline GRU number
+  is study 01's on the 146 shared test subjects (continuity with studies 01, 12, 13, 40); every
+  trial-level comparison and residual uses model 0. Check 2 ties the two.
+
 ## Variants
 
 - `test-fold-ref`: rescoring only (passes A and B) of model 0, plus seeds 1–2 for training noise.
@@ -81,7 +94,7 @@ detection (PR-AUC) second; full 3-way likelihood in tables only.
 
 ## Prerequisites
 
-1. **Wrapper change (to file; needed for scoring, not for training):** the held-out fine-tune takes its fit/score split only from the
+1. **Wrapper change (needed for scoring, not for training):** the held-out fine-tune takes its fit/score split only from the
    `eval_every_n` alternation and cannot swap it, and its per-trial export
    (`test_trial_predictions.csv`, `build_binary_trial_predictions`) is 2-way only. Needed: an
    explicit per-session fit/score list with a swap, and 3-way per-trial export with the subject
