@@ -45,6 +45,7 @@ scientist mode. Details and checks: [`PLAN.md`](PLAN.md); terms: [`CONTEXT.md`](
 |---|---|---|---|
 | [`test-fold-ref`](variants/test-fold-ref/notes.md) | test fold: rescore study 02's `nxd-3way` model (seed 0; seeds 1–2 for noise) in passes A and B | planned | — |
 | [`pool-folds`](variants/pool-folds/notes.md) | 4 new fold models, one per pool fold | planned | — |
+| [`cedar-smoke`](variants/cedar-smoke/notes.md) | first Cedar launch: the recipe cut to 300 steps on one A100; tests the platform, not a result | planned | — |
 
 ## Verdict
 
