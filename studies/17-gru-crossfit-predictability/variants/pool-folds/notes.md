@@ -19,7 +19,9 @@ study 41 uses as its ceiling and residual map.
   256 GiB). H256 needs more host RAM than H128 (which peaked near 190 GB in `cedar-smoke`). GPU
   memory was not the limit (JAX's 30 GiB reservation of the 40 GB A100; no GPU OOM seen).
 - `folds-h256-320g` (2026-11-13 00:11 PT, group `pool-folds@20261113-001051`): Cedar A100 relaunch
-  at 320Gi (4 x 320Gi fills the 1.3 TiB node). Outcome: pending.
+  at 320Gi (4 x 320Gi fills the 1.3 TiB node). **Failed:** fold 1 was killed for running out of
+  memory at 00:29 PT, early in training; fold 2 had reached 292 GiB. All 4 stopped at 00:31 PT.
+  H256 at ~610 mice needs more than 320 GiB of host RAM, more than the A100 node can give 4 runs.
 - `folds-h256-beaker` (2026-11-13 00:15 PT, group `pool-folds@20261113-001528`, Beaker experiment
   [`01M79ZKT8PKHHVQH93ZN1V3450`](https://beaker.org/ex/01M79ZKT8PKHHVQH93ZN1V3450)): the same 4
   fold models on Beaker's allocated on-prem H200 slots (normal priority, not preemptible, 384GiB),
