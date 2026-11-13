@@ -83,6 +83,7 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   300-step `cedar-smoke` run never reached the longest length buckets. Sessions stopped 15:47 PT;
   the W&B runs are marked failed. Full-size models need H200s (141 GB).
 - 15:50 PT: folds 1-3 resubmitted at tier 2 with pinned refs (`experiment_beaker_t2.yaml`,
-  launch `folds-h256-2way-t2b`; its fold-4 task is stopped at once, since fold 4 runs in
+  launch `folds-h256-2way-t2b`, group `pool-folds-2way@20261113-154445`, Beaker experiment
+  [`01M7BMSD856ZR57Z9W5CG1Z503`](https://beaker.org/ex/01M7BMSD856ZR57Z9W5CG1Z503); its fold-4 task (`-003`) was stopped at once, since fold 4 runs in
   `folds-h256-2way-t2`). The allocated-seat copies (`folds-h256-2way-t1` `-000`..`-002`) stay
   queued; the first copy of each fold to start is kept.
