@@ -7,7 +7,7 @@ cluster: octo.hub-usw1-gcp-h200
 image: dfbfm-wrapper:20261109-wf390d4f
 gpu: 1
 cpu: 16
-ram: 480Gi
+ram: 600Gi                               # 320Gi was OOM-killed on the A100 node (folds-h256-320g)
 max_live_time: 48h
 secrets:
   wandb-api-key-neuraldynamics: WANDB_API_KEY
