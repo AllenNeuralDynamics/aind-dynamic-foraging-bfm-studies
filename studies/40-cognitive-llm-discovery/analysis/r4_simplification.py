@@ -60,7 +60,7 @@ with $\kappa = \kappa_c$ in coupled tasks and $\kappa_u$ in uncoupled ones; $n_t
 
 **Choice** ($\epsilon = 10^{-4}$):
 
-$$\begin{aligned} g_t &= \exp\!\big(-\gamma\,(n_t - 1)\big) \\ P(c_t = R) &= \epsilon + (1 - 2\epsilon)\,\sigma\Big(g_t\,\big[\beta\,(Q_t(R) - Q_t(L)) + w_F F_t + w_S S_t\big] + b\Big) \end{aligned}$$
+$$\begin{aligned} x_t &= \beta\,\big(Q_t(R) - Q_t(L)\big) + w_F F_t + w_S S_t \\ g_t &= \exp\!\big(-\gamma\,(n_t - 1)\big) \\ P(c_t = R) &= \epsilon + (1 - 2\epsilon)\,\sigma(g_t\,x_t + b) \end{aligned}$$
 
 **Initial values:** every latent variable is 0 at the start of each session.
 

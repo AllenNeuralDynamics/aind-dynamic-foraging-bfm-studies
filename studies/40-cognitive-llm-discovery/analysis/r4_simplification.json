@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r4_simplification.py",
-    "produced_at_pt": "2026-11-12T17:41:48-08:00",
-    "studies_git_sha": "14cbfd314971205a76654f987077075a1bc47342",
+    "produced_at_pt": "2026-11-12T17:46:36-08:00",
+    "studies_git_sha": "f749998ea705b3a31d639d9b470e472dd7479729",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -26,7 +26,7 @@
     "code": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r4_simplification.py",
-        "sha256": "e7ffc03e810441dff3d6a5577cc7499c45a7e293131efab3ba43a63b465e191f"
+        "sha256": "31ad888ec9bdba3544bb56e06ba919fd5083b9b6496bf7a1578ae7fc8c58e8bb"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r3_search_best.py",
@@ -122,7 +122,7 @@
     "outputs": [
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/r4_simplification.json",
-        "sha256": "f60a63cfc2c0d327519bee3ddabdc87d170e021e55fbe6a454e46420d2137699"
+        "sha256": "df3061f31a5c6f5bf23e69731ec9ad448bafd62d0805dabf71ce0a6235a326e4"
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/fig_r4_frontier.svg",
@@ -150,7 +150,7 @@
       },
       {
         "path": "studies/40-cognitive-llm-discovery/analysis/reports/r4-simplification.md#result-5",
-        "sha256": "4ab9785fbc47599eab534dc9d949697a55507e5de40ebdf65eb2eed7637a411e"
+        "sha256": "d998f0c0d7653ab6e5874c5d29cee9a31944e7766653a9301e89948d12e57833"
       }
     ]
   },
@@ -306,7 +306,7 @@
       "two_level_failed": false,
       "program": "analysis/selection/programs/rank3_e3819885.py",
       "summary": "Values learned at separate rates after reward and no reward. The unchosen side is forgotten toward 0 and, after a miss, also learns that the other side pays (counterfactual learning, with its own strength in coupled and uncoupled tasks). Fast and slow choice traces and a side bias. The weight on values and traces changes with the rewards collected in the session (satiety). Its docstring also mentions a bait expectation; the code has none.",
-      "equations": "Notation: trial $t$; choice $c_t \\in \\{L, R\\}$, $u_t$ the side not chosen; reward $r_t \\in \\{0, 1\\}$; signed choice $s_t = +1$ (right) or $-1$ (left); $\\sigma(x) = 1/(1+e^{-x})$; learning rate $\\alpha_t = \\alpha_+$ after a reward, $\\alpha_-$ after none. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.\n\n**Update:**\n\n$$\\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \\alpha_t\\,\\big(r_t - Q_t(c_t)\\big) \\\\ Q_{t+1}(u_t) &= (1-\\phi)\\,Q_t(u_t) + \\kappa\\,\\alpha_t\\,\\big((1 - r_t) - (1-\\phi)\\,Q_t(u_t)\\big) \\\\ F_{t+1} &= F_t + \\tau_F\\,(s_t - F_t) \\\\ S_{t+1} &= S_t + \\tau_S\\,(s_t - S_t) \\\\ n_{t+1} &= n_t + r_t/100 \\end{aligned}$$\n\nwith $\\kappa = \\kappa_c$ in coupled tasks and $\\kappa_u$ in uncoupled ones; $n_t$ is the rewards collected so far, in hundreds.\n\n**Choice** ($\\epsilon = 10^{-4}$):\n\n$$\\begin{aligned} g_t &= \\exp\\!\\big(-\\gamma\\,(n_t - 1)\\big) \\\\ P(c_t = R) &= \\epsilon + (1 - 2\\epsilon)\\,\\sigma\\Big(g_t\\,\\big[\\beta\\,(Q_t(R) - Q_t(L)) + w_F F_t + w_S S_t\\big] + b\\Big) \\end{aligned}$$\n\n**Initial values:** every latent variable is 0 at the start of each session.\n\n**Parameters (12):** $\\alpha_+$ `learn_rate_rewarded`, $\\alpha_-$ `learn_rate_unrewarded`, $\\phi$ `forget_rate_unchosen`, $\\beta$ `value_inverse_temperature`, $\\tau_F$ `fast_habit_step_size`, $w_F$ `fast_habit_weight`, $\\tau_S$ `slow_habit_step_size`, $w_S$ `slow_habit_weight`, $b$ `right_bias`, $\\kappa_c$ `counterfactual_weight`, $\\kappa_u$ `counterfactual_weight_uncoupled`, $\\gamma$ `satiety_gain`."
+      "equations": "Notation: trial $t$; choice $c_t \\in \\{L, R\\}$, $u_t$ the side not chosen; reward $r_t \\in \\{0, 1\\}$; signed choice $s_t = +1$ (right) or $-1$ (left); $\\sigma(x) = 1/(1+e^{-x})$; learning rate $\\alpha_t = \\alpha_+$ after a reward, $\\alpha_-$ after none. Latent variables with index $t$ are the ones used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.\n\n**Update:**\n\n$$\\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \\alpha_t\\,\\big(r_t - Q_t(c_t)\\big) \\\\ Q_{t+1}(u_t) &= (1-\\phi)\\,Q_t(u_t) + \\kappa\\,\\alpha_t\\,\\big((1 - r_t) - (1-\\phi)\\,Q_t(u_t)\\big) \\\\ F_{t+1} &= F_t + \\tau_F\\,(s_t - F_t) \\\\ S_{t+1} &= S_t + \\tau_S\\,(s_t - S_t) \\\\ n_{t+1} &= n_t + r_t/100 \\end{aligned}$$\n\nwith $\\kappa = \\kappa_c$ in coupled tasks and $\\kappa_u$ in uncoupled ones; $n_t$ is the rewards collected so far, in hundreds.\n\n**Choice** ($\\epsilon = 10^{-4}$):\n\n$$\\begin{aligned} x_t &= \\beta\\,\\big(Q_t(R) - Q_t(L)\\big) + w_F F_t + w_S S_t \\\\ g_t &= \\exp\\!\\big(-\\gamma\\,(n_t - 1)\\big) \\\\ P(c_t = R) &= \\epsilon + (1 - 2\\epsilon)\\,\\sigma(g_t\\,x_t + b) \\end{aligned}$$\n\n**Initial values:** every latent variable is 0 at the start of each session.\n\n**Parameters (12):** $\\alpha_+$ `learn_rate_rewarded`, $\\alpha_-$ `learn_rate_unrewarded`, $\\phi$ `forget_rate_unchosen`, $\\beta$ `value_inverse_temperature`, $\\tau_F$ `fast_habit_step_size`, $w_F$ `fast_habit_weight`, $\\tau_S$ `slow_habit_step_size`, $w_S$ `slow_habit_weight`, $b$ `right_bias`, $\\kappa_c$ `counterfactual_weight`, $\\kappa_u$ `counterfactual_weight_uncoupled`, $\\gamma$ `satiety_gain`."
     },
     "simplify-75_c1_141c8a13": {
       "n_subjects": 149,
