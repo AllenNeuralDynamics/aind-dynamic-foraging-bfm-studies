@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_beaker_resumable.py",
+    "produced_at_pt": "2026-11-13T01:33:53-08:00"
+  },
+  "kind": "initial",
+  "platform": "beaker",
+  "wandb_group": "pool-folds-2way@20261113-013348",
+  "label": "folds-h256-2way-normal",
+  "note": "Study 17 (#148): the 4 fold models as 2-way (ignore_policy exclude), H256, same fold lists as pool-folds. Resubmitted at normal priority, not preemptible, on on-prem H200 after the low-priority launch was evicted every 2-4 min by other workspaces' jobs.",
+  "job_refs": [
+    {
+      "type": "beaker_experiment",
+      "id": "01M7A4387XV2B2PNKPVX1FTHTP"
+    }
+  ],
+  "revisions": {
+    "studies": "09422e1adc94be32baa9e7260f3aaa68c2733ec0",
+    "dispatcher": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "392c504406094b33407321b168173981b8af8291"
+  },
+  "manifests": [
+    "sweep.yaml",
+    "experiment_resumable_submitted.yaml"
+  ],
+  "n_tasks": 4,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "beaker",
+    "name": "han-hou/dynamic-foraging-bfm-wrapper-main-20260902",
+    "id": "01M1JHDCQEEMRMH4EHQGEX7QY8"
+  },
+  "mode": "resumable-grid",
+  "experiment_id": "01M7A4387XV2B2PNKPVX1FTHTP",
+  "experiment_url": "https://beaker.org/ex/01M7A4387XV2B2PNKPVX1FTHTP",
+  "dispatcher_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "studies_git_commit": "09422e1adc94be32baa9e7260f3aaa68c2733ec0",
+  "studies_git_branch": "study/17-gru-crossfit-predictability",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "5affee531856d6eff31c9285e981c93747699efc",
+  "foraging_models_git_commit": "392c504406094b33407321b168173981b8af8291",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/variants/pool-folds-2way/sweep.yaml",
+  "created_utc": "2026-11-13T09:33:53.852895+00:00"
+}
