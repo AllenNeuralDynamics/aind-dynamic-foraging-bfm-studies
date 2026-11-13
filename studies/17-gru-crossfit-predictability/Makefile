@@ -4,7 +4,7 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all freeze-folds
+.PHONY: all freeze-folds freeze-scaling
 
 all:
 
@@ -13,3 +13,9 @@ all:
 # mevolve-search env, on a compute node.
 freeze-folds:
 	$(PY) analysis/freeze_folds.py
+
+# freeze-scaling = the nested training-mouse subsets of the scaling curve
+# (reference/scaling_subsets.json) and the scaling-folds sweeps, from reference/folds.json and the
+# freeze's curricula. Needs pandas: the mevolve-search env, on a compute node.
+freeze-scaling:
+	$(PY) analysis/freeze_scaling_subsets.py

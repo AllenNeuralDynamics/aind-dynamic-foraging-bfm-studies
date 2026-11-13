@@ -1,0 +1,52 @@
+## Beaker task template for study 17's `scaling-folds` variant, D=10 and D=30, preemptible.
+## Han (2026-11-13): the 8 allocated seats take the longer runs (the 4 pool-folds models and the
+## 4 D=100 models); D=10 and D=30 run preemptible and resume from checkpoints.
+## The resumable launcher keeps `command[:2]` and appends the sweep's `command:`. Run from the
+## studies root:
+##   python ../aind-dynamic-foraging-bfm-dispatcher/code/launch_beaker_resumable.py \
+##     --sweep      "$PWD/studies/17-gru-crossfit-predictability/variants/scaling-folds/sweep_d10_d30.yaml" \
+##     --experiment "$PWD/studies/17-gru-crossfit-predictability/variants/scaling-folds/experiment_beaker_d10_d30.yaml" \
+##     --workspace  ai1/aind-dynamic-foraging-foundation-model \
+##     --output-dir "$PWD/studies/17-gru-crossfit-predictability/variants/scaling-folds/launch_record/<label>" \
+##     --label <label> --note "..."
+
+version: v2
+description: study 17 scaling-folds, 3-way GRU H256, D=10 and D=30, preemptible (template; the launcher rewrites this)
+tasks:
+  - name: scaling-folds-d10_d30
+    image:
+      beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+    command:
+      - bash
+      - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+      - "true"
+    context:
+      # Bursts onto idle GPUs beyond the allocation; preempted tasks resume from checkpoints
+      # (autoResume is applied automatically to preemptible jobs; never set it).
+      priority: low
+      preemptible: true
+    constraints:
+      cluster:
+        # H200; reaches AWS S3 for the snapshot cache (GCP clusters cannot).
+        - ai1/octo-hub-aws-h200
+    resources:
+      # D <= 100 mice: far less host RAM than the ~610-mouse models (>320 GiB). 200GiB / 16 CPU
+      # stays inside one GPU bundle on both H200 clusters (on-prem 378 GiB + 28 CPU; AWS
+      # 250 GiB + 24 CPU), so each task gets exactly 1 GPU.
+      gpuCount: 1
+      cpuCount: 16
+      memory: 200GiB
+    envVars:
+      - name: WANDB_API_KEY
+        secret: han-wandb-api-key
+      - name: BFM_OUTPUT_DIR
+        value: /results
+      # Readable values; the launcher submits the resolved full SHAs.
+      - name: WRAPPER_REF
+        value: main
+      - name: DISPATCHER_REF
+        value: main
+      - name: FORAGING_MODELS_REF
+        value: main
+    result:
+      path: /results

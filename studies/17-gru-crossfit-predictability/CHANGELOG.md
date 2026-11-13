@@ -1,5 +1,10 @@
 # Changelog — 17-gru-crossfit-predictability
 
+## 2026-11-13
+
+- Han: the cross-validated scaling curve is part of study 17. Added variant `scaling-folds`,
+  `reference/scaling_subsets.json` (`make freeze-scaling`) and the `scaling` question tag.
+
 ## 2026-11-12
 
 - Han: H256 instead of H128, and the fold trainings on Cedar. Froze `reference/folds.json`

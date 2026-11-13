@@ -69,6 +69,17 @@ trains on every mouse outside its fold, test mice included.
 - `pool-folds`: one launch, 4 Cedar sessions (one per pool fold), one W&B group.
 - `cedar-smoke`: the first Cedar launch, a 300-step test of the platform (not a result).
 
+## Scaling curve (Han, 2026-11-13: an extension of the same cross-validation)
+
+Variant `scaling-folds`: for each pool fold, fold model k's training mice are subsampled to
+D ~ 10, 30, 100 (studies 01/02 subject ratios per curriculum, nested, seed 0;
+`reference/scaling_subsets.json`) and the same H256 recipe is trained on each (12 models). The
+full-size point is the `pool-folds` model; the test fold's curve is study 02's `nxd-3way` grid
+(D = 10, 30, 100, 614). Scored with the same passes A and B, this gives held-out prediction
+against D over all 763 mice, with fold-to-fold error bars. Compute: the 8 allocated Beaker seats
+take the 4 `pool-folds` and 4 D=100 models; D=10 and 30 run at low priority, preemptible, on
+idle AWS H200s (normal-priority preemptible jobs are capped at the allocation).
+
 ## Checks before the map is frozen
 
 1. **Model 0 reproduces study 02.** Pass A per-mouse scores equal study 02's held-out scores on

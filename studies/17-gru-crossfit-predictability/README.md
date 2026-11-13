@@ -19,6 +19,7 @@ tags:
   - gru
   question:
   - transfer
+  - scaling
   - methods
 issues:
 - 148
@@ -45,6 +46,7 @@ scientist mode. Details and checks: [`PLAN.md`](PLAN.md); terms: [`CONTEXT.md`](
 |---|---|---|---|
 | [`test-fold-ref`](variants/test-fold-ref/notes.md) | test fold: rescore study 02's `nxd-3way` model (seed 0; seeds 1–2 for noise) in passes A and B | planned | — |
 | [`pool-folds`](variants/pool-folds/notes.md) | 4 new fold models (H256), one per pool fold | running (Cedar + Beaker in parallel) | `pool-folds@20261113-001051` (Cedar), `pool-folds@20261113-002829` (Beaker) |
+| [`scaling-folds`](variants/scaling-folds/notes.md) | cross-validated scaling curve: 12 models at D ~ 10, 30, 100 per pool fold | planned | — |
 | [`cedar-smoke`](variants/cedar-smoke/notes.md) | first Cedar launch: the recipe cut to 300 steps on one A100; tests the platform, not a result | done (1st OOM, 2nd finished) | `cedar-smoke@20261112-175329`, `cedar-smoke@20261112-182835` |
 
 ## Verdict

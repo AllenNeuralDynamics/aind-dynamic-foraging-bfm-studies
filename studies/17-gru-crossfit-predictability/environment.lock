@@ -1,8 +1,8 @@
 # Analysis environment for studies/17-gru-crossfit-predictability/ (posthoc-reporting contract).
-# `pip freeze` of the env that ran analysis/freeze_folds.py:
+# `pip freeze` of the env that ran analysis/freeze_folds.py and analysis/freeze_scaling_subsets.py:
 # /allen/aind/scratch/han.hou/miniforge3/envs/mevolve-search, on HPC compute node n268, 2026-11-12 PT.
 #   Python 3.12.16
-# freeze_folds.py uses pandas and the standard library only.
+# both use pandas and the standard library only.
 absl-py==2.5.1
 adjustText==1.4.0
 aind-behavior-gym==0.4.5
