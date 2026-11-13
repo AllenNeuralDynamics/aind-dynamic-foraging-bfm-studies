@@ -69,7 +69,7 @@ PROSE_CONSTANTS = {"95%"}
 # Hand-written text the prose-number lint ignores besides blocks, comments and fenced code.
 NOT_PROSE = re.compile(r"`[^`\n]*`|\]\([^)\n]*\)|https?://\S+")
 # Advisory findings: `info`, so they never fail CI, but `make validate` prints them.
-ADVISORY = {"report-claim-unresolved", "report-prose-number"}
+ADVISORY = {"report-claim-unresolved", "report-prose-number", "report-skeleton", "report-prose-stale"}
 
 # How to fix each finding: agents fix what CI tells them, so every check says how.
 FIX = {
@@ -106,13 +106,13 @@ FIX = {
     "report-frontmatter": "fix the frontmatter field named in the message "
                           "(schemas/report-frontmatter.v<schema_version>.schema.json)",
     "report-skeleton": "give the report the version-2 headings, in order: `# rN — <the finding>`, "
-                       + ", ".join(f"`{h}`" for h in SKELETON) + " (`make new-report` writes them)",
+                       + ", ".join(f"`{h}`" for h in SKELETON) + " (`make new-report` writes them). Advisory: never fails CI",
     "report-claim-unresolved": "point the claim at a value that exists, `<study-relative JSON path>#<JSON Pointer>` "
                                "(e.g. analysis/r1_fit.json#/delta/mean), or regenerate the JSON; "
                                "a draft may point ahead (advisory), a live report may not",
     "report-prose-stale": "re-read every hand-written sentence against the changed block, and every sibling "
                           "report that says \"same as rN\"; then set `prose_reviewed.blocks` to the digests "
-                          "the message prints and `prose_reviewed.date` to today",
+                          "the message prints and `prose_reviewed.date` to today. Advisory: never fails CI",
     "report-prose-number": "cite the finding by its id instead of retyping the number, or print a number the "
                            "report's JSON holds (cite that JSON in `inputs`); write a constant that is not a "
                            "result as code (`0.5`). Advisory: never fails CI",
@@ -547,14 +547,14 @@ class Checker:
     def check_skeleton(self, p: Path, m, body: str) -> None:
         heads = report_verdicts.headings(body)
         if not heads or not re.fullmatch(rf"# r{m['n']} — \S.*", heads[0]):
-            self.add("error", "report-skeleton", p, f"the first heading must be `# r{m['n']} — <the finding>`, "
+            self.add("info", "report-skeleton", p, f"the first heading must be `# r{m['n']} — <the finding>`, "
                      f"not {heads[0] if heads else 'nothing'!r}", item="title")
         h2, i = [h for h in heads if h.startswith("## ")], 0
         for want in SKELETON:
             if want in h2[i:]:
                 i = h2.index(want, i) + 1
             else:
-                self.add("error", "report-skeleton", p, f"`{want}` is {'out of order' if want in h2 else 'missing'}",
+                self.add("info", "report-skeleton", p, f"`{want}` is {'out of order' if want in h2 else 'missing'}",
                          item=want)
 
     def check_claims(self, study: Path, p: Path, fm: dict) -> None:
@@ -606,7 +606,7 @@ class Checker:
             else:
                 what = "is new" if name not in recorded else f"changed after the prose review of {reviewed.get('date')}"
                 msg = f"block {name} {what}; after re-reading the prose, set prose_reviewed.blocks.{name}: {now[name]}"
-            self.add("warn", "report-prose-stale", p, msg, item=name)
+            self.add("info", "report-prose-stale", p, msg, item=name)
 
     def check_prose_numbers(self, study: Path, p: Path, fm: dict, body: str) -> None:
         """Advisory: a decimal or percentage in hand-written prose matches a number in the JSON

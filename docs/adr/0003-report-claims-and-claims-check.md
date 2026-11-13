@@ -8,7 +8,8 @@ README `## Verdict` are generated from them, prose cites findings by ID and adds
 claims, and a producer never prints a fixed conclusion sentence. Before a report goes
 `live`, and whenever a live report's claims change, a **claims check** runs: a new,
 read-only agent that did not write the report compares every claim with the numbers.
-Then the report's lead scientist, the first name in its `authors`, gives the go-ahead.
+Then the study owner gives the go-ahead. The study frontmatter has no owner field yet, so until
+it does the owner is the report's first author.
 
 We chose this because the text of our reports did not hold still while the numbers did.
 A survey of all 46 reports on 2026-10-28 found every script-written result block matched
@@ -29,7 +30,7 @@ keeps the reasons.
 
 ## Decisions
 
-- **Readers, in layers.** The lead scientist deciding what to run next reads the Question and Answer; lab
+- **Readers, in layers.** The study owner deciding what to run next reads the Question and Answer; lab
   members read Methods and What it means, with each specialised term explained at first
   use and linked to the `CONTEXT.md` glossary; a paper and later sessions read Methods,
   Results and Provenance.
@@ -47,10 +48,11 @@ keeps the reasons.
   prints the version name next to the number.
 - **Changing a report**: after a block changes, the prose is re-read and `prose_reviewed`
   bumped; a live report's title and claims change only with new numbers, or a CHANGELOG
-  entry plus the lead scientist's review; a draft states its `draft_reason`.
-- **Draft → live** needs a seven-item gate, a claims check and the lead scientist's explicit
+  entry plus the study owner's review; a draft states its `draft_reason`.
+- **Draft → live** needs a seven-item gate, a claims check and the study owner's explicit
   go-ahead.
-- **Old reports** stay on `schema_version: 1` until next changed; the retrofit is the bump.
+- **Old reports** stay on `schema_version: 1` until their results, claims or result blocks
+  change; that change is the bump to 2. Typo, link and wording fixes stay on version 1.
 
 ## Considered options
 

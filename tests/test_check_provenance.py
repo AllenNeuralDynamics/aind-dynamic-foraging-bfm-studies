@@ -604,7 +604,7 @@ class ReportV2Test(StudyRepo):
                 .replace("## Answer", "## TMP").replace("## Methods", "## Answer").replace("## TMP", "## Methods"))
         self.write_report(body)
         self.commit()
-        self.assertEqual(self.findings("report-skeleton"),
+        self.assertEqual(self.findings("report-skeleton", "info"),
                          {f"report-skeleton|{self.REL}|title", f"report-skeleton|{self.REL}|## Caveats",
                           f"report-skeleton|{self.REL}|## Methods"})
 
@@ -646,12 +646,12 @@ class ReportV2Test(StudyRepo):
         self.assertIn(new, found[0].message)          # the message prints the digest to record
         self.write_report(body)                       # ... and recording it clears the warning
         self.commit()
-        self.assertEqual(self.findings("report-prose-stale"), set())
+        self.assertEqual(self.findings("report-prose-stale", "info"), set())
         # a block the review never saw is stale too
         self.write_report(body.replace("## What it means", "<!-- BEGIN result-2 -->\nx\n<!-- END result-2 -->\n\n## What it means"),
                           reviewed={k: _meta.block_digest(v) for k, v in _meta.RESULT_BLOCK.findall(body)})
         self.commit()
-        self.assertEqual(self.findings("report-prose-stale"), {f"report-prose-stale|{self.REL}|result-2"})
+        self.assertEqual(self.findings("report-prose-stale", "info"), {f"report-prose-stale|{self.REL}|result-2"})
 
     def test_unsourced_prose_number_is_an_advisory_note(self):
         body = V2_BODY.replace("none\n", "Seed spread ~0.0004, a 7.5% gain; the block's 0.333 is not cited.\n")

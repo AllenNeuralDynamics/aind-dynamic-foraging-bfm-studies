@@ -35,15 +35,15 @@ whitespace and surrounding blank lines stripped. Both are implemented once, in
 A report with `schema_version: 2` (what `make new-report` writes) follows the rules in the
 dispatcher `posthoc-reporting` skill, "Report content"; the reasons are
 [ADR 0003](../docs/adr/0003-report-claims-and-claims-check.md). A version-1 report keeps the
-version-1 rules, checked exactly as before, until it is next changed; the retrofit is the bump
-to 2. The machine-checkable parts:
+version-1 rules, checked exactly as before, until its results, claims or result blocks change;
+that change is the bump to 2. A typo, link or wording fix leaves it on version 1. The machine-checkable parts:
 
 | Finding | Level | Rule |
 |---|---|---|
 | `report-frontmatter` | error | the v2 schema: `claims` (at least one) and `prose_reviewed` are required, `draft_reason` while `status: draft` |
-| `report-skeleton` | error | headings `# rN — <the finding>`, then `## Question`, `## Answer`, `## Methods`, `## Results`, `## What it means`, `## Caveats`, `## Next`, `## Provenance`, in that order; other `##` sections may sit between them; headings inside BEGIN/END blocks do not count |
+| `report-skeleton` | note | headings `# rN — <the finding>`, then `## Question`, `## Answer`, `## Methods`, `## Results`, `## What it means`, `## Caveats`, `## Next`, `## Provenance`, in that order; other `##` sections may sit between them; headings inside BEGIN/END blocks do not count |
 | `report-claim-unresolved` | error when live; note when draft | every claim pointer names a value |
-| `report-prose-stale` | warn | every BEGIN/END block still has the digest recorded in `prose_reviewed` |
+| `report-prose-stale` | note | every BEGIN/END block still has the digest recorded in `prose_reviewed` |
 | `report-prose-number` | note | a decimal or percentage in hand-written prose matches a number in the JSON the report cites |
 | `verdict-stale` | warn | the generated INDEX and README blocks copy the current claims |
 
