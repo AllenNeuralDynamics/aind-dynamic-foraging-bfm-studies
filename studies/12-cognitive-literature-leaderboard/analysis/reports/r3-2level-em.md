@@ -11,6 +11,7 @@ inputs:
   data: analysis/two_level_em_fits.csv
   runs: analysis/two_level_em_fits.json
   per_subject: analysis/per_subject_fits.csv
+  fallback: analysis/r3_fallback.json
   r1: analysis/r1_leaderboard.json
   freeze: analysis/freeze_two_level_em.py
   figure: analysis/fig_r3_2level_em.svg
@@ -118,6 +119,34 @@ On all 763 subjects. Only CompareToThreshold and Hattori2019 have a 2-level HB r
 
 EM-Rescorla-Wagner: its epsilon-greedy likelihood is flat or stepped in some parameters, and the per-session Laplace step uses gradients, so it can report convergence while poorly fitted. Read its row with that caveat.
 <!-- END result-2 -->
+
+## Failed 2-level fits and the per-mouse fallback
+
+<!-- BEGIN result-3 -->
+Failed 2-level fits: held-out subjects whose 2-level score is non-finite or more than 0.005 nats per trial below their per-subject score (r1), by MEvolve's per-mouse fallback rule (ADR 0004). The last column scores those subjects by their per-subject fit instead. Shown for transparency: the headline (result-1) stays the raw 2-level score.
+
+| literature model | 2-level EM (raw) | failed 2-level fits | with per-mouse fallback |
+|---|---:|---:|---:|
+| Lebedeva-PR | 0.7243 | 0 of 149 | 0.7243 |
+| Lopez-DoubleTrace | 0.7240 | 1 of 149 | 0.7241 |
+| Bari2019 | 0.7233 | 0 of 149 | 0.7233 |
+| Miller-RHG | 0.7225 | 2 of 149 | 0.7241 |
+| CompareToThreshold | 0.7223 | 0 of 149 | 0.7223 |
+| Hattori2019 | 0.7211 | 0 of 149 | 0.7211 |
+| Zid-HistoryKernel2-ForagingRL | 0.7197 | 0 of 149 | 0.7197 |
+| Eckstein-BI | 0.7181 | 0 of 149 | 0.7181 |
+| Beron-RFLR | 0.7179 | 0 of 149 | 0.7179 |
+| Chen-RLCK | 0.7178 | 0 of 149 | 0.7178 |
+| Eckstein-RL | 0.7158 | 0 of 149 | 0.7158 |
+| FeedbackDependent-RL+Bias+CK1 | 0.7118 | 1 of 149 | 0.7118 |
+| Grossman-MetaLearning | 0.7095 | 14 of 149 | 0.7199 |
+| Alsio-DualRateSticky-RL | 0.7061 | 0 of 149 | 0.7061 |
+| ActorCritic | 0.6662 | 0 of 149 | 0.6662 |
+| LossCounting | 0.6660 | 11 of 149 | 0.6712 |
+| FeedbackDependent-RL+Bias | 0.6145 | 0 of 149 | 0.6145 |
+| FeedbackDependent-RL | 0.5855 | 1 of 149 | 0.5856 |
+| Rescorla-Wagner | 0.3733 | 83 of 149 | 0.5504 |
+<!-- END result-3 -->
 
 ## What it says
 
