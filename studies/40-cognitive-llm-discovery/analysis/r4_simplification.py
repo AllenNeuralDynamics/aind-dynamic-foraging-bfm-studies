@@ -36,6 +36,82 @@ COL = {"simplify-90": OI["blue"], "simplify-75": OI["green"], "simplify-50": OI[
 SHARE = {"simplify-90": "90%", "simplify-75": "75%", "simplify-50": "50%"}
 SEARCH_BEST, REFERENCE = r3.CHOSEN, "reference_miller_rhg"
 
+# A short description and the equations of each program on the atlas leaderboard, written from its code
+# (the file named here); the atlas shows them in the program's side panel. Notation as study 12's equations.
+NOTATION = (r"Notation: trial $t$; choice $c_t \in \{L, R\}$, $u_t$ the side not chosen; reward $r_t \in \{0, 1\}$; "
+            r"signed choice $s_t = +1$ (right) or $-1$ (left); $\sigma(x) = 1/(1+e^{-x})$; learning rate "
+            r"$\alpha_t = \alpha_+$ after a reward, $\alpha_-$ after none. Latent variables with index $t$ are the ones "
+            r"used to choose on trial $t$; they are updated after $c_t, r_t$ are seen.")
+CARDS = {
+    SEARCH_BEST: {
+        "program": "analysis/selection/programs/rank3_e3819885.py",
+        "summary": "Values learned at separate rates after reward and no reward. The unchosen side is forgotten "
+                   "toward 0 and, after a miss, also learns that the other side pays (counterfactual learning, "
+                   "with its own strength in coupled and uncoupled tasks). Fast and slow choice traces and a side "
+                   "bias. The weight on values and traces changes with the rewards collected in the session "
+                   "(satiety). Its docstring also mentions a bait expectation; the code has none.",
+        "equations": NOTATION + r"""
+
+**Update:**
+
+$$\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \alpha_t\,\big(r_t - Q_t(c_t)\big) \\ Q_{t+1}(u_t) &= (1-\phi)\,Q_t(u_t) + \kappa\,\alpha_t\,\big((1 - r_t) - (1-\phi)\,Q_t(u_t)\big) \\ F_{t+1} &= F_t + \tau_F\,(s_t - F_t) \\ S_{t+1} &= S_t + \tau_S\,(s_t - S_t) \\ n_{t+1} &= n_t + r_t/100 \end{aligned}$$
+
+with $\kappa = \kappa_c$ in coupled tasks and $\kappa_u$ in uncoupled ones; $n_t$ is the rewards collected so far, in hundreds.
+
+**Choice** ($\epsilon = 10^{-4}$):
+
+$$\begin{aligned} g_t &= \exp\!\big(-\gamma\,(n_t - 1)\big) \\ P(c_t = R) &= \epsilon + (1 - 2\epsilon)\,\sigma\Big(g_t\,\big[\beta\,(Q_t(R) - Q_t(L)) + w_F F_t + w_S S_t\big] + b\Big) \end{aligned}$$
+
+**Initial values:** every latent variable is 0 at the start of each session.
+
+**Parameters (12):** $\alpha_+$ `learn_rate_rewarded`, $\alpha_-$ `learn_rate_unrewarded`, $\phi$ `forget_rate_unchosen`, $\beta$ `value_inverse_temperature`, $\tau_F$ `fast_habit_step_size`, $w_F$ `fast_habit_weight`, $\tau_S$ `slow_habit_step_size`, $w_S$ `slow_habit_weight`, $b$ `right_bias`, $\kappa_c$ `counterfactual_weight`, $\kappa_u$ `counterfactual_weight_uncoupled`, $\gamma$ `satiety_gain`.""",
+    },
+    "simplify-75_c1_141c8a13": {
+        "program": "analysis/simplify/simplify-75/programs/c1_141c8a13.py",
+        "summary": "The 50% floor's model with one addition: the fast choice trace's weight changes with the "
+                   "mouse's training experience (the log of the session's index). Values and traces are kept in "
+                   "logit units, so the choice is their plain sum.",
+        "equations": NOTATION + r"""
+
+**Session start:** the fast trace's weight for session $k$ (0 for the mouse's first session) is
+
+$$w_F^{(k)} = w_F + \gamma\,\big(\ln(1 + k) - 3\big)$$
+
+($\ln(1+k) = 3$ near the 20th session).
+
+**Update:**
+
+$$\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \alpha_t\,\big(\beta\,r_t - Q_t(c_t)\big) \\ Q_{t+1}(u_t) &= (1-\phi)\,Q_t(u_t) \\ F_{t+1} &= F_t + \tau_F\,\big(w_F^{(k)}\,s_t/2 - F_t\big) \\ S_{t+1} &= S_t + \tau_S\,\big(w_S\,s_t/2 - S_t\big) \end{aligned}$$
+
+**Choice:**
+
+$$P(c_t = R) = \sigma\big(Q_t(R) - Q_t(L) + F_t + S_t + b\big)$$
+
+**Initial values:** $Q$, $F$ and $S$ are 0 at the start of each session.
+
+**Parameters (10):** $\alpha_+$ `learn_rate_rewarded`, $\alpha_-$ `learn_rate_unrewarded`, $\phi$ `forget_rate_unchosen`, $\beta$ `value_inverse_temperature`, $\tau_F$ `fast_habit_step_size`, $w_F$ `fast_habit_weight`, $\tau_S$ `slow_habit_step_size`, $w_S$ `slow_habit_weight`, $b$ `right_bias`, $\gamma$ `habit_experience_gain`.""",
+    },
+    "simplify-50_c1_cd994c73": {
+        "program": "analysis/simplify/simplify-50/programs/c1_cd994c73.py",
+        "summary": "Values learned at separate rates after reward and no reward, with the unchosen side forgotten "
+                   "toward 0; fast and slow choice traces that pull toward repeating (or alternating) recent "
+                   "choices; a side bias; a softmax over their weighted sum.",
+        "equations": NOTATION + r"""
+
+**Update:**
+
+$$\begin{aligned} Q_{t+1}(c_t) &= Q_t(c_t) + \alpha_t\,\big(r_t - Q_t(c_t)\big) \\ Q_{t+1}(u_t) &= (1-\phi)\,Q_t(u_t) \\ F_{t+1} &= F_t + \tau_F\,(s_t - F_t) \\ S_{t+1} &= S_t + \tau_S\,(s_t - S_t) \end{aligned}$$
+
+**Choice:**
+
+$$P(c_t = R) = \sigma\big(\beta\,(Q_t(R) - Q_t(L)) + w_F F_t + w_S S_t + b\big)$$
+
+**Initial values:** every latent variable is 0 at the start of each session.
+
+**Parameters (9):** $\alpha_+$ `learn_rate_rewarded`, $\alpha_-$ `learn_rate_unrewarded`, $\phi$ `unchosen_forgetting`, $\beta$ `beta`, $\tau_F$ `fast_trace_step`, $w_F$ `fast_trace_weight`, $\tau_S$ `slow_trace_step`, $w_S$ `slow_trace_weight`, $b$ `right_bias`.""",
+    },
+}
+
 
 def table(head, rows):
     return r3.table(head, rows)
@@ -103,6 +179,10 @@ def scores_149(names: list[str]) -> dict:
         out[k] = {"n_subjects": d["n_subjects"], "two_level": s["two_level"], "with_fallback": s["score"],
                   "per_subject": s["per_subject"], "n_fallback": s["n_fallback"], "two_level_failed": s["two_level_failed"]}
     assert {v["n_subjects"] for v in out.values()} == {149}
+    for k, card in CARDS.items():
+        if k in out:
+            assert (STUDY / card["program"]).is_file(), card["program"]
+            out[k].update(card)
     return out
 
 
@@ -266,13 +346,16 @@ def main() -> None:
           "leaderboard's metric. The leaderboard reads the raw 2-level EM score, which is study 12 r3's convention "
           "for the literature models. The other columns are the score with the per-mouse fallback (MEvolve ADR 0004; "
           "this study's headline on the 146 shared subjects uses it) and the per-subject fit.\n\n"
-          + table(["program", "2-level EM (raw)", "with per-mouse fallback", "per subject", "mice on fallback"], rows5))
+          + table(["program", "2-level EM (raw)", "with per-mouse fallback", "per subject", "mice on fallback"], rows5)
+          + "".join(f"\n\n### {label[k]}\n\n{c['summary']} Code: [`{c['program']}`](../{c['program'][len('analysis/'):]})."
+                    f"\n\n{c['equations']}" for k, c in CARDS.items() if k in s149))
 
     write_blocks({1: b1, 2: b2, 3: b3, 4: b4, 5: b5})
     inputs = [*RUNS.values(), FLOORS, CHOICE, CURVES, r3.HB, r3.GRU, *r3.S15.values(),
               *(HERE / "test" / "test" / f"{k}.json" for k in names),
               *(p for k in tested if (p := HERE / "test" / "gru_test" / f"{k}.json").exists()),
-              *(STUDY / choice[v]["chosen_file"] for v in VARIANTS if chosen[v])]
+              *(STUDY / choice[v]["chosen_file"] for v in VARIANTS if chosen[v]),
+              *(STUDY / c["program"] for k, c in CARDS.items() if k in s149 and k not in chosen.values())]
     write_artifact(HERE / "r4_simplification.json", {
         "_meta": build_meta("analysis/r4_simplification.py", [f"{v}@20261108-230437" for v in VARIANTS],
                             study_root=STUDY, code=[__file__, HERE / "r3_search_best.py"], inputs=inputs),
