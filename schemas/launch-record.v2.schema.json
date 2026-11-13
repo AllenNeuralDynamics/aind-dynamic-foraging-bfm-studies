@@ -12,7 +12,7 @@
                      "recorded_after_launch": {"type": "boolean", "description": "True when the record was written after the job was submitted (from launch facts kept in the variant's notes), not by the launcher at submit time."}}
     },
     "kind": {"enum": ["initial", "resubmit", "rescue", "probe", "tier-change", "backfill", "extend"]},
-    "platform": {"enum": ["beaker", "hpc", "none"], "description": "`none` only for kind backfill, which submits nothing."},
+    "platform": {"enum": ["beaker", "hpc", "cedar", "none"], "description": "`none` only for kind backfill, which submits nothing. `cedar`: sessions on the Allen Cedar compute environment."},
     "wandb_group": {"type": "string", "pattern": "^[A-Za-z0-9][\\w.-]*@[0-9]{8}-[0-9]{6}$",
                     "description": "Prefix before `@` equals the variant directory name."},
     "label": {"type": "string", "minLength": 1},
@@ -22,8 +22,9 @@
       "items": {
         "type": "object", "required": ["type", "id"],
         "properties": {
-          "type": {"enum": ["beaker_experiment", "wandb_sweep", "slurm_array_job", "slurm_job"]},
-          "id": {"type": "string", "minLength": 1}
+          "type": {"enum": ["beaker_experiment", "wandb_sweep", "slurm_array_job", "slurm_job", "cedar_session"]},
+          "id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1, "description": "cedar_session: the session name (permanent per workspace); `id` is the session id (sess_...)."}
         }
       }
     },
@@ -69,8 +70,10 @@
       "then": {"required": ["snapshot", "uri", "manifest_sha256"], "properties": {"snapshot": {"type": "string", "minLength": 1}}}
     },
     "image": {
-      "description": "The environment the code ran in. Beaker: the image name from the experiment template and the immutable image id it resolved to at submit. HPC: the conda env the job activated and a sha256 over its installed packages.",
+      "description": "The environment the code ran in. Beaker: the image name from the experiment template and the immutable image id it resolved to at submit. HPC: the conda env the job activated and a sha256 over its installed packages. Cedar: the workspace image name:tag and the immutable manifest digest it resolved to at launch.",
       "oneOf": [
+        {"type": "object", "required": ["platform", "name", "digest"], "additionalProperties": false,
+         "properties": {"platform": {"const": "cedar"}, "name": {"type": "string", "minLength": 1}, "digest": {"$ref": "#/$defs/image_digest_or_null"}}},
         {"type": "object", "required": ["platform", "name", "id"], "additionalProperties": false,
          "properties": {"platform": {"const": "beaker"}, "name": {"type": "string", "minLength": 1}, "id": {"type": ["string", "null"]}}},
         {"type": "object", "required": ["platform", "conda_env", "lock_sha256"], "additionalProperties": false,
@@ -83,8 +86,9 @@
      "then": {"required": ["trigger"], "properties": {"trigger": {"type": "object", "required": ["symptom", "cause"]}}}},
     {"if": {"properties": {"kind": {"const": "backfill"}}},
      "then": {"properties": {"platform": {"const": "none"}, "job_refs": {"maxItems": 0}}},
-     "else": {"properties": {"platform": {"enum": ["beaker", "hpc"]}, "job_refs": {"minItems": 1}}}}
+     "else": {"properties": {"platform": {"enum": ["beaker", "hpc", "cedar"]}, "job_refs": {"minItems": 1}}}}
   ],
   "$defs": {"sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
-            "sha256_or_null": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}}
+            "sha256_or_null": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+            "image_digest_or_null": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}}
 }
