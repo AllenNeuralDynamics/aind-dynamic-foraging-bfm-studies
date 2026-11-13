@@ -12,4 +12,5 @@ launch-record v2 `platform: cedar` record (studies #153). Not a result; no repor
 
 **Launches.** Each launch writes its record to `launch_record/<label>/` and mints one W&B group `cedar-smoke@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched.
+**Status.** Launched 2026-11-12 17:53 PT, label `first-cedar-launch`, W&B group
+`cedar-smoke@20261112-175329`, session `cedar-smoke-20261112-175329-0`. Outcome: pending.
