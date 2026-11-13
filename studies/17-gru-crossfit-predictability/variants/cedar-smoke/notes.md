@@ -18,5 +18,13 @@ launch-record v2 `platform: cedar` record (studies #153). Not a result; no repor
   GPU and W&B logging worked; about a minute into training the container was killed for running
   out of memory (Cedar event RESTARTED, exit 137; peak sampled 45 GiB against the 64 GiB
   request). The restarted container does not resume the run. Session stopped.
-- `second-cedar-launch`: `ram` 64Gi → 256Gi and `cpu` 8 → 16, as study 02 `nxd-3way` requested
-  on Beaker. Outcome: pending.
+- `second-cedar-launch` (2026-11-12 18:28 PT, group `cedar-smoke@20261112-182835`, run
+  [`cedar-smoke-20261112-182835-21b19cb6`](https://wandb.ai/NeuralDynamics/dfbfm_17-gru-crossfit-predictability/runs/cedar-smoke-20261112-182835-21b19cb6)):
+  `ram` 64Gi → 256Gi and `cpu` 8 → 16, as study 02 `nxd-3way` requested on Beaker. **Finished**
+  (W&B state finished, 19:08 PT). Startup and compilation took about 15 min, then about
+  2.5 min per 100 steps; post-training work took about 14 min at up to 178 GiB resident memory,
+  so this recipe needs about 190 GB of host RAM. The 300-step numbers are not results.
+
+**Learned.** Cedar runs the study 17 recipe end to end, including W&B logging through the
+launcher. Real fold trainings there need 256Gi per session and resume after a container restart
+(dispatcher #219, still open): a restarted container loses the run.
