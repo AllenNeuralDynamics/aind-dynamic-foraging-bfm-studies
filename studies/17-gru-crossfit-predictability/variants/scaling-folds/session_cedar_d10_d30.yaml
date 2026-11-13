@@ -5,7 +5,7 @@ workspace: dfbfm
 cluster: octo.hub-usc1-gcp-a100
 image: dfbfm-wrapper:20261109-wf390d4f   # cached on the A100 node (AllenOCTO/cedar#543)
 gpu: 1
-cpu: 6
+cpu: 5
 ram: 48Gi
 max_live_time: 48h
 secrets:
