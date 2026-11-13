@@ -46,3 +46,11 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   NeuralDynamics key exported as `WANDB_API_KEY` (the `~/.netrc` key cannot write to
   NeuralDynamics); outputs and W&B files on scratch. The Beaker `folds-h256-2way-t2` entry is
   stopped once the HPC tasks start (whichever starts first is kept); its group then has no runs.
+- `folds-h256-2way-t1` (2026-11-13 11:25 PT, group `pool-folds-2way@20261113-112505`, Beaker experiment
+  [`01M7B5XY7ABMVPE8J3AYTYRHYM`](https://beaker.org/ex/01M7B5XY7ABMVPE8J3AYTYRHYM)): the 4 tasks on
+  the allocated seats (normal, not preemptible, on-prem H200, 1 GPU / 28 CPU / 370GiB), after D=100
+  folds 1-3 early-stopped at 90k (10:30-11:05 PT) and freed 3 of the 8 seats. Template
+  `experiment_beaker_t1.yaml` pins WRAPPER/DISPATCHER/FORAGING_MODELS_REF to `5affee5` / `7c1d686` /
+  `392c504`, the SHAs of every other study-17 run (the template's `main` refs had moved). Third
+  copy of the same 4 runs, with `folds-h256-2way-t2` (Beaker tier 2) and `folds-h256-2way-hpc`;
+  the first copy to start is kept and the others are cancelled.
