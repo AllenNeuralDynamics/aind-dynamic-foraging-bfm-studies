@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_cedar.py",
+    "produced_at_pt": "2026-11-13T04:59:42-08:00"
+  },
+  "kind": "initial",
+  "platform": "cedar",
+  "wandb_group": "scaling-folds@20261113-045923",
+  "label": "d10-fold2-cedar",
+  "note": "Study 17 (#148) scaling curve, D=10 pool fold 2 on the one free Cedar A100, in parallel with its queued Beaker tier-2 twin (keep whichever finishes first). Launched from dispatcher d1f4870, the first with the Cedar session-log fix (#223).",
+  "job_refs": [
+    {
+      "type": "cedar_session",
+      "id": "sess_01M7AFVK8JY69K9V8ERABVCQCA",
+      "name": "scaling-folds-20261113-045923-0"
+    }
+  ],
+  "revisions": {
+    "studies": "d19b7dc4dc2f3e997ed9596e2cb2df136dc15494",
+    "dispatcher": "d1f48702980da204cda30bbe422daeb3d7a1346b",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "392c504406094b33407321b168173981b8af8291"
+  },
+  "manifests": [
+    "sweep_d10_d30_p1.yaml",
+    "session_cedar_d10_d30.yaml",
+    "cedar_sessions_submitted.yaml"
+  ],
+  "n_tasks": 1,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "cedar",
+    "name": "dfbfm-wrapper:20261109-wf390d4f",
+    "digest": "sha256:3f260e9aa12b8180d0420331b8f4870c246fc5d17735abaf5526556ec691a92b"
+  },
+  "mode": "cedar-grid",
+  "n_planned": 1,
+  "sessions": [
+    {
+      "name": "scaling-folds-20261113-045923-0",
+      "attempted": true,
+      "id": "sess_01M7AFVK8JY69K9V8ERABVCQCA",
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[637701, 705596, 727456, 758435, 779311, 781370, 798517, 812305, 824527, 848869]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-045923-71928b3c"
+    }
+  ],
+  "dispatcher_commit": "d1f48702980da204cda30bbe422daeb3d7a1346b",
+  "studies_git_commit": "d19b7dc4dc2f3e997ed9596e2cb2df136dc15494",
+  "studies_git_branch": "study/17-gru-crossfit-predictability",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "d1f48702980da204cda30bbe422daeb3d7a1346b",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "5affee531856d6eff31c9285e981c93747699efc",
+  "foraging_models_git_commit": "392c504406094b33407321b168173981b8af8291",
+  "studies_dirty_override": null,
+  "sweep_file": "studies/17-gru-crossfit-predictability/variants/scaling-folds/sweep_d10_d30_p1.yaml",
+  "session_file": "studies/17-gru-crossfit-predictability/variants/scaling-folds/session_cedar_d10_d30.yaml",
+  "created_utc": "2026-11-13T12:59:42.927592+00:00"
+}

@@ -64,3 +64,6 @@ H200. Records go to `launch_record/<label>/`.
   started: other sessions took 14 of the node's 16 GPUs and 89 of 96 CPUs in the same minute, and
   session 1 failed (NOT_PROGRESSED, "Insufficient cpu"); the launcher stopped. The D=300 Cedar
   launch was not attempted (needs 220 GiB; 115 GiB free).
+- `d10-fold2-cedar` (2026-11-13 04:59 PT, group `scaling-folds@20261113-045923`): D=10 pool fold 2 on the one free Cedar A100
+  (one-point sweep `sweep_d10_d30_p1.yaml`, 5 CPU / 48Gi), parallel to its queued Beaker twin.
+  Launched from dispatcher `d1f4870` (Cedar session-log fix, #223).
