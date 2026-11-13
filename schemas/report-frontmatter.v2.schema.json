@@ -13,7 +13,7 @@
     "status": {"enum": ["draft", "live", "superseded", "retracted"]},
     "draft_reason": {"$ref": "#/$defs/line", "description": "Required when status is draft: what keeps the report from live, in one line."},
     "superseded_by": {"$ref": "#/$defs/report_ref", "description": "Required when status is superseded."},
-    "authors": {"type": "array", "items": {"type": "string"}, "minItems": 1, "description": "The first entry is the report's first author. The study owner's go-ahead takes it live; the study frontmatter has no owner field yet, so the owner is this first author."},
+    "authors": {"type": "array", "items": {"type": "string"}, "minItems": 1, "description": "The first entry is the report's first author, who approves: their go-ahead takes it live."},
     "issue": {"$ref": "#/$defs/issue_ref"},
     "tags": {
       "type": "object",
