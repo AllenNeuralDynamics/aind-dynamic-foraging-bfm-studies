@@ -1,0 +1,342 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/r3_fallback.py",
+    "produced_at_pt": "2026-11-12T16:45:30-08:00",
+    "studies_git_sha": "3f724cb821a92b8d1aee3e827b5435cd724ff45e",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_fallback.py",
+        "sha256": "55446d7c0d0aca9f8b44db81112314ed195105f8e59e64d6ce53cf05c8c486e6"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.py",
+        "sha256": "d6cc02b405cb0c0237d470be38abb1a6ef4e3b8f1d985a24193caaf047d003fc"
+      },
+      {
+        "path": "studies/util/cross_study.py",
+        "sha256": "6cb66bbf7cb93cc1402a37ab86abf54b31cfcc43280308d116b60e0665b6d56f"
+      },
+      {
+        "path": "studies/util/cross_study_literature.py",
+        "sha256": "112514978d87c6d7fe15804ef570cbef9aa4de880ed7a75d8a5c5e95df52fb4e"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/two_level_em_fits.csv",
+        "sha256": "bc13e3b5553003c637bad2d87f57bab27d4362f8c44aea71cddaf46afd5cfa17"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/per_subject_fits.csv",
+        "sha256": "43870489142cc5cb106c2602c801ace90cea69e7edc4055789a02d0741a6726f"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_2level_em.json",
+        "sha256": "7db7708473d23024670c879b6d732a7c6a38f359461fdd47c08c799bf6ff845c"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/r3_fallback.json",
+        "sha256": "df2d7cd2d9ae91281e2790883a6b1750ccb156b3bf14027b64a5025046d7bf81"
+      },
+      {
+        "path": "studies/12-cognitive-literature-leaderboard/analysis/reports/r3-2level-em.md#result-3",
+        "sha256": "9decceb3168f6cae43e72730c3b737ddc68f9e5206ab950b6a68ab7055ff76ce"
+      }
+    ]
+  },
+  "tolerance_nats_per_trial": 0.005,
+  "by_model": {
+    "EM-Lebedeva-PR": {
+      "literature_model": "Lebedeva-PR",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7243196198605001,
+      "pooled_heldout_fallback": 0.7243196198605001
+    },
+    "EM-Lopez-DoubleTrace": {
+      "literature_model": "Lopez-DoubleTrace",
+      "n_heldout": 149,
+      "n_fallback_heldout": 1,
+      "fallback_subjects": [
+        "700708"
+      ],
+      "pooled_heldout": 0.7239981986540848,
+      "pooled_heldout_fallback": 0.7241453179953851
+    },
+    "EM-Bari2019": {
+      "literature_model": "Bari2019",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7232846776236617,
+      "pooled_heldout_fallback": 0.7232846776236617
+    },
+    "EM-Miller-RHG": {
+      "literature_model": "Miller-RHG",
+      "n_heldout": 149,
+      "n_fallback_heldout": 2,
+      "fallback_subjects": [
+        "713379",
+        "818020"
+      ],
+      "pooled_heldout": 0.7225079050669331,
+      "pooled_heldout_fallback": 0.7241469112362001
+    },
+    "EM-CompareToThreshold": {
+      "literature_model": "CompareToThreshold",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7223356608700302,
+      "pooled_heldout_fallback": 0.7223356608700302
+    },
+    "EM-Hattori2019": {
+      "literature_model": "Hattori2019",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7211022982880708,
+      "pooled_heldout_fallback": 0.7211022982880708
+    },
+    "EM-Zid-HistoryKernel2-ForagingRL": {
+      "literature_model": "Zid-HistoryKernel2-ForagingRL",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.719725621112509,
+      "pooled_heldout_fallback": 0.719725621112509
+    },
+    "EM-Eckstein-BI": {
+      "literature_model": "Eckstein-BI",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7180621901182492,
+      "pooled_heldout_fallback": 0.7180621901182492
+    },
+    "EM-Beron-RFLR": {
+      "literature_model": "Beron-RFLR",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7179081060555206,
+      "pooled_heldout_fallback": 0.7179081060555206
+    },
+    "EM-Chen-RLCK": {
+      "literature_model": "Chen-RLCK",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7178095080576691,
+      "pooled_heldout_fallback": 0.7178095080576691
+    },
+    "EM-Eckstein-RL": {
+      "literature_model": "Eckstein-RL",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7157979916647754,
+      "pooled_heldout_fallback": 0.7157979916647754
+    },
+    "EM-Grossman-MetaLearning": {
+      "literature_model": "Grossman-MetaLearning",
+      "n_heldout": 149,
+      "n_fallback_heldout": 14,
+      "fallback_subjects": [
+        "452275",
+        "453476",
+        "453478",
+        "494693",
+        "627042",
+        "663373",
+        "713379",
+        "722683",
+        "761406",
+        "764693",
+        "778103",
+        "793397",
+        "798664",
+        "850597"
+      ],
+      "pooled_heldout": 0.7095074763468017,
+      "pooled_heldout_fallback": 0.7198776713346393
+    },
+    "EM-FeedbackDependent-RL+Bias+CK1": {
+      "literature_model": "FeedbackDependent-RL+Bias+CK1",
+      "n_heldout": 149,
+      "n_fallback_heldout": 1,
+      "fallback_subjects": [
+        "637701"
+      ],
+      "pooled_heldout": 0.711796831198377,
+      "pooled_heldout_fallback": 0.7118165859785275
+    },
+    "EM-Alsio-DualRateSticky-RL": {
+      "literature_model": "Alsio-DualRateSticky-RL",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.7061490911325979,
+      "pooled_heldout_fallback": 0.7061490911325979
+    },
+    "EM-LossCounting": {
+      "literature_model": "LossCounting",
+      "n_heldout": 149,
+      "n_fallback_heldout": 11,
+      "fallback_subjects": [
+        "655100",
+        "673396",
+        "713862",
+        "754372",
+        "765861",
+        "767462",
+        "791174",
+        "793397",
+        "795395",
+        "818908",
+        "820243"
+      ],
+      "pooled_heldout": 0.665957637502634,
+      "pooled_heldout_fallback": 0.671157049884538
+    },
+    "EM-ActorCritic": {
+      "literature_model": "ActorCritic",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.6662486743303208,
+      "pooled_heldout_fallback": 0.6662486743303208
+    },
+    "EM-FeedbackDependent-RL+Bias": {
+      "literature_model": "FeedbackDependent-RL+Bias",
+      "n_heldout": 149,
+      "n_fallback_heldout": 0,
+      "fallback_subjects": [],
+      "pooled_heldout": 0.6145271051521211,
+      "pooled_heldout_fallback": 0.6145271051521211
+    },
+    "EM-FeedbackDependent-RL": {
+      "literature_model": "FeedbackDependent-RL",
+      "n_heldout": 149,
+      "n_fallback_heldout": 1,
+      "fallback_subjects": [
+        "637701"
+      ],
+      "pooled_heldout": 0.585532853013893,
+      "pooled_heldout_fallback": 0.5855781194188443
+    },
+    "EM-Rescorla-Wagner": {
+      "literature_model": "Rescorla-Wagner",
+      "n_heldout": 149,
+      "n_fallback_heldout": 83,
+      "fallback_subjects": [
+        "453476",
+        "453478",
+        "472184",
+        "616134",
+        "627042",
+        "648586",
+        "651475",
+        "651554",
+        "656489",
+        "663373",
+        "668551",
+        "699982",
+        "700708",
+        "708299",
+        "711039",
+        "711281",
+        "713379",
+        "722683",
+        "726649",
+        "727456",
+        "736199",
+        "744779",
+        "745505",
+        "746346",
+        "751765",
+        "754372",
+        "756567",
+        "757214",
+        "761406",
+        "762611",
+        "765232",
+        "765365",
+        "765373",
+        "765861",
+        "766556",
+        "766998",
+        "767462",
+        "767463",
+        "769359",
+        "775741",
+        "775745",
+        "777098",
+        "777271",
+        "778103",
+        "780618",
+        "780621",
+        "781369",
+        "781896",
+        "781897",
+        "782394",
+        "787625",
+        "788733",
+        "790726",
+        "790768",
+        "791174",
+        "793397",
+        "798520",
+        "802292",
+        "805496",
+        "809488",
+        "810756",
+        "812307",
+        "813167",
+        "813992",
+        "814147",
+        "815334",
+        "818585",
+        "818908",
+        "819169",
+        "820243",
+        "823161",
+        "823163",
+        "829048",
+        "829489",
+        "832634",
+        "835178",
+        "835444",
+        "836657",
+        "837689",
+        "838332",
+        "841356",
+        "841599",
+        "845710"
+      ],
+      "pooled_heldout": 0.3732593840637834,
+      "pooled_heldout_fallback": 0.5503604029677049
+    }
+  }
+}
