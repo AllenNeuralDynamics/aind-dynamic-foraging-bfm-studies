@@ -2,6 +2,9 @@
 
 ## 2026-11-13
 
+- Han: add 2-way fold models (variant `pool-folds-2way`, H256, full size) for comparisons with
+  models that skip ignored trials.
+
 - Han: add D=300 to the scaling curve (4 pool-fold models + 1 test-fold model); no new H.
 
 - Han: the cross-validated scaling curve is part of study 17. Added variant `scaling-folds`,

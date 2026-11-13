@@ -81,6 +81,14 @@ against D over all 763 mice, with fold-to-fold error bars. Compute: the 8 alloca
 take the 4 `pool-folds` and 4 D=100 models; D=10 and 30 run at low priority, preemptible, on
 idle AWS H200s, and D=300 the same way on on-prem H200 (one 378 GiB bundle each) (normal-priority preemptible jobs are capped at the allocation).
 
+## 2-way fold models (Han, 2026-11-13)
+
+MEvolve skips ignored trials, so its programs see a sequence without them, while the 3-way GRU
+keeps them in its history. Variant `pool-folds-2way` trains the 4 fold models 2-way (H256, same
+fold lists; only `ignore_policy` differs), and the test fold reuses study 01's `nxd-grid` 2-way
+H256 model (its own 149 held-out mice; exact on the 146 shared test subjects). The map then has
+both a 3-way and a 2-way held-out prediction for every pool mouse.
+
 ## Checks before the map is frozen
 
 1. **Model 0 reproduces study 02.** Pass A per-mouse scores equal study 02's held-out scores on
