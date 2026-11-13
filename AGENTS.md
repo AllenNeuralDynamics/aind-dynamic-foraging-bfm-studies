@@ -120,7 +120,9 @@ live in the dispatcher:
 Load `study-conventions`, `posthoc-reporting`, `issue-tracking`, and the relevant launch
 skill (`beaker-launch` or `hpc-launch`) before creating a study, producing a report, or
 submitting work. If a skill and this file disagree, follow the more restrictive one and fix
-both.
+both. The skills come from one user-level install of the dispatcher's pack (its
+`aind-behavior-foundation-model-skills/README.md`, "Import"); this repo's `.claude/settings.json`
+only declares the marketplace, so do not enable the plugin per repo.
 
 ## Coding Principles
 
