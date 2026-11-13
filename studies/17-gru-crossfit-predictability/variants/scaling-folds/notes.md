@@ -17,7 +17,7 @@ the longer runs), and `sweep_d10_d30.yaml` + `experiment_beaker_d10_d30.yaml` pr
 H200. Records go to `launch_record/<label>/`.
 
 **Status.**
-- `d100` (2026-11-13 00:46 PT, group `scaling-folds@20261113-004534`, Beaker experiment
+- `d100` (2026-11-13 00:45 PT, group `scaling-folds@20261113-004534`, Beaker experiment
   [`01M7A1AXYCBM0SBEP32KXVXR56`](https://beaker.org/ex/01M7A1AXYCBM0SBEP32KXVXR56)): 4 tasks, allocated
   on-prem H200 seats. The first two submissions returned Beaker 409 "retryable database conflict"
   and created nothing; the third went through. Outcome: pending.
