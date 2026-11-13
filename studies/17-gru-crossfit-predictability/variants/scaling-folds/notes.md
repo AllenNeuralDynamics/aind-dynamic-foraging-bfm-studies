@@ -58,3 +58,9 @@ H200. Records go to `launch_record/<label>/`.
   launch (all 8 evicted at 01:37 PT at 5-8k steps, before the first checkpoint). Resubmitted at
   normal priority, preemptible (unallocated tier, 64 slots), 1 GPU per task: D=10/30 and D=300 on
   either H200 cluster; 2-way on on-prem only (needs its 378 GiB bundle).
+- `d10-d30-cedar` (2026-11-13 01:59 PT, group `scaling-folds@20261113-015941`): the D=10/30 runs on
+  Cedar A100 in parallel with the queued Beaker `d10-d30-t2` (Han: keep whichever finishes first;
+  cancel the Beaker twin if Cedar finishes before it starts). Only session 0 (D=10, pool fold 1)
+  started: other sessions took 14 of the node's 16 GPUs and 89 of 96 CPUs in the same minute, and
+  session 1 failed (NOT_PROGRESSED, "Insufficient cpu"); the launcher stopped. The D=300 Cedar
+  launch was not attempted (needs 220 GiB; 115 GiB free).
