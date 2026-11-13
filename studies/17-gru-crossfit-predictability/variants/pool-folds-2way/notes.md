@@ -15,4 +15,7 @@ GRU's own 149 (146 shared with the freeze's test subjects; PLAN.md, "Mouse sets"
 **Launches.** One launch, 4 tasks, one W&B group `pool-folds-2way@<launch_id>` (docs/adr/0001).
 Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
 
-**Status.** Not launched.
+**Status.**
+- `folds-h256-2way` (2026-11-13 01:13 PT, group `pool-folds-2way@20261113-011355`, Beaker experiment
+  [`01M7A2YWB6S8T0Q8RWER74DJ6V`](https://beaker.org/ex/01M7A2YWB6S8T0Q8RWER74DJ6V)): 4 tasks, low
+  priority, preemptible, on-prem H200, W&B key `han-wandb-api-key-neuraldynamics`. Outcome: pending.
