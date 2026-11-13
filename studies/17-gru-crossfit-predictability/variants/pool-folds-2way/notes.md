@@ -21,3 +21,6 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   priority, preemptible, on-prem H200, W&B key `han-wandb-api-key-neuraldynamics`. **Stopped at 01:33 PT, no training done:** on the oversubscribed on-prem
   cluster (our 8 allocated + another workspace's 6 low-priority jobs) each task was evicted
   (exit 143) every 2-4 min during setup. Resubmitted at normal priority (Han).
+- Normal priority, not preemptible (2026-11-13 01:33-01:35 PT, `*-normal` launch records): all
+  tasks queued behind the 8 allocated seats; stopped at 01:41 PT without starting. Resubmitted
+  at normal priority, preemptible (the unallocated budget).

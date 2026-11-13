@@ -22,10 +22,12 @@ tasks:
       - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
       - "true"
     context:
-      # Normal priority, not preemptible (Han, 2026-11-13): at low priority on the full on-prem
-      # cluster these were evicted every 2-4 min by other workspaces' low-priority jobs.
+      # Normal priority, preemptible (Han, 2026-11-13): the workspace's unallocated budget (~8 slots,
+      # beaker-launch scheduling-lessons), above other workspaces' low-priority jobs; auto-resumes.
+      # Low priority was evicted every 2-4 min on the full on-prem cluster; normal + not preemptible
+      # only queues behind the allocated seats.
       priority: normal
-      preemptible: false
+      preemptible: true
     constraints:
       cluster:
         # H200; reaches AWS S3 for the snapshot cache (GCP clusters cannot).
