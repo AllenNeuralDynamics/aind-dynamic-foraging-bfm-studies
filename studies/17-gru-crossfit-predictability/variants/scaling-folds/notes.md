@@ -76,3 +76,6 @@ H200. Records go to `launch_record/<label>/`.
   run finished at 12:20 PT (early stop at 80k; `gru-output` artifact committed), but a Cedar
   session does not end when its run ends: it stayed `ready` and held its A100 for 2.5 h. Finished
   Cedar sessions are stopped by hand.
+- 2026-11-13 17:00 PT: stopped Cedar session `scaling-folds-20261113-045923-0` (D=10 pool fold 2):
+  its run finished at ~16:15 PT (early stop at 80k; `gru-output` artifact committed). No study-17
+  Cedar session is left running.
