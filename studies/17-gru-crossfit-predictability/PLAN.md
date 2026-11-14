@@ -2,8 +2,9 @@
 
 Issue #148. Companions: study 41 (#149, the strategy study) and
 [MEvolve #87](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/issues/87)
-(scientist mode). Status: **design settled 2026-11-12; wrapper prerequisite open; nothing
-launched.** Terms are defined in [`CONTEXT.md`](CONTEXT.md).
+(scientist mode). Status (2026-11-13 20:00 PT): **training nearly done** (20 of 25 runs finished;
+the 2-way fold models finish 2026-11-14); **scoring tool in review** (wrapper PR #128); scoring not
+started. Terms are defined in [`CONTEXT.md`](CONTEXT.md).
 
 ## Why
 
@@ -61,10 +62,12 @@ trains on every mouse outside its fold, test mice included.
   (the study 01 way) and the two are compared in the report.
 - **Seeds:** one per fold. Training noise comes from study 02's H256 seeds 1–2 of model 0
   (`-3c79d1d1`, `-a3171d8e`) on the test fold, at the cost of rescoring only.
-- **Platform: Cedar** (Han, 2026-11-12), A100 cluster, launched with dispatcher `launch_cedar.py`
-  (dispatcher #220): one session per fold model, 256Gi RAM (the `cedar-smoke` variant showed the
-  recipe peaks near 190 GB), 48h lifetime until the first run gives a step rate. No automatic
-  resume: a stopped run is restarted by hand in the same output folder.
+- **Platform (as run, 2026-11-13):** planned for Cedar A100, but the full-size H256 recipe does
+  not fit there: host RAM was OOM-killed at 256Gi and 320Gi (it peaks near 350 GB at checkpoint
+  evaluation), and the GPU ran out of memory (a 33 GB allocation on a 40 GB A100). **Full-size
+  models need H200s:** they ran on Beaker on-prem H200 at 370GiB / 28 CPU / 1 GPU (one share).
+  Small models (D=10/30) fit a Cedar A100 (5 CPU, 48Gi). Where each run ended up, and every
+  failed or cancelled copy, is in the variants' `notes.md`.
 
 - **What "held-out prediction" means (Han, 2026-11-12):** fit and score sessions alternate by
   date, so a mouse's embedding is tuned on sessions both before and after the one it predicts. The
@@ -82,7 +85,10 @@ trains on every mouse outside its fold, test mice included.
 ## Variants
 
 - `test-fold-ref`: rescoring only (passes A and B) of model 0, plus seeds 1–2 for training noise.
-- `pool-folds`: one launch, 4 Cedar sessions (one per pool fold), one W&B group.
+- `pool-folds`: the 4 new 3-way fold models (Beaker allocated seats, group `pool-folds@20261113-005356`).
+- `pool-folds-2way`: the 4 fold models as 2-way (folds 1-3 group `pool-folds-2way@20261113-112505`,
+  fold 4 group `pool-folds-2way@20261113-015357`).
+- `scaling-folds`: the cross-validated scaling curve (below).
 - `cedar-smoke`: the first Cedar launch, a 300-step test of the platform (not a result).
 
 ## Scaling curve (Han, 2026-11-13: an extension of the same cross-validation)
@@ -93,9 +99,17 @@ D ~ 10, 30, 100, 300 (studies 01/02 subject ratios per curriculum, nested, seed 
 full-size point is the `pool-folds` model; the test fold's curve is study 02's `nxd-3way` grid
 (D = 10, 30, 100, 614) plus one new test-fold run at D=300 (study 02's recipe, `subject_ratio`
 0.489, seed 0), added 2026-11-13 because D=300 is where the curve's saturation is judged. Scored with the same passes A and B, this gives held-out prediction
-against D over all 763 mice, with fold-to-fold error bars. Compute: the 8 allocated Beaker seats
-take the 4 `pool-folds` and 4 D=100 models; D=10 and 30 run at low priority, preemptible, on
-idle AWS H200s, and D=300 the same way on on-prem H200 (one 378 GiB bundle each) (normal-priority preemptible jobs are capped at the allocation).
+against D over all 763 mice, with fold-to-fold error bars. Compute (as run): D=100 on Beaker
+allocated seats; D=10/30/300 on Beaker tier 2 (normal priority, preemptible), except D=10 pool
+folds 1-2 on Cedar A100.
+
+**Caveat: two subset rules on one curve.** The pool-fold subsets come from
+`analysis/freeze_scaling_subsets.py`: per curriculum, `max(1, round(ratio × n))`, curriculum from
+the freeze table, Python `random` shuffle. The test-fold points (study 02's D=10/30/100 and the
+new D=300) come from the wrapper's `subject_ratio` sampling: `max(0, int(round(...)))`, most-common
+task, numpy SeedSequence. The two pick different mice for the same ratio, and a small curriculum
+can get 1 mouse here and 0 there. Both draw D mice per curriculum at the same ratios, so the
+curve is comparable in size and mix, not in the exact mice. The report states this.
 
 ## 2-way fold models (Han, 2026-11-13)
 
@@ -103,7 +117,10 @@ MEvolve skips ignored trials, so its programs see a sequence without them, while
 keeps them in its history. Variant `pool-folds-2way` trains the 4 fold models 2-way (H256, same
 fold lists; only `ignore_policy` differs), and the test fold reuses study 01's `nxd-grid` 2-way
 H256 model (its own 149 held-out mice; exact on the 146 shared test subjects). The map then has
-both a 3-way and a 2-way held-out prediction for every pool mouse.
+both a 3-way and a 2-way held-out prediction for every pool mouse. **Gap:** three freeze test mice
+(722683, 795395, 820243) were in study 01's training set, and every 2-way fold model trains on all
+149 test mice, so these 3 have no held-out 2-way prediction. They are left out of every 2-way
+test-tier number, by name.
 
 ## Checks before the map is frozen
 

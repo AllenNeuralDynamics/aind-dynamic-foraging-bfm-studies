@@ -10,7 +10,7 @@ them; the 3-way GRU keeps ignored trials in its history. A 2-way GRU is the like
 comparator for those models (Han, 2026-11-13). Full size only, no scaling curve. The test fold's
 2-way model is reused: study 01 `nxd-grid` H256 at `subject_ratio` 1.0 (2-way, W&B
 `AIND-disRNN/mice_data_scaling`, group `nxd-grid@20260623-092311`), whose held-out set is the
-GRU's own 149 (146 shared with the freeze's test subjects; PLAN.md, "Mouse sets").
+GRU's own 149 (146 shared with the freeze's test subjects; PLAN.md, "Design" and "2-way fold models"; 722683, 795395 and 820243 have no held-out 2-way prediction).
 
 **Launches.** One launch, 4 tasks, one W&B group `pool-folds-2way@<launch_id>` (docs/adr/0001).
 Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
