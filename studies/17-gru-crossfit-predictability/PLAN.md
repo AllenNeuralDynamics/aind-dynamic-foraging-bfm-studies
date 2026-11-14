@@ -163,6 +163,7 @@ detection (PR-AUC) second; full 3-way likelihood in tables only.
 - [x] Fold plan and recipe fixed before training (this plan).
 - [x] `reference/folds.json` committed.
 - [ ] Wrapper prerequisite merged (needed for scoring, not for training).
-- [ ] Model 0 reproduces study 02 (check 1).
+- [x] Model 0 reproduces study 02 (check 1): 2026-11-13, wrapper PR #128, alternation re-score matches
+  study 02 on all 149 mice (max |Δ| 1.7e-5; pooled 3-way 0.628854 both).
 - [ ] All folds trained; per-trial predictions frozen and registered.
 - [ ] Report: predictability per mouse and per session, and the spread across folds.
