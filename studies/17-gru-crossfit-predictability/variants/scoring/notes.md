@@ -24,3 +24,8 @@ held-out batch is as large as a training batch, which ran out of GPU memory on a
 Cedar H200 node had no free GPU; HPC had ~60 free 56-CPU slots (2026-11-14 03:30 PT).
 
 ## Launches
+- `score-28` (2026-11-14 03:49 PT, group `scoring@20261114-034950`, SLURM array 27839436, 76 tasks,
+  at most 39 at once): the 28 finished models. Wrapper `e863ce3` from the detached worktree
+  `~/code/wt/17-score`, conda env `dynamic-foraging-bfm-cpu` (its foraging-models is `4574b4b`;
+  the GRU path does not import it). Outputs: `/allen/aind/scratch/han.hou/s17_scoring/out/<model>/pass<A|B>_lam-<mode>/`
+  plus one W&B run each in group `scoring@20261114-034950`. Record: `launch_record/score-28/hpc_launch.json`.
