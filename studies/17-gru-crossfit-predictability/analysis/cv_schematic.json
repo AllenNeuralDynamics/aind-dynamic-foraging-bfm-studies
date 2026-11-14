@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/cv_schematic.py",
+    "produced_at_pt": "2026-11-14T09:52:09-08:00",
+    "studies_git_sha": "31c4708080d2c7aacdbb4863559964481ddf49c5",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_schematic.py",
+        "sha256": "a2553a97ac235b4c3dc7bbb4303f27a3944be172bf1e98e89ab3532dfed794d9"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/reference/folds.json",
+        "sha256": "092c94ab3fdc34d1610886469099a92a8128a8a2346f6d8420c6b7e15bca5015"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/reference/scaling_subsets.json",
+        "sha256": "77279f324c930f8dcae1c4b28c18649fe486b4a553803d5770c65ec25bca8ff8"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_schematic.json",
+        "sha256": "708f059e96f97e532a21cb4fc087eca59d95482cc0b8e1d3b6bc9dcc70ac6ce6"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_schematic.svg",
+        "sha256": "edecca2c4b58b224ecc16338a82e671e126ba894ffce5fdeb892d6d50acbe223"
+      }
+    ]
+  },
+  "fold_sizes": {
+    "test": 149,
+    "pool_1": 154,
+    "pool_2": 154,
+    "pool_3": 153,
+    "pool_4": 153
+  },
+  "subset_sizes_pool_1": {
+    "d10": 10,
+    "d30": 30,
+    "d100": 100,
+    "d300": 298
+  }
+}

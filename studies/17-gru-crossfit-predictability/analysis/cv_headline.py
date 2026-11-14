@@ -7,8 +7,8 @@ scores the same mice at every D, so the between-fold offset cancels), ignore-cla
 ignore-class recall. Here the
 replicates are the 5 folds (test + pool 1-4), not seeds: thin lines = folds, thick = mean +- SEM
 over folds. Each fold's value pools all its held-out mice and both passes (every session scored
-once). Dashed grey (panel A): study 02's published test-fold curve (pass A only, mean of 3 seeds),
-read from its committed scaling.json. Models are scored at their best_eval checkpoint and its own
+once). Dashed grey (panel A): the test fold's pass A only, i.e. study 02's own held-out half and
+its seed-0 models (cross-checked against study 02 in cv_crosscheck.py). Models are scored at their best_eval checkpoint and its own
 session lambda.
 
     python analysis/cv_headline.py   # writes analysis/fig_cv_headline.svg (+ .json)
@@ -29,7 +29,6 @@ import matplotlib.pyplot as plt  # noqa: E402
 from _meta import build_meta, write_artifact  # noqa: E402
 
 SCORES = HERE / "scores.json"
-STUDY02 = STUDY.parent / "02-gru-scaling-law-ignore" / "analysis" / "scaling.json"
 OUT_SVG = HERE / "fig_cv_headline.svg"
 OUT_MAP = HERE / "fig_cv_map.svg"
 TITLES = ["Held-out choice prediction vs D", "Ignore detection vs D", "Ignore recall vs D"]
@@ -39,6 +38,12 @@ X = {10: 10, 30: 30, 100: 100, 300: 300, "full": 610}
 FOLDS = ["test", "pool_1", "pool_2", "pool_3", "pool_4"]
 COLOR = {"test": fs.OKABE_ITO["black"], "pool_1": fs.OKABE_ITO["orange"], "pool_2": fs.OKABE_ITO["sky"],
          "pool_3": fs.OKABE_ITO["green"], "pool_4": fs.OKABE_ITO["vermillion"]}
+
+
+def pass_a_lr(model: dict) -> float:
+    """Held-out L/R likelihood of pass A alone (the half studies 01/02 scored)."""
+    mice = model["scores"]["lam-checkpoint"]["A"]["mice"]
+    return float(np.exp(sum(v[0] for v in mice.values()) / sum(v[1] for v in mice.values())))
 
 
 def fold_value(model: dict) -> dict | None:
@@ -117,8 +122,8 @@ def main() -> None:
         v = fold_value(m)
         if v is not None:
             table[m["heldout"]][str(m["D"])] = v
-    s02 = json.loads(STUDY02.read_text())["grid"]
-    ref = {d: s02[f"{d}x256"]["LR_engaged"]["mean"] for d in (10, 30, 100, 614)}
+    ref = {str(m["D"]): pass_a_lr(m) for m in scores.values()
+           if m["heldout"] == "test" and m["way"] == "3way" and m["seed"] == 0 and "A" in m["scores"].get("lam-checkpoint", {})}
 
     fs.apply_paper_style()
     fig, axs = plt.subplots(1, 4, figsize=fs.mm(183, 52), constrained_layout=True)
@@ -142,8 +147,9 @@ def main() -> None:
                 summary.setdefault(key, {})[str(d)] = {"mean": means[-1], "sem": sems[-1], "n_folds": len(vals)}
         ax.errorbar(xs, means, yerr=sems, color="k", lw=1.4, capsize=1.5, zorder=5, label="mean ± SEM (folds)")
         if key == "lr_engaged":
-            ax.plot([10, 30, 100, 614], [ref[d] for d in (10, 30, 100, 614)], "--", color="0.55", lw=0.8,
-                    label="study 02, test fold\n(pass A, 3 seeds)")
+            rd = [d for d in DS if str(d) in ref]
+            ax.plot([X[d] for d in rd], [ref[str(d)] for d in rd], "--", color="0.55", lw=0.8,
+                    label="test fold, pass A only\n(= study 02's held-out half)")
         ax.set_xscale("log")
         ax.set_xticks([10, 30, 100, 300, 610])
         ax.set_xticklabels(["10", "30", "100", "300", "full\n(~610)"])
@@ -176,15 +182,15 @@ def main() -> None:
     paired_ax.set_xlabel("# training mice (D)")
     paired_ax.set_ylabel("gain over D=10, same mice\n(held-out L/R likelihood)")
     paired_ax.set_title("Within-fold gain (paired)", fontsize=6)
-    axes[0].legend(frameon=False, fontsize=5, loc="upper left")
+    axes[0].legend(frameon=False, fontsize=5, loc="lower right")
     for ax, t in zip(axes, TITLES):
         ax.set_title(t, fontsize=6)
     fs.save_figure(fig, OUT_SVG)
     map_summary = draw_map(scores)
 
-    meta = build_meta("analysis/cv_headline.py", [], study_root=STUDY, code=[__file__], inputs=[SCORES, STUDY02])
+    meta = build_meta("analysis/cv_headline.py", [], study_root=STUDY, code=[__file__], inputs=[SCORES])
     write_artifact(OUT, {"_meta": meta, "per_fold": table, "summary": summary,
-                         "study02_test_fold_lr_engaged": {str(k): v for k, v in ref.items()},
+                         "test_fold_pass_a_lr_engaged": ref,
                          "map": map_summary}, outputs=[OUT_SVG, OUT_MAP])
 
 
