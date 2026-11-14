@@ -52,6 +52,13 @@ trains on every mouse outside its fold, test mice included.
   same. The scoring outputs record each model's selected step and its λ, and the report says
   which points come from a checkpoint without session conditioning. No second scoring pass at
   ≥50k.
+- **Score each checkpoint at its own session λ (Han, 2026-11-13).** The wrapper's held-out fine-tune
+  always ran the network at λ = 1 (`delta = λ × delta`, `utils/multisubject.py`), so a λ = 0
+  checkpoint (small-D `best_eval`, step 10k) was fine-tuned and scored with an untrained
+  session-delta network switched on; study 01's small-D held-out scores were made that way. Study
+  17 fine-tunes and scores at the selected checkpoint's own λ (wrapper PR #128,
+  `--session-lambda checkpoint`). To show the effect, the λ < 1 models are also scored at λ = 1
+  (the study 01 way) and the two are compared in the report.
 - **Seeds:** one per fold. Training noise comes from study 02's H256 seeds 1–2 of model 0
   (`-3c79d1d1`, `-a3171d8e`) on the test fold, at the cost of rescoring only.
 - **Platform: Cedar** (Han, 2026-11-12), A100 cluster, launched with dispatcher `launch_cedar.py`
