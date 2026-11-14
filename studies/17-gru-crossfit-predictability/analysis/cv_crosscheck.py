@@ -28,7 +28,7 @@ SCORES = HERE / "scores.json"
 STUDY02 = STUDY.parent / "02-gru-scaling-law-ignore" / "analysis" / "frozen_runs.json"
 OUT_SVG = HERE / "fig_cv_crosscheck.svg"
 OUT = HERE / "cv_crosscheck.json"
-METRICS = [("lr", "eval_likelihood_LR_engaged", "held-out likelihood,\ntrial-pooled (L/R, engaged)"),
+METRICS = [("lr", "eval_likelihood_LR_engaged", "held-out likelihood\n(trial-pooled, L/R engaged)"),
            ("ignore_pr_auc", "engage_ignore_pr_auc", "ignore PR-AUC"),
            ("ignore_recall", "engage_ignore_recall", "ignore recall")]
 
@@ -65,10 +65,10 @@ def main() -> None:
         ax.scatter(x, y, s=8, color="k", zorder=3)
         lo, hi = min(x.min(), y.min()), max(x.max(), y.max()); pad = (hi - lo) * 0.08
         ax.plot([lo - pad, hi + pad], [lo - pad, hi + pad], color="0.6", lw=0.5, ls=":")
-        ax.set_xlabel(f"study 02: {label}"); ax.set_ylabel(f"study 17, pass A: {label}")
+        ax.set_xlabel("study 02 (frozen)"); ax.set_ylabel("study 17, pass A")
         d = np.abs(y - x)
         summary[k] = {"max_abs_diff": float(d.max()), "n_models": len(rows)}
-        ax.set_title(f"{label}: max |Δ| = {d.max():.1e}", fontsize=6)
+        ax.set_title(f"{label}\nmax |Δ| = {fs.num(d.max(), '.1e')} (n = {len(rows)} models)", fontsize=6)
     ax = axes[3]
     pa = [r for r in rows if "s17_lr_passB" in r]
     xs = [r["s17_lr"] for r in pa]; ys = [r["s17_lr_passB"] for r in pa]

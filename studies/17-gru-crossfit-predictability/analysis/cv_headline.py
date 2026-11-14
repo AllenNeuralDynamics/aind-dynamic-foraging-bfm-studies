@@ -128,7 +128,7 @@ def main() -> None:
            if m["heldout"] == "test" and m["way"] == "3way" and m["seed"] == 0 and "A" in m["scores"].get("lam-checkpoint", {})}
 
     fs.apply_paper_style()
-    fig, axs = plt.subplots(1, 4, figsize=fs.mm(183, 52), constrained_layout=True)
+    fig, axs = plt.subplots(1, 4, figsize=fs.mm(183, 58), layout="constrained")
     paired_ax, axes = axs[1], [axs[0], axs[2], axs[3]]
     panels = [("lr_engaged", "held-out likelihood, trial-pooled\n(L/R, engaged trials)"),
               ("ignore_pr_auc", "ignore PR-AUC, held-out\n(mean of passes A, B)"),
@@ -182,7 +182,10 @@ def main() -> None:
     paired_ax.set_xlabel("# training mice (D)")
     paired_ax.set_ylabel("gain over D=10, same mice\n(held-out likelihood, trial-pooled)")
     paired_ax.set_title("Within-fold gain (paired)", fontsize=6)
-    axes[0].legend(frameon=False, fontsize=5, loc="lower right")
+    # One legend for all panels (fold colours are shared), below the panels.
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, [l.replace("\n", " ") for l in labels], frameon=False, fontsize=5,
+               loc="outside lower center", ncol=7)
     for ax, t in zip(axes, TITLES):
         ax.set_title(t, fontsize=6)
     for ax, letter in zip(axs, "abcd"):

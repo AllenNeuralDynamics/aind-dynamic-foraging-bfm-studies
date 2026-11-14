@@ -1,0 +1,146 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/cv_crosscheck.py",
+    "produced_at_pt": "2026-11-14T13:36:31-08:00",
+    "studies_git_sha": "57426feef3cb1c082a3142f61a4808463124d346",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_crosscheck.py",
+        "sha256": "2b3e2b48622848d0a2590ffcc2c2797d150b05f91c992b5b095f8f4e535de9b5"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/scores.json",
+        "sha256": "767767466ae5d51b3f17868c55ac49dc2e721b480c57fd511042e6bd55c8227b"
+      },
+      {
+        "path": "studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json",
+        "sha256": "df9a9cae88e84c50da5d09bcfc827c18f3482b959866eb7fb93d835d20e31d24"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_crosscheck.json",
+        "sha256": "1f915e8618636d6aa2b552a729c3239123c14992048a76e7f2bec10483a0f4ad"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_crosscheck.svg",
+        "sha256": "69b32c50b0ec0ebfce7dc318290d16b050dc83eb6c8317c3739ece72d10aafd7"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "model": "test-3way-d10",
+      "D": 10,
+      "seed": 0,
+      "run_id": "zo86jzng",
+      "s17_lr": 0.7184104061573687,
+      "s02_lr": 0.7184096574783325,
+      "s17_ignore_pr_auc": 0.6101971529168485,
+      "s02_ignore_pr_auc": 0.6110116662906916,
+      "s17_ignore_recall": 0.4551704973286959,
+      "s02_ignore_recall": 0.4554952205717363,
+      "s17_lr_passB": 0.7143233873371617
+    },
+    {
+      "model": "test-3way-d100",
+      "D": 100,
+      "seed": 0,
+      "run_id": "8s29y3nc",
+      "s17_lr": 0.7291398447074016,
+      "s02_lr": 0.7290951609611511,
+      "s17_ignore_pr_auc": 0.6330410051709618,
+      "s02_ignore_pr_auc": 0.633663642726667,
+      "s17_ignore_recall": 0.4594822331385134,
+      "s02_ignore_recall": 0.45989319211955304,
+      "s17_lr_passB": 0.7262910171727638
+    },
+    {
+      "model": "test-3way-d30",
+      "D": 30,
+      "seed": 0,
+      "run_id": "nxd-3way-20260708-231938-66540faa",
+      "s17_lr": 0.7254863209115505,
+      "s02_lr": 0.7254559397697449,
+      "s17_ignore_pr_auc": 0.6258166923044125,
+      "s02_ignore_pr_auc": 0.6264525555508239,
+      "s17_ignore_recall": 0.4545250815733802,
+      "s02_ignore_recall": 0.4546964053314186,
+      "s17_lr_passB": 0.7218875368268275
+    },
+    {
+      "model": "test-3way-full-s0",
+      "D": "full",
+      "seed": 0,
+      "run_id": "nxd-3way-20260707-075401-80a6d102",
+      "s17_lr": 0.7315768379791062,
+      "s02_lr": 0.7315300703048706,
+      "s17_ignore_pr_auc": 0.6384084951140425,
+      "s02_ignore_pr_auc": 0.6390093502133002,
+      "s17_ignore_recall": 0.47472121625013447,
+      "s02_ignore_recall": 0.4749899026163443,
+      "s17_lr_passB": 0.7291277334736912
+    },
+    {
+      "model": "test-3way-full-s1",
+      "D": "full",
+      "seed": 1,
+      "run_id": "nxd-3way-20260707-075401-3c79d1d1",
+      "s17_lr": 0.7315130972141994,
+      "s02_lr": 0.7314692735671997,
+      "s17_ignore_pr_auc": 0.6383566929230187,
+      "s02_ignore_pr_auc": 0.6389401708080982,
+      "s17_ignore_recall": 0.4733855642009394,
+      "s02_ignore_recall": 0.47403850468967373,
+      "s17_lr_passB": 0.728980884581079
+    },
+    {
+      "model": "test-3way-full-s2",
+      "D": "full",
+      "seed": 2,
+      "run_id": "nxd-3way-20260707-075401-a3171d8e",
+      "s17_lr": 0.7315220383172234,
+      "s02_lr": 0.7314755320549011,
+      "s17_ignore_pr_auc": 0.6382724820375721,
+      "s02_ignore_pr_auc": 0.6388392922799997,
+      "s17_ignore_recall": 0.46612463695363765,
+      "s02_ignore_recall": 0.4665170757976933,
+      "s17_lr_passB": 0.7289501426402774
+    }
+  ],
+  "summary": {
+    "lr": {
+      "max_abs_diff": 4.67676742356149e-05,
+      "n_models": 6
+    },
+    "ignore_pr_auc": {
+      "max_abs_diff": 0.0008145133738430843,
+      "n_models": 6
+    },
+    "ignore_recall": {
+      "max_abs_diff": 0.0006529404887343215,
+      "n_models": 6
+    },
+    "passA_minus_passB_lr_mean": 0.003014640542508218
+  }
+}
