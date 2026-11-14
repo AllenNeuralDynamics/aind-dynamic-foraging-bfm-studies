@@ -4,7 +4,7 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all freeze-folds freeze-scaling
+.PHONY: all freeze-folds freeze-scaling freeze-roles
 
 all:
 
@@ -19,3 +19,9 @@ freeze-folds:
 # freeze's curricula. Needs pandas: the mevolve-search env, on a compute node.
 freeze-scaling:
 	$(PY) analysis/freeze_scaling_subsets.py
+
+# freeze-roles = the fit/score role of every session (reference/roles.csv + roles.json), the table
+# the held-out scoring reads. From the MEvolve data freeze on /allen (snapshot 20260603), checked
+# against the digest in reference/folds.json. Needs pandas: the mevolve-search env, on a compute node.
+freeze-roles:
+	$(PY) analysis/freeze_roles.py
