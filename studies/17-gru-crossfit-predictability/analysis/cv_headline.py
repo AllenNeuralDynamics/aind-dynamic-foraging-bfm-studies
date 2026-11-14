@@ -29,6 +29,8 @@ from _meta import build_meta, write_artifact  # noqa: E402
 SCORES = HERE / "scores.json"
 STUDY02 = STUDY.parent / "02-gru-scaling-law-ignore" / "analysis" / "scaling.json"
 OUT_SVG = HERE / "fig_cv_headline.svg"
+OUT_MAP = HERE / "fig_cv_map.svg"
+TITLES = ["Held-out choice prediction vs D", "Ignore detection vs D", "Ignore recall vs D"]
 OUT = HERE / "cv_headline.json"
 DS = [10, 30, 100, 300, "full"]
 X = {10: 10, 30: 30, 100: 100, 300: 300, "full": 610}
@@ -49,6 +51,59 @@ def fold_value(model: dict) -> dict | None:
         for k in ("ignore_pr_auc", "ignore_recall"):
             out[k] = float(np.mean([passes[p][k] for p in "AB"]))
     return out
+
+
+def per_mouse(model: dict, passes: str = "AB") -> dict[str, float]:
+    """Held-out L/R likelihood (engaged trials) per mouse, pooled over the given passes."""
+    sc = model["scores"]["lam-checkpoint"]
+    out = {}
+    for sid in sc["A"]["mice"]:
+        ll = sum(sc[p]["mice"][sid][0] for p in passes)
+        n = sum(sc[p]["mice"][sid][1] for p in passes)
+        out[sid] = float(np.exp(ll / n))
+    return out
+
+
+def draw_map(scores: dict) -> dict:
+    """The predictability map at full size: pass A vs B per mouse, 3-way vs 2-way, spread by fold."""
+    full3 = {m["heldout"]: m for m in scores.values() if m["D"] == "full" and m["way"] == "3way" and m["seed"] == 0}
+    full2 = {m["heldout"]: m for m in scores.values() if m["D"] == "full" and m["way"] == "2way"}
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 52), constrained_layout=True)
+    summary = {}
+    a_all, b_all, x3, y2 = [], [], [], []
+    for f in FOLDS:
+        if f not in full3:
+            continue
+        a, b = per_mouse(full3[f], "A"), per_mouse(full3[f], "B")
+        ids = sorted(a)
+        axes[0].scatter([a[i] for i in ids], [b[i] for i in ids], s=2, color=COLOR[f], alpha=0.7, lw=0)
+        a_all += [a[i] for i in ids]; b_all += [b[i] for i in ids]
+        if f in full2:
+            m3, m2 = per_mouse(full3[f]), per_mouse(full2[f])
+            common = sorted(set(m3) & set(m2))
+            axes[1].scatter([m3[i] for i in common], [m2[i] for i in common], s=2, color=COLOR[f], alpha=0.7, lw=0)
+            x3 += [m3[i] for i in common]; y2 += [m2[i] for i in common]
+    groups = [list(per_mouse(full3[f]).values()) for f in FOLDS if f in full3]
+    fs.violins(axes[2], groups, [COLOR[f] for f in FOLDS if f in full3],
+               labels=[("test" if f == "test" else f[-1]) for f in FOLDS if f in full3])
+    lo, hi = 0.55, 0.95
+    for ax in axes[:2]:
+        ax.plot([lo, hi], [lo, hi], color="0.6", lw=0.5, ls=":")
+        ax.set_xlim(lo, hi); ax.set_ylim(lo, hi); ax.set_aspect("equal")
+    if a_all:
+        summary["passA_vs_passB_pearson_r"] = float(np.corrcoef(a_all, b_all)[0, 1])
+        summary["n_mice_3way_full"] = len(a_all)
+        axes[0].set_title(f"Pass A vs pass B per mouse (r = {summary['passA_vs_passB_pearson_r']:.2f})", fontsize=6)
+    if x3:
+        summary["3way_vs_2way_pearson_r"] = float(np.corrcoef(x3, y2)[0, 1])
+        summary["n_mice_2way_vs_3way"] = len(x3)
+        axes[1].set_title(f"3-way vs 2-way GRU per mouse (r = {summary['3way_vs_2way_pearson_r']:.2f})", fontsize=6)
+    axes[0].set_xlabel("pass A: held-out L/R likelihood"); axes[0].set_ylabel("pass B")
+    axes[1].set_xlabel("3-way GRU (both passes)"); axes[1].set_ylabel("2-way GRU (both passes)")
+    axes[2].set_xlabel("fold"); axes[2].set_ylabel("per-mouse held-out L/R likelihood")
+    axes[2].set_title("Spread of predictability across mice", fontsize=6)
+    fs.save_figure(fig, OUT_MAP)
+    return summary
 
 
 def main() -> None:
@@ -92,15 +147,16 @@ def main() -> None:
         ax.minorticks_off()
         ax.set_xlabel("# training mice (D)")
         ax.set_ylabel(ylabel)
-    axes[0].legend(frameon=False, fontsize=5, loc="lower right")
-    axes[0].set_title("Held-out choice prediction rises with D,\nevery fold", fontsize=6)
-    axes[1].set_title("Ignore detection, held-out", fontsize=6)
-    axes[2].set_title("Ignore recall, held-out", fontsize=6)
+    axes[0].legend(frameon=False, fontsize=5, loc="upper left")
+    for ax, t in zip(axes, TITLES):
+        ax.set_title(t, fontsize=6)
     fs.save_figure(fig, OUT_SVG)
+    map_summary = draw_map(scores)
 
     meta = build_meta("analysis/cv_headline.py", [], study_root=STUDY, code=[__file__], inputs=[SCORES, STUDY02])
     write_artifact(OUT, {"_meta": meta, "per_fold": table, "summary": summary,
-                         "study02_test_fold_lr_engaged": {str(k): v for k, v in ref.items()}}, outputs=[OUT_SVG])
+                         "study02_test_fold_lr_engaged": {str(k): v for k, v in ref.items()},
+                         "map": map_summary}, outputs=[OUT_SVG, OUT_MAP])
 
 
 if __name__ == "__main__":
