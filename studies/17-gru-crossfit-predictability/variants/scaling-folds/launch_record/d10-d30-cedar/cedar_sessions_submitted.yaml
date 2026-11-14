@@ -1,0 +1,1023 @@
+session_config:
+  workspace: dfbfm
+  cluster: octo.hub-usc1-gcp-a100
+  image: dfbfm-wrapper:20261109-wf390d4f
+  gpu: 1
+  cpu: 6
+  ram: 48Gi
+  max_live_time: 48h
+  secrets:
+    wandb-api-key-neuraldynamics: WANDB_API_KEY
+  env:
+    WRAPPER_REF: main
+    DISPATCHER_REF: main
+    FORAGING_MODELS_REF: main
+sessions:
+- name: scaling-folds-20261113-015941-0
+  overrides:
+  - seed=0
+  - data.subject_ids=[652737, 671250, 758017, 774391, 786864, 790584, 791096, 794976,
+    795393, 816214]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[652737, 671250, 758017, 774391, 786864, 790584, 791096, 794976,
+    795393, 816214]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-efd8ee9d
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-0
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-efd8ee9d
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[652737, 671250, 758017, 774391, 786864, 790584, 791096,
+    794976, 795393, 816214]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi
+- name: scaling-folds-20261113-015941-1
+  overrides:
+  - seed=0
+  - data.subject_ids=[637701, 705596, 727456, 758435, 779311, 781370, 798517, 812305,
+    824527, 848869]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[637701, 705596, 727456, 758435, 779311, 781370, 798517, 812305,
+    824527, 848869]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-a665da08
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-1
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-a665da08
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[637701, 705596, 727456, 758435, 779311, 781370, 798517,
+    812305, 824527, 848869]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi
+- name: scaling-folds-20261113-015941-2
+  overrides:
+  - seed=0
+  - data.subject_ids=[656489, 656491, 720935, 753618, 754280, 778334, 814196, 814511,
+    819168, 853578]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[656489, 656491, 720935, 753618, 754280, 778334, 814196, 814511,
+    819168, 853578]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-bbe687e0
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-2
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-bbe687e0
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[656489, 656491, 720935, 753618, 754280, 778334, 814196,
+    814511, 819168, 853578]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi
+- name: scaling-folds-20261113-015941-3
+  overrides:
+  - seed=0
+  - data.subject_ids=[655100, 707535, 744040, 744899, 756403, 764791, 790584, 795710,
+    802253, 804512]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[655100, 707535, 744040, 744899, 756403, 764791, 790584, 795710,
+    802253, 804512]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-bfb6b0c5
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-3
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-bfb6b0c5
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[655100, 707535, 744040, 744899, 756403, 764791, 790584,
+    795710, 802253, 804512]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi
+- name: scaling-folds-20261113-015941-4
+  overrides:
+  - seed=0
+  - data.subject_ids=[482352, 617889, 627042, 641805, 652737, 671250, 695950, 743793,
+    744779, 758017, 765624, 766559, 774391, 774603, 777403, 786864, 786866, 790584,
+    790768, 791096, 794976, 795393, 802294, 809491, 811021, 816214, 818908, 820117,
+    829048, 837688]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[482352, 617889, 627042, 641805, 652737, 671250, 695950, 743793,
+    744779, 758017, 765624, 766559, 774391, 774603, 777403, 786864, 786866, 790584,
+    790768, 791096, 794976, 795393, 802294, 809491, 811021, 816214, 818908, 820117,
+    829048, 837688]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-e4072ea3
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-4
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-e4072ea3
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[482352, 617889, 627042, 641805, 652737, 671250, 695950,
+    743793, 744779, 758017, 765624, 766559, 774391, 774603, 777403, 786864, 786866,
+    790584, 790768, 791096, 794976, 795393, 802294, 809491, 811021, 816214, 818908,
+    820117, 829048, 837688]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi
+- name: scaling-folds-20261113-015941-5
+  overrides:
+  - seed=0
+  - data.subject_ids=[637701, 641803, 641805, 655101, 699364, 705596, 726441, 727456,
+    743793, 758435, 763359, 764693, 765364, 766998, 779311, 781369, 781370, 782394,
+    782397, 791174, 795497, 798517, 798520, 808585, 808655, 812305, 813992, 824527,
+    824853, 848869]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[637701, 641803, 641805, 655101, 699364, 705596, 726441, 727456,
+    743793, 758435, 763359, 764693, 765364, 766998, 779311, 781369, 781370, 782394,
+    782397, 791174, 795497, 798517, 798520, 808585, 808655, 812305, 813992, 824527,
+    824853, 848869]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-e352532e
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-5
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-e352532e
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[637701, 641803, 641805, 655101, 699364, 705596, 726441,
+    727456, 743793, 758435, 763359, 764693, 765364, 766998, 779311, 781369, 781370,
+    782394, 782397, 791174, 795497, 798517, 798520, 808585, 808655, 812305, 813992,
+    824527, 824853, 848869]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi
+- name: scaling-folds-20261113-015941-6
+  overrides:
+  - seed=0
+  - data.subject_ids=[457496, 472184, 616134, 651474, 656489, 656491, 697062, 703548,
+    711254, 713857, 714116, 720935, 736203, 753618, 754280, 761407, 778099, 778147,
+    778334, 778335, 781575, 787622, 801996, 802253, 802953, 805496, 814196, 814511,
+    819168, 853578]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[457496, 472184, 616134, 651474, 656489, 656491, 697062, 703548,
+    711254, 713857, 714116, 720935, 736203, 753618, 754280, 761407, 778099, 778147,
+    778334, 778335, 781575, 787622, 801996, 802253, 802953, 805496, 814196, 814511,
+    819168, 853578]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-9bacce40
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-6
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-9bacce40
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[457496, 472184, 616134, 651474, 656489, 656491, 697062,
+    703548, 711254, 713857, 714116, 720935, 736203, 753618, 754280, 761407, 778099,
+    778147, 778334, 778335, 781575, 787622, 801996, 802253, 802953, 805496, 814196,
+    814511, 819168, 853578]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi
+- name: scaling-folds-20261113-015941-7
+  overrides:
+  - seed=0
+  - data.subject_ids=[453475, 455526, 473611, 643252, 655100, 663290, 663608, 707535,
+    744040, 744899, 747313, 754430, 756403, 764791, 781470, 788733, 790584, 795710,
+    797673, 802253, 804512, 810758, 813992, 814514, 819168, 820243, 829046, 836933,
+    837687, 841598]
+  run_cmd:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[453475, 455526, 473611, 643252, 655100, 663290, 663608, 707535,
+    744040, 744899, 747313, 754430, 756403, 764791, 781470, 788733, 790584, 795710,
+    797673, 802253, 804512, 810758, 813992, 814514, 819168, 820243, 829046, 836933,
+    837687, 841598]
+  envVars:
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - name: BFM_META_VARIANT
+    value: scaling-folds
+  - name: BFM_META_LAUNCH_ID
+    value: 20261113-015941
+  - name: BFM_META_CONFIG_HASH
+    value: 2cf5b758
+  - name: BFM_META_STUDIES_COMMIT
+    value: 773863065a307e8dad389d569719af6b34ed96d6
+  - name: BFM_META_LABEL
+    value: d10-d30-cedar
+  - name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar
+      A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+      whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+      before it starts.'
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-015941-dd35609f
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-015941
+  create:
+  - /home/han.hou/.cedar/cedar
+  - session
+  - create
+  - scaling-folds-20261113-015941-7
+  - --workspace-name
+  - dfbfm
+  - --cluster-name
+  - octo.hub-usc1-gcp-a100
+  - --image
+  - dfbfm-wrapper:20261109-wf390d4f
+  - --gpu
+  - '1'
+  - --cpu
+  - '6'
+  - --ram
+  - 48Gi
+  - --max-live-time
+  - 48h
+  - --all-ssh-keys
+  - --secret
+  - wandb-api-key-neuraldynamics=WANDB_API_KEY
+  - --env
+  - WRAPPER_REF=5affee531856d6eff31c9285e981c93747699efc
+  - --env
+  - DISPATCHER_REF=7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - --env
+  - FORAGING_MODELS_REF=392c504406094b33407321b168173981b8af8291
+  - --env
+  - BFM_META_STUDY=17-gru-crossfit-predictability
+  - --env
+  - BFM_META_VARIANT=scaling-folds
+  - --env
+  - BFM_META_LAUNCH_ID=20261113-015941
+  - --env
+  - BFM_META_CONFIG_HASH=2cf5b758
+  - --env
+  - BFM_META_STUDIES_COMMIT=773863065a307e8dad389d569719af6b34ed96d6
+  - --env
+  - BFM_META_LABEL=d10-d30-cedar
+  - --env
+  - 'BFM_META_NOTE=Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on
+    Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13):
+    whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes
+    before it starts.'
+  - --env
+  - WANDB_RUN_ID=scaling-folds-20261113-015941-dd35609f
+  - --env
+  - WANDB_RESUME=allow
+  - --env
+  - WANDB_RUN_GROUP=scaling-folds@20261113-015941
+  kickoff: mkdir -p "$CEDAR_OUTPUTS_DIR/run" && cd /scratch && test -f "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    || exit 1; BFM_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run" BFM_RESUMABLE_OUTPUT_DIR="$CEDAR_OUTPUTS_DIR/run"
+    nohup setsid bash "$BFM_ROOT/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh"
+    python -m run_hpc data=mice_snapshot_scaling model=gru_scaling wandb.entity=NeuralDynamics
+    wandb.project=dfbfm_17-gru-crossfit-predictability data.ignore_policy=include
+    model.architecture.hidden_size=256 model.architecture.session_encoding_type=scalar
+    model.architecture.session_n_pretrain_steps=30000 model.architecture.session_n_warmup_steps=20000
+    model.training.n_steps=150000 model.training.lr=1e-5 model.training.checkpoint_run_heldout_eval=false
+    model.training.length_bucketing=true model.training.early_stopping.enabled=true
+    model.training.early_stopping.start_after_step=70000 model.training.auto_heldout_finetune.enabled=false
+    seed=0 'data.subject_ids=[453475, 455526, 473611, 643252, 655100, 663290, 663608,
+    707535, 744040, 744899, 747313, 754430, 756403, 764791, 781470, 788733, 790584,
+    795710, 797673, 802253, 804512, 810758, 813992, 814514, 819168, 820243, 829046,
+    836933, 837687, 841598]' > "$CEDAR_OUTPUTS_DIR/run.log" 2>&1 < /dev/null & pid=$!;
+    sleep 5; if kill -0 "$pid" 2>/dev/null; then echo started; else tail -n 20 "$CEDAR_OUTPUTS_DIR/run.log"
+    >&2; exit 3; fi

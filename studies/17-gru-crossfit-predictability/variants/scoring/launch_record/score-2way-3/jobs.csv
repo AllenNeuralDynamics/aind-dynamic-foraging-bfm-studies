@@ -1,0 +1,3 @@
+job,name,pass,session_lambda,best_eval_step,checkpoint_lambda,n_mice,model_dir,subjects,out
+0,pool3-2way-full,A,checkpoint,90000,1.0,153,/allen/aind/scratch/han.hou/s17_scoring/models/pool3-2way-full/run,/allen/aind/scratch/han.hou/s17_scoring/inputs/pool3-2way-full.txt,pool3-2way-full/passA_lam-checkpoint
+1,pool3-2way-full,B,checkpoint,90000,1.0,153,/allen/aind/scratch/han.hou/s17_scoring/models/pool3-2way-full/run,/allen/aind/scratch/han.hou/s17_scoring/inputs/pool3-2way-full.txt,pool3-2way-full/passB_lam-checkpoint

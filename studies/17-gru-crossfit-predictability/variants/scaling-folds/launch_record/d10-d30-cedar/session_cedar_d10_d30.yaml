@@ -1,0 +1,16 @@
+# Cedar A100 sessions for scaling-folds D=10 and D=30 (dispatcher launch_cedar.py). Beaker's H200 clusters
+# filled at 01:37 PT on 2026-11-13 (another workspace's normal-priority jobs evicted our low-priority
+# D=10/30 runs); Cedar's A100 node (16 GPUs, 1.3 TiB, 96 vCPU) was idle. Measured peak RSS on Beaker: 7-14 GB.
+workspace: dfbfm
+cluster: octo.hub-usc1-gcp-a100
+image: dfbfm-wrapper:20261109-wf390d4f   # cached on the A100 node (AllenOCTO/cedar#543)
+gpu: 1
+cpu: 6
+ram: 48Gi
+max_live_time: 48h
+secrets:
+  wandb-api-key-neuraldynamics: WANDB_API_KEY
+env:                                     # the launcher resolves these to full SHAs
+  WRAPPER_REF: main
+  DISPATCHER_REF: main
+  FORAGING_MODELS_REF: main

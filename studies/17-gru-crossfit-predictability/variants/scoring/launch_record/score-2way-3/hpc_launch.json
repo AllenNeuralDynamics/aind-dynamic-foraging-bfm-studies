@@ -1,0 +1,61 @@
+{
+  "_meta": {
+    "produced_by": "variants/scoring/write_record.py",
+    "produced_at_pt": "2026-11-14T09:22:27-08:00",
+    "studies_git_sha": "335a8e5e82562e244072a61fd8489a016bfbc23f",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "scoring@20261114-092226"
+    ],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [
+      "no launch record found for W&B group(s): scoring@20261114-092226"
+    ],
+    "schema_version": 2
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "scoring@20261114-092226",
+  "label": "score-2way-3",
+  "note": "Study 17 (#148): held-out scoring of the 2-way pool-fold 3 model (finished training ~09:00 PT), passes A and B on the freeze's fit/score roles, best_eval checkpoint (step 90000, lambda 1). Completes the 2-way held-out map with score-2way-124.",
+  "job_refs": [
+    {
+      "type": "slurm_array_job",
+      "id": "27839720"
+    }
+  ],
+  "revisions": {
+    "studies": "335a8e5e82562e244072a61fd8489a016bfbc23f",
+    "dispatcher": "d1f48702980da204cda30bbe422daeb3d7a1346b",
+    "wrapper": "e863ce35d658fd804aa2b238a29e7179728a3acd",
+    "foraging_models": "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+  },
+  "manifests": [
+    "models.yaml",
+    "launch_record/score-2way-3/jobs.csv",
+    "score.slurm"
+  ],
+  "command": "sbatch --array=0-1%39 --export=ALL,WRAPPER_ROOT=/home/han.hou/code/wt/17-score/aind-dynamic-foraging-bfm-wrapper,S17_GROUP=scoring@20261114-092226,S17_SCORING=/allen/aind/scratch/han.hou/s17_scoring,S17_JOBS=/allen/aind/scratch/han.hou/s17_scoring/launch_20261114-092226/jobs.csv,S17_ROLES=/allen/aind/scratch/han.hou/s17_scoring/launch_20261114-092226/roles.csv variants/scoring/score.slurm",
+  "n_tasks": 2,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3"
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-cpu",
+    "lock_sha256": "2d957f5366d684b48025ea80030046354a4d2a77c6c2127cec5800aed81baa2a"
+  },
+  "deviations": {
+    "dispatcher_not_used": "The scoring runtime imports no dispatcher code (the wrapper rebuilds each model's config from its own inputs.yaml); the dispatcher SHA is the checkout whose launch_inputs.image_record_hpc wrote this record.",
+    "inputs_copied": "jobs.csv and reference/roles.csv were copied to the launch_<id> scratch folder before submit, so the running jobs never read the studies checkout."
+  }
+}

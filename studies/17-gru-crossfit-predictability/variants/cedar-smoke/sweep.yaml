@@ -1,0 +1,42 @@
+# Variant cedar-smoke — first Cedar launch (dispatcher #219), cut-down study 17 recipe.
+# Study 02 nxd-3way recipe at H128 (3-way: ignore_policy include), shrunk to 300 steps with
+# session conditioning engaging at step 200 and the held-out fine-tune off. Tests the Cedar
+# launcher, the launch record and W&B logging end to end; it is not a result.
+# Subjects: the default selection pipeline (the 614 pool mice), not a fold's list.
+
+entity: NeuralDynamics
+project: dfbfm_17-gru-crossfit-predictability
+name: cedar-smoke            # informational; the launcher sets the real group
+
+method: grid
+metric:
+  name: eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include            # 3-way head (output_size 3), as study 02 nxd-3way
+  - model.architecture.hidden_size=128
+  - model.architecture.session_encoding_type=scalar
+  # smoke: pretrain 100, warmup 100 -> full session conditioning at 200 of 300 steps.
+  - model.architecture.session_n_pretrain_steps=100
+  - model.architecture.session_n_warmup_steps=100
+  - model.training.n_steps=300
+  - model.training.checkpoint_every_n_steps=100
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=200
+  - model.training.auto_heldout_finetune.enabled=false
+  - ${args_no_hyphens}
+
+parameters:
+  seed:
+    values: [0]               # one grid point = one Cedar session

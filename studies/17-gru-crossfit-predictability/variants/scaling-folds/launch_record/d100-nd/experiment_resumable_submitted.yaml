@@ -1,0 +1,320 @@
+version: v2
+description: "scaling-folds@20261113-005618 \u2014 4 resumable grid tasks (autoResume)"
+tasks:
+- name: scaling-folds-20261113-005618-000
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[452272, 453478, 457495, 459357, 482352, 609367, 617889, 627042,
+    641805, 643774, 647694, 652737, 656058, 671250, 672208, 672210, 672212, 682342,
+    690484, 695950, 703548, 713377, 713855, 716324, 717259, 722989, 733683, 736205,
+    743793, 743794, 744779, 746346, 747886, 750033, 750108, 751153, 751924, 752014,
+    753122, 753126, 757212, 758017, 762614, 764642, 765373, 765624, 766559, 769882,
+    770772, 774391, 774603, 776259, 777019, 777098, 777403, 778098, 778103, 781896,
+    782394, 782397, 785193, 785954, 786237, 786864, 786866, 787539, 789197, 790584,
+    790726, 790768, 791096, 791806, 792292, 793397, 793733, 794976, 795393, 796494,
+    800176, 802294, 802295, 807885, 809491, 810434, 811021, 813165, 815639, 816214,
+    818908, 820117, 821586, 823161, 823164, 826159, 829048, 837229, 837687, 837688,
+    838103, 844783]
+  context:
+    priority: normal
+    preemptible: false
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 16
+    memory: 200GiB
+  envVars:
+  - name: WANDB_API_KEY
+    secret: han-wandb-api-key-neuraldynamics
+  - name: BFM_OUTPUT_DIR
+    value: /results
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_RESUMABLE_OUTPUT_DIR
+    value: /results/run
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-005618-52d14219
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-005618
+  - &id001
+    name: BFM_META_STUDY
+    value: 17-gru-crossfit-predictability
+  - &id002
+    name: BFM_META_VARIANT
+    value: scaling-folds
+  - &id003
+    name: BFM_META_LAUNCH_ID
+    value: 20261113-005618
+  - &id004
+    name: BFM_META_CONFIG_HASH
+    value: ea139eb4
+  - &id005
+    name: BFM_META_STUDIES_COMMIT
+    value: e4268c39738656249afd15044e31a8b83b64f737
+  - &id006
+    name: BFM_META_LABEL
+    value: d100-nd
+  - &id007
+    name: BFM_META_NOTE
+    value: 'Study 17 (#148) cross-validated scaling curve: H256 models on nested D~100
+      subsets of each pool fold''s training mice (reference/scaling_subsets.json),
+      allocated on-prem H200 seats. Resubmitted with the NeuralDynamics W&B key after
+      d100 logged offline.'
+  result:
+    path: /results
+- name: scaling-folds-20261113-005618-001
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[457494, 457495, 472195, 473360, 482353, 609367, 616134, 634704,
+    637701, 641803, 641805, 648586, 652743, 655101, 656489, 671245, 689514, 699364,
+    702204, 705596, 708299, 711039, 713377, 713378, 713379, 717377, 717379, 724555,
+    726441, 727456, 739195, 743793, 743797, 746345, 748641, 750108, 750997, 751147,
+    751925, 754898, 756342, 757210, 758435, 763359, 763590, 764693, 765364, 766998,
+    767538, 776259, 777027, 777098, 778099, 779311, 780619, 781162, 781369, 781370,
+    781897, 781901, 782229, 782394, 782397, 785193, 787625, 788654, 788731, 790724,
+    790726, 791174, 793738, 795395, 795497, 798517, 798520, 800176, 802290, 802294,
+    808585, 808655, 812241, 812305, 813992, 814196, 818908, 820238, 820688, 824526,
+    824527, 824853, 826164, 828706, 837229, 841599, 843078, 844034, 844036, 844782,
+    848869]
+  context:
+    priority: normal
+    preemptible: false
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 16
+    memory: 200GiB
+  envVars:
+  - name: WANDB_API_KEY
+    secret: han-wandb-api-key-neuraldynamics
+  - name: BFM_OUTPUT_DIR
+    value: /results
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_RESUMABLE_OUTPUT_DIR
+    value: /results/run
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-005618-8756e767
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-005618
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  result:
+    path: /results
+- name: scaling-folds-20261113-005618-002
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[457496, 472184, 473359, 616134, 617888, 622153, 627042, 632110,
+    641495, 651474, 656489, 656491, 663373, 666610, 666612, 673396, 689798, 689799,
+    695810, 697062, 697930, 698694, 703548, 705596, 708027, 711254, 711256, 713857,
+    714116, 716870, 720935, 736202, 736203, 736205, 744330, 746716, 746720, 747316,
+    747319, 747887, 751769, 751925, 753618, 754280, 756345, 758016, 761405, 761407,
+    762206, 762283, 762284, 769359, 770528, 770735, 775435, 775436, 775741, 777027,
+    778099, 778147, 778334, 778335, 780283, 780619, 781575, 782229, 787622, 790726,
+    791094, 795392, 795710, 801996, 802253, 802953, 805496, 806158, 807792, 808056,
+    808655, 809487, 810434, 810750, 812302, 814196, 814511, 815639, 816748, 816786,
+    818909, 819168, 820115, 820691, 829569, 835444, 836933, 837468, 839480, 841599,
+    853578]
+  context:
+    priority: normal
+    preemptible: false
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 16
+    memory: 200GiB
+  envVars:
+  - name: WANDB_API_KEY
+    secret: han-wandb-api-key-neuraldynamics
+  - name: BFM_OUTPUT_DIR
+    value: /results
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_RESUMABLE_OUTPUT_DIR
+    value: /results/run
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-005618-49a491d9
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-005618
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  result:
+    path: /results
+- name: scaling-folds-20261113-005618-003
+  image:
+    beaker: han-hou/dynamic-foraging-bfm-wrapper-main-20260902
+  command:
+  - bash
+  - /workspace/aind-dynamic-foraging-bfm-wrapper/beaker/entrypoint.sh
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - seed=0
+  - data.subject_ids=[452275, 453475, 455526, 472184, 473611, 490931, 619199, 632110,
+    634898, 639872, 643252, 655100, 655834, 656057, 661099, 663290, 663608, 671249,
+    672208, 684041, 689514, 689726, 695329, 707535, 713557, 713857, 717375, 736198,
+    736201, 737846, 739970, 744040, 744329, 744899, 746896, 747313, 747886, 747887,
+    747893, 751926, 754430, 756403, 761401, 761402, 761406, 764791, 766557, 770777,
+    773352, 777019, 777027, 778103, 779531, 781370, 781470, 781575, 782196, 785956,
+    786237, 786867, 787625, 788588, 788733, 789624, 790584, 790768, 794325, 795710,
+    796494, 797673, 798839, 800172, 800679, 800779, 802253, 804512, 805496, 809488,
+    810434, 810758, 812307, 812561, 813986, 813992, 814514, 816883, 818020, 819168,
+    819341, 820243, 820691, 829046, 835178, 836933, 837687, 837749, 838101, 841598,
+    844036, 846556]
+  context:
+    priority: normal
+    preemptible: false
+  constraints:
+    cluster:
+    - ai1/octo-hub-onprem-h200
+  resources:
+    gpuCount: 1
+    cpuCount: 16
+    memory: 200GiB
+  envVars:
+  - name: WANDB_API_KEY
+    secret: han-wandb-api-key-neuraldynamics
+  - name: BFM_OUTPUT_DIR
+    value: /results
+  - name: WRAPPER_REF
+    value: 5affee531856d6eff31c9285e981c93747699efc
+  - name: DISPATCHER_REF
+    value: 7c1d686bd1d22457ab2d32ec144ecce1230eeb42
+  - name: FORAGING_MODELS_REF
+    value: 392c504406094b33407321b168173981b8af8291
+  - name: BFM_RESUMABLE_OUTPUT_DIR
+    value: /results/run
+  - name: WANDB_RUN_ID
+    value: scaling-folds-20261113-005618-48d8261d
+  - name: WANDB_RESUME
+    value: allow
+  - name: WANDB_RUN_GROUP
+    value: scaling-folds@20261113-005618
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  result:
+    path: /results

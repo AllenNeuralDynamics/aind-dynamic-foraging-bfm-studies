@@ -1,0 +1,75 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_cedar.py",
+    "produced_at_pt": "2026-11-12T18:28:53-08:00"
+  },
+  "kind": "initial",
+  "platform": "cedar",
+  "wandb_group": "cedar-smoke@20261112-182835",
+  "label": "second-cedar-launch",
+  "note": "Second Cedar smoke launch (dispatcher #219): same 300-step cut of the study 02 nxd-3way H128 recipe, with ram 256Gi / cpu 16 as study 02 used on Beaker, after first-cedar-launch was OOM-killed at 64Gi. Should show the recipe trains to completion on a Cedar A100 and finishes cleanly in W&B.",
+  "job_refs": [
+    {
+      "type": "cedar_session",
+      "id": "sess_01M79BRHMH9JZ4CNPWESNY6E0V",
+      "name": "cedar-smoke-20261112-182835-0"
+    }
+  ],
+  "revisions": {
+    "studies": "5c52b85d2dddd675f89d329d418f8e658fa6bbac",
+    "dispatcher": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "392c504406094b33407321b168173981b8af8291"
+  },
+  "manifests": [
+    "sweep.yaml",
+    "session_cedar.yaml",
+    "cedar_sessions_submitted.yaml"
+  ],
+  "n_tasks": 1,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "cedar",
+    "name": "dfbfm-wrapper:20261109-wf390d4f",
+    "digest": "sha256:3f260e9aa12b8180d0420331b8f4870c246fc5d17735abaf5526556ec691a92b"
+  },
+  "mode": "cedar-grid",
+  "n_planned": 1,
+  "sessions": [
+    {
+      "name": "cedar-smoke-20261112-182835-0",
+      "attempted": true,
+      "id": "sess_01M79BRHMH9JZ4CNPWESNY6E0V",
+      "overrides": [
+        "seed=0"
+      ],
+      "wandb_run_id": "cedar-smoke-20261112-182835-21b19cb6"
+    }
+  ],
+  "dispatcher_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "studies_git_commit": "5c52b85d2dddd675f89d329d418f8e658fa6bbac",
+  "studies_git_branch": "study/17-gru-crossfit-predictability",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "5affee531856d6eff31c9285e981c93747699efc",
+  "foraging_models_git_commit": "392c504406094b33407321b168173981b8af8291",
+  "studies_dirty_override": null,
+  "sweep_file": "studies/17-gru-crossfit-predictability/variants/cedar-smoke/sweep.yaml",
+  "session_file": "studies/17-gru-crossfit-predictability/variants/cedar-smoke/session_cedar.yaml",
+  "created_utc": "2026-11-13T02:28:53.420244+00:00"
+}
