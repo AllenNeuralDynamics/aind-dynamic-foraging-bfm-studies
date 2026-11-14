@@ -1,7 +1,7 @@
 # Variant scoring: every model to score on its held-out fold (PLAN.md, "Design", "Scaling curve").
 # heldout = a key of reference/folds.json `folds`; exclude = mice of that fold the source run trained
-# on (they have no held-out prediction from it). The 4 pool-fold 2-way models are added when they
-# finish training. Run ids were read from W&B and the study 01/02 analysis JSON on 2026-11-14.
+# on (they have no held-out prediction from it). The 4 pool-fold 2-way models were added on
+# 2026-11-14 as they finished training (launches score-2way-*). Run ids were read from W&B and the study 01/02 analysis JSON on 2026-11-14.
 models:
 - name: test-3way-full-s0
   entity: AIND-disRNN
@@ -283,6 +283,46 @@ models:
   heldout: pool_4
   D: 300
   way: 3way
+  seed: 0
+  exclude: []
+  note: null
+- name: pool1-2way-full
+  entity: NeuralDynamics
+  project: dfbfm_17-gru-crossfit-predictability
+  run_id: pool-folds-2way-20261113-112505-f522d37b
+  heldout: pool_1
+  D: full
+  way: 2way
+  seed: 0
+  exclude: []
+  note: null
+- name: pool2-2way-full
+  entity: NeuralDynamics
+  project: dfbfm_17-gru-crossfit-predictability
+  run_id: pool-folds-2way-20261113-112505-14c74354
+  heldout: pool_2
+  D: full
+  way: 2way
+  seed: 0
+  exclude: []
+  note: null
+- name: pool3-2way-full
+  entity: NeuralDynamics
+  project: dfbfm_17-gru-crossfit-predictability
+  run_id: pool-folds-2way-20261113-112505-3a05f9bd
+  heldout: pool_3
+  D: full
+  way: 2way
+  seed: 0
+  exclude: []
+  note: null
+- name: pool4-2way-full
+  entity: NeuralDynamics
+  project: dfbfm_17-gru-crossfit-predictability
+  run_id: pool-folds-2way-20261113-015357-52417094
+  heldout: pool_4
+  D: full
+  way: 2way
   seed: 0
   exclude: []
   note: null

@@ -12,10 +12,13 @@ write jobs.csv (one row per model x pass x session-lambda mode).
 
 Run on a compute node with the wrapper (merge of PR #128) on PYTHONPATH:
     PYTHONPATH=<wrapper>/code S17_SCORING=/allen/aind/scratch/han.hou/s17_scoring \\
-      <mevolve-search env>/bin/python variants/scoring/prepare.py
+      <mevolve-search env>/bin/python variants/scoring/prepare.py [--models a,b] [--jobs <path>]
+``--models`` limits the run to those models (a later launch); ``--jobs`` is where jobs.csv goes
+(default: variants/scoring/jobs.csv).
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import netrc
@@ -40,7 +43,15 @@ def best_eval(model_dir: Path) -> tuple[int, float]:
 def main() -> None:
     from post_training_analysis.wandb_model_dir import hydrate_model_dir
 
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--models", default=None)
+    ap.add_argument("--jobs", default=str(HERE / "jobs.csv"))
+    args = ap.parse_args()
     models = yaml.safe_load((HERE / "models.yaml").read_text())["models"]
+    if args.models:
+        keep = args.models.split(",")
+        models = [m for m in models if m["name"] in keep]
+        assert len(models) == len(keep), "unknown model name"
     folds = json.loads((STUDY / "reference" / "folds.json").read_text())["folds"]
     (ROOT / "inputs").mkdir(parents=True, exist_ok=True)
     jobs = []
@@ -60,7 +71,8 @@ def main() -> None:
                              "model_dir": str(model_dir), "subjects": str(subjects),
                              "out": f"{m['name']}/pass{p}_lam-{mode}"})
         print(f"{m['name']:22s} step {step:6d} lambda {lam:.2f} mice {len(mice)}", flush=True)
-    with open(HERE / "jobs.csv", "w", newline="") as f:
+    Path(args.jobs).parent.mkdir(parents=True, exist_ok=True)
+    with open(args.jobs, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(jobs[0]))
         w.writeheader()
         w.writerows(jobs)
