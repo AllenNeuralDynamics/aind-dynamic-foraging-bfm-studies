@@ -4,7 +4,7 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all freeze-folds freeze-scaling freeze-roles
+.PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring
 
 all:
 
@@ -25,3 +25,8 @@ freeze-scaling:
 # against the digest in reference/folds.json. Needs pandas: the mevolve-search env, on a compute node.
 freeze-roles:
 	$(PY) analysis/freeze_roles.py
+
+# freeze-scoring = per-mouse held-out scores of every scored model (analysis/scores.json), from the
+# variant `scoring` outputs on /allen scratch. Needs pandas: the mevolve-search env, on a compute node.
+freeze-scoring:
+	$(PY) analysis/freeze_scoring.py

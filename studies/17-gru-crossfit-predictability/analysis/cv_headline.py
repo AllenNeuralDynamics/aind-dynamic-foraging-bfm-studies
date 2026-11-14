@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+"""Headline figure of the cross-validated scaling curve (draft for review), from analysis/scores.json.
+
+Layout follows study 02's fig_scaling: x = number of training mice D (log), three panels:
+held-out left/right likelihood on engaged trials, ignore-class PR-AUC, ignore-class recall. Here the
+replicates are the 5 folds (test + pool 1-4), not seeds: thin lines = folds, thick = mean +- SEM
+over folds. Each fold's value pools all its held-out mice and both passes (every session scored
+once). Dashed grey (panel A): study 02's published test-fold curve (pass A only, mean of 3 seeds),
+read from its committed scaling.json. Models are scored at their best_eval checkpoint and its own
+session lambda.
+
+    python analysis/cv_headline.py   # writes analysis/fig_cv_headline.svg (+ .json)
+"""
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+import numpy as np
+
+HERE = Path(__file__).resolve().parent
+STUDY = HERE.parent
+sys.path.insert(0, str(STUDY.parent / "util"))
+import figure_style as fs  # noqa: E402
+import matplotlib.pyplot as plt  # noqa: E402
+from _meta import build_meta, write_artifact  # noqa: E402
+
+SCORES = HERE / "scores.json"
+STUDY02 = STUDY.parent / "02-gru-scaling-law-ignore" / "analysis" / "scaling.json"
+OUT_SVG = HERE / "fig_cv_headline.svg"
+OUT = HERE / "cv_headline.json"
+DS = [10, 30, 100, 300, "full"]
+X = {10: 10, 30: 30, 100: 100, 300: 300, "full": 610}
+FOLDS = ["test", "pool_1", "pool_2", "pool_3", "pool_4"]
+COLOR = {"test": fs.OKABE_ITO["black"], "pool_1": fs.OKABE_ITO["orange"], "pool_2": fs.OKABE_ITO["sky"],
+         "pool_3": fs.OKABE_ITO["green"], "pool_4": fs.OKABE_ITO["vermillion"]}
+
+
+def fold_value(model: dict) -> dict | None:
+    """Pooled held-out metrics of one model over both passes (lambda = the checkpoint's own)."""
+    passes = model["scores"].get("lam-checkpoint", {})
+    if set(passes) != {"A", "B"}:
+        return None
+    lr = sum(v[0] for p in passes.values() for v in p["mice"].values())
+    n = sum(v[1] for p in passes.values() for v in p["mice"].values())
+    out = {"lr_engaged": float(np.exp(lr / n)), "n_mice": len(passes["A"]["mice"])}
+    if "ignore_pr_auc" in passes["A"]:
+        for k in ("ignore_pr_auc", "ignore_recall"):
+            out[k] = float(np.mean([passes[p][k] for p in "AB"]))
+    return out
+
+
+def main() -> None:
+    scores = json.loads(SCORES.read_text())["models"]
+    table: dict = {f: {} for f in FOLDS}
+    for name, m in scores.items():
+        if m["way"] != "3way" or m.get("seed", 0) != 0:
+            continue
+        v = fold_value(m)
+        if v is not None:
+            table[m["heldout"]][str(m["D"])] = v
+    s02 = json.loads(STUDY02.read_text())["grid"]
+    ref = {d: s02[f"{d}x256"]["LR_engaged"]["mean"] for d in (10, 30, 100, 614)}
+
+    fs.apply_paper_style()
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 52), constrained_layout=True)
+    panels = [("lr_engaged", "held-out L/R likelihood\n(engaged trials)"),
+              ("ignore_pr_auc", "ignore-class PR-AUC (held-out)"),
+              ("ignore_recall", "ignore-class recall (held-out)")]
+    summary = {}
+    for ax, (key, ylabel) in zip(axes, panels):
+        for f in FOLDS:
+            pts = [(X[d], table[f][str(d)][key]) for d in DS if str(d) in table[f] and key in table[f][str(d)]]
+            if pts:
+                xs, ys = zip(*pts)
+                ax.plot(xs, ys, "-o", color=COLOR[f], lw=0.6, ms=1.8, alpha=0.6,
+                        label=("test fold" if f == "test" else f.replace("pool_", "pool fold ")))
+        means, sems, xs = [], [], []
+        for d in DS:
+            vals = [table[f][str(d)][key] for f in FOLDS if str(d) in table[f] and key in table[f][str(d)]]
+            if len(vals) >= 2:
+                xs.append(X[d]); means.append(np.mean(vals)); sems.append(np.std(vals, ddof=1) / np.sqrt(len(vals)))
+                summary.setdefault(key, {})[str(d)] = {"mean": means[-1], "sem": sems[-1], "n_folds": len(vals)}
+        ax.errorbar(xs, means, yerr=sems, color="k", lw=1.4, capsize=1.5, zorder=5, label="mean ± SEM (folds)")
+        if key == "lr_engaged":
+            ax.plot([10, 30, 100, 614], [ref[d] for d in (10, 30, 100, 614)], "--", color="0.55", lw=0.8,
+                    label="study 02, test fold\n(pass A, 3 seeds)")
+        ax.set_xscale("log")
+        ax.set_xticks([10, 30, 100, 300, 610])
+        ax.set_xticklabels(["10", "30", "100", "300", "full\n(~610)"])
+        ax.minorticks_off()
+        ax.set_xlabel("# training mice (D)")
+        ax.set_ylabel(ylabel)
+    axes[0].legend(frameon=False, fontsize=5, loc="lower right")
+    axes[0].set_title("Held-out choice prediction rises with D,\nevery fold", fontsize=6)
+    axes[1].set_title("Ignore detection, held-out", fontsize=6)
+    axes[2].set_title("Ignore recall, held-out", fontsize=6)
+    fs.save_figure(fig, OUT_SVG)
+
+    meta = build_meta("analysis/cv_headline.py", [], study_root=STUDY, code=[__file__], inputs=[SCORES, STUDY02])
+    write_artifact(OUT, {"_meta": meta, "per_fold": table, "summary": summary,
+                         "study02_test_fold_lr_engaged": {str(k): v for k, v in ref.items()}}, outputs=[OUT_SVG])
+
+
+if __name__ == "__main__":
+    main()
