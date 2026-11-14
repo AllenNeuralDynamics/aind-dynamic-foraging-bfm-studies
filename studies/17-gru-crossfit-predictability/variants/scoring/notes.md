@@ -40,3 +40,6 @@ Cedar H200 node had no free GPU; HPC had ~60 free 56-CPU slots (2026-11-14 03:30
   30, 31) are kept as the empirical check, and tasks 34, 35, 58, 59 (lambda 0.5) run as planned.
   (The fine-tune log line "Session Curriculum Lambda: 1.000" is the trainer's runtime value; the
   network is built with the requested lambda.)
+- `score-2way-124` (2026-11-14 08:19 PT, group `scoring@20261114-081940`, SLURM array 27839669, 6
+  tasks): the 2-way pool-fold models 1, 2 and 4 (best_eval step 90000, lambda 1). Same wrapper,
+  env and script as `score-28`; record written by `write_record.py`. Fold 3 follows when it finishes.
