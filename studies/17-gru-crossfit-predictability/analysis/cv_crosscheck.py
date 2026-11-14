@@ -28,7 +28,7 @@ SCORES = HERE / "scores.json"
 STUDY02 = STUDY.parent / "02-gru-scaling-law-ignore" / "analysis" / "frozen_runs.json"
 OUT_SVG = HERE / "fig_cv_crosscheck.svg"
 OUT = HERE / "cv_crosscheck.json"
-METRICS = [("lr", "eval_likelihood_LR_engaged", "held-out L/R likelihood"),
+METRICS = [("lr", "eval_likelihood_LR_engaged", "held-out likelihood,\ntrial-pooled (L/R, engaged)"),
            ("ignore_pr_auc", "engage_ignore_pr_auc", "ignore PR-AUC"),
            ("ignore_recall", "engage_ignore_recall", "ignore recall")]
 
@@ -58,7 +58,7 @@ def main() -> None:
         rows.append(row)
 
     fs.apply_paper_style()
-    fig, axes = plt.subplots(1, 4, figsize=fs.mm(183, 48), constrained_layout=True)
+    fig, axes = plt.subplots(1, 4, figsize=fs.mm(fs.fit_width(square_panels=4, axes=4), 48), constrained_layout=True)
     summary = {}
     for ax, (k, k02, label) in zip(axes, METRICS):
         x = np.array([r[f"s02_{k}"] for r in rows]); y = np.array([r[f"s17_{k}"] for r in rows])
@@ -78,7 +78,8 @@ def main() -> None:
     ax.set_xlabel("pass A (study 02's half)"); ax.set_ylabel("pass B (the other half)")
     gap = float(np.mean(np.array(xs) - np.array(ys))) if pa else None
     summary["passA_minus_passB_lr_mean"] = gap
-    ax.set_title(f"Pass B is lower by {gap:.4f} on average" if gap is not None else "pass A vs B", fontsize=6)
+    # The title states only the measured difference; its sign, not this code, says which pass is higher.
+    ax.set_title("pass A vs pass B: n/a" if gap is None else f"pass A − pass B = {fs.num(gap, '+.4f')}\n(mean over {len(pa)} models)", fontsize=6)
     for ax, letter in zip(axes, "abcd"):
         fs.panel_label(ax, letter)
     fs.save_figure(fig, OUT_SVG)

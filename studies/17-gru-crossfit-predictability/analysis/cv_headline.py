@@ -105,9 +105,9 @@ def draw_map(scores: dict) -> dict:
         summary["3way_vs_2way_pearson_r"] = float(np.corrcoef(x3, y2)[0, 1])
         summary["n_mice_2way_vs_3way"] = len(x3)
         axes[1].set_title(f"3-way vs 2-way GRU per mouse (r = {summary['3way_vs_2way_pearson_r']:.2f})", fontsize=6)
-    axes[0].set_xlabel("pass A: held-out L/R likelihood"); axes[0].set_ylabel("pass B")
+    axes[0].set_xlabel("pass A: held-out likelihood, per subject"); axes[0].set_ylabel("pass B")
     axes[1].set_xlabel("3-way GRU (both passes)"); axes[1].set_ylabel("2-way GRU (both passes)")
-    axes[2].set_xlabel("fold"); axes[2].set_ylabel("per-mouse held-out L/R likelihood")
+    axes[2].set_xlabel("fold"); axes[2].set_ylabel("held-out likelihood, per subject\n(both passes)")
     axes[2].set_title("Spread of predictability across mice", fontsize=6)
     for ax, letter in zip(axes, "abc"):
         fs.panel_label(ax, letter)
@@ -130,9 +130,9 @@ def main() -> None:
     fs.apply_paper_style()
     fig, axs = plt.subplots(1, 4, figsize=fs.mm(183, 52), constrained_layout=True)
     paired_ax, axes = axs[1], [axs[0], axs[2], axs[3]]
-    panels = [("lr_engaged", "held-out L/R likelihood\n(engaged trials)"),
-              ("ignore_pr_auc", "ignore-class PR-AUC (held-out)"),
-              ("ignore_recall", "ignore-class recall (held-out)")]
+    panels = [("lr_engaged", "held-out likelihood, trial-pooled\n(L/R, engaged trials)"),
+              ("ignore_pr_auc", "ignore PR-AUC, held-out\n(mean of passes A, B)"),
+              ("ignore_recall", "ignore recall, held-out\n(mean of passes A, B)")]
     summary = {}
     for ax, (key, ylabel) in zip(axes, panels):
         for f in FOLDS:
@@ -152,10 +152,9 @@ def main() -> None:
             rd = [d for d in DS if str(d) in ref]
             ax.plot([X[d] for d in rd], [ref[str(d)] for d in rd], "--", color="0.55", lw=0.8,
                     label="test fold, pass A only\n(= study 02's held-out half)")
-        ax.set_xscale("log")
+        ax.set_xscale("log"); fs.plain_log_axis(ax, "x")
         ax.set_xticks([10, 30, 100, 300, 610])
-        ax.set_xticklabels(["10", "30", "100", "300", "full\n(~610)"])
-        ax.minorticks_off()
+        ax.set_xticklabels(["10", "30", "100", "300", "full\n(≈610)"])
         ax.set_xlabel("# training mice (D)")
         ax.set_ylabel(ylabel)
     # Paired: each fold's gain over its own D=10 point. The same mice are scored at every D within a
@@ -177,12 +176,11 @@ def main() -> None:
             summary.setdefault("lr_engaged_gain_over_d10", {})[str(d)] = {"mean": pm[-1], "sem": ps[-1], "n_folds": len(vals)}
     paired_ax.errorbar(px, pm, yerr=ps, color="k", lw=1.4, capsize=1.5, zorder=5)
     paired_ax.axhline(0, color="0.6", lw=0.5, ls=":")
-    paired_ax.set_xscale("log")
+    paired_ax.set_xscale("log"); fs.plain_log_axis(paired_ax, "x")
     paired_ax.set_xticks([10, 30, 100, 300, 610])
-    paired_ax.set_xticklabels(["10", "30", "100", "300", "full\n(~610)"])
-    paired_ax.minorticks_off()
+    paired_ax.set_xticklabels(["10", "30", "100", "300", "full\n(≈610)"])
     paired_ax.set_xlabel("# training mice (D)")
-    paired_ax.set_ylabel("gain over D=10, same mice\n(held-out L/R likelihood)")
+    paired_ax.set_ylabel("gain over D=10, same mice\n(held-out likelihood, trial-pooled)")
     paired_ax.set_title("Within-fold gain (paired)", fontsize=6)
     axes[0].legend(frameon=False, fontsize=5, loc="lower right")
     for ax, t in zip(axes, TITLES):
