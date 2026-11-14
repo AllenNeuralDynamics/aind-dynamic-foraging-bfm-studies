@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/cv_schematic.py",
-    "produced_at_pt": "2026-11-14T09:52:09-08:00",
-    "studies_git_sha": "31c4708080d2c7aacdbb4863559964481ddf49c5",
+    "produced_at_pt": "2026-11-14T09:55:15-08:00",
+    "studies_git_sha": "a2af084f9d5a350d6133cb13e985cf04f7b42f35",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_schematic.py",
-        "sha256": "a2553a97ac235b4c3dc7bbb4303f27a3944be172bf1e98e89ab3532dfed794d9"
+        "sha256": "c4c5dee0c7abdddd9f505215cb857fadd82eb2ff3f91dd00079b61fc025e235e"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -44,7 +44,7 @@
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_schematic.svg",
-        "sha256": "edecca2c4b58b224ecc16338a82e671e126ba894ffce5fdeb892d6d50acbe223"
+        "sha256": "8286f4e13c82015a1f40f1aa2eecdea71ef4a74f442d7163a7dee0aa1c6229b3"
       }
     ]
   },

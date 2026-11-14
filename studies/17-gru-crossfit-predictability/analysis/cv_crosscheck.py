@@ -79,6 +79,8 @@ def main() -> None:
     gap = float(np.mean(np.array(xs) - np.array(ys))) if pa else None
     summary["passA_minus_passB_lr_mean"] = gap
     ax.set_title(f"Pass B is lower by {gap:.4f} on average" if gap is not None else "pass A vs B", fontsize=6)
+    for ax, letter in zip(axes, "abcd"):
+        fs.panel_label(ax, letter)
     fs.save_figure(fig, OUT_SVG)
 
     meta = build_meta("analysis/cv_crosscheck.py", [], study_root=STUDY, code=[__file__], inputs=[SCORES, STUDY02])

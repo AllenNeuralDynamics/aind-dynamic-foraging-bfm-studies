@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """Schematic of study 17's design: fold rotation, scaling subsets, and the two scoring passes.
 
-A: the 763 mice in 5 folds (sizes from reference/folds.json); each fold model trains on every mouse
+a: the 763 mice in 5 folds (sizes from reference/folds.json); each fold model trains on every mouse
 outside its fold (grey) and scores its own fold (colour). Model 0 is study 02's model.
-B: within fold model k's training mice, nested subsets D = 10, 30, 100, 300 (sizes from
+b: within fold model k's training mice, nested subsets D = 10, 30, 100, 300 (sizes from
 reference/scaling_subsets.json), each trained separately and scored on the same held-out fold.
-C: one held-out mouse's sessions alternate fit / score (the freeze's roles); pass A tunes the
+c: one held-out mouse's sessions alternate fit / score (the freeze's roles); pass A tunes the
 mouse's embedding on fit and scores score, pass B swaps, so every session is scored once.
 
     python analysis/cv_schematic.py   # writes analysis/fig_cv_schematic.svg (+ .json)
@@ -64,7 +64,7 @@ def main() -> None:
         ax.text(-0.02, y + 0.045, label, ha="right", va="center", fontsize=5)
     ax.text(0.5, 0.0, "grey = trains on   colour = held out, scored", ha="center", fontsize=5, color="0.3")
     ax.set_xlim(-0.5, 1.0); ax.set_ylim(-0.05, 1.08)
-    fs.panel_label(ax, "A")
+    fs.panel_label(ax, "a")
 
     # B: nested subsets
     ax = fig.add_subplot(gs[1]); ax.set_axis_off()
@@ -81,7 +81,7 @@ def main() -> None:
     ax.text(0, 0.0, "same held-out fold scored at every D\n(per curriculum, seed 0; pool fold 1 shown)",
             fontsize=5, color="0.3")
     ax.set_xlim(0, 1.5); ax.set_ylim(-0.05, 1.08)
-    fs.panel_label(ax, "B")
+    fs.panel_label(ax, "b")
 
     # C: passes
     ax = fig.add_subplot(gs[2]); ax.set_axis_off()
@@ -102,7 +102,7 @@ def main() -> None:
         ax.text(s_i * 0.12 + 0.05, 0.86, role, ha="center", va="bottom", fontsize=5, color="0.3", rotation=90)
     ax.text(0, -0.04, "sessions by date; fit/score roles from\nthe data freeze; each session scored once", fontsize=5, color="0.3")
     ax.set_xlim(-0.22, 1.1); ax.set_ylim(-0.05, 1.08)
-    fs.panel_label(ax, "C")
+    fs.panel_label(ax, "c")
 
     fs.save_figure(fig, OUT_SVG)
     meta = build_meta("analysis/cv_schematic.py", [], study_root=STUDY, code=[__file__], inputs=[FOLDS, SUBSETS])

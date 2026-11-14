@@ -7,7 +7,7 @@ scores the same mice at every D, so the between-fold offset cancels), ignore-cla
 ignore-class recall. Here the
 replicates are the 5 folds (test + pool 1-4), not seeds: thin lines = folds, thick = mean +- SEM
 over folds. Each fold's value pools all its held-out mice and both passes (every session scored
-once). Dashed grey (panel A): the test fold's pass A only, i.e. study 02's own held-out half and
+once). Dashed grey (panel a): the test fold's pass A only, i.e. study 02's own held-out half and
 its seed-0 models (cross-checked against study 02 in cv_crosscheck.py). Models are scored at their best_eval checkpoint and its own
 session lambda.
 
@@ -109,6 +109,8 @@ def draw_map(scores: dict) -> dict:
     axes[1].set_xlabel("3-way GRU (both passes)"); axes[1].set_ylabel("2-way GRU (both passes)")
     axes[2].set_xlabel("fold"); axes[2].set_ylabel("per-mouse held-out L/R likelihood")
     axes[2].set_title("Spread of predictability across mice", fontsize=6)
+    for ax, letter in zip(axes, "abc"):
+        fs.panel_label(ax, letter)
     fs.save_figure(fig, OUT_MAP)
     return summary
 
@@ -185,6 +187,8 @@ def main() -> None:
     axes[0].legend(frameon=False, fontsize=5, loc="lower right")
     for ax, t in zip(axes, TITLES):
         ax.set_title(t, fontsize=6)
+    for ax, letter in zip(axs, "abcd"):
+        fs.panel_label(ax, letter)
     fs.save_figure(fig, OUT_SVG)
     map_summary = draw_map(scores)
 
