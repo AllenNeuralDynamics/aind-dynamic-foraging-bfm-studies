@@ -87,3 +87,5 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   [`01M7BMSD856ZR57Z9W5CG1Z503`](https://beaker.org/ex/01M7BMSD856ZR57Z9W5CG1Z503); its fold-4 task (`-003`) was stopped at once, since fold 4 runs in
   `folds-h256-2way-t2`). The allocated-seat copies (`folds-h256-2way-t1` `-000`..`-002`) stay
   queued; the first copy of each fold to start is kept.
+- 16:56 PT: fold 1 started on an allocated seat (`folds-h256-2way-t1` `-000`, group
+  `pool-folds-2way@20261113-112505`); its tier-2 copy (`folds-h256-2way-t2b` `-000`) was stopped.
