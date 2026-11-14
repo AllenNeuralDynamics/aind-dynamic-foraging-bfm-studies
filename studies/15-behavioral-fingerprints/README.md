@@ -4,7 +4,7 @@ id: 15-behavioral-fingerprints
 question: How closely does each model's behaviour, replayed on the subjects' real
   histories and rolled out in the task, match the subjects' model-free choice statistics,
   measured against the animals' own noise floor?
-status: planned
+status: active
 wandb:
   entity: NeuralDynamics
   project: dfbfm_15-behavioral-fingerprints

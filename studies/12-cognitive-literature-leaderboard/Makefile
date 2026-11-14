@@ -37,3 +37,4 @@ r2:
 .PHONY: r3
 r3:
 	$(PY) analysis/r3_2level_em.py
+	$(PY) analysis/r3_fallback.py

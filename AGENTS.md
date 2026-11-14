@@ -56,6 +56,11 @@ the links give detail, they do not replace the rules.
   frozen number by an immutable digest, and inspect numeric and artifact diffs before
   claiming a result. New analysis JSON carries `_meta.studies_git_sha` and the
   `source_*_git_shas` arrays; never relabel this repository's HEAD as dispatcher provenance.
+  A new report is `schema_version: 2` (`make new-report`): the fixed skeleton, each finding a
+  frontmatter claim pointing at its JSON value, INDEX and README verdicts generated from the
+  claims (`make verdicts`), `prose_reviewed` updated after a block changes. It goes live only
+  after a claims check and the go-ahead of the report's first author (the first entry in `authors`); see
+  `schemas/README.md` and the `posthoc-reporting` skill.
 - **Figures are paper-style SVGs.** Draw every figure with `studies/util/figure_style.py`
   (`apply_paper_style()`, 5–7 pt Arial) at the size it is printed, sized by its content, not the
   column: ≈15 mm per bar or violin, 35–45 mm per scatter panel, + 18 mm per y axis
@@ -72,11 +77,14 @@ the links give detail, they do not replace the rules.
   example state posteriors) on axes below it. In every figure, right is `"b"` and left is
   `"r"`, the colours that utility uses (`p_right` / `p_left`), so sides read the same in every
   study and every lab plot.
-- **Never retype another study's number.** Read it from that study's committed JSON (readers for
-  the shared references are in `studies/util/cross_study.py`), pass that source JSON (the
-  helper's `*_SOURCE` path, not the helper) in `build_meta(inputs=...)`, and
-  name the source in the report's `upstream` (`{study, report}` for a result, `{study,
-  wandb_group}` for raw data). The checker then flags the report when that source is corrected.
+- **Never retype another study's number.** Read it from that study's committed JSON (shared
+  references are named versions in `studies/util/references.py`: `ref("gru_ceiling")` is the
+  default; print `ref(...).cite()` so the version name sits next to the number, and give one line
+  of why for a non-default; older readers are in `studies/util/cross_study.py`), pass that source
+  JSON (`ref(...).source`, or the helper's `*_SOURCE` path; not the helper) in
+  `build_meta(inputs=...)`, and name the source in the report's `upstream` (`{study, report}`
+  for a result, `{study, wandb_group}` for raw data). The checker then flags the report when
+  that source is corrected.
 - **Start from the scaffolder**: `make new-study`, `make new-variant`, `make new-report` (usage
   in the root `Makefile`). Their output passes `make validate` as written.
 - **Layout and provenance are schema-checked.** The rules are `schemas/` (fields, layout) and
@@ -120,7 +128,9 @@ live in the dispatcher:
 Load `study-conventions`, `posthoc-reporting`, `issue-tracking`, and the relevant launch
 skill (`beaker-launch` or `hpc-launch`) before creating a study, producing a report, or
 submitting work. If a skill and this file disagree, follow the more restrictive one and fix
-both.
+both. The skills come from one user-level install of the dispatcher's pack (its
+`aind-behavior-foundation-model-skills/README.md`, "Import"); this repo's `.claude/settings.json`
+only declares the marketplace, so do not enable the plugin per repo.
 
 ## Coding Principles
 
