@@ -43,6 +43,14 @@ trains on every mouse outside its fold, test mice included.
   training mice; no held-out mouse is scored during training. The recipe already does this
   (wrapper `gru_trainer.py`: `eval_likelihood` on `bundle.eval_set`; per-checkpoint held-out eval
   is skipped for the multisubject GRU).
+- **Scoring checkpoint: `best_eval` for every model (Han, 2026-11-13),** the rule study 01 used for
+  every D, so the cross-validated scaling curve compares directly with studies 01/02. It is the
+  checkpoint with the highest eval likelihood on the training mice, over all checkpoints. For
+  small D that is often step 10k, before session conditioning switches on (λ = 0): study 01's
+  D=10 H256 run peaked at 10k (0.731) and fell to 0.556 by 80k, and study 17's D=10 runs do the
+  same. The scoring outputs record each model's selected step and its λ, and the report says
+  which points come from a checkpoint without session conditioning. No second scoring pass at
+  ≥50k.
 - **Seeds:** one per fold. Training noise comes from study 02's H256 seeds 1–2 of model 0
   (`-3c79d1d1`, `-a3171d8e`) on the test fold, at the cost of rescoring only.
 - **Platform: Cedar** (Han, 2026-11-12), A100 cluster, launched with dispatcher `launch_cedar.py`
