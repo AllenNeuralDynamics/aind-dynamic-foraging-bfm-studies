@@ -89,3 +89,8 @@ Low priority, preemptible on on-prem H200, one 378 GiB bundle each.
   queued; the first copy of each fold to start is kept.
 - 16:56 PT: fold 1 started on an allocated seat (`folds-h256-2way-t1` `-000`, group
   `pool-folds-2way@20261113-112505`); its tier-2 copy (`folds-h256-2way-t2b` `-000`) was stopped.
+- ~17:15 PT: folds 2 and 3 started on allocated seats (`folds-h256-2way-t1` `-001`, `-002`), freed by
+  the 3-way fold models 2-4 early-stopping at 90k; their tier-2 copies (`folds-h256-2way-t2b`
+  `-001`, `-002`) were stopped at 17:22 PT. **Final layout of the 4 2-way fold models:** folds 1-3
+  on allocated seats (group `pool-folds-2way@20261113-112505`), fold 4 on tier 2 (group
+  `pool-folds-2way@20261113-015357`); all on Beaker on-prem H200 with the same pinned SHAs.
