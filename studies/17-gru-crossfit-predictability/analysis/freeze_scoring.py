@@ -6,7 +6,7 @@ under ``$S17_SCORING/out/<model>/pass<A|B>_lam-<mode>/`` (wrapper ``heldout_resc
 ``mouse_scores.csv``, ``trial_predictions.csv.gz``, ``manifest.json``) and writes
 ``analysis/scores.json``: per model, its fold, D, way, selected checkpoint and lambda; per pass and
 lambda mode, every held-out mouse's scored left/right (engaged) and 3-way log-likelihood sums and
-trial counts, plus the ignore-class PR-AUC and recall over the scored trials (3-way models). Each
+trial counts, plus the ignore-class PR-AUC and recall (p_ignore >= 0.5) over the scored trials (3-way models). Each
 job's ``manifest.json`` sha256 is recorded as a source. A job whose output is missing is listed
 under ``missing``. Needs pandas; run on a compute node:
 
@@ -35,7 +35,8 @@ IGNORE = 2  # response code of an ignored trial in the per-trial export
 
 
 def ignore_metrics(trials: pd.DataFrame) -> dict:
-    """Ignore-class PR-AUC (average precision of p_ignore) and recall (argmax == ignore)."""
+    """Ignore-class PR-AUC (average precision of p_ignore) and recall at p_ignore >= 0.5, as the
+    wrapper's checkpoint metrics (gru_trainer engage_ignore_*), so studies 01/02 compare directly."""
     t = trials[trials["use"] == "scored"]
     y = (t["response"].to_numpy() == IGNORE).astype(int)
     p = t["p_ignore"].to_numpy()
@@ -43,7 +44,7 @@ def ignore_metrics(trials: pd.DataFrame) -> dict:
     hits = np.cumsum(y[order])
     precision = hits / np.arange(1, len(y) + 1)
     pr_auc = float(np.sum(precision[y[order] == 1]) / max(y.sum(), 1))
-    pred = t[["p_left", "p_right", "p_ignore"]].to_numpy().argmax(axis=1) == IGNORE
+    pred = p >= 0.5
     recall = float((pred & (y == 1)).sum() / max(y.sum(), 1))
     return {"ignore_pr_auc": pr_auc, "ignore_recall": recall, "ignore_base_rate": float(y.mean())}
 
