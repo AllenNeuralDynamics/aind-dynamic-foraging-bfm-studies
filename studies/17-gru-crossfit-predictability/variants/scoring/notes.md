@@ -29,3 +29,14 @@ Cedar H200 node had no free GPU; HPC had ~60 free 56-CPU slots (2026-11-14 03:30
   `~/code/wt/17-score`, conda env `dynamic-foraging-bfm-cpu` (its foraging-models is `4574b4b`;
   the GRU path does not import it). Outputs: `/allen/aind/scratch/han.hou/s17_scoring/out/<model>/pass<A|B>_lam-<mode>/`
   plus one W&B run each in group `scoring@20261114-034950`. Record: `launch_record/score-28/hpc_launch.json`.
+- 04:40 PT, `score-28`: **for a lambda-0 checkpoint, lambda 1 changes nothing.** At step 20000 of
+  `test-3way-d10` (lambda 0) the session-delta output layer (`session_delta_out` w and b) is exactly
+  zero: it starts at zero and gets no gradient while lambda is 0, and the held-out fine-tune tunes
+  only subject embeddings. The session delta is then 0 at any lambda, so scoring at lambda 0 and at
+  lambda 1 is identical by construction (tasks 6 and 8 log the same losses). So study 01's small-D
+  held-out scores, made at lambda 1, are unaffected. Only the two lambda-0.5 checkpoints
+  (`pool1-3way-d30`, `pool3-3way-d30`) can differ. Cancelled the 10 not-yet-started lambda-1 tasks
+  of lambda-0 models (42, 43, 46, 47, 54, 55, 66, 67, 70, 71); the 6 already running (8, 9, 12, 13,
+  30, 31) are kept as the empirical check, and tasks 34, 35, 58, 59 (lambda 0.5) run as planned.
+  (The fine-tune log line "Session Curriculum Lambda: 1.000" is the trainer's runtime value; the
+  network is built with the requested lambda.)

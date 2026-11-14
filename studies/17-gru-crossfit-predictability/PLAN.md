@@ -59,7 +59,10 @@ trains on every mouse outside its fold, test mice included.
   session-delta network switched on; study 01's small-D held-out scores were made that way. Study
   17 fine-tunes and scores at the selected checkpoint's own λ (wrapper PR #128,
   `--session-lambda checkpoint`). To show the effect, the λ < 1 models are also scored at λ = 1
-  (the study 01 way) and the two are compared in the report.
+  (the study 01 way) and the two are compared in the report. **Finding (2026-11-14):** at a λ = 0
+  checkpoint the session-delta output layer is exactly zero (zero-initialised, no gradient at
+  λ = 0), so λ makes no difference there and study 01's small-D scores stand; only λ = 0.5
+  checkpoints (two D=30 pool-fold models) can differ (variants/scoring/notes.md).
 - **Seeds:** one per fold. Training noise comes from study 02's H256 seeds 1–2 of model 0
   (`-3c79d1d1`, `-a3171d8e`) on the test fold, at the cost of rescoring only.
 - **Platform (as run, 2026-11-13):** planned for Cedar A100, but the full-size H256 recipe does
