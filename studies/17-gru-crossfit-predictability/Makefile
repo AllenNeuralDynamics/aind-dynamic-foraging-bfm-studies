@@ -4,7 +4,7 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring
+.PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring freeze-ignore-split
 
 all:
 
@@ -30,3 +30,8 @@ freeze-roles:
 # variant `scoring` outputs on /allen scratch. Needs pandas: the mevolve-search env, on a compute node.
 freeze-scoring:
 	$(PY) analysis/freeze_scoring.py
+
+# freeze-ignore-split = 3-way vs 2-way held-out L/R log-likelihood sums by trials since the last ignore
+# (analysis/ignore_split.json), from the `scoring` outputs on /allen scratch. mevolve-search env, compute node.
+freeze-ignore-split:
+	$(PY) analysis/freeze_ignore_split.py

@@ -1,0 +1,75 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/cv_fold_spread.py",
+    "produced_at_pt": "2026-11-14T14:20:34-08:00",
+    "studies_git_sha": "49af4064bb15ee5fd936c9709ec8fdc6899186d1",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.py",
+        "sha256": "308dec788cd3669d33dfeb958a50a9fa1a32013886d809a9c023747b86c66d38"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/scores.json",
+        "sha256": "767767466ae5d51b3f17868c55ac49dc2e721b480c57fd511042e6bd55c8227b"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.json",
+        "sha256": "cfd54fba6339691f3e0f3ae30988ed5495b4e33d6a5c63d7ab0007318e8265ed"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_fold_spread.svg",
+        "sha256": "e76c0373ebee212950c812a21e9b88e943c9c44c904784192c18e7107d60baf7"
+      }
+    ]
+  },
+  "fold_values": {
+    "test": 0.730344516689493,
+    "pool_1": 0.7291080866992132,
+    "pool_2": 0.735026410054588,
+    "pool_3": 0.735387350971988,
+    "pool_4": 0.7340002338282215
+  },
+  "all_mice_pooled": 0.7327922844040169,
+  "n_mice": 763,
+  "fold_sizes": {
+    "test": 149,
+    "pool_1": 154,
+    "pool_2": 154,
+    "pool_3": 153,
+    "pool_4": 153
+  },
+  "real_sd": 0.0028612895226105242,
+  "perm": {
+    "n": 5000,
+    "seed": 0,
+    "sd_median": 0.006136168958194407,
+    "sd_ci95": [
+      0.002388490661253446,
+      0.011134344571230255
+    ],
+    "p_sd_ge_real": 0.9526
+  },
+  "test_minus_all": -0.0024477677145239296
+}
