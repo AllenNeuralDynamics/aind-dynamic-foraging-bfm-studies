@@ -38,7 +38,8 @@ trains on every mouse outside its fold, test mice included.
 - **Two passes per held-out mouse**, with the freeze's own session lists: pass A fine-tunes the
   subject embedding on the `fit` sessions and scores the `score` sessions; pass B swaps them.
   Every session is scored once, and pass A's scored half is the half MEvolve scores. Fine-tune
-  settings stay study 01's (500 steps, lr 1e-3, one mouse at a time).
+  settings stay study 01's (500 steps, lr 1e-3; all held-out embeddings of a model tuned in one joint
+  optimisation, as study 01/02 did, with one shared gradient-norm clip).
 - **Checkpoint rule:** a fold model's checkpoint and early stop use only the eval sessions of its
   training mice; no held-out mouse is scored during training. The recipe already does this
   (wrapper `gru_trainer.py`: `eval_likelihood` on `bundle.eval_set`; per-checkpoint held-out eval
