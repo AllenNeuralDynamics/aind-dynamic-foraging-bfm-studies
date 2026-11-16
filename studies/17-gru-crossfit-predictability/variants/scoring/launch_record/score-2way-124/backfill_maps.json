@@ -1,0 +1,176 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_intervention",
+    "produced_at_pt": "2026-11-14T21:18:37-08:00",
+    "studies_git_sha": "4660d7852781754a1341497a99b1185ed13df200",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "scoring@20261114-081940"
+    ],
+    "source_studies_git_shas": [
+      "cb0444eae5691217299851b27fb33c78ef67fd6c"
+    ],
+    "source_dispatcher_git_shas": [
+      "d1f48702980da204cda30bbe422daeb3d7a1346b"
+    ],
+    "source_wrapper_git_shas": [
+      "e863ce35d658fd804aa2b238a29e7179728a3acd"
+    ],
+    "source_foraging_models_git_shas": [
+      "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+    ],
+    "provenance_findings": []
+  },
+  "kind": "backfill",
+  "platform": "none",
+  "wandb_group": "scoring@20261114-081940",
+  "label": "score-2way-124-backfill-maps",
+  "note": "Adds heldout-rescore-<run>:v1 to each scoring run: the :v0 files plus the fine-tune's subject_index_map.json, session_context_map.json and the roles input, so W&B alone rebuilds each fine-tuned held-out model and its per-trial GRU states (wrapper #129).",
+  "revisions": {
+    "studies": "4660d7852781754a1341497a99b1185ed13df200",
+    "wrapper": "d52739ec114c53c2a64ba5922aa95e607ad508c9",
+    "dispatcher": "d1f48702980da204cda30bbe422daeb3d7a1346b",
+    "foraging_models": "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+  },
+  "manifests": [
+    "backfill_maps.py",
+    "write_backfill_record.py"
+  ],
+  "job_refs": [],
+  "supersedes": [],
+  "trigger": {
+    "symptom": "heldout-rescore :v0 artifacts lack the fine-tune's subject index map, session context map and roles input; the tuned held-out models could only be rebuilt from HPC scratch.",
+    "cause": "heldout_rescore before wrapper PR #130 (merge d52739e) logged only scores, predictions, embeddings and the manifest.",
+    "evidence": {
+      "wrapper_issue": "AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#129",
+      "wrapper_pr": "AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#130",
+      "one_run_rebuild_from_wandb_only": {
+        "n_logged": 2334957,
+        "n_matched": 2334957,
+        "roles_used": "n/a",
+        "max_abs_diff_p_left": 1.4549003046759879e-07,
+        "max_abs_diff_p_right": 1.4607134934951915e-07,
+        "max_abs_diff_p_ignore": 9.90778773468648e-08,
+        "readout_max_abs_error": 5.714612106189065e-06,
+        "hidden_size": 256
+      }
+    }
+  },
+  "tasks": [
+    {
+      "orig_task": "pool1-2way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "wd4p2o7v",
+      "new_wandb_run": "wd4p2o7v",
+      "v0_digest": "ff25b48ab9a5599f8116655e103b30e3",
+      "v1_digest": "aa2173211bb62dcc332a09f4604ca517",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-2way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "oamdwvs7",
+      "new_wandb_run": "oamdwvs7",
+      "v0_digest": "a7571593abe2a5645dc432e8749f75e6",
+      "v1_digest": "e61c72abb9a76bac8a106b1407b7d93f",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-2way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "2282us8i",
+      "new_wandb_run": "2282us8i",
+      "v0_digest": "c6d4324097baecaafb8156475e4eaa8a",
+      "v1_digest": "b7326a2f8ffaa30472b1a02416e3f6b9",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-2way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "yn01owxa",
+      "new_wandb_run": "yn01owxa",
+      "v0_digest": "ca40dbba721ec07469070d2c89108d1b",
+      "v1_digest": "37f0e95574cb5aca26bb04084a807b24",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-2way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "d3mt8hel",
+      "new_wandb_run": "d3mt8hel",
+      "v0_digest": "c689e7cc129517ddbbeab99eb7513213",
+      "v1_digest": "7cd3c13e7371fdcc91f5af6dd8ba63a8",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-2way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "xw4v8kf4",
+      "new_wandb_run": "xw4v8kf4",
+      "v0_digest": "854cdce58405d239f8713859f7830337",
+      "v1_digest": "6d09fddd88882b4ce013c544c6b4a80c",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    }
+  ],
+  "deviations": {
+    "same_run_ids": "each run was resumed (wandb resume='must') to log :v1; no metric or summary was written, the run returned to finished",
+    "v0_kept": ":v0 is unchanged; :v1 = :v0 files (md5-checked against scratch) + 3 files"
+  },
+  "cost": {}
+}

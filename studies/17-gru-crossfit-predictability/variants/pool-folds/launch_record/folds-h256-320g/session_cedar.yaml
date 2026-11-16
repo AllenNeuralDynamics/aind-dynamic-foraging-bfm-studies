@@ -1,0 +1,17 @@
+# Cedar sessions for the pool-folds variant (dispatcher launch_cedar.py, #219/#220).
+# Resources as the cedar-smoke run that finished: 256Gi (64Gi was OOM-killed; the recipe peaks at
+# ~190 GB). Study 02's H256 runs took ~12.8 h on H200 to early-stop at ~90.5k steps; the A100 is
+# slower, so 48h until the first run gives a step rate. A stopped run is restarted by hand.
+workspace: dfbfm
+cluster: octo.hub-usc1-gcp-a100
+image: dfbfm-wrapper:20261109-wf390d4f   # cached on the A100 node (AllenOCTO/cedar#543)
+gpu: 1
+cpu: 16
+ram: 320Gi                               # 256Gi was OOM-killed at H256 (folds-h256); 4 x 320Gi fills the 1.3 TiB A100 node
+max_live_time: 48h
+secrets:
+  wandb-api-key-neuraldynamics: WANDB_API_KEY
+env:                                     # the launcher resolves these to full SHAs
+  WRAPPER_REF: main
+  DISPATCHER_REF: main
+  FORAGING_MODELS_REF: main

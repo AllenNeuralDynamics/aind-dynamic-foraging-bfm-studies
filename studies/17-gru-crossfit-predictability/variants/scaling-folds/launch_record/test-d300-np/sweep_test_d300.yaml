@@ -1,0 +1,44 @@
+# Variant scaling-folds — the TEST fold's D=300 point (PLAN.md, "Scaling curve"). Hand-written.
+# Study 02's nxd-3way grid gives the test fold's curve at D = 10, 30, 100, 614 but not 300. This is
+# that recipe at H256 with data.subject_ratio=0.489 and seed 0, through the wrapper's own selection
+# (no subject_ids): it trains on ~300 of the 614 pool mice, sampled the way study 02 sampled its
+# other D points (per curriculum, seeded permutation prefix), and its held-out set is the freeze's
+# 149 test subjects (heldout_every_n=5), as for study 02.
+entity: NeuralDynamics
+project: dfbfm_17-gru-crossfit-predictability
+name: scaling-folds          # informational; the launcher sets the real group
+
+method: grid
+metric:
+  name: eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include            # 3-way head (output_size 3), as study 02 nxd-3way
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  # lambda forward: pretrain 30k, warmup 30k->50k => full session conditioning at 50k.
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  # gated early stop: only arms at >=70k (20k after full lambda), as study 02.
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - ${args_no_hyphens}
+
+parameters:
+  seed:
+    value: 0
+  data.subject_ratio:
+    value: 0.489

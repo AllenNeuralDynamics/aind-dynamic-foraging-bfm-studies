@@ -1,0 +1,104 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_intervention",
+    "produced_at_pt": "2026-11-14T21:18:39-08:00",
+    "studies_git_sha": "4660d7852781754a1341497a99b1185ed13df200",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "scoring@20261114-092226"
+    ],
+    "source_studies_git_shas": [
+      "335a8e5e82562e244072a61fd8489a016bfbc23f"
+    ],
+    "source_dispatcher_git_shas": [
+      "d1f48702980da204cda30bbe422daeb3d7a1346b"
+    ],
+    "source_wrapper_git_shas": [
+      "e863ce35d658fd804aa2b238a29e7179728a3acd"
+    ],
+    "source_foraging_models_git_shas": [
+      "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+    ],
+    "provenance_findings": []
+  },
+  "kind": "backfill",
+  "platform": "none",
+  "wandb_group": "scoring@20261114-092226",
+  "label": "score-2way-3-backfill-maps",
+  "note": "Adds heldout-rescore-<run>:v1 to each scoring run: the :v0 files plus the fine-tune's subject_index_map.json, session_context_map.json and the roles input, so W&B alone rebuilds each fine-tuned held-out model and its per-trial GRU states (wrapper #129).",
+  "revisions": {
+    "studies": "4660d7852781754a1341497a99b1185ed13df200",
+    "wrapper": "d52739ec114c53c2a64ba5922aa95e607ad508c9",
+    "dispatcher": "d1f48702980da204cda30bbe422daeb3d7a1346b",
+    "foraging_models": "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+  },
+  "manifests": [
+    "backfill_maps.py",
+    "write_backfill_record.py"
+  ],
+  "job_refs": [],
+  "supersedes": [],
+  "trigger": {
+    "symptom": "heldout-rescore :v0 artifacts lack the fine-tune's subject index map, session context map and roles input; the tuned held-out models could only be rebuilt from HPC scratch.",
+    "cause": "heldout_rescore before wrapper PR #130 (merge d52739e) logged only scores, predictions, embeddings and the manifest.",
+    "evidence": {
+      "wrapper_issue": "AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#129",
+      "wrapper_pr": "AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#130",
+      "one_run_rebuild_from_wandb_only": {
+        "n_logged": 2334957,
+        "n_matched": 2334957,
+        "roles_used": "n/a",
+        "max_abs_diff_p_left": 1.4549003046759879e-07,
+        "max_abs_diff_p_right": 1.4607134934951915e-07,
+        "max_abs_diff_p_ignore": 9.90778773468648e-08,
+        "readout_max_abs_error": 5.714612106189065e-06,
+        "hidden_size": 256
+      }
+    }
+  },
+  "tasks": [
+    {
+      "orig_task": "pool3-2way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "i5oapq9a",
+      "new_wandb_run": "i5oapq9a",
+      "v0_digest": "c4deff646fd8608571636b85707e5953",
+      "v1_digest": "e3bcd79f28d3cb3d9ba65d2e6e57825f",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-2way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "4lzegc8v",
+      "new_wandb_run": "4lzegc8v",
+      "v0_digest": "edc3eb6b619054918e9b4aaf58aaaf96",
+      "v1_digest": "9af7fca5b0f0f0eb15f83c3cd8cbec53",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    }
+  ],
+  "deviations": {
+    "same_run_ids": "each run was resumed (wandb resume='must') to log :v1; no metric or summary was written, the run returned to finished",
+    "v0_kept": ":v0 is unchanged; :v1 = :v0 files (md5-checked against scratch) + 3 files"
+  },
+  "cost": {}
+}

@@ -1,0 +1,157 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/cv_ignore_split.py",
+    "produced_at_pt": "2026-11-15T23:26:21-08:00",
+    "studies_git_sha": "9d86eb64efe415131aeaff5eff8a756221742f7f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_ignore_split.py",
+        "sha256": "6443a74c505a151f707813854ad73a64ffc0664a3ce61a16dfaf9d2f5e1f7bb9"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/ignore_split.json",
+        "sha256": "311048d91e8ce94de3ec507fbb1ee208be79c53c478473095db52ab438839746"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_ignore_split.json",
+        "sha256": "6c96e26f6512776949a0e49b511ab3c233f97884e8c8ff03e382a1700b241f93"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_ignore_split.svg",
+        "sha256": "b1e59d0942d29b34345ddf89996b99004648cbf1082636f3402bdfa70cb635c5"
+      }
+    ]
+  },
+  "per_fold": {
+    "test": {
+      "lik_3way": 0.7296476000815901,
+      "lik_2way": 0.727784145313324,
+      "n_trials": 2000035,
+      "diff": 0.001863454768266104
+    },
+    "pool_1": {
+      "lik_3way": 0.7291080866992132,
+      "lik_2way": 0.7277646793042443,
+      "n_trials": 2227660,
+      "diff": 0.001343407394968965
+    },
+    "pool_2": {
+      "lik_3way": 0.735026410054588,
+      "lik_2way": 0.733575011611988,
+      "n_trials": 2178008,
+      "diff": 0.0014513984426000048
+    },
+    "pool_3": {
+      "lik_3way": 0.735387350971988,
+      "lik_2way": 0.7337958956638602,
+      "n_trials": 2246103,
+      "diff": 0.001591455308127876
+    },
+    "pool_4": {
+      "lik_3way": 0.7340002338282215,
+      "lik_2way": 0.7321377782846574,
+      "n_trials": 2109970,
+      "diff": 0.0018624555435641232
+    }
+  },
+  "per_bin": {
+    "1": {
+      "diff_per_fold": {
+        "test": 0.03313470548884434,
+        "pool_1": 0.03280309061375053,
+        "pool_2": 0.03362106011655175,
+        "pool_3": 0.03393891592234788,
+        "pool_4": 0.03493490728858639
+      },
+      "diff_mean": 0.03368653588601618,
+      "diff_sem": 0.0003681987407781446,
+      "n_trials": 479123,
+      "share_of_trials": 0.04452081143484124,
+      "share_of_loglik_gain": 1.1789019465534636
+    },
+    "2-4": {
+      "diff_per_fold": {
+        "test": 0.0017252033351117246,
+        "pool_1": 0.0009581012009727274,
+        "pool_2": 0.0012882573546979526,
+        "pool_3": 0.0016238385966452773,
+        "pool_4": 0.0019603677266739616
+      },
+      "diff_mean": 0.0015111536428203288,
+      "diff_sem": 0.00017547909012377493,
+      "n_trials": 844360,
+      "share_of_trials": 0.07845916882120572,
+      "share_of_loglik_gain": 0.07548028332177904
+    },
+    "5-19": {
+      "diff_per_fold": {
+        "test": 0.00030300971106567154,
+        "pool_1": -0.0002277420136460595,
+        "pool_2": 1.0405744496511105e-05,
+        "pool_3": 0.0001368599512495683,
+        "pool_4": 0.0005331911957984214
+      },
+      "diff_mean": 0.00015114491779282256,
+      "diff_sem": 0.000128955255022465,
+      "n_trials": 1852916,
+      "share_of_trials": 0.17217567063280262,
+      "share_of_loglik_gain": 0.01487974889801242
+    },
+    "20+": {
+      "diff_per_fold": {
+        "test": -0.0006341346225001709,
+        "pool_1": -0.0006217885927647382,
+        "pool_2": -0.0006369594703877768,
+        "pool_3": -0.0004995222010609757,
+        "pool_4": -0.0005619350849552784
+      },
+      "diff_mean": -0.000590867994333788,
+      "diff_sem": 2.6583524859201754e-05,
+      "n_trials": 4051114,
+      "share_of_trials": 0.3764354508029158,
+      "share_of_loglik_gain": -0.13480880783067814
+    },
+    "none": {
+      "diff_per_fold": {
+        "test": -0.0006817180036664539,
+        "pool_1": -0.0006405327685993223,
+        "pool_2": -0.0007515278659896429,
+        "pool_3": -0.0007351797212055144,
+        "pool_4": -0.0004917298346136523
+      },
+      "diff_mean": -0.0006601376388149172,
+      "diff_sem": 4.647297029013344e-05,
+      "n_trials": 3534263,
+      "share_of_trials": 0.3284088983082346,
+      "share_of_loglik_gain": -0.13445317094257683
+    }
+  },
+  "overall": {
+    "diff_mean": 0.0016224342915054147,
+    "diff_sem": 0.0001057757154715681,
+    "n_folds": 5,
+    "n_folds_3way_higher": 5
+  }
+}

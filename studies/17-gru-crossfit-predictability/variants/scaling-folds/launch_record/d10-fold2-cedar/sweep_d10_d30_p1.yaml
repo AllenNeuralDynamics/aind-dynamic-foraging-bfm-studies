@@ -1,0 +1,51 @@
+# DERIVED one-point sweep: grid point 1 of sweep_d10_d30.yaml (D=10, pool fold 2), for a single
+# Cedar session when only one A100 is free (launch_cedar.py starts a grid from point 0).
+# Variant scaling-folds — cross-validated scaling curve, D=10 and D=30 (preemptible) (PLAN.md, "Scaling curve").
+# TEMPLATE: analysis/freeze_scaling_subsets.py writes sweep_d10_d30.yaml from this file, one training-subject
+# list per (D, pool fold) in data.subject_ids, D-major, folds 1..4 (reference/scaling_subsets.json). Edit
+# this template, never sweep_d10_d30.yaml, then run `make freeze-scaling`.
+#
+# Recipe: study 02 nxd-3way at H256 (3-way, ignore_policy include, snapshot 20260603, lambda-forward
+# session conditioning, 150k steps with gated early stop), seed 0. subject_ids bypasses the ranked
+# split, so each model trains on exactly its nested subset of fold model k's training mice.
+# The held-out fine-tune is off here: scoring (passes A and B) is a separate step after training.
+
+entity: NeuralDynamics
+project: dfbfm_17-gru-crossfit-predictability
+name: scaling-folds            # informational; the launcher sets the real group
+
+method: grid
+metric:
+  name: eval_likelihood
+  goal: maximize
+
+command:
+  - python
+  - -m
+  - run_hpc
+  - data=mice_snapshot_scaling
+  - model=gru_scaling
+  - wandb.entity=NeuralDynamics
+  - wandb.project=dfbfm_17-gru-crossfit-predictability
+  - data.ignore_policy=include            # 3-way head (output_size 3), as study 02 nxd-3way
+  - model.architecture.hidden_size=256
+  - model.architecture.session_encoding_type=scalar
+  # lambda forward: pretrain 30k, warmup 30k->50k => full session conditioning at 50k.
+  - model.architecture.session_n_pretrain_steps=30000
+  - model.architecture.session_n_warmup_steps=20000
+  - model.training.n_steps=150000
+  - model.training.lr=1e-5
+  - model.training.checkpoint_run_heldout_eval=false
+  - model.training.length_bucketing=true
+  # gated early stop: only arms at >=70k (20k after full lambda), as study 02.
+  - model.training.early_stopping.enabled=true
+  - model.training.early_stopping.start_after_step=70000
+  - model.training.auto_heldout_finetune.enabled=false
+  - ${args_no_hyphens}
+
+parameters:
+  seed:
+    value: 0
+  data.subject_ids:
+    values:
+      - [637701,705596,727456,758435,779311,781370,798517,812305,824527,848869]

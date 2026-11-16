@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_hpc.py",
+    "produced_at_pt": "2026-11-13T08:07:28-08:00"
+  },
+  "kind": "initial",
+  "platform": "hpc",
+  "wandb_group": "pool-folds-2way@20261113-080715",
+  "label": "folds-h256-2way-hpc",
+  "note": "Study 17 (#148): the 4 2-way fold models (H256, ignore_policy exclude), moved from Beaker tier 2, where they waited 6 h behind another workspace's queue, to HPC H200 (1 GPU, 480G RAM each). Same wrapper/dispatcher/foraging-models SHAs as the Beaker and Cedar runs; foraging-models 392c504 installed into the shared dynamic-foraging-bfm-gpu env for this launch (was 56db272; the GRU path does not import it).",
+  "job_refs": [
+    {
+      "type": "wandb_sweep",
+      "id": "x17uytie"
+    },
+    {
+      "type": "slurm_array_job",
+      "id": "27820674"
+    }
+  ],
+  "revisions": {
+    "studies": "cb4b87a7a6b472a79e8cb6fda10f653a2ddad3de",
+    "dispatcher": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "392c504406094b33407321b168173981b8af8291"
+  },
+  "manifests": [
+    "sweep.yaml",
+    "sweep_submitted.yaml"
+  ],
+  "n_tasks": 4,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "hpc",
+    "conda_env": "/allen/aind/scratch/han.hou/miniforge3/envs/dynamic-foraging-bfm-gpu",
+    "lock_sha256": "7e9fabcd5afba64e3825dbe0bef6a8c222cb0fe4231698b0c73762d34148f321"
+  },
+  "mode": "hpc-sweep",
+  "wandb_sweep_id": "x17uytie",
+  "wandb_sweep_path": "NeuralDynamics/dfbfm_17-gru-crossfit-predictability/x17uytie",
+  "sweep_url": "https://wandb.ai/NeuralDynamics/dfbfm_17-gru-crossfit-predictability/sweeps/x17uytie",
+  "slurm_array_job_id": "27820674",
+  "slurm_autostop_job_id": "27820675",
+  "n_array_tasks": 4,
+  "agent_count": 1,
+  "slurm_mode": "gpu",
+  "dispatcher_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "studies_git_commit": "cb4b87a7a6b472a79e8cb6fda10f653a2ddad3de",
+  "studies_git_branch": "study/17-gru-crossfit-predictability",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "5affee531856d6eff31c9285e981c93747699efc",
+  "foraging_models_git_commit": "392c504406094b33407321b168173981b8af8291",
+  "foraging_models_version": "0.33.0",
+  "studies_dirty_override": null,
+  "sweep_file": "/home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/variants/pool-folds-2way/sweep.yaml",
+  "created_utc": "2026-11-13T16:07:28.569970+00:00"
+}

@@ -1,0 +1,101 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/cv_lambda.py",
+    "produced_at_pt": "2026-11-15T23:26:40-08:00",
+    "studies_git_sha": "9d86eb64efe415131aeaff5eff8a756221742f7f",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_lambda.py",
+        "sha256": "1bb2414bae94aedf922ec814e74db132f2b4d8809641d595486bc96e411ec6f9"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/scores.json",
+        "sha256": "767767466ae5d51b3f17868c55ac49dc2e721b480c57fd511042e6bd55c8227b"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_lambda.json",
+        "sha256": "6a7aa4f3f55fe3297d101abaaaa44ec86aef1ed648d2e44899f1485eb56de24b"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_lambda.svg",
+        "sha256": "714963306a7b6f865d4e57f6bce372c2414b6b992ad9b783087069d3e5b838e4"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "model": "pool1-3way-d10",
+      "checkpoint_lambda": 0.0,
+      "best_eval_step": 10000,
+      "lik_own_lambda": 0.7173429882731456,
+      "lik_lambda_1": 0.7173429882731456,
+      "lambda1_minus_own": 0.0
+    },
+    {
+      "model": "pool1-3way-d30",
+      "checkpoint_lambda": 0.5,
+      "best_eval_step": 40000,
+      "lik_own_lambda": 0.7232367517746026,
+      "lik_lambda_1": 0.7230472941940007,
+      "lambda1_minus_own": -0.00018945758060184836
+    },
+    {
+      "model": "pool3-3way-d30",
+      "checkpoint_lambda": 0.5,
+      "best_eval_step": 40000,
+      "lik_own_lambda": 0.7293513496371635,
+      "lik_lambda_1": 0.7293491566855071,
+      "lambda1_minus_own": -2.192951656376785e-06
+    },
+    {
+      "model": "test-3way-d10",
+      "checkpoint_lambda": 0.0,
+      "best_eval_step": 20000,
+      "lik_own_lambda": 0.7163527304443215,
+      "lik_lambda_1": 0.7163527304443215,
+      "lambda1_minus_own": 0.0
+    },
+    {
+      "model": "test-3way-d30",
+      "checkpoint_lambda": 0.0,
+      "best_eval_step": 30000,
+      "lik_own_lambda": 0.7236747843087227,
+      "lik_lambda_1": 0.7236747843087227,
+      "lambda1_minus_own": 0.0
+    }
+  ],
+  "by_checkpoint_lambda": {
+    "0.0": {
+      "n_models": 3,
+      "max_abs_diff": 0.0,
+      "min_diff": 0.0
+    },
+    "0.5": {
+      "n_models": 2,
+      "max_abs_diff": 0.00018945758060184836,
+      "min_diff": -0.00018945758060184836
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_cedar.py",
+    "produced_at_pt": "2026-11-13T02:01:00-08:00"
+  },
+  "kind": "initial",
+  "platform": "cedar",
+  "wandb_group": "scaling-folds@20261113-015941",
+  "label": "d10-d30-cedar",
+  "note": "Study 17 (#148) cross-validated scaling curve, D=10 and D=30 on Cedar A100 in parallel with the queued Beaker tier-2 launch d10-d30-t2 (Han, 2026-11-13): whichever finishes first is kept; the Beaker twin is cancelled if Cedar finishes before it starts.",
+  "job_refs": [
+    {
+      "type": "cedar_session",
+      "id": "sess_01M7A5JJ7CFMWYP8DQDJGM8JJY",
+      "name": "scaling-folds-20261113-015941-0"
+    },
+    {
+      "type": "cedar_session",
+      "id": "sess_01M7A5K34RCHDT9ER9KAWBCKHA",
+      "name": "scaling-folds-20261113-015941-1"
+    }
+  ],
+  "revisions": {
+    "studies": "773863065a307e8dad389d569719af6b34ed96d6",
+    "dispatcher": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+    "wrapper": "5affee531856d6eff31c9285e981c93747699efc",
+    "foraging_models": "392c504406094b33407321b168173981b8af8291"
+  },
+  "manifests": [
+    "sweep_d10_d30.yaml",
+    "session_cedar_d10_d30.yaml",
+    "cedar_sessions_submitted.yaml"
+  ],
+  "n_tasks": 2,
+  "data": {
+    "source": "snapshot",
+    "config": "mice_snapshot_scaling",
+    "type": "mice_snapshot",
+    "snapshot": "20260603",
+    "uri": "s3://aind-scratch-data/aind-dynamic-foraging-cache/snapshots/20260603/",
+    "manifest_sha256": "e5fd51da432b5f3e1dda969a5ceb415766a9f96d0c90131157be3b809cdac0d3",
+    "build_id": "20260630T054811Z",
+    "n_sessions": 23585
+  },
+  "image": {
+    "platform": "cedar",
+    "name": "dfbfm-wrapper:20261109-wf390d4f",
+    "digest": "sha256:3f260e9aa12b8180d0420331b8f4870c246fc5d17735abaf5526556ec691a92b"
+  },
+  "mode": "cedar-grid",
+  "n_planned": 8,
+  "sessions": [
+    {
+      "name": "scaling-folds-20261113-015941-0",
+      "attempted": true,
+      "id": "sess_01M7A5JJ7CFMWYP8DQDJGM8JJY",
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[652737, 671250, 758017, 774391, 786864, 790584, 791096, 794976, 795393, 816214]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-efd8ee9d"
+    },
+    {
+      "name": "scaling-folds-20261113-015941-1",
+      "attempted": true,
+      "id": "sess_01M7A5K34RCHDT9ER9KAWBCKHA",
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[637701, 705596, 727456, 758435, 779311, 781370, 798517, 812305, 824527, 848869]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-a665da08"
+    },
+    {
+      "name": "scaling-folds-20261113-015941-2",
+      "attempted": false,
+      "id": null,
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[656489, 656491, 720935, 753618, 754280, 778334, 814196, 814511, 819168, 853578]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-bbe687e0"
+    },
+    {
+      "name": "scaling-folds-20261113-015941-3",
+      "attempted": false,
+      "id": null,
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[655100, 707535, 744040, 744899, 756403, 764791, 790584, 795710, 802253, 804512]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-bfb6b0c5"
+    },
+    {
+      "name": "scaling-folds-20261113-015941-4",
+      "attempted": false,
+      "id": null,
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[482352, 617889, 627042, 641805, 652737, 671250, 695950, 743793, 744779, 758017, 765624, 766559, 774391, 774603, 777403, 786864, 786866, 790584, 790768, 791096, 794976, 795393, 802294, 809491, 811021, 816214, 818908, 820117, 829048, 837688]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-e4072ea3"
+    },
+    {
+      "name": "scaling-folds-20261113-015941-5",
+      "attempted": false,
+      "id": null,
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[637701, 641803, 641805, 655101, 699364, 705596, 726441, 727456, 743793, 758435, 763359, 764693, 765364, 766998, 779311, 781369, 781370, 782394, 782397, 791174, 795497, 798517, 798520, 808585, 808655, 812305, 813992, 824527, 824853, 848869]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-e352532e"
+    },
+    {
+      "name": "scaling-folds-20261113-015941-6",
+      "attempted": false,
+      "id": null,
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[457496, 472184, 616134, 651474, 656489, 656491, 697062, 703548, 711254, 713857, 714116, 720935, 736203, 753618, 754280, 761407, 778099, 778147, 778334, 778335, 781575, 787622, 801996, 802253, 802953, 805496, 814196, 814511, 819168, 853578]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-9bacce40"
+    },
+    {
+      "name": "scaling-folds-20261113-015941-7",
+      "attempted": false,
+      "id": null,
+      "overrides": [
+        "seed=0",
+        "data.subject_ids=[453475, 455526, 473611, 643252, 655100, 663290, 663608, 707535, 744040, 744899, 747313, 754430, 756403, 764791, 781470, 788733, 790584, 795710, 797673, 802253, 804512, 810758, 813992, 814514, 819168, 820243, 829046, 836933, 837687, 841598]"
+      ],
+      "wandb_run_id": "scaling-folds-20261113-015941-dd35609f"
+    }
+  ],
+  "dispatcher_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "studies_git_commit": "773863065a307e8dad389d569719af6b34ed96d6",
+  "studies_git_branch": "study/17-gru-crossfit-predictability",
+  "studies_git_dirty": false,
+  "studies_dirty_paths": [],
+  "studies_sweep_tracked": true,
+  "dispatcher_git_commit": "7c1d686bd1d22457ab2d32ec144ecce1230eeb42",
+  "dispatcher_git_branch": "HEAD",
+  "dispatcher_git_dirty": false,
+  "provenance_warnings": [],
+  "wrapper_git_commit": "5affee531856d6eff31c9285e981c93747699efc",
+  "foraging_models_git_commit": "392c504406094b33407321b168173981b8af8291",
+  "studies_dirty_override": null,
+  "sweep_file": "studies/17-gru-crossfit-predictability/variants/scaling-folds/sweep_d10_d30.yaml",
+  "session_file": "studies/17-gru-crossfit-predictability/variants/scaling-folds/session_cedar_d10_d30.yaml",
+  "created_utc": "2026-11-13T10:01:00.618915+00:00"
+}

@@ -1,0 +1,1247 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "produced_by": "launch_record.write_intervention",
+    "produced_at_pt": "2026-11-14T21:18:35-08:00",
+    "studies_git_sha": "4660d7852781754a1341497a99b1185ed13df200",
+    "studies_git_dirty": false,
+    "wrapper_git_sha": null,
+    "wandb_groups": [
+      "scoring@20261114-034950"
+    ],
+    "source_studies_git_shas": [
+      "848a245a08ab637f5bfd57025aa578de80c68d59"
+    ],
+    "source_dispatcher_git_shas": [
+      "d1f48702980da204cda30bbe422daeb3d7a1346b"
+    ],
+    "source_wrapper_git_shas": [
+      "e863ce35d658fd804aa2b238a29e7179728a3acd"
+    ],
+    "source_foraging_models_git_shas": [
+      "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+    ],
+    "provenance_findings": []
+  },
+  "kind": "backfill",
+  "platform": "none",
+  "wandb_group": "scoring@20261114-034950",
+  "label": "score-28-backfill-maps",
+  "note": "Adds heldout-rescore-<run>:v1 to each scoring run: the :v0 files plus the fine-tune's subject_index_map.json, session_context_map.json and the roles input, so W&B alone rebuilds each fine-tuned held-out model and its per-trial GRU states (wrapper #129).",
+  "revisions": {
+    "studies": "4660d7852781754a1341497a99b1185ed13df200",
+    "wrapper": "d52739ec114c53c2a64ba5922aa95e607ad508c9",
+    "dispatcher": "d1f48702980da204cda30bbe422daeb3d7a1346b",
+    "foraging_models": "4574b4bfd919bebd8311ffab886b88b7ab1d76f0"
+  },
+  "manifests": [
+    "backfill_maps.py",
+    "write_backfill_record.py"
+  ],
+  "job_refs": [],
+  "supersedes": [],
+  "trigger": {
+    "symptom": "heldout-rescore :v0 artifacts lack the fine-tune's subject index map, session context map and roles input; the tuned held-out models could only be rebuilt from HPC scratch.",
+    "cause": "heldout_rescore before wrapper PR #130 (merge d52739e) logged only scores, predictions, embeddings and the manifest.",
+    "evidence": {
+      "wrapper_issue": "AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#129",
+      "wrapper_pr": "AllenNeuralDynamics/aind-dynamic-foraging-bfm-wrapper#130",
+      "one_run_rebuild_from_wandb_only": {
+        "n_logged": 2334957,
+        "n_matched": 2334957,
+        "roles_used": "n/a",
+        "max_abs_diff_p_left": 1.4549003046759879e-07,
+        "max_abs_diff_p_right": 1.4607134934951915e-07,
+        "max_abs_diff_p_ignore": 9.90778773468648e-08,
+        "readout_max_abs_error": 5.714612106189065e-06,
+        "hidden_size": 256
+      }
+    }
+  },
+  "tasks": [
+    {
+      "orig_task": "test-3way-full-s0/passA_lam-checkpoint",
+      "orig_wandb_run": "whmpljmn",
+      "new_wandb_run": "whmpljmn",
+      "v0_digest": "4a4b6550eb11773a4a675fa09ce45421",
+      "v1_digest": "766698392632d5be0a770ed8b331caae",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-full-s0/passB_lam-checkpoint",
+      "orig_wandb_run": "foj8muz9",
+      "new_wandb_run": "foj8muz9",
+      "v0_digest": "16860b0d7a0854a6baa5fc759ce719d8",
+      "v1_digest": "0483129ce2c54d4d9fd814bb73481400",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-full-s1/passA_lam-checkpoint",
+      "orig_wandb_run": "n22t1fng",
+      "new_wandb_run": "n22t1fng",
+      "v0_digest": "07840e79a4aab34adf133d3d8a104102",
+      "v1_digest": "5694ea3634074524ea222a8984d43efd",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-full-s1/passB_lam-checkpoint",
+      "orig_wandb_run": "uq2wdtzh",
+      "new_wandb_run": "uq2wdtzh",
+      "v0_digest": "6dd005404006548230d0186ae18f5573",
+      "v1_digest": "6d6bab47da57cc207e8b5f880f88b63d",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-full-s2/passA_lam-checkpoint",
+      "orig_wandb_run": "luevdboh",
+      "new_wandb_run": "luevdboh",
+      "v0_digest": "982ed519ea19672086660ad24c79634f",
+      "v1_digest": "276f69898d1ce8954b9ba256491d6f65",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-full-s2/passB_lam-checkpoint",
+      "orig_wandb_run": "puu9zj81",
+      "new_wandb_run": "puu9zj81",
+      "v0_digest": "18c9914dd7f0d1d2505aded4ca6da65d",
+      "v1_digest": "aa02b340e252ba82831baa521997335e",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d10/passA_lam-checkpoint",
+      "orig_wandb_run": "71v14v9b",
+      "new_wandb_run": "71v14v9b",
+      "v0_digest": "439fce231ff531c6c04668e2942cb5c7",
+      "v1_digest": "3c8062521c93539f768836b382b96eb4",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d10/passB_lam-checkpoint",
+      "orig_wandb_run": "twbnd0fw",
+      "new_wandb_run": "twbnd0fw",
+      "v0_digest": "5572ac147b410225db9dc356dd3ee4d9",
+      "v1_digest": "626291ec92ced60027a7f8c848934d9c",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d10/passA_lam-1",
+      "orig_wandb_run": "n2hv9ztl",
+      "new_wandb_run": "n2hv9ztl",
+      "v0_digest": "fdd9684423914e3d65aeda4ee9c9c840",
+      "v1_digest": "0b57bc958ce1cc699d95193c82cbe6de",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d10/passB_lam-1",
+      "orig_wandb_run": "60b058nr",
+      "new_wandb_run": "60b058nr",
+      "v0_digest": "380292e3c8bd996e4934424385d61f26",
+      "v1_digest": "98699f78f5b3206e2ffad7323f45dfd2",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d30/passA_lam-checkpoint",
+      "orig_wandb_run": "0p1adaa1",
+      "new_wandb_run": "0p1adaa1",
+      "v0_digest": "4668e2f3a543a215450a2d7d6c9c2259",
+      "v1_digest": "b204adc8888b1c3d839e397323430fde",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d30/passB_lam-checkpoint",
+      "orig_wandb_run": "esum8kxf",
+      "new_wandb_run": "esum8kxf",
+      "v0_digest": "9b6963858a236adf1d650b5bf53bf515",
+      "v1_digest": "43b68dc601a556d6c39c3fae6cb8e72a",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d30/passA_lam-1",
+      "orig_wandb_run": "sibln2ib",
+      "new_wandb_run": "sibln2ib",
+      "v0_digest": "cec1d564401016c8acf22bd14197645d",
+      "v1_digest": "6ea6e2e9d798dd7965df41b73c62d5ea",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d30/passB_lam-1",
+      "orig_wandb_run": "pllgh00t",
+      "new_wandb_run": "pllgh00t",
+      "v0_digest": "bd32875c6b80f100f7a53fa79055821e",
+      "v1_digest": "c701c07fa9a19f4b5b2f45d5c8404eed",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d100/passA_lam-checkpoint",
+      "orig_wandb_run": "4j84g1z7",
+      "new_wandb_run": "4j84g1z7",
+      "v0_digest": "906163b41aad68d6cdd7d4cd66cf4e19",
+      "v1_digest": "1f835cf6b57b86c235a6fc57f9fadd8d",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d100/passB_lam-checkpoint",
+      "orig_wandb_run": "23rqdx42",
+      "new_wandb_run": "23rqdx42",
+      "v0_digest": "6a54962e9f127c49fea7820bde511696",
+      "v1_digest": "c910b046fab8893a2a1363258157e17f",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d300/passA_lam-checkpoint",
+      "orig_wandb_run": "q5t7sidw",
+      "new_wandb_run": "q5t7sidw",
+      "v0_digest": "ab2ac60c107e3ac374c2524dda30a667",
+      "v1_digest": "a8c9a39beab67cccd9890edc7d2e2d35",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-3way-d300/passB_lam-checkpoint",
+      "orig_wandb_run": "cknzncq8",
+      "new_wandb_run": "cknzncq8",
+      "v0_digest": "571c6786f98d30f70dcffb871b3b51e4",
+      "v1_digest": "4bf05423f308a4e0b80040465304a5ef",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-2way-full-s0/passA_lam-checkpoint",
+      "orig_wandb_run": "tvzek6yy",
+      "new_wandb_run": "tvzek6yy",
+      "v0_digest": "855ccb43689b2efec7e7bfd2ccaa5c76",
+      "v1_digest": "eb2325c3c450fb41d3a2e43300cda5b8",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "test-2way-full-s0/passB_lam-checkpoint",
+      "orig_wandb_run": "0iccqt2d",
+      "new_wandb_run": "0iccqt2d",
+      "v0_digest": "13143efcbadef04c417fc5e947acb5a8",
+      "v1_digest": "a565a755d760af01da81ec41b299ad77",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "owu8z3fk",
+      "new_wandb_run": "owu8z3fk",
+      "v0_digest": "fd13d017309319a1043aee71d0463b6c",
+      "v1_digest": "5f6c76a2c5d866a54337e35550011331",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "tmw0rsqo",
+      "new_wandb_run": "tmw0rsqo",
+      "v0_digest": "e45480526ea5c0ac560a0b633457f9ec",
+      "v1_digest": "f90c9e4e36d16c8372462c2fea492022",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "7qzgydij",
+      "new_wandb_run": "7qzgydij",
+      "v0_digest": "4b161a3418a95b4390fe2aaad0a3a7f0",
+      "v1_digest": "350980cdab5f6d950e16ff5e6c891e04",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "z7sh1xl7",
+      "new_wandb_run": "z7sh1xl7",
+      "v0_digest": "89032f9f473cef98205f940040d3161f",
+      "v1_digest": "3e6f627362cfcb129170f4698011d925",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "lwjss3uk",
+      "new_wandb_run": "lwjss3uk",
+      "v0_digest": "383385c26b4e844a1c40a7905ac1fe7e",
+      "v1_digest": "46fa91a1fe4d136419d7dae6c2e0a463",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "ptzpmekk",
+      "new_wandb_run": "ptzpmekk",
+      "v0_digest": "cbbbd3791f05792eeeb6cb9b4dfe0382",
+      "v1_digest": "0c63f5d6b73a46e4df720bf848207eb7",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-full/passA_lam-checkpoint",
+      "orig_wandb_run": "ecuwfnwx",
+      "new_wandb_run": "ecuwfnwx",
+      "v0_digest": null,
+      "v1_digest": "daae523e44769d09c6cd6f79643f9b79",
+      "v1_files": null,
+      "status": "skipped (v1 exists)"
+    },
+    {
+      "orig_task": "pool4-3way-full/passB_lam-checkpoint",
+      "orig_wandb_run": "6f6pe1z9",
+      "new_wandb_run": "6f6pe1z9",
+      "v0_digest": "bc86dceb9618e358328777af12dd91c7",
+      "v1_digest": "4f0e202407fd49aecfc1053f21588e0c",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d10/passA_lam-checkpoint",
+      "orig_wandb_run": "17zvuymo",
+      "new_wandb_run": "17zvuymo",
+      "v0_digest": "db6efe0f24b03823cc5f29ee841b871b",
+      "v1_digest": "e717a45eeb5b76a3fb75ca96582965e2",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d10/passB_lam-checkpoint",
+      "orig_wandb_run": "dhi2fgji",
+      "new_wandb_run": "dhi2fgji",
+      "v0_digest": "a6e7f4722d0b80936048f68e2a682ef4",
+      "v1_digest": "23b0354b786268ca1e2564ed8b57eb0c",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d10/passA_lam-1",
+      "orig_wandb_run": "mdybbxix",
+      "new_wandb_run": "mdybbxix",
+      "v0_digest": "b86d0d353dbaa6b9ed598dc0a92a459b",
+      "v1_digest": "f44ea85712b118ea2d9249f3495e2840",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d10/passB_lam-1",
+      "orig_wandb_run": "wx4hwcgq",
+      "new_wandb_run": "wx4hwcgq",
+      "v0_digest": "6b9129e5b35b1e48fe08de573a6a038e",
+      "v1_digest": "97cc2fee4d22708215bfabc72f29b416",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d30/passA_lam-checkpoint",
+      "orig_wandb_run": "xtna2akq",
+      "new_wandb_run": "xtna2akq",
+      "v0_digest": "381923282ad2cbbcf6f08a0465f568a3",
+      "v1_digest": "86c6eff1abdc7c907d7294f05b98aed6",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d30/passB_lam-checkpoint",
+      "orig_wandb_run": "v6hcgfwj",
+      "new_wandb_run": "v6hcgfwj",
+      "v0_digest": "9c973f73030395aeb7ed88e84179cf33",
+      "v1_digest": "02c52258f342494ede66391249fbc985",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d30/passA_lam-1",
+      "orig_wandb_run": "e8uztzv0",
+      "new_wandb_run": "e8uztzv0",
+      "v0_digest": "56d3069ea508ce3b2012db14d7fb814f",
+      "v1_digest": "0c4262f572f0b198d2f01fd46acd1559",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d30/passB_lam-1",
+      "orig_wandb_run": "gc2t8kft",
+      "new_wandb_run": "gc2t8kft",
+      "v0_digest": "39e09f4b6bbd7fc4f16ccf0b0c559413",
+      "v1_digest": "f81abf07bedb47fa1c1228243cedcd39",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d100/passA_lam-checkpoint",
+      "orig_wandb_run": "sgq611fx",
+      "new_wandb_run": "sgq611fx",
+      "v0_digest": "d18d631b0cf6c64acaed3a69ab2da584",
+      "v1_digest": "6f7ebe48db470a5b9a6ff67492bc7483",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d100/passB_lam-checkpoint",
+      "orig_wandb_run": "4m3o6djb",
+      "new_wandb_run": "4m3o6djb",
+      "v0_digest": "53167e72e77ed0cbc83b1e9b7647b3c5",
+      "v1_digest": "42cfca878da011823f6ff511ce16b013",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d300/passA_lam-checkpoint",
+      "orig_wandb_run": "7cj4wv5z",
+      "new_wandb_run": "7cj4wv5z",
+      "v0_digest": "2590382b2a9bbf34eaf0d4ef7bed1eef",
+      "v1_digest": "a5b4af8a2ac3c4c929ec696b74125894",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool1-3way-d300/passB_lam-checkpoint",
+      "orig_wandb_run": "x40a2n9v",
+      "new_wandb_run": "x40a2n9v",
+      "v0_digest": "647b3745b2590d50f01fca54751d0eca",
+      "v1_digest": "35329cad6e79e89a102a565072752bf4",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d10/passA_lam-checkpoint",
+      "orig_wandb_run": "beh4n8t8",
+      "new_wandb_run": "beh4n8t8",
+      "v0_digest": "f6ba579c5387b3d3809730f1997f1b27",
+      "v1_digest": "b2e1d695f262fce05cc490f2c4253da4",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d10/passB_lam-checkpoint",
+      "orig_wandb_run": "6lcka9sw",
+      "new_wandb_run": "6lcka9sw",
+      "v0_digest": "0ddd9ac5a79b633e21297c7f50ca7f7d",
+      "v1_digest": "eccb2b103c1df2080477cfdd0f75d651",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d30/passA_lam-checkpoint",
+      "orig_wandb_run": "b0396rft",
+      "new_wandb_run": "b0396rft",
+      "v0_digest": "3afa67ded6a6d5a2cabc8866e9119d20",
+      "v1_digest": "15eb8393fa98db5fbabb31c831aa4780",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d30/passB_lam-checkpoint",
+      "orig_wandb_run": "fb7dqcmx",
+      "new_wandb_run": "fb7dqcmx",
+      "v0_digest": "f67776c8790de098ebd87ee18cfe3209",
+      "v1_digest": "0f0d5a9ba331d6eaae9f54d10879a9ff",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d100/passA_lam-checkpoint",
+      "orig_wandb_run": "s3og61r6",
+      "new_wandb_run": "s3og61r6",
+      "v0_digest": "4efdc29405e17338b69f1b9e296b2070",
+      "v1_digest": "3ce9137e3b79ed6062be847c41309464",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d100/passB_lam-checkpoint",
+      "orig_wandb_run": "b0fb31r9",
+      "new_wandb_run": "b0fb31r9",
+      "v0_digest": "18432c12498bafa40f18d32f1c9da506",
+      "v1_digest": "ec1cd67aa66269dff0c85ce049599350",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d300/passA_lam-checkpoint",
+      "orig_wandb_run": "hbxxjsy6",
+      "new_wandb_run": "hbxxjsy6",
+      "v0_digest": "4b056d2511fb9946e5174725b73ad97f",
+      "v1_digest": "4c43af0439001db3fa0a58221fdd3ecc",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool2-3way-d300/passB_lam-checkpoint",
+      "orig_wandb_run": "9606820f",
+      "new_wandb_run": "9606820f",
+      "v0_digest": "884d2c55698c9b1551982dc5644cd648",
+      "v1_digest": "4cd034daf0db94a40ac2acb88700515b",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d10/passA_lam-checkpoint",
+      "orig_wandb_run": "p71s0tkb",
+      "new_wandb_run": "p71s0tkb",
+      "v0_digest": "e5c90a156f48975d57b00d0a26bfa9a4",
+      "v1_digest": "0639a788861b92d3678a49438a03de9c",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d10/passB_lam-checkpoint",
+      "orig_wandb_run": "2ftq0n29",
+      "new_wandb_run": "2ftq0n29",
+      "v0_digest": "3dfebd09ab386f77be822bad7e5b4947",
+      "v1_digest": "deac3c5afaa66e2f21bd4ffc6d4092d6",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d30/passA_lam-checkpoint",
+      "orig_wandb_run": "5k6zmikb",
+      "new_wandb_run": "5k6zmikb",
+      "v0_digest": "47df5208d9168b9ca5b2ac92360a1c90",
+      "v1_digest": "83ea5ea6112380c4411020a8eeb37b52",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d30/passB_lam-checkpoint",
+      "orig_wandb_run": "9mj14d4l",
+      "new_wandb_run": "9mj14d4l",
+      "v0_digest": "eff5e92f660c8ecc2f3b10d828be263a",
+      "v1_digest": "e50537378ae7bc1aa1398c1d0de503a8",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d30/passA_lam-1",
+      "orig_wandb_run": "fgoclfw6",
+      "new_wandb_run": "fgoclfw6",
+      "v0_digest": "c2a0d9e9ad2bd80ab6c53d1bdc9ae5f6",
+      "v1_digest": "1084b30a695a773a348e3f4b0959835c",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d30/passB_lam-1",
+      "orig_wandb_run": "q3h9pnao",
+      "new_wandb_run": "q3h9pnao",
+      "v0_digest": "7ce858e6a8e2a152c1e6cbe4259bde1e",
+      "v1_digest": "28420108572872fdc4864758af50063c",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d100/passA_lam-checkpoint",
+      "orig_wandb_run": "d11rt851",
+      "new_wandb_run": "d11rt851",
+      "v0_digest": "b8c21a8385e063edcb9fb6cac04b2eb9",
+      "v1_digest": "8e853edbfc34e417a704b723f11d7aa4",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d100/passB_lam-checkpoint",
+      "orig_wandb_run": "7hk27zyt",
+      "new_wandb_run": "7hk27zyt",
+      "v0_digest": "09f28efc1f1c5b5beac70cd5a4bb94e3",
+      "v1_digest": "6ed509a5ab88555bfcfed2388c73ceba",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d300/passA_lam-checkpoint",
+      "orig_wandb_run": "kjt91msp",
+      "new_wandb_run": "kjt91msp",
+      "v0_digest": "0ffe8244177a0cab40ddbc753534a032",
+      "v1_digest": "cdd0b18dcb362821fffb6ccb886b92ed",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool3-3way-d300/passB_lam-checkpoint",
+      "orig_wandb_run": "m82ma760",
+      "new_wandb_run": "m82ma760",
+      "v0_digest": "9814dfb4063b3bfc2104899988b33584",
+      "v1_digest": "341a0030b8c6041fe6b355503e1eef5b",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d10/passA_lam-checkpoint",
+      "orig_wandb_run": "3u5f6cpt",
+      "new_wandb_run": "3u5f6cpt",
+      "v0_digest": "44bd882b35b224002a5ce7b920256fb9",
+      "v1_digest": "56f234ffa114619fd28dab87e7707f54",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d10/passB_lam-checkpoint",
+      "orig_wandb_run": "4p1ld3p4",
+      "new_wandb_run": "4p1ld3p4",
+      "v0_digest": "3dd6e4420f9c15564e09dccb6465a942",
+      "v1_digest": "eb94211b316d26cfb913d7f9efada2e5",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d30/passA_lam-checkpoint",
+      "orig_wandb_run": "qatt13zb",
+      "new_wandb_run": "qatt13zb",
+      "v0_digest": "31d4f668e85b8c62d462111fff4bcf1b",
+      "v1_digest": "384260759b7dc24a8992254272fbf291",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d30/passB_lam-checkpoint",
+      "orig_wandb_run": "dwsyosms",
+      "new_wandb_run": "dwsyosms",
+      "v0_digest": "256b4f4979b5f73f5017218b025062ac",
+      "v1_digest": "0b8a28e027e85474201f331892763f87",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d100/passA_lam-checkpoint",
+      "orig_wandb_run": "jsyhhlen",
+      "new_wandb_run": "jsyhhlen",
+      "v0_digest": "fffdeb44709425aa33df710caad3a0d3",
+      "v1_digest": "90e8de4ec866d8402bb474386713c499",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d100/passB_lam-checkpoint",
+      "orig_wandb_run": "nz8vzpku",
+      "new_wandb_run": "nz8vzpku",
+      "v0_digest": "59ba03e1ae65a2fad59a39e080283a78",
+      "v1_digest": "720b81dca0fcb5b89d306ceddc58c7ae",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d300/passA_lam-checkpoint",
+      "orig_wandb_run": "hxegsyme",
+      "new_wandb_run": "hxegsyme",
+      "v0_digest": "99937f739f86f245320ba625d0fc48a3",
+      "v1_digest": "9f3957ff94963a7acf760d7482de70db",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    },
+    {
+      "orig_task": "pool4-3way-d300/passB_lam-checkpoint",
+      "orig_wandb_run": "dpvcw5v9",
+      "new_wandb_run": "dpvcw5v9",
+      "v0_digest": "2b0b7e4dc091c4e11f1fb74b59155cf9",
+      "v1_digest": "908532eb4de077737173c5550bffff8b",
+      "v1_files": [
+        "manifest.json",
+        "mouse_scores.csv",
+        "roles.csv",
+        "session_context_map.json",
+        "session_scores.csv",
+        "subject_embeddings.csv",
+        "subject_index_map.json",
+        "trial_predictions.csv.gz"
+      ],
+      "status": "backfilled"
+    }
+  ],
+  "deviations": {
+    "same_run_ids": "each run was resumed (wandb resume='must') to log :v1; no metric or summary was written, the run returned to finished",
+    "v0_kept": ":v0 is unchanged; :v1 = :v0 files (md5-checked against scratch) + 3 files"
+  },
+  "cost": {}
+}

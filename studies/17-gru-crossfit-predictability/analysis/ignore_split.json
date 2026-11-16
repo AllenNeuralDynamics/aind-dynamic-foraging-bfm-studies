@@ -1,0 +1,299 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_ignore_split.py",
+    "produced_at_pt": "2026-11-14T14:15:50-08:00",
+    "studies_git_sha": "49af4064bb15ee5fd936c9709ec8fdc6899186d1",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/freeze_ignore_split.py",
+        "sha256": "adc1de543c55cf5b49747c4f0604b6cf27a71de7835d99f365a526f93b2b2637"
+      }
+    ],
+    "inputs": [],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/test-3way-full-s0/passA_lam-checkpoint/manifest.json",
+        "sha256": "5869d955fa3cdd87f5d966966459e86b1ec7191db7225fb4e007edfb6f5c0cde"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/test-2way-full-s0/passA_lam-checkpoint/manifest.json",
+        "sha256": "9a0bc6f2acb51b001ae049cdf1132f5e443928a8214ff9c17fc72b3ef754980c"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/test-3way-full-s0/passB_lam-checkpoint/manifest.json",
+        "sha256": "994bcfd2e8fee52db1bd09c7c9dfd589a391703748744d56d63cd22f69625064"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/test-2way-full-s0/passB_lam-checkpoint/manifest.json",
+        "sha256": "63f89e659ffa846b245c0a776e18f90b6753408aadee97e67bbcf93741618854"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool1-3way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "0563fc68b11dcee693381597485e328c84025b014e3385d66b30588f190d7051"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool1-2way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "d4e245a5ec83abe3f995afd56680b0c7def7522a4970b63d6190433d9f2709ca"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool1-3way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "8c42d44d00b8b14d1757506c6858cb454fc101d6ab3ac5f765e37bec65f3deeb"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool1-2way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "38af3e0c112a8b5c97fda663824890c14c26cb40dccf313d6137230320c473bb"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool2-3way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "b0b77cad2ddf654c7f50f5ad10619445c3cef0e7198e471bc993dd3e5deababe"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool2-2way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "0d141a081fab4f6d6c7caaff1cc0345ea6d254d1306c19f1cfd3d90d5e0dc995"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool2-3way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "e8c69fb6e5df5c78417f939cc2f55a1024a2b2a51b26eaee3e0633c863b6212c"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool2-2way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "25dbd864cf551300416bf2c60b9d3b89f7c67fddd9edecf4b54df31793e2d6a3"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool3-3way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "e4f2eddae35e6792861e9501ddeecee241b0a7720c3ca0da9544d09a1da62378"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool3-2way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "eea99b2bf40e4afdcfa2a045691bdb6fb5adf6ecf81aa8eb654fb9afcf779de6"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool3-3way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "c45dfae4b7c36da0a04740d3f8e1dd577d67b4f714c77c60bc3cc1c7eaaf39ae"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool3-2way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "fc9747f434d9f50dfbcd20124d10eed8c45d7f885c3bc5977f3bd028a99a1d8e"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool4-3way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "c369b0bb6c575443400d8ae676460ed1a6f404e3e717beb05ef0f565090e37ad"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool4-2way-full/passA_lam-checkpoint/manifest.json",
+        "sha256": "f8a1fb55769064f2ace9fe597c6b0df9c33ba7c4629a12e316130749383ee839"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool4-3way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "cb428ce0c38fbfe0a0a7ff50dedbec3c471c99089874e8e68381b158d38ca5b1"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/s17_scoring/out/pool4-2way-full/passB_lam-checkpoint/manifest.json",
+        "sha256": "33f6bb134549af3979c22244dce7d8286644d14160404556dc4c8ba9b5a26036"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/ignore_split.json",
+        "sha256": "8ed0978fab63276f219c9c34c8680eb515bb1eed7999cad9ff095b16ac82cce7"
+      }
+    ]
+  },
+  "estimand": "held-out L/R log-likelihood sums over scored engaged trials, per fold (both passes), per bin of k = trials since the last ignored trial in the session",
+  "bins": [
+    "1",
+    "2-4",
+    "5-19",
+    "20+",
+    "none"
+  ],
+  "models": {
+    "test": [
+      "test-3way-full-s0",
+      "test-2way-full-s0"
+    ],
+    "pool_1": [
+      "pool1-3way-full",
+      "pool1-2way-full"
+    ],
+    "pool_2": [
+      "pool2-3way-full",
+      "pool2-2way-full"
+    ],
+    "pool_3": [
+      "pool3-3way-full",
+      "pool3-2way-full"
+    ],
+    "pool_4": [
+      "pool4-3way-full",
+      "pool4-2way-full"
+    ]
+  },
+  "folds": {
+    "test": {
+      "1": {
+        "n_trials": 100070,
+        "ll_lr_sum_3way": -52172.10755400556,
+        "ll_lr_sum_2way": -57918.82082198577
+      },
+      "2-4": {
+        "n_trials": 175332,
+        "ll_lr_sum_3way": -59403.890995719354,
+        "ll_lr_sum_2way": -59828.87263492701
+      },
+      "5-19": {
+        "n_trials": 370387,
+        "ll_lr_sum_3way": -104378.04208038028,
+        "ll_lr_sum_2way": -104526.83669030436
+      },
+      "20+": {
+        "n_trials": 741558,
+        "ll_lr_sum_3way": -217235.98810107657,
+        "ll_lr_sum_2way": -216605.95024288574
+      },
+      "none": {
+        "n_trials": 612688,
+        "ll_lr_sum_3way": -197208.2050653344,
+        "ll_lr_sum_2way": -196632.19777084325
+      }
+    },
+    "pool_1": {
+      "1": {
+        "n_trials": 94200,
+        "ll_lr_sum_3way": -48965.57774096979,
+        "ll_lr_sum_2way": -54310.945532000405
+      },
+      "2-4": {
+        "n_trials": 170953,
+        "ll_lr_sum_3way": -59612.953150700414,
+        "ll_lr_sum_2way": -59845.24062415217
+      },
+      "5-19": {
+        "n_trials": 384626,
+        "ll_lr_sum_3way": -109789.22568011399,
+        "ll_lr_sum_2way": -109672.71041880027
+      },
+      "20+": {
+        "n_trials": 846085,
+        "ll_lr_sum_3way": -253707.09894349298,
+        "ll_lr_sum_2way": -252997.35426159453
+      },
+      "none": {
+        "n_trials": 731796,
+        "ll_lr_sum_3way": -231717.09926171345,
+        "ll_lr_sum_2way": -231074.03218369113
+      }
+    },
+    "pool_2": {
+      "1": {
+        "n_trials": 94090,
+        "ll_lr_sum_3way": -48525.38536845423,
+        "ll_lr_sum_2way": -53978.69180015997
+      },
+      "2-4": {
+        "n_trials": 165104,
+        "ll_lr_sum_3way": -55608.14499836281,
+        "ll_lr_sum_2way": -55906.288680953054
+      },
+      "5-19": {
+        "n_trials": 364041,
+        "ll_lr_sum_3way": -99935.33076988916,
+        "ll_lr_sum_2way": -99940.31556731777
+      },
+      "20+": {
+        "n_trials": 816774,
+        "ll_lr_sum_3way": -237720.16780091496,
+        "ll_lr_sum_2way": -237024.4563924282
+      },
+      "none": {
+        "n_trials": 737999,
+        "ll_lr_sum_3way": -228708.22559819586,
+        "ll_lr_sum_2way": -227952.49377168034
+      }
+    },
+    "pool_3": {
+      "1": {
+        "n_trials": 96213,
+        "ll_lr_sum_3way": -51133.19743105781,
+        "ll_lr_sum_2way": -56855.7880015425
+      },
+      "2-4": {
+        "n_trials": 169879,
+        "ll_lr_sum_3way": -58606.18246926722,
+        "ll_lr_sum_2way": -58996.130928264756
+      },
+      "5-19": {
+        "n_trials": 378518,
+        "ll_lr_sum_3way": -105662.11989464966,
+        "ll_lr_sum_2way": -105730.6109975845
+      },
+      "20+": {
+        "n_trials": 852650,
+        "ll_lr_sum_3way": -246803.39408076735,
+        "ll_lr_sum_2way": -246234.68619770368
+      },
+      "none": {
+        "n_trials": 748843,
+        "ll_lr_sum_3way": -228152.63089153456,
+        "ll_lr_sum_2way": -227406.37820599246
+      }
+    },
+    "pool_4": {
+      "1": {
+        "n_trials": 94550,
+        "ll_lr_sum_3way": -49332.529358395885,
+        "ll_lr_sum_2way": -55068.76026554368
+      },
+      "2-4": {
+        "n_trials": 163092,
+        "ll_lr_sum_3way": -54661.497573811765,
+        "ll_lr_sum_2way": -55109.131600735265
+      },
+      "5-19": {
+        "n_trials": 355344,
+        "ll_lr_sum_3way": -95118.83633261283,
+        "ll_lr_sum_2way": -95366.54186021566
+      },
+      "20+": {
+        "n_trials": 794047,
+        "ll_lr_sum_3way": -232958.29123808234,
+        "ll_lr_sum_2way": -232360.179224791
+      },
+      "none": {
+        "n_trials": 702937,
+        "ll_lr_sum_3way": -220428.48421843664,
+        "ll_lr_sum_2way": -219955.67722930986
+      }
+    }
+  }
+}
