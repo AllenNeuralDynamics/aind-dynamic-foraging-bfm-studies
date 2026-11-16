@@ -705,6 +705,27 @@ class ReportV2Test(StudyRepo):
         self.assertEqual(claims_check.read_header(rec)["response_sha256"], hashlib.sha256(f.read_bytes()).hexdigest())
         self.assertIn(f.read_bytes(), rec.read_bytes())
 
+    def test_claims_check_producer_code_is_recorded_not_checked(self):
+        """A producer script goes under `code`: a tidy-up that changes no number or sentence
+        leaves the record current (the JSON body and the report text carry any real change)."""
+        code = self.study / "analysis/fit.py"
+        code.write_text("print('fit')\n")
+        rec = claims_check.write_record(self.study, self.root / self.REL,
+                                        inputs=[self.study / "analysis/fit.json", code],
+                                        rubric_version="claims-check/2 @ c234bff", model="m", prompt="p",
+                                        response="r", responses="-", date="2026-11-18", root=self.root)
+        header = claims_check.read_header(rec)
+        self.assertEqual(list(header["code"]), [f"{STUDY}/analysis/fit.py"])
+        self.assertEqual(list(header["inputs"]), [f"{STUDY}/analysis/fit.json"])
+        code.write_text("print('fit')  # tidied\n")
+        self.commit()
+        self.assertEqual(self.findings("report-claims-check", "warn"), set())
+        # an older record that listed the script under inputs is read the same way
+        legacy = rec.read_text().replace("inputs:\n", f"inputs:\n  {STUDY}/analysis/fit.py: {'0' * 64}\n", 1)
+        rec.write_text(legacy)
+        self.commit()
+        self.assertEqual(self.findings("report-claims-check", "warn"), set())
+
     def test_claims_check_record_header_is_schema_checked(self):
         rec = claims_check.records(self.study, "r2")[-1]
         rec.write_text(rec.read_text().replace("content_digest:", "content_hash:"))

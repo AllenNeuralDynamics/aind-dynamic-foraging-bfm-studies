@@ -21,6 +21,10 @@ finding. The header keys the run:
 - ``context``: the same for reading context the reviewer was given (the repository glossary
   ``CONTEXT.md``, the study ``README.md``, ``PLAN.md``, ``CHANGELOG.md``). It is recorded but does
   not make a record stale: a glossary edit elsewhere is not a change to this report's evidence.
+- ``code``: the same for code the reviewer was given (any ``.py`` file, e.g. the producers). It is
+  recorded but does not make a record stale: a change to code that alters a number or a sentence
+  already shows in the JSON body or the report text, and a tidy-up that alters neither leaves the
+  report as checked (studies#164). An older record that lists code under ``inputs`` is read the same way.
 - ``prompt_sha256`` / ``response_sha256``: sha256 of the prompt and the response as given, so the
   record's copies can be checked to be verbatim.
 
@@ -63,6 +67,8 @@ _FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 # Reading context, recorded under `context` and never making a record stale: exactly the
 # repository glossary and the report's own study README, PLAN and CHANGELOG.
 STUDY_CONTEXT = ("README.md", "PLAN.md", "CHANGELOG.md")
+# Code the reviewer read, recorded under `code` and never making a record stale (studies#164).
+CODE_SUFFIX = ".py"
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -123,8 +129,8 @@ def stale_reasons(root: Path, study: Path, header: dict) -> list[str]:
         reasons.append("the report's claims or text changed")
     changed = []
     for rel, digest in sorted((header.get("inputs") or {}).items()):
-        if rel == report_rel:
-            continue                                     # the report is keyed by content_digest only
+        if rel == report_rel or rel.endswith(CODE_SUFFIX):
+            continue                                     # the report is keyed by content_digest only; code is recorded, not checked
         p = root / rel
         if not p.is_file():
             changed.append(f"{rel} (gone)")
@@ -154,7 +160,8 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
 
     Call it with the report and input files exactly as the reviewer read them: the digests are
     taken now. The report is keyed by its content digest and is dropped from `inputs` if listed
-    there; `CONTEXT.md` and a study's `README.md`, `PLAN.md` and `CHANGELOG.md` go under `context`. `prompt` and `response` are kept verbatim (their sha256 goes in the header);
+    there; `CONTEXT.md` and a study's `README.md`, `PLAN.md` and `CHANGELOG.md` go under `context`,
+    and `.py` files under `code` (both recorded, never checked). `prompt` and `response` are kept verbatim (their sha256 goes in the header);
     `responses` is Markdown (what was fixed, or why not, per finding). Each of the three may be a
     Path, read unchanged: pass the file the reviewer wrote its output to, so the copy is verbatim
     by construction."""
@@ -170,12 +177,14 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
         out = out_dir / f"claims_check_{rid}_{date}_{k}.md"
     files = [Path(p).resolve() for p in inputs if Path(p).resolve() != report]
     context_paths = {root / "CONTEXT.md", *(study / n for n in STUDY_CONTEXT)}
-    evidence = [p for p in files if p not in context_paths]
+    code = [p for p in files if p not in context_paths and p.suffix == CODE_SUFFIX]
+    evidence = [p for p in files if p not in context_paths and p.suffix != CODE_SUFFIX]
     context = [p for p in files if p in context_paths]
     header = {"schema_version": 1, "report": str(report.relative_to(study)), "checked_on": date,
               "content_digest": content_digest(report),
               "inputs": {str(p.relative_to(root)): evidence_digest(p) for p in evidence},
               "context": {str(p.relative_to(root)): file_sha256(p) for p in context},
+              "code": {str(p.relative_to(root)): file_sha256(p) for p in code},
               "rubric_version": rubric_version, "model": model,
               "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
               "response_sha256": hashlib.sha256(response.encode()).hexdigest()}
