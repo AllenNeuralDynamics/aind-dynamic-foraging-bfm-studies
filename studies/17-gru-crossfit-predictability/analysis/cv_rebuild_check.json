@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/cv_rebuild_check.py",
+    "produced_at_pt": "2026-11-15T20:15:53-08:00",
+    "studies_git_sha": "454b21fb7ebd28f52546f0256800e04877328eb9",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.py",
+        "sha256": "98ab7fe18299d4d9aff099484bba427efa4ac980e0c81b7156355990194a060c"
+      },
+      {
+        "path": "studies/util/figure_audit.py",
+        "sha256": "fdc6c051cf06f295b9eaa6aa30dc0a21b8b781ee22b0724b3ff9865306f050d8"
+      },
+      {
+        "path": "studies/util/figure_style.py",
+        "sha256": "8a63ea2190408056d6ef158c474cc948ed638d44940869a026f2d5ff5a381a29"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/rebuild_check.json",
+        "sha256": "555157ec303fcfaf7cb13fb98e94accc1d1883f7021e465b9221b529b9e8d153"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.json",
+        "sha256": "fee79aa73bb9367b4de5c6d45ad6c7f03db61968245be4d33afadf869d367ba8"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_rebuild_check.svg",
+        "sha256": "401d412cdd66aa8b61210bcafc476ac9da5ccb950dc5180faecda9665d0f87dc"
+      }
+    ]
+  },
+  "n_logged": 2334957,
+  "n_matched": 2334957,
+  "max_abs_diff_p": 1.4607134934951915e-07,
+  "readout_max_abs_error": 5.714612106189065e-06
+}

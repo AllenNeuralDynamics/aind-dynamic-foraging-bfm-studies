@@ -4,9 +4,9 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring freeze-ignore-split
+.PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring freeze-ignore-split freeze-rebuild-check
 
-all:
+all: r1 verdicts
 
 # freeze-folds = the fold assignment (reference/folds.json) and the pool-folds sweep, from study 40's
 # cohort file and the MEvolve data freeze on /allen (snapshot 20260603). Needs pandas: the
@@ -35,3 +35,27 @@ freeze-scoring:
 # (analysis/ignore_split.json), from the `scoring` outputs on /allen scratch. mevolve-search env, compute node.
 freeze-ignore-split:
 	$(PY) analysis/freeze_ignore_split.py
+
+# r1 = Cross-validated GRU predictability
+.PHONY: r1
+r1:
+	$(PY) analysis/cv_schematic.py
+	$(PY) analysis/cv_headline.py
+	$(PY) analysis/cv_ignore_split.py
+	$(PY) analysis/cv_2way_vs_s01.py
+	$(PY) analysis/cv_fold_spread.py
+	$(PY) analysis/cv_crosscheck.py
+	$(PY) analysis/cv_lambda.py
+	$(PY) analysis/cv_rebuild_check.py
+	$(PY) analysis/r1_cv_predictability.py
+
+# verdicts = the INDEX.md table and README `## Verdict`, generated from the version-2
+# reports' frontmatter claims (scripts/report_verdicts.py); edit the claims, never the output
+.PHONY: verdicts
+verdicts:
+	$(PY) ../../scripts/report_verdicts.py .
+
+# freeze-rebuild-check = the held-out model rebuild check (wrapper #130) on pool4-3way-full pass A
+# (analysis/rebuild_check.json), from /allen scratch. mevolve-search env (pyarrow), compute node.
+freeze-rebuild-check:
+	$(PY) analysis/freeze_rebuild_check.py
