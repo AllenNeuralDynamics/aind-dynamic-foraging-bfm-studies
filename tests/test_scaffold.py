@@ -83,9 +83,11 @@ class ScaffoldTest(unittest.TestCase):
         self.assertIn("### F1 — TODO\n\n<!-- BEGIN result-1 -->", report.read_text())
         self.assertIn("all: verdicts\n", (study / "Makefile").read_text())
         self.assertIn("[r1 — Held-out rises with D](r1-curve.md) | draft: ", (study / "analysis/reports/INDEX.md").read_text())
-        # the draft's claim points ahead of its producer: an advisory note, never a failure
+        # the draft's claim points ahead of its producer, and it has no claims check yet: advisory
+        # notes, never a failure
         notes = {f.key for f in cp.Checker(self.root).run() if f.level == "info" and f.check in cp.ADVISORY}
-        self.assertEqual(notes, {"report-claim-unresolved|studies/12-gru-example/analysis/reports/r1-curve.md|F1"})
+        self.assertEqual(notes, {"report-claim-unresolved|studies/12-gru-example/analysis/reports/r1-curve.md|F1",
+                                 "report-claims-check-missing|studies/12-gru-example/analysis/reports/r1-curve.md|"})
         self.assertEqual(self.findings(), [])
 
     def test_report_in_an_older_study_adds_the_verdicts_target_and_keeps_hand_rows(self):

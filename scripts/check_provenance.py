@@ -47,6 +47,7 @@ sys.path.insert(0, str(REPO / "studies" / "util"))
 sys.path.insert(0, str(REPO / "scripts"))
 from _meta import block_digest, body_digest, file_digest, result_blocks  # noqa: E402
 import report_verdicts  # noqa: E402
+import claims_check  # noqa: E402
 
 SCHEMAS = REPO / "schemas"
 BASELINE = SCHEMAS / "provenance-baseline.json"
@@ -70,7 +71,8 @@ PROSE_CONSTANTS = {"95%"}
 # Hand-written text the prose-number lint ignores besides blocks, comments and fenced code.
 NOT_PROSE = re.compile(r"`[^`\n]*`|\]\([^)\n]*\)|https?://\S+")
 # Advisory findings: `info`, so they never fail CI, but `make validate` prints them.
-ADVISORY = {"report-claim-unresolved", "report-prose-number", "report-skeleton", "report-prose-stale"}
+ADVISORY = {"report-claim-unresolved", "report-prose-number", "report-skeleton", "report-prose-stale",
+            "report-claims-check-missing", "report-claims-check-stale"}
 
 # How to fix each finding: agents fix what CI tells them, so every check says how.
 FIX = {
@@ -117,6 +119,14 @@ FIX = {
     "report-prose-number": "cite the finding by its id instead of retyping the number, or print a number the "
                            "report's JSON holds (cite that JSON in `inputs`); write a constant that is not a "
                            "result as code (`0.5`). Advisory: never fails CI",
+    "report-claims-check-missing": "run the claims check (dispatcher posthoc-reporting skill, claims-check rubric) "
+                                   "with a new agent and save it with studies/util/claims_check.py write_record() "
+                                   "under analysis/provenance/; required before a report is live (studies#160)",
+    "report-claims-check-stale": "the report's claims or text, or a file the reviewer read, changed after the newest "
+                                 "claims check: run it again on the current report and save a new record "
+                                 "(claims_check.write_record); a live report fails CI until then",
+    "claims-check-record": "fix the record header field named in the message "
+                           "(schemas/claims-check-record.v1.schema.json); write records with claims_check.write_record()",
     "verdict-stale": "regenerate it with the command in the message. The block copies the version-2 "
                      "reports' claims: edit the claims, never the block",
     "report-id-mismatch": "make frontmatter id/slug equal the filename rN-<slug>.md",
@@ -167,7 +177,7 @@ class Checker:
         self.layout = yaml.safe_load((SCHEMAS / "layout.yaml").read_text())
         self.schema = {name: Draft202012Validator(json.loads((SCHEMAS / f"{name}.schema.json").read_text()))
                        for name in ("report-frontmatter.v1", "report-frontmatter.v2", "study-frontmatter.v1",
-                                    "meta.v2", "launch-record.v2")}
+                                    "meta.v2", "launch-record.v2", "claims-check-record.v1")}
         self._json_numbers: dict[Path, list[float] | None] = {}
         self.tags = yaml.safe_load((SCHEMAS / "tags.yaml").read_text())["facets"]
         self.findings: list[Finding] = []
@@ -544,6 +554,36 @@ class Checker:
         self.check_claims(study, p, fm)
         self.check_prose_reviewed(p, fm)
         self.check_prose_numbers(study, p, fm, body)
+        self.check_claims_record(study, p, m, fm)
+
+    def check_claims_record(self, study: Path, p: Path, m, fm: dict) -> None:
+        """The newest claims-check record (studies#160) describes the report and the evidence as they
+        are now. Missing: an error on a live report, a note on a draft. Stale: a warning on a live
+        report (fails CI), a note on a draft."""
+        rid, live = f"r{m['n']}", fm.get("status") == "live"
+        recs = claims_check.records(study, rid)
+        if not recs:
+            self.add("error" if live else "info", "report-claims-check-missing", p,
+                     f"no claims-check record ({claims_check.RECORD_DIR}/claims_check_{rid}_<date>.md)")
+            return
+        rec = recs[-1]
+        try:
+            header = claims_check.read_header(rec)
+        except (ValueError, yaml.YAMLError) as e:
+            self.add("error", "claims-check-record", rec, f"unreadable header: {e}")
+            return
+        before = len(self.findings)
+        self.schema_errors("claims-check-record.v1", header, "claims-check-record", rec)
+        if len(self.findings) > before:
+            return
+        if header["report"] != str(p.relative_to(study)):
+            self.add("error", "claims-check-record", rec, f"report {header['report']} is not {p.relative_to(study)}",
+                     item="report")
+            return
+        reasons = claims_check.stale_reasons(self.root, study, header)
+        if reasons:
+            self.add("warn" if live else "info", "report-claims-check-stale", p,
+                     f"{rec.name} ({header['checked_on']}): " + "; ".join(reasons))
 
     def check_skeleton(self, p: Path, m, body: str) -> None:
         heads = report_verdicts.headings(body)
