@@ -1,5 +1,14 @@
 # Changelog — 17-gru-crossfit-predictability
 
+## 2026-11-16
+
+- Claims check run 3 (final run under the round limit, on 92d4585): all 4 claims supported; one
+  blocking fix, "763 mice for the 3-way models and 760 for the 2-way ones" (the 2-way models cover
+  760 mice); 12 findings deferred to studies#163.
+- Claims check run 4 (the extra run after a blocking fix, on 95c38aa): all 4 claims supported, nothing
+  blocking; the run-3 fix holds; new non-blocking findings deferred to studies#163.
+- r1 live (Han's go-ahead, 2026-11-16). 4 claims-check records in `analysis/provenance/`.
+
 ## 2026-11-15
 
 - r1 draft (cross-validated predictability): main findings F1–F4, supplementary S1–S4 (Han: scientific
@@ -11,8 +20,8 @@
 - Claims check run 2 (on 586c1e8): all 4 claims supported; fixes: title no longer compares per-mouse
   SD with fold SD, "gain" vs "summed log-likelihood difference" named apart, the test-split reading
   states the check's limited power, Fig. 4 caveat names the different mouse sets, new caveat on the
-  pool-fold models training on the test mice, Provenance lists `pool_strata.json`. Both runs are kept
-  as records (`analysis/provenance/claims_check_r1_*.md`, studies#160).
+  pool-fold models training on the test mice, Provenance lists `pool_strata.json`. Every run is kept
+  as a record (`analysis/provenance/claims_check_r1_*.md`, studies#160).
 - `heldout-rescore-<run>:v1` backfilled on all 74 scoring runs (wrapper #129/#130); records in
   `variants/scoring/launch_record/*/backfill_maps.json`.
 

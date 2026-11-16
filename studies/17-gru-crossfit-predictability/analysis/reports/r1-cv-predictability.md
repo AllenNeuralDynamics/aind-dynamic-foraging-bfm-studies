@@ -2,8 +2,7 @@
 schema_version: 2
 id: r1
 slug: cv-predictability
-status: draft
-draft_reason: 'awaiting the claims check and the first author''s review'
+status: live
 authors:
 - han
 tags:
