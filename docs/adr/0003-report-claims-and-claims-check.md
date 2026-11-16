@@ -92,3 +92,8 @@ keeps the reasons.
   13 r1 is the first retrofit and study 14's first report the first new one (#65).
 - The claims check's output describes a report and never feeds the frontmatter, INDEX or
   README, so it cannot become a fourth verdict source.
+- Amended (studies#160, 2026-11-15): each claims check is committed as a record under the study's
+  `analysis/provenance/` (prompt, verbatim response, answers, digests of the report content and of
+  every file read). The checker requires a current record for a live report, so "rerun when the
+  report or its evidence changes" is enforced by machine, not memory. The PR comment remains the
+  review thread.
