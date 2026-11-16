@@ -38,7 +38,8 @@ every mouse outside its fold and scores that fold's mice in two passes, so every
 mouse gets a held-out prediction. The test fold reuses study 02's `nxd-3way` H256 seed-0 model; the 4
 pool folds are new trainings (Beaker on-prem H200; the full-size recipe does not fit a Cedar A100). The output is a per-trial, per-session and per-mouse
 predictability map, frozen and registered as a shared reference for study 41 (#149) and MEvolve
-scientist mode. Details and checks: [`PLAN.md`](PLAN.md); terms: [`CONTEXT.md`](CONTEXT.md).
+scientist mode: [`analysis/gru_map_index.json`](analysis/gru_map_index.json) lists each model's W&B artifact of
+per-trial predictions, and the registry names `gru_cv_map_3way` and `gru_cv_map_2way`. Details and checks: [`PLAN.md`](PLAN.md); terms: [`CONTEXT.md`](CONTEXT.md).
 
 ## Variants
 

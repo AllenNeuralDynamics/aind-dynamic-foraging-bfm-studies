@@ -60,6 +60,10 @@ DEFAULTS = {
     "gru_generative_match": "v2_d614",
     # Only version.
     "disrnn_tuned": "s06_d614",
+    # Only version each: study 17's cross-validated GRU map, one comparison per head, so a reader
+    # names the head it matches (MEvolve programs skip ignored trials, as the 2-way head does).
+    "gru_cv_map_3way": "s17_pass_a",
+    "gru_cv_map_2way": "s17_pass_a",
 }
 
 _S01_GRU = {
@@ -79,6 +83,23 @@ _S01_RL = {
     "metric": "pooled_likelihood_trial_weighted: exp(mean log-likelihood) over all held-out eval "
               "trials (not the per-subject mean or median in the same JSON)",
     "split": "each mouse fitted by MLE on its train sessions, scored on its eval sessions",
+}
+# Study 17's cross-validated GRU map (#148): the index JSON also lists the W&B artifact holding each
+# model's per-trial predictions, so a reader takes `.source` for the trial-level data.
+_S17_MAP = {
+    "data": "MEvolve data freeze 20260603 (snapshot 20260603) and its fit/score session roles",
+    "protocol": "5 folds over the 763 freeze mice (the 149 test mice, and the 614 pool mice in 4 "
+                "stratified folds), each mouse held out once; a held-out mouse's subject embedding "
+                "is fine-tuned on its fit sessions (500 steps) and scored on its score sessions "
+                "(pass A); each fold model at its best_eval checkpoint and that checkpoint's session "
+                "lambda (W&B project NeuralDynamics/dfbfm_17-gru-crossfit-predictability, groups "
+                "scoring@20261114-034950, -081940, -092226)",
+    "D": "full size: each fold model trains on the other folds (about 610 mice)",
+    "metric": "held-out likelihood, trial-pooled: exp(sum log p(choice) / n) over engaged trials of "
+              "the scored sessions, p renormalised over left and right; pooled over the 5 fold models",
+    "split": "pass A: the freeze's score sessions, the sessions MEvolve programs are scored on; "
+             "per-trial predictions in each scoring run's heldout-rescore-<run>:v1 artifact, listed "
+             "in the source JSON",
 }
 _V2_SC_ACTIVE = ("v2-sc-active recipe: lambda-forward (session conditioning fully on at 50k "
                  "steps), gated early stop at 70k, n_steps=150000")
@@ -164,6 +185,34 @@ _ENTRIES: dict[str, dict] = {
                                  "over all held-out eval trials; mean of 2 seeds"},
     },
 }
+
+
+_ENTRIES.update({
+    "gru_cv_map_3way.s17_pass_a": {
+        "study": "17-gru-crossfit-predictability", "report": "r1", "json": "analysis/gru_map_index.json",
+        "pointer": "/reference/3way/pooled_lr_likelihood",
+        "checks": {"/reference/3way/n_mice": 763, "/reference/3way/n_models": 5},
+        "conditions": {**_S17_MAP,
+                       "model": "GRU, hidden_size=256, 3-way head (left, right, ignore; ignored trials "
+                                "stay in the input), scalar session encoding (session position: "
+                                "index / the mouse's number of sessions); test fold: study 02 nxd-3way "
+                                "seed 0",
+                       "mouse_set": "all 763 freeze mice, each predicted by the fold model that did not "
+                                    "train on it"},
+    },
+    "gru_cv_map_2way.s17_pass_a": {
+        "study": "17-gru-crossfit-predictability", "report": "r1", "json": "analysis/gru_map_index.json",
+        "pointer": "/reference/2way/pooled_lr_likelihood",
+        "checks": {"/reference/2way/n_mice": 760, "/reference/2way/n_models": 5},
+        "conditions": {**_S17_MAP,
+                       "model": "GRU, hidden_size=256, 2-way head (ignored trials dropped from input "
+                                "and loss, as in MEvolve), scalar session encoding (session position: "
+                                "index / the mouse's number of sessions); test fold: study 01 nxd-grid "
+                                "H256 seed 0",
+                       "mouse_set": "760 freeze mice: all but the 3 freeze test mice that study 01's "
+                                    "2-way model trained on (722683, 795395, 820243)"},
+    },
+})
 
 
 class ReferenceUnresolved(LookupError):
