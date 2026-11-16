@@ -29,8 +29,17 @@ are now (`report-claims-check-missing`, `report-claims-check-stale`). The record
 report; it never feeds the frontmatter, INDEX or README (ADR 0003).
 
     from claims_check import write_record
-    write_record(study, report, inputs=[...], rubric_version="claims-check/1 @ <sha>",
-                 model="claude-opus-5-5, effort high", prompt=..., response=..., responses=...)
+    write_record(study, report, inputs=[...], rubric_version="claims-check/2 @ <sha>",
+                 model="claude-opus-5-5, effort high", prompt=Path("brief.txt"),
+                 response=Path("response.md"), responses=...)
+
+or from the shell (studies repo root), with the reviewer's own output file as the response:
+
+    python studies/util/claims_check.py --report studies/<study>/analysis/reports/rN-<slug>.md \
+        --inputs inputs.txt --rubric-version "claims-check/2 @ <sha>" --model "..." \
+        --prompt brief.txt --response response.md --responses answers.md [--pr-comment URL]
+
+``inputs.txt`` lists one repository-relative path per line (the files given to the reviewer).
 """
 from __future__ import annotations
 
@@ -133,15 +142,23 @@ def _fenced(text: str) -> str:
     return f"{fence}text\n{text}{'' if text.endswith(chr(10)) else chr(10)}{fence}"
 
 
+def _text(x: str | Path) -> str:
+    """A string as given, or a file's text read unchanged (a Path)."""
+    return Path(x).read_text() if isinstance(x, Path) else x
+
+
 def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_version: str, model: str,
-                 prompt: str, response: str, responses: str, pr_comment: str | None = None,
+                 prompt: str | Path, response: str | Path, responses: str | Path, pr_comment: str | None = None,
                  date: str | None = None, root: Path = REPO_ROOT) -> Path:
     """Write one claims-check record and return its path.
 
     Call it with the report and input files exactly as the reviewer read them: the digests are
     taken now. The report is keyed by its content digest and is dropped from `inputs` if listed
     there; `CONTEXT.md` and a study's `README.md`, `PLAN.md` and `CHANGELOG.md` go under `context`. `prompt` and `response` are kept verbatim (their sha256 goes in the header);
-    `responses` is Markdown (what was fixed, or why not, per finding)."""
+    `responses` is Markdown (what was fixed, or why not, per finding). Each of the three may be a
+    Path, read unchanged: pass the file the reviewer wrote its output to, so the copy is verbatim
+    by construction."""
+    prompt, response, responses = _text(prompt), _text(response), _text(responses)
     study, report, root = Path(study).resolve(), Path(report).resolve(), Path(root).resolve()
     rid = re.match(r"(r\d+)-", report.name).group(1)
     date = date or dt.date.today().isoformat()
@@ -171,3 +188,33 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
                    f"## Reviewer's response\n\n{_fenced(response)}\n\n"
                    f"## Responses to the findings\n\n{responses.strip()}\n")
     return out
+
+
+def main(argv: list[str] | None = None) -> None:
+    import argparse
+    ap = argparse.ArgumentParser(description="Write one claims-check record (studies#160, #164).")
+    ap.add_argument("--report", required=True, type=Path, help="the report checked (studies/<study>/analysis/reports/rN-*.md)")
+    ap.add_argument("--inputs", required=True, type=Path, help="file listing the reviewer's inputs, one repo-relative path per line")
+    ap.add_argument("--rubric-version", required=True)
+    ap.add_argument("--model", required=True)
+    for k in ("--prompt", "--response", "--responses"):
+        ap.add_argument(k, required=True, type=Path)
+    ap.add_argument("--pr-comment")
+    ap.add_argument("--date")
+    ap.add_argument("--root", type=Path, default=REPO_ROOT)
+    a = ap.parse_args(argv)
+    root = a.root.resolve()
+    report = (a.report if a.report.is_absolute() else root / a.report).resolve()
+    study = report.parents[2]
+    inputs = [root / line.strip() for line in a.inputs.read_text().splitlines() if line.strip() and not line.startswith("#")]
+    missing = [str(p) for p in inputs if not p.is_file()]
+    if missing:
+        raise SystemExit(f"inputs not found: {missing}")
+    out = write_record(study, report, inputs=inputs, rubric_version=a.rubric_version, model=a.model,
+                       prompt=a.prompt, response=a.response, responses=a.responses,
+                       pr_comment=a.pr_comment, date=a.date, root=root)
+    print(out)
+
+
+if __name__ == "__main__":
+    main()

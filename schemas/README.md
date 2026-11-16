@@ -80,7 +80,7 @@ as it stands (`PROSE_CONSTANTS` in the checker).
 
 **Claims-check records** (studies#160). Each claims check is committed as
 `studies/<study>/analysis/provenance/claims_check_<rN>_<YYYY-MM-DD>[_<k>].md`, written by
-`studies/util/claims_check.py` `write_record()`: a YAML header
+`studies/util/claims_check.py` `write_record()` (or its CLI, which reads the reviewer's own output file, so the copy is verbatim; studies#164): a YAML header
 ([`claims-check-record.v1`](claims-check-record.v1.schema.json)), then the prompt given to the reviewer,
 its response verbatim, and the answer to each finding. The header's `content_digest` hashes the
 report's `claims` and body only, so `status`, `draft_reason` and `prose_reviewed` can change without

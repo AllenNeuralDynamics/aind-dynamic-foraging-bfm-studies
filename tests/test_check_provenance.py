@@ -677,6 +677,24 @@ class ReportV2Test(StudyRepo):
         self.assertEqual(header["prompt_sha256"], hashlib.sha256(prompt.encode()).hexdigest())
         self.assertNotIn(self.REL, header["inputs"])              # the report is keyed by content only
 
+    def test_claims_check_cli_reads_the_reviewer_file_verbatim(self):
+        """The CLI takes the response from the reviewer's own file, so the copy is exact."""
+        work = self.root / "cc"; work.mkdir()
+        (work / "inputs.txt").write_text(f"# reviewer inputs\n{STUDY}/analysis/fit.json\n")
+        (work / "brief.txt").write_text("Check r2.\n")
+        response = "```json\n{\"claims\": []}\n```\n\n  Summary with leading spaces.\n"
+        (work / "response.md").write_text(response)
+        (work / "answers.md").write_text("None needed.\n")
+        claims_check.main(["--report", self.REL, "--inputs", str(work / "inputs.txt"),
+                           "--rubric-version", "claims-check/2 @ c234bff", "--model", "m",
+                           "--prompt", str(work / "brief.txt"), "--response", str(work / "response.md"),
+                           "--responses", str(work / "answers.md"), "--date", "2026-11-17", "--root", str(self.root)])
+        rec = claims_check.records(self.study, "r2")[-1]
+        header = claims_check.read_header(rec)
+        self.assertIn(response, rec.read_text())
+        self.assertEqual(header["response_sha256"], hashlib.sha256(response.encode()).hexdigest())
+        self.assertEqual(list(header["inputs"]), [f"{STUDY}/analysis/fit.json"])
+
     def test_claims_check_record_header_is_schema_checked(self):
         rec = claims_check.records(self.study, "r2")[-1]
         rec.write_text(rec.read_text().replace("content_digest:", "content_hash:"))
