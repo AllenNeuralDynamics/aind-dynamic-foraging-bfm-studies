@@ -695,6 +695,16 @@ class ReportV2Test(StudyRepo):
         self.assertEqual(header["response_sha256"], hashlib.sha256(response.encode()).hexdigest())
         self.assertEqual(list(header["inputs"]), [f"{STUDY}/analysis/fit.json"])
 
+    def test_claims_check_reads_a_crlf_reviewer_file_unchanged(self):
+        """A file's line endings are kept: response_sha256 equals the file's own sha256."""
+        f = self.root / "response_crlf.md"
+        f.write_bytes(b"line one\r\nline two\r\n")
+        rec = claims_check.write_record(self.study, self.root / self.REL, inputs=[self.study / "analysis/fit.json"],
+                                        rubric_version="claims-check/2 @ c234bff", model="m", prompt="p",
+                                        response=f, responses="-", date="2026-11-18", root=self.root)
+        self.assertEqual(claims_check.read_header(rec)["response_sha256"], hashlib.sha256(f.read_bytes()).hexdigest())
+        self.assertIn(f.read_bytes(), rec.read_bytes())
+
     def test_claims_check_record_header_is_schema_checked(self):
         rec = claims_check.records(self.study, "r2")[-1]
         rec.write_text(rec.read_text().replace("content_digest:", "content_hash:"))

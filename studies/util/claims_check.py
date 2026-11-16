@@ -143,8 +143,8 @@ def _fenced(text: str) -> str:
 
 
 def _text(x: str | Path) -> str:
-    """A string as given, or a file's text read unchanged (a Path)."""
-    return Path(x).read_text() if isinstance(x, Path) else x
+    """A string as given, or a file's UTF-8 text read unchanged (a Path; line endings kept)."""
+    return Path(x).read_bytes().decode("utf-8") if isinstance(x, Path) else x
 
 
 def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_version: str, model: str,
