@@ -13,9 +13,14 @@ finding. The header keys the run:
 - ``content_digest``: sha256 of the report's ``claims`` and body (everything after the
   frontmatter). ``status``, ``draft_reason`` and ``prose_reviewed`` are left out, so flipping
   draft -> live does not make the check stale, while any change to a claim or the text does.
-- ``inputs``: repository-relative path -> sha256 of every other file the reviewer was given. The
-  report itself is never an input: it is keyed by ``content_digest`` alone, and a raw-byte hash
-  of it would go stale on a ``status`` flip.
+- ``inputs``: repository-relative path -> evidence digest of every other file the reviewer was
+  given: for an analysis JSON, the digest of its body without ``_meta`` (``_meta.body_digest``,
+  as in ``_meta.outputs``), so regenerating it with the same numbers changes nothing; for any
+  other file, its sha256. The report itself is never an input: it is keyed by ``content_digest``
+  alone, and a raw-byte hash of it would go stale on a ``status`` flip.
+- ``context``: the same for reading context the reviewer was given (the repository glossary
+  ``CONTEXT.md``, the study ``README.md``, ``PLAN.md``, ``CHANGELOG.md``). It is recorded but does
+  not make a record stale: a glossary edit elsewhere is not a change to this report's evidence.
 - ``prompt_sha256`` / ``response_sha256``: sha256 of the prompt and the response as given, so the
   record's copies can be checked to be verbatim.
 
@@ -35,12 +40,20 @@ import json
 import re
 from pathlib import Path
 
+import sys
+
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _meta import body_digest  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 RECORD_DIR = "analysis/provenance"
 RECORD_NAME = re.compile(r"^claims_check_(r\d+)_(\d{4}-\d{2}-\d{2})(?:_(\d+))?\.md$")
 _FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
+# Reading context, recorded under `context` and never making a record stale: exactly the
+# repository glossary and the report's own study README, PLAN and CHANGELOG.
+STUDY_CONTEXT = ("README.md", "PLAN.md", "CHANGELOG.md")
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -61,6 +74,18 @@ def content_digest(report: Path | str) -> str:
 
 def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def evidence_digest(path: Path) -> str:
+    """An analysis JSON (one with `_meta`) by its body without `_meta`; any other file by sha256."""
+    if path.suffix == ".json":
+        try:
+            obj = json.loads(path.read_text())
+        except ValueError:
+            obj = None
+        if isinstance(obj, dict) and "_meta" in obj:
+            return body_digest(obj)
+    return file_sha256(path)
 
 
 def records(study: Path, rid: str) -> list[Path]:
@@ -94,7 +119,7 @@ def stale_reasons(root: Path, study: Path, header: dict) -> list[str]:
         p = root / rel
         if not p.is_file():
             changed.append(f"{rel} (gone)")
-        elif file_sha256(p) != digest:
+        elif evidence_digest(p) != digest:
             changed.append(rel)
     if changed:
         reasons.append("input(s) changed: " + ", ".join(changed[:5]) + (f" and {len(changed) - 5} more" if len(changed) > 5 else ""))
@@ -115,7 +140,7 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
 
     Call it with the report and input files exactly as the reviewer read them: the digests are
     taken now. The report is keyed by its content digest and is dropped from `inputs` if listed
-    there. `prompt` and `response` are kept verbatim (their sha256 goes in the header);
+    there; `CONTEXT.md` and a study's `README.md`, `PLAN.md` and `CHANGELOG.md` go under `context`. `prompt` and `response` are kept verbatim (their sha256 goes in the header);
     `responses` is Markdown (what was fixed, or why not, per finding)."""
     study, report, root = Path(study).resolve(), Path(report).resolve(), Path(root).resolve()
     rid = re.match(r"(r\d+)-", report.name).group(1)
@@ -127,9 +152,13 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
         k += 1
         out = out_dir / f"claims_check_{rid}_{date}_{k}.md"
     files = [Path(p).resolve() for p in inputs if Path(p).resolve() != report]
+    context_paths = {root / "CONTEXT.md", *(study / n for n in STUDY_CONTEXT)}
+    evidence = [p for p in files if p not in context_paths]
+    context = [p for p in files if p in context_paths]
     header = {"schema_version": 1, "report": str(report.relative_to(study)), "checked_on": date,
               "content_digest": content_digest(report),
-              "inputs": {str(p.relative_to(root)): file_sha256(p) for p in files},
+              "inputs": {str(p.relative_to(root)): evidence_digest(p) for p in evidence},
+              "context": {str(p.relative_to(root)): file_sha256(p) for p in context},
               "rubric_version": rubric_version, "model": model,
               "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
               "response_sha256": hashlib.sha256(response.encode()).hexdigest()}
