@@ -27,13 +27,13 @@ claims:
   text: 'Held-out likelihood (trial-pooled, left/right on engaged trials) rises from D = 10 to full size in all 5 folds, by +0.0123 ± 0.0007 within each fold''s own mice (mean ± SEM, n = 5 folds).'
   pointer: analysis/r1_cv_predictability.json#/f1/gain_full/mean
 - id: F2
-  text: 'Predictability is a property of the mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two disjoint halves of each mouse''s sessions agree (Pearson r = 0.96).'
+  text: 'Predictability is stable within a mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two interleaved halves of each mouse''s sessions agree (Pearson r = 0.96).'
   pointer: analysis/r1_cv_predictability.json#/f2/passA_passB_r
 - id: F3
-  text: 'The 3-way GRU predicts left/right better than the 2-way GRU in all 5 folds (+0.0016 ± 0.0001, SEM over folds), and the gain sits on the first engaged trial after an ignore: +0.034 there, where 4.5% of trials carry 118% of the gain.'
+  text: 'Over the 760 mice both models score, the 3-way GRU predicts left/right better than the 2-way GRU in all 5 folds (+0.0016 ± 0.0001, SEM over folds), and the gain sits on the first engaged trial after an ignore: +0.034 there, where 4.5% of trials carry 118% of the gain.'
   pointer: analysis/r1_cv_predictability.json#/f3/first_after_ignore/share_of_loglik_gain
 - id: F4
-  text: 'The fold-to-fold spread (SD 0.0029) is within which-mice sampling (random 5-way splits of the same mice: median SD 0.0061, P(random ≥ real) = 0.95); the original test fold scores 0.0024 below all 763 mice.'
+  text: 'The fold-to-fold spread is within which-mice sampling, both against random splits (SD 0.0029 vs median 0.0061, P = 0.95) and against the pool folds re-dealt within their strata (P = 0.81); the test fold''s offset from all 763 mice (−0.0024) is within the range of random 149-mouse sets (P = 0.69).'
   pointer: analysis/r1_cv_predictability.json#/f4/verdict
 prose_reviewed:
   date: '2026-11-15'
@@ -41,18 +41,18 @@ prose_reviewed:
     methods: e5832eacf87e8765f8b83721f84f9d9fd933501683266e1dce9607c8199c6e46
     result-1: c0619a0488fbef156c5d24657b7f29b367142fe3e348dee00fa1c5d8b8a7265f
     result-2: 3990b6b32be57817d4adb989707a9346c6ff29045c6bf7d4796b90220d4a72ec
-    result-3: 54e8c922b2b3c4443ec2a6eb9c3a3b824d718c5da7d0e6266ba17a348aafa3df
-    result-4: 18d3ebe21ef36b1885b4ba0551f9a4d2f681ac1653300262efa9c846b33eb91f
-    supp-1: cf4aaa4db838d086ce4fcdebc17bf368a4dd4130a514cc6455c1f53c933331dc
-    supp-2: 408c9dfcfc9b9b887894b67ec442ddafbc69022e595a110e6418913a534a2118
-    supp-3: 3203dcf123f18d8e77c425c542c2f6a3616030ee88046418402796fae11c9805
-    supp-4: aa475b1fb42547306250ae32ffd401f7be260d6a5cfef5e0f32f106496df63b2
+    result-3: f3cf571c30afd893c2094b906b4415c0f8aa99ff3692505382aa648ceb7e0a13
+    result-4: 4a832b1b5d979ec9e2641d4a27e29d618e83cfcb92155f7328a7630a576979c7
+    supp-1: 936209a442ad26905bdcb4ab889be465335c65e6965771c68ceab31b3e57f078
+    supp-2: d58896530201633fa4dcc31879fb6761a21f7086e1ad4151aae9a2c5f5f59130
+    supp-3: 34789b2f5e8fa3a69a55fb483bfa550a2850f53b36e61c1903a69ad779b88f6e
+    supp-4: 171ae2eaf3ebaf4ead328c729b50360379ed550594179b947e83be284075ce2e
 upstream:
 - {study: 02-gru-scaling-law-ignore, report: r4}
 - {study: 01-gru-scaling-law, report: r7}
 reproduce: make -C studies/17-gru-crossfit-predictability r1
 ---
-# r1 — Every fold gains from more training mice; mice differ far more than folds
+# r1 — Every fold gains from more training mice; mice differ far more than folds do
 
 ## Question
 
@@ -64,9 +64,9 @@ that split could reflect which mice happened to be in it.
 ## Answer
 
 - **F1.** Held-out likelihood (trial-pooled, left/right on engaged trials) rises from D = 10 to full size in all 5 folds, by +0.0123 ± 0.0007 within each fold's own mice (mean ± SEM, n = 5 folds).
-- **F2.** Predictability is a property of the mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two disjoint halves of each mouse's sessions agree (Pearson r = 0.96).
-- **F3.** The 3-way GRU predicts left/right better than the 2-way GRU in all 5 folds (+0.0016 ± 0.0001, SEM over folds), and the gain sits on the first engaged trial after an ignore: +0.034 there, where 4.5% of trials carry 118% of the gain.
-- **F4.** The fold-to-fold spread (SD 0.0029) is within which-mice sampling (random 5-way splits of the same mice: median SD 0.0061, P(random ≥ real) = 0.95); the original test fold scores 0.0024 below all 763 mice.
+- **F2.** Predictability is stable within a mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two interleaved halves of each mouse's sessions agree (Pearson r = 0.96).
+- **F3.** Over the 760 mice both models score, the 3-way GRU predicts left/right better than the 2-way GRU in all 5 folds (+0.0016 ± 0.0001, SEM over folds), and the gain sits on the first engaged trial after an ignore: +0.034 there, where 4.5% of trials carry 118% of the gain.
+- **F4.** The fold-to-fold spread is within which-mice sampling, both against random splits (SD 0.0029 vs median 0.0061, P = 0.95) and against the pool folds re-dealt within their strata (P = 0.81); the test fold's offset from all 763 mice (−0.0024) is within the range of random 149-mouse sets (P = 0.69).
 
 ## Methods
 
@@ -89,7 +89,8 @@ that split could reflect which mice happened to be in it.
 
 As in the study methods ([README](../../README.md), [PLAN](../../PLAN.md)). In short: the 763
 mice are split into 5 folds. The test fold is the freeze's 149 test mice; its models are study 02's
-(`nxd-3way`, H256) and study 01's (2-way). Each pool fold has its own models, trained on the other
+(`nxd-3way`, H256: D = 10, 30, 100, full) and study 01's (2-way), plus one D = 300 model trained for
+this study. Each pool fold has its own models, trained on the other
 4 folds with study 02's recipe (3-way, and 2-way at full size). A *held-out* score works as in
 studies 01/02: the network is frozen, only the new mouse's subject embedding (a short vector that
 tells the shared network which mouse it is predicting) is fine-tuned on half of that mouse's
@@ -122,7 +123,7 @@ value as one measurement (n = 5); it carries both model-to-model and which-mice 
 Mean ± SEM over n = 5 folds. Gain at full size per fold: test +0.0140, pool_1 +0.0118, pool_2 +0.0108, pool_3 +0.0107, pool_4 +0.0140. Verdict: **rises in every fold**.
 <!-- END result-1 -->
 
-### F2 — Predictability is a stable property of the mouse
+### F2 — Predictability is stable within a mouse
 
 <!-- BEGIN result-2 -->
 ![Fig. 2](../fig_cv_map.svg)
@@ -143,7 +144,7 @@ Mean ± SEM over n = 5 folds. Gain at full size per fold: test +0.0140, pool_1 +
 <!-- BEGIN result-3 -->
 ![Fig. 3](../fig_cv_ignore_split.svg)
 
-**Fig. 3. Where the 3-way GRU beats the 2-way GRU.** Full-size models, both passes, scored engaged trials. **a**, per fold, 2-way and 3-way held-out likelihood (L/R). **b**, 3-way − 2-way by trials since the last ignore (dots: folds; bar: mean ± SEM, 5 folds). **c**, share of trials and share of the log-likelihood gain.
+**Fig. 3. Where the 3-way GRU beats the 2-way GRU.** Full-size models, both passes, scored engaged trials of the 760 mice both models score (test fold: 146 of 149). **a**, per fold, 2-way and 3-way held-out likelihood (L/R). **b**, 3-way − 2-way by trials since the last ignore (dots: folds; bar: mean ± SEM, 5 folds). **c**, share of trials and share of the log-likelihood gain.
 
 | engaged trial | share of trials | 3-way − 2-way (mean ± SEM, 5 folds) | share of gain |
 |---|---|---|---|
@@ -165,28 +166,32 @@ All engaged trials: +0.0016 ± 0.00011 (SEM, n = 5 folds); verdict: **3-way high
 <!-- BEGIN result-4 -->
 ![Fig. 5](../fig_cv_fold_spread.svg)
 
-**Fig. 5. Fold-to-fold spread vs random splits.** **a**, the 5 fold values (full-size 3-way, both passes) and the value over all 763 mice pooled. **b**, SD of the 5 fold values when the same mice (each scored by its own fold model) are reassigned to 5 random folds of the real sizes, 5,000 times; black line = real SD.
+**Fig. 5. Fold-to-fold spread vs which-mice sampling.** **a**, the 5 fold values (full-size 3-way, both passes) and the value over all 763 mice pooled. **b**, SD of the 5 fold values when the same mice (each scored by its own fold model) are reassigned to 5 random folds of the real sizes, 5,000 times. **c**, SD of the 4 pool fold values when the 614 pool mice are re-dealt within the 20 strata the real folds were dealt in (tier × curriculum × session-count third), the same way. Black lines: real SD.
 
 | quantity | value |
 |---|---|
 | SD of the 5 real fold values | 0.0029 |
 | SD under random splits: median (95% range) | 0.0061 (0.0024–0.0111) |
 | P(random SD ≥ real SD) | 0.95 |
+| SD of the 4 real pool fold values | 0.0029 |
+| SD under within-strata re-deals: median (95% range) | 0.0046 (0.0014–0.0091) |
+| P(re-deal SD ≥ real SD) | 0.81 |
 | test fold − all mice | −0.0024 |
+| same, random 149-mouse sets: 95% range; P(abs. offset ≥ real) | −0.0118 to +0.0116; 0.69 |
 
-Verdict: the fold spread is **within which-mice sampling**.
+Verdicts: the fold spread is **within which-mice sampling**; the test fold's offset is **within random 149-mouse sets**.
 <!-- END result-4 -->
 
 ## Supplementary
 
 Validation and housekeeping: checks that the numbers above are the ones they claim to be.
 
-### S1 — Scoring reproduces study 02
+### S1 — Study 17's scoring vs study 02
 
 <!-- BEGIN supp-1 -->
 ![Fig. S1](../fig_cv_crosscheck.svg)
 
-**Fig. S1. Study 17's scoring reproduces study 02.** **a–c**, study 02's 6 test-fold models (D = 10, 30, 100, full seeds 0–2) re-scored by study 17 on pass A vs study 02's frozen held-out metrics. **d**, pass B vs pass A.
+**Fig. S1. Study 17's pass-A scores vs study 02's frozen metrics.** **a–c**, study 02's 6 test-fold models (D = 10, 30, 100, full seeds 0–2) re-scored by study 17 on pass A vs study 02's frozen held-out metrics. **d**, pass B vs pass A.
 
 | metric | max abs difference vs study 02 | n models |
 |---|---|---|
@@ -197,12 +202,12 @@ Validation and housekeeping: checks that the numbers above are the ones they cla
 Pass A − pass B, held-out likelihood: +0.0030 (mean over the same models).
 <!-- END supp-1 -->
 
-### S2 — The choice of session λ at scoring hardly matters
+### S2 — Session λ at scoring: no effect at λ = 0; at most 0.0002 at λ = 0.5 (2 models)
 
 <!-- BEGIN supp-2 -->
 ![Fig. S2](../fig_cv_lambda.svg)
 
-**Fig. S2. Session λ at scoring.** Models whose best_eval checkpoint has a session-curriculum λ below 1, scored at their own λ (the study's rule) and at λ = 1 (the in-training fine-tune's value in studies 01/02).
+**Fig. S2. Session λ at scoring.** The 5 models scored both at their checkpoint's own λ (the study's rule) and at λ = 1 (the in-training fine-tune's value in studies 01/02). The other λ = 0 models were scored at their own λ only (Table S4).
 
 | model | checkpoint λ | own λ | λ = 1 | λ = 1 − own |
 |---|---|---|---|---|
@@ -213,12 +218,12 @@ Pass A − pass B, held-out likelihood: +0.0030 (mean over the same models).
 | test-3way-d30 | 0 | 0.723675 | 0.723675 | +0.000000 |
 <!-- END supp-2 -->
 
-### S3 — Held-out models and their latents can be rebuilt from W&B
+### S3 — Rebuilding held-out models and their latents from W&B
 
 <!-- BEGIN supp-3 -->
 ![Fig. S3](../fig_cv_rebuild_check.svg)
 
-**Fig. S3. A fine-tuned held-out model rebuilt from W&B alone reproduces its scoring run** (pool4-3way-full, pass A; wrapper PR #130). **a**, |rebuilt − logged p(right)| over every logged trial. **b**, rebuilt vs logged. **c**, rebuilt GRU hidden states of one held-out session (first two principal components).
+**Fig. S3. A fine-tuned held-out model rebuilt from W&B alone vs its scoring run's logged predictions** (pool4-3way-full, pass A; wrapper PR #130). **a**, |rebuilt − logged p(right)| over every logged trial. **b**, rebuilt vs logged. **c**, rebuilt GRU hidden states of one held-out session (first two principal components).
 
 | check | value |
 |---|---|
@@ -267,7 +272,7 @@ Pass A − pass B, held-out likelihood: +0.0030 (mean over the same models).
 | test-3way-full-s1 | full | 3way | 1 | 90000 | 1 | 149 | `AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-3c79d1d1` |
 | test-3way-full-s2 | full | 3way | 2 | 90000 | 1 | 149 | `AIND-disRNN/mice_ignore_scaling/nxd-3way-20260707-075401-a3171d8e` |
 
-Not scored: 10 λ = 1 jobs of λ = 0 checkpoints, cancelled because λ cannot change those (their session weights are zero; Fig. S2).
+Not scored: 10 λ = 1 jobs (cancelled), of checkpoints with λ = 0: at λ = 0 the session weights are zero, so λ cannot change the score (Fig. S2).
 <!-- END supp-4 -->
 
 ## What it means
@@ -276,11 +281,13 @@ Not scored: 10 λ = 1 jobs of λ = 0 checkpoints, cancelled because λ cannot ch
 gain from more training mice on one set of 149 test mice. Rotating the held-out set over all 763
 mice gives the same picture in every fold: each fold's own mice are predicted better as D grows,
 and most of the gain is reached by D ≈ 100–300 (Fig. 1b). The folds differ in level, but no more
-than random sets of mice do (F4), so the level differences are about which mice a fold holds, not
-about the models.
+than random sets of mice do, even against folds dealt within the same strata (F4). So the level
+differences are most simply explained by which mice a fold holds; a small model or platform effect
+is not ruled out (Caveats).
 
-**Mice, not models, set most of the variation (F2).** The spread across mice (Fig. 2c) is several
-times the whole gain from 10 to about 610 training mice (F1). A mouse's score from one half of its
+**Mice differ far more than training size moves them (F2).** The SD of per-mouse held-out
+likelihood (Fig. 2c) is about 5 times the whole gain from 10 to about 610 training mice (F1;
+`sd_over_full_gain` in the report JSON). A mouse's score from one half of its
 sessions predicts its score from the other half, so the per-mouse map is a stable measurement: it
 can serve as the per-mouse ceiling and residual map for every mouse, which is what study 41 and
 MEvolve's scientist mode need. Every mouse now has a held-out GRU prediction, not only the test 149.
@@ -288,22 +295,31 @@ MEvolve's scientist mode need. Every mouse now has a held-out GRU prediction, no
 **The ignore class helps left/right prediction only right after an ignore (F3).** A 2-way GRU never
 sees ignored trials, so it cannot know that the mouse just disengaged. The 3-way GRU does, and its
 advantage is concentrated on the first engaged trial afterwards; far from an ignore it is slightly
-worse. This fits the earlier reading that mice change strategy after an ignore (for example, a
-reset of action values), but F3 locates the gain; it does not show what the change is.
+worse. This fits the lab's working hypothesis that mice change strategy after an ignore (for
+example, a reset of action values), but F3 locates the gain; it does not show what the change is.
 
-**For the leaderboard (F4).** The original test split is a fair sample of mice for comparing models
-on the same mice: the which-mice effect cancels in a difference, and the 3-way minus 2-way gap has
-the same sign in every fold (Fig. 3a). Its absolute level is slightly below the all-mice value, so
-an absolute "GRU predictability" is better quoted as the 5-fold mean.
+**For the leaderboard (F4).** The original test split is a fair sample of mice: its level is within
+the range of random 149-mouse sets. For comparing models on the same mice the which-mice effect
+also cancels in a difference, and the 3-way minus 2-way gap has the same sign in every fold
+(Fig. 3a). An absolute "GRU predictability" is still better quoted as the 5-fold mean, which uses
+all 763 mice and so carries less which-mice noise.
 
 ## Caveats
 
 - **One model per fold and D (seed 0).** The SEM over folds mixes two sources: which mice a fold
   holds, and the training run. Seeds 1–2 exist only for the test fold's full-size model (Fig. S1).
-- **The folds' models have different origins.** The test fold's models are study 02's and study
-  01's runs; the pool folds' were trained for this study with the same recipe (Beaker H200; two D = 10 models on Cedar A100). A
-  platform or code-version effect would show up as a fold effect; F4 finds none larger than mouse
-  sampling, but it cannot rule out a small one.
+- **The folds' models have different origins.** Most test-fold models are study 02's and study
+  01's runs (one, D = 300, was trained here); the pool folds' were trained for this study with the
+  same recipe (Beaker: full size on H200; two D = 10 models on Cedar A100). A platform or
+  code-version effect would show up as a fold effect; F4 finds none larger than mouse sampling, but
+  the test detects only a large one.
+- **Two rules picked the training subsets.** The test fold's D = 10–300 subsets come from the
+  wrapper's `subject_ratio` sampling (study 02); the pool folds' come from `freeze_scaling_subsets.py`.
+  The two rules pick different mice, and at small D a curriculum can get one mouse under one rule
+  and none under the other (PLAN, "two subset rules on one curve"). Fig. 1 puts both on one curve.
+- **"Stable within a mouse" is not "caused by the mouse" (F2).** The two halves interleave by date,
+  so anything fixed within a mouse, such as its curriculum or how many sessions it ran, also gives a
+  stable per-mouse value.
 - **Pass B scores lower than pass A** for the same models (Fig. S1d). Both passes are pooled here, so
   every session counts once; the reason for the difference is not known.
 - **F3 is a location, not a mechanism.** That the gain sits right after an ignore does not show

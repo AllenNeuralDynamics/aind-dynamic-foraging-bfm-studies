@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/cv_fold_spread.py",
-    "produced_at_pt": "2026-11-15T20:23:37-08:00",
-    "studies_git_sha": "e3130ecf23863981732eee9b3861038732fe9cab",
+    "produced_at_pt": "2026-11-15T20:47:47-08:00",
+    "studies_git_sha": "2ac2ec7b81996d8a1767d51a8cf5fddee518ab2d",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.py",
-        "sha256": "308dec788cd3669d33dfeb958a50a9fa1a32013886d809a9c023747b86c66d38"
+        "sha256": "2709d176f3ec73a20b20bcae34f171f069a0e52221d09e73b0cd52ddbfba996c"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -31,16 +31,20 @@
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/scores.json",
         "sha256": "767767466ae5d51b3f17868c55ac49dc2e721b480c57fd511042e6bd55c8227b"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/reference/pool_strata.json",
+        "sha256": "4c695a0bff3152db5b164d1ace0d3eb8937d1faa0f1fe577e56a9cbf2634e757"
       }
     ],
     "outputs": [
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.json",
-        "sha256": "cfd54fba6339691f3e0f3ae30988ed5495b4e33d6a5c63d7ab0007318e8265ed"
+        "sha256": "a3f674aa2e6658504982c48946b8db37e34ceb03a05c35001fbe9cf3821fcde6"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_fold_spread.svg",
-        "sha256": "e76c0373ebee212950c812a21e9b88e943c9c44c904784192c18e7107d60baf7"
+        "sha256": "986e4067f09e00c093596f49656500ba9f235f52b7aa377091fe7579e7e3b34f"
       }
     ]
   },
@@ -71,5 +75,24 @@
     ],
     "p_sd_ge_real": 0.9526
   },
-  "test_minus_all": -0.0024477677145239296
+  "test_minus_all": -0.0024477677145239296,
+  "test_offset_null": {
+    "n": 5000,
+    "ci95": [
+      -0.011794894605022579,
+      0.011600247289142706
+    ],
+    "p_abs_ge_real": 0.6858
+  },
+  "stratified_pool": {
+    "real_sd": 0.002908267305486341,
+    "n": 5000,
+    "n_strata": 20,
+    "sd_median": 0.004593794385400722,
+    "sd_ci95": [
+      0.0014056000686717524,
+      0.009091266574413247
+    ],
+    "p_sd_ge_real": 0.8128
+  }
 }

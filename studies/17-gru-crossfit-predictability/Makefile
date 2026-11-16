@@ -4,7 +4,7 @@
 # One target per report (rN); one `freeze-*` target per freeze, never part of `all`.
 
 PY ?= python
-.PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring freeze-ignore-split freeze-rebuild-check
+.PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring freeze-ignore-split freeze-rebuild-check freeze-pool-strata
 
 all: r1 verdicts
 
@@ -59,3 +59,8 @@ verdicts:
 # (analysis/rebuild_check.json), from /allen scratch. mevolve-search env (pyarrow), compute node.
 freeze-rebuild-check:
 	$(PY) analysis/freeze_rebuild_check.py
+
+# freeze-pool-strata = each pool mouse's stratum (tier x curriculum x session-count third) as
+# freeze_folds.py dealt the pool folds (reference/pool_strata.json). mevolve-search env, compute node.
+freeze-pool-strata:
+	$(PY) analysis/freeze_pool_strata.py

@@ -1,0 +1,3120 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "freeze",
+    "produced_by": "analysis/freeze_pool_strata.py",
+    "produced_at_pt": "2026-11-15T20:37:21-08:00",
+    "studies_git_sha": "2ac2ec7b81996d8a1767d51a8cf5fddee518ab2d",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/freeze_pool_strata.py",
+        "sha256": "2210246b0a8a60987094419c78fb0420b9f32510989116e49995e281348a1c9b"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/40-cognitive-llm-discovery/reference/cohorts_seed0_monitor.json",
+        "sha256": "d4f442555667e53ba16d34cef558fb15847bf3cc00d24a23674e3ee160229241"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/reference/folds.json",
+        "sha256": "092c94ab3fdc34d1610886469099a92a8128a8a2346f6d8420c6b7e15bca5015"
+      }
+    ],
+    "sources": [
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/mevolve/freeze/20260603/manifest.json",
+        "sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/reference/pool_strata.json",
+        "sha256": "acbea92605dec6702544cca3bbf6a0c2187df3d7a897768bbd757b163abf8d87"
+      }
+    ]
+  },
+  "rule": "tier x curriculum x session-count third, dealt round-robin into 4 pool folds",
+  "n_subjects": 614,
+  "strata": {
+    "447921": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "452272": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "453475": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "453477": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "455526": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "457494": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "457495": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "457496": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "457498": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "459356": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "459357": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "467912": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "472195": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "473359": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "473360": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "473361": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "473611": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "482350": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "482352": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "482353": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "482354": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "490931": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "490932": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "494691": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "494694": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "609367": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "616133": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "617888": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "617889": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "617890": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "619199": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "619200": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "619201": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "619202": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "622153": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "627043": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "627713": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "631198": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "632104": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "632105": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "632106": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "632110": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "634704": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "634897": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "634898": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "637703": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "639872": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "639876": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "641495": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "641801": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "641803": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "641805": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "642220": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "642221": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "642857": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "642860": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "643251": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "643252": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "643774": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "646196": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "647286": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "647694": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "647695": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "648585": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "649061": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "651474": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "651477": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "651555": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "651557": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "651558": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "652737": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "652738": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "652739": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "652742": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "655101": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "655834": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "656057": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "656058": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "656417": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "656490": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "656491": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "656492": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "658541": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "659450": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "659779": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "661099": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "663290": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "663370": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "663372": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "663374": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "663608": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "663609": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "663612": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "664641": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "664644": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "666610": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "666612": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "666613": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "668546": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "671246": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "671249": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "671250": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "672208": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "672210": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "672211": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "672212": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "684041": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "687553": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "687582": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "688236": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "688237": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "689514": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "689515": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "689726": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "689727": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "689729": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "689798": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "689799": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "690484": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "694360": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "694688": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "695329": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "695810": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "695950": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "697062": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "697926": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "698694": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "699364": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "702200": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "702204": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "703548": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "704151": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "704962": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "705596": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "705599": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "706893": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "high"
+    },
+    "707254": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "707337": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "707533": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "707535": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "707538": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "708026": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "708027": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "708031": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "708322": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "710107": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "710415": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "711256": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "712028": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "713310": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "713377": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "713378": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "713557": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "713855": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "713857": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "714116": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "714314": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "714320": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "715083": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "716325": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "716866": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "716868": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "716870": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "717121": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "717259": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "717375": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "717377": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "717378": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "717379": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "717617": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "720935": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "720956": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "722679": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "722680": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "722832": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "724172": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "724555": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "mid"
+    },
+    "724584": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "726441": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "726477": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "727353": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "728568": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "728570": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "729674": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "729678": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "730942": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "730945": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "731296": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "732163": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "733683": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "736200": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "736201": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "736202": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "736203": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "736205": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "737724": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "737846": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "739195": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "739199": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "739970": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "739977": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "740610": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "741210": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "741211": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "741213": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "743793": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "743794": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "743797": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "743986": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "744040": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "744329": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "744330": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "744331": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "744742": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "744744": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "744899": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "745502": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "745861": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "746345": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "746716": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "746720": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "746729": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "746896": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747313": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747315": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747316": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747317": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747319": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747320": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747887": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747890": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "747893": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "748641": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "749624": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "750033": {
+      "tier": "discovery",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "750107": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "750108": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "750997": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "751004": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "751147": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "751151": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "751152": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "751181": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "751766": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "751769": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "751919": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "751924": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "751925": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "751926": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "752014": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "752703": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "753124": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "753125": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "753126": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "753618": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "754280": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "754313": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "754429": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "754430": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "754897": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "754898": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "756342": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "756345": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "756346": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "756403": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "756566": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "757209": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "757210": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "757212": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "758016": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "758017": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "758018": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "758435": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "761038": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "761401": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "761402": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "761405": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "761407": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "761433": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "762206": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "762283": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "762284": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "762614": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "763359": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "763590": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "764642": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "764691": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "764702": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "764704": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "764769": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "764787": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "764790": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "764791": {
+      "tier": "excluded",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "765062": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "765228": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "765364": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "765622": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "765624": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "765626": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "765628": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "766557": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "766559": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "767299": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "767538": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "769037": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "769038": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "769253": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "769362": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "769642": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "769882": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "769884": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "770528": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "770735": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "770772": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "770777": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "770802": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "771432": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "773352": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "774212": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "774390": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "774391": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "774600": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "774603": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "774659": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "774664": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "775435": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "775436": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "775439": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "775510": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "775743": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "776260": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "776293": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "776296": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "777019": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "777021": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "777091": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "777092": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "777403": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "777405": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "777407": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "778077": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "778098": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "778099": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "778147": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "778149": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "778234": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "778236": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "778334": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "778335": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "778637": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "778869": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "779310": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "779311": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "779312": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "779531": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "780280": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "780283": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "780284": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "780285": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "780289": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "780619": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "781166": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "781173": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "781370": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "781371": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "781469": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "781470": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "781471": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "781477": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "781575": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "781895": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "781898": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "781900": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "781901": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "782196": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "782202": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "782226": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "782229": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "782396": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "782397": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "784635": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "784803": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "784806": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "785024": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "785193": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "785954": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "785956": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "786237": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "786845": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "786847": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "786864": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "786865": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "786866": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "786867": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "786868": {
+      "tier": "confirmation",
+      "curriculum": "Coupled Baiting",
+      "third": "low"
+    },
+    "787539": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "787622": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "787624": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "787801": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "788174": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "788175": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "788198": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "788586": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "788588": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "788654": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "788655": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "788731": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "789191": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "789195": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "789197": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "789624": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "790116": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "790724": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "791090": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "791093": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "791094": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "791096": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "791391": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "791392": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "791691": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "791806": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "792288": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "792292": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "793446": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "793726": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "793733": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "793734": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "793738": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "794325": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "794439": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "794974": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "794976": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "794977": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "794980": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "795025": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "795380": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "795392": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "795393": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "795394": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "795396": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "795497": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "795709": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "795710": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "795711": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "796263": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "796387": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "796460": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "796494": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "798298": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "798517": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "798839": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "800172": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "800173": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "800174": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "800176": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "800679": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "800680": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "800779": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "800886": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "801995": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "801997": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "802252": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "802253": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "802290": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "802291": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "802294": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "802295": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "802839": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "803698": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "804512": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "804764": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "804916": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "804920": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "804924": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "805495": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "805498": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "806158": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "high"
+    },
+    "806160": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "806664": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "807792": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "807793": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "807878": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "807879": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "808054": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "808056": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "808057": {
+      "tier": "excluded",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "808581": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "808582": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "808585": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "808650": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "808655": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "809220": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "809226": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "809487": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "809491": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "810434": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "810750": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "810759": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "810761": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "810888": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "810889": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "811021": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "811026": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "812241": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "812300": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "812302": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "812303": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "812304": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "812308": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "812561": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "813309": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "813312": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "813929": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "813986": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "814146": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "814149": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "814247": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "814511": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "814514": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "814515": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "815639": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "815643": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "816016": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "816212": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "816214": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "816743": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "816748": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "816786": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "816859": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "816881": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "816883": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "816886": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "816992": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "816993": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "816995": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "818580": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "818586": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "818909": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "819168": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "819341": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "820112": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "820115": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "820117": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "820238": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "820651": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "820688": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "820691": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "821573": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "821586": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "821587": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "821786": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "823164": {
+      "tier": "excluded",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "823165": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "823972": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "824526": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "824527": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "824852": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "824853": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "825002": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "825003": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "826159": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "826162": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "826164": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "826748": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "827183": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "828133": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "828137": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "828356": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "828706": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "829046": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "829567": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "831065": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "831315": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "833880": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "835176": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "835451": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "836626": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "836933": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "837229": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "837468": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "837687": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "837688": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "837749": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "837772": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "mid"
+    },
+    "838103": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "839480": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "841364": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "841596": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "841598": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "841859": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "841861": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "841866": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "843078": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "843079": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "843080": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "843660": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "843661": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "844033": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "844034": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "844036": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "844634": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "844636": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "844782": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "844783": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "844917": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "844920": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "845709": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "high"
+    },
+    "846556": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "846558": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "mid"
+    },
+    "848869": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "849570": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    },
+    "849659": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "850595": {
+      "tier": "discovery",
+      "curriculum": "Uncoupled Baiting",
+      "third": "low"
+    },
+    "853578": {
+      "tier": "confirmation",
+      "curriculum": "Uncoupled Without Baiting",
+      "third": "low"
+    }
+  }
+}

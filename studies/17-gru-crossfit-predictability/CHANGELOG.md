@@ -1,5 +1,16 @@
 # Changelog — 17-gru-crossfit-predictability
 
+## 2026-11-15
+
+- r1 draft (cross-validated predictability): main findings F1–F4, supplementary S1–S4 (Han: scientific
+  results in main figures, validation and housekeeping in supplementary).
+- Claims check (claims-check/1 @ c234bff): all 4 claims supported; fixes: F2 says "stable within a mouse",
+  F3 states its 760 mice, F4 adds a stratified null (`reference/pool_strata.json`, `make
+  freeze-pool-strata`) and an interval for the test fold's offset, which is within random 149-mouse sets,
+  so the draft's "slightly hard test split" reading was dropped; new caveats on subset rules and model origins.
+- `heldout-rescore-<run>:v1` backfilled on all 74 scoring runs (wrapper #129/#130); records in
+  `variants/scoring/launch_record/*/backfill_maps.json`.
+
 ## 2026-11-13
 
 - Han: add 2-way fold models (variant `pool-folds-2way`, H256, full size) for comparisons with
