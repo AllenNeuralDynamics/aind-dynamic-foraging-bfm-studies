@@ -21,6 +21,10 @@ finding. The header keys the run:
 - ``context``: the same for reading context the reviewer was given (the repository glossary
   ``CONTEXT.md``, the study ``README.md``, ``PLAN.md``, ``CHANGELOG.md``). It is recorded but does
   not make a record stale: a glossary edit elsewhere is not a change to this report's evidence.
+- ``code``: the same for code the reviewer was given (any ``.py`` file, e.g. the producers). It is
+  recorded but does not make a record stale: a change to code that alters a number or a sentence
+  already shows in the JSON body or the report text, and a tidy-up that alters neither leaves the
+  report as checked (studies#164). An older record that lists code under ``inputs`` is read the same way.
 - ``prompt_sha256`` / ``response_sha256``: sha256 of the prompt and the response as given, so the
   record's copies can be checked to be verbatim.
 
@@ -29,8 +33,17 @@ are now (`report-claims-check-missing`, `report-claims-check-stale`). The record
 report; it never feeds the frontmatter, INDEX or README (ADR 0003).
 
     from claims_check import write_record
-    write_record(study, report, inputs=[...], rubric_version="claims-check/1 @ <sha>",
-                 model="claude-opus-5-5, effort high", prompt=..., response=..., responses=...)
+    write_record(study, report, inputs=[...], rubric_version="claims-check/2 @ <sha>",
+                 model="claude-opus-5-5, effort high", prompt=Path("brief.txt"),
+                 response=Path("response.md"), responses=...)
+
+or from the shell (studies repo root), with the reviewer's own output file as the response:
+
+    python studies/util/claims_check.py --report studies/<study>/analysis/reports/rN-<slug>.md \
+        --inputs inputs.txt --rubric-version "claims-check/2 @ <sha>" --model "..." \
+        --prompt brief.txt --response response.md --responses answers.md [--pr-comment URL]
+
+``inputs.txt`` lists one repository-relative path per line (the files given to the reviewer).
 """
 from __future__ import annotations
 
@@ -54,6 +67,8 @@ _FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
 # Reading context, recorded under `context` and never making a record stale: exactly the
 # repository glossary and the report's own study README, PLAN and CHANGELOG.
 STUDY_CONTEXT = ("README.md", "PLAN.md", "CHANGELOG.md")
+# Code the reviewer read, recorded under `code` and never making a record stale (studies#164).
+CODE_SUFFIX = ".py"
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -114,8 +129,8 @@ def stale_reasons(root: Path, study: Path, header: dict) -> list[str]:
         reasons.append("the report's claims or text changed")
     changed = []
     for rel, digest in sorted((header.get("inputs") or {}).items()):
-        if rel == report_rel:
-            continue                                     # the report is keyed by content_digest only
+        if rel == report_rel or rel.endswith(CODE_SUFFIX):
+            continue                                     # the report is keyed by content_digest only; code is recorded, not checked
         p = root / rel
         if not p.is_file():
             changed.append(f"{rel} (gone)")
@@ -133,15 +148,24 @@ def _fenced(text: str) -> str:
     return f"{fence}text\n{text}{'' if text.endswith(chr(10)) else chr(10)}{fence}"
 
 
+def _text(x: str | Path) -> str:
+    """A string as given, or a file's UTF-8 text read unchanged (a Path; line endings kept)."""
+    return Path(x).read_bytes().decode("utf-8") if isinstance(x, Path) else x
+
+
 def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_version: str, model: str,
-                 prompt: str, response: str, responses: str, pr_comment: str | None = None,
+                 prompt: str | Path, response: str | Path, responses: str | Path, pr_comment: str | None = None,
                  date: str | None = None, root: Path = REPO_ROOT) -> Path:
     """Write one claims-check record and return its path.
 
     Call it with the report and input files exactly as the reviewer read them: the digests are
     taken now. The report is keyed by its content digest and is dropped from `inputs` if listed
-    there; `CONTEXT.md` and a study's `README.md`, `PLAN.md` and `CHANGELOG.md` go under `context`. `prompt` and `response` are kept verbatim (their sha256 goes in the header);
-    `responses` is Markdown (what was fixed, or why not, per finding)."""
+    there; `CONTEXT.md` and a study's `README.md`, `PLAN.md` and `CHANGELOG.md` go under `context`,
+    and `.py` files under `code` (both recorded, never checked). `prompt` and `response` are kept verbatim (their sha256 goes in the header);
+    `responses` is Markdown (what was fixed, or why not, per finding). Each of the three may be a
+    Path, read unchanged: pass the file the reviewer wrote its output to, so the copy is verbatim
+    by construction."""
+    prompt, response, responses = _text(prompt), _text(response), _text(responses)
     study, report, root = Path(study).resolve(), Path(report).resolve(), Path(root).resolve()
     rid = re.match(r"(r\d+)-", report.name).group(1)
     date = date or dt.date.today().isoformat()
@@ -153,12 +177,14 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
         out = out_dir / f"claims_check_{rid}_{date}_{k}.md"
     files = [Path(p).resolve() for p in inputs if Path(p).resolve() != report]
     context_paths = {root / "CONTEXT.md", *(study / n for n in STUDY_CONTEXT)}
-    evidence = [p for p in files if p not in context_paths]
+    code = [p for p in files if p not in context_paths and p.suffix == CODE_SUFFIX]
+    evidence = [p for p in files if p not in context_paths and p.suffix != CODE_SUFFIX]
     context = [p for p in files if p in context_paths]
     header = {"schema_version": 1, "report": str(report.relative_to(study)), "checked_on": date,
               "content_digest": content_digest(report),
               "inputs": {str(p.relative_to(root)): evidence_digest(p) for p in evidence},
               "context": {str(p.relative_to(root)): file_sha256(p) for p in context},
+              "code": {str(p.relative_to(root)): file_sha256(p) for p in code},
               "rubric_version": rubric_version, "model": model,
               "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
               "response_sha256": hashlib.sha256(response.encode()).hexdigest()}
@@ -171,3 +197,33 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
                    f"## Reviewer's response\n\n{_fenced(response)}\n\n"
                    f"## Responses to the findings\n\n{responses.strip()}\n")
     return out
+
+
+def main(argv: list[str] | None = None) -> None:
+    import argparse
+    ap = argparse.ArgumentParser(description="Write one claims-check record (studies#160, #164).")
+    ap.add_argument("--report", required=True, type=Path, help="the report checked (studies/<study>/analysis/reports/rN-*.md)")
+    ap.add_argument("--inputs", required=True, type=Path, help="file listing the reviewer's inputs, one repo-relative path per line")
+    ap.add_argument("--rubric-version", required=True)
+    ap.add_argument("--model", required=True)
+    for k in ("--prompt", "--response", "--responses"):
+        ap.add_argument(k, required=True, type=Path)
+    ap.add_argument("--pr-comment")
+    ap.add_argument("--date")
+    ap.add_argument("--root", type=Path, default=REPO_ROOT)
+    a = ap.parse_args(argv)
+    root = a.root.resolve()
+    report = (a.report if a.report.is_absolute() else root / a.report).resolve()
+    study = report.parents[2]
+    inputs = [root / line.strip() for line in a.inputs.read_text().splitlines() if line.strip() and not line.startswith("#")]
+    missing = [str(p) for p in inputs if not p.is_file()]
+    if missing:
+        raise SystemExit(f"inputs not found: {missing}")
+    out = write_record(study, report, inputs=inputs, rubric_version=a.rubric_version, model=a.model,
+                       prompt=a.prompt, response=a.response, responses=a.responses,
+                       pr_comment=a.pr_comment, date=a.date, root=root)
+    print(out)
+
+
+if __name__ == "__main__":
+    main()

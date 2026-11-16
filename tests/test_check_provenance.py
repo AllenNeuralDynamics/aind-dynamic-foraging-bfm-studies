@@ -677,6 +677,57 @@ class ReportV2Test(StudyRepo):
         self.assertEqual(header["prompt_sha256"], hashlib.sha256(prompt.encode()).hexdigest())
         self.assertNotIn(self.REL, header["inputs"])              # the report is keyed by content only
 
+    def test_claims_check_cli_reads_the_reviewer_file_verbatim(self):
+        """The CLI takes the response from the reviewer's own file, so the copy is exact."""
+        work = self.root / "cc"; work.mkdir()
+        (work / "inputs.txt").write_text(f"# reviewer inputs\n{STUDY}/analysis/fit.json\n")
+        (work / "brief.txt").write_text("Check r2.\n")
+        response = "```json\n{\"claims\": []}\n```\n\n  Summary with leading spaces.\n"
+        (work / "response.md").write_text(response)
+        (work / "answers.md").write_text("None needed.\n")
+        claims_check.main(["--report", self.REL, "--inputs", str(work / "inputs.txt"),
+                           "--rubric-version", "claims-check/2 @ c234bff", "--model", "m",
+                           "--prompt", str(work / "brief.txt"), "--response", str(work / "response.md"),
+                           "--responses", str(work / "answers.md"), "--date", "2026-11-17", "--root", str(self.root)])
+        rec = claims_check.records(self.study, "r2")[-1]
+        header = claims_check.read_header(rec)
+        self.assertIn(response, rec.read_text())
+        self.assertEqual(header["response_sha256"], hashlib.sha256(response.encode()).hexdigest())
+        self.assertEqual(list(header["inputs"]), [f"{STUDY}/analysis/fit.json"])
+
+    def test_claims_check_reads_a_crlf_reviewer_file_unchanged(self):
+        """A file's line endings are kept: response_sha256 equals the file's own sha256."""
+        f = self.root / "response_crlf.md"
+        f.write_bytes(b"line one\r\nline two\r\n")
+        rec = claims_check.write_record(self.study, self.root / self.REL, inputs=[self.study / "analysis/fit.json"],
+                                        rubric_version="claims-check/2 @ c234bff", model="m", prompt="p",
+                                        response=f, responses="-", date="2026-11-18", root=self.root)
+        self.assertEqual(claims_check.read_header(rec)["response_sha256"], hashlib.sha256(f.read_bytes()).hexdigest())
+        self.assertIn(f.read_bytes(), rec.read_bytes())
+
+    def test_claims_check_producer_code_is_recorded_not_checked(self):
+        """A producer script goes under `code`: a tidy-up that changes no number or sentence
+        leaves the record current (the JSON body and the report text carry any real change)."""
+        code = self.study / "analysis/fit.py"
+        code.write_text("print('fit')\n")
+        rec = claims_check.write_record(self.study, self.root / self.REL,
+                                        inputs=[self.study / "analysis/fit.json", code],
+                                        rubric_version="claims-check/2 @ c234bff", model="m", prompt="p",
+                                        response="r", responses="-", date="2026-11-18", root=self.root)
+        header = claims_check.read_header(rec)
+        self.assertEqual(list(header["code"]), [f"{STUDY}/analysis/fit.py"])
+        self.assertEqual(list(header["inputs"]), [f"{STUDY}/analysis/fit.json"])
+        code.write_text("print('fit')  # tidied\n")
+        self.commit()
+        self.assertEqual(self.findings("report-claims-check", "warn"), set())
+        # an older record that listed the script under inputs is read the same way
+        legacy = rec.read_text().replace("inputs:\n", f"inputs:\n  {STUDY}/analysis/fit.py: '{'0' * 64}'\n", 1)
+        rec.write_text(legacy)
+        self.commit()
+        self.assertIn(f"{STUDY}/analysis/fit.py", claims_check.read_header(rec)["inputs"])   # a valid legacy header
+        self.assertEqual(self.findings("claims-check-record"), set())
+        self.assertEqual(self.findings("report-claims-check", "warn"), set())
+
     def test_claims_check_record_header_is_schema_checked(self):
         rec = claims_check.records(self.study, "r2")[-1]
         rec.write_text(rec.read_text().replace("content_digest:", "content_hash:"))

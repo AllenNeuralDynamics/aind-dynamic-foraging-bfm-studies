@@ -47,7 +47,7 @@ that change is the bump to 2. A typo, link or wording fix leaves it on version 1
 | `report-prose-number` | note | a decimal or percentage in hand-written prose matches a number in the JSON the report cites |
 | `verdict-stale` | warn | the generated INDEX and README blocks copy the current claims |
 | `report-claims-check-missing` | error when live; note when draft | the report has a claims-check record, `analysis/provenance/claims_check_<rN>_<date>[_<k>].md` (studies#160) |
-| `report-claims-check-stale` | warn when live; note when draft | the newest record's `content_digest` (the report's claims + body) and the evidence digest of every file in its `inputs` still match (`context` is not checked) |
+| `report-claims-check-stale` | warn when live; note when draft | the newest record's `content_digest` (the report's claims + body) and the evidence digest of every file in its `inputs` still match (`context` and `code` are not checked) |
 | `claims-check-record` | error | the record header follows `claims-check-record.v1.schema.json` and names this report |
 
 `warn` and `error` fail CI (baseline ratchet). A **note** is level `info`: it never fails, and
@@ -80,7 +80,7 @@ as it stands (`PROSE_CONSTANTS` in the checker).
 
 **Claims-check records** (studies#160). Each claims check is committed as
 `studies/<study>/analysis/provenance/claims_check_<rN>_<YYYY-MM-DD>[_<k>].md`, written by
-`studies/util/claims_check.py` `write_record()`: a YAML header
+`studies/util/claims_check.py` `write_record()` (or its CLI, which reads the reviewer's own output file, so the copy is verbatim; studies#164): a YAML header
 ([`claims-check-record.v1`](claims-check-record.v1.schema.json)), then the prompt given to the reviewer,
 its response verbatim, and the answer to each finding. The header's `content_digest` hashes the
 report's `claims` and body only, so `status`, `draft_reason` and `prose_reviewed` can change without
@@ -88,7 +88,9 @@ making the check stale; any change to a claim or the text does. `inputs` maps ev
 reviewer read (repository-relative) to its evidence digest: an analysis JSON's body without `_meta`
 (regenerating it with the same numbers changes nothing), any other file's sha256. The report itself
 is never an input. Reading context (`CONTEXT.md`, the study `README.md`, `PLAN.md`, `CHANGELOG.md`)
-is recorded under `context` and never makes a record stale. The prompt and
+is recorded under `context`, and code (`.py` files, e.g. the producers) under `code`; neither makes
+a record stale, because a code change that alters a number or a sentence already shows in the JSON
+body or the report text (studies#164). The prompt and
 the response are stored verbatim, with their sha256 in the header (`prompt_sha256`, `response_sha256`).
 The newest record (by date, then `_<k>`) is the one checked.
 Like the claims check itself, the record never feeds the frontmatter, INDEX or README.
