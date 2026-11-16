@@ -23,6 +23,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 import _meta  # noqa: E402
 import check_provenance as cp  # noqa: E402
 import report_verdicts  # noqa: E402
+import claims_check  # noqa: E402
 
 STUDY = "studies/12-gru-example"
 GROUP = "base@20261024-101500"
@@ -563,7 +564,16 @@ class ReportV2Test(StudyRepo):
         index.write_text(index.read_text() + "| [r2](r2-fit.md) | a hand row, kept |\n")
         self.write_report()
         report_verdicts.write(self.study)
+        self.write_record()
         self.commit()
+
+    def write_record(self) -> Path:
+        """A claims-check record of r2 as it stands, keyed to the report and its JSON."""
+        return claims_check.write_record(
+            self.study, self.root / self.REL, inputs=[self.study / "analysis/fit.json"],
+            rubric_version="claims-check/1 @ c234bff", model="claude-opus-5-5, effort high",
+            prompt="Check r2.", response='{"claims": [{"id": "F1", "verdict": "supported"}]}',
+            responses="None needed.", date="2026-11-15", root=self.root)
 
     def write_report(self, body: str = V2_BODY, status: str = "live", extra: str = "",
                      claims: str = "  - {id: F1, text: \"The fit improves.\", pointer: \"analysis/fit.json#/delta/mean\"}\n",
@@ -577,14 +587,66 @@ class ReportV2Test(StudyRepo):
         (self.root / self.REL).write_text(f"---\n{front}---\n{body}")
 
     def findings(self, prefix: str = "", level: str | None = None) -> set[str]:
+        """Finding keys under `prefix`. The other tests edit the live report to exercise one rule,
+        which also makes its claims check stale; that rule has its own tests, so its findings
+        count only when `prefix` asks for them."""
+        own = prefix.startswith("report-claims-check")
         return {f.key for f in cp.Checker(self.root).run()
-                if f.check.startswith(prefix) and (f.level == level if level else f.level != "info")}
+                if f.check.startswith(prefix) and (own or not f.check.startswith("report-claims-check"))
+                and (f.level == level if level else f.level != "info")}
 
     def test_v2_report_round_trip_is_clean(self):
         """Unquoted date, sourced prose numbers (to printed precision, 12% as 0.12), 95%, code,
         links, versions and a `##` inside a block: no finding, not even a note."""
         self.assertEqual(self.findings(), set())
         self.assertEqual(self.findings("report-", "info"), set())
+
+    def test_claims_check_missing_fails_a_live_report_and_notes_a_draft(self):
+        for rec in claims_check.records(self.study, "r2"):
+            rec.unlink()
+        self.commit()
+        self.assertIn(f"report-claims-check-missing|{self.REL}|", self.findings("report-claims-check", "error"))
+        self.write_report(status="draft", extra="draft_reason: claims check pending\n")
+        self.commit()
+        self.assertEqual(self.findings("report-claims-check"), set())
+        self.assertIn(f"report-claims-check-missing|{self.REL}|", self.findings("report-claims-check", "info"))
+
+    def test_claims_check_goes_stale_on_text_or_input_change(self):
+        report = self.root / self.REL
+        report.write_text(report.read_text().replace("## What it means\n", "## What it means\n\nA new sentence.\n"))
+        self.commit()
+        self.assertIn(f"report-claims-check-stale|{self.REL}|", self.findings("report-claims-check", "warn"))
+        self.write_report()                               # back to the checked text
+        fit = self.study / "analysis/fit.json"
+        fit.write_text(fit.read_text().replace("{", "{ ", 1))
+        self.commit()
+        msgs = [f.message for f in cp.Checker(self.root).run() if f.check == "report-claims-check-stale"]
+        self.assertTrue(msgs and "analysis/fit.json" in msgs[0], msgs)
+
+    def test_claims_check_survives_status_and_prose_review_changes(self):
+        """Flipping draft -> live or re-recording prose digests is not a content change."""
+        self.write_report(status="draft", extra="draft_reason: awaiting review\n")
+        for rec in claims_check.records(self.study, "r2"):
+            rec.unlink()
+        self.write_record()
+        self.write_report(status="live", reviewed={"result-1": "0" * 64})
+        self.commit()
+        self.assertEqual(self.findings("report-claims-check", "warn") | self.findings("report-claims-check", "info"), set())
+
+    def test_claims_check_record_header_is_schema_checked(self):
+        rec = claims_check.records(self.study, "r2")[-1]
+        rec.write_text(rec.read_text().replace("content_digest:", "content_hash:"))
+        self.commit()
+        keys = self.findings("claims-check-record", "error")
+        self.assertTrue(any("content_digest" in k for k in keys), keys)
+
+    def test_newest_record_wins(self):
+        report = self.root / self.REL
+        report.write_text(report.read_text().replace("## What it means\n", "## What it means\n\nA new sentence.\n"))
+        newer = self.write_record()                      # same date: written as ..._2.md
+        self.commit()
+        self.assertTrue(newer.name.endswith("_2.md"))
+        self.assertEqual(self.findings("report-claims-check"), set())
 
     def test_v1_report_is_unaffected(self):
         """r1 stays version 1: no skeleton, no claims, an unsourced decimal; nothing new, and the
@@ -656,6 +718,7 @@ class ReportV2Test(StudyRepo):
     def test_unsourced_prose_number_is_an_advisory_note(self):
         body = V2_BODY.replace("none\n", "Seed spread ~0.0004, a 7.5% gain; the block's 0.333 is not cited.\n")
         self.write_report(body)
+        self.write_record()                              # the claims check re-run on the edited report
         self.commit()
         self.assertEqual(self.findings(), set())      # advisory: never fails CI
         self.assertEqual(self.findings("report-prose-number", "info"),

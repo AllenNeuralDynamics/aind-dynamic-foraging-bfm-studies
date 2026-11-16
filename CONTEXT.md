@@ -125,6 +125,18 @@ _Avoid_: cache (a cache is uncommitted and never an input)
 The SHA-256 of a file a producer read, recorded in the artifact so a number traces to exact
 bytes rather than to a commit.
 
+**Claims check**:
+A review, by a reader who did not write the report, of whether the report's text matches its
+evidence: each claim against the number it points at, the figures and tables, prose numbers,
+estimands, uncertainty and missing caveats. It judges the text, not the science.
+_Avoid_: audit, domain review (the separate, advisory review of the science), claim review
+
+**Claims-check record**:
+The committed record of one claims check: the prompt the reviewer got, its response verbatim, the
+answer to each finding, and the digests of the report content and of every file the reviewer read.
+A record is current while those digests still match; a live report needs a current one.
+_Avoid_: review log, PR comment (the comment is the review thread, not the record)
+
 **Provenance baseline**:
 The committed list of known provenance findings in existing files. It may only shrink.
 
