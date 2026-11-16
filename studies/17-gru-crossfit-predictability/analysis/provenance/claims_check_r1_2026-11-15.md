@@ -50,6 +50,8 @@ inputs:
   studies/01-gru-scaling-law/analysis/nxd_runs.json: 5523d7d3364760e766c47f42929835f5529b8836c6441668a0cefd37b4e02be2
 rubric_version: claims-check/1 @ c234bff89422af05fc784786431fb4dd5a63c620
 model: claude-opus-5-5, effort high (general-purpose agent, read-only)
+prompt_sha256: bc4acd5e9c09d3a83d51f942f5cfaaadd04be7c5d80f54db96b31ba79b05ca72
+response_sha256: 27a912850ef47fa1f3a8cf5693530cada431a3755e03da1b0aad1cafdb696427
 pr_comment: https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-studies/pull/151#issuecomment-6907666690
 ---
 # Claims check — r1, 2026-11-15
