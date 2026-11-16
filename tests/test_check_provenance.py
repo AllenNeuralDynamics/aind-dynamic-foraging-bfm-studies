@@ -619,10 +619,35 @@ class ReportV2Test(StudyRepo):
         self.assertIn(f"report-claims-check-stale|{self.REL}|", self.findings("report-claims-check", "warn"))
         self.write_report()                               # back to the checked text
         fit = self.study / "analysis/fit.json"
-        fit.write_text(fit.read_text().replace("{", "{ ", 1))
+        doc = json.loads(fit.read_text())
+        doc["delta"]["mean"] = doc["delta"]["mean"] + 1   # a changed number
+        fit.write_text(json.dumps(doc))
         self.commit()
         msgs = [f.message for f in cp.Checker(self.root).run() if f.check == "report-claims-check-stale"]
         self.assertTrue(msgs and "analysis/fit.json" in msgs[0], msgs)
+
+    def test_claims_check_ignores_meta_and_context_changes(self):
+        """Regenerating a JSON with the same numbers (new _meta) or editing the glossary or the
+        study CHANGELOG does not make a record stale."""
+        for rec in claims_check.records(self.study, "r2"):
+            rec.unlink()
+        (self.root / "CONTEXT.md").write_text("# Glossary\n")
+        (self.study / "CHANGELOG.md").write_text((self.study / "CHANGELOG.md").read_text())
+        rec = claims_check.write_record(
+            self.study, self.root / self.REL,
+            inputs=[self.study / "analysis/fit.json", self.root / "CONTEXT.md", self.study / "CHANGELOG.md"],
+            rubric_version="claims-check/1 @ c234bff", model="m", prompt="p", response="r", responses="-",
+            date="2026-11-16", root=self.root)
+        header = claims_check.read_header(rec)
+        self.assertEqual(set(header["context"]), {"CONTEXT.md", f"{STUDY}/CHANGELOG.md"})
+        fit = self.study / "analysis/fit.json"
+        doc = json.loads(fit.read_text())
+        doc["_meta"]["produced_at_pt"] = "2099-01-01T00:00:00-08:00"
+        fit.write_text(json.dumps(doc, indent=1))
+        (self.root / "CONTEXT.md").write_text("# Glossary\n\nA new entry.\n")
+        (self.study / "CHANGELOG.md").write_text("# changed\n")
+        self.commit()
+        self.assertEqual(self.findings("report-claims-check", "warn"), set())
 
     def test_claims_check_survives_status_and_prose_review_changes(self):
         """Flipping draft -> live or re-recording prose digests is not a content change."""
