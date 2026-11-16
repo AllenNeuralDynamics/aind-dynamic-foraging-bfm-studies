@@ -721,9 +721,11 @@ class ReportV2Test(StudyRepo):
         self.commit()
         self.assertEqual(self.findings("report-claims-check", "warn"), set())
         # an older record that listed the script under inputs is read the same way
-        legacy = rec.read_text().replace("inputs:\n", f"inputs:\n  {STUDY}/analysis/fit.py: {'0' * 64}\n", 1)
+        legacy = rec.read_text().replace("inputs:\n", f"inputs:\n  {STUDY}/analysis/fit.py: '{'0' * 64}'\n", 1)
         rec.write_text(legacy)
         self.commit()
+        self.assertIn(f"{STUDY}/analysis/fit.py", claims_check.read_header(rec)["inputs"])   # a valid legacy header
+        self.assertEqual(self.findings("claims-check-record"), set())
         self.assertEqual(self.findings("report-claims-check", "warn"), set())
 
     def test_claims_check_record_header_is_schema_checked(self):
