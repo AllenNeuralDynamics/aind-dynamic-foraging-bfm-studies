@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/cv_2way_vs_s01.py",
-    "produced_at_pt": "2026-11-15T20:15:34-08:00",
-    "studies_git_sha": "454b21fb7ebd28f52546f0256800e04877328eb9",
+    "produced_at_pt": "2026-11-15T20:23:33-08:00",
+    "studies_git_sha": "e3130ecf23863981732eee9b3861038732fe9cab",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [],
@@ -16,7 +16,7 @@
     "code": [
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_2way_vs_s01.py",
-        "sha256": "c43af59b7e5600d5f024f007a1a1b33b6e81dd93d91feb9074c9d9848aade9b8"
+        "sha256": "3756b9d3c13e68d2a4b83d51b8c29312bc8108c4083e839b2fc32ac30da75e67"
       },
       {
         "path": "studies/util/figure_audit.py",
@@ -39,12 +39,16 @@
       {
         "path": "studies/01-gru-scaling-law/analysis/nxd_scaling.json",
         "sha256": "7cffcbe7a62b624fd1bc8899f0b30dbffee4e7dfb11aa32d505d0d890da6e24a"
+      },
+      {
+        "path": "studies/01-gru-scaling-law/analysis/nxd_runs.json",
+        "sha256": "5523d7d3364760e766c47f42929835f5529b8836c6441668a0cefd37b4e02be2"
       }
     ],
     "outputs": [
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_2way_vs_s01.json",
-        "sha256": "73d6981511c052f7b1493dd9e2be499dde92858d90f274175afcab6a3043b97d"
+        "sha256": "55e987f797d76429a119a7b24cf7640eb42177a3bf6e37866933aba6e07a2931"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/fig_cv_2way_vs_s01.svg",
@@ -129,5 +133,12 @@
   },
   "study17_test_2way_full_passA": 0.7291811930871167,
   "study01_N256_D614_mean": 0.7290228009223938,
+  "study01_same_run": {
+    "wandb_run_id": "nxd-grid-20260623-102649-78e14bfc",
+    "N": 256,
+    "D": 614,
+    "seed": 0,
+    "heldout_ll": 0.7290986180305481
+  },
   "study01_source": "studies/01-gru-scaling-law/analysis/nxd_scaling.json"
 }

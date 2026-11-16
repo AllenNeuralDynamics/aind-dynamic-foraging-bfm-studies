@@ -30,6 +30,7 @@ from _meta import build_meta, write_artifact  # noqa: E402
 SCORES = HERE / "scores.json"
 FOLDS_JSON = STUDY / "reference" / "folds.json"
 S01 = STUDY.parent / "01-gru-scaling-law" / "analysis" / "nxd_scaling.json"
+S01_RUNS = STUDY.parent / "01-gru-scaling-law" / "analysis" / "nxd_runs.json"
 OUT_SVG = HERE / "fig_cv_2way_vs_s01.svg"
 OUT = HERE / "cv_2way_vs_s01.json"
 FOLDS = ["test", "pool_1", "pool_2", "pool_3", "pool_4"]
@@ -64,10 +65,15 @@ def main() -> None:
     xs3 = {"d10": 10, "d30": 30, "d100": 100, "d300": 300, "full": float(np.mean(list(d_full.values())))}
     test_2way_a = pooled(models[NAME2["test"]], "A")
     i256, i614 = s01["Ns"].index(256), s01["Ds"].index(614)
+    test_2way_run = models[NAME2["test"]]["source"].rsplit("/", 1)[1]
+    s01_run = [r for r in json.loads(S01_RUNS.read_text())["runs"] if r["wandb_run_id"] == test_2way_run]
+    assert len(s01_run) == 1, test_2way_run
     out = {"study17_2way_full": {"per_fold": two, "mean": float(np.mean(list(two.values()))), "sem": sem(list(two.values())),
                                  "d_full": d_full},
            "study17_3way": three, "study17_test_2way_full_passA": test_2way_a,
            "study01_N256_D614_mean": s01["mean_grid"][i256][i614],
+           "study01_same_run": {"wandb_run_id": test_2way_run, "N": s01_run[0]["N"], "D": s01_run[0]["D"],
+                                "seed": s01_run[0]["seed"], "heldout_ll": s01_run[0]["heldout_ll"]},
            "study01_source": "studies/01-gru-scaling-law/analysis/nxd_scaling.json"}
 
     fs.apply_paper_style()
@@ -96,7 +102,7 @@ def main() -> None:
                  fontsize=5.5)
     fig.legend(*ax.get_legend_handles_labels(), frameon=False, fontsize=5, loc="outside lower center", ncol=2)
     fs.save_figure(fig, OUT_SVG)
-    meta = build_meta("analysis/cv_2way_vs_s01.py", [], study_root=STUDY, code=[__file__], inputs=[SCORES, FOLDS_JSON, S01])
+    meta = build_meta("analysis/cv_2way_vs_s01.py", [], study_root=STUDY, code=[__file__], inputs=[SCORES, FOLDS_JSON, S01, S01_RUNS])
     write_artifact(OUT, {"_meta": meta, **out}, outputs=[OUT_SVG])
 
 

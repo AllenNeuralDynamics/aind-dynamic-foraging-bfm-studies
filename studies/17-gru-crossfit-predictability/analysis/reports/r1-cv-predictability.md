@@ -24,10 +24,10 @@ inputs:
   scores: analysis/scores.json
 claims:
 - id: F1
-  text: 'Held-out likelihood (trial-pooled, left/right on engaged trials) rises from D = 10 to full size in all 5 folds, by +0.0123 ± 0.0007 within each fold's own mice (mean ± SEM, n = 5 folds).'
+  text: 'Held-out likelihood (trial-pooled, left/right on engaged trials) rises from D = 10 to full size in all 5 folds, by +0.0123 ± 0.0007 within each fold''s own mice (mean ± SEM, n = 5 folds).'
   pointer: analysis/r1_cv_predictability.json#/f1/gain_full/mean
 - id: F2
-  text: 'Predictability is a property of the mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two disjoint halves of each mouse's sessions agree (Pearson r = 0.96).'
+  text: 'Predictability is a property of the mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two disjoint halves of each mouse''s sessions agree (Pearson r = 0.96).'
   pointer: analysis/r1_cv_predictability.json#/f2/passA_passB_r
 - id: F3
   text: 'The 3-way GRU predicts left/right better than the 2-way GRU in all 5 folds (+0.0016 ± 0.0001, SEM over folds), and the gain sits on the first engaged trial after an ignore: +0.034 there, where 4.5% of trials carry 118% of the gain.'
@@ -37,7 +37,16 @@ claims:
   pointer: analysis/r1_cv_predictability.json#/f4/verdict
 prose_reviewed:
   date: '2026-11-15'
-  blocks: {}
+  blocks:
+    methods: e5832eacf87e8765f8b83721f84f9d9fd933501683266e1dce9607c8199c6e46
+    result-1: c0619a0488fbef156c5d24657b7f29b367142fe3e348dee00fa1c5d8b8a7265f
+    result-2: 3990b6b32be57817d4adb989707a9346c6ff29045c6bf7d4796b90220d4a72ec
+    result-3: 54e8c922b2b3c4443ec2a6eb9c3a3b824d718c5da7d0e6266ba17a348aafa3df
+    result-4: 18d3ebe21ef36b1885b4ba0551f9a4d2f681ac1653300262efa9c846b33eb91f
+    supp-1: cf4aaa4db838d086ce4fcdebc17bf368a4dd4130a514cc6455c1f53c933331dc
+    supp-2: 408c9dfcfc9b9b887894b67ec442ddafbc69022e595a110e6418913a534a2118
+    supp-3: 3203dcf123f18d8e77c425c542c2f6a3616030ee88046418402796fae11c9805
+    supp-4: aa475b1fb42547306250ae32ffd401f7be260d6a5cfef5e0f32f106496df63b2
 upstream:
 - {study: 02-gru-scaling-law-ignore, report: r4}
 - {study: 01-gru-scaling-law, report: r7}
@@ -104,11 +113,11 @@ value as one measurement (n = 5); it carries both model-to-model and which-mice 
 
 | D | held-out likelihood | gain over D = 10 | ignore PR-AUC | ignore recall |
 |---|---|---|---|---|
-| 10 | 0.7205 ± 0.0017 | +0.0000 ± 0.0000 | 0.6361 ± 0.0061 | 0.4833 ± 0.0111 |
-| 30 | 0.7266 ± 0.0013 | +0.0061 ± 0.0006 | 0.6457 ± 0.0062 | 0.4834 ± 0.0103 |
-| 100 | 0.7303 ± 0.0013 | +0.0098 ± 0.0007 | 0.6521 ± 0.0061 | 0.4831 ± 0.0093 |
+| 10 | 0.7205 ± 0.0017 | +0.0000 ± 0 | 0.6361 ± 0.0061 | 0.4833 ± 0.011 |
+| 30 | 0.7266 ± 0.0013 | +0.0061 ± 0.0006 | 0.6457 ± 0.0062 | 0.4834 ± 0.01 |
+| 100 | 0.7303 ± 0.0013 | +0.0098 ± 0.00074 | 0.6521 ± 0.0061 | 0.4831 ± 0.0093 |
 | 300 | 0.7322 ± 0.0013 | +0.0117 ± 0.0007 | 0.6566 ± 0.0062 | 0.4879 ± 0.0087 |
-| full | 0.7328 ± 0.0013 | +0.0123 ± 0.0007 | 0.6578 ± 0.0061 | 0.4932 ± 0.0086 |
+| full | 0.7328 ± 0.0013 | +0.0123 ± 0.00073 | 0.6578 ± 0.0061 | 0.4932 ± 0.0086 |
 
 Mean ± SEM over n = 5 folds. Gain at full size per fold: test +0.0140, pool_1 +0.0118, pool_2 +0.0108, pool_3 +0.0107, pool_4 +0.0140. Verdict: **rises in every fold**.
 <!-- END result-1 -->
@@ -138,17 +147,17 @@ Mean ± SEM over n = 5 folds. Gain at full size per fold: test +0.0140, pool_1 +
 
 | engaged trial | share of trials | 3-way − 2-way (mean ± SEM, 5 folds) | share of gain |
 |---|---|---|---|
-| 1st | 4.5% | +0.0337 ± 0.0004 | 118% |
-| 2nd–4th | 7.8% | +0.0015 ± 0.0002 | 8% |
-| 5th–19th | 17.2% | +0.0002 ± 0.0001 | 1% |
-| 20th or later | 37.6% | −0.0006 ± 0.0000 | -13% |
-| before any ignore | 32.8% | −0.0007 ± 0.0000 | -13% |
+| 1st | 4.5% | +0.0337 ± 0.00037 | 118% |
+| 2nd–4th | 7.8% | +0.0015 ± 0.00018 | 8% |
+| 5th–19th | 17.2% | +0.0002 ± 0.00013 | 1% |
+| 20th or later | 37.6% | −0.0006 ± 2.7e−05 | −13% |
+| before any ignore | 32.8% | −0.0007 ± 4.6e−05 | −13% |
 
-All engaged trials: +0.0016 ± 0.0001 (SEM, n = 5 folds); verdict: **3-way higher in every fold**.
+All engaged trials: +0.0016 ± 0.00011 (SEM, n = 5 folds); verdict: **3-way higher in every fold**.
 
 ![Fig. 4](../fig_cv_2way_vs_s01.svg)
 
-**Fig. 4. Study 17's models on study 01's 2-way scaling curves.** Grey: study 01's 2-way GRU per hidden size N (test mice, pass A, mean ± SE over 3 seeds; read from study 01's `nxd_scaling.json`). Blue: study 17's 3-way curve; purple: study 17's full-size 2-way models (5 folds, both passes, mean ± SEM). Open square: study 01's N = 256, D = 614, seed-0 run re-scored by study 17 (pass A, 146 of its 149 test mice): 0.72918 vs study 01's 3-seed mean 0.72902.
+**Fig. 4. Study 17's models on study 01's 2-way scaling curves.** Grey: study 01's 2-way GRU per hidden size N (test mice, pass A, mean ± SE over 3 seeds; read from study 01's `nxd_scaling.json`). Blue: study 17's 3-way curve; purple: study 17's full-size 2-way models (5 folds, both passes, mean ± SEM). Open square: study 01's N = 256, D = 614, seed-0 run re-scored by study 17 (pass A, 146 of its 149 test mice): 0.72918 vs study 01's value for the same run, 0.72910 (difference +8.3e−05; different mouse count).
 <!-- END result-3 -->
 
 ### F4 — The folds differ no more than random sets of mice would
@@ -292,7 +301,7 @@ an absolute "GRU predictability" is better quoted as the 5-fold mean.
 - **One model per fold and D (seed 0).** The SEM over folds mixes two sources: which mice a fold
   holds, and the training run. Seeds 1–2 exist only for the test fold's full-size model (Fig. S1).
 - **The folds' models have different origins.** The test fold's models are study 02's and study
-  01's runs; the pool folds' were trained for this study with the same recipe (Beaker, H200). A
+  01's runs; the pool folds' were trained for this study with the same recipe (Beaker H200; two D = 10 models on Cedar A100). A
   platform or code-version effect would show up as a fold effect; F4 finds none larger than mouse
   sampling, but it cannot rule out a small one.
 - **Pass B scores lower than pass A** for the same models (Fig. S1d). Both passes are pooled here, so

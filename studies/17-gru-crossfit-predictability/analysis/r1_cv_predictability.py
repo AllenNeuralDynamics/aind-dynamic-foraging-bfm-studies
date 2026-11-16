@@ -38,6 +38,11 @@ def f(x: float, spec: str = ".4f") -> str:
     return format(x, spec).replace("-", "−")
 
 
+def sem(x: float) -> str:
+    """An SEM to 2 significant digits, so a small one does not print as 0.0000."""
+    return f(x, ".2g") if x else "0"
+
+
 def rewrite(text: str, block: str, body: str) -> str:
     pat = re.compile(rf"(<!-- BEGIN {re.escape(block)} -->\n)(.*?)(<!-- END {re.escape(block)} -->)", re.S)
     assert pat.search(text), f"no marker pair for {block}"
@@ -84,7 +89,8 @@ def main() -> None:
           "far_from_ignore_20plus": {k: ig["per_bin"]["20+"][k] for k in ("diff_mean", "diff_sem", "share_of_trials")},
           "verdict": "n/a" if o["n_folds"] == 0 else ("3-way higher in every fold" if o["n_folds_3way_higher"] == o["n_folds"]
                                                        else f"3-way higher in {o['n_folds_3way_higher']} of {o['n_folds']} folds"),
-          "study01_N256_D614": s01["study01_N256_D614_mean"], "study17_test_2way_passA": s01["study17_test_2way_full_passA"]}
+          "study01_same_run": s01["study01_same_run"], "study17_test_2way_passA": s01["study17_test_2way_full_passA"],
+          "study17_minus_study01_same_run": s01["study17_test_2way_full_passA"] - s01["study01_same_run"]["heldout_ll"]}
     # F4: the fold spread and the test split
     f4 = {"real_sd": sp["real_sd"], "perm_sd_median": sp["perm"]["sd_median"], "perm_sd_ci95": sp["perm"]["sd_ci95"],
           "p_sd_ge_real": sp["perm"]["p_sd_ge_real"], "n_perm": sp["perm"]["n"], "test_minus_all": sp["test_minus_all"],
@@ -123,8 +129,8 @@ def main() -> None:
           "| D | held-out likelihood | gain over D = 10 | ignore PR-AUC | ignore recall |", "|---|---|---|---|---|"]
     for k in DS:
         c, g, pr, rc = f1["curve"][k], f1["gain_over_d10"][k], f1["ignore_pr_auc"][k], f1["ignore_recall"][k]
-        r1.append(f"| {k} | {f(c['mean'])} ± {f(c['sem'])} | {f(g['mean'], '+.4f')} ± {f(g['sem'])} | "
-                  f"{f(pr['mean'])} ± {f(pr['sem'])} | {f(rc['mean'])} ± {f(rc['sem'])} |")
+        r1.append(f"| {k} | {f(c['mean'])} ± {sem(c['sem'])} | {f(g['mean'], '+.4f')} ± {sem(g['sem'])} | "
+                  f"{f(pr['mean'])} ± {sem(pr['sem'])} | {f(rc['mean'])} ± {sem(rc['sem'])} |")
     r1 += ["", f"Mean ± SEM over n = {f1['n_folds']} folds. Gain at full size per fold: "
            + ", ".join(f"{fo} {f(g, '+.4f')}" for fo, g in gains_full.items()) + f". Verdict: **{f1['verdict']}**."]
 
@@ -147,16 +153,17 @@ def main() -> None:
           "| engaged trial | share of trials | 3-way − 2-way (mean ± SEM, 5 folds) | share of gain |", "|---|---|---|---|"]
     for k, lab in BIN_LABEL.items():
         b = ig["per_bin"][k]
-        r3.append(f"| {lab} | {100 * b['share_of_trials']:.1f}% | {f(b['diff_mean'], '+.4f')} ± {f(b['diff_sem'])} | "
-                  f"{100 * b['share_of_loglik_gain']:.0f}% |")
-    r3 += ["", f"All engaged trials: {f(f3['diff_mean'], '+.4f')} ± {f(f3['diff_sem'])} (SEM, n = {f3['n_folds']} folds); "
+        r3.append(f"| {lab} | {100 * b['share_of_trials']:.1f}% | {f(b['diff_mean'], '+.4f')} ± {sem(b['diff_sem'])} | "
+                  f"{f(100 * b['share_of_loglik_gain'], '.0f')}% |")
+    r3 += ["", f"All engaged trials: {f(f3['diff_mean'], '+.4f')} ± {sem(f3['diff_sem'])} (SEM, n = {f3['n_folds']} folds); "
            f"verdict: **{f3['verdict']}**.", "",
            "![Fig. 4](../fig_cv_2way_vs_s01.svg)", "",
            "**Fig. 4. Study 17's models on study 01's 2-way scaling curves.** Grey: study 01's 2-way GRU per hidden size N "
            "(test mice, pass A, mean ± SE over 3 seeds; read from study 01's `nxd_scaling.json`). Blue: study 17's 3-way curve; "
            "purple: study 17's full-size 2-way models (5 folds, both passes, mean ± SEM). Open square: study 01's N = 256, "
            "D = 614, seed-0 run re-scored by study 17 (pass A, 146 of its 149 test mice): "
-           f"{f(f3['study17_test_2way_passA'], '.5f')} vs study 01's 3-seed mean {f(f3['study01_N256_D614'], '.5f')}."]
+           f"{f(f3['study17_test_2way_passA'], '.5f')} vs study 01's value for the same run, {f(f3['study01_same_run']['heldout_ll'], '.5f')} "
+           f"(difference {f(f3['study17_minus_study01_same_run'], '+.1e')}; different mouse count)."]
 
     r4 = ["![Fig. 5](../fig_cv_fold_spread.svg)", "",
           "**Fig. 5. Fold-to-fold spread vs random splits.** **a**, the 5 fold values (full-size 3-way, both passes) and the "
