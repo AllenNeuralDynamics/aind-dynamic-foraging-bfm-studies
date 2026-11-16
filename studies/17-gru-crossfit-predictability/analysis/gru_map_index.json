@@ -1,0 +1,4571 @@
+{
+  "_meta": {
+    "schema_version": 2,
+    "kind": "producer",
+    "produced_by": "analysis/gru_map_index.py",
+    "produced_at_pt": "2026-11-16T15:37:10-08:00",
+    "studies_git_sha": "dd4f2a5d925207f7e4a5d55852ebc69b737c5a65",
+    "studies_git_dirty": true,
+    "wrapper_git_sha": null,
+    "wandb_groups": [],
+    "source_studies_git_shas": [],
+    "source_dispatcher_git_shas": [],
+    "source_wrapper_git_shas": [],
+    "source_foraging_models_git_shas": [],
+    "provenance_findings": [],
+    "code": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/gru_map_index.py",
+        "sha256": "a05caad3657131022cf445045d16386f1faaa2cb085e4891099f32ba2ef0904b"
+      }
+    ],
+    "inputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/scores.json",
+        "sha256": "767767466ae5d51b3f17868c55ac49dc2e721b480c57fd511042e6bd55c8227b"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/reference/folds.json",
+        "sha256": "092c94ab3fdc34d1610886469099a92a8128a8a2346f6d8420c6b7e15bca5015"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/reference/pool_strata.json",
+        "sha256": "4c695a0bff3152db5b164d1ace0d3eb8937d1faa0f1fe577e56a9cbf2634e757"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/variants/scoring/launch_record/score-28/backfill_maps.json",
+        "sha256": "935b155678cb5aa60e7bfa0afc8cf67fa584f0dc5db768a896ef28d83fc50894"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/variants/scoring/launch_record/score-2way-124/backfill_maps.json",
+        "sha256": "04a19dcdb376f110147ace18d35bd5ec1eae450dc4e1451b523e64a66f1863a5"
+      },
+      {
+        "path": "studies/17-gru-crossfit-predictability/variants/scoring/launch_record/score-2way-3/backfill_maps.json",
+        "sha256": "3588942ee697d8e0b0c43c150f714ec5993f8521e2c5fb2d7366ab8e1eab4d63"
+      }
+    ],
+    "outputs": [
+      {
+        "path": "studies/17-gru-crossfit-predictability/analysis/gru_map_index.json",
+        "sha256": "79f042681ae3ad68261eceb31993b77cb2993e0b508f21ae3839b6e806d4f0c4"
+      }
+    ]
+  },
+  "wandb": {
+    "entity": "NeuralDynamics",
+    "project": "dfbfm_17-gru-crossfit-predictability",
+    "artifact_type": "heldout-rescore",
+    "files": [
+      "manifest.json",
+      "mouse_scores.csv",
+      "roles.csv",
+      "session_context_map.json",
+      "session_scores.csv",
+      "subject_embeddings.csv",
+      "subject_index_map.json",
+      "trial_predictions.csv.gz"
+    ]
+  },
+  "freeze": {
+    "snapshot": "20260603",
+    "manifest_sha256": "cfea3d1e21f49ed7baa42f11e1fdda66fd5901c519a47773c08716e062e7eef0"
+  },
+  "estimand": "held-out likelihood, trial-pooled: exp(sum ll_lr / n) over engaged trials of the scored sessions; ll_lr = log p(choice) renormalised over left and right",
+  "reference": {
+    "3way": {
+      "pooled_lr_likelihood": 0.7352252605873985,
+      "n_mice": 763,
+      "n_models": 5,
+      "n_engaged_trials": 5352574,
+      "models": {
+        "test": "test-3way-full-s0",
+        "pool_1": "pool1-3way-full",
+        "pool_2": "pool2-3way-full",
+        "pool_3": "pool3-3way-full",
+        "pool_4": "pool4-3way-full"
+      },
+      "mice_without_prediction": []
+    },
+    "2way": {
+      "pooled_lr_likelihood": 0.7335217311530998,
+      "n_mice": 760,
+      "n_models": 5,
+      "n_engaged_trials": 5333496,
+      "models": {
+        "test": "test-2way-full-s0",
+        "pool_1": "pool1-2way-full",
+        "pool_2": "pool2-2way-full",
+        "pool_3": "pool3-2way-full",
+        "pool_4": "pool4-2way-full"
+      },
+      "mice_without_prediction": [
+        "722683",
+        "795395",
+        "820243"
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "model": "pool1-2way-full",
+      "fold": "pool_1",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "wd4p2o7v",
+      "group": "scoring@20261114-081940",
+      "artifact": "heldout-rescore-wd4p2o7v:v1",
+      "digest": "aa2173211bb62dcc332a09f4604ca517",
+      "record": "variants/scoring/launch_record/score-2way-124/backfill_maps.json"
+    },
+    {
+      "model": "pool1-2way-full",
+      "fold": "pool_1",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "oamdwvs7",
+      "group": "scoring@20261114-081940",
+      "artifact": "heldout-rescore-oamdwvs7:v1",
+      "digest": "e61c72abb9a76bac8a106b1407b7d93f",
+      "record": "variants/scoring/launch_record/score-2way-124/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d10",
+      "fold": "pool_1",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "1",
+      "checkpoint_step": 10000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "mdybbxix",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-mdybbxix:v1",
+      "digest": "f44ea85712b118ea2d9249f3495e2840",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d10",
+      "fold": "pool_1",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 10000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "17zvuymo",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-17zvuymo:v1",
+      "digest": "e717a45eeb5b76a3fb75ca96582965e2",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d10",
+      "fold": "pool_1",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "1",
+      "checkpoint_step": 10000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "wx4hwcgq",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-wx4hwcgq:v1",
+      "digest": "97cc2fee4d22708215bfabc72f29b416",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d10",
+      "fold": "pool_1",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 10000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "dhi2fgji",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-dhi2fgji:v1",
+      "digest": "23b0354b786268ca1e2564ed8b57eb0c",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d100",
+      "fold": "pool_1",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 60000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "sgq611fx",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-sgq611fx:v1",
+      "digest": "6f7ebe48db470a5b9a6ff67492bc7483",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d100",
+      "fold": "pool_1",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 60000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "4m3o6djb",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-4m3o6djb:v1",
+      "digest": "42cfca878da011823f6ff511ce16b013",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d30",
+      "fold": "pool_1",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "1",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "e8uztzv0",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-e8uztzv0:v1",
+      "digest": "0c4262f572f0b198d2f01fd46acd1559",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d30",
+      "fold": "pool_1",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "xtna2akq",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-xtna2akq:v1",
+      "digest": "86c6eff1abdc7c907d7294f05b98aed6",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d30",
+      "fold": "pool_1",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "1",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "gc2t8kft",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-gc2t8kft:v1",
+      "digest": "f81abf07bedb47fa1c1228243cedcd39",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d30",
+      "fold": "pool_1",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "v6hcgfwj",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-v6hcgfwj:v1",
+      "digest": "02c52258f342494ede66391249fbc985",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d300",
+      "fold": "pool_1",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "7cj4wv5z",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-7cj4wv5z:v1",
+      "digest": "a5b4af8a2ac3c4c929ec696b74125894",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-d300",
+      "fold": "pool_1",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "x40a2n9v",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-x40a2n9v:v1",
+      "digest": "35329cad6e79e89a102a565072752bf4",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-full",
+      "fold": "pool_1",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "owu8z3fk",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-owu8z3fk:v1",
+      "digest": "5f6c76a2c5d866a54337e35550011331",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool1-3way-full",
+      "fold": "pool_1",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "tmw0rsqo",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-tmw0rsqo:v1",
+      "digest": "f90c9e4e36d16c8372462c2fea492022",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-2way-full",
+      "fold": "pool_2",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "2282us8i",
+      "group": "scoring@20261114-081940",
+      "artifact": "heldout-rescore-2282us8i:v1",
+      "digest": "b7326a2f8ffaa30472b1a02416e3f6b9",
+      "record": "variants/scoring/launch_record/score-2way-124/backfill_maps.json"
+    },
+    {
+      "model": "pool2-2way-full",
+      "fold": "pool_2",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "yn01owxa",
+      "group": "scoring@20261114-081940",
+      "artifact": "heldout-rescore-yn01owxa:v1",
+      "digest": "37f0e95574cb5aca26bb04084a807b24",
+      "record": "variants/scoring/launch_record/score-2way-124/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d10",
+      "fold": "pool_2",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "beh4n8t8",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-beh4n8t8:v1",
+      "digest": "b2e1d695f262fce05cc490f2c4253da4",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d10",
+      "fold": "pool_2",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "6lcka9sw",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-6lcka9sw:v1",
+      "digest": "eccb2b103c1df2080477cfdd0f75d651",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d100",
+      "fold": "pool_2",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "s3og61r6",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-s3og61r6:v1",
+      "digest": "3ce9137e3b79ed6062be847c41309464",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d100",
+      "fold": "pool_2",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "b0fb31r9",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-b0fb31r9:v1",
+      "digest": "ec1cd67aa66269dff0c85ce049599350",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d30",
+      "fold": "pool_2",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "b0396rft",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-b0396rft:v1",
+      "digest": "15eb8393fa98db5fbabb31c831aa4780",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d30",
+      "fold": "pool_2",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "fb7dqcmx",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-fb7dqcmx:v1",
+      "digest": "0f0d5a9ba331d6eaae9f54d10879a9ff",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d300",
+      "fold": "pool_2",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "hbxxjsy6",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-hbxxjsy6:v1",
+      "digest": "4c43af0439001db3fa0a58221fdd3ecc",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-d300",
+      "fold": "pool_2",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "9606820f",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-9606820f:v1",
+      "digest": "4cd034daf0db94a40ac2acb88700515b",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-full",
+      "fold": "pool_2",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "7qzgydij",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-7qzgydij:v1",
+      "digest": "350980cdab5f6d950e16ff5e6c891e04",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool2-3way-full",
+      "fold": "pool_2",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "z7sh1xl7",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-z7sh1xl7:v1",
+      "digest": "3e6f627362cfcb129170f4698011d925",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-2way-full",
+      "fold": "pool_3",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "i5oapq9a",
+      "group": "scoring@20261114-092226",
+      "artifact": "heldout-rescore-i5oapq9a:v1",
+      "digest": "e3bcd79f28d3cb3d9ba65d2e6e57825f",
+      "record": "variants/scoring/launch_record/score-2way-3/backfill_maps.json"
+    },
+    {
+      "model": "pool3-2way-full",
+      "fold": "pool_3",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "4lzegc8v",
+      "group": "scoring@20261114-092226",
+      "artifact": "heldout-rescore-4lzegc8v:v1",
+      "digest": "9af7fca5b0f0f0eb15f83c3cd8cbec53",
+      "record": "variants/scoring/launch_record/score-2way-3/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d10",
+      "fold": "pool_3",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "p71s0tkb",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-p71s0tkb:v1",
+      "digest": "0639a788861b92d3678a49438a03de9c",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d10",
+      "fold": "pool_3",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "2ftq0n29",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-2ftq0n29:v1",
+      "digest": "deac3c5afaa66e2f21bd4ffc6d4092d6",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d100",
+      "fold": "pool_3",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "d11rt851",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-d11rt851:v1",
+      "digest": "8e853edbfc34e417a704b723f11d7aa4",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d100",
+      "fold": "pool_3",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "7hk27zyt",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-7hk27zyt:v1",
+      "digest": "6ed509a5ab88555bfcfed2388c73ceba",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d30",
+      "fold": "pool_3",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "1",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "fgoclfw6",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-fgoclfw6:v1",
+      "digest": "1084b30a695a773a348e3f4b0959835c",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d30",
+      "fold": "pool_3",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "5k6zmikb",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-5k6zmikb:v1",
+      "digest": "83ea5ea6112380c4411020a8eeb37b52",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d30",
+      "fold": "pool_3",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "1",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "q3h9pnao",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-q3h9pnao:v1",
+      "digest": "28420108572872fdc4864758af50063c",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d30",
+      "fold": "pool_3",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 40000,
+      "checkpoint_lambda": 0.5,
+      "fold_model": false,
+      "comparison": false,
+      "run": "9mj14d4l",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-9mj14d4l:v1",
+      "digest": "e50537378ae7bc1aa1398c1d0de503a8",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d300",
+      "fold": "pool_3",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "kjt91msp",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-kjt91msp:v1",
+      "digest": "cdd0b18dcb362821fffb6ccb886b92ed",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-d300",
+      "fold": "pool_3",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "m82ma760",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-m82ma760:v1",
+      "digest": "341a0030b8c6041fe6b355503e1eef5b",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-full",
+      "fold": "pool_3",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "lwjss3uk",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-lwjss3uk:v1",
+      "digest": "46fa91a1fe4d136419d7dae6c2e0a463",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool3-3way-full",
+      "fold": "pool_3",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "ptzpmekk",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-ptzpmekk:v1",
+      "digest": "0c63f5d6b73a46e4df720bf848207eb7",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-2way-full",
+      "fold": "pool_4",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "d3mt8hel",
+      "group": "scoring@20261114-081940",
+      "artifact": "heldout-rescore-d3mt8hel:v1",
+      "digest": "7cd3c13e7371fdcc91f5af6dd8ba63a8",
+      "record": "variants/scoring/launch_record/score-2way-124/backfill_maps.json"
+    },
+    {
+      "model": "pool4-2way-full",
+      "fold": "pool_4",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "xw4v8kf4",
+      "group": "scoring@20261114-081940",
+      "artifact": "heldout-rescore-xw4v8kf4:v1",
+      "digest": "6d09fddd88882b4ce013c544c6b4a80c",
+      "record": "variants/scoring/launch_record/score-2way-124/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d10",
+      "fold": "pool_4",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "3u5f6cpt",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-3u5f6cpt:v1",
+      "digest": "56f234ffa114619fd28dab87e7707f54",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d10",
+      "fold": "pool_4",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "4p1ld3p4",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-4p1ld3p4:v1",
+      "digest": "eb94211b316d26cfb913d7f9efada2e5",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d100",
+      "fold": "pool_4",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "jsyhhlen",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-jsyhhlen:v1",
+      "digest": "90e8de4ec866d8402bb474386713c499",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d100",
+      "fold": "pool_4",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "nz8vzpku",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-nz8vzpku:v1",
+      "digest": "720b81dca0fcb5b89d306ceddc58c7ae",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d30",
+      "fold": "pool_4",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "qatt13zb",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-qatt13zb:v1",
+      "digest": "384260759b7dc24a8992254272fbf291",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d30",
+      "fold": "pool_4",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "dwsyosms",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-dwsyosms:v1",
+      "digest": "0b8a28e027e85474201f331892763f87",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d300",
+      "fold": "pool_4",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "hxegsyme",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-hxegsyme:v1",
+      "digest": "9f3957ff94963a7acf760d7482de70db",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-d300",
+      "fold": "pool_4",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "dpvcw5v9",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-dpvcw5v9:v1",
+      "digest": "908532eb4de077737173c5550bffff8b",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-full",
+      "fold": "pool_4",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "ecuwfnwx",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-ecuwfnwx:v1",
+      "digest": "daae523e44769d09c6cd6f79643f9b79",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "pool4-3way-full",
+      "fold": "pool_4",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "6f6pe1z9",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-6f6pe1z9:v1",
+      "digest": "4f0e202407fd49aecfc1053f21588e0c",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-2way-full-s0",
+      "fold": "test",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "tvzek6yy",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-tvzek6yy:v1",
+      "digest": "eb2325c3c450fb41d3a2e43300cda5b8",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-2way-full-s0",
+      "fold": "test",
+      "D": "full",
+      "way": "2way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "0iccqt2d",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-0iccqt2d:v1",
+      "digest": "a565a755d760af01da81ec41b299ad77",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d10",
+      "fold": "test",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "1",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "n2hv9ztl",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-n2hv9ztl:v1",
+      "digest": "0b57bc958ce1cc699d95193c82cbe6de",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d10",
+      "fold": "test",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "71v14v9b",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-71v14v9b:v1",
+      "digest": "3c8062521c93539f768836b382b96eb4",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d10",
+      "fold": "test",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "1",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "60b058nr",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-60b058nr:v1",
+      "digest": "98699f78f5b3206e2ffad7323f45dfd2",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d10",
+      "fold": "test",
+      "D": "10",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 20000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "twbnd0fw",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-twbnd0fw:v1",
+      "digest": "626291ec92ced60027a7f8c848934d9c",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d100",
+      "fold": "test",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "4j84g1z7",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-4j84g1z7:v1",
+      "digest": "1f835cf6b57b86c235a6fc57f9fadd8d",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d100",
+      "fold": "test",
+      "D": "100",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 70000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "23rqdx42",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-23rqdx42:v1",
+      "digest": "c910b046fab8893a2a1363258157e17f",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d30",
+      "fold": "test",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "1",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "sibln2ib",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-sibln2ib:v1",
+      "digest": "6ea6e2e9d798dd7965df41b73c62d5ea",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d30",
+      "fold": "test",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "0p1adaa1",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-0p1adaa1:v1",
+      "digest": "b204adc8888b1c3d839e397323430fde",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d30",
+      "fold": "test",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "1",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "pllgh00t",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-pllgh00t:v1",
+      "digest": "c701c07fa9a19f4b5b2f45d5c8404eed",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d30",
+      "fold": "test",
+      "D": "30",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 30000,
+      "checkpoint_lambda": 0.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "esum8kxf",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-esum8kxf:v1",
+      "digest": "43b68dc601a556d6c39c3fae6cb8e72a",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d300",
+      "fold": "test",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "q5t7sidw",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-q5t7sidw:v1",
+      "digest": "a8c9a39beab67cccd9890edc7d2e2d35",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-d300",
+      "fold": "test",
+      "D": "300",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "cknzncq8",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-cknzncq8:v1",
+      "digest": "4bf05423f308a4e0b80040465304a5ef",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-full-s0",
+      "fold": "test",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": true,
+      "run": "whmpljmn",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-whmpljmn:v1",
+      "digest": "766698392632d5be0a770ed8b331caae",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-full-s0",
+      "fold": "test",
+      "D": "full",
+      "way": "3way",
+      "seed": 0,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": true,
+      "comparison": false,
+      "run": "foj8muz9",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-foj8muz9:v1",
+      "digest": "0483129ce2c54d4d9fd814bb73481400",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-full-s1",
+      "fold": "test",
+      "D": "full",
+      "way": "3way",
+      "seed": 1,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "n22t1fng",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-n22t1fng:v1",
+      "digest": "5694ea3634074524ea222a8984d43efd",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-full-s1",
+      "fold": "test",
+      "D": "full",
+      "way": "3way",
+      "seed": 1,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "uq2wdtzh",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-uq2wdtzh:v1",
+      "digest": "6d6bab47da57cc207e8b5f880f88b63d",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-full-s2",
+      "fold": "test",
+      "D": "full",
+      "way": "3way",
+      "seed": 2,
+      "pass": "A",
+      "scored_role": "score",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "luevdboh",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-luevdboh:v1",
+      "digest": "276f69898d1ce8954b9ba256491d6f65",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    },
+    {
+      "model": "test-3way-full-s2",
+      "fold": "test",
+      "D": "full",
+      "way": "3way",
+      "seed": 2,
+      "pass": "B",
+      "scored_role": "fit",
+      "session_lambda": "checkpoint",
+      "checkpoint_step": 90000,
+      "checkpoint_lambda": 1.0,
+      "fold_model": false,
+      "comparison": false,
+      "run": "puu9zj81",
+      "group": "scoring@20261114-034950",
+      "artifact": "heldout-rescore-puu9zj81:v1",
+      "digest": "aa02b340e252ba82831baa521997335e",
+      "record": "variants/scoring/launch_record/score-28/backfill_maps.json"
+    }
+  ],
+  "mice": {
+    "447921": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "452272": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "452275": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "453475": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "453476": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "453477": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "453478": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "455525": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "455526": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "457494": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "457495": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "457496": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "457498": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "459356": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "459357": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "467912": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "472184": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "472195": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "473359": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "473360": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "473361": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "473611": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "482350": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "482352": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "482353": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "482354": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "490931": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "490932": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "494691": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "494693": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "494694": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "609367": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "616133": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "616134": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "617888": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "617889": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "617890": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "619199": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "619200": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "619201": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "619202": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "622153": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "627042": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "627043": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "627713": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "631198": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "632104": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "632105": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "632106": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "632110": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "634704": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "634897": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "634898": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "637701": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "637703": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "639872": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "639875": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "639876": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "641494": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "641495": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "641801": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "641803": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "641805": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "642220": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "642221": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "642857": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "642860": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "643251": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "643252": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "643773": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "643774": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "646196": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "647286": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "647694": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "647695": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "648585": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "648586": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "649061": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "651474": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "651475": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "651477": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "651554": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "651555": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "651557": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "651558": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "652737": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "652738": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "652739": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "652742": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "652743": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "655100": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "655101": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "655834": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "656057": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "656058": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "656417": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "656489": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "656490": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "656491": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "656492": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "658541": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "659450": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "659778": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "659779": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "661099": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "663290": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "663370": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "663372": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "663373": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "663374": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "663608": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "663609": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "663612": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "664641": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "664644": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "666610": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "666612": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "666613": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "668546": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "668551": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "671245": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "671246": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "671249": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "671250": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "672208": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "672210": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "672211": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "672212": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "673396": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "682342": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "684039": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "684041": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "687553": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "687582": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "688236": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "688237": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "689514": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "689515": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "689726": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "689727": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "689729": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "689798": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "689799": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "690484": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "694360": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "694688": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "695329": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "695810": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "695950": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "697062": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "697926": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "697929": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "697930": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "698694": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "699364": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "699982": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "700708": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "702200": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "702204": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "703548": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "704151": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "704962": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "705596": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "705599": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "706893": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "707254": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "707337": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "707533": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "707535": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "707538": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "708026": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "708027": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "708031": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "708299": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "708322": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "710107": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "710414": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "710415": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "711039": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "711041": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "711254": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "711256": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "711281": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "712028": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "712031": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "713310": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "713377": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "713378": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "713379": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "713557": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "713855": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "713857": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "713862": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "714116": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "714314": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "714320": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "715083": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "716324": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "716325": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "716866": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "716868": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "716870": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "717121": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "717259": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "717375": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "717377": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "717378": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "717379": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "717617": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "720935": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "720956": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "721403": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "722679": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "722680": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "722683": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "722832": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "722989": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "724172": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "724555": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "724584": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "726441": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "726477": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "726649": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "727353": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "727456": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "728568": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "728570": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "729674": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "729678": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "730942": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "730945": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "731296": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "732163": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "733683": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "736198": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "736199": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "736200": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "736201": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "736202": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "736203": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "736205": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "737724": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "737846": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "739195": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "739199": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "739970": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "739977": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "740610": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "741210": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "741211": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "741213": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "743793": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "743794": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "743797": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "743986": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "744040": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "744329": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "744330": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "744331": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "744742": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "744744": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "744779": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "744899": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "745502": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "745505": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "745861": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "746345": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "746346": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "746716": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "746720": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "746729": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "746896": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "747313": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "747315": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "747316": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "747317": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "747319": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "747320": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "747886": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "747887": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "747890": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "747893": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "748641": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "749472": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "749624": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "750033": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "750107": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "750108": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "750997": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "751004": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "751147": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "751151": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "751152": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "751153": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "751181": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "751765": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "751766": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "751769": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "751919": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "751920": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "751924": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "751925": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "751926": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "752014": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "752703": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "753122": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "753124": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "753125": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "753126": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "753618": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "754280": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "754313": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "754372": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "754429": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "754430": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "754897": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "754898": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "756342": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "756345": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "756346": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "756403": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "756566": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "756567": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "757209": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "757210": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "757212": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "757214": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "758016": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "758017": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "758018": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "758435": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "761038": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "761401": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "761402": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "761405": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "761406": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "761407": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "761433": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "762206": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "762283": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "762284": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "762611": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "762614": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "763359": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "763590": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "763704": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "764642": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "764691": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "764693": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "764702": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "764704": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "764769": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "764787": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "764790": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "764791": {
+      "fold": "pool_2",
+      "tier": "excluded"
+    },
+    "765062": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "765228": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "765232": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "765364": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "765365": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "765373": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "765622": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "765624": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "765626": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "765628": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "765861": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "766556": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "766557": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "766559": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "766998": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "767299": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "767462": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "767463": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "767538": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "769037": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "769038": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "769253": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "769359": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "769362": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "769642": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "769882": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "769884": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "770528": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "770735": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "770772": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "770777": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "770802": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "770803": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "771432": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "773352": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "774212": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "774390": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "774391": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "774600": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "774603": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "774659": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "774664": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "774826": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "775435": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "775436": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "775439": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "775510": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "775741": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "775743": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "775745": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "776259": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "776260": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "776293": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "776296": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "777019": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "777021": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "777027": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "777091": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "777092": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "777098": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "777271": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "777403": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "777405": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "777407": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "778077": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "778098": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "778099": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "778103": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "778147": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "778149": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "778234": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "778236": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "778334": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "778335": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "778336": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "778637": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "778869": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "779310": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "779311": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "779312": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "779531": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "780280": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "780283": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "780284": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "780285": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "780289": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "780618": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "780619": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "780621": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "781162": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "781166": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "781173": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "781369": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "781370": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "781371": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "781469": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "781470": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "781471": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "781477": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "781575": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "781895": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "781896": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "781897": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "781898": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "781900": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "781901": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "782196": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "782202": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "782226": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "782229": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "782394": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "782396": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "782397": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "784635": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "784803": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "784806": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "784956": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "785024": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "785193": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "785951": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "785954": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "785956": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "786234": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "786237": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "786845": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "786847": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "786864": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "786865": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "786866": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "786867": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "786868": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "787539": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "787622": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "787624": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "787625": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "787801": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "788174": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "788175": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "788198": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "788586": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "788588": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "788654": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "788655": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "788731": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "788732": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "788733": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "789191": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "789195": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "789197": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "789624": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "790116": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "790584": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "790724": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "790726": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "790768": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "791090": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "791093": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "791094": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "791096": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "791174": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "791391": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "791392": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "791691": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "791806": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "792288": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "792292": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "793397": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "793446": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "793726": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "793733": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "793734": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "793738": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "794325": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "794439": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "794974": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "794976": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "794977": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "794980": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "795025": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "795380": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "795392": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "795393": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "795394": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "795395": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "795396": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "795497": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "795709": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "795710": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "795711": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "796263": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "796387": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "796460": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "796494": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "797673": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "798298": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "798517": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "798520": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "798664": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "798839": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "800172": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "800173": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "800174": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "800175": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "800176": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "800679": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "800680": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "800779": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "800886": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "801995": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "801996": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "801997": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "802252": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "802253": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "802290": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "802291": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "802292": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "802294": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "802295": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "802839": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "802953": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "803698": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "804512": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "804764": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "804916": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "804920": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "804924": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "805495": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "805496": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "805498": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "806158": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "806160": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "806664": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "807792": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "807793": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "807878": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "807879": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "807885": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "808054": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "808056": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "808057": {
+      "fold": "pool_1",
+      "tier": "excluded"
+    },
+    "808581": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "808582": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "808584": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "808585": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "808650": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "808655": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "809220": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "809226": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "809487": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "809488": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "809491": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "810434": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "810750": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "810756": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "810758": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "810759": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "810761": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "810888": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "810889": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "811021": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "811026": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "812241": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "812300": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "812302": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "812303": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "812304": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "812305": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "812307": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "812308": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "812561": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "813165": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "813167": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "813171": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "813309": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "813312": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "813929": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "813986": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "813992": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "814146": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "814147": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "814149": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "814196": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "814247": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "814511": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "814514": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "814515": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "815334": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "815639": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "815643": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "816016": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "816212": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "816214": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "816743": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "816748": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "816786": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "816859": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "816881": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "816883": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "816886": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "816992": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "816993": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "816995": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "818020": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "818580": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "818585": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "818586": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "818908": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "818909": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "819168": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "819169": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "819341": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "820112": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "820115": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "820117": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "820238": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "820243": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "820651": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "820688": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "820691": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "821573": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "821576": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "821586": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "821587": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "821786": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "823161": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "823163": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "823164": {
+      "fold": "pool_4",
+      "tier": "excluded"
+    },
+    "823165": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "823166": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "823972": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "824526": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "824527": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "824852": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "824853": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "825002": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "825003": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "826159": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "826160": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "826162": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "826164": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "826748": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "827183": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "828133": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "828137": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "828356": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "828706": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "829046": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "829048": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "829489": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "829567": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "829569": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "831065": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "831315": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "832634": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "833880": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "835176": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "835178": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "835444": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "835451": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "836626": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "836656": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "836657": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "836933": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "837229": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "837468": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "837687": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "837688": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "837689": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "837749": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "837772": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "838101": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "838103": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "838332": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "839480": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "839483": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "841356": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "841363": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "841364": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "841596": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "841598": {
+      "fold": "pool_2",
+      "tier": "discovery"
+    },
+    "841599": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "841859": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "841861": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "841866": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "843078": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "843079": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "843080": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "843660": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "843661": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "844033": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "844034": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "844036": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "844634": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "844636": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "844782": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "844783": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "844917": {
+      "fold": "pool_1",
+      "tier": "discovery"
+    },
+    "844920": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    },
+    "845709": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "845710": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "846556": {
+      "fold": "pool_2",
+      "tier": "confirmation"
+    },
+    "846558": {
+      "fold": "pool_3",
+      "tier": "discovery"
+    },
+    "848869": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "849570": {
+      "fold": "pool_1",
+      "tier": "confirmation"
+    },
+    "849659": {
+      "fold": "pool_3",
+      "tier": "confirmation"
+    },
+    "850595": {
+      "fold": "pool_4",
+      "tier": "discovery"
+    },
+    "850597": {
+      "fold": "test",
+      "tier": "test"
+    },
+    "853578": {
+      "fold": "pool_4",
+      "tier": "confirmation"
+    }
+  }
+}

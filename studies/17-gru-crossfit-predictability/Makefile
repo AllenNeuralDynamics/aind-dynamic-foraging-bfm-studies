@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all freeze-folds freeze-scaling freeze-roles freeze-scoring freeze-ignore-split freeze-rebuild-check freeze-pool-strata
 
-all: r1 verdicts
+all: r1 gru-map verdicts
 
 # freeze-folds = the fold assignment (reference/folds.json) and the pool-folds sweep, from study 40's
 # cohort file and the MEvolve data freeze on /allen (snapshot 20260603). Needs pandas: the
@@ -48,6 +48,13 @@ r1:
 	$(PY) analysis/cv_lambda.py
 	$(PY) analysis/cv_rebuild_check.py
 	$(PY) analysis/r1_cv_predictability.py
+
+# gru-map = the GRU held-out map's index (analysis/gru_map_index.json): each model x pass's W&B artifact
+# of per-trial predictions, fold and tier per mouse, and the pass-A pooled values the registry entries
+# gru_cv_map_3way / gru_cv_map_2way point at (#148). Offline.
+.PHONY: gru-map
+gru-map:
+	$(PY) analysis/gru_map_index.py
 
 # verdicts = the INDEX.md table and README `## Verdict`, generated from the version-2
 # reports' frontmatter claims (scripts/report_verdicts.py); edit the claims, never the output

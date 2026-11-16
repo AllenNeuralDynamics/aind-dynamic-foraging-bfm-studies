@@ -8,6 +8,13 @@
 - Claims check run 4 (the extra run after a blocking fix, on 95c38aa): all 4 claims supported, nothing
   blocking; the run-3 fix holds; new non-blocking findings deferred to studies#163.
 - r1 live (Han's go-ahead, 2026-11-16). 4 claims-check records in `analysis/provenance/`.
+- GRU map registered for study 41 (#148). The per-trial predictions stay in each scoring run's
+  `heldout-rescore-<run>:v1` artifact (Han: a W&B artifact on the original run; no combined parquet
+  copy). New `analysis/gru_map_index.json` (`make gru-map`) lists all 74 artifacts with their
+  digests, marks the 10 comparison rows (fold models, pass A, own lambda), and gives each mouse's
+  fold and tier; registry entries `gru_cv_map_3way.s17_pass_a` and `gru_cv_map_2way.s17_pass_a`.
+  Study 41's Q14 (a discovery-only fold set): not trained (Han: the leak is indirect, and study 41
+  may rotate tiers). No λ = 0 re-scoring (Han).
 
 ## 2026-11-15
 
