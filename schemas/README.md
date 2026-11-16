@@ -84,8 +84,10 @@ as it stands (`PROSE_CONSTANTS` in the checker).
 ([`claims-check-record.v1`](claims-check-record.v1.schema.json)), then the prompt given to the reviewer,
 its response verbatim, and the answer to each finding. The header's `content_digest` hashes the
 report's `claims` and body only, so `status`, `draft_reason` and `prose_reviewed` can change without
-making the check stale; any change to a claim or the text does. `inputs` maps every file the reviewer
-read (repository-relative) to its sha256. The newest record (by date, then `_<k>`) is the one checked.
+making the check stale; any change to a claim or the text does. `inputs` maps every other file the
+reviewer read (repository-relative) to its sha256; the report itself is never an input. The prompt and
+the response are stored verbatim, with their sha256 in the header (`prompt_sha256`, `response_sha256`).
+The newest record (by date, then `_<k>`) is the one checked.
 Like the claims check itself, the record never feeds the frontmatter, INDEX or README.
 
 **Generated verdicts.** `scripts/report_verdicts.py studies/<study>` (`make -C studies/<study>

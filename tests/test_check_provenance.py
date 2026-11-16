@@ -4,6 +4,7 @@ Each test builds a compliant study in a temp repo, breaks one thing, and asserts
 finding keys. Schemas are read from this checkout, so these tests also pin the schemas.
 """
 
+import hashlib
 import io
 import json
 import os
@@ -570,7 +571,7 @@ class ReportV2Test(StudyRepo):
     def write_record(self) -> Path:
         """A claims-check record of r2 as it stands, keyed to the report and its JSON."""
         return claims_check.write_record(
-            self.study, self.root / self.REL, inputs=[self.study / "analysis/fit.json"],
+            self.study, self.root / self.REL, inputs=[self.root / self.REL, self.study / "analysis/fit.json"],
             rubric_version="claims-check/1 @ c234bff", model="claude-opus-5-5, effort high",
             prompt="Check r2.", response='{"claims": [{"id": "F1", "verdict": "supported"}]}',
             responses="None needed.", date="2026-11-15", root=self.root)
@@ -632,6 +633,17 @@ class ReportV2Test(StudyRepo):
         self.write_report(status="live", reviewed={"result-1": "0" * 64})
         self.commit()
         self.assertEqual(self.findings("report-claims-check", "warn") | self.findings("report-claims-check", "info"), set())
+
+    def test_claims_check_record_keeps_prompt_and_response_verbatim(self):
+        prompt, response = "\n  indented line\n~~~~ a fence inside\n\n", "  {\"a\": 1}"
+        rec = claims_check.write_record(self.study, self.root / self.REL, inputs=[self.study / "analysis/fit.json"],
+                                        rubric_version="claims-check/1 @ c234bff", model="m", prompt=prompt,
+                                        response=response, responses="-", date="2026-11-16", root=self.root)
+        header, text = claims_check.read_header(rec), rec.read_text()
+        self.assertIn(prompt, text)
+        self.assertIn(response + "\n", text)
+        self.assertEqual(header["prompt_sha256"], hashlib.sha256(prompt.encode()).hexdigest())
+        self.assertNotIn(self.REL, header["inputs"])              # the report is keyed by content only
 
     def test_claims_check_record_header_is_schema_checked(self):
         rec = claims_check.records(self.study, "r2")[-1]

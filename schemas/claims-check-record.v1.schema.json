@@ -4,7 +4,8 @@
   "title": "Claims-check record header (studies#160)",
   "description": "YAML header of studies/<study>/analysis/provenance/claims_check_<rN>_<date>[_<k>].md, written by studies/util/claims_check.py write_record(). It keys one claims-check run to the report content and the evidence the reviewer read.",
   "type": "object",
-  "required": ["schema_version", "report", "checked_on", "content_digest", "inputs", "rubric_version", "model"],
+  "required": ["schema_version", "report", "checked_on", "content_digest", "inputs", "rubric_version", "model",
+               "prompt_sha256", "response_sha256"],
   "additionalProperties": false,
   "properties": {
     "schema_version": {"const": 1},
@@ -15,9 +16,11 @@
                        "description": "sha256 of the report's claims + body (claims_check.content_digest)"},
     "inputs": {"type": "object", "minProperties": 1,
                "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-               "description": "repository-relative path -> sha256 of every file the reviewer was given"},
+               "description": "repository-relative path -> sha256 of every other file the reviewer was given (never the report itself)"},
     "rubric_version": {"type": "string", "pattern": "^claims-check/[0-9]+ @ [0-9a-f]{7,40}$"},
     "model": {"type": "string", "minLength": 1},
+    "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the prompt as given"},
+    "response_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the response as returned"},
     "pr_comment": {"type": "string", "pattern": "^https://"}
   }
 }

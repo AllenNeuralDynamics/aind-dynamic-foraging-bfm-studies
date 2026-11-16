@@ -13,7 +13,11 @@ finding. The header keys the run:
 - ``content_digest``: sha256 of the report's ``claims`` and body (everything after the
   frontmatter). ``status``, ``draft_reason`` and ``prose_reviewed`` are left out, so flipping
   draft -> live does not make the check stale, while any change to a claim or the text does.
-- ``inputs``: repository-relative path -> sha256 of every file the reviewer was given.
+- ``inputs``: repository-relative path -> sha256 of every other file the reviewer was given. The
+  report itself is never an input: it is keyed by ``content_digest`` alone, and a raw-byte hash
+  of it would go stale on a ``status`` flip.
+- ``prompt_sha256`` / ``response_sha256``: sha256 of the prompt and the response as given, so the
+  record's copies can be checked to be verbatim.
 
 `scripts/check_provenance.py` compares the newest record with the report and the files as they
 are now (`report-claims-check-missing`, `report-claims-check-stale`). The record describes the
@@ -78,12 +82,15 @@ def stale_reasons(root: Path, study: Path, header: dict) -> list[str]:
     """Why a record no longer describes the report and its evidence (empty: it is current)."""
     reasons = []
     report = study / str(header.get("report", ""))
+    report_rel = str(report.resolve().relative_to(root.resolve())) if report.exists() else None
     if not report.is_file():
         return [f"report {header.get('report')} does not exist"]
     if content_digest(report) != header.get("content_digest"):
         reasons.append("the report's claims or text changed")
     changed = []
     for rel, digest in sorted((header.get("inputs") or {}).items()):
+        if rel == report_rel:
+            continue                                     # the report is keyed by content_digest only
         p = root / rel
         if not p.is_file():
             changed.append(f"{rel} (gone)")
@@ -94,14 +101,22 @@ def stale_reasons(root: Path, study: Path, header: dict) -> list[str]:
     return reasons
 
 
+def _fenced(text: str) -> str:
+    """`text` unchanged inside a fence longer than any run of tildes in it."""
+    runs = re.findall(r"~+", text)
+    fence = "~" * max(4, max((len(r) for r in runs), default=0) + 1)
+    return f"{fence}text\n{text}{'' if text.endswith(chr(10)) else chr(10)}{fence}"
+
+
 def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_version: str, model: str,
                  prompt: str, response: str, responses: str, pr_comment: str | None = None,
                  date: str | None = None, root: Path = REPO_ROOT) -> Path:
     """Write one claims-check record and return its path.
 
     Call it with the report and input files exactly as the reviewer read them: the digests are
-    taken now. `prompt` and `response` are kept verbatim; `responses` is Markdown (what was fixed,
-    or why not, per finding)."""
+    taken now. The report is keyed by its content digest and is dropped from `inputs` if listed
+    there. `prompt` and `response` are kept verbatim (their sha256 goes in the header);
+    `responses` is Markdown (what was fixed, or why not, per finding)."""
     study, report, root = Path(study).resolve(), Path(report).resolve(), Path(root).resolve()
     rid = re.match(r"(r\d+)-", report.name).group(1)
     date = date or dt.date.today().isoformat()
@@ -111,17 +126,19 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
     while out.exists():
         k += 1
         out = out_dir / f"claims_check_{rid}_{date}_{k}.md"
+    files = [Path(p).resolve() for p in inputs if Path(p).resolve() != report]
     header = {"schema_version": 1, "report": str(report.relative_to(study)), "checked_on": date,
               "content_digest": content_digest(report),
-              "inputs": {str(Path(p).resolve().relative_to(root)): file_sha256(Path(p)) for p in inputs},
-              "rubric_version": rubric_version, "model": model}
+              "inputs": {str(p.relative_to(root)): file_sha256(p) for p in files},
+              "rubric_version": rubric_version, "model": model,
+              "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+              "response_sha256": hashlib.sha256(response.encode()).hexdigest()}
     if pr_comment:
         header["pr_comment"] = pr_comment
-    fence = "~~~~"
     out.write_text("---\n" + yaml.safe_dump(header, sort_keys=False, allow_unicode=True) + "---\n"
                    f"# Claims check — {rid}, {date}\n\n"
                    "The record describes the report; it never feeds the frontmatter, INDEX or README (ADR 0003).\n\n"
-                   f"## Prompt given to the reviewer\n\n{fence}text\n{prompt.strip()}\n{fence}\n\n"
-                   f"## Reviewer's response\n\n{fence}text\n{response.strip()}\n{fence}\n\n"
+                   f"## Prompt given to the reviewer\n\n{_fenced(prompt)}\n\n"
+                   f"## Reviewer's response\n\n{_fenced(response)}\n\n"
                    f"## Responses to the findings\n\n{responses.strip()}\n")
     return out
