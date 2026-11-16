@@ -11,4 +11,4 @@ per-mouse scores on the 146 mice whose sessions match (PLAN.md, check 1).
 
 **Launches.** Each launch writes its record to `launch_record/` and mints one W&B group `test-fold-ref@<launch_id>` (docs/adr/0001). Interventions (rescue, resubmit, extend, ...) join that group.
 
-**Status.** Not launched; waits for the wrapper prerequisite (PLAN.md).
+**Status.** Not launched as its own variant. The test-fold models (seed 0 at D = 10, 30, 100, full; seeds 1–2 at full) were scored inside variant `scoring` (launch `score-28`, group `scoring@20261114-034950`), and pass A reproduces study 02's held-out metrics (r1, Fig. S1; PLAN check 1).

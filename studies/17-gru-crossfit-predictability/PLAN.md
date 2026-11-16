@@ -2,9 +2,9 @@
 
 Issue #148. Companions: study 41 (#149, the strategy study) and
 [MEvolve #87](https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-mevolve/issues/87)
-(scientist mode). Status (2026-11-13 20:00 PT): **training nearly done** (20 of 25 runs finished;
-the 2-way fold models finish 2026-11-14); **scoring tool in review** (wrapper PR #128); scoring not
-started. Terms are defined in [`CONTEXT.md`](CONTEXT.md).
+(scientist mode). Status (2026-11-16): **training done** (25 of 25 runs); **scoring done** (74 of 74 tasks,
+wrapper PR #128; `:v1` artifacts backfilled, wrapper #129); **r1** (cross-validated predictability)
+written and claims-checked. Terms are defined in [`CONTEXT.md`](CONTEXT.md).
 
 ## Why
 

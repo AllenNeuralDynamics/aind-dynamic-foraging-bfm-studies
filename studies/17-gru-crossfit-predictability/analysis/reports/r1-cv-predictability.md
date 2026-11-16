@@ -330,7 +330,8 @@ all 763 mice and so carries less which-mice noise.
   held-out latents (Fig. S3c).
 - **The 2-way models exist only at full size,** so there is no cross-validated 2-way scaling curve;
   Fig. 4 places the 2-way models against study 01's single-split curves instead. Those differ in two
-  ways: study 01 scored only pass A, and only its 149 test mice (study 17: both passes, 763 mice).
+  ways: study 01 scored only pass A, and only its 149 test mice (study 17: both passes, 763 mice for
+  the 3-way models and 760 for the 2-way ones).
   The two offsets are of similar size and opposite sign (pass A scores above pass B, Fig. S1d; the
   test fold sits below the all-mice value, F4), so the vertical gap between the grey and coloured
   curves is not a clean comparison.
