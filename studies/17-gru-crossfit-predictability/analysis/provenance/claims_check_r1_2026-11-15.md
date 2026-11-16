@@ -5,18 +5,18 @@ checked_on: '2026-11-15'
 content_digest: eddd89b6f60728f6134f4876e593a745a33619aa0d93ab599172dc6d76c5ac7f
 inputs:
   studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.py: 581e2925bde43929e32dbfd91ba50a6a20517314bcfc745bdd2f049c0e737012
-  studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.json: cfb2bb6d7e6a977562c27f3f98007cb0282c95d955649bf002db1a4796e50b75
-  studies/17-gru-crossfit-predictability/analysis/scores.json: 767767466ae5d51b3f17868c55ac49dc2e721b480c57fd511042e6bd55c8227b
-  studies/17-gru-crossfit-predictability/analysis/cv_headline.json: 4c3a0e9c15948044e9f99606c21431c393ce3130104cac8fe44749e532fe9992
-  studies/17-gru-crossfit-predictability/analysis/cv_ignore_split.json: eac3c1201217cd93a6ce5c37096e9c3a44083a61df45b63d416c10bf53cad910
-  studies/17-gru-crossfit-predictability/analysis/cv_2way_vs_s01.json: c361d86b561a1a22a75d9c6f5a2fba90a59db7e912463747a2dfd59501e92ef8
-  studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.json: ad432178bab5cf7859aca9f90b84068adca73e0fef22e7449eab148aa49fa028
-  studies/17-gru-crossfit-predictability/analysis/cv_crosscheck.json: e543fb338e5408a6cb31ed71b60b170e53cfe9760c612b31ac21ba0a31f9ae38
-  studies/17-gru-crossfit-predictability/analysis/cv_lambda.json: 38bcc26e6935c729b2b66d519cdc11e0d29454c732f8a46fb181103b291308f4
-  studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.json: 2565f81368e321ba2cfc463ac1417d4ee1bc751dc1dd727c070c2f02b663c822
-  studies/17-gru-crossfit-predictability/analysis/cv_schematic.json: 0186752ebc4fba0e53ec5d1763bb690074bc0e1f8be05e45ef32f947789ca0d7
-  studies/17-gru-crossfit-predictability/analysis/ignore_split.json: 311048d91e8ce94de3ec507fbb1ee208be79c53c478473095db52ab438839746
-  studies/17-gru-crossfit-predictability/analysis/rebuild_check.json: 555157ec303fcfaf7cb13fb98e94accc1d1883f7021e465b9221b529b9e8d153
+  studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.json: 3eae044525ff0fec9a60274c525eec1c2f6c482e25487aeef6d6f28a57b4ecef
+  studies/17-gru-crossfit-predictability/analysis/scores.json: 213665f01e16969b18f8bab743d675906589ad829089cc426ae103c9888cfce6
+  studies/17-gru-crossfit-predictability/analysis/cv_headline.json: e2042214d8b43b07e5d48fbed800d4a678eee55f63bbd286ed9b2d1688fb0ae9
+  studies/17-gru-crossfit-predictability/analysis/cv_ignore_split.json: 6c96e26f6512776949a0e49b511ab3c233f97884e8c8ff03e382a1700b241f93
+  studies/17-gru-crossfit-predictability/analysis/cv_2way_vs_s01.json: 55e987f797d76429a119a7b24cf7640eb42177a3bf6e37866933aba6e07a2931
+  studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.json: cfd54fba6339691f3e0f3ae30988ed5495b4e33d6a5c63d7ab0007318e8265ed
+  studies/17-gru-crossfit-predictability/analysis/cv_crosscheck.json: 1f915e8618636d6aa2b552a729c3239123c14992048a76e7f2bec10483a0f4ad
+  studies/17-gru-crossfit-predictability/analysis/cv_lambda.json: 6a7aa4f3f55fe3297d101abaaaa44ec86aef1ed648d2e44899f1485eb56de24b
+  studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.json: fee79aa73bb9367b4de5c6d45ad6c7f03db61968245be4d33afadf869d367ba8
+  studies/17-gru-crossfit-predictability/analysis/cv_schematic.json: 708f059e96f97e532a21cb4fc087eca59d95482cc0b8e1d3b6bc9dcc70ac6ce6
+  studies/17-gru-crossfit-predictability/analysis/ignore_split.json: 8ed0978fab63276f219c9c34c8680eb515bb1eed7999cad9ff095b16ac82cce7
+  studies/17-gru-crossfit-predictability/analysis/rebuild_check.json: 07170c6d590aa50468ad5a1cb6972ea7fdcf6fd47c4beced42e071250c3d2f4e
   studies/17-gru-crossfit-predictability/analysis/fig_cv_schematic.svg: 8286f4e13c82015a1f40f1aa2eecdea71ef4a74f442d7163a7dee0aa1c6229b3
   studies/17-gru-crossfit-predictability/analysis/fig_cv_headline.svg: 65c54afbff077fc9f94449cc01e28a3cbdadf40f32468d2c059cbcd1fd7c2a25
   studies/17-gru-crossfit-predictability/analysis/fig_cv_map.svg: 700d458526412b15234fbb8a981d4deeca413c8d091af1c80ea5d75044b8882b
@@ -37,17 +37,18 @@ inputs:
   studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.py: 98ab7fe18299d4d9aff099484bba427efa4ac980e0c81b7156355990194a060c
   studies/17-gru-crossfit-predictability/analysis/freeze_rebuild_check.py: a764ed60895c71230e760065df393c61a306b8269498338478dcaec2837a17aa
   studies/17-gru-crossfit-predictability/analysis/freeze_scoring.py: ab431c62bb5ca2bceea4446744bc57741fb1622b48c8f4692da42feb0264b1be
-  studies/17-gru-crossfit-predictability/reference/roles.json: f96d2d2138efa92958b7b7aee521eb22803aadc12cab4f1859ac095e871fbba7
-  studies/17-gru-crossfit-predictability/reference/folds.json: 092c94ab3fdc34d1610886469099a92a8128a8a2346f6d8420c6b7e15bca5015
+  studies/17-gru-crossfit-predictability/reference/roles.json: 8fdf246c50de7c50e4f6b93be003dcfb0b33b2aaac5b0588bbffcfa6badab74f
+  studies/17-gru-crossfit-predictability/reference/folds.json: 716599d05950b6a3c73c0e4c06b131c4c3dcc02d75e0536819b51fa6726142e8
+  studies/02-gru-scaling-law-ignore/analysis/reports/r4-three-way-engagement.md: 763bfe06cbeacede5dde3c451c27e0c94c8f55e0d13345be07525565182a56f0
+  studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json: 7680fab2b0b8950ddd3378e915f7867d71c0273d40c5c6e4323f0d7604484093
+  studies/01-gru-scaling-law/analysis/reports/r7-nxd-joint-scaling-grid.md: 7e05c01310054987f55d313f1d56b505f14bd3b63e27aec6f1811e9e9c9f5d16
+  studies/01-gru-scaling-law/analysis/nxd_scaling.json: 06addf8f7d0c023e1ba435e4fed2dd31fc9020116ea92518d36fbde84bcb2c11
+  studies/01-gru-scaling-law/analysis/nxd_runs.json: 43685b2266333cf920384233a346ff086e214c0db867847b31d7e6f63e20868e
+context:
   studies/17-gru-crossfit-predictability/README.md: 9e992d1d01ef3843cc2401822bd3145a53adf917687928b95ae20f310be6f494
   studies/17-gru-crossfit-predictability/PLAN.md: e1eac4170dfeaaf6b7931dd43fa030aae42f9a453b1e3337c643c31cc6efbaff
   studies/17-gru-crossfit-predictability/CHANGELOG.md: 36d12695602250db356aa1fc110e6c3aed643652331df60dda8a48b84a2980f5
   CONTEXT.md: 302e799564dfc2a420e017005fd0919f0a333add7dd515a9fdc58c960ab1d410
-  studies/02-gru-scaling-law-ignore/analysis/reports/r4-three-way-engagement.md: 763bfe06cbeacede5dde3c451c27e0c94c8f55e0d13345be07525565182a56f0
-  studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json: df9a9cae88e84c50da5d09bcfc827c18f3482b959866eb7fb93d835d20e31d24
-  studies/01-gru-scaling-law/analysis/reports/r7-nxd-joint-scaling-grid.md: 7e05c01310054987f55d313f1d56b505f14bd3b63e27aec6f1811e9e9c9f5d16
-  studies/01-gru-scaling-law/analysis/nxd_scaling.json: 7cffcbe7a62b624fd1bc8899f0b30dbffee4e7dfb11aa32d505d0d890da6e24a
-  studies/01-gru-scaling-law/analysis/nxd_runs.json: 5523d7d3364760e766c47f42929835f5529b8836c6441668a0cefd37b4e02be2
 rubric_version: claims-check/1 @ c234bff89422af05fc784786431fb4dd5a63c620
 model: claude-opus-5-5, effort high (general-purpose agent, read-only)
 prompt_sha256: bc4acd5e9c09d3a83d51f942f5cfaaadd04be7c5d80f54db96b31ba79b05ca72
