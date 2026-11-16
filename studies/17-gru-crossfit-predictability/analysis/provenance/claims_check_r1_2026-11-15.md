@@ -1,19 +1,64 @@
-# Claims check — r1-cv-predictability, 2026-11-15
+---
+schema_version: 1
+report: analysis/reports/r1-cv-predictability.md
+checked_on: '2026-11-15'
+content_digest: eddd89b6f60728f6134f4876e593a745a33619aa0d93ab599172dc6d76c5ac7f
+inputs:
+  studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.py: 581e2925bde43929e32dbfd91ba50a6a20517314bcfc745bdd2f049c0e737012
+  studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.json: cfb2bb6d7e6a977562c27f3f98007cb0282c95d955649bf002db1a4796e50b75
+  studies/17-gru-crossfit-predictability/analysis/scores.json: 767767466ae5d51b3f17868c55ac49dc2e721b480c57fd511042e6bd55c8227b
+  studies/17-gru-crossfit-predictability/analysis/cv_headline.json: 4c3a0e9c15948044e9f99606c21431c393ce3130104cac8fe44749e532fe9992
+  studies/17-gru-crossfit-predictability/analysis/cv_ignore_split.json: eac3c1201217cd93a6ce5c37096e9c3a44083a61df45b63d416c10bf53cad910
+  studies/17-gru-crossfit-predictability/analysis/cv_2way_vs_s01.json: c361d86b561a1a22a75d9c6f5a2fba90a59db7e912463747a2dfd59501e92ef8
+  studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.json: ad432178bab5cf7859aca9f90b84068adca73e0fef22e7449eab148aa49fa028
+  studies/17-gru-crossfit-predictability/analysis/cv_crosscheck.json: e543fb338e5408a6cb31ed71b60b170e53cfe9760c612b31ac21ba0a31f9ae38
+  studies/17-gru-crossfit-predictability/analysis/cv_lambda.json: 38bcc26e6935c729b2b66d519cdc11e0d29454c732f8a46fb181103b291308f4
+  studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.json: 2565f81368e321ba2cfc463ac1417d4ee1bc751dc1dd727c070c2f02b663c822
+  studies/17-gru-crossfit-predictability/analysis/cv_schematic.json: 0186752ebc4fba0e53ec5d1763bb690074bc0e1f8be05e45ef32f947789ca0d7
+  studies/17-gru-crossfit-predictability/analysis/ignore_split.json: 311048d91e8ce94de3ec507fbb1ee208be79c53c478473095db52ab438839746
+  studies/17-gru-crossfit-predictability/analysis/rebuild_check.json: 555157ec303fcfaf7cb13fb98e94accc1d1883f7021e465b9221b529b9e8d153
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_schematic.svg: 8286f4e13c82015a1f40f1aa2eecdea71ef4a74f442d7163a7dee0aa1c6229b3
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_headline.svg: 65c54afbff077fc9f94449cc01e28a3cbdadf40f32468d2c059cbcd1fd7c2a25
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_map.svg: 700d458526412b15234fbb8a981d4deeca413c8d091af1c80ea5d75044b8882b
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_ignore_split.svg: b1e59d0942d29b34345ddf89996b99004648cbf1082636f3402bdfa70cb635c5
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_2way_vs_s01.svg: 6aa789d9e3e8ab17dc57b129dfdb8b387c665f48be7677ebd38b5eb985a415f5
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_fold_spread.svg: e76c0373ebee212950c812a21e9b88e943c9c44c904784192c18e7107d60baf7
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_crosscheck.svg: 69b32c50b0ec0ebfce7dc318290d16b050dc83eb6c8317c3739ece72d10aafd7
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_lambda.svg: 714963306a7b6f865d4e57f6bce372c2414b6b992ad9b783087069d3e5b838e4
+  studies/17-gru-crossfit-predictability/analysis/fig_cv_rebuild_check.svg: 401d412cdd66aa8b61210bcafc476ac9da5ccb950dc5180faecda9665d0f87dc
+  studies/17-gru-crossfit-predictability/analysis/cv_schematic.py: c4c5dee0c7abdddd9f505215cb857fadd82eb2ff3f91dd00079b61fc025e235e
+  studies/17-gru-crossfit-predictability/analysis/cv_headline.py: 6892777cf7048173059b64114c5e2c2b7772551591e5627ae450d25ae4bc81c5
+  studies/17-gru-crossfit-predictability/analysis/cv_ignore_split.py: 6443a74c505a151f707813854ad73a64ffc0664a3ce61a16dfaf9d2f5e1f7bb9
+  studies/17-gru-crossfit-predictability/analysis/freeze_ignore_split.py: adc1de543c55cf5b49747c4f0604b6cf27a71de7835d99f365a526f93b2b2637
+  studies/17-gru-crossfit-predictability/analysis/cv_2way_vs_s01.py: 3756b9d3c13e68d2a4b83d51b8c29312bc8108c4083e839b2fc32ac30da75e67
+  studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.py: 308dec788cd3669d33dfeb958a50a9fa1a32013886d809a9c023747b86c66d38
+  studies/17-gru-crossfit-predictability/analysis/cv_crosscheck.py: 2b3e2b48622848d0a2590ffcc2c2797d150b05f91c992b5b095f8f4e535de9b5
+  studies/17-gru-crossfit-predictability/analysis/cv_lambda.py: 1bb2414bae94aedf922ec814e74db132f2b4d8809641d595486bc96e411ec6f9
+  studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.py: 98ab7fe18299d4d9aff099484bba427efa4ac980e0c81b7156355990194a060c
+  studies/17-gru-crossfit-predictability/analysis/freeze_rebuild_check.py: a764ed60895c71230e760065df393c61a306b8269498338478dcaec2837a17aa
+  studies/17-gru-crossfit-predictability/analysis/freeze_scoring.py: ab431c62bb5ca2bceea4446744bc57741fb1622b48c8f4692da42feb0264b1be
+  studies/17-gru-crossfit-predictability/reference/roles.json: f96d2d2138efa92958b7b7aee521eb22803aadc12cab4f1859ac095e871fbba7
+  studies/17-gru-crossfit-predictability/reference/folds.json: 092c94ab3fdc34d1610886469099a92a8128a8a2346f6d8420c6b7e15bca5015
+  studies/17-gru-crossfit-predictability/README.md: 9e992d1d01ef3843cc2401822bd3145a53adf917687928b95ae20f310be6f494
+  studies/17-gru-crossfit-predictability/PLAN.md: e1eac4170dfeaaf6b7931dd43fa030aae42f9a453b1e3337c643c31cc6efbaff
+  studies/17-gru-crossfit-predictability/CHANGELOG.md: 36d12695602250db356aa1fc110e6c3aed643652331df60dda8a48b84a2980f5
+  CONTEXT.md: 302e799564dfc2a420e017005fd0919f0a333add7dd515a9fdc58c960ab1d410
+  studies/02-gru-scaling-law-ignore/analysis/reports/r4-three-way-engagement.md: 763bfe06cbeacede5dde3c451c27e0c94c8f55e0d13345be07525565182a56f0
+  studies/02-gru-scaling-law-ignore/analysis/frozen_runs.json: df9a9cae88e84c50da5d09bcfc827c18f3482b959866eb7fb93d835d20e31d24
+  studies/01-gru-scaling-law/analysis/reports/r7-nxd-joint-scaling-grid.md: 7e05c01310054987f55d313f1d56b505f14bd3b63e27aec6f1811e9e9c9f5d16
+  studies/01-gru-scaling-law/analysis/nxd_scaling.json: 7cffcbe7a62b624fd1bc8899f0b30dbffee4e7dfb11aa32d505d0d890da6e24a
+  studies/01-gru-scaling-law/analysis/nxd_runs.json: 5523d7d3364760e766c47f42929835f5529b8836c6441668a0cefd37b4e02be2
+rubric_version: claims-check/1 @ c234bff89422af05fc784786431fb4dd5a63c620
+model: claude-opus-5-5, effort high (general-purpose agent, read-only)
+pr_comment: https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-studies/pull/151#issuecomment-6907666690
+---
+# Claims check — r1, 2026-11-15
 
-| field | value |
-|---|---|
-| report | `studies/17-gru-crossfit-predictability/analysis/reports/r1-cv-predictability.md` |
-| version checked | commit `2ac2ec7` (report digest `20e8b67aad15e70ad2a6b3322ba1fe69f559bc950f0d8dd3ed3ce1b5066f9316`) |
-| inputs digest | `8f8d4eec38e07c859e19bc71bfc6d6c817a848cd1d84334509e3f14da6784377` (44 files, `current/` and `upstream/` roles) |
-| rubric | `claims-check/1 @ c234bff89422af05fc784786431fb4dd5a63c620` (skills pack 0.16.1, `posthoc-reporting/references/claims-check-rubric.md`) |
-| reviewer | a new general-purpose agent (not a fork), model opus, effort high, read-only tools |
-| fixes | commit `586c1e8`; PR comment https://github.com/AllenNeuralDynamics/aind-dynamic-foraging-bfm-studies/pull/151#issuecomment-6907666690 |
+The record describes the report; it never feeds the frontmatter, INDEX or README (ADR 0003).
 
-The reviewer's output describes the report; it never feeds the frontmatter, INDEX or README.
+## Prompt given to the reviewer
 
-## 1. Prompt given to the reviewer (verbatim)
-
-```text
+~~~~text
 You are the claims check for a study report. Your instructions are the rubric file below; read it first and follow it exactly. Use read-only tools only (Read, Grep, Glob, and read-only Bash such as cat, sha256sum, python3 -c to resolve JSON pointers or compute digests). Do not edit, create, commit or run producers.
 
 Rubric: /home/han.hou/.claude/plugins/cache/aind-behavior-foundation-model/aind-behavior-foundation-model-skills/0.16.1/skills/posthoc-reporting/references/claims-check-rubric.md
@@ -34,13 +79,11 @@ Files to check (all paths under the repository root):
 Note on structure, so you do not flag it as a defect: the report keeps the 8 required sections and adds a `## Supplementary` section (S1–S4: validation and housekeeping, blocks supp-1..4) between Results and What it means; the skeleton rules allow extra `##` sections there.
 
 Return exactly the rubric's JSON (compute report_digest and inputs_digest as it specifies), then the short markdown summary. Quote line numbers and exact text for every finding.
-```
+~~~~
 
-## 2. Reviewer's response (verbatim)
+## Reviewer's response
 
-Line numbers refer to the report at `2ac2ec7`.
-
-```json
+~~~~text
 {
   "report": "studies/17-gru-crossfit-predictability/analysis/reports/r1-cv-predictability.md",
   "report_digest": "20e8b67aad15e70ad2a6b3322ba1fe69f559bc950f0d8dd3ed3ce1b5066f9316",
@@ -95,21 +138,59 @@ Line numbers refer to the report at `2ac2ec7`.
      "why": "Table S4 lists 10 models with checkpoint λ < 1 (8 at 0, 2 at 0.5). Fig. S2 and its table show 5. The other 5 (pool2-3way-d10, pool2-3way-d30, pool3-3way-d10, pool4-3way-d10, pool4-3way-d30) were not scored at λ = 1 (scores.json#/missing). The heading on line 200 ('hardly matters') rests on n = 2 models where λ can matter (λ = 0.5; max |Δ| 0.00019), and the heading does not give n."}
   ]
 }
-```
 
-Reviewer's summary:
+## Claims check: r1-cv-predictability
 
-> All four claims are supported: every number matches its pointer and its figure. There are 2 stale
-> sentences, 3 missing caveats and 5 estimand issues to answer. No numbers are unsourced.
->
-> **Not checked from these files**
-> - Line 291, "This fits the earlier reading that mice change strategy after an ignore (for example, a
->   reset of action values)": no source is given. Study 02 r4 has no such reading, and no other
->   markdown file under `studies/` has it.
-> - Line 304, "Beaker H200" for every non-Cedar pool-fold model: PLAN gives H200 only for the
->   full-size models. D=10/30/300 ran on "Beaker tier 2", and the GPU type there is not stated.
+All four claims are supported: every number matches its pointer and its figure. There are 2 stale sentences, 3 missing caveats and 5 estimand issues to answer. No numbers are unsourced.
 
-## 3. Responses (what shipped in `586c1e8`)
+**Digests.** `inputs_digest` hashes 44 files: everything listed in the brief except the report, with "current/" and "upstream/" role prefixes. It is the SHA-256 of `json.dumps(map, sort_keys=True, separators=(",",":"))`. The recorded `_meta` digests of `r1_cv_predictability.json` match the current files on disk.
+
+**Claims (C1, C2, C9)**
+- **F1: supported.** The gain is +0.01225 ± 0.00073 (n = 5 folds), and all 5 folds rise at every step of D.
+- **F2: supported.** r = 0.9605 between passes; 5th–95th percentile 0.6233–0.8247 (n = 763). The wording "a property of the mouse" (line 67) goes further than split-half stability shows (see C5).
+- **F3: supported.** All folds: +0.00162 ± 0.00011, 5 of 5 folds. First trial after an ignore: +0.0337, 4.5% of trials, 118% of the gain. The test fold uses 146 mice without saying so (see C6).
+- **F4: supported.** The pointer value is 'within which-mice sampling'. Real SD 0.0029, null median 0.0061, P = 0.9526. The verdict comes from code.
+- **C8.** There is no earlier live version, so there is no diff to check.
+- **C9.** No verdict contradicts its table. Three fixed-string conclusions sit in the supplementary blocks and agree with the current data: line 189 (S1), line 221 (S3), line 270 (S4).
+
+**Stale sentences (C4)**
+- **Line 91**, "its models are study 02's (`nxd-3way`, H256) and study 01's (2-way)": test-3way-d300 is a study 17 run (Table S4 line 265; CHANGELOG 2026-11-13).
+- **Line 303**, "The test fold's models are study 02's and study 01's runs": same contradiction, inside the caveat about fold effects from model origin.
+
+**Unsourced numbers (C3).** None. Every number in hand-written prose traces to a source:
+- 763, 149 and the fold sizes: roles.json and folds.json.
+- "about 610": cv_2way_vs_s01.json `d_full`.
+- "D ≈ 100–300": gain_over_d10.
+- `500`, `1e-3` and `0.5`: inline-code constants.
+
+**Missing caveats (C5)**
+- **F1.** The test fold and the pool folds use two different subset rules. PLAN lines 109-115 promise "The report states this"; the report does not.
+- **F4.** The pool folds are stratified (folds.json `strata`: tier × curriculum × session-count third), but the permutation null is unstratified. This pushes the real SD below the null (consistent with P = 0.95, real 0.0029 vs 2.5th percentile 0.0024) and weakens the "no fold effect" reading.
+- **F2.** The split-half halves interleave by date (PLAN lines 75-78), and mice differ in curriculum and session count. So the evidence shows stability within a mouse, not that the property belongs to the animal.
+
+**Estimands and uncertainty (C6, C7)**
+- **Line 146 (Fig. 3, F3).** The test fold covers 146 mice, so Fig. 3a gives the 3-way value as 0.72965, while Fig. 1 and Fig. 5 give 0.73034 for the same model. This is not stated.
+- **Line 279**, "not about the models": a no-effect conclusion from a test that failed to reject. Lines 305-306 themselves say it cannot rule out a small effect.
+- **Line 69, and lines 296-297.** "0.0024 below all 763 mice" has no interval, yet it drives the recommendation to quote the 5-fold mean.
+- **Line 282**, "several times the whole gain": compares a between-mouse spread with a fold-mean shift without saying which spread. It is about 5× with the SD and about 16× with the 5th–95th range.
+- **Line 205 (Fig. S2 caption).** It reads as covering all λ < 1 models, but it covers 5 of 10. The heading on line 200 ("hardly matters") rests on n = 2 models at λ = 0.5.
+
+**Not checked from these files**
+- Line 291, "This fits the earlier reading that mice change strategy after an ignore (for example, a reset of action values)": no source is given. Study 02 r4 has no such reading, and no other markdown file under `studies/` has it.
+- Line 304, "Beaker H200" for every non-Cedar pool-fold model: PLAN gives H200 only for the full-size models. D=10/30/300 ran on "Beaker tier 2", and the GPU type there is not stated.
+
+Files:
+- /home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/analysis/reports/r1-cv-predictability.md
+- /home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.json
+- /home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.py
+- /home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/analysis/freeze_ignore_split.py
+- /home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/reference/folds.json
+- /home/han.hou/code/aind-dynamic-foraging-bfm-studies/.claude/worktrees/bridge-cse_01XAC3mCG9zmJCgJVYKaNFCP/studies/17-gru-crossfit-predictability/PLAN.md
+~~~~
+
+## Responses to the findings
+
+Fixed in commit `586c1e8`.
 
 | # | Check | Finding | Response |
 |---|---|---|---|
