@@ -51,8 +51,9 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 RECORD_DIR = "analysis/provenance"
 RECORD_NAME = re.compile(r"^claims_check_(r\d+)_(\d{4}-\d{2}-\d{2})(?:_(\d+))?\.md$")
 _FRONTMATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
-# Reading context: recorded under `context`, never makes a record stale.
-CONTEXT_NAMES = {"CONTEXT.md", "README.md", "PLAN.md", "CHANGELOG.md"}
+# Reading context, recorded under `context` and never making a record stale: exactly the
+# repository glossary and the report's own study README, PLAN and CHANGELOG.
+STUDY_CONTEXT = ("README.md", "PLAN.md", "CHANGELOG.md")
 
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -151,8 +152,9 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
         k += 1
         out = out_dir / f"claims_check_{rid}_{date}_{k}.md"
     files = [Path(p).resolve() for p in inputs if Path(p).resolve() != report]
-    evidence = [p for p in files if p.name not in CONTEXT_NAMES]
-    context = [p for p in files if p.name in CONTEXT_NAMES]
+    context_paths = {root / "CONTEXT.md", *(study / n for n in STUDY_CONTEXT)}
+    evidence = [p for p in files if p not in context_paths]
+    context = [p for p in files if p in context_paths]
     header = {"schema_version": 1, "report": str(report.relative_to(study)), "checked_on": date,
               "content_digest": content_digest(report),
               "inputs": {str(p.relative_to(root)): evidence_digest(p) for p in evidence},

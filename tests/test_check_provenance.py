@@ -640,6 +640,13 @@ class ReportV2Test(StudyRepo):
             date="2026-11-16", root=self.root)
         header = claims_check.read_header(rec)
         self.assertEqual(set(header["context"]), {"CONTEXT.md", f"{STUDY}/CHANGELOG.md"})
+        # only those exact paths: another README is evidence, checked like any input
+        other = self.root / "schemas" / "README.md"
+        other.parent.mkdir(exist_ok=True); other.write_text("x\n")
+        rec2 = claims_check.write_record(self.study, self.root / self.REL, inputs=[other], rubric_version="claims-check/1 @ c234bff",
+                                         model="m", prompt="p", response="r", responses="-", date="2026-11-16", root=self.root)
+        self.assertIn("schemas/README.md", claims_check.read_header(rec2)["inputs"])
+        rec2.unlink()
         fit = self.study / "analysis/fit.json"
         doc = json.loads(fit.read_text())
         doc["_meta"]["produced_at_pt"] = "2099-01-01T00:00:00-08:00"
