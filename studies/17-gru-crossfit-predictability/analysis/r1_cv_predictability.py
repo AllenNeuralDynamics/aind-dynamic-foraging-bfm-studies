@@ -156,8 +156,9 @@ def main() -> None:
           f"{f3['n_mice']} mice both models score (test fold: {len(models['test-2way-full-s0']['scores']['lam-checkpoint']['A']['mice'])} "
           f"of {len(models['test-3way-full-s0']['scores']['lam-checkpoint']['A']['mice'])}). "
           "**a**, per fold, 2-way and 3-way held-out likelihood (L/R). **b**, 3-way − 2-way by trials since the last "
-          "ignore (dots: folds; bar: mean ± SEM, 5 folds). **c**, share of trials and share of the log-likelihood gain.", "",
-          "| engaged trial | share of trials | 3-way − 2-way (mean ± SEM, 5 folds) | share of gain |", "|---|---|---|---|"]
+          "ignore (dots: folds; bar: mean ± SEM, 5 folds). **c**, share of trials and share of the 3-way − 2-way log-likelihood "
+          "difference summed over all folds and trials.", "",
+          "| engaged trial | share of trials | 3-way − 2-way held-out likelihood (mean ± SEM, 5 folds) | share of the summed log-likelihood difference |", "|---|---|---|---|"]
     for k, lab in BIN_LABEL.items():
         b = ig["per_bin"][k]
         r3.append(f"| {lab} | {100 * b['share_of_trials']:.1f}% | {f(b['diff_mean'], '+.4f')} ± {sem(b['diff_sem'])} | "

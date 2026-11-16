@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_cv_predictability.py",
-    "produced_at_pt": "2026-11-15T20:48:05-08:00",
-    "studies_git_sha": "2ac2ec7b81996d8a1767d51a8cf5fddee518ab2d",
+    "produced_at_pt": "2026-11-15T23:26:47-08:00",
+    "studies_git_sha": "9d86eb64efe415131aeaff5eff8a756221742f7f",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -32,7 +32,7 @@
     "code": [
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.py",
-        "sha256": "5a5dc219880c991e6b68950d153c7a72653b267c6e563c3ad5718de76c295262"
+        "sha256": "200cd9ce5dbaf0892769550eabaefc4a89742580be7a9f0f0cae4e38b153dc0c"
       }
     ],
     "inputs": [
@@ -42,35 +42,35 @@
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_headline.json",
-        "sha256": "49c400c19a8ba024d569740c0f4dff807c62be682536fe5ab71fb22b0f8be217"
+        "sha256": "a6b823f106c0051cb5f9b82a357c333e134d80e2a0f96277a56aca4622815db5"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_ignore_split.json",
-        "sha256": "c18b34104d02807ee95bf2b8b6ef1dae22afbf1b00e5d053523d475780f20aeb"
+        "sha256": "aaf2ff10f7c13732f4ef738c5f7513968a5bf7a6bae234bce5fb99d65a46b864"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_2way_vs_s01.json",
-        "sha256": "3ff795856dbe413c90f0106bd760c3e9fd470df91eaf49190d70681f7a7c393d"
+        "sha256": "16d1944cce524df569344b2ef1d020aadf52fc2a8d5547a3947d972ef842e603"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_fold_spread.json",
-        "sha256": "67293cfddda4572bd5becc4267a77dbf5a135af049efc23711f79729d1529c77"
+        "sha256": "137001717a7975b71f154e43ca04fad23fc549225900cf65ff8717f3c12af022"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_crosscheck.json",
-        "sha256": "9f4d47312f1e40867930347f8a506ad5fb1e776b8334d8474f969aabf1037021"
+        "sha256": "6709cbc71a96515e47152f26e1688957a615c0b716fb4d9e789cfd93c42398e1"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_lambda.json",
-        "sha256": "822f7c20915b03b0a4a6227c3b7a6847d20587304ef53f46d664029dcea9a882"
+        "sha256": "2c6ba670138b4eb2816e959f7539608b0102ff16a61d38ec7c338205a12ceaef"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_rebuild_check.json",
-        "sha256": "fddb619abf845319fa3142a39196d9adcda07dc9b4df7984912736cfe6582179"
+        "sha256": "ac8992d3740d1e36ef38d3c695dd31c821fa14c511361ba771851abe7645f6b1"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/cv_schematic.json",
-        "sha256": "fcc8b37848311a789997a44cf86a9e2fbd6d7f4b4a1cfcd24a46a84aab7b2390"
+        "sha256": "d00e18bedd12b20a4d8bd37bf78183a8ed011551d8b728539052ad622f0796c7"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/reference/roles.json",
@@ -84,7 +84,7 @@
     "outputs": [
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/r1_cv_predictability.json",
-        "sha256": "ee85721ff151993b1c14ec161ca5b9728c698c5eec57fccf7b5a17461a111517"
+        "sha256": "a267b24c112386e984479b993922d628d9aab7058737cecd0fb32da9111e4b41"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/reports/r1-cv-predictability.md#methods",
@@ -100,7 +100,7 @@
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/reports/r1-cv-predictability.md#result-3",
-        "sha256": "f3cf571c30afd893c2094b906b4415c0f8aa99ff3692505382aa648ceb7e0a13"
+        "sha256": "c74a9716166007f6f3ed357cc5e9047a55629fd61003d99672ac95fffe79b5bf"
       },
       {
         "path": "studies/17-gru-crossfit-predictability/analysis/reports/r1-cv-predictability.md#result-4",
@@ -356,8 +356,8 @@
         "schema_version": 2,
         "kind": "producer",
         "produced_by": "analysis/cv_rebuild_check.py",
-        "produced_at_pt": "2026-11-15T20:48:02-08:00",
-        "studies_git_sha": "2ac2ec7b81996d8a1767d51a8cf5fddee518ab2d",
+        "produced_at_pt": "2026-11-15T23:26:45-08:00",
+        "studies_git_sha": "9d86eb64efe415131aeaff5eff8a756221742f7f",
         "studies_git_dirty": true,
         "wrapper_git_sha": null,
         "wandb_groups": [],

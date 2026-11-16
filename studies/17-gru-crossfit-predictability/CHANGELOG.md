@@ -8,6 +8,11 @@
   F3 states its 760 mice, F4 adds a stratified null (`reference/pool_strata.json`, `make
   freeze-pool-strata`) and an interval for the test fold's offset, which is within random 149-mouse sets,
   so the draft's "slightly hard test split" reading was dropped; new caveats on subset rules and model origins.
+- Claims check run 2 (on 586c1e8): all 4 claims supported; fixes: title no longer compares per-mouse
+  SD with fold SD, "gain" vs "summed log-likelihood difference" named apart, the test-split reading
+  states the check's limited power, Fig. 4 caveat names the different mouse sets, new caveat on the
+  pool-fold models training on the test mice, Provenance lists `pool_strata.json`. Both runs are kept
+  as records (`analysis/provenance/claims_check_r1_*.md`, studies#160).
 - `heldout-rescore-<run>:v1` backfilled on all 74 scoring runs (wrapper #129/#130); records in
   `variants/scoring/launch_record/*/backfill_maps.json`.
 
