@@ -48,7 +48,7 @@ REPORT = textwrap.dedent(f"""\
     schema_version: 1
     id: r1
     slug: example
-    status: live
+    status: draft
     authors: [han]
     wandb_groups: [{GROUP}]
     inputs:
@@ -247,9 +247,20 @@ class CheckProvenanceTest(StudyRepo):
         self.assertIn(f"report-frontmatter|{path}|wandb_groups/0:pattern", keys)
         self.assertIn(f"report-input-missing|{path}|data:python run.py --all", keys)
 
+    def test_v1_report_may_not_go_live(self):
+        """Only a version-2 report carries claims for the claims check (studies#167): a v1 draft is
+        fine, the same report set live is an error; a superseded v1 report is history."""
+        report = self.study / "analysis/reports/r1-example.md"
+        key = f"report-live-v1|{STUDY}/analysis/reports/r1-example.md|"
+        self.assertNotIn(key, self.keys())
+        for status, found in (("live", True), ("superseded", False)):
+            report.write_text(REPORT.replace("status: draft", f"status: {status}"))
+            self.commit()
+            self.assertEqual(key in self.keys(), found, status)
+
     def test_superseded_report_needs_successor(self):
         report = self.study / "analysis/reports/r1-example.md"
-        report.write_text(report.read_text().replace("status: live", "status: superseded"))
+        report.write_text(report.read_text().replace("status: draft", "status: superseded"))
         self.commit()
         self.assertIn(f"report-frontmatter|{STUDY}/analysis/reports/r1-example.md|(top):superseded_by",
                       self.keys())
@@ -438,7 +449,7 @@ class CheckProvenanceTest(StudyRepo):
         self.set_tags(report, "reproduce:", "tags: {model: [gru, cognitive/bh], question: [scaling]}\nreproduce:")
         self.assertEqual(unreported(), {f"study-tag-unreported|{STUDY}/README.md|question:comparison"})
         # a retracted report is no evidence; malformed entries are the schema's, never a crash
-        self.set_tags(report, "status: live", "status: retracted")
+        self.set_tags(report, "status: draft", "status: retracted")
         self.assertEqual(len(unreported()), 4)
         self.set_tags(readme, "model: [gru, cognitive]", "model: [{name: gru}]")
         self.assertIn(f"study-frontmatter|{STUDY}/README.md|tags/model/0:type", self.keys())
