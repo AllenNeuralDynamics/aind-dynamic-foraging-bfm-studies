@@ -125,6 +125,9 @@ FIX = {
     "report-claims-check-stale": "the report's claims or text, or a file the reviewer read, changed after the newest "
                                  "claims check: run it again on the current report and save a new record "
                                  "(claims_check.write_record); a live report fails CI until then",
+    "report-live-v1": "a report goes live only as schema_version 2 (claim pointers, the fixed skeleton), which "
+                      "brings in the claims check (studies#167): migrate it with `make new-report`'s layout, "
+                      "or keep it a draft. The reports live before this rule are baselined",
     "claims-check-record": "fix the record header field named in the message "
                            "(schemas/claims-check-record.v1.schema.json); write records with claims_check.write_record()",
     "verdict-stale": "regenerate it with the command in the message. The block copies the version-2 "
@@ -491,6 +494,9 @@ class Checker:
     def check_report_frontmatter(self, study: Path, p: Path, m, fm: dict, targets: set[str]) -> None:
         version = "v2" if fm.get("schema_version") == 2 else "v1"
         self.schema_errors(f"report-frontmatter.{version}", fm, "report-frontmatter", p)
+        if version == "v1" and fm.get("status") == "live":
+            # only a version-2 report carries the claims a claims check reads (studies#167)
+            self.add("error", "report-live-v1", p, "a live report must be schema_version 2")
         self.check_tags(fm.get("tags"), p)
         if fm.get("id") != f"r{m['n']}" or (fm.get("slug") and fm.get("slug") != m["slug"]):
             self.add("error", "report-id-mismatch", p,

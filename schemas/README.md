@@ -36,7 +36,10 @@ A report with `schema_version: 2` (what `make new-report` writes) follows the ru
 dispatcher `posthoc-reporting` skill, "Report content"; the reasons are
 [ADR 0003](../docs/adr/0003-report-claims-and-claims-check.md). A version-1 report keeps the
 version-1 rules, checked exactly as before, until its results, claims or result blocks change;
-that change is the bump to 2. A typo, link or wording fix leaves it on version 1. The machine-checkable parts:
+that change is the bump to 2. A typo, link or wording fix leaves it on version 1. A version-1 report
+may not go live (`report-live-v1`, error; studies#167): only version 2 carries the claims a claims
+check reads, so a v1 draft moves to version 2 to go live. The reports live before this rule are
+baselined. The machine-checkable parts:
 
 | Finding | Level | Rule |
 |---|---|---|
