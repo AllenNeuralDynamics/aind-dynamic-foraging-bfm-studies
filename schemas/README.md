@@ -87,8 +87,8 @@ as it stands (`PROSE_CONSTANTS` in the checker).
 ([`claims-check-record.v1`](claims-check-record.v1.schema.json)), then the prompt given to the reviewer,
 its response verbatim, and the answer to each finding. The header's `content_digest` hashes the
 report's `claims` and body only, so `status`, `draft_reason` and `prose_reviewed` can change without
-making the check stale; any change to a claim or the text does. `inputs` maps every other file the
-reviewer read (repository-relative) to its evidence digest: an analysis JSON's body without `_meta`
+making the check stale; any change to a claim or the text does. `inputs` maps the starting points
+and every file a verdict cites (repository-relative; files opened but not cited stay out) to its evidence digest: an analysis JSON's body without `_meta`
 (regenerating it with the same numbers changes nothing), any other file's sha256. The report itself
 is never an input. Reading context (`CONTEXT.md`, the study `README.md`, `PLAN.md`, `CHANGELOG.md`)
 is recorded under `context`, and code (`.py` files, e.g. the producers) under `code`; neither makes

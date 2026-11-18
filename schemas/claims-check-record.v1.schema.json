@@ -16,17 +16,21 @@
                        "description": "sha256 of the report's claims + body (claims_check.content_digest)"},
     "inputs": {"type": "object", "minProperties": 1,
                "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-               "description": "repository-relative path -> evidence digest of every other file the reviewer was given (never the report itself): an analysis JSON's body without _meta (_meta.body_digest), else the file's sha256; checked for staleness"},
+               "description": "repository-relative path -> evidence digest of the starting points and every file a verdict cites (never the report itself): an analysis JSON's body without _meta (_meta.body_digest), else the file's sha256; checked for staleness"},
     "context": {"type": "object",
                 "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
                 "description": "repository-relative path -> sha256 of reading context (CONTEXT.md, a study README/PLAN/CHANGELOG); recorded, never checked for staleness"},
     "code": {"type": "object",
              "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
              "description": "repository-relative path -> sha256 of code the reviewer read (.py files, e.g. producers); recorded, never checked for staleness: a code change that alters a number or a sentence shows in the JSON body or the report text (studies#164)"},
-    "rubric_version": {"type": "string", "pattern": "^claims-check/[0-9]+ @ [0-9a-f]{7,40}$", "description": "claims-check/2 adds the reviewer writing its output to a named file and a blocking tag per finding (studies#164)"},
+    "rubric_version": {"type": "string", "pattern": "^claims-check/[0-9]+ @ [0-9a-f]{7,40}$", "description": "claims-check/2 adds the reviewer writing its output to a named file and a blocking tag per finding (studies#164); claims-check/3 replaces blocking with item (C0-C9) and severity High/Medium/Low (studies#167)"},
     "model": {"type": "string", "minLength": 1},
     "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the prompt as given"},
     "response_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the response as returned"},
+    "severity_counts": {"type": "object", "required": ["High", "Medium", "Low"], "additionalProperties": false,
+                        "properties": {"High": {"type": "integer", "minimum": 0}, "Medium": {"type": "integer", "minimum": 0},
+                                       "Low": {"type": "integer", "minimum": 0}},
+                        "description": "claims-check/3 on: the response's findings by severity (an entry is a finding when its severity is not null); absent for older rubrics; recorded, never checked (studies#167)"},
     "pr_comment": {"type": "string", "pattern": "^https://"}
   }
 }

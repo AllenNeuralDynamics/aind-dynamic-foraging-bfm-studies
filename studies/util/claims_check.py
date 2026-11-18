@@ -13,8 +13,8 @@ finding. The header keys the run:
 - ``content_digest``: sha256 of the report's ``claims`` and body (everything after the
   frontmatter). ``status``, ``draft_reason`` and ``prose_reviewed`` are left out, so flipping
   draft -> live does not make the check stale, while any change to a claim or the text does.
-- ``inputs``: repository-relative path -> evidence digest of every other file the reviewer was
-  given: for an analysis JSON, the digest of its body without ``_meta`` (``_meta.body_digest``,
+- ``inputs``: repository-relative path -> evidence digest of the starting points and every file
+  a verdict cites (see below): for an analysis JSON, the digest of its body without ``_meta`` (``_meta.body_digest``,
   as in ``_meta.outputs``), so regenerating it with the same numbers changes nothing; for any
   other file, its sha256. The report itself is never an input: it is keyed by ``content_digest``
   alone, and a raw-byte hash of it would go stale on a ``status`` flip.
@@ -27,23 +27,32 @@ finding. The header keys the run:
   report as checked (studies#164). An older record that lists code under ``inputs`` is read the same way.
 - ``prompt_sha256`` / ``response_sha256``: sha256 of the prompt and the response as given, so the
   record's copies can be checked to be verbatim.
+- ``severity_counts`` (claims-check/3 on): ``{High, Medium, Low}``, the response's findings counted
+  by severity (an entry in any list is a finding when its ``severity`` is not null). Absent when
+  the response carries no severity (claims-check/1 and /2). Recorded, never checked.
+
+Which files go in ``inputs`` (studies#167): the starting points the reviewer was given (the diff
+against the last live version, the files behind each claim pointer at both commits) and every
+file a verdict cites. Files it opened but did not cite stay out, so a record goes stale when the
+evidence a verdict rests on changes, not when an unrelated file does.
 
 `scripts/check_provenance.py` compares the newest record with the report and the files as they
 are now (`report-claims-check-missing`, `report-claims-check-stale`). The record describes the
 report; it never feeds the frontmatter, INDEX or README (ADR 0003).
 
     from claims_check import write_record
-    write_record(study, report, inputs=[...], rubric_version="claims-check/2 @ <sha>",
+    write_record(study, report, inputs=[...], rubric_version="claims-check/3 @ <sha>",
                  model="claude-opus-5-5, effort high", prompt=Path("brief.txt"),
                  response=Path("response.md"), responses=...)
 
 or from the shell (studies repo root), with the reviewer's own output file as the response:
 
     python studies/util/claims_check.py --report studies/<study>/analysis/reports/rN-<slug>.md \
-        --inputs inputs.txt --rubric-version "claims-check/2 @ <sha>" --model "..." \
+        --inputs inputs.txt --rubric-version "claims-check/3 @ <sha>" --model "..." \
         --prompt brief.txt --response response.md --responses answers.md [--pr-comment URL]
 
-``inputs.txt`` lists one repository-relative path per line (the files given to the reviewer).
+``inputs.txt`` lists one repository-relative path per line (the starting points and every file a
+verdict cites).
 """
 from __future__ import annotations
 
@@ -148,6 +157,24 @@ def _fenced(text: str) -> str:
     return f"{fence}text\n{text}{'' if text.endswith(chr(10)) else chr(10)}{fence}"
 
 
+SEVERITIES = ("High", "Medium", "Low")
+
+
+def severity_counts(response: str) -> dict | None:
+    """Findings by severity in the first JSON object of a reviewer's response (claims-check/3),
+    or None when it has no JSON or no entry carries a `severity` key (an older rubric)."""
+    start = response.find("{")
+    try:
+        obj, _ = json.JSONDecoder().raw_decode(response[start:]) if start >= 0 else (None, 0)
+    except ValueError:
+        return None
+    entries = [e for v in (obj.values() if isinstance(obj, dict) else []) if isinstance(v, list)
+               for e in v if isinstance(e, dict) and "severity" in e]
+    if not entries:
+        return None
+    return {s: sum(e["severity"] == s for e in entries) for s in SEVERITIES}
+
+
 def _text(x: str | Path) -> str:
     """A string as given, or a file's UTF-8 text read unchanged (a Path; line endings kept)."""
     return Path(x).read_bytes().decode("utf-8") if isinstance(x, Path) else x
@@ -188,6 +215,9 @@ def write_record(study: Path, report: Path, *, inputs: list[Path], rubric_versio
               "rubric_version": rubric_version, "model": model,
               "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
               "response_sha256": hashlib.sha256(response.encode()).hexdigest()}
+    counts = severity_counts(response)
+    if counts is not None:
+        header["severity_counts"] = counts
     if pr_comment:
         header["pr_comment"] = pr_comment
     out.write_text("---\n" + yaml.safe_dump(header, sort_keys=False, allow_unicode=True) + "---\n"
@@ -203,7 +233,7 @@ def main(argv: list[str] | None = None) -> None:
     import argparse
     ap = argparse.ArgumentParser(description="Write one claims-check record (studies#160, #164).")
     ap.add_argument("--report", required=True, type=Path, help="the report checked (studies/<study>/analysis/reports/rN-*.md)")
-    ap.add_argument("--inputs", required=True, type=Path, help="file listing the reviewer's inputs, one repo-relative path per line")
+    ap.add_argument("--inputs", required=True, type=Path, help="file listing the starting points and every file a verdict cites, one repo-relative path per line")
     ap.add_argument("--rubric-version", required=True)
     ap.add_argument("--model", required=True)
     for k in ("--prompt", "--response", "--responses"):

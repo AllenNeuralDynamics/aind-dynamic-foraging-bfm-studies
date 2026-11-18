@@ -739,6 +739,26 @@ class ReportV2Test(StudyRepo):
         self.assertEqual(self.findings("claims-check-record"), set())
         self.assertEqual(self.findings("report-claims-check", "warn"), set())
 
+    def test_claims_check_counts_findings_by_severity(self):
+        """claims-check/3: the header counts the response's findings by severity (an entry is a
+        finding when its severity is not null), and the header stays schema-valid; a response
+        without severity (claims-check/2) gets no counts."""
+        response = ("```json\n" + json.dumps({
+            "claims": [{"id": "F1", "verdict": "supported", "item": "C1", "severity": None},
+                       {"id": "F1", "verdict": "supported", "item": "C8", "severity": "Medium"}],
+            "producer_traces": [{"claim": "F1", "matches": "true", "item": "C0", "severity": None}],
+            "unsourced_numbers": [{"line": 9, "item": "C3", "severity": "High"}],
+            "stale_sentences": [{"line": 3, "item": "C4", "severity": "Low"},
+                                {"line": 4, "item": "C4", "severity": "Low"}]}) + "\n```\n\nSummary.\n")
+        rec = claims_check.write_record(self.study, self.root / self.REL, inputs=[self.study / "analysis/fit.json"],
+                                        rubric_version="claims-check/3 @ cdbcc2f", model="m", prompt="p",
+                                        response=response, responses="-", date="2026-11-18", root=self.root)
+        self.assertEqual(claims_check.read_header(rec)["severity_counts"], {"High": 1, "Medium": 1, "Low": 2})
+        self.commit()
+        self.assertEqual(self.findings("claims-check-record"), set())
+        old = self.write_record()                        # claims-check/1 response: no severity
+        self.assertNotIn("severity_counts", claims_check.read_header(old))
+
     def test_claims_check_record_header_is_schema_checked(self):
         rec = claims_check.records(self.study, "r2")[-1]
         rec.write_text(rec.read_text().replace("content_digest:", "content_hash:"))
