@@ -1,5 +1,12 @@
 # Changelog — 17-gru-crossfit-predictability
 
+## 2026-11-18
+
+- Claims check run 5 on the live r1, under rubric claims-check/3 (C0 producer traces, a severity per
+  finding; Han's request via the atlas session): 4 claims supported, 4 producer traces match; 0 High,
+  0 Medium, 7 Low, all closed as won't-fix with reasons in
+  `analysis/provenance/claims_check_r1_2026-11-18.md`. Report text unchanged.
+
 ## 2026-11-16
 
 - Claims check run 3 (final run under the round limit, on 92d4585): all 4 claims supported; one
