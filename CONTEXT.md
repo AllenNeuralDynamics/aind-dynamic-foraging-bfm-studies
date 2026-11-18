@@ -126,24 +126,40 @@ The SHA-256 of a file a producer read, recorded in the artifact so a number trac
 bytes rather than to a commit.
 
 **Claims check**:
-A review, by a reader who did not write the report, of whether the report's text matches its
-evidence: each claim against the number it points at, the figures and tables, prose numbers,
-estimands, uncertainty and missing caveats. It judges the text, not the science. On a pull request it
-is the reviewer of a report's scientific facts; the technical review covers the code.
-_Avoid_: audit, domain review (the separate, advisory review of the science), claim review
+The gate before a report version goes live. A reader who did not write the report checks one
+report version against its evidence: each claim's value traced to the producer line that computes
+it, each claim against its number, figures and tables, prose numbers, estimands, uncertainty and
+missing caveats. The report's author starts it; the reviewer reads the repository pinned to the
+report's commit. Each finding has a severity, and a High finding stops the report going live.
+_Avoid_: audit, claim review, scientific review (the separate review across reports)
 
 **Claims-check record**:
 The committed record of one claims check: the prompt the reviewer got, its response verbatim, the
-answer to each finding, and the digests of the report content and of every file the reviewer read.
-A record is current while the report content and the evidence digests still match (reading context
-and code are recorded, not checked); a live report needs a current one.
+answer to each finding, and the digests of the report content and of the evidence: the starting
+points and every file a verdict cites. A record is current while the report content and the
+evidence digests still match (reading context and code are recorded, not checked); a live report
+needs a current one.
 _Avoid_: review log, PR comment (the comment is the review thread, not the record)
+
+**Severity**:
+The level of a review finding, High, Medium or Low, shared by the claims check and the technical
+review. High: fix before merge or going live. Medium: fix, or the first author keeps it for the
+next revision. Low: may be closed with a reason. A revision opens only for a kept Medium, new
+data or a correction.
+_Avoid_: blocking (the older yes/no tag, claims-check/2)
 
 **Technical review**:
 The automated review of a pull request (GitHub Copilot) for code correctness, reproducibility,
-provenance and schema use. It leaves a report's scientific content (claims, numbers, estimands,
-caveats) to the claims check, and on a report PR it finishes before the final claims check.
+provenance and schema use, with a severity on each finding. It leaves a report's scientific
+content (claims, numbers, estimands, caveats) to the claims check, and on a report PR it finishes
+before the final claims check.
 _Avoid_: claims check (the review of a report's text against its evidence)
+
+**Scientific review**:
+An advisory review across reports, run in the background by a GitHub Action (not yet deployed),
+not by a report's author: conflicts between reports, inconsistent estimands, other explanations
+of a result. Its findings are issues with a severity; it never gates a report.
+_Avoid_: domain review (older name)
 
 **Provenance baseline**:
 The committed list of known provenance findings in existing files. It may only shrink.
