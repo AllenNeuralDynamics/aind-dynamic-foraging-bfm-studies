@@ -6,7 +6,7 @@
 PY ?= python
 .PHONY: all
 
-all: r1
+all: r1 verdicts
 
 # Freeze r1's inputs from the pilot's scratch outputs (needs /allen: run on an HPC compute node)
 .PHONY: freeze-r1
@@ -17,3 +17,9 @@ freeze-r1:
 .PHONY: r1
 r1:
 	$(PY) analysis/r1_pilot_decoding.py
+
+# verdicts = the INDEX.md table and README `## Verdict`, generated from the version-2
+# reports' frontmatter claims (scripts/report_verdicts.py); edit the claims, never the output
+.PHONY: verdicts
+verdicts:
+	$(PY) ../../scripts/report_verdicts.py .

@@ -60,7 +60,5 @@ Glossary: [`CONTEXT.md`](CONTEXT.md).
 
 ## Verdict
 
-None yet. r1 (pilot, draft): on training mice, a linear readout of the GRU latents recovers the GLM-HMM
-predictive state posterior at every K (within-session R² 0.72–0.88), including the engaged states that history
-and the GRU's own output cannot separate, and shuffle nulls stay at or below 0.03. This shows shared variables,
-not discrete states.
+<!-- BEGIN verdicts -->
+<!-- END verdicts -->
