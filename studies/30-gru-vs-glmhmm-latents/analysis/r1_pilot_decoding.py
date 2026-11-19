@@ -463,6 +463,7 @@ def table(header, rows):
 
 
 def f2(x):
+    x = 0.0 if round(x, 2) == 0 else x   # no "−0.00"
     return f"{x:.2f}".replace("-", "−")
 
 

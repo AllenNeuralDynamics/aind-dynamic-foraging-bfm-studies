@@ -67,6 +67,7 @@ same behavioural variables, and the GLM-HMM's states can be used to read the GRU
 ## Methods
 
 <!-- BEGIN methods -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END methods -->
 
 As in the study methods ([README](../../README.md), Design), on the training-mice pilot
@@ -94,21 +95,25 @@ latents and history only; every refit reproduces the pilot's scores (the freeze 
 ### Fig. 1 — At every K the latents decode the state posterior; the GRU's output and history do not keep up (F1)
 
 <!-- BEGIN result-1 -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END result-1 -->
 
 ### Fig. 2 — The decoded state is more than engagement (F2)
 
 <!-- BEGIN result-2 -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END result-2 -->
 
 ### Fig. 3 — Shuffle nulls: the decoding follows this session's state at this moment (F3)
 
 <!-- BEGIN result-3 -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END result-3 -->
 
 ### Readability does not pick K (F4)
 
 <!-- BEGIN result-4 -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END result-4 -->
 
 ## Supplementary
@@ -116,16 +121,19 @@ latents and history only; every refit reproduces the pilot's scores (the freeze 
 ### SupFig. 1 — Where the state sits in the population
 
 <!-- BEGIN supp-1 -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END supp-1 -->
 
 ### SupFig. 2 — Example sessions with clear state transitions
 
 <!-- BEGIN supp-2 -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END supp-2 -->
 
 ### SupFig. 3 — Study 14's saved `filtered_k` includes trial t
 
 <!-- BEGIN supp-3 -->
+(written by analysis/r1_pilot_decoding.py)
 <!-- END supp-3 -->
 
 Any analysis that predicts trial t from study 14's saved posteriors must use filtered_{t−1} · A, or it
