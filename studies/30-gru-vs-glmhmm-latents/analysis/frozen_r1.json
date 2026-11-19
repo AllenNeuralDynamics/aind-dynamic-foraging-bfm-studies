@@ -3,9 +3,9 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_r1.py",
-    "produced_at_pt": "2026-11-19T01:10:58-08:00",
-    "studies_git_sha": "736eb7a536701ffad46079d323816380017ac2cb",
-    "studies_git_dirty": false,
+    "produced_at_pt": "2026-11-19T12:24:07-08:00",
+    "studies_git_sha": "ca2c2d8160ed37c2513db75400770eda5c3fad17",
+    "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "hurdle@20261027-212905",
@@ -29,7 +29,7 @@
     "code": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/freeze_r1.py",
-        "sha256": "5fae3e5cd214038dd2ef0dfe6349d1bb4703e8f37f9167d1ec8f823e2f0b2d45"
+        "sha256": "69185819785e1617135fb82386d732e7415014b16d2f134133cf3ea2c1ddaf00"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/upstream_sources.py",
@@ -1139,6 +1139,11 @@
       },
       {
         "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K2.parquet",
+        "sha256": "9f3c3d71db605e20a5c880b20cbf44fe11c451d2ccf2e10dca448e2f5c3fa26e"
+      },
+      {
+        "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K2_latents.npy",
         "sha256": "72c68ca960d6f9ee63645e488feb747161c07d3454c26aa3aecbdbefad5fe421"
       },
@@ -1156,6 +1161,11 @@
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K2_history.npy",
         "sha256": "c14449f895734dbf479cfc25e5df85db4ef61e68c70b9e42d78f0dfe198d82bd"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K3.parquet",
+        "sha256": "a666fca258d8c57daf2768b12b58893e9c44a25b7178db459e9fbd345de4379a"
       },
       {
         "type": "file",
@@ -1204,6 +1214,11 @@
       },
       {
         "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K4.parquet",
+        "sha256": "8ef5c8cc4a251704d905d0ebb322413fb1952358a19e106e1e3f0b3606ede594"
+      },
+      {
+        "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K4_latents.npy",
         "sha256": "a1e4588ae21e2817faf016496b254d091c38049186ec498a5f180e0f3b337b92"
       },
@@ -1221,6 +1236,11 @@
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K4_history.npy",
         "sha256": "e1e3b677bf5c0d92381d558a720c5f12a357347dc26c7af189b27da36c7c4b58"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K5.parquet",
+        "sha256": "e8b5886d5da87527f2792449b3d649a8568c0628f5cc4a02f4cc3a158ea0caf5"
       },
       {
         "type": "file",
@@ -1244,6 +1264,11 @@
       },
       {
         "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K6.parquet",
+        "sha256": "d4bce5d543133588eba6af68a2ded952c2af56a431ec10935235b0d2020d15bf"
+      },
+      {
+        "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K6_latents.npy",
         "sha256": "c56f83f6a9b127e004367cd02f6707c2f66557c84deef285b50558000cbfa061"
       },
@@ -1261,6 +1286,11 @@
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K6_history.npy",
         "sha256": "41f663cc14ea3e9b10e4810e08bb8d1718b17482566ab4aca081c8a8145ac4a9"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K7.parquet",
+        "sha256": "cbca5122db0cba97689b8e9665f218e2d318a627ac2183442832fb5e34cffd1a"
       },
       {
         "type": "file",
@@ -1284,6 +1314,11 @@
       },
       {
         "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K8.parquet",
+        "sha256": "542776f2a97bf9659d5518b7c0d0d9c94d67b9edc7f1ef421713f9620a29782c"
+      },
+      {
+        "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K8_latents.npy",
         "sha256": "dadd2d5d15f693b710056d420de9b4bcabe626b629b1f64601c6885084f974d2"
       },
@@ -1304,6 +1339,11 @@
       },
       {
         "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K9.parquet",
+        "sha256": "fe9662356aa9c6aca18260bf1aee0ca4190dbedd67aa1a8f53e5af79a1aef0e9"
+      },
+      {
+        "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K9_latents.npy",
         "sha256": "4b17adf7513bddb776c193e8cdefb17baacdc8d874d69e0f2caae67694b03c50"
       },
@@ -1321,6 +1361,11 @@
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K9_history.npy",
         "sha256": "2ef888c045b7e959b9a7709ec39ed5379cc28c18650ec3421f909f08abcc4373"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/kscan/glmhmm_hurdle_K10.parquet",
+        "sha256": "c93271263ad65f28b0e8d70e8c379958d0303a58ce15df038738bdecf9a4cbac"
       },
       {
         "type": "file",

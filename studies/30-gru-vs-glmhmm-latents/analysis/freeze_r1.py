@@ -367,7 +367,7 @@ def bootstrap(j, fold, ses, mouse_ids, X_tdr, Z):
            "k3": {}, "k3_engaged": {}, "kscan": {}}
     rows = {}
     for K in KS_SCAN:
-        P = pd.read_parquet(SRC / "kscan" / f"glmhmm_hurdle_K{K}.parquet",
+        P = pd.read_parquet(src(SRC / "kscan" / f"glmhmm_hurdle_K{K}.parquet"),
                             columns=[f"pred_{k}" for k in range(K)]).to_numpy()
         C = np.zeros_like(P)
         for te in folds:             # the constant guess: the training-fold mean posterior

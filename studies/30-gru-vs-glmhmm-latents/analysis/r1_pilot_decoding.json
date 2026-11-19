@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_pilot_decoding.py",
-    "produced_at_pt": "2026-11-19T12:14:28-08:00",
-    "studies_git_sha": "33e574671b158e09e306b97a2b3dcc8769a5b07e",
+    "produced_at_pt": "2026-11-19T12:25:22-08:00",
+    "studies_git_sha": "ca2c2d8160ed37c2513db75400770eda5c3fad17",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -47,7 +47,7 @@
     "inputs": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1.json",
-        "sha256": "2fe7fc74d31207cd1a131b56feb46f1be85f611aaf413d1cc3387fe3ede111e8"
+        "sha256": "8375703823aa28ebf6fa58f8dc5bf79a623d55f0a39646edf2a8f145e80be2ba"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1_sessions.npz",
