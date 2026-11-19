@@ -80,13 +80,13 @@ class ScaffoldTest(unittest.TestCase):
         self.assertEqual(set(fm["prose_reviewed"]["blocks"]), {"methods", "result-1"})
         self.assertEqual(report_verdicts.headings(report.read_text().split("---\n", 2)[2]),
                          ["# r1 — Held-out rises with D", *cp.SKELETON])
-        self.assertIn("### F1 — TODO\n\n<!-- BEGIN result-1 -->", report.read_text())
+        self.assertIn("### Fig. 1 — TODO\n\n<!-- BEGIN result-1 -->", report.read_text())
         self.assertIn("all: verdicts\n", (study / "Makefile").read_text())
         self.assertIn("[r1 — Held-out rises with D](r1-curve.md) | draft: ", (study / "analysis/reports/INDEX.md").read_text())
         # the draft's claim points ahead of its producer, and it has no claims check yet: advisory
         # notes, never a failure
         notes = {f.key for f in cp.Checker(self.root).run() if f.level == "info" and f.check in cp.ADVISORY}
-        self.assertEqual(notes, {"report-claim-unresolved|studies/12-gru-example/analysis/reports/r1-curve.md|F1",
+        self.assertEqual(notes, {"report-claim-unresolved|studies/12-gru-example/analysis/reports/r1-curve.md|Fig1",
                                  "report-claims-check-missing|studies/12-gru-example/analysis/reports/r1-curve.md|"})
         self.assertEqual(self.findings(), [])
 
@@ -232,7 +232,7 @@ class MakeTargetTest(unittest.TestCase):
         self.assertIn('# r1 — The "curve"', (study / "analysis/reports/r1-curve.md").read_text())
         # the study's `verdicts` target regenerates the INDEX table from the reports' claims
         index = study / "analysis/reports/INDEX.md"
-        index.write_text(index.read_text().replace("**F1.** TODO", "**F1.** edited by hand"))
+        index.write_text(index.read_text().replace("**Fig. 1.** TODO", "**Fig. 1.** edited by hand"))
         subprocess.run(["make", "-s", "-C", str(study), "verdicts", f"PY={sys.executable}"],
                        check=True, capture_output=True, text=True)
         self.assertIn('| [r1 — The "curve"](r1-curve.md) | draft: ', index.read_text())

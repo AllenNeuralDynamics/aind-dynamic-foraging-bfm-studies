@@ -57,7 +57,9 @@ baselined. The machine-checkable parts:
 `make validate` prints it under `note`. A superseded or retracted report is history: only its
 schema and skeleton are checked.
 
-**Claims.** `claims: [{id: F1, text: "...", pointer: "analysis/r1_fit.json#/delta/mean"}]`. The
+**Claims.** `claims: [{id: Fig1, text: "...", pointer: "analysis/r1_fit.json#/delta/mean"}]`. Claim
+`Fig<k>` is the finding headed `### Fig. k` and cited as "Fig. k"; supplementary items are
+`SupFig. k`. The
 pointer is a study-relative JSON path, `#`, and an RFC 6901 JSON Pointer (`~1` for `/`, `~0` for
 `~` in a key; array items by index). A draft may point ahead of its producer, which is why a
 fresh scaffold passes; a live report may not.

@@ -61,7 +61,7 @@ MAKE_TARGET = re.compile(r"^([A-Za-z0-9][\w.-]*(?:\s+[A-Za-z0-9][\w.-]*)*)\s*:(?
 SKELETON = ["## Question", "## Answer", "## Methods", "## Results", "## What it means",
             "## Caveats", "## Next", "## Provenance"]
 # A number in hand-written prose: a decimal, scientific notation or a percentage. Integers are
-# left alone (years, D=614, n=149, r1, F2, seed counts): too many are not results.
+# left alone (years, D=614, n=149, r1, Fig. 2, seed counts): too many are not results.
 # The sign is part of the number (`−0.016`), unless it follows a digit (`0.01-0.02` is a range).
 PROSE_NUMBER = re.compile(r"(?<![\w.@/\\])([-−+]?(?:\d*\.\d+(?:[eE][-+−]?\d+)?|\d+[eE][-+−]?\d+|\d+(?:\.\d+)?%))(?![\w%]|\.\d)")
 # a hyphen after a digit or point is a range ("0.01-0.02"), not a minus

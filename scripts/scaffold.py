@@ -233,8 +233,9 @@ TODO: the question in one sentence, and why it matters.
 
 ## Answer
 
-- **F1.** TODO: claim F1, the same sentence. Order the findings as an argument: the headline
-  first, then what supports it, then what limits it.
+- **Fig. 1.** TODO: claim Fig1, the same sentence. Summarise the argument at a high level: the
+  headline first, then what supports it, then what limits it. Merge findings that make the same
+  point at different settings; not one finding per figure.
 
 ## Methods
 
@@ -247,7 +248,7 @@ As in the study methods (README), except: TODO.
 
 ## Results
 
-### F1 — TODO
+### Fig. 1 — TODO
 
 <!-- BEGIN result-1 -->
 TODO: written by the producer, never by hand. Figure first, then table; every number with its
@@ -256,7 +257,7 @@ n and its uncertainty.
 
 ## What it means
 
-TODO: the interpretation. Cite findings by id (F1) instead of retyping their numbers, and
+TODO: the interpretation. Cite findings as Fig. 1 instead of retyping their numbers, and
 explain each specialised term where it first appears.
 
 ## Caveats
@@ -297,7 +298,7 @@ def new_report(a: argparse.Namespace) -> None:
     front = {"schema_version": 2, "id": rid, "slug": a.slug, "status": "draft",
              "draft_reason": "scaffolded: producer, claims and prose are still TODO",
              "authors": [a.author], "wandb_groups": [], "inputs": {"script": script},
-             "claims": [{"id": "F1", "text": "TODO: the headline finding, in one sentence",
+             "claims": [{"id": "Fig1", "text": "TODO: the headline finding, in one sentence",
                          "pointer": f"{output.relative_to(d).as_posix()}#/TODO"}],
              "prose_reviewed": {"date": TODAY, "blocks": blocks},
              "reproduce": f"make -C studies/{a.study} {rid}"}

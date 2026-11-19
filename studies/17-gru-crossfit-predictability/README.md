@@ -59,10 +59,10 @@ per-trial predictions, and the registry names `gru_cv_map_3way` and `gru_cv_map_
 
 **[r1 — Held-out prediction rises with training mice in every fold, and each mouse's predictability is stable](analysis/reports/r1-cv-predictability.md)**
 
-- **F1.** Held-out likelihood (trial-pooled, left/right on engaged trials) rises from D = 10 to full size in all 5 folds, by +0.0123 ± 0.0007 within each fold's own mice (mean ± SEM, n = 5 folds).
-- **F2.** Predictability is stable within a mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two interleaved halves of each mouse's sessions agree (Pearson r = 0.96).
-- **F3.** Over the 760 mice both models score, the 3-way GRU predicts left/right better than the 2-way GRU in all 5 folds (+0.0016 ± 0.0001, SEM over folds), and the advantage sits on the first engaged trial after an ignore: +0.034 there, where 4.5% of trials carry 118% of the summed log-likelihood difference.
-- **F4.** The fold-to-fold spread is within which-mice sampling, both against random splits (SD 0.0029 vs median 0.0061, P = 0.95) and against the pool folds re-dealt within their strata (P = 0.81); the test fold's offset from all 763 mice (−0.0024) is within the range of random 149-mouse sets (P = 0.69).
+- **Fig. 1.** Held-out likelihood (trial-pooled, left/right on engaged trials) rises from D = 10 to full size in all 5 folds, by +0.0123 ± 0.0007 within each fold's own mice (mean ± SEM, n = 5 folds).
+- **Fig. 2.** Predictability is stable within a mouse: per-mouse held-out likelihood spans 0.623 to 0.825 (5th to 95th percentile, n = 763 mice), and the two interleaved halves of each mouse's sessions agree (Pearson r = 0.96).
+- **Fig. 3.** Over the 760 mice both models score, the 3-way GRU predicts left/right better than the 2-way GRU in all 5 folds (+0.0016 ± 0.0001, SEM over folds), and the advantage sits on the first engaged trial after an ignore: +0.034 there, where 4.5% of trials carry 118% of the summed log-likelihood difference.
+- **Fig. 4.** The fold-to-fold spread is within which-mice sampling, both against random splits (SD 0.0029 vs median 0.0061, P = 0.95) and against the pool folds re-dealt within their strata (P = 0.81); the test fold's offset from all 763 mice (−0.0024) is within the range of random 149-mouse sets (P = 0.69).
 
 <!-- END verdicts -->
 

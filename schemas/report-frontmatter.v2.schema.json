@@ -68,7 +68,7 @@
       "items": {
         "type": "object", "required": ["id", "text", "pointer"], "additionalProperties": false,
         "properties": {
-          "id": {"type": "string", "pattern": "^F[1-9][0-9]*$", "description": "F1, F2, ...; prose cites a finding by its id."},
+          "id": {"type": "string", "pattern": "^Fig[1-9][0-9]*$", "description": "Fig1, Fig2, ...; the finding is labelled and cited as Fig. 1, Fig. 2, ... (supplementary items: SupFig. 1, ...)."},
           "text": {"$ref": "#/$defs/line", "description": "The finding in one sentence."},
           "pointer": {"type": "string", "pattern": "^(?!/)[^\\s#*?<>|]+\\.json#(/([^~/]|~[01])*)+$",
                       "description": "<study-relative JSON path>#<RFC 6901 JSON Pointer> to the value that supports the claim; it must resolve."}

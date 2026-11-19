@@ -520,7 +520,7 @@ V2_BODY = textwrap.dedent("""\
 
     ## Answer
 
-    - **F1.** The fit improves by 0.0123, and 12% of sessions fail.
+    - **Fig. 1.** The fit improves by 0.0123, and 12% of sessions fail.
 
     ## Methods
 
@@ -532,7 +532,7 @@ V2_BODY = textwrap.dedent("""\
 
     ## Results
 
-    ### F1 — The fit improves
+    ### Fig. 1 — The fit improves
 
     <!-- BEGIN result-1 -->
     ## not a section: a producer may write headings
@@ -541,7 +541,7 @@ V2_BODY = textwrap.dedent("""\
 
     ## What it means
 
-    F1 holds within its 95% CI (0.010 to 0.015); `v0.4.1` and [a link](fig_0.25.svg) are not numbers.
+    Fig. 1 holds within its 95% CI (0.010 to 0.015); `v0.4.1` and [a link](fig_0.25.svg) are not numbers.
 
     ## Caveats
 
@@ -584,11 +584,11 @@ class ReportV2Test(StudyRepo):
         return claims_check.write_record(
             self.study, self.root / self.REL, inputs=[self.root / self.REL, self.study / "analysis/fit.json"],
             rubric_version="claims-check/1 @ c234bff", model="claude-opus-5-5, effort high",
-            prompt="Check r2.", response='{"claims": [{"id": "F1", "verdict": "supported"}]}',
+            prompt="Check r2.", response='{"claims": [{"id": "Fig1", "verdict": "supported"}]}',
             responses="None needed.", date="2026-11-15", root=self.root)
 
     def write_report(self, body: str = V2_BODY, status: str = "live", extra: str = "",
-                     claims: str = "  - {id: F1, text: \"The fit improves.\", pointer: \"analysis/fit.json#/delta/mean\"}\n",
+                     claims: str = "  - {id: Fig1, text: \"The fit improves.\", pointer: \"analysis/fit.json#/delta/mean\"}\n",
                      reviewed: dict | None = None) -> None:
         blocks = reviewed or {k: _meta.block_digest(v) for k, v in _meta.RESULT_BLOCK.findall(body)}
         front = (f"schema_version: 2\nid: r2\nslug: fit\nstatus: {status}\n{extra}authors: [han]\n"
@@ -744,9 +744,9 @@ class ReportV2Test(StudyRepo):
         finding when its severity is not null), and the header stays schema-valid; a response
         without severity (claims-check/2) gets no counts."""
         response = ("```json\n" + json.dumps({
-            "claims": [{"id": "F1", "verdict": "supported", "item": "C1", "severity": None},
-                       {"id": "F1", "verdict": "supported", "item": "C8", "severity": "Medium"}],
-            "producer_traces": [{"claim": "F1", "matches": "true", "item": "C0", "severity": None}],
+            "claims": [{"id": "Fig1", "verdict": "supported", "item": "C1", "severity": None},
+                       {"id": "Fig1", "verdict": "supported", "item": "C8", "severity": "Medium"}],
+            "producer_traces": [{"claim": "Fig1", "matches": "true", "item": "C0", "severity": None}],
             "unsourced_numbers": [{"line": 9, "item": "C3", "severity": "High"}],
             "stale_sentences": [{"line": 3, "item": "C4", "severity": "Low"},
                                 {"line": 4, "item": "C4", "severity": "Low"}]}) + "\n```\n\nSummary.\n")
@@ -797,17 +797,17 @@ class ReportV2Test(StudyRepo):
                           f"report-skeleton|{self.REL}|## Methods"})
 
     def test_claim_pointer_must_resolve_when_live(self):
-        bad = ("  - {id: F1, text: \"Escapes resolve.\", pointer: \"analysis/fit.json#/a~1b/c~0d/1\"}\n"
-               "  - {id: F2, text: \"No such key.\", pointer: \"analysis/fit.json#/delta/median\"}\n"
-               "  - {id: F3, text: \"No such file.\", pointer: \"analysis/nope.json#/x\"}\n"
-               "  - {id: F4, text: \"Index out of range.\", pointer: \"analysis/fit.json#/delta/ci/2\"}\n")
-        bad += ("  - {id: F5, text: \"A bare tilde is no escape, even for a key spelled so.\", "
+        bad = ("  - {id: Fig1, text: \"Escapes resolve.\", pointer: \"analysis/fit.json#/a~1b/c~0d/1\"}\n"
+               "  - {id: Fig2, text: \"No such key.\", pointer: \"analysis/fit.json#/delta/median\"}\n"
+               "  - {id: Fig3, text: \"No such file.\", pointer: \"analysis/nope.json#/x\"}\n"
+               "  - {id: Fig4, text: \"Index out of range.\", pointer: \"analysis/fit.json#/delta/ci/2\"}\n")
+        bad += ("  - {id: Fig5, text: \"A bare tilde is no escape, even for a key spelled so.\", "
                 "pointer: \"analysis/fit.json#/a~1b/c~d/0\"}\n"
-                "  - {id: F6, text: \"A trailing tilde neither.\", pointer: \"analysis/fit.json#/delta~\"}\n"
-                "  - {id: F7, text: \"An index has no leading zero.\", pointer: \"analysis/fit.json#/delta/ci/01\"}\n")
+                "  - {id: Fig6, text: \"A trailing tilde neither.\", pointer: \"analysis/fit.json#/delta~\"}\n"
+                "  - {id: Fig7, text: \"An index has no leading zero.\", pointer: \"analysis/fit.json#/delta/ci/01\"}\n")
         self.write_report(claims=bad)
         self.commit()
-        want = {f"report-claim-unresolved|{self.REL}|F{k}" for k in (2, 3, 4, 5, 6, 7)}
+        want = {f"report-claim-unresolved|{self.REL}|Fig{k}" for k in (2, 3, 4, 5, 6, 7)}
         self.assertEqual(self.findings("report-claim"), want)
         # a draft may point ahead of its producer: the same findings, advisory
         self.write_report(claims=bad, status="draft", extra="draft_reason: producer pending\n")
@@ -877,7 +877,7 @@ class ReportV2Test(StudyRepo):
             meta = _meta.build_meta("analysis/produce.py", [GROUP], study_root=self.study,
                                     code=[a / "produce.py"], inputs=[a / "grid.csv", src])
             _meta.write_artifact(a / "cross.json", {"_meta": meta, "gap": 0.0018})
-        self.write_report(claims="  - {id: F1, text: \"The gap is small.\", pointer: \"analysis/cross.json#/gap\"}\n")
+        self.write_report(claims="  - {id: Fig1, text: \"The gap is small.\", pointer: \"analysis/cross.json#/gap\"}\n")
         report_verdicts.write(self.study)
         self.commit()
         self.assertEqual(self.findings("report-upstream-"), {f"report-upstream-undeclared|{self.REL}|{other}"})
@@ -895,9 +895,9 @@ class ReportV2Test(StudyRepo):
         other = self.root / "studies/05-disrnn-other/analysis/fit.json"
         other.parent.mkdir(parents=True, exist_ok=True)
         other.write_text('{"gap": 0.5}')
-        self.write_report(claims="  - {id: F1, text: \"Elsewhere.\", pointer: \"../05-disrnn-other/analysis/fit.json#/gap\"}\n")
+        self.write_report(claims="  - {id: Fig1, text: \"Elsewhere.\", pointer: \"../05-disrnn-other/analysis/fit.json#/gap\"}\n")
         self.commit()
-        self.assertEqual(self.findings("report-claim"), {f"report-claim-unresolved|{self.REL}|F1"})
+        self.assertEqual(self.findings("report-claim"), {f"report-claim-unresolved|{self.REL}|Fig1"})
 
     def test_tilde_fences_are_not_prose(self):
         body = V2_BODY.replace("none\n", "none\n\n~~~\n## Question\nwas 0.1234\n~~~\n")
@@ -933,10 +933,10 @@ class ReportV2Test(StudyRepo):
 
     def test_generated_verdicts_follow_the_claims(self):
         index, readme = self.study / "analysis/reports/INDEX.md", self.study / "README.md"
-        self.assertIn("**F1.** The fit improves.", index.read_text())
-        self.assertIn("- **F1.** The fit improves.", readme.read_text())
+        self.assertIn("**Fig. 1.** The fit improves.", index.read_text())
+        self.assertIn("- **Fig. 1.** The fit improves.", readme.read_text())
         self.assertIn("[r1](r1-example.md)\n", index.read_text())          # hand content kept
-        self.write_report(claims="  - {id: F1, text: \"The fit improves a lot.\", pointer: \"analysis/fit.json#/delta/mean\"}\n")
+        self.write_report(claims="  - {id: Fig1, text: \"The fit improves a lot.\", pointer: \"analysis/fit.json#/delta/mean\"}\n")
         self.commit()
         self.assertEqual(self.findings("verdict-stale"),
                          {f"verdict-stale|{STUDY}/analysis/reports/INDEX.md|verdicts",
