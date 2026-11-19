@@ -93,8 +93,10 @@ def _title(name: str, fm: dict, body: str) -> str:
 
 
 def _claims(fm: dict) -> list[tuple[str, str]]:
+    """(label, text) per claim; claim id `Fig2` is labelled `Fig. 2`, as the report cites it."""
     claims = fm.get("claims") if isinstance(fm.get("claims"), list) else []   # else: a schema error
-    return [(str(c.get("id")), str(c.get("text"))) for c in claims if isinstance(c, dict)]
+    return [(re.sub(r"^Fig(\d+)$", r"Fig. \1", str(c.get("id"))), str(c.get("text")))
+            for c in claims if isinstance(c, dict)]
 
 
 def _status(fm: dict) -> str:
