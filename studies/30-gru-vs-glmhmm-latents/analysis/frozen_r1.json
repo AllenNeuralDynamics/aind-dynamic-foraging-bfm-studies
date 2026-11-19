@@ -3,9 +3,9 @@
     "schema_version": 2,
     "kind": "freeze",
     "produced_by": "analysis/freeze_r1.py",
-    "produced_at_pt": "2026-11-11T13:58:56-08:00",
-    "studies_git_sha": "00500ca029be5a5341191a8972e9ad5068f3e00e",
-    "studies_git_dirty": true,
+    "produced_at_pt": "2026-11-19T01:10:58-08:00",
+    "studies_git_sha": "736eb7a536701ffad46079d323816380017ac2cb",
+    "studies_git_dirty": false,
     "wrapper_git_sha": null,
     "wandb_groups": [
       "hurdle@20261027-212905",
@@ -29,7 +29,7 @@
     "code": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/freeze_r1.py",
-        "sha256": "d21d367870e941c5a8cec1e8cb6fe25cf1d450e9ac4e9d44ce3cfcc2e62c4d08"
+        "sha256": "5fae3e5cd214038dd2ef0dfe6349d1bb4703e8f37f9167d1ec8f823e2f0b2d45"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/upstream_sources.py",
@@ -1136,12 +1136,217 @@
         "type": "file",
         "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/tdr_axes.npz",
         "sha256": "d4d366030a3d47fd107bc1dcc4893ed73138eba98680a4e0d3ea0d11881ba5b6"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K2_latents.npy",
+        "sha256": "72c68ca960d6f9ee63645e488feb747161c07d3454c26aa3aecbdbefad5fe421"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K2_untrained.npy",
+        "sha256": "d439a3f34eccace21306d3631ca789cf5aadef495a95ca2444063b2d93d8ed75"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K2_logits.npy",
+        "sha256": "cda429f68a7863a76bd7246d678745bac4b5204c88d600bab4872af123016c2e"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K2_history.npy",
+        "sha256": "c14449f895734dbf479cfc25e5df85db4ef61e68c70b9e42d78f0dfe198d82bd"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_latents.npy",
+        "sha256": "fadadc61be19ad84ddfce7167fbe3cce287812d363a714c2a6f34b2df3a583b1"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_latents.npy",
+        "sha256": "fadadc61be19ad84ddfce7167fbe3cce287812d363a714c2a6f34b2df3a583b1"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_logits.npy",
+        "sha256": "4e4a8c11be50bb1eb243f1cf977c9529fac299bb1564751020162441a0ab9f45"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_logits.npy",
+        "sha256": "4e4a8c11be50bb1eb243f1cf977c9529fac299bb1564751020162441a0ab9f45"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_history.npy",
+        "sha256": "96f9774521cd5f83188c0ef1dcbf02ebb59046ed6cdd8cd5b519fba419bb0d0f"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_history.npy",
+        "sha256": "96f9774521cd5f83188c0ef1dcbf02ebb59046ed6cdd8cd5b519fba419bb0d0f"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_latents+history.npy",
+        "sha256": "9ee4dcb9a513e473eed673de1be1cbdce948ff8f1a1866c7b13c3463a0ec4781"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_untrained.npy",
+        "sha256": "4e025455dc3bc8054eaa704dab1ae6291e99ea0d3a8869e70cbf341e48dec51e"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K3_trial_index.npy",
+        "sha256": "ae9abb948f8d0311787f7f3390a708502f32f07233b3d5cc7b84980a6fd6f17a"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K4_latents.npy",
+        "sha256": "a1e4588ae21e2817faf016496b254d091c38049186ec498a5f180e0f3b337b92"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K4_untrained.npy",
+        "sha256": "a5087e7811ef501f627558543059a8c19401b8a0921897c0e772a0492207c406"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K4_logits.npy",
+        "sha256": "5b2a164dbfbff5178b03ddc20bae35bb243e0ba87d7757b5d2f2e16486977dad"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K4_history.npy",
+        "sha256": "e1e3b677bf5c0d92381d558a720c5f12a357347dc26c7af189b27da36c7c4b58"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K5_latents.npy",
+        "sha256": "69aba06a0934cbd75ad1a9f7e13f2e18915842398e6ee9d1961bf38d4be60bb2"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K5_untrained.npy",
+        "sha256": "583d0b3752e2b47f45d37c6975401f689136bceef58fac5e5c8e5fe7a8b0e888"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K5_logits.npy",
+        "sha256": "e3e201ddd0df8f118b61f347e2864ec4c48cbc25fef6d9730dfe6579cefe24de"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K5_history.npy",
+        "sha256": "21b2d402509d8f81a3e3bc1ee3c96e9b04a7e8b07f704b82b97c44494ad57f70"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K6_latents.npy",
+        "sha256": "c56f83f6a9b127e004367cd02f6707c2f66557c84deef285b50558000cbfa061"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K6_untrained.npy",
+        "sha256": "ad2a8af68db51d4c694290342bdd1eb83a759fdc714bff642cb82bf3ed2a433f"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K6_logits.npy",
+        "sha256": "4998dd673cfd7a905ba2ee0c318eb227167d0922fc72b798528c2f8adc8ccfa9"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K6_history.npy",
+        "sha256": "41f663cc14ea3e9b10e4810e08bb8d1718b17482566ab4aca081c8a8145ac4a9"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K7_latents.npy",
+        "sha256": "4e0ed9cf12a3c623462534ad35f09b05500b96fe1f5b65d52539f8336360ff07"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K7_untrained.npy",
+        "sha256": "e22d7ebb452ff5c551e0b2bcea85bcfbb8a46962a628922607bd541292f42c0e"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K7_logits.npy",
+        "sha256": "13441384d96af0ca2e156338cc3176d1bfbc3132c0238bbd953ff6f68dad9bf2"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K7_history.npy",
+        "sha256": "b9782df4b4622de1309e6f6fbce7e875d88efdb12f685c1feb27e7fc06b87e52"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K8_latents.npy",
+        "sha256": "dadd2d5d15f693b710056d420de9b4bcabe626b629b1f64601c6885084f974d2"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K8_untrained.npy",
+        "sha256": "e7e761528ac6124cef53943bf5f4d7db36a35bedea51c5c161c4bf89e193bfa4"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K8_logits.npy",
+        "sha256": "963d008ed96d5637a148d60da26276e6e6cb9c65b5257830ee3dfa936468e792"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K8_history.npy",
+        "sha256": "f3910bc531b10750dd0b8446b0414bc8b6ecd7267b805246fa1c040aefe309fc"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K9_latents.npy",
+        "sha256": "4b17adf7513bddb776c193e8cdefb17baacdc8d874d69e0f2caae67694b03c50"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K9_untrained.npy",
+        "sha256": "87f045e2f25f08989c0d5b64e3439de1ed53df77bd88d83a21b05329eb2bc71b"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K9_logits.npy",
+        "sha256": "8e77181c2a4860c11f32b917577df38b9bfee4621da360a3c9bb81f2b637f713"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K9_history.npy",
+        "sha256": "2ef888c045b7e959b9a7709ec39ed5379cc28c18650ec3421f909f08abcc4373"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K10_latents.npy",
+        "sha256": "e5fbcf74d42a48617598023ee34eceeccf640a7be95f2922c994fb01b54911f3"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K10_untrained.npy",
+        "sha256": "b7368374623187cbd2a52e87551dd26d08ddc57d5bf4da1b705c77963da44004"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K10_logits.npy",
+        "sha256": "d56a56388ec03fe94701087a77127a2dcd7e1a2c86da9ace5f89844da173e7c6"
+      },
+      {
+        "type": "file",
+        "id": "/allen/aind/scratch/han.hou/pilots/study30-probe/out/oof_r1/hurdle_K10_history.npy",
+        "sha256": "2d93249915c7edbd0ad58d849c3e5cfb90f8e6c041973bda8f0a9564ad895cb2"
       }
     ],
     "outputs": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1.json",
-        "sha256": "917a41655b57269c5d18dddf6d1992be9a036843b725e8a575b13edbd1953ab2"
+        "sha256": "b6b70c9f6ee96d1539c5f5749f89176e2aeb91813a22305b1620517723276c10"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/frozen_r1_sessions.npz",
@@ -14500,5 +14705,1253 @@
       }
     ],
     "npz": "analysis/frozen_r1_sessions.npz"
+  },
+  "bootstrap": {
+    "n_mice": 50,
+    "n_boot": 1000,
+    "seed": 0,
+    "interval": "percentile 95%, mice resampled",
+    "k3": {
+      "latents": {
+        "r2": {
+          "point": [
+            0.9377838079162927,
+            0.8985295461633153,
+            0.8726723700603821
+          ],
+          "lo": [
+            0.9271097422998499,
+            0.8857980805060849,
+            0.8480309521481175
+          ],
+          "hi": [
+            0.9467883884623843,
+            0.9100143273330515,
+            0.8905940214853559
+          ]
+        },
+        "r2_within": {
+          "point": [
+            0.8767653326751177,
+            0.8078977245692852,
+            0.7660440965414133
+          ],
+          "lo": [
+            0.8595575045773766,
+            0.7897274037532959,
+            0.7404055246056813
+          ],
+          "hi": [
+            0.891903437085183,
+            0.8229785949321954,
+            0.7904093177912515
+          ]
+        },
+        "pooled_r2": {
+          "point": 0.9078753278476064,
+          "lo": 0.8975690132921077,
+          "hi": 0.9176862666244098
+        },
+        "pooled_r2_within": {
+          "point": 0.823524547798683,
+          "lo": 0.8069600205130261,
+          "hi": 0.8378849037094234
+        },
+        "info_recovered": {
+          "point": 0.8999744820999203,
+          "lo": 0.8914242005145788,
+          "hi": 0.9089443062730194
+        },
+        "kl": {
+          "point": 0.06626558257914356,
+          "lo": 0.06133670981439645,
+          "hi": 0.07101489958165859
+        }
+      },
+      "logits": {
+        "r2": {
+          "point": [
+            0.7626994179559184,
+            0.32576037070585884,
+            0.16910552038266558
+          ],
+          "lo": [
+            0.7252128344981236,
+            0.23577915525367,
+            0.07263106779842066
+          ],
+          "hi": [
+            0.7966472095243067,
+            0.40218247989095307,
+            0.23014488295322555
+          ]
+        },
+        "r2_within": {
+          "point": [
+            0.5795919817435903,
+            0.2350417255082804,
+            0.11824434102444759
+          ],
+          "lo": [
+            0.5299875012043647,
+            0.17453277255502636,
+            0.06780374630288405
+          ],
+          "hi": [
+            0.6268814379074727,
+            0.28061215706207304,
+            0.16970754212406186
+          ]
+        },
+        "pooled_r2": {
+          "point": 0.45935659248900773,
+          "lo": 0.39976818541805387,
+          "hi": 0.5117045058245753
+        },
+        "pooled_r2_within": {
+          "point": 0.3350762578833888,
+          "lo": 0.2915724817437332,
+          "hi": 0.37397130986268406
+        },
+        "info_recovered": {
+          "point": 0.468971076750218,
+          "lo": 0.42746942317771686,
+          "hi": 0.5154743704953243
+        },
+        "kl": {
+          "point": 0.35179963777517276,
+          "lo": 0.31909158569409435,
+          "hi": 0.38470242917909203
+        }
+      },
+      "history": {
+        "r2": {
+          "point": [
+            0.7403523722166878,
+            0.3475138225246237,
+            0.12207527542606722
+          ],
+          "lo": [
+            0.7081054522188486,
+            0.26813235331562685,
+            0.05102845587932264
+          ],
+          "hi": [
+            0.768461281892423,
+            0.411326398310813,
+            0.18533875803034633
+          ]
+        },
+        "r2_within": {
+          "point": [
+            0.5942116622303633,
+            0.24039245712343527,
+            0.05976592400370284
+          ],
+          "lo": [
+            0.5432600491697406,
+            0.17928642402823353,
+            0.0176614097754016
+          ],
+          "hi": [
+            0.6399735386638105,
+            0.2852907057786685,
+            0.10653782477971706
+          ]
+        },
+        "pooled_r2": {
+          "point": 0.4485554306051769,
+          "lo": 0.3868491065380564,
+          "hi": 0.5008499488782363
+        },
+        "pooled_r2_within": {
+          "point": 0.32879675310639445,
+          "lo": 0.280282816462402,
+          "hi": 0.36915454136800274
+        },
+        "info_recovered": {
+          "point": 0.36332102224260865,
+          "lo": 0.3002643102934157,
+          "hi": 0.42038052313035285
+        },
+        "kl": {
+          "point": 0.4217914014615013,
+          "lo": 0.37927071189226014,
+          "hi": 0.47012734664411887
+        }
+      },
+      "latents+history": {
+        "r2": {
+          "point": [
+            0.9396698324664136,
+            0.9020388322832096,
+            0.8780585288263709
+          ],
+          "lo": [
+            0.9298901521543842,
+            0.8901282249732436,
+            0.854007211061015
+          ],
+          "hi": [
+            0.9485634403901533,
+            0.9129915555587589,
+            0.8967221790940731
+          ]
+        },
+        "r2_within": {
+          "point": [
+            0.8809997856533198,
+            0.8153180579904787,
+            0.7773811568245541
+          ],
+          "lo": [
+            0.8644297903392569,
+            0.8007280326723073,
+            0.7534103451026448
+          ],
+          "hi": [
+            0.895604401631513,
+            0.8286902865025376,
+            0.8000139924615748
+          ]
+        },
+        "pooled_r2": {
+          "point": 0.911180207145801,
+          "lo": 0.9016215132534973,
+          "hi": 0.9210471815190863
+        },
+        "pooled_r2_within": {
+          "point": 0.8306893495201227,
+          "lo": 0.8167339082837729,
+          "hi": 0.8436699540372447
+        },
+        "info_recovered": {
+          "point": 0.9034031944740211,
+          "lo": 0.8951254977704909,
+          "hi": 0.9123412840351346
+        },
+        "kl": {
+          "point": 0.0639941059826107,
+          "lo": 0.05921270210025386,
+          "hi": 0.0684295615960638
+        }
+      },
+      "untrained": {
+        "r2": {
+          "point": [
+            0.706254206902359,
+            0.5773043676857439,
+            0.5162953385888613
+          ],
+          "lo": [
+            0.6816056505800185,
+            0.5507566079768388,
+            0.4685780838463474
+          ],
+          "hi": [
+            0.7261143951454636,
+            0.5992455908518902,
+            0.5498181992565102
+          ]
+        },
+        "r2_within": {
+          "point": [
+            0.49575817617501516,
+            0.37524872403018905,
+            0.31996145610573934
+          ],
+          "lo": [
+            0.4325062521095231,
+            0.3325650120075756,
+            0.27797059443123784
+          ],
+          "hi": [
+            0.5468100601007005,
+            0.4040431173152897,
+            0.35884280752366204
+          ]
+        },
+        "pooled_r2": {
+          "point": 0.6134001685996617,
+          "lo": 0.5907960391966481,
+          "hi": 0.6316371542543062
+        },
+        "pooled_r2_within": {
+          "point": 0.4068298889793862,
+          "lo": 0.36439385336961067,
+          "hi": 0.43962706823766246
+        },
+        "info_recovered": {
+          "point": 0.5910932190473274,
+          "lo": 0.5714320672919495,
+          "hi": 0.6129941726591849
+        },
+        "kl": {
+          "point": 0.2708953338033103,
+          "lo": 0.2584557933298127,
+          "hi": 0.2837757763378112
+        }
+      },
+      "trial_index": {
+        "r2": {
+          "point": [
+            0.012146503893957217,
+            0.0029988607903153053,
+            0.007115098848758161
+          ],
+          "lo": [
+            -0.04144655015834568,
+            -0.033973841378767314,
+            -0.02748379946820931
+          ],
+          "hi": [
+            0.0408853079302163,
+            0.02040057270007341,
+            0.029446220311045008
+          ]
+        },
+        "r2_within": {
+          "point": [
+            0.10235503088573983,
+            0.04779817361484695,
+            -0.015739400195480924
+          ],
+          "lo": [
+            0.07594469835827121,
+            0.027522618680269537,
+            -0.050572678902649285
+          ],
+          "hi": [
+            0.12481956947142679,
+            0.06588398471049699,
+            0.013345766479464283
+          ]
+        },
+        "pooled_r2": {
+          "point": 0.007463097684551001,
+          "lo": -0.02043427948166125,
+          "hi": 0.01865958645147341
+        },
+        "pooled_r2_within": {
+          "point": 0.05300819131763046,
+          "lo": 0.032504525343877565,
+          "hi": 0.07148161355715
+        },
+        "info_recovered": {
+          "point": 0.014720099696419298,
+          "lo": 0.004273314044086212,
+          "hi": 0.02431608946386885
+        },
+        "kl": {
+          "point": 0.6527349017313631,
+          "lo": 0.6114264622981703,
+          "hi": 0.7013731982822189
+        }
+      }
+    },
+    "k3_engaged": {
+      "latents": {
+        "balanced_acc_confident": {
+          "point": 0.9783976281945822,
+          "lo": 0.97323052411541,
+          "hi": 0.9817376480594154
+        },
+        "s2_to_s2_confident": {
+          "point": 0.9590183578584096,
+          "lo": 0.9418655495818106,
+          "hi": 0.9693273070760139
+        },
+        "engaged_r2_S1_vs_S2": {
+          "point": 0.881832562468335,
+          "lo": 0.8598106473123431,
+          "hi": 0.8995227208590908
+        },
+        "engaged_r2_S1_vs_S2_within": {
+          "point": 0.7422838065723659,
+          "lo": 0.7175583103624238,
+          "hi": 0.7647011726920314
+        },
+        "n_confident_trials": 282409,
+        "n_engaged_trials": 234546
+      },
+      "logits": {
+        "balanced_acc_confident": {
+          "point": 0.6251868161263033,
+          "lo": 0.6150369123209577,
+          "hi": 0.6355559438120624
+        },
+        "s2_to_s2_confident": {
+          "point": 0.017039735416766524,
+          "lo": 0.0014276586295460581,
+          "hi": 0.04016005079146721
+        },
+        "engaged_r2_S1_vs_S2": {
+          "point": 0.029118106116589937,
+          "lo": -0.044662674943732085,
+          "hi": 0.07376513336482823
+        },
+        "engaged_r2_S1_vs_S2_within": {
+          "point": 0.0019170734183601157,
+          "lo": -0.01922149313230289,
+          "hi": 0.022727240319166585
+        },
+        "n_confident_trials": 282409,
+        "n_engaged_trials": 234546
+      },
+      "history": {
+        "balanced_acc_confident": {
+          "point": 0.6350443956806665,
+          "lo": 0.6090588567990989,
+          "hi": 0.666533248623083
+        },
+        "s2_to_s2_confident": {
+          "point": 0.06458802665005033,
+          "lo": 0.0,
+          "hi": 0.16800107543434456
+        },
+        "engaged_r2_S1_vs_S2": {
+          "point": -0.0003034074361316641,
+          "lo": -0.07040245188115772,
+          "hi": 0.058634346700983206
+        },
+        "engaged_r2_S1_vs_S2_within": {
+          "point": -0.04698961301119642,
+          "lo": -0.09263367776063175,
+          "hi": -0.013039294484654875
+        },
+        "n_confident_trials": 282409,
+        "n_engaged_trials": 234546
+      }
+    },
+    "kscan": {
+      "2": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.9408909682949853,
+            "lo": 0.9311784515484489,
+            "hi": 0.9498253156111793
+          },
+          "pooled_r2_within": {
+            "point": 0.8773649915113062,
+            "lo": 0.8592057011592753,
+            "hi": 0.8936276092304204
+          },
+          "info_recovered": {
+            "point": 0.925180084536466,
+            "lo": 0.9155097931979849,
+            "hi": 0.9346045167355508
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.6726304114239636,
+            "lo": 0.6441810923245862,
+            "hi": 0.6955279046767234
+          },
+          "pooled_r2_within": {
+            "point": 0.4379968393709943,
+            "lo": 0.37034492115624246,
+            "hi": 0.49453260409845506
+          },
+          "info_recovered": {
+            "point": 0.6230216315178347,
+            "lo": 0.5960453511124839,
+            "hi": 0.6485038778998174
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.7892677224700293,
+            "lo": 0.7585013046128839,
+            "hi": 0.8181735532875527
+          },
+          "pooled_r2_within": {
+            "point": 0.6043398166739518,
+            "lo": 0.5603496083224535,
+            "hi": 0.6473792199404906
+          },
+          "info_recovered": {
+            "point": 0.7271097190143099,
+            "lo": 0.6831993851142246,
+            "hi": 0.7677668359815163
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.7478437696043094,
+            "lo": 0.7165901663940304,
+            "hi": 0.7747570365496979
+          },
+          "pooled_r2_within": {
+            "point": 0.6049901182779973,
+            "lo": 0.5580627621481927,
+            "hi": 0.6462561604951292
+          },
+          "info_recovered": {
+            "point": 0.5474246563899003,
+            "lo": 0.44286855144908466,
+            "hi": 0.6335285893851926
+          }
+        }
+      },
+      "3": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.9078753278476064,
+            "lo": 0.8975690132921077,
+            "hi": 0.9176862666244098
+          },
+          "pooled_r2_within": {
+            "point": 0.823524547798683,
+            "lo": 0.8069600205130261,
+            "hi": 0.8378849037094234
+          },
+          "info_recovered": {
+            "point": 0.8999744820999203,
+            "lo": 0.8914242005145788,
+            "hi": 0.9089443062730194
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.45935659248900773,
+            "lo": 0.39976818541805387,
+            "hi": 0.5117045058245753
+          },
+          "pooled_r2_within": {
+            "point": 0.3350762578833888,
+            "lo": 0.2915724817437332,
+            "hi": 0.37397130986268406
+          },
+          "info_recovered": {
+            "point": 0.468971076750218,
+            "lo": 0.42746942317771686,
+            "hi": 0.5154743704953243
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.4485554306051769,
+            "lo": 0.3868491065380564,
+            "hi": 0.5008499488782363
+          },
+          "pooled_r2_within": {
+            "point": 0.32879675310639445,
+            "lo": 0.280282816462402,
+            "hi": 0.36915454136800274
+          },
+          "info_recovered": {
+            "point": 0.36332102224260865,
+            "lo": 0.3002643102934157,
+            "hi": 0.42038052313035285
+          }
+        },
+        "latents+history": {
+          "pooled_r2": {
+            "point": 0.911180207145801,
+            "lo": 0.9016215132534973,
+            "hi": 0.9210471815190863
+          },
+          "pooled_r2_within": {
+            "point": 0.8306893495201227,
+            "lo": 0.8167339082837729,
+            "hi": 0.8436699540372447
+          },
+          "info_recovered": {
+            "point": 0.9034031944740211,
+            "lo": 0.8951254977704909,
+            "hi": 0.9123412840351346
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.6134001685996617,
+            "lo": 0.5907960391966481,
+            "hi": 0.6316371542543062
+          },
+          "pooled_r2_within": {
+            "point": 0.4068298889793862,
+            "lo": 0.36439385336961067,
+            "hi": 0.43962706823766246
+          },
+          "info_recovered": {
+            "point": 0.5910932190473274,
+            "lo": 0.5714320672919495,
+            "hi": 0.6129941726591849
+          }
+        },
+        "trial_index": {
+          "pooled_r2": {
+            "point": 0.007463097684551001,
+            "lo": -0.02043427948166125,
+            "hi": 0.01865958645147341
+          },
+          "pooled_r2_within": {
+            "point": 0.05300819131763046,
+            "lo": 0.032504525343877565,
+            "hi": 0.07148161355715
+          },
+          "info_recovered": {
+            "point": 0.014720099696419298,
+            "lo": 0.004273314044086212,
+            "hi": 0.02431608946386885
+          }
+        }
+      },
+      "4": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.890666396546781,
+            "lo": 0.882094924009819,
+            "hi": 0.8991125004123499
+          },
+          "pooled_r2_within": {
+            "point": 0.7998828306969233,
+            "lo": 0.7855748048372396,
+            "hi": 0.813027605931841
+          },
+          "info_recovered": {
+            "point": 0.8932882938531469,
+            "lo": 0.8863118688904097,
+            "hi": 0.900990742046723
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.4888695879392504,
+            "lo": 0.4644447429026687,
+            "hi": 0.5077281364356164
+          },
+          "pooled_r2_within": {
+            "point": 0.2862241733736116,
+            "lo": 0.2519929645420327,
+            "hi": 0.3194309133601723
+          },
+          "info_recovered": {
+            "point": 0.521954425427408,
+            "lo": 0.5015979831725477,
+            "hi": 0.5434126033467954
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.3684746126884766,
+            "lo": 0.3256388145885612,
+            "hi": 0.4009374003347091
+          },
+          "pooled_r2_within": {
+            "point": 0.24077323816192853,
+            "lo": 0.21069664796025292,
+            "hi": 0.26684821069537307
+          },
+          "info_recovered": {
+            "point": 0.44069489695573116,
+            "lo": 0.40747202686191175,
+            "hi": 0.475452989103796
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.36772096119425446,
+            "lo": 0.3202207836676102,
+            "hi": 0.40298667230399676
+          },
+          "pooled_r2_within": {
+            "point": 0.26151937312535234,
+            "lo": 0.22616536852445815,
+            "hi": 0.29031891138900223
+          },
+          "info_recovered": {
+            "point": 0.3345935323618111,
+            "lo": 0.25971743040294987,
+            "hi": 0.3986958881084889
+          }
+        }
+      },
+      "5": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.8591578669363292,
+            "lo": 0.8477804522675949,
+            "hi": 0.8706946608051723
+          },
+          "pooled_r2_within": {
+            "point": 0.7632160397509505,
+            "lo": 0.7468565548845476,
+            "hi": 0.7784997864015323
+          },
+          "info_recovered": {
+            "point": 0.874350842071907,
+            "lo": 0.8659473382950235,
+            "hi": 0.8839147375865445
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.42140927904428527,
+            "lo": 0.4004710955353108,
+            "hi": 0.436292857063932
+          },
+          "pooled_r2_within": {
+            "point": 0.2434945964620716,
+            "lo": 0.21619335373986084,
+            "hi": 0.2686576992172095
+          },
+          "info_recovered": {
+            "point": 0.48134789398669664,
+            "lo": 0.4630223147097162,
+            "hi": 0.5013788248069249
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.26991857723346036,
+            "lo": 0.23829372367873264,
+            "hi": 0.2917043478340413
+          },
+          "pooled_r2_within": {
+            "point": 0.16995305608621392,
+            "lo": 0.1466181978269943,
+            "hi": 0.18975094122198735
+          },
+          "info_recovered": {
+            "point": 0.36391683614001513,
+            "lo": 0.33492982713134617,
+            "hi": 0.394709239481219
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.29338239375755626,
+            "lo": 0.2571975636497606,
+            "hi": 0.3206667633921168
+          },
+          "pooled_r2_within": {
+            "point": 0.21217550668961094,
+            "lo": 0.18125876277351455,
+            "hi": 0.23748605115923285
+          },
+          "info_recovered": {
+            "point": 0.30872556812860785,
+            "lo": 0.2594040513725351,
+            "hi": 0.3544338635679052
+          }
+        }
+      },
+      "6": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.8372390302280474,
+            "lo": 0.8245578760215456,
+            "hi": 0.8496073947941445
+          },
+          "pooled_r2_within": {
+            "point": 0.7337214521580524,
+            "lo": 0.7170090589771574,
+            "hi": 0.7498986645969694
+          },
+          "info_recovered": {
+            "point": 0.8562824148158261,
+            "lo": 0.847612787109112,
+            "hi": 0.8655309469541629
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.39614940192018233,
+            "lo": 0.37528128772865116,
+            "hi": 0.4103729530689714
+          },
+          "pooled_r2_within": {
+            "point": 0.22612459399694562,
+            "lo": 0.20177431967549433,
+            "hi": 0.24785160403897089
+          },
+          "info_recovered": {
+            "point": 0.467048398676277,
+            "lo": 0.44940752621007685,
+            "hi": 0.4858194954687392
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.24356587414653563,
+            "lo": 0.21397338513976802,
+            "hi": 0.2616432085543016
+          },
+          "pooled_r2_within": {
+            "point": 0.14800498318778843,
+            "lo": 0.12669545763333775,
+            "hi": 0.16560986478885026
+          },
+          "info_recovered": {
+            "point": 0.3557772110298225,
+            "lo": 0.3284974199867004,
+            "hi": 0.38403081032386904
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.26479815718577515,
+            "lo": 0.23130739068710074,
+            "hi": 0.28637761760360814
+          },
+          "pooled_r2_within": {
+            "point": 0.18279535820047166,
+            "lo": 0.15446041481305742,
+            "hi": 0.20745757057588218
+          },
+          "info_recovered": {
+            "point": 0.2991022364443734,
+            "lo": 0.25067299846824,
+            "hi": 0.34246370916076496
+          }
+        }
+      },
+      "7": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.8437728197669929,
+            "lo": 0.8306244279830508,
+            "hi": 0.855035188059245
+          },
+          "pooled_r2_within": {
+            "point": 0.740676930584621,
+            "lo": 0.7264615555888109,
+            "hi": 0.7550290878457216
+          },
+          "info_recovered": {
+            "point": 0.8643484055508368,
+            "lo": 0.8551274294716792,
+            "hi": 0.8738256638112728
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.3725710594287992,
+            "lo": 0.34405542867005195,
+            "hi": 0.39257527241646806
+          },
+          "pooled_r2_within": {
+            "point": 0.20599420619037756,
+            "lo": 0.18740033335780004,
+            "hi": 0.22291385473203465
+          },
+          "info_recovered": {
+            "point": 0.4585542991602637,
+            "lo": 0.4394990480408984,
+            "hi": 0.4794201361478656
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.2944247784611177,
+            "lo": 0.25099237797813584,
+            "hi": 0.332628511769093
+          },
+          "pooled_r2_within": {
+            "point": 0.18567778047198358,
+            "lo": 0.16341894466506973,
+            "hi": 0.20524706530954387
+          },
+          "info_recovered": {
+            "point": 0.3747750550478117,
+            "lo": 0.3429500723785547,
+            "hi": 0.41003795247237795
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.2933029463793506,
+            "lo": 0.24455714789085323,
+            "hi": 0.335895251301229
+          },
+          "pooled_r2_within": {
+            "point": 0.2053815795049354,
+            "lo": 0.17461270174007787,
+            "hi": 0.23265582303823115
+          },
+          "info_recovered": {
+            "point": 0.3012991910659649,
+            "lo": 0.24649884584193008,
+            "hi": 0.35212955285720526
+          }
+        }
+      },
+      "8": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.8306116572863886,
+            "lo": 0.8189821932943063,
+            "hi": 0.8410767798619725
+          },
+          "pooled_r2_within": {
+            "point": 0.7369118005209885,
+            "lo": 0.7238877908095742,
+            "hi": 0.749728647513573
+          },
+          "info_recovered": {
+            "point": 0.8565605241107082,
+            "lo": 0.8488155909803432,
+            "hi": 0.8643053921919119
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.3804426000899356,
+            "lo": 0.3567382041682593,
+            "hi": 0.39800783956047814
+          },
+          "pooled_r2_within": {
+            "point": 0.2256855291031976,
+            "lo": 0.20542274160295898,
+            "hi": 0.2442107277111247
+          },
+          "info_recovered": {
+            "point": 0.4690035122581887,
+            "lo": 0.45086726996323934,
+            "hi": 0.48820437774986997
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.2486759706340067,
+            "lo": 0.21267537236292605,
+            "hi": 0.2792953275378746
+          },
+          "pooled_r2_within": {
+            "point": 0.1489546861736325,
+            "lo": 0.12923738006992597,
+            "hi": 0.16836386952707483
+          },
+          "info_recovered": {
+            "point": 0.35540639196182,
+            "lo": 0.3262980310163315,
+            "hi": 0.3880097997935626
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.2895177176517749,
+            "lo": 0.25230741657140365,
+            "hi": 0.3236566474165958
+          },
+          "pooled_r2_within": {
+            "point": 0.20663385635743514,
+            "lo": 0.18450898503164445,
+            "hi": 0.22805193394797346
+          },
+          "info_recovered": {
+            "point": 0.32843598906975024,
+            "lo": 0.2813297365599351,
+            "hi": 0.3712406433051431
+          }
+        }
+      },
+      "9": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.8154362643827469,
+            "lo": 0.8026127063127442,
+            "hi": 0.8285421346538382
+          },
+          "pooled_r2_within": {
+            "point": 0.7154038492625088,
+            "lo": 0.7002385399180121,
+            "hi": 0.7317594827941158
+          },
+          "info_recovered": {
+            "point": 0.8541091963881238,
+            "lo": 0.8458810738798691,
+            "hi": 0.8628995845960403
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.33517141396399075,
+            "lo": 0.3104010267170097,
+            "hi": 0.3509521933090516
+          },
+          "pooled_r2_within": {
+            "point": 0.19632137140217476,
+            "lo": 0.18217570630231766,
+            "hi": 0.20935115239359464
+          },
+          "info_recovered": {
+            "point": 0.4394474093585965,
+            "lo": 0.42096461934066587,
+            "hi": 0.4589936653850533
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.22659271011427873,
+            "lo": 0.19564417064657935,
+            "hi": 0.2513828099037223
+          },
+          "pooled_r2_within": {
+            "point": 0.13705883534551389,
+            "lo": 0.12013045070333844,
+            "hi": 0.15218002865534364
+          },
+          "info_recovered": {
+            "point": 0.3549980481084566,
+            "lo": 0.3276389958159102,
+            "hi": 0.3851444586366501
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.2549578239273893,
+            "lo": 0.21477286659817585,
+            "hi": 0.28575083059030515
+          },
+          "pooled_r2_within": {
+            "point": 0.18376462302319663,
+            "lo": 0.15872088937631548,
+            "hi": 0.2034366293164811
+          },
+          "info_recovered": {
+            "point": 0.31825860477810164,
+            "lo": 0.27061320978894804,
+            "hi": 0.3630700857315347
+          }
+        }
+      },
+      "10": {
+        "latents": {
+          "pooled_r2": {
+            "point": 0.8181212369898099,
+            "lo": 0.8068675895548112,
+            "hi": 0.8282209734308127
+          },
+          "pooled_r2_within": {
+            "point": 0.7220352416488571,
+            "lo": 0.7073081486058989,
+            "hi": 0.7350434923604605
+          },
+          "info_recovered": {
+            "point": 0.8507913822281057,
+            "lo": 0.8436776915969655,
+            "hi": 0.8583775470210018
+          }
+        },
+        "untrained": {
+          "pooled_r2": {
+            "point": 0.3549898869291245,
+            "lo": 0.3323622723931733,
+            "hi": 0.3705180678312303
+          },
+          "pooled_r2_within": {
+            "point": 0.20869699878762604,
+            "lo": 0.19290498374436035,
+            "hi": 0.22297041320603575
+          },
+          "info_recovered": {
+            "point": 0.45834333667506244,
+            "lo": 0.44149145571587417,
+            "hi": 0.47551970152129736
+          }
+        },
+        "logits": {
+          "pooled_r2": {
+            "point": 0.24534636656220077,
+            "lo": 0.2080858470080994,
+            "hi": 0.27709285332739764
+          },
+          "pooled_r2_within": {
+            "point": 0.1437092064968445,
+            "lo": 0.12564274491623154,
+            "hi": 0.16074952249530322
+          },
+          "info_recovered": {
+            "point": 0.3429395645336284,
+            "lo": 0.31517973763814067,
+            "hi": 0.37541092029741785
+          }
+        },
+        "history": {
+          "pooled_r2": {
+            "point": 0.28447814954813133,
+            "lo": 0.2439638462732498,
+            "hi": 0.3219814456813514
+          },
+          "pooled_r2_within": {
+            "point": 0.20169965686689462,
+            "lo": 0.17527776389713665,
+            "hi": 0.22574290363503743
+          },
+          "info_recovered": {
+            "point": 0.32025364567663683,
+            "lo": 0.27096257739299767,
+            "hi": 0.36592090775346353
+          }
+        }
+      }
+    },
+    "paired": {
+      "latents_K3_minus_K10_pooled_r2": {
+        "point": 0.08975409085779651,
+        "lo": 0.0793775071653967,
+        "hi": 0.10104735518964325
+      },
+      "latents_K3_minus_K10_pooled_r2_within": {
+        "point": 0.10148930614982588,
+        "lo": 0.08691864069357602,
+        "hi": 0.11506634717345415
+      },
+      "latents_minus_history_K2_pooled_r2": {
+        "point": 0.19304719869067588,
+        "lo": 0.17262675381174472,
+        "hi": 0.2170050190935929
+      },
+      "latents_minus_history_K2_pooled_r2_within": {
+        "point": 0.2723748732333089,
+        "lo": 0.24500273913025553,
+        "hi": 0.3051531754205812
+      },
+      "latents_minus_history_K3_pooled_r2": {
+        "point": 0.4593198972424295,
+        "lo": 0.41107363080014403,
+        "hi": 0.5177197821264231
+      },
+      "latents_minus_history_K3_pooled_r2_within": {
+        "point": 0.49472779469228856,
+        "lo": 0.4628866777192383,
+        "hi": 0.532625189674055
+      },
+      "latents_minus_history_K4_pooled_r2": {
+        "point": 0.5229454353525266,
+        "lo": 0.4889528807241779,
+        "hi": 0.5704982586538428
+      },
+      "latents_minus_history_K4_pooled_r2_within": {
+        "point": 0.538363457571571,
+        "lo": 0.5139961744801173,
+        "hi": 0.5664045803171327
+      },
+      "latents_minus_history_K5_pooled_r2": {
+        "point": 0.565775473178773,
+        "lo": 0.5367103986670008,
+        "hi": 0.6061032884876028
+      },
+      "latents_minus_history_K5_pooled_r2_within": {
+        "point": 0.5510405330613396,
+        "lo": 0.5280713881816783,
+        "hi": 0.5742257505372885
+      },
+      "latents_minus_history_K6_pooled_r2": {
+        "point": 0.5724408730422722,
+        "lo": 0.5449111803493303,
+        "hi": 0.61349640050202
+      },
+      "latents_minus_history_K6_pooled_r2_within": {
+        "point": 0.5509260939575807,
+        "lo": 0.5286202817793378,
+        "hi": 0.5737168320886378
+      },
+      "latents_minus_history_K7_pooled_r2": {
+        "point": 0.5504698733876423,
+        "lo": 0.5122002269023899,
+        "hi": 0.5988369403445063
+      },
+      "latents_minus_history_K7_pooled_r2_within": {
+        "point": 0.5352953510796856,
+        "lo": 0.5073162144690075,
+        "hi": 0.564644055777926
+      },
+      "latents_minus_history_K8_pooled_r2": {
+        "point": 0.5410939396346137,
+        "lo": 0.5105981665247673,
+        "hi": 0.5781654040797457
+      },
+      "latents_minus_history_K8_pooled_r2_within": {
+        "point": 0.5302779441635533,
+        "lo": 0.5086793300551811,
+        "hi": 0.5501068581016963
+      },
+      "latents_minus_history_K9_pooled_r2": {
+        "point": 0.5604784404553576,
+        "lo": 0.5261682370320707,
+        "hi": 0.6050085450553819
+      },
+      "latents_minus_history_K9_pooled_r2_within": {
+        "point": 0.5316392262393121,
+        "lo": 0.5065711161698653,
+        "hi": 0.5600579984418821
+      },
+      "latents_minus_history_K10_pooled_r2": {
+        "point": 0.5336430874416785,
+        "lo": 0.4978397215844633,
+        "hi": 0.5767459832008162
+      },
+      "latents_minus_history_K10_pooled_r2_within": {
+        "point": 0.5203355847819625,
+        "lo": 0.49338902566365356,
+        "hi": 0.5472512806827324
+      }
+    },
+    "tdr": {
+      "r2_full_heldout": {
+        "point": 0.6073510365954047,
+        "lo": 0.5702934794792751,
+        "hi": 0.621944821453273
+      },
+      "unique_r2": {
+        "pi_ign": {
+          "point": 0.047428036076920366,
+          "lo": 0.02414182582786259,
+          "hi": 0.07700794843837021
+        },
+        "pi_weak": {
+          "point": 0.0282131564720981,
+          "lo": 0.0058292971790373516,
+          "hi": 0.06876762831396446
+        },
+        "side_ema": {
+          "point": 0.05125138945405372,
+          "lo": 0.04393719767392792,
+          "hi": 0.06535888854005271
+        },
+        "prev_side": {
+          "point": 0.03397113700925991,
+          "lo": 0.027402132399011243,
+          "hi": 0.04529698436821119
+        },
+        "prev_ign": {
+          "point": 0.0880480613625576,
+          "lo": 0.05389273250110117,
+          "hi": 0.12392353712493014
+        },
+        "prev_rew": {
+          "point": 0.046250813124607326,
+          "lo": 0.03994751390960185,
+          "hi": 0.05799230226255777
+        },
+        "prev_win": {
+          "point": 0.0048987651754801576,
+          "lo": 0.0033713756036414743,
+          "hi": 0.006581431828531279
+        },
+        "rew_ema": {
+          "point": 0.041642703283628624,
+          "lo": 0.03871513172858289,
+          "hi": 0.04750038818011584
+        },
+        "tis": {
+          "point": 0.027068984226400472,
+          "lo": 0.024803420574113118,
+          "hi": 0.03175302269995455
+        }
+      },
+      "cos_prev_side_prev_ign": {
+        "point": 0.9015676253727147,
+        "lo": 0.8798145262548318,
+        "hi": 0.9182243809695656
+      },
+      "n_test_mice": 10,
+      "n_train_mice": 40
+    },
+    "max_abs_point_vs_pilot": 0.0004323746272852924
   }
 }

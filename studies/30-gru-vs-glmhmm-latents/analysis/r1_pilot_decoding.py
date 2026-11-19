@@ -243,7 +243,7 @@ def fig_engaged(d):
 def fig_kscan(d):
     parts = d["kscan"]["parts"]
     Ks = list(range(2, 11))
-    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 54))
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 56))
     for ax, (m, title) in zip(axes, [("pooled_r2", "pooled R², all trials"),
                                      ("pooled_r2_within", "pooled R², within session"),
                                      ("info_recovered", "information recovered")]):
@@ -257,9 +257,9 @@ def fig_kscan(d):
         ax.set_title(title, fontsize=6)
     axes[0].set_ylabel("score (out of fold)")
     axes[0].legend(frameon=False, fontsize=5, loc="lower left")
-    fig.text(0.01, 0.01, "Solid: hurdle emission, band = 95% interval over mice (n = 50); dashed: reference emission, point "
-             "estimates. Same 50 mice, folds and probe at every K.", fontsize=5)
-    fig.subplots_adjust(left=0.08, right=0.99, bottom=0.33, top=0.88, wspace=0.35)
+    # the caption as supxlabel: constrained layout (the paper style) leaves room for it under the axes
+    fig.supxlabel("Solid: hurdle emission, band = 95% interval over mice (n = 50); dashed: reference emission, point "
+                  "estimates. Same 50 mice, folds and probe at every K.", fontsize=5, x=0.01, ha="left")
     return save(fig, "fig_r1_kscan.svg")
 
 
@@ -343,7 +343,7 @@ def fig_shuffle(d):
     parts, sh = d["kscan"]["parts"], d["shuffle"]
     metrics = [("pooled_r2", "pooled R², all trials"), ("pooled_r2_within", "pooled R², within session"),
                ("info_recovered", "information recovered")]
-    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 60))
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(165, 60))
     x = np.arange(len(KS_NULL))
     for ax, (m, title) in zip(axes, metrics):
         for fset, off in (("latents", -0.2), ("history", 0.2)):
@@ -360,9 +360,9 @@ def fig_shuffle(d):
         ax.set_title(title, fontsize=6)
     axes[0].set_ylabel("score (out of fold)")
     axes[2].legend(frameon=False, fontsize=5, loc="center left", bbox_to_anchor=(1.02, 0.5))
-    fig.text(0.01, 0.01, "Decoder trained and scored on shuffled pairs. Session swap: target from another mouse's session "
-             "in the same fold; circular shift: target rotated 20–80 % within its own session.", fontsize=5)
-    fig.subplots_adjust(left=0.08, right=0.78, bottom=0.34, top=0.88, wspace=0.35)
+    fig.supxlabel("Decoder trained and scored on shuffled pairs. Session swap: target from another mouse's session "
+                  "in the same fold; circular shift: target rotated 20–80% within its own session.", fontsize=5, x=0.01,
+                  ha="left")
     return save(fig, "fig_r1_shuffle.svg")
 
 
@@ -615,8 +615,9 @@ def blocks(d, figs, cv):
     f4 = cv["f4"]
     b["result-4"] = "\n".join([
         f"![Fig. 4. Readability vs K](../{figs['kselect']})", "",
-        "**Fig. 4.** a: the latents' decoding of the K-state posterior declines slowly with K. b: the GLM-HMM's "
-        "predictive likelihood on the same trials keeps rising with K.", "",
+        "**Fig. 4.** a: the latents' decoding of the K-state posterior declines steadily with K. b: the GLM-HMM's "
+        "predictive likelihood: the global fit on these trials rises with K; study 14's per-mouse refit score, the one "
+        "it selects K by, peaks at K = 3.", "",
         table(["", "pooled R², all trials", "pooled R², within session"], [
             ["GRU latents, K = 3", fci(scan["3"]["latents"]["pooled_r2"]), fci(scan["3"]["latents"]["pooled_r2_within"])],
             ["GRU latents, K = 10", fci(scan["10"]["latents"]["pooled_r2"]), fci(scan["10"]["latents"]["pooled_r2_within"])],
