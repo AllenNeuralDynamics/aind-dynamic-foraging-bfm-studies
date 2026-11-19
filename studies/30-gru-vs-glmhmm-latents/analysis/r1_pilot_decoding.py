@@ -241,12 +241,12 @@ def fig_engaged(d):
 
 
 def fig_kscan(d):
-    parts, glm = d["kscan"]["parts"], d["kscan"]["glmhmm"]
+    parts = d["kscan"]["parts"]
     Ks = list(range(2, 11))
-    fig, axes = plt.subplots(1, 4, figsize=fs.mm(183, 54))
-    for ax, (m, title) in zip(axes[:3], [("pooled_r2", "pooled R², all trials"),
-                                         ("pooled_r2_within", "pooled R², within session"),
-                                         ("info_recovered", "information recovered")]):
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 54))
+    for ax, (m, title) in zip(axes, [("pooled_r2", "pooled R², all trials"),
+                                     ("pooled_r2_within", "pooled R², within session"),
+                                     ("info_recovered", "information recovered")]):
         bs = d["bootstrap"]["kscan"]
         for fset in ("latents", "untrained", "logits", "history"):
             c = [bs[str(K)][fset][m] for K in Ks]
@@ -257,19 +257,39 @@ def fig_kscan(d):
         ax.set_title(title, fontsize=6)
     axes[0].set_ylabel("score (out of fold)")
     axes[0].legend(frameon=False, fontsize=5, loc="lower left")
-    ax = axes[3]
-    for e, ls in (("hurdle", "-"), ("reference", "--")):
-        ax.plot(Ks, [glm[e][str(K)]["glmhmm_likelihood_pilot"] for K in Ks], ls, marker="o", ms=2, color="k", lw=0.8,
-                label=f"{e}, these trials (global)")
-        ax.plot(Ks, [glm[e][str(K)]["logged_train_mice_eval_likelihood"] for K in Ks], ls, marker="o", ms=2,
-                color="0.6", lw=0.8, label=f"{e}, logged (per-mouse refit)")
-    ax.set(xticks=Ks, xlabel="K")
-    ax.set_title("GLM-HMM predictive likelihood", fontsize=6)
-    ax.legend(frameon=False, fontsize=5, loc="lower right")
     fig.text(0.01, 0.01, "Solid: hurdle emission, band = 95% interval over mice (n = 50); dashed: reference emission, point "
              "estimates. Same 50 mice, folds and probe at every K.", fontsize=5)
-    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.33, top=0.88, wspace=0.35)
+    fig.subplots_adjust(left=0.08, right=0.99, bottom=0.33, top=0.88, wspace=0.35)
     return save(fig, "fig_r1_kscan.svg")
+
+
+def fig_kselect(d):
+    """Fig. 4: decoding falls slowly with K while the GLM-HMM's likelihood keeps rising."""
+    glm, bs = d["kscan"]["glmhmm"], d["bootstrap"]["kscan"]
+    Ks = list(range(2, 11))
+    fig, axes = plt.subplots(1, 2, figsize=fs.mm(100, 52))
+    ax = axes[0]
+    for m, ls, lab in (("pooled_r2", "-", "all trials"), ("pooled_r2_within", "--", "within session")):
+        c = [bs[str(K)]["latents"][m] for K in Ks]
+        ax.fill_between(Ks, [v["lo"] for v in c], [v["hi"] for v in c], color=FSET_COL["latents"], alpha=0.25, lw=0)
+        ax.plot(Ks, [v["point"] for v in c], ls, marker="o", ms=2, color=FSET_COL["latents"], lw=0.8, label=lab)
+    ax.set(ylim=(0.6, 1), xticks=Ks, xlabel="K", ylabel="pooled R², GRU latents")
+    ax.set_title("readout of the state posterior", fontsize=6)
+    ax.legend(frameon=False, fontsize=5, loc="lower left")
+    fs.panel_label(ax, "a")
+    ax = axes[1]
+    ax.plot(Ks, [glm["hurdle"][str(K)]["glmhmm_likelihood_pilot"] for K in Ks], "-", marker="o", ms=2, color="k", lw=0.8,
+            label="these trials (global fit)")
+    ax.plot(Ks, [glm["hurdle"][str(K)]["logged_train_mice_eval_likelihood"] for K in Ks], "-", marker="o", ms=2,
+            color="0.6", lw=0.8, label="study 14 logged (per-mouse refit)")
+    ax.set(xticks=Ks, xlabel="K", ylabel="predictive likelihood")
+    ax.set_title("GLM-HMM fit to the choices", fontsize=6)
+    ax.legend(frameon=False, fontsize=5, loc="lower right")
+    fs.panel_label(ax, "b")
+    fig.text(0.01, 0.01, "Hurdle emission. a: band = 95% interval over mice (n = 50). b: point values of one fit per K.",
+             fontsize=5)
+    fig.subplots_adjust(left=0.12, right=0.98, bottom=0.27, top=0.88, wspace=0.45)
+    return save(fig, "fig_r1_kselect.svg")
 
 
 def fig_kdecoding(d, z):
@@ -594,6 +614,9 @@ def blocks(d, figs, cv):
         table(["features", "K", "real", "session swap", "circular shift"], rows)])
     f4 = cv["f4"]
     b["result-4"] = "\n".join([
+        f"![Fig. 4. Readability vs K](../{figs['kselect']})", "",
+        "**Fig. 4.** a: the latents' decoding of the K-state posterior declines slowly with K. b: the GLM-HMM's "
+        "predictive likelihood on the same trials keeps rising with K.", "",
         table(["", "pooled R², all trials", "pooled R², within session"], [
             ["GRU latents, K = 3", fci(scan["3"]["latents"]["pooled_r2"]), fci(scan["3"]["latents"]["pooled_r2_within"])],
             ["GRU latents, K = 10", fci(scan["10"]["latents"]["pooled_r2"]), fci(scan["10"]["latents"]["pooled_r2_within"])],
@@ -645,7 +668,7 @@ def main() -> None:
     fs.apply_paper_style()
     d = json.loads(FROZEN.read_text())
     z = dict(np.load(SESS))
-    figs = {"method": fig_method(d, z), "k3": fig_k3(d), "engaged": fig_engaged(d), "kscan": fig_kscan(d),
+    figs = {"method": fig_method(d, z), "k3": fig_k3(d), "engaged": fig_engaged(d), "kscan": fig_kscan(d), "kselect": fig_kselect(d),
             "kdecoding": fig_kdecoding(d, z), "shuffle": fig_shuffle(d), "population": fig_population(d, z)}
     for i in range(1, 5):
         figs[f"session_{i}"] = fig_session(d, z, i)

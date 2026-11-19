@@ -110,7 +110,7 @@ latents and history only; every refit reproduces the pilot's scores (the freeze 
 (written by analysis/r1_pilot_decoding.py)
 <!-- END result-3 -->
 
-### Readability does not pick K (F4)
+### Fig. 4 — Readability does not pick K (F4)
 
 <!-- BEGIN result-4 -->
 (written by analysis/r1_pilot_decoding.py)
