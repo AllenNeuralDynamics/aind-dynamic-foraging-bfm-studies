@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_pilot_decoding.py",
-    "produced_at_pt": "2026-11-19T12:25:22-08:00",
-    "studies_git_sha": "ca2c2d8160ed37c2513db75400770eda5c3fad17",
+    "produced_at_pt": "2026-11-19T12:29:53-08:00",
+    "studies_git_sha": "91593908bc7705074a2df3231d8b43a9f75d99c0",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -29,7 +29,7 @@
     "code": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/r1_pilot_decoding.py",
-        "sha256": "0577f2c7eace0d2fb18134295f1bb4060c549db3dc0b9c25c6d775d9827fdafb"
+        "sha256": "e4874ee73b12b82eedb55271e40e1bb93b74303494a88857be232ac64e0ec81e"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/upstream_sources.py",
@@ -117,7 +117,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#methods",
-        "sha256": "8109c2aa2cdb155c2e0abacc873e8f50c9baf4b477a2d1b0a74904eabf9b87b4"
+        "sha256": "2ef9983111c385647798382b1783bc6cf53470f47864bfd513b005392cd5d806"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-1",
@@ -145,7 +145,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#supp-3",
-        "sha256": "185f04b3f82ff9b3a23918e322159884be32855a2edd5aed2b7148b58264aa43"
+        "sha256": "7a110ed038c53a879b923978508f1c7d6f557c2efbefefd27d32ccf9832c92a9"
       }
     ]
   },

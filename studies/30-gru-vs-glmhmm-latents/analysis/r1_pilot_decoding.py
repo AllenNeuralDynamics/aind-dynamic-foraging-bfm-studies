@@ -475,7 +475,7 @@ def fig_session(d, z, i):
 # ---------------------------------------------------------------- report blocks
 def table(header, rows):
     out = ["| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
-    out += ["| " + " | ".join(str(c) for c in r) + " |" for r in rows]
+    out += ["| " + " | ".join(str(c).replace("|", "\\|") for c in r) + " |" for r in rows]   # a bar inside a cell splits it
     return "\n".join(out)
 
 

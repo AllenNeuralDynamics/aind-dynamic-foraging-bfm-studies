@@ -38,14 +38,14 @@ claims:
 prose_reviewed:
   date: '2026-11-19'
   blocks:
-    methods: 8109c2aa2cdb155c2e0abacc873e8f50c9baf4b477a2d1b0a74904eabf9b87b4
+    methods: 2ef9983111c385647798382b1783bc6cf53470f47864bfd513b005392cd5d806
     result-1: 941745500c3594901fd00ce4bbb348724050e13c33179378258519b29728b55b
     result-2: 4954068c7e4d72cd30eeb417604c4468fc15458b27c7199d8bb168bdf7494d93
     result-3: 28319d281de3345ac53e345778003be99c3e7d5accc293c256d52a0793366b9b
     result-4: bc1346cd40abf7aacb8a4ebfb45a1c3d9cb876852775179e58514e7a6d399b4e
     supp-1: de7a1f0eff05a25a37b7dd4f2ae5462adc5973d0f65f37a35a8f92615d69e7a8
     supp-2: 6c543f64804e60fc4a790e971141ec7dd77e3c061ffb56e2f3f891415c336a46
-    supp-3: 185f04b3f82ff9b3a23918e322159884be32855a2edd5aed2b7148b58264aa43
+    supp-3: 7a110ed038c53a879b923978508f1c7d6f557c2efbefefd27d32ccf9832c92a9
 upstream:
 - study: 02-gru-scaling-law-ignore
   wandb_group: nxd-3way@20260707-075401
@@ -85,7 +85,7 @@ same behavioural variables, and the GLM-HMM's states can be used to read the GRU
 | GLM-HMM | study 14 hurdle K = 2–10, L = 10, global parameters for every mouse (groups `hurdle@20261027-212905`; reference emission `reference@20261027-213006`, dashed in Fig. 1 only) |
 | mice and trials | 50 GRU-training mice, odd (eval) sessions only: 702 sessions, 378,624 trials (snapshot 20260603, ignores included) |
 | cross-validation | 5 folds of 10 mice (GroupKFold, seed 0); every score is out of fold |
-| target | one-step predictive state posterior π_t = p(z_t | trials < t) |
+| target | one-step predictive state posterior π_t = p(z_t \| trials < t) |
 | decoder | softmax linear readout, soft labels, L2 0.0001 on z-scored features |
 | interval | 95% percentile interval over 1,000 resamples of the 50 mice (seed 0); population analysis (SupFig. 1): 10 test mice, or 40 training mice for the axis cosine |
 <!-- END methods -->
@@ -258,8 +258,8 @@ All five sessions are in test fold 3. Sessions 1–4 were ranked by clear K = 4 
 <!-- BEGIN supp-3 -->
 | check | value |
 |---|---|
-| study 14's saved `filtered_k` vs p(z_t | trials ≤ t), recomputed (one held-out mouse, 6,730 trials) | max abs difference 3.5e-07 |
-| the same `filtered_k` vs the predictive posterior p(z_t | trials < t) | max abs difference 0.84 |
+| study 14's saved `filtered_k` vs p(z_t \| trials ≤ t), recomputed (one held-out mouse, 6,730 trials) | max abs difference 3.5e-07 |
+| the same `filtered_k` vs the predictive posterior p(z_t \| trials < t) | max abs difference 0.84 |
 <!-- END supp-3 -->
 
 Any analysis that predicts trial t from study 14's saved posteriors must use filtered_{t−1} · A, or it
