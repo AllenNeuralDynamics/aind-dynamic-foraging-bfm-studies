@@ -3,8 +3,8 @@
     "schema_version": 2,
     "kind": "producer",
     "produced_by": "analysis/r1_pilot_decoding.py",
-    "produced_at_pt": "2026-11-19T11:44:48-08:00",
-    "studies_git_sha": "736eb7a536701ffad46079d323816380017ac2cb",
+    "produced_at_pt": "2026-11-19T12:14:28-08:00",
+    "studies_git_sha": "33e574671b158e09e306b97a2b3dcc8769a5b07e",
     "studies_git_dirty": true,
     "wrapper_git_sha": null,
     "wandb_groups": [
@@ -29,7 +29,7 @@
     "code": [
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/r1_pilot_decoding.py",
-        "sha256": "f57989945f4525cfe12ef10d72224be3c98fa677c756b022dda999866ec5938c"
+        "sha256": "0577f2c7eace0d2fb18134295f1bb4060c549db3dc0b9c25c6d775d9827fdafb"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/upstream_sources.py",
@@ -85,7 +85,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_kselect.svg",
-        "sha256": "abc2d00ad70dda9236e74c962e26e9d67ebd3bddf520370fa56947d560c8f272"
+        "sha256": "29343faadd08d3785a904fd6a4c60f2d286466f0ae41e1ba784b511be8629d24"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/fig_r1_kdecoding.svg",
@@ -133,7 +133,7 @@
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#result-4",
-        "sha256": "367a80d33f1d39a98fcdce607d71d80601ab247123a8654ab940929bc72eb056"
+        "sha256": "bc1346cd40abf7aacb8a4ebfb45a1c3d9cb876852775179e58514e7a6d399b4e"
       },
       {
         "path": "studies/30-gru-vs-glmhmm-latents/analysis/reports/r1-pilot-decoding.md#supp-1",

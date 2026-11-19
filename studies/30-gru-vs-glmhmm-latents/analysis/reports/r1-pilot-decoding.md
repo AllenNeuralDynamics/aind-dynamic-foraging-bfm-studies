@@ -27,13 +27,13 @@ claims:
   text: "At every K from 2 to 10, a linear readout of the GRU latents recovers the GLM-HMM's predictive state posterior on mice it never saw (pooled R² at least 0.82 [0.80, 0.83] and within session at least 0.72 [0.70, 0.73], both lowest at K = 9; 95% intervals over n = 50 mice), while the GRU's own logits and linear history fall to 0.25 [0.21, 0.28] and 0.28 [0.24, 0.32] at K = 10."
   pointer: analysis/r1_pilot_decoding.json#/f1/latents_min_pooled_r2/point
 - id: F2
-  text: "The decoded state is more than engagement: on engaged trials at K = 3, the latents separate the two engaged states (S1 vs S2 R² 0.88 [0.86, 0.90]), but the GRU's logits (0.03 [−0.04, 0.07]) and linear history (0.00 [−0.07, 0.06]) do not (95% intervals over n = 50 mice)."
+  text: "The decoded state is more than engagement: on engaged trials at K = 3, the latents separate the two engaged states (S1 vs S2 R² 0.88 [0.86, 0.90]), while the GRU's logits and linear history recover at most 0.07 and 0.06 of it (upper 95% bounds; points 0.03 and 0.00; n = 50 mice)."
   pointer: analysis/r1_pilot_decoding.json#/f2/latents/engaged_r2_S1_vs_S2/point
 - id: F3
-  text: "The decoding follows this session's state at this moment: within session the latents score 0.72 to 0.88 (K = 2, 3, 6, 10), while every session-swap and circular-shift null stays at or below 0.04 (5 to 10 shuffles per cell)."
+  text: "The decoding follows this session's state at this moment: within session the latents score 0.72 to 0.88 (K = 2, 3, 6, 10; intervals in the Fig. 3 table), while every within-session null of the latents decoder (session swap, circular shift) stays at or below 0.04 (5 to 10 shuffles per cell)."
   pointer: analysis/r1_pilot_decoding.json#/f3/latents_null_max_within
 - id: F4
-  text: "Readability does not single out K = 3, the K that study 14's per-mouse refit score favours: the latents' pooled R² declines steadily with K and is only 0.09 [0.08, 0.10] lower at K = 10 than at K = 3 (paired 95% interval over n = 50 mice), so r1 shows shared variables, not a preferred number of discrete states."
+  text: "Decoding does not single out a number of states: the latents' pooled R² is highest at K = 2 and is 0.09 [0.08, 0.10] lower at K = 10 than at K = 3 (paired 95% interval over n = 50 mice), so r1 shows shared variables, not a preferred number of discrete states."
   pointer: analysis/r1_pilot_decoding.json#/f4/latents_K3_minus_K10_pooled_r2/point
 prose_reviewed:
   date: '2026-11-19'
@@ -42,7 +42,7 @@ prose_reviewed:
     result-1: 941745500c3594901fd00ce4bbb348724050e13c33179378258519b29728b55b
     result-2: 4954068c7e4d72cd30eeb417604c4468fc15458b27c7199d8bb168bdf7494d93
     result-3: 28319d281de3345ac53e345778003be99c3e7d5accc293c256d52a0793366b9b
-    result-4: 367a80d33f1d39a98fcdce607d71d80601ab247123a8654ab940929bc72eb056
+    result-4: bc1346cd40abf7aacb8a4ebfb45a1c3d9cb876852775179e58514e7a6d399b4e
     supp-1: de7a1f0eff05a25a37b7dd4f2ae5462adc5973d0f65f37a35a8f92615d69e7a8
     supp-2: 6c543f64804e60fc4a790e971141ec7dd77e3c061ffb56e2f3f891415c336a46
     supp-3: 185f04b3f82ff9b3a23918e322159884be32855a2edd5aed2b7148b58264aa43
@@ -68,9 +68,9 @@ same behavioural variables, and the GLM-HMM's states can be used to read the GRU
 ## Answer
 
 - **F1.** At every K from 2 to 10, a linear readout of the GRU latents recovers the GLM-HMM's predictive state posterior on mice it never saw (pooled R² at least 0.82 [0.80, 0.83] and within session at least 0.72 [0.70, 0.73], both lowest at K = 9; 95% intervals over n = 50 mice), while the GRU's own logits and linear history fall to 0.25 [0.21, 0.28] and 0.28 [0.24, 0.32] at K = 10.
-- **F2.** The decoded state is more than engagement: on engaged trials at K = 3, the latents separate the two engaged states (S1 vs S2 R² 0.88 [0.86, 0.90]), but the GRU's logits (0.03 [−0.04, 0.07]) and linear history (0.00 [−0.07, 0.06]) do not (95% intervals over n = 50 mice).
-- **F3.** The decoding follows this session's state at this moment: within session the latents score 0.72 to 0.88 (K = 2, 3, 6, 10), while every session-swap and circular-shift null stays at or below 0.04 (5 to 10 shuffles per cell).
-- **F4.** Readability does not single out K = 3, the K that study 14's per-mouse refit score favours: the latents' pooled R² declines steadily with K and is only 0.09 [0.08, 0.10] lower at K = 10 than at K = 3 (paired 95% interval over n = 50 mice), so r1 shows shared variables, not a preferred number of discrete states.
+- **F2.** The decoded state is more than engagement: on engaged trials at K = 3, the latents separate the two engaged states (S1 vs S2 R² 0.88 [0.86, 0.90]), while the GRU's logits and linear history recover at most 0.07 and 0.06 of it (upper 95% bounds; points 0.03 and 0.00; n = 50 mice).
+- **F3.** The decoding follows this session's state at this moment: within session the latents score 0.72 to 0.88 (K = 2, 3, 6, 10; intervals in the Fig. 3 table), while every within-session null of the latents decoder (session swap, circular shift) stays at or below 0.04 (5 to 10 shuffles per cell).
+- **F4.** Decoding does not single out a number of states: the latents' pooled R² is highest at K = 2 and is 0.09 [0.08, 0.10] lower at K = 10 than at K = 3 (paired 95% interval over n = 50 mice), so r1 shows shared variables, not a preferred number of discrete states.
 
 ## Methods
 
@@ -101,7 +101,7 @@ state probabilities, fitted to the soft target by cross-entropy. Three scores
 the decoder reproduces, summed over states; the same **within session**, after removing each session's
 mean from target and prediction, so that only changes inside a session count; and **information
 recovered**, 1 − KL(decoder) / KL(best constant guess). Baselines get the same decoder: the GRU's own
-3 output logits, linear history features (the GLM-HMM's 40 lag regressors, running averages of ignores
+3 output logits, linear history features (the GLM-HMM's `40` lag regressors, running averages of ignores
 and rewards, trial number), latents plus history, the untrained GRU, and trial number alone.
 
 Uncertainty: a **bootstrap over mice** resamples the 50 mice with replacement 1,000 times and
@@ -203,7 +203,7 @@ Pooled R² within session: real [95% interval over mice]; nulls as mean (range o
 <!-- BEGIN result-4 -->
 ![Fig. 4. Readability vs K](../fig_r1_kselect.svg)
 
-**Fig. 4.** a: the latents' decoding of the K-state posterior declines steadily with K. b: the GLM-HMM's predictive likelihood: the global fit on these trials rises with K; study 14's per-mouse refit score, the one it selects K by, peaks at K = 3.
+**Fig. 4.** a: pooled R² of the latents' decoding of the K-state posterior. b: the GLM-HMM global fit's predictive likelihood on the same trials (the 50 mice's eval sessions).
 
 |  | pooled R², all trials | pooled R², within session |
 |---|---|---|
@@ -270,20 +270,20 @@ leaks trial t's choice into the predictor. r1 uses the predictive posterior thro
 - **The GRU learned the variables the GLM-HMM uses to define its states (F1, F2).** A linear readout
   of its hidden state recovers the GLM-HMM's state belief on mice the readout never saw, including the
   split between the two engaged states, which differ in how strongly the mouse follows reward history.
-  The GRU's own output and linear history features carry engagement but not that split.
+  The GRU's own output and linear history features carry engagement, and at most a small part of that split.
 - **It is not a generic slow-signal artefact (F3).** The decoder fails when the target comes from
   another mouse's session or is shifted in time within the same session, so it tracks this session's
   state at this moment. The circular shift keeps part of the all-trials score because a session's average
   state survives the rotation.
-- **This is evidence for shared variables, not for discrete states (F4).** The readout recovers the
-  K = 10 posterior nearly as well as the K = 3 one, and its score has no peak at the K that study 14's
-  per-mouse refit selects (Fig. 4b).
+- **This is evidence for shared variables, not for discrete states (F4).** The readout's score is
+  highest at K = 2 and falls slowly with K; it does not single out a number of states.
   Whether the mouse switches between discrete modes or drifts along these variables is open.
-- **The state is a small direction in the population (SupFig. 1).** Choice and outcome dominate the
-  latents' variance; the state variables add a small unique share on held-out mice. The axes for
-  "choice t−1" and "ignore t−1" are nearly parallel: the 3-way GRU receives the previous choice as one
-  number (0 = left, 1 = right, 2 = ignore), so an ignore enters as an "extra-right" choice. A one-hot
-  input would separate them.
+- **The state is a small direction in the population (SupFig. 1).** Each state variable adds a unique
+  share about as large as a single choice or outcome variable. The axes for "choice t−1" and
+  "ignore t−1" are nearly parallel: the 3-way GRU receives the previous choice as one number
+  (0 = left, 1 = right, 2 = ignore; `analysis/pilot/10_load_trials.py` asserts that this input column is
+  the previous response), so an ignore enters as an "extra-right" choice. A one-hot input would
+  separate them.
 
 ## Caveats
 
@@ -297,6 +297,9 @@ leaks trial t's choice into the predictor. r1 uses the predictive posterior thro
 - **Linear readout and linear history baseline.** The GLM-HMM posterior is a nonlinear recursion over
   the whole session, so the claim is linear readability; a nonlinear history decoder could close part of
   the gap in F1 and F2.
+- **Pooled R² across K compares different targets.** It is dominated by the common states; at large K
+  some rare states decode much worse than the pooled score, and the target's entropy and within-session
+  share grow with K. So the fall of pooled R² with K (F1, F4) is not readability alone.
 - **The untrained-GRU decoder** reached the iteration cap in most fits (Fig. 1 caption) and has no
   subject or session context, so its score is a loose baseline.
 - **Few shuffles** per null cell (Fig. 3 table); the nulls are far below the real scores.
@@ -307,7 +310,7 @@ leaks trial t's choice into the predictor. r1 uses the predictive posterior thro
 
 ## Next
 
-Repeat on the 149 held-out mice (variant `heldout-mice`, report r2): GRU embeddings fine-tuned offline with study 02's recipe, and per-mouse GLM-HMM refits with state
+Repeat on the held-out mice (variant `heldout-mice`, report r2): GRU embeddings fine-tuned offline with study 02's recipe, and per-mouse GLM-HMM refits with state
 labels matched across mice ([PLAN.md](../../PLAN.md)). Then more GRU seeds, a one-hot 3-way GRU and a
 nonlinear history decoder.
 

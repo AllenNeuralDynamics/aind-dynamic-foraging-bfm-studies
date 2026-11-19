@@ -264,7 +264,7 @@ def fig_kscan(d):
 
 
 def fig_kselect(d):
-    """Fig. 4: decoding falls slowly with K while the GLM-HMM's likelihood keeps rising."""
+    """Fig. 4: the latents' decoding and the GLM-HMM's fit, across K (same mice and trials)."""
     glm, bs = d["kscan"]["glmhmm"], d["bootstrap"]["kscan"]
     Ks = list(range(2, 11))
     fig, axes = plt.subplots(1, 2, figsize=fs.mm(100, 52))
@@ -279,16 +279,13 @@ def fig_kselect(d):
     fs.panel_label(ax, "a")
     ax = axes[1]
     ax.plot(Ks, [glm["hurdle"][str(K)]["glmhmm_likelihood_pilot"] for K in Ks], "-", marker="o", ms=2, color="k", lw=0.8,
-            label="these trials (global fit)")
-    ax.plot(Ks, [glm["hurdle"][str(K)]["logged_train_mice_eval_likelihood"] for K in Ks], "-", marker="o", ms=2,
-            color="0.6", lw=0.8, label="study 14 logged (per-mouse refit)")
+            label="global fit, these 50 mice")
     ax.set(xticks=Ks, xlabel="K", ylabel="predictive likelihood")
     ax.set_title("GLM-HMM fit to the choices", fontsize=6)
     ax.legend(frameon=False, fontsize=5, loc="lower right")
     fs.panel_label(ax, "b")
-    fig.text(0.01, 0.01, "Hurdle emission. a: band = 95% interval over mice (n = 50). b: point values of one fit per K.",
-             fontsize=5)
-    fig.subplots_adjust(left=0.12, right=0.98, bottom=0.27, top=0.88, wspace=0.45)
+    fig.supxlabel("Hurdle emission. a: band = 95% interval over mice (n = 50). b: point values of one fit per K.",
+                  fontsize=5, x=0.01, ha="left")
     return save(fig, "fig_r1_kselect.svg")
 
 
@@ -615,9 +612,8 @@ def blocks(d, figs, cv):
     f4 = cv["f4"]
     b["result-4"] = "\n".join([
         f"![Fig. 4. Readability vs K](../{figs['kselect']})", "",
-        "**Fig. 4.** a: the latents' decoding of the K-state posterior declines steadily with K. b: the GLM-HMM's "
-        "predictive likelihood: the global fit on these trials rises with K; study 14's per-mouse refit score, the one "
-        "it selects K by, peaks at K = 3.", "",
+        "**Fig. 4.** a: pooled R² of the latents' decoding of the K-state posterior. b: the GLM-HMM global fit's "
+        "predictive likelihood on the same trials (the 50 mice's eval sessions).", "",
         table(["", "pooled R², all trials", "pooled R², within session"], [
             ["GRU latents, K = 3", fci(scan["3"]["latents"]["pooled_r2"]), fci(scan["3"]["latents"]["pooled_r2_within"])],
             ["GRU latents, K = 10", fci(scan["10"]["latents"]["pooled_r2"]), fci(scan["10"]["latents"]["pooled_r2_within"])],
