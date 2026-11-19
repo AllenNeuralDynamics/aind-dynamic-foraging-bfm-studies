@@ -427,8 +427,8 @@ z
    <g id="patch_12">
     <path d="M 361.803865 112.097351 
 L 374.082277 112.097351 
-L 374.082277 50.741353 
-L 361.803865 50.741353 
+L 374.082277 50.7415 
+L 361.803865 50.7415 
 z
 " clip-path="url(#p1cb5577635)" style="fill: #555555"/>
    </g>
@@ -443,16 +443,16 @@ z
    <g id="patch_14">
     <path d="M 430.017264 112.097351 
 L 442.295676 112.097351 
-L 442.295676 112.11808 
-L 430.017264 112.11808 
+L 442.295676 112.118462 
+L 430.017264 112.118462 
 z
 " clip-path="url(#p1cb5577635)" style="fill: #555555"/>
    </g>
    <g id="patch_15">
     <path d="M 374.082277 112.097351 
 L 386.360689 112.097351 
-L 386.360689 60.450476 
-L 374.082277 60.450476 
+L 386.360689 60.450976 
+L 374.082277 60.450976 
 z
 " clip-path="url(#p1cb5577635)" style="fill: #bbbbbb"/>
    </g>
@@ -467,8 +467,8 @@ z
    <g id="patch_17">
     <path d="M 442.295676 112.097351 
 L 454.574087 112.097351 
-L 454.574087 115.366199 
-L 442.295676 115.366199 
+L 454.574087 115.366779 
+L 442.295676 115.366779 
 z
 " clip-path="url(#p1cb5577635)" style="fill: #bbbbbb"/>
    </g>
@@ -569,6 +569,28 @@ z
      <text style="font-size: 7px; font-family: 'Arial', 'Liberation Sans', 'Helvetica', sans-serif; text-anchor: middle" x="340.842229" y="80.787402" transform="rotate(-90 340.842229 80.787402)">R², p(S1 | S1 or S2)</text>
     </g>
    </g>
+   <g id="LineCollection_1">
+    <path d="M 367.943071 52.273733 
+L 367.943071 49.51066 
+" clip-path="url(#p1cb5577635)" style="fill: none; stroke: #000000; stroke-width: 0.5"/>
+    <path d="M 402.049771 115.204876 
+L 402.049771 106.964946 
+" clip-path="url(#p1cb5577635)" style="fill: none; stroke: #000000; stroke-width: 0.5"/>
+    <path d="M 436.15647 116.99579 
+L 436.15647 108.01771 
+" clip-path="url(#p1cb5577635)" style="fill: none; stroke: #000000; stroke-width: 0.5"/>
+   </g>
+   <g id="LineCollection_2">
+    <path d="M 380.221483 62.171319 
+L 380.221483 58.891228 
+" clip-path="url(#p1cb5577635)" style="fill: none; stroke: #000000; stroke-width: 0.5"/>
+    <path d="M 414.328182 113.434738 
+L 414.328182 110.516043 
+" clip-path="url(#p1cb5577635)" style="fill: none; stroke: #000000; stroke-width: 0.5"/>
+    <path d="M 448.434881 118.542587 
+L 448.434881 113.004595 
+" clip-path="url(#p1cb5577635)" style="fill: none; stroke: #000000; stroke-width: 0.5"/>
+   </g>
    <g id="line2d_28">
     <path d="M 357.165354 112.097351 
 L 459.212598 112.097351 
@@ -618,7 +640,7 @@ z
   </g>
   <g id="text_70">
    <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'Helvetica', sans-serif" transform="translate(4.677165 156.557682)">a–c: out of fold, trials with max π ≥ 0.8 (282,409 of 378,624); rows sum to 1.</text>
-   <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'Helvetica', sans-serif" transform="translate(4.677165 161.943307)">d: 234,546 engaged trials; the same 3-class probes, renormalised over S1 and S2.</text>
+   <text style="font-size: 5px; font-family: 'Arial', 'Liberation Sans', 'Helvetica', sans-serif" transform="translate(4.677165 161.943307)">d: 234,546 engaged trials; the same 3-class probes, renormalised over S1 and S2; error bars: 95% interval over mice (n = 50).</text>
   </g>
  </g>
  <defs>

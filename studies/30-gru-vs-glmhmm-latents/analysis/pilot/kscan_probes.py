@@ -33,7 +33,7 @@ KOUT = OUT / "kscan"
 PARTS = KOUT / "parts"
 L2 = 1e-4
 
-spec = importlib.util.spec_from_file_location("pilot_probes", PILOT / "scripts/50_probes.py")
+spec = importlib.util.spec_from_file_location("pilot_probes", Path(__file__).with_name("50_probes.py"))   # committed sibling
 pilot_probes = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pilot_probes)
 

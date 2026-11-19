@@ -4,7 +4,8 @@ The pilot (code in analysis/pilot/, run 2026-11-07/08 on HPC compute nodes) wrot
 /allen/aind/scratch/han.hou/pilots/study30-probe/out/. This freeze reads them, records each file's sha256 and
 the W&B runs behind them as sources, and writes two committed files that r1_pilot_decoding.py reads offline:
 
-  frozen_r1.json          every score, confusion matrix, K-scan and shuffle result, TDR summary, provenance
+  frozen_r1.json          every score, confusion matrix, K-scan and shuffle result, TDR summary, provenance, and
+                          `bootstrap`: 95% intervals over mice from the out-of-fold refit (analysis/oof_r1.py)
   frozen_r1_sessions.npz  per-trial traces of five example sessions (one showcase + four picked for clear
                           transitions, all in test fold 3), latents as float16
 
@@ -191,6 +192,18 @@ def main():
                           "stage": str(g["stage"].iloc[0]), "n_trials": int(len(rows)), "tag": tags[i]})
     np.savez_compressed(OUT_NPZ, **npz)
 
+    boot = bootstrap(j, fold, ses, j["subject_id"].to_numpy(), pilot_tdr, Z)
+    # every point estimate (the full sample) must be the pilot's stored score: the refit adds intervals only
+    diffs = [abs(boot["kscan"][str(K)][f][m]["point"] - kscan[f"hurdle__K{K}__{f}"][m])
+             for K in KS_SCAN for f in FSETS_SCAN for m in ("pooled_r2", "pooled_r2_within", "info_recovered")]
+    diffs += [abs(a - b) for f, s in (("latents+history", "4_latents+history"), ("trial_index", "6_trial_index"))
+              for key in ("r2", "r2_within")
+              for a, b in zip(boot["k3"][f][key]["point"], probe3["results"][f"pred|{s}"]["logistic"][key])]
+    diffs += [abs(boot["tdr"]["r2_full_heldout"]["point"] - tdr["r2_full_heldout"]),
+              abs(boot["tdr"]["cos_prev_side_prev_ign"]["point"] - tdr["cosine"][3][4])]
+    boot["max_abs_point_vs_pilot"] = float(max(diffs))
+    assert boot["max_abs_point_vs_pilot"] < 1e-3, boot["max_abs_point_vs_pilot"]
+
     groups_runs = [{"type": "wandb_run", "id": f"{GRU_PROJECT}/{pilot['gru']['run_id']}"}]
     groups_runs += [{"type": "wandb_run", "id": f"{GLM_PROJECT}/{v['run_id']}"}
                     for e in ("hurdle", "reference") for v in kscan_glm[e]["per_K"].values()]
@@ -215,7 +228,168 @@ def main():
                        "rastermap_params": {"n_clusters": 40, "n_PCs": 64, "locality": 0.0, "version": "1.0"}},
         "sessions": {"selection_criterion": selected["criterion"], "items": sess_info,
                      "npz": "analysis/frozen_r1_sessions.npz"},
+        "bootstrap": boot,
     }, outputs=[OUT_NPZ])
+
+
+# ---------------------------------------------------------------- bootstrap over mice
+# Percentile 95% intervals from resampling mice with replacement. Every score is a ratio of sums over
+# trials, so each is computed from per-mouse sums: one weight matrix W (row 0 = the full sample, the point
+# estimate; rows 1.. = resamples) times per-mouse sums gives every resample exactly, denominators
+# re-centred on the resampled mice.
+N_BOOT, BOOT_SEED = 1000, 0
+FSETS_K3 = ["latents", "logits", "history", "latents+history", "untrained", "trial_index"]
+FSETS_SCAN = ["latents", "untrained", "logits", "history"]
+ENGAGED, CONFIDENT = 0.2, 0.8   # result 3's definitions (analysis/pilot/85_confusion.py)
+
+
+def boot_weights(n):
+    rng = np.random.default_rng(BOOT_SEED)
+    W = np.ones((N_BOOT + 1, n))
+    for b in range(N_BOOT):
+        W[b + 1] = np.bincount(rng.integers(0, n, n), minlength=n)
+    return W
+
+
+def per_mouse(v, m, n):
+    """Sum the rows of v (trials x ...) by mouse index m: (n mice x ...)."""
+    out = np.zeros((n,) + v.shape[1:])
+    np.add.at(out, m, v)
+    return out
+
+
+def ci(rows):
+    """{point, lo, hi} from bootstrap rows (row 0 = full sample); vectors stay vectors."""
+    rows = np.asarray(rows)
+    lo, hi = np.percentile(rows[1:], [2.5, 97.5], axis=0)
+    f = lambda x: x.tolist() if np.ndim(x) else float(x)  # noqa: E731
+    return {"point": f(rows[0]), "lo": f(lo), "hi": f(hi)}
+
+
+def decoding_boot(P, Q, C, ses, m, W):
+    """Per-state and pooled R² (all trials, within session), information recovered and KL, by resample."""
+    n = W.shape[1]
+    lg = lambda a: np.log(np.clip(a, 1e-12, 1))  # noqa: E731
+    sm = lambda A: pd.DataFrame(A).groupby(ses).transform("mean").to_numpy()  # noqa: E731
+    dp, dq = P - sm(P), Q - sm(Q)
+    S = {k: W @ per_mouse(v, m, n) for k, v in {
+        "n": np.ones((len(P), 1)), "p": P, "p2": P ** 2, "sse": (P - Q) ** 2, "ssew": (dp - dq) ** 2,
+        "sstw": dp ** 2, "ce": -(P * lg(Q)).sum(1, keepdims=True), "cec": -(P * lg(C)).sum(1, keepdims=True),
+        "h": -(P * lg(P)).sum(1, keepdims=True)}.items()}
+    sst = S["p2"] - S["p"] ** 2 / S["n"]
+    kl, klc = (S["ce"] - S["h"])[:, 0], (S["cec"] - S["h"])[:, 0]
+    rows = {"pooled_r2": 1 - S["sse"].sum(1) / sst.sum(1), "pooled_r2_within": 1 - S["ssew"].sum(1) / S["sstw"].sum(1)}
+    return {"r2": ci(1 - S["sse"] / sst), "r2_within": ci(1 - S["ssew"] / S["sstw"]),
+            "pooled_r2": ci(rows["pooled_r2"]), "pooled_r2_within": ci(rows["pooled_r2_within"]),
+            "info_recovered": ci(1 - kl / klc), "kl": ci(kl / S["n"][:, 0]), "_rows": rows}
+
+
+def engaged_boot(P, Q, ses, m, W):
+    """Result 3: confusion on confident trials (balanced accuracy, S2 → S2) and S1-vs-S2 R² on engaged trials."""
+    n = W.shape[1]
+    conf = P.max(1) >= CONFIDENT
+    cm = np.zeros((len(P), 3, 3))
+    cm[np.flatnonzero(conf), P[conf].argmax(1), Q[conf].argmax(1)] = 1
+    CM = np.einsum("bm,mij->bij", W, per_mouse(cm, m, n))
+    row = CM / CM.sum(2, keepdims=True)
+    diag = np.stack([row[:, k, k] for k in range(3)], 1)
+    eng = P[:, 0] < ENGAGED
+    c, ch, s = P[eng, 1] / P[eng, 1:].sum(1), Q[eng, 1] / Q[eng, 1:].sum(1), ses[eng]
+    dm = lambda v: v - pd.Series(v).groupby(s).transform("mean").to_numpy()  # noqa: E731
+    me = m[eng]
+    S = {k: W @ per_mouse(v, me, n) for k, v in {
+        "n": np.ones(len(c)), "c": c, "c2": c ** 2, "sse": (c - ch) ** 2,
+        "ssew": (dm(c) - dm(ch)) ** 2, "sstw": dm(c) ** 2}.items()}
+    return {"balanced_acc_confident": ci(diag.mean(1)), "s2_to_s2_confident": ci(diag[:, 2]),
+            "engaged_r2_S1_vs_S2": ci(1 - S["sse"] / (S["c2"] - S["c"] ** 2 / S["n"])),
+            "engaged_r2_S1_vs_S2_within": ci(1 - S["ssew"] / S["sstw"]),
+            "n_confident_trials": int(conf.sum()), "n_engaged_trials": int(eng.sum())}
+
+
+def tdr_boot(Z, X, fold, mouse):
+    """TDR as in analysis/pilot/95_tdr.py: held-out and unique R² resampled over the 10 test-fold mice
+    (axes fitted once on the 40 training mice), and the cosine between the choice t−1 and ignore t−1 axes
+    resampled over the 40 training mice (regression and PC denoising refitted on each resample)."""
+    tr, te = np.flatnonzero(fold != TEST_FOLD), np.flatnonzero(fold == TEST_FOLD)
+    mu, sd = X[tr].mean(0), X[tr].std(0)
+    Xs = (X - mu) / sd
+    names = ["pi_ign", "pi_weak", "side_ema", "prev_side", "prev_ign", "prev_rew", "prev_win", "rew_ema", "tis"]
+    allc = list(range(len(names)))
+    ztr_mean = Z[tr].mean(0)
+    _, mte = np.unique(mouse[te], return_inverse=True)
+    Wte = boot_weights(mte.max() + 1)
+    Zte = Z[te] - ztr_mean
+    s1, s2 = per_mouse(Zte, mte, Wte.shape[1]), per_mouse(Zte ** 2, mte, Wte.shape[1])
+    nte = per_mouse(np.ones(len(te)), mte, Wte.shape[1])
+    sst = ((Wte @ s2) - (Wte @ s1) ** 2 / (Wte @ nte)[:, None]).sum(1)
+
+    def r2_rows(cols):
+        A = np.column_stack([Xs[tr][:, cols], np.ones(len(tr))])
+        B, *_ = np.linalg.lstsq(A, Z[tr] - ztr_mean, rcond=None)
+        sse = ((Zte - (Xs[te][:, cols] @ B[:-1] + B[-1])) ** 2).sum(1)
+        return 1 - (Wte @ per_mouse(sse, mte, Wte.shape[1])) / sst
+
+    full = r2_rows(allc)
+    unique = {names[k]: ci(full - r2_rows([i for i in allc if i != k])) for k in allc}
+
+    # cosine: per-training-mouse normal equations and PC scatter (the pilot's every-4th-row subsample)
+    _, mtr = np.unique(mouse[tr], return_inverse=True)
+    ntr = mtr.max() + 1
+    Wtr = boot_weights(ntr)
+    A = np.column_stack([Xs[tr], np.ones(len(tr))])
+    AtA = per_mouse(A[:, :, None] * A[:, None, :], mtr, ntr)
+    AtZ = np.stack([A[mtr == i].T @ Z[tr][mtr == i] for i in range(ntr)])
+    s_all, n_all = per_mouse(Z[tr], mtr, ntr), per_mouse(np.ones(len(tr)), mtr, ntr)
+    sub = np.arange(0, len(tr), 4)
+    Zsub, msub = Z[tr][sub], mtr[sub]
+    zz = np.stack([Zsub[msub == i].T @ Zsub[msub == i] for i in range(ntr)])
+    s_sub, n_sub = per_mouse(Zsub, msub, ntr), per_mouse(np.ones(len(sub)), msub, ntr)
+    cos = []
+    for w in Wtr:
+        B = np.linalg.solve(np.tensordot(w, AtA, 1), np.tensordot(w, AtZ, 1))[:-1]
+        c = (w @ s_all) / (w @ n_all)
+        ws = w @ s_sub
+        M = np.tensordot(w, zz, 1) - np.outer(c, ws) - np.outer(ws, c) + (w @ n_sub) * np.outer(c, c)
+        V = np.linalg.eigh(M)[1][:, ::-1][:, :12]          # top 12 PCs (N_PC in 95_tdr.py)
+        ax = (B @ V @ V.T).T
+        ax /= np.linalg.norm(ax, axis=0, keepdims=True)
+        cos.append(ax[:, names.index("prev_side")] @ ax[:, names.index("prev_ign")])
+    return {"r2_full_heldout": ci(full), "unique_r2": unique, "cos_prev_side_prev_ign": ci(cos),
+            "n_test_mice": int(Wte.shape[1]), "n_train_mice": int(ntr)}
+
+
+def bootstrap(j, fold, ses, mouse_ids, X_tdr, Z):
+    m = np.unique(mouse_ids, return_inverse=True)[1]
+    W = boot_weights(m.max() + 1)
+    oof = lambda K, f: np.load(src(SRC / "oof_r1" / f"hurdle_K{K}_{f}.npy")).astype(np.float64)  # noqa: E731
+    folds = [np.flatnonzero(fold == f) for f in range(5)]
+    out = {"n_mice": int(W.shape[1]), "n_boot": N_BOOT, "seed": BOOT_SEED, "interval": "percentile 95%, mice resampled",
+           "k3": {}, "k3_engaged": {}, "kscan": {}}
+    rows = {}
+    for K in KS_SCAN:
+        P = pd.read_parquet(src(SRC / "kscan" / f"glmhmm_hurdle_K{K}.parquet"),
+                            columns=[f"pred_{k}" for k in range(K)]).to_numpy()
+        C = np.zeros_like(P)
+        for te in folds:             # the constant guess: the training-fold mean posterior
+            C[te] = np.delete(P, te, 0).mean(0)
+        fsets = FSETS_K3 if K == 3 else FSETS_SCAN
+        out["kscan"][str(K)] = {}
+        for f in fsets:
+            r = decoding_boot(P, oof(K, f), C, ses, m, W)
+            rows[(K, f)] = r.pop("_rows")
+            out["kscan"][str(K)][f] = {k: r[k] for k in ("pooled_r2", "pooled_r2_within", "info_recovered")}
+            if K == 3:   # K = 3 keeps the pilot's state order (S0, S1, S2)
+                out["k3"][f] = r
+                if f in ("latents", "logits", "history"):
+                    out["k3_engaged"][f] = engaged_boot(P, oof(K, f), ses, m, W)
+    # paired differences (the same resampled mice on both sides)
+    out["paired"] = {
+        f"latents_K3_minus_K10_{s}": ci(rows[(3, "latents")][s] - rows[(10, "latents")][s])
+        for s in ("pooled_r2", "pooled_r2_within")}
+    out["paired"].update({f"latents_minus_history_K{K}_{s}": ci(rows[(K, "latents")][s] - rows[(K, "history")][s])
+                          for K in KS_SCAN for s in ("pooled_r2", "pooled_r2_within")})
+    out["tdr"] = tdr_boot(Z, X_tdr, fold, mouse_ids)
+    return out
 
 
 def pilot_tdr_regressors(j, P3):

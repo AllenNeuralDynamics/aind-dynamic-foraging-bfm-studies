@@ -32,6 +32,7 @@ REPORT = HERE / "reports" / "r1-pilot-decoding.md"
 WANDB_GROUPS = ["hurdle@20261027-212905", "reference@20261027-213006"]
 SETS = ["1_gru_latents", "2_gru_logits", "3_history", "4_latents+history", "5_untrained_latents", "6_trial_index"]
 SET_LABELS = ["GRU latents", "GRU logits", "History", "Latents + history", "Untrained GRU", "Trial index"]
+FSETS_K3 = ["latents", "logits", "history", "latents+history", "untrained", "trial_index"]   # frozen_r1.json#/bootstrap
 K3_NAMES = ["S0 ignore-prone", "S1 engaged, strong win-stay", "S2 engaged, weak win-stay"]
 K3_COLORS = ["#4C72B0", "#DD8452", "#55A868"]
 FSET_COL = {"latents": "#1b9e77", "logits": "#d95f02", "history": "#7570b3", "untrained": "#8c8c8c"}
@@ -176,21 +177,22 @@ def fig_method(d, z):
 
 
 def fig_k3(d):
-    res = d["k3"]["results"]
+    k3 = d["bootstrap"]["k3"]
     fig, axes = plt.subplots(1, 2, figsize=fs.mm(175, 52), sharey=True)
-    x = np.arange(len(SETS))
+    x = np.arange(len(FSETS_K3))
     for ax, key, title in [(axes[0], "r2", "all trials"), (axes[1], "r2_within", "within session (session means removed)")]:
         for k in range(3):
-            ax.bar(x + (k - 1) * 0.26, [res[f"pred|{s}"]["logistic"][key][k] for s in SETS], 0.26, color=K3_COLORS[k],
+            pt = np.array([k3[f][key]["point"][k] for f in FSETS_K3])
+            err = np.array([[pt[i] - k3[f][key]["lo"][k], k3[f][key]["hi"][k] - pt[i]] for i, f in enumerate(FSETS_K3)]).T
+            ax.bar(x + (k - 1) * 0.26, pt, 0.26, yerr=err, error_kw={"lw": 0.5, "capsize": 0}, color=K3_COLORS[k],
                    label=K3_NAMES[k])
-            ax.scatter(x + (k - 1) * 0.26, [res[f"pred|{s}"]["ridge_alr"][key][k] for s in SETS], s=5,
-                       facecolors="none", edgecolors="k", linewidths=0.4, zorder=3, label="ridge check" if k == 0 else None)
         ax.axhline(0, color="k", lw=0.5)
         ax.set_xticks(x, SET_LABELS, rotation=30, ha="right")
         ax.set_title(title)
     axes[0].set_ylabel("R² of the predictive posterior")
     axes[0].set_ylim(-0.1, 1)
     axes[1].legend(frameon=False, fontsize=5, loc="upper left", bbox_to_anchor=(1.01, 1.0))
+    fig.text(0.01, 0.01, f"K = 3, out of fold; error bars: 95% interval over mice (n = {d['bootstrap']['n_mice']}).", fontsize=5)
     fig.subplots_adjust(left=0.07, right=0.8, bottom=0.3, top=0.9, wspace=0.1)
     return save(fig, "fig_r1_k3.svg")
 
@@ -218,9 +220,13 @@ def fig_engaged(d):
         fs.panel_label(ax, "abc"[i], dx_pt=-30 if i == 0 else -14)
     ax = at(126, 16, 36, 27)
     x = np.arange(3)
+    be = d["bootstrap"]["k3_engaged"]
     for k, (key, lab, col) in enumerate([("engaged_r2_S1_vs_S2", "all engaged trials", "#555555"),
                                          ("engaged_r2_S1_vs_S2_within", "within session", "#bbbbbb")]):
-        ax.bar(x + (k - 0.5) * 0.36, [e["sets"][n][key] for n in sets], 0.36, color=col, label=lab)
+        c = [be[f][key] for f in ("latents", "logits", "history")]
+        ax.bar(x + (k - 0.5) * 0.36, [v["point"] for v in c], 0.36, color=col, label=lab,
+               yerr=np.array([[v["point"] - v["lo"], v["hi"] - v["point"]] for v in c]).T,
+               error_kw={"lw": 0.5, "capsize": 0})
     ax.axhline(0, color="k", lw=0.5)
     ax.set_xticks(x, sets, rotation=25, ha="right")
     ax.set(ylim=(-0.1, 1), ylabel="R², p(S1 | S1 or S2)")
@@ -228,39 +234,59 @@ def fig_engaged(d):
     ax.legend(frameon=False, fontsize=5, loc="upper right", bbox_to_anchor=(1.02, 1.0))
     fs.panel_label(ax, "d", dx_pt=-26)
     fig.text(0.01, 0.015, f"a–c: out of fold, trials with max π ≥ 0.8 ({e['n_confident']:,} of {e['n_trials']:,}); "
-             f"rows sum to 1.\nd: {e['n_engaged']:,} engaged trials; the same 3-class probes, renormalised over S1 and S2.",
+             f"rows sum to 1.\nd: {e['n_engaged']:,} engaged trials; the same 3-class probes, renormalised over S1 and S2; "
+             f"error bars: 95% interval over mice (n = {d['bootstrap']['n_mice']}).",
              fontsize=5)
     return save(fig, "fig_r1_engaged.svg")
 
 
 def fig_kscan(d):
-    parts, glm = d["kscan"]["parts"], d["kscan"]["glmhmm"]
+    parts = d["kscan"]["parts"]
     Ks = list(range(2, 11))
-    fig, axes = plt.subplots(1, 4, figsize=fs.mm(183, 54))
-    for ax, (m, title) in zip(axes[:3], [("pooled_r2", "pooled R², all trials"),
-                                         ("pooled_r2_within", "pooled R², within session"),
-                                         ("info_recovered", "information recovered")]):
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 56))
+    for ax, (m, title) in zip(axes, [("pooled_r2", "pooled R², all trials"),
+                                     ("pooled_r2_within", "pooled R², within session"),
+                                     ("info_recovered", "information recovered")]):
+        bs = d["bootstrap"]["kscan"]
         for fset in ("latents", "untrained", "logits", "history"):
-            for e, ls in (("hurdle", "-"), ("reference", "--")):
-                ax.plot(Ks, [parts[f"{e}__K{K}__{fset}"][m] for K in Ks], ls, marker="o", ms=2, color=FSET_COL[fset],
-                        lw=0.8, label=f"{fset}" if e == "hurdle" else None)
+            c = [bs[str(K)][fset][m] for K in Ks]
+            ax.fill_between(Ks, [v["lo"] for v in c], [v["hi"] for v in c], color=FSET_COL[fset], alpha=0.25, lw=0)
+            ax.plot(Ks, [v["point"] for v in c], "-", marker="o", ms=2, color=FSET_COL[fset], lw=0.8, label=fset)
+            ax.plot(Ks, [parts[f"reference__K{K}__{fset}"][m] for K in Ks], "--", color=FSET_COL[fset], lw=0.6)
         ax.set(ylim=(0, 1), xticks=Ks, xlabel="K")
         ax.set_title(title, fontsize=6)
     axes[0].set_ylabel("score (out of fold)")
     axes[0].legend(frameon=False, fontsize=5, loc="lower left")
-    ax = axes[3]
-    for e, ls in (("hurdle", "-"), ("reference", "--")):
-        ax.plot(Ks, [glm[e][str(K)]["glmhmm_likelihood_pilot"] for K in Ks], ls, marker="o", ms=2, color="k", lw=0.8,
-                label=f"{e}, these trials (global)")
-        ax.plot(Ks, [glm[e][str(K)]["logged_train_mice_eval_likelihood"] for K in Ks], ls, marker="o", ms=2,
-                color="0.6", lw=0.8, label=f"{e}, logged (per-mouse refit)")
-    ax.set(xticks=Ks, xlabel="K")
-    ax.set_title("GLM-HMM predictive likelihood", fontsize=6)
-    ax.legend(frameon=False, fontsize=5, loc="lower right")
-    fig.text(0.01, 0.01, "Solid: hurdle emission; dashed: reference emission. Same 50 mice, folds and probe at every K.",
-             fontsize=5)
-    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.33, top=0.88, wspace=0.35)
+    # the caption as supxlabel: constrained layout (the paper style) leaves room for it under the axes
+    fig.supxlabel("Solid: hurdle emission, band = 95% interval over mice (n = 50); dashed: reference emission, point "
+                  "estimates. Same 50 mice, folds and probe at every K.", fontsize=5, x=0.01, ha="left")
     return save(fig, "fig_r1_kscan.svg")
+
+
+def fig_kselect(d):
+    """Fig. 4: the latents' decoding and the GLM-HMM's fit, across K (same mice and trials)."""
+    glm, bs = d["kscan"]["glmhmm"], d["bootstrap"]["kscan"]
+    Ks = list(range(2, 11))
+    fig, axes = plt.subplots(1, 2, figsize=fs.mm(100, 52))
+    ax = axes[0]
+    for m, ls, lab in (("pooled_r2", "-", "all trials"), ("pooled_r2_within", "--", "within session")):
+        c = [bs[str(K)]["latents"][m] for K in Ks]
+        ax.fill_between(Ks, [v["lo"] for v in c], [v["hi"] for v in c], color=FSET_COL["latents"], alpha=0.25, lw=0)
+        ax.plot(Ks, [v["point"] for v in c], ls, marker="o", ms=2, color=FSET_COL["latents"], lw=0.8, label=lab)
+    ax.set(ylim=(0.6, 1), xticks=Ks, xlabel="K", ylabel="pooled R², GRU latents")
+    ax.set_title("readout of the state posterior", fontsize=6)
+    ax.legend(frameon=False, fontsize=5, loc="lower left")
+    fs.panel_label(ax, "a")
+    ax = axes[1]
+    ax.plot(Ks, [glm["hurdle"][str(K)]["glmhmm_likelihood_pilot"] for K in Ks], "-", marker="o", ms=2, color="k", lw=0.8,
+            label="global fit, these 50 mice")
+    ax.set(xticks=Ks, xlabel="K", ylabel="predictive likelihood")
+    ax.set_title("GLM-HMM fit to the choices", fontsize=6)
+    ax.legend(frameon=False, fontsize=5, loc="lower right")
+    fs.panel_label(ax, "b")
+    fig.supxlabel("Hurdle emission. a: band = 95% interval over mice (n = 50). b: point values of one fit per K.",
+                  fontsize=5, x=0.01, ha="left")
+    return save(fig, "fig_r1_kselect.svg")
 
 
 def fig_kdecoding(d, z):
@@ -314,12 +340,13 @@ def fig_shuffle(d):
     parts, sh = d["kscan"]["parts"], d["shuffle"]
     metrics = [("pooled_r2", "pooled R², all trials"), ("pooled_r2_within", "pooled R², within session"),
                ("info_recovered", "information recovered")]
-    fig, axes = plt.subplots(1, 3, figsize=fs.mm(150, 60))
+    fig, axes = plt.subplots(1, 3, figsize=fs.mm(165, 60))
     x = np.arange(len(KS_NULL))
     for ax, (m, title) in zip(axes, metrics):
         for fset, off in (("latents", -0.2), ("history", 0.2)):
-            ax.plot(x + off, [parts[f"hurdle__K{K}__{fset}"][m] for K in KS_NULL], "o", color=FSET_COL[fset], ms=4,
-                    label=f"{fset}, real")
+            c = [d["bootstrap"]["kscan"][str(K)][fset][m] for K in KS_NULL]
+            ax.errorbar(x + off, [v["point"] for v in c], yerr=np.array([[v["point"] - v["lo"], v["hi"] - v["point"]] for v in c]).T,
+                        fmt="o", color=FSET_COL[fset], ms=4, lw=0.6, label=f"{fset}, real (95% interval)")
             for null, mk, dx in (("swap", "x", -0.07), ("circ", "+", 0.07)):
                 for i, K in enumerate(KS_NULL):
                     v = [p[m] for key, p in sh.items() if key.startswith(f"{fset}_{null}_K{K}_")]
@@ -330,9 +357,9 @@ def fig_shuffle(d):
         ax.set_title(title, fontsize=6)
     axes[0].set_ylabel("score (out of fold)")
     axes[2].legend(frameon=False, fontsize=5, loc="center left", bbox_to_anchor=(1.02, 0.5))
-    fig.text(0.01, 0.01, "Decoder trained and scored on shuffled pairs. Session swap: target from another mouse's session "
-             "in the same fold; circular shift: target rotated 20–80 % within its own session.", fontsize=5)
-    fig.subplots_adjust(left=0.08, right=0.78, bottom=0.34, top=0.88, wspace=0.35)
+    fig.supxlabel("Decoder trained and scored on shuffled pairs. Session swap: target from another mouse's session "
+                  "in the same fold; circular shift: target rotated 20–80% within its own session.", fontsize=5, x=0.01,
+                  ha="left")
     return save(fig, "fig_r1_shuffle.svg")
 
 
@@ -375,7 +402,10 @@ def fig_population(d, z):
     fs.panel_label(ax, "b", dx_pt=-60)
     y = np.arange(len(names))
     ax = at(106, 34, 30, 40)
-    ax.barh(y, [tdr["unique_r2"][n] for n in names], color=[gcol[n] for n in names])
+    ub = d["bootstrap"]["tdr"]["unique_r2"]
+    ax.barh(y, [ub[n]["point"] for n in names], color=[gcol[n] for n in names],
+            xerr=np.array([[ub[n]["point"] - ub[n]["lo"], ub[n]["hi"] - ub[n]["point"]] for n in names]).T,
+            error_kw={"lw": 0.5, "capsize": 0})
     ax.set_yticks(y, labs, fontsize=5)
     ax.invert_yaxis()
     ax.set_xlabel("drop in R² without it (held-out mice)")
@@ -392,7 +422,8 @@ def fig_population(d, z):
     fig.text(0.01, 0.01, "a: the example session of fig_r1_method; the probe's logits (softmax of these = decoded "
              "posterior), states sorted by p(ignore). b–d: targeted dimensionality reduction (Mante et al. 2013): each "
              "unit regressed on 9 variables\nknown before trial t, axes denoised in the top 12 PCs, fitted on 40 mice and "
-             "evaluated on the 10 test-fold mice. Blue = state (K = 3), red = choice, green = reward, grey = time.",
+             "evaluated on the 10 test-fold mice; c: error bars = 95% interval over the 10 test mice. Blue = state (K = 3), "
+             "red = choice, green = reward, grey = time.",
              fontsize=5)
     return save(fig, "fig_r1_population.svg")
 
@@ -444,115 +475,180 @@ def fig_session(d, z, i):
 # ---------------------------------------------------------------- report blocks
 def table(header, rows):
     out = ["| " + " | ".join(header) + " |", "|" + "---|" * len(header)]
-    out += ["| " + " | ".join(str(c) for c in r) + " |" for r in rows]
+    out += ["| " + " | ".join(str(c).replace("|", "\\|") for c in r) + " |" for r in rows]   # a bar inside a cell splits it
     return "\n".join(out)
 
 
 def f2(x):
+    x = 0.0 if round(x, 2) == 0 else x   # no "−0.00"
     return f"{x:.2f}".replace("-", "−")
 
 
-def blocks(d, figs):
+def fci(c, i=None):
+    """'0.94 [0.93, 0.95]': point and 95% interval from a bootstrap {point, lo, hi} (index i for vectors)."""
+    g = (lambda k: c[k]) if i is None else (lambda k: c[k][i])
+    return f"{f2(g('point'))} [{f2(g('lo'))}, {f2(g('hi'))}]"
+
+
+def null_cells(sh, fset, K):
+    """Shuffle nulls: mean over shuffles, and the range of the within-session score over shuffles."""
+    out = []
+    for null in ("swap", "circ"):
+        vals = [p for k, p in sh.items() if k.startswith(f"{fset}_{null}_K{K}_")]
+        w = [x["pooled_r2_within"] for x in vals]
+        out.append({"n": len(vals), "mean_all": float(np.mean([x["pooled_r2"] for x in vals])),
+                    "mean_within": float(np.mean(w)), "min_within": float(np.min(w)), "max_within": float(np.max(w))})
+    return out
+
+
+def claim_values(d):
+    """The numbers the frontmatter claims point at (r1_pilot_decoding.json), all from frozen_r1.json#/bootstrap."""
+    bt, sh = d["bootstrap"], d["shuffle"]
+    scan = bt["kscan"]
+    lat = {K: scan[str(K)]["latents"] for K in range(2, 11)}
+    kmin = min(range(2, 11), key=lambda K: lat[K]["pooled_r2"]["point"])
+    kmin_w = min(range(2, 11), key=lambda K: lat[K]["pooled_r2_within"]["point"])
+    base10 = {f: scan["10"][f]["pooled_r2"] for f in ("logits", "history", "untrained")}
+    nulls = {f"{f}_K{K}": dict(zip(("swap", "circ"), null_cells(sh, f, K))) for f in ("latents", "history") for K in KS_NULL}
+    real_w = {K: lat[K]["pooled_r2_within"]["point"] for K in KS_NULL}
+    null_max = max(v["max_within"] for key, c in nulls.items() if key.startswith("latents") for v in c.values())
+    return {
+        "f1": {"k3_latents_r2": bt["k3"]["latents"]["r2"], "k3_latents_r2_within": bt["k3"]["latents"]["r2_within"],
+               "latents_min_pooled_r2": {"K": kmin, **lat[kmin]["pooled_r2"]},
+               "latents_min_pooled_r2_within": {"K": kmin_w, **lat[kmin_w]["pooled_r2_within"]},
+               "K10_pooled_r2": {"latents": lat[10]["pooled_r2"], **base10},
+               "latents_minus_history_min_over_K": min(
+                   (bt["paired"][f"latents_minus_history_K{K}_pooled_r2"] for K in range(2, 11)),
+                   key=lambda c: c["lo"])},
+        "f2": {f: {"engaged_r2_S1_vs_S2": bt["k3_engaged"][f]["engaged_r2_S1_vs_S2"],
+                   "engaged_r2_S1_vs_S2_within": bt["k3_engaged"][f]["engaged_r2_S1_vs_S2_within"],
+                   "s2_to_s2_confident": bt["k3_engaged"][f]["s2_to_s2_confident"]}
+               for f in ("latents", "logits", "history")},
+        "f3": {"latents_real_within_min": min(real_w.values()), "latents_real_within_max": max(real_w.values()),
+               "latents_null_max_within": null_max, "nulls": nulls,
+               "n_shuffles_min": min(v["n"] for c in nulls.values() for v in c.values()),
+               "n_shuffles_max": max(v["n"] for c in nulls.values() for v in c.values())},
+        "f4": {"latents_K3_pooled_r2": lat[3]["pooled_r2"], "latents_K10_pooled_r2": lat[10]["pooled_r2"],
+               "latents_K3_minus_K10_pooled_r2": bt["paired"]["latents_K3_minus_K10_pooled_r2"],
+               "latents_K3_minus_K10_pooled_r2_within": bt["paired"]["latents_K3_minus_K10_pooled_r2_within"]},
+    }
+
+
+def blocks(d, figs, cv):
     p, v = d["pilot"], d["pilot"]["verification"]["join"]
-    res = d["k3"]["results"]
+    bt = d["bootstrap"]
     step1 = p["step1_filtered_convention"]
     s1 = step1.get("eval", step1)
     b = {}
-    b["result-1"] = "\n".join([
-        table(["", "value"], [
-            ["GRU", f"study 02 3-way, H256 / D614 / seed 0, run `{p['gru']['run_id']}` (W&B `{p['gru']['wandb']}`), "
-                    f"artifact `{p['gru']['artifact']}` digest `{p['gru']['artifact_digest']}`, step 90,000"],
-            ["GLM-HMM", "study 14 hurdle and reference K = 2–10, L = 10, global parameters for every mouse "
-                        "(groups `hurdle@20261027-212905`, `reference@20261027-213006`)"],
-            ["mice / data", f"{v['n_mice']} GRU-training mice, odd (eval) sessions only: {v['n_sessions']} sessions, "
-                            f"{v['n_trials']:,} trials (snapshot 20260603, ignores included)"],
+    b["methods"] = "\n".join([
+        f"![Fig. M1. Method](../{figs['method']})", "",
+        "**Fig. M1. Method**, on one trial and one example session (test fold, a mouse the decoder never saw).", "",
+        table(["fact", "value"], [
+            ["GRU", f"study 02 3-way, H256 / D614 / seed 0 (single seed), run `{p['gru']['run_id']}` (W&B "
+                    f"`{p['gru']['wandb']}`), artifact `{p['gru']['artifact']}` digest `{p['gru']['artifact_digest']}`, "
+                    "step 90,000"],
+            ["GLM-HMM", "study 14 hurdle K = 2–10, L = 10, global parameters for every mouse (groups "
+                        "`hurdle@20261027-212905`; reference emission `reference@20261027-213006`, dashed in Fig. 1 only)"],
+            ["mice and trials", f"{v['n_mice']} GRU-training mice, odd (eval) sessions only: {v['n_sessions']} sessions, "
+                                f"{v['n_trials']:,} trials (snapshot 20260603, ignores included)"],
             ["cross-validation", "5 folds of 10 mice (GroupKFold, seed 0); every score is out of fold"],
-            ["target", "one-step predictive posterior p(z_t | trials < t)"],
+            ["target", "one-step predictive state posterior π_t = p(z_t | trials < t)"],
             ["decoder", f"softmax linear readout, soft labels, L2 {d['k3']['l2_logistic']:g} on z-scored features"],
-            ["likelihood on these trials", f"GRU {v['gru_normalized_likelihood']:.4f}, GLM-HMM (K = 3, global) "
-                                           f"{v['glmhmm_normalized_likelihood']:.4f}; GRU better on "
-                                           f"{100 * v['frac_trials_gru_beats_glmhmm']:.0f} % of trials"],
-            ["saved `filtered_k` (study 14)", f"= p(z_t | trials ≤ t), max diff {s1['maxabs_saved_vs_a_filtered_incl_t']:.1e}; "
-                                              f"differs from the predictive posterior by up to "
-                                              f"{s1['maxabs_saved_vs_b_predictive']:.2f}"],
-        ]),
-        "", f"![method](../{figs['method']})"])
-    rows = []
-    for s, lab in zip(SETS, SET_LABELS):
-        lg = res[f"pred|{s}"]["logistic"]
-        rows.append([lab, " / ".join(f2(x) for x in lg["r2"]), " / ".join(f2(x) for x in lg["r2_within"]),
-                     f"{lg['kl']:.3f}"])
-    vs = d["k3"]["variance_split"]["pred"]["within_frac"]
+            ["interval", f"95% percentile interval over {bt['n_boot']:,} resamples of the {bt['n_mice']} mice "
+                         f"(seed {bt['seed']}); population analysis (SupFig. 1): {bt['tdr']['n_test_mice']} test mice, or "
+                         f"{bt['tdr']['n_train_mice']} training mice for the axis cosine"],
+        ])])
+    # F1: K scan, K = 3 per state as one row of it
+    scan = bt["kscan"]
+    rows = [[K] + [fci(scan[str(K)][f]["pooled_r2"]) for f in ("latents", "untrained", "logits", "history")]
+            for K in range(2, 11)]
+    rows_w = [[K] + [fci(scan[str(K)][f]["pooled_r2_within"]) for f in ("latents", "untrained", "logits", "history")]
+              for K in range(2, 11)]
+    k3 = bt["k3"]
+    rows3 = [[lab] + [" / ".join(fci(k3[f][key], i) for i in range(3)) for key in ("r2", "r2_within")]
+             + [f"{k3[f]['kl']['point']:.3f} [{k3[f]['kl']['lo']:.3f}, {k3[f]['kl']['hi']:.3f}]"]
+             for f, lab in zip(FSETS_K3, SET_LABELS)]
+    iters = {K: d["kscan"]["parts"][f"hurdle__K{K}__untrained"]["logistic_iters"] for K in range(2, 11)}
+    capped = sum(i >= 1000 for v_ in iters.values() for i in v_)
+    b["result-1"] = "\n".join([
+        f"![Fig. 1. K scan](../{figs['kscan']})", "",
+        f"![Fig. 1 (cont.). K = 3, per state](../{figs['k3']})", "",
+        f"**Fig. 1.** Pooled R² of the predictive posterior, out of fold, hurdle emission (dashed in the K-scan panels: "
+        f"reference emission, point estimates). Bars and bands: 95% interval over mice (n = {bt['n_mice']}). The "
+        f"untrained-GRU probe reached the 1,000-iteration cap in {capped} of {sum(len(v_) for v_ in iters.values())} "
+        "fits (unconverged).", "",
+        "Pooled R², all trials [95% interval over mice]:", "",
+        table(["K", "GRU latents", "untrained GRU", "GRU logits", "history"], rows), "",
+        "Pooled R², within session (session means removed) [95% interval over mice]:", "",
+        table(["K", "GRU latents", "untrained GRU", "GRU logits", "history"], rows_w), "",
+        "K = 3, per state (S0 ignore-prone / S1 engaged strong win-stay / S2 engaged weak win-stay) [95% interval]:", "",
+        table(["features", "R² all trials", "R² within session", "KL (nats)"], rows3), "",
+        f"![Fig. 1 (cont.). Decoding at K = 2, 4, 6, 10](../{figs['kdecoding']})"])
+    e = bt["k3_engaged"]
     b["result-2"] = "\n".join([
-        "K = 3 hurdle, per-state R² (S0 ignore-prone / S1 engaged strong win-stay / S2 engaged weak win-stay), out of "
-        f"fold. Within-session share of the target's variance: {' / '.join(f'{100 * x:.0f} %' for x in vs)}.", "",
-        table(["features", "R² all trials", "R² within session", "KL (nats)"], rows), "",
-        f"![K = 3](../{figs['k3']})"])
-    e = d["k3_engaged"]["sets"]
-    b["result-3"] = "\n".join([
+        f"![Fig. 2. Beyond engagement](../{figs['engaged']})", "",
+        f"**Fig. 2.** K = 3. a–c: confusion on trials with max π ≥ 0.8 (n = {e['latents']['n_confident_trials']:,} trials). "
+        f"d: engaged trials (π_S0 < 0.2, n = {e['latents']['n_engaged_trials']:,}), the 3-class decoder renormalised over "
+        f"S1 and S2; bars with 95% interval over mice (n = {bt['n_mice']}).", "",
         table(["features", "balanced acc. (max π ≥ 0.8)", "S2 → S2", "engaged-only R², S1 vs S2", "within session"],
-              [[n, f2(e[n]["balanced_acc_confident"]), f2(e[n]["confusion_confident_row"][2][2]),
-                f2(e[n]["engaged_r2_S1_vs_S2"]), f2(e[n]["engaged_r2_S1_vs_S2_within"])]
-               for n in ("GRU latents", "GRU logits", "History")]), "",
-        f"![engaged](../{figs['engaged']})"])
-    parts, glm = d["kscan"]["parts"], d["kscan"]["glmhmm"]
-    rows = []
-    for K in range(2, 11):
-        g = glm["hurdle"][str(K)]
-        rows.append([K, g["run_id"], f"{g['glmhmm_likelihood_pilot']:.4f}"]
-                    + [f"{f2(parts[f'hurdle__K{K}__{f}']['pooled_r2'])} / {f2(parts[f'hurdle__K{K}__{f}']['pooled_r2_within'])}"
-                       for f in ("latents", "untrained", "logits", "history")])
-    def emission_gap(f):   # largest |hurdle − reference| over K = 2–10, pooled R² all trials and within session
-        return max(abs(parts[f"hurdle__K{K}__{f}"][m] - parts[f"reference__K{K}__{f}"][m])
-                   for K in range(2, 11) for m in ("pooled_r2", "pooled_r2_within"))
-
-    gaps = ", ".join(f"{lab} {emission_gap(f):.3f}" for f, lab in (("latents", "latents"), ("untrained", "untrained GRU"),
-                                                                   ("logits", "GRU logits"), ("history", "history")))
-    b["result-4"] = "\n".join([
-        "Hurdle emission; pooled R² all trials / within session. Largest hurdle − reference difference over K = 2–10 "
-        f"(either score): {gaps} (figure, dashed). The untrained-GRU probe hit the 1,000-iteration cap in every fold "
-        "(unconverged fits).", "",
-        table(["K", "run", "GLM-HMM lik.", "latents", "untrained GRU", "GRU logits", "history"], rows), "",
-        f"![K scan](../{figs['kscan']})", "", f"![decoding at K = 2, 4, 6, 10](../{figs['kdecoding']})"])
-    sh = d["shuffle"]
+              [[lab, fci(e[f]["balanced_acc_confident"]), fci(e[f]["s2_to_s2_confident"]),
+                fci(e[f]["engaged_r2_S1_vs_S2"]), fci(e[f]["engaged_r2_S1_vs_S2_within"])]
+               for f, lab in (("latents", "GRU latents"), ("logits", "GRU logits"), ("history", "History"))])])
     rows = []
     for fset in ("latents", "history"):
         for K in KS_NULL:
-            real = parts[f"hurdle__K{K}__{fset}"]
-            cell = [fset, K, f"{f2(real['pooled_r2'])} / {f2(real['pooled_r2_within'])}"]
-            for null in ("swap", "circ"):
-                vals = [p for k, p in sh.items() if k.startswith(f"{fset}_{null}_K{K}_")]
-                cell.append(f"{f2(np.mean([x['pooled_r2'] for x in vals]))} / "
-                            f"{f2(np.mean([x['pooled_r2_within'] for x in vals]))} (max within "
-                            f"{f2(np.max([x['pooled_r2_within'] for x in vals]))}, n = {len(vals)})")
-            rows.append(cell)
-    b["result-5"] = "\n".join([
-        "Pooled R² all trials / within session; nulls as mean (max within-session value, number of shuffles).", "",
-        table(["features", "K", "real", "session swap", "circular shift"], rows), "",
-        f"![shuffle](../{figs['shuffle']})"])
-    tdr, pop = d["tdr"], d["population"]
-    pc = pop["pc"]
-    b["result-6"] = "\n".join([
-        table(["measure", "value"], [
-            ["TDR full model, held-out R² of the population", f2(tdr["r2_full_heldout"])],
-            ["unique R² (drop without it): p(ignore-prone) + p(engaged, weak WS)",
-             f"{f2(tdr['unique_r2']['pi_ign'])} + {f2(tdr['unique_r2']['pi_weak'])}"],
-            ["unique R² (drop without it): ignore t−1 / choice history / reward t−1",
-             f"{f2(tdr['unique_r2']['prev_ign'])} / {f2(tdr['unique_r2']['side_ema'])} / {f2(tdr['unique_r2']['prev_rew'])}"],
-            ["cosine, choice t−1 vs ignore t−1 axes", f2(tdr["cosine"][3][4])],
-            ["top 6 PCs: variance / slow share (20-trial average, complete sessions)",
-             ", ".join(f"PC{i + 1} {100 * a:.0f} % / {s:.2f}" for i, (a, s) in
-                       enumerate(zip(pc["explained_var"], pc["slow_fraction"])))],
-            ["Rastermap seed stability (Spearman of embeddings, raw / smooth)",
-             f"{f2(pop['rastermap_seed_stability_spearman']['raw'])} / {f2(pop['rastermap_seed_stability_spearman']['smooth'])}"],
-        ]), "", f"![population](../{figs['population']})"])
+            real = scan[str(K)][fset]
+            sw, cc = cv["f3"]["nulls"][f"{fset}_K{K}"]["swap"], cv["f3"]["nulls"][f"{fset}_K{K}"]["circ"]
+            rows.append([fset, K, fci(real["pooled_r2_within"])]
+                        + [f"{f2(x['mean_within'])} (range {f2(x['min_within'])} to {f2(x['max_within'])}, n = {x['n']})"
+                           for x in (sw, cc)])
+    b["result-3"] = "\n".join([
+        f"![Fig. 3. Shuffle nulls](../{figs['shuffle']})", "",
+        "**Fig. 3.** Decoder trained and scored on shuffled pairs (n shuffles per cell in the table). Session swap: "
+        "target from another mouse's session in the same fold. Circular shift: target rotated 20–80% within its own "
+        "session. Real scores with 95% interval over mice.", "",
+        "Pooled R² within session: real [95% interval over mice]; nulls as mean (range over shuffles, n shuffles).", "",
+        table(["features", "K", "real", "session swap", "circular shift"], rows)])
+    f4 = cv["f4"]
+    b["result-4"] = "\n".join([
+        f"![Fig. 4. Readability vs K](../{figs['kselect']})", "",
+        "**Fig. 4.** a: pooled R² of the latents' decoding of the K-state posterior. b: the GLM-HMM global fit's "
+        "predictive likelihood on the same trials (the 50 mice's eval sessions).", "",
+        table(["", "pooled R², all trials", "pooled R², within session"], [
+            ["GRU latents, K = 3", fci(scan["3"]["latents"]["pooled_r2"]), fci(scan["3"]["latents"]["pooled_r2_within"])],
+            ["GRU latents, K = 10", fci(scan["10"]["latents"]["pooled_r2"]), fci(scan["10"]["latents"]["pooled_r2_within"])],
+            ["difference, K = 3 − K = 10 (paired)", fci(f4["latents_K3_minus_K10_pooled_r2"]),
+             fci(f4["latents_K3_minus_K10_pooled_r2_within"])]]), "",
+        "Intervals: 95% over mice (n = 50); the difference resamples the same mice for both K. Fig. 1 shows every K."])
+    tdr = bt["tdr"]
+    u = tdr["unique_r2"]
+    b["supp-1"] = "\n".join([
+        f"![SupFig. 1. Population](../{figs['population']})", "",
+        f"**SupFig. 1.** Targeted dimensionality reduction (TDR): each latent unit regressed on 9 variables known before "
+        f"trial t, fitted on {tdr['n_train_mice']} mice, scored on the {tdr['n_test_mice']} test-fold mice. b and d: "
+        "point estimates of one fit.", "",
+        table(["measure", "value [95% interval]"], [
+            [f"held-out R² of the population, full model (n = {tdr['n_test_mice']} test mice)", fci(tdr["r2_full_heldout"])],
+            ["unique R² (drop without it): p(ignore-prone)", fci(u["pi_ign"])],
+            ["unique R²: p(engaged, weak WS)", fci(u["pi_weak"])],
+            ["unique R²: ignore t−1", fci(u["prev_ign"])],
+            ["unique R²: choice history", fci(u["side_ema"])],
+            ["unique R²: reward t−1", fci(u["prev_rew"])],
+            [f"cosine, choice t−1 vs ignore t−1 axes (n = {tdr['n_train_mice']} training mice)",
+             fci(tdr["cos_prev_side_prev_ign"])],
+        ])])
     rows = [[it["mouse"], it["stage"].lower(), it["n_trials"], it["tag"]] for it in d["sessions"]["items"]]
     c = d["sessions"]["selection_criterion"]
-    b["result-7"] = "\n".join([
+    b["supp-2"] = "\n".join([
         f"All five sessions are in test fold 3. Sessions 1–4 were ranked by clear K = {c['K']} transitions (max π ≥ "
-        f"{c['conf']}, runs ≥ {c['min_run']} trials, one session per mouse).", "",
+        f"{c['conf']}, runs ≥ {c['min_run']} trials, one session per mouse); they are examples, not scores.", "",
         table(["mouse", "stage", "trials", "why shown"], rows), ""]
-        + [f"![session {i}](../{figs[f'session_{i}']})" for i in range(1, 5)])
+        + [f"![SupFig. 2.{i}](../{figs[f'session_{i}']})" for i in range(1, 5)])
+    b["supp-3"] = table(["check", "value"], [
+        ["study 14's saved `filtered_k` vs p(z_t | trials ≤ t), recomputed (one held-out mouse, "
+         f"{s1['n_trials']:,} trials)", f"max abs difference {s1['maxabs_saved_vs_a_filtered_incl_t']:.1e}"],
+        ["the same `filtered_k` vs the predictive posterior p(z_t | trials < t)",
+         f"max abs difference {s1['maxabs_saved_vs_b_predictive']:.2f}"]])
     return b
 
 
@@ -569,27 +665,17 @@ def main() -> None:
     fs.apply_paper_style()
     d = json.loads(FROZEN.read_text())
     z = dict(np.load(SESS))
-    figs = {"method": fig_method(d, z), "k3": fig_k3(d), "engaged": fig_engaged(d), "kscan": fig_kscan(d),
+    figs = {"method": fig_method(d, z), "k3": fig_k3(d), "engaged": fig_engaged(d), "kscan": fig_kscan(d), "kselect": fig_kselect(d),
             "kdecoding": fig_kdecoding(d, z), "shuffle": fig_shuffle(d), "population": fig_population(d, z)}
     for i in range(1, 5):
         figs[f"session_{i}"] = fig_session(d, z, i)
-    b = blocks(d, figs)
+    cv = claim_values(d)
+    b = blocks(d, figs, cv)
     write_blocks(b)
     meta = upstream_sources.apply(build_meta(
         "analysis/r1_pilot_decoding.py", WANDB_GROUPS, study_root=HERE.parent,
         code=[__file__, HERE / "upstream_sources.py"], inputs=[FROZEN, SESS] + upstream_sources.RECORDS))
-    k3 = d["k3"]["results"]
-    summary = {
-        "k3_r2_latents": k3["pred|1_gru_latents"]["logistic"]["r2"],
-        "k3_r2_within_latents": k3["pred|1_gru_latents"]["logistic"]["r2_within"],
-        "k3_r2_history": k3["pred|3_history"]["logistic"]["r2"],
-        "kscan_pooled_r2_latents": {K: d["kscan"]["parts"][f"hurdle__K{K}__latents"]["pooled_r2"] for K in range(2, 11)},
-        "kscan_pooled_r2_within_latents": {K: d["kscan"]["parts"][f"hurdle__K{K}__latents"]["pooled_r2_within"]
-                                           for K in range(2, 11)},
-        "shuffle_max_within": {f"{f}_{n}_K{K}": max(p["pooled_r2_within"] for k, p in d["shuffle"].items()
-                                                    if k.startswith(f"{f}_{n}_K{K}_"))
-                               for f in ("latents", "history") for n in ("swap", "circ") for K in KS_NULL},
-    }
+    summary = cv
     write_artifact(HERE / "r1_pilot_decoding.json", {"_meta": meta, **summary},
                    outputs=OUTPUTS + [f"{REPORT}#{k}" for k in b])
 
